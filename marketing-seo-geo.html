@@ -69,7 +69,7 @@
     .mk-flow-card { backdrop-filter: blur(12px); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
   </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg">
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
 
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
@@ -119,11 +119,11 @@
     </div>
   </section>
 
-  <main class="max-w-7xl mx-auto px-6 py-8 flex-grow w-full space-y-6">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full min-w-0 space-y-6 overflow-x-hidden">
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full min-w-0">
-      <aside id="marketing-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto lg:h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden custom-scrollbar"></aside>
+      <aside id="marketing-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 min-w-0 max-w-full lg:max-w-[16.5rem] bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto lg:h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden custom-scrollbar"></aside>
 
-      <article id="marketing-content-stage" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 article-prose">
+      <article id="marketing-content-stage" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 article-prose site-prose-safe scroll-mt-24">
         <section id="mk-overview" class="marketing-panel bg-white p-6 md:p-8 rounded-3xl border border-indigo-100 shadow-sm space-y-5">
           <div class="flex flex-wrap items-center gap-3">
             <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600 text-white font-black">0</span>
@@ -826,7 +826,7 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
     </div>
   </main>
 
-  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-6 mt-auto"></footer>
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
 
   <script>
     function initMarketingSectionSwitcher(sidebarId, contentId) {
@@ -838,7 +838,13 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
       const panels = Array.from(content.querySelectorAll('.marketing-panel'));
       const panelIds = new Set(panels.map(function(panel) { return panel.id; }));
 
-      function setActivePanel(targetId, updateHash) {
+      function scrollToMarketingContent() {
+        if (typeof scrollToContentAnchor === 'function') {
+          scrollToContentAnchor({ anchorId: contentId, offset: 76 });
+        }
+      }
+
+      function setActivePanel(targetId, updateHash, shouldScroll) {
         const nextId = panelIds.has(targetId) ? targetId : 'mk-overview';
 
         panels.forEach(function(panel) {
@@ -856,13 +862,19 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
         if (updateHash) {
           history.replaceState(null, '', '#' + nextId);
         }
+
+        if (shouldScroll && window.matchMedia('(max-width: 1023px)').matches) {
+          requestAnimationFrame(function() {
+            requestAnimationFrame(scrollToMarketingContent);
+          });
+        }
       }
 
       links.forEach(function(link) {
         link.addEventListener('click', function(event) {
           event.preventDefault();
           const targetId = (link.getAttribute('href') || '').replace('#', '');
-          setActivePanel(targetId, true);
+          setActivePanel(targetId, true, true);
         });
       });
 
@@ -878,6 +890,13 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
           placeholder: '搜尋 SEO / GEO / GA4...'
         });
         initMarketingSectionSwitcher('marketing-sidebar', 'marketing-content-stage');
+        initMobileContentDock({
+          anchorId: 'marketing-content-stage',
+          label: '回到章節內容',
+          getThumbUrl: function() {
+            return 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=200&q=70';
+          }
+        });
       });
       renderAuthorSignature('marketing-author-note');
     });

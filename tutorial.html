@@ -47,7 +47,7 @@
     }
   </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg">
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
 
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
@@ -136,7 +136,7 @@
     </div>
   </main>
 
-  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-6 mt-auto"></footer>
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
 
   <script>
     const LESSON_ORDER = typeof TUTORIAL_ORDER !== 'undefined' ? TUTORIAL_ORDER : Object.keys(tutorialRepository);
@@ -438,12 +438,9 @@
     }
 
     function scrollToLesson() {
-      const el = document.getElementById('lesson-main');
-      if (!el) return;
-      requestAnimationFrame(() => {
-        const top = el.getBoundingClientRect().top + window.scrollY - 88;
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-      });
+      if (typeof scrollToContentAnchor === 'function') {
+        scrollToContentAnchor({ anchorId: 'lesson-main', offset: window.matchMedia('(max-width: 1023px)').matches ? 76 : 88 });
+      }
     }
 
     window.loadLesson = window.switchLessonEngine = function(key, btnElement, opts) {
@@ -511,6 +508,16 @@
         loadLesson('intro_welcome', document.querySelector('.tuto-nav-btn'), { scroll: false });
       });
       renderAuthorSignature('tutorial-author-note');
+      initMobileContentDock({
+        anchorId: 'lesson-main',
+        label: '回到課程內容',
+        getThumbUrl: function() {
+          var canvas = document.getElementById('sandbox-preview-canvas');
+          if (!canvas) return '';
+          var img = canvas.querySelector('img');
+          return img && img.src ? img.src : '';
+        }
+      });
     });
   </script>
 </body>

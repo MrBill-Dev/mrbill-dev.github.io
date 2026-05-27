@@ -44,11 +44,11 @@
     }
   </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg">
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
 
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <main class="max-w-7xl mx-auto px-6 py-8 flex-grow w-full space-y-6">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full min-w-0 space-y-6 overflow-x-hidden">
     <div id="intro-photography-block" class="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 md:p-8 rounded-2xl border border-purple-100 fade-in-up preface-split">
       <h3 id="photo-preface-title" class="preface-split-title text-xl md:text-2xl font-black text-purple-950 leading-snug"></h3>
       <div id="photo-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
@@ -317,7 +317,7 @@
     </div>
   </main>
 
-  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-6 mt-auto"></footer>
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
 
   <script>
     const AP_VALS = ["F1.4", "F2.0", "F2.8", "F4.0", "F8.0", "F16"];
@@ -355,13 +355,12 @@
     }
 
     function scrollToLesson() {
-      const anchor = document.getElementById('lesson-sandbox-anchor');
-      if (!anchor) return;
-      const headerOffset = window.matchMedia('(max-width: 1023px)').matches ? 76 : 96;
-      requestAnimationFrame(() => {
-        const top = anchor.getBoundingClientRect().top + window.scrollY - headerOffset;
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-      });
+      if (typeof scrollToContentAnchor === 'function') {
+        scrollToContentAnchor({
+          anchorId: 'lesson-sandbox-anchor',
+          offset: window.matchMedia('(max-width: 1023px)').matches ? 76 : 96
+        });
+      }
     }
 
     function showCompareLabels(leftText, rightText) {
@@ -1272,6 +1271,15 @@
 
         renderPrefaces();
         renderAuthorSignature('photo-author-note');
+        initMobileContentDock({
+          anchorId: 'lesson-sandbox-anchor',
+          label: '回到互動預覽',
+          getThumbUrl: function() {
+            var img = document.getElementById('view-bg-layer');
+            if (!img || !img.getAttribute('src') || img.style.display === 'none') return '';
+            return img.getAttribute('src');
+          }
+        });
     });
   </script>
 </body>
