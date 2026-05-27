@@ -134,12 +134,12 @@ function initPracticeLab() {
   const root = document.getElementById('practice-root');
   if (!root) return;
   let html = '<div class="flex flex-wrap gap-2 mb-4" id="practice-tabs"></div>';
-  html += '<p class="text-sm text-slate-500 mb-4">點選問題後，切換下方分頁：概念解析／上課怎麼帶／延伸與下一步</p>';
+  html += '<p class="text-sm text-slate-500 mb-4">點選問題後，切換下方分頁：概念解析／實作帶練步驟／延伸與下一步。每個名詞都有白話解釋。</p>';
   html += '<div id="practice-questions" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>';
   html += `<div id="answerDisplay" class="mt-8 hidden rounded-2xl border border-indigo-100 overflow-hidden">
     <div class="flex flex-wrap gap-1 p-3 bg-indigo-50 border-b border-indigo-100" id="practice-answer-tabs">
       <button type="button" data-pane="content" class="practice-pane-btn px-4 py-2 rounded-lg text-sm font-bold bg-indigo-600 text-white">📖 概念解析</button>
-      <button type="button" data-pane="lesson" class="practice-pane-btn px-4 py-2 rounded-lg text-sm font-bold bg-white text-slate-600">👩‍🏫 上課怎麼帶</button>
+      <button type="button" data-pane="lesson" class="practice-pane-btn px-4 py-2 rounded-lg text-sm font-bold bg-white text-slate-600">🛠 實作帶練步驟</button>
       <button type="button" data-pane="extend" class="practice-pane-btn px-4 py-2 rounded-lg text-sm font-bold bg-white text-slate-600">🧭 延伸與下一步</button>
     </div>
     <div class="p-6 md:p-8 bg-gradient-to-br from-indigo-50 to-purple-50">
@@ -150,7 +150,15 @@ function initPracticeLab() {
       <p id="answerTip" class="mt-4 text-sm font-bold text-indigo-600 border-t border-indigo-100 pt-4"></p>
     </div>
   </div>`;
-  html += `<div class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+  html += `<div class="mt-8 rounded-2xl border border-cyan-100 bg-cyan-50 p-5">
+    <p class="text-xs font-black text-cyan-700 uppercase tracking-wider mb-3">新手名詞小字典</p>
+    <div class="grid md:grid-cols-3 gap-3 text-sm mb-4">
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Token</p><p class="text-slate-600 mt-1">可理解成 AI 計算字數與成本的單位。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">RAG</p><p class="text-slate-600 mt-1">先查你的資料，再回覆，不靠模型亂猜。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Prompt</p><p class="text-slate-600 mt-1">你給 AI 的任務說明書，寫越清楚越準。</p></div>
+    </div>
+  </div>`;
+  html += `<div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-5">
     <p class="text-xs font-black text-slate-500 uppercase tracking-wider mb-3">學完之後怎麼做</p>
     <div class="grid md:grid-cols-3 gap-3">
       <button type="button" data-go="tool" class="text-left p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-300 transition-colors">
@@ -176,7 +184,7 @@ function initPracticeLab() {
       <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">Step 4 交付與反思</p><p class="text-slate-600 mt-1">完成可交付版本，回到小遊戲驗證下一步路徑。</p></div>
     </div>
     <div class="rounded-xl bg-white border border-indigo-100 p-4 text-sm">
-      <p class="font-black text-slate-900 mb-2">實戰任務包（可當課堂作業）</p>
+      <p class="font-black text-slate-900 mb-2">實戰任務包（可當自學作業）</p>
       <ul class="list-disc pl-5 space-y-1 text-slate-700">
         <li>任務 A：把一篇 SEO 教學文改寫成「可被 AI 摘要引用」版本。</li>
         <li>任務 B：用兩個不同模型完成同題，做差異比較報告。</li>
@@ -620,8 +628,12 @@ function updatePromptOutputs() {
     var sc = getActiveScenario();
     var cat = promptCategories[promptState.category];
     var sample = (sc && sc.sampleResponse) ? sc.sampleResponse : cat.sampleResponse;
-    sim.innerHTML = '<p class="text-xs font-black text-slate-400 uppercase mb-3">AI 回覆草稿預覽（可再編修）</p><div class="prose prose-sm max-w-none text-slate-700">' +
-      markdownToSimpleHtml(sample) + '</div>';
+    sim.innerHTML =
+      '<p class="text-xs font-black text-slate-400 uppercase mb-3">AI 回覆草稿預覽（先看重點，再看完整）</p>' +
+      '<div class="rounded-xl border border-purple-100 bg-white p-3 text-xs text-slate-600 mb-3">' +
+      '<p><strong>閱讀順序：</strong>1) 先看標題結論 2) 再看條列步驟 3) 最後才看細節。若有看不懂術語，先回「概念互動練習箱」查名詞。</p>' +
+      '</div>' +
+      '<div class="prose prose-sm max-w-none text-slate-700">' + markdownToSimpleHtml(sample) + '</div>';
   }
 }
 
@@ -633,7 +645,7 @@ function markdownToSimpleHtml(md) {
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/^> (.+)$/gm, '<blockquote class="border-l-4 border-purple-300 pl-3 text-slate-600 my-2">$1</blockquote>')
     .replace(/^- (.+)$/gm, '<li class="ml-4">$1</li>')
-    .replace(/```[\s\S]*?```/g, m => '<pre class="bg-slate-900 text-emerald-300 p-3 rounded-lg text-xs overflow-x-auto my-2">' + m.replace(/```\w*\n?/g, '').replace(/```/g, '') + '</pre>')
+    .replace(/```[\s\S]*?```/g, m => '<pre class="bg-slate-900 text-emerald-300 p-3 rounded-lg text-xs whitespace-pre-wrap break-words overflow-x-hidden my-2">' + m.replace(/```\w*\n?/g, '').replace(/```/g, '') + '</pre>')
     .replace(/\n\n/g, '<br/><br/>');
   html = html.replace(/(?:^|\n)\|(.+)\|\n\|[-:\s|]+\|\n((?:\|.*\|\n?)*)/g, function(_, header, rows) {
     var heads = header.split('|').map(function(h) { return h.trim(); }).filter(Boolean);
@@ -716,7 +728,7 @@ const pathwayGoals = [
     { t: '下一步', a: '重要品牌仍實拍或設計師修', tool: 'Photoshop' }
   ]},
   { id: 'teach', label: '👩‍🏫 我要帶 AI 課', steps: [
-    { t: '練習箱備課', a: '選 3 題+「上課怎麼帶」', tool: '概念練習箱' },
+    { t: '練習箱備課', a: '選 3 題+「實作帶練步驟」', tool: '概念練習箱' },
     { t: 'Prompt 實作', a: '學員各寫 1 份 .md', tool: 'Prompt 矩陣' },
     { t: '倫理討論', a: '什麼不該全自動', tool: '白板' },
     { t: '下一步', a: '作業：回家完成一條 pathway', tool: '本站小遊戲' }
@@ -772,6 +784,7 @@ let tfIdx = 0, tfScore = 0;
 let decisionNode = 'start';
 let toolPickIdx = 0, toolPickScore = 0;
 let pathwayPick = null;
+let matchIdx = 0, matchScore = 0;
 
 const gameModes = [
   { id: 'pathway', label: '🧭 下一步指引', default: true },
@@ -797,7 +810,7 @@ function initGameLab() {
       });
       btn.className = 'game-mode px-3 py-2 rounded-xl text-sm font-bold border bg-emerald-600 text-white border-emerald-600';
       quizIdx = 0; quizScore = 0; tfIdx = 0; tfScore = 0;
-      decisionNode = 'start'; toolPickIdx = 0; toolPickScore = 0; pathwayPick = null;
+      decisionNode = 'start'; toolPickIdx = 0; toolPickScore = 0; pathwayPick = null; matchIdx = 0; matchScore = 0;
       renderGame();
     });
   });
@@ -845,8 +858,9 @@ function renderGame() {
         '<button type="button" class="mt-4 w-full p-4 rounded-xl bg-emerald-600 text-white font-bold" onclick="decisionNode=\'start\';renderGame()">從頭再玩</button>';
       return;
     }
-    vp.innerHTML = '<h3 class="text-xl font-black text-slate-900">' + node.q + '</h3><div id="decision-opts" class="grid gap-2 mt-4"></div><div id="decision-fb" class="mt-4 hidden p-4 rounded-xl bg-indigo-50 text-indigo-900 font-bold text-sm"></div>';
+    vp.innerHTML = '<h3 class="text-xl font-black text-slate-900">' + node.q + '</h3><div id="decision-opts" class="grid gap-2 mt-4"></div><div id="decision-fb" class="mt-4 hidden p-4 rounded-xl bg-indigo-50 text-indigo-900 font-bold text-sm"></div><button type="button" id="decision-next" class="mt-4 w-full p-3 rounded-xl bg-indigo-600 text-white font-bold hidden">看完了，下一步 →</button>';
     var opts = document.getElementById('decision-opts');
+    var nextBtn = document.getElementById('decision-next');
     node.choices.forEach(function(ch) {
       var b = document.createElement('button');
       b.className = 'w-full text-left p-4 rounded-xl bg-slate-50 border font-bold hover:border-indigo-300';
@@ -856,7 +870,11 @@ function renderGame() {
           var fb = document.getElementById('decision-fb');
           fb.classList.remove('hidden');
           fb.textContent = ch.fb;
-          setTimeout(function() { decisionNode = ch.next; renderGame(); }, ch.next === 'end' ? 2500 : 1200);
+          nextBtn.classList.remove('hidden');
+          nextBtn.onclick = function() {
+            decisionNode = ch.next;
+            renderGame();
+          };
         } else {
           decisionNode = ch.next;
           renderGame();
@@ -960,22 +978,55 @@ function renderGame() {
     document.getElementById('tf-true').onclick = () => pick(true);
     document.getElementById('tf-false').onclick = () => pick(false);
   } else if (gameMode === 'match') {
-    if (prog) prog.textContent = '情境配對';
-    let mi = 0;
-    function showMatch() {
-      if (mi >= matchBank.length) {
-        vp.innerHTML = '<p class="text-xl font-black text-purple-700">🎯 配對練習完成！記得：金流與隱私不應交給 AI。</p>';
-        return;
+    if (prog) prog.textContent = (matchIdx >= matchBank.length) ? '完成' : ((matchIdx + 1) + ' / ' + matchBank.length);
+    if (score) score.textContent = matchScore;
+    function buildMatchOptions(currentIdx) {
+      const current = matchBank[currentIdx];
+      const opts = [current.best];
+      const pool = matchBank.filter((_, i) => i !== currentIdx).map(x => x.best);
+      while (opts.length < 3 && pool.length) {
+        const pickIdx = Math.floor(Math.random() * pool.length);
+        opts.push(pool.splice(pickIdx, 1)[0]);
       }
-      const m = matchBank[mi];
-      vp.innerHTML = `<p class="text-sm font-bold text-slate-500">情境 ${mi + 1}/${matchBank.length}</p>
-        <h3 class="text-lg font-black text-slate-900 mt-2">${m.scenario}</h3>
-        <p class="mt-4 text-sm text-slate-500">最佳 Prompt 策略：</p>
-        <pre class="mt-2 p-4 rounded-xl bg-slate-900 text-emerald-300 text-xs whitespace-pre-wrap">${m.best}</pre>
-        <button type="button" class="mt-4 w-full p-3 rounded-xl bg-purple-600 text-white font-bold">下一題 →</button>`;
-      vp.querySelector('button').onclick = () => { mi++; showMatch(); };
+      return opts.sort(() => Math.random() - 0.5);
     }
-    showMatch();
+    if (matchIdx >= matchBank.length) {
+      vp.innerHTML = '<p class="text-xl font-black text-purple-700">🎯 配對練習完成！你答對 ' + matchScore + ' / ' + matchBank.length + ' 題。</p>' +
+        '<button type="button" class="mt-4 w-full p-3 rounded-xl bg-purple-600 text-white font-bold" onclick="matchIdx=0;matchScore=0;renderGame()">再玩一次</button>';
+      return;
+    }
+    const m = matchBank[matchIdx];
+    const options = buildMatchOptions(matchIdx);
+    vp.innerHTML = `<p class="text-sm font-bold text-slate-500">情境 ${matchIdx + 1}/${matchBank.length}</p>
+      <h3 class="text-lg font-black text-slate-900 mt-2">${m.scenario}</h3>
+      <p class="mt-4 text-sm text-slate-500">請選出最適合的 Prompt 策略：</p>
+      <div id="match-options" class="grid gap-2 mt-3"></div>
+      <div id="match-feedback" class="mt-4 hidden p-4 rounded-xl font-bold text-sm"></div>
+      <button type="button" id="match-next" class="mt-4 w-full p-3 rounded-xl bg-purple-600 text-white font-bold hidden">下一題 →</button>`;
+    const box = document.getElementById('match-options');
+    const nextBtn = document.getElementById('match-next');
+    options.forEach(function(opt) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'w-full text-left p-3 rounded-xl bg-slate-50 border border-slate-200 font-bold hover:border-purple-300';
+      b.textContent = opt;
+      b.onclick = function() {
+        const ok = opt === m.best;
+        if (ok) matchScore += 1;
+        if (score) score.textContent = matchScore;
+        box.querySelectorAll('button').forEach(function(btn) { btn.disabled = true; });
+        const fb = document.getElementById('match-feedback');
+        fb.classList.remove('hidden');
+        fb.className = 'mt-4 p-4 rounded-xl font-bold text-sm ' + (ok ? 'bg-emerald-50 text-emerald-800' : 'bg-rose-50 text-rose-700');
+        fb.textContent = (ok ? '✅ 配對正確。' : '❌ 這題配錯了。') + ' 建議答案：' + m.best;
+        nextBtn.classList.remove('hidden');
+      };
+      box.appendChild(b);
+    });
+    nextBtn.onclick = function() {
+      matchIdx += 1;
+      renderGame();
+    };
   }
 }
 

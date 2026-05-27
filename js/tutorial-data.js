@@ -82,6 +82,36 @@ const tutorialRepository = {
     tip: "導覽列常用 ul + li + a 組成。",
     quiz: { q: "有編號 1.2.3. 的清單用？", opts: ["<ol>", "<ul>", "<table>"], ans: 0 }
   },
+  html_list_details: {
+    track: "html",
+    title: "🧾 ul / ol 進階細節（巢狀、start、reversed）",
+    desc: "清單不只三行文字：你可以做巢狀清單、指定起始編號，或反向編號。",
+    concept: "常見場景：教學步驟（ol）、功能條列（ul）、章節子項（巢狀 ol/ul）。<br>進階屬性：<code>start</code> 可從指定數字開始，<code>reversed</code> 可倒數編號。",
+    practice: "① 將 ol 改成 start=\"3\" 看編號從 3 開始 ② 在第二步加一個巢狀 ul ③ 將 reversed 打開觀察倒序",
+    code: `<h3>上架教學流程</h3>\n<ol start="1">\n  <li>整理商品照片</li>\n  <li>撰寫商品文案\n    <ul>\n      <li>主標題 18 字內</li>\n      <li>第一段先寫痛點</li>\n      <li>文末加 CTA</li>\n    </ul>\n  </li>\n  <li>上傳並測試 CTA</li>\n</ol>\n\n<h3>倒數清單（reversed）</h3>\n<ol reversed>\n  <li>發布文章</li>\n  <li>校對文案</li>\n  <li>整理資料</li>\n</ol>`,
+    tip: "巢狀清單是常見的課程/文件結構，別全部寫成同一層。",
+    quiz: { q: "讓 ol 從 5 開始編號用哪個？", opts: ["start=\"5\"", "begin=\"5\"", "index=\"5\""], ans: 0 }
+  },
+  html_description_list: {
+    track: "html",
+    title: "📚 dl / dt / dd 名詞解釋清單",
+    desc: "當你在寫術語、FAQ 定義、參數說明時，dl 比 ul 更有語意。",
+    concept: "<code>dl</code> 是描述清單，<code>dt</code> 是名詞，<code>dd</code> 是定義。<br>適合用在：課程術語、產品規格、專有名詞字典。",
+    practice: "① 新增一組術語（例如 CTA）② 幫 dt 加粗、dd 加左邊框 ③ 比較和 ul 呈現差異",
+    code: `<style>\n  dl {\n    border: 1px solid #e2e8f0;\n    border-radius: 12px;\n    padding: 12px;\n    background: #f8fafc;\n  }\n  dt {\n    font-weight: 800;\n    color: #0f172a;\n    margin-top: 8px;\n  }\n  dd {\n    margin-left: 0;\n    padding-left: 10px;\n    border-left: 3px solid #cbd5e1;\n    color: #475569;\n    margin-top: 4px;\n  }\n</style>\n<dl>\n  <dt>SEO</dt>\n  <dd>讓搜尋引擎更容易找到你的內容。</dd>\n  <dt>GEO</dt>\n  <dd>讓生成式搜尋更容易引用你的內容段落。</dd>\n</dl>`,
+    tip: "術語頁、課程詞彙表優先用 dl，語意比 ul 更清楚。",
+    quiz: { q: "描述名詞與定義最適合用？", opts: ["dl / dt / dd", "ul / li", "table 一定最好"], ans: 0 }
+  },
+  html_div_span: {
+    track: "html",
+    title: "🧩 div 與 span：萬用容器怎麼用",
+    desc: "div 是區塊容器，span 是行內容器。它們沒有語意，但很常用來配合 class 做排版。",
+    concept: "口訣：<strong>大區塊用 div、行內小片段用 span</strong>。<br>若有明確語意，優先用 <code>header/main/section/article/nav</code>；語意不明再用 div。",
+    practice: "① 把標題中的一個詞包成 span 上色 ② 再用 div 包住整張卡片 ③ 想想能否改成語意標籤",
+    code: `<style>\n  .card {\n    border: 1px solid #e2e8f0;\n    border-radius: 12px;\n    padding: 16px;\n    background: #fff;\n  }\n  .accent { color: #4f46e5; font-weight: 800; }\n</style>\n<div class="card">\n  <h2>這是一張 <span class="accent">重點卡片</span></h2>\n  <p>div 負責包區塊，span 負責行內局部強調。</p>\n</div>`,
+    tip: "新手常把所有東西都寫成 div；記得先想有沒有語意標籤可用。",
+    quiz: { q: "行內強調一小段文字通常用？", opts: ["span", "div", "section"], ans: 0 }
+  },
   html_tables: {
     track: "html",
     title: "📊 table 表格",
@@ -599,8 +629,8 @@ Object.assign(tutorialRepository, {
 
 const TUTORIAL_ORDER = [
   "intro_welcome", "html_vs_css", "intro_devtools", "intro_files",
-  "html_skeleton", "html_headings", "html_inline", "html_media", "html_lists", "html_tables",
-  "html_containers", "html_inputs", "html_button", "html_form", "html_nav",
+  "html_skeleton", "html_headings", "html_inline", "html_media", "html_lists", "html_list_details",
+  "html_description_list", "html_div_span", "html_tables", "html_containers", "html_inputs", "html_button", "html_form", "html_nav",
   "css_selectors", "css_colors", "css_typography", "css_spacing", "css_box_model", "css_display",
   "css_flexbox", "css_grid", "css_position", "css_shadows", "css_transitions",
   "css_variables", "css_pseudo", "css_flex_advanced", "css_media_rwd", "css_animation", "css_zindex",

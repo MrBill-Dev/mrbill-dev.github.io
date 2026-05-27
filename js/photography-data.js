@@ -19,6 +19,8 @@ const IMG = {
   capcutEdit: "https://images.pexels.com/photos/4974912/pexels-photo-4974912.jpeg?auto=compress&cs=tinysrgb&w=800",
   weddingBokeh: "https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=800",
   bridePortrait: "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800",
+  rimBacklitPortrait: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+  rimBacklitAlt: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=800&q=80",
   sparklerWedding: "https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg?auto=compress&cs=tinysrgb&w=800",
   banquetHall: "https://images.pexels.com/photos/265722/pexels-photo-265722.jpeg?auto=compress&cs=tinysrgb&w=800"
 };
@@ -285,7 +287,8 @@ const photographyRepository = {
     title: "✨ 18. 輪廓光與逆光：髮絲光與剪影",
     mode: "lighting",
     lightingPreset: "rim",
-    previewUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80",
+    previewUrl: IMG.rimBacklitPortrait,
+    previewFallback: IMG.rimBacklitAlt,
     easy: "背對太陽站著，你的頭髮邊緣會有一圈金色的光，像天使的光環一樣！這就是輪廓光。如果把人拍得黑黑的只有亮邊，那就是剪影，也很有故事感。",
     medium: "輪廓光（Rim / Edge Light）從主體後方或側後方打入，勾勒髮絲、肩線與輪廓。逆光剪影則讓環境曝光正常、主體欠曝，適合婚禮進場、夕陽與煙火等戲劇性時刻。",
     hard: "拍攝輪廓光時需使用點測光或手動曝光，避免臉部過曝成一片白。婚禮紀錄常結合 RAW 與高光抑制，保留逆光氛圍同時拉回暗部層次。多燈佈置時，輪廓光強度應高於主光 1～2 級才能從雜亂背景分離主體。",
@@ -319,10 +322,10 @@ const photographyRepository = {
     mode: "device",
     device: "phone",
     previewUrl: PEX.phoneHand,
-    easy: "打開 iPhone「相機 → 更多 → 專業／Pro」或 Android「專業模式 Pro」，你就能自己調 ISO、快門、白平衡，不再讓手機自動亂猜！",
-    medium: "手機專業模式等同精簡版 M 模式。拍婚禮進場：快門 1/125 以上防手震、ISO 自動上限 800、點選臉部測光。拍夜景螢火蟲：腳架 + ISO 100 + 慢快門。",
-    hard: "手機感光元件小，高 ISO 噪點比全片幅單眼更早出現。善用 HDR、夜景模式堆疊多張，等同於軟體長曝光；但動態主體仍須靠夠快的快門。",
-    tip: "沙盒：切換下方「手機／相機」標籤後，用曝光滑桿感受與單眼相同的三角平衡邏輯。"
+    easy: "打開 iPhone「相機 → 更多」或 Android「專業模式 Pro」，你就能自己調 ISO、快門、白平衡，不再讓手機自動亂猜！",
+    medium: "【iOS 建議】iPhone 原生介面可先鎖 AE/AF，再用曝光補償；要全手動可用 Halide、ProCamera。\n【Android 建議】多數機型在 Pro 模式可直接調 ISO/快門/WB，Samsung Expert RAW、Google Pixel 手動控制都可用。\n【實戰】婚禮進場：快門 1/125 以上防手震、ISO 上限 800、優先臉部測光。",
+    hard: "手機感光元件小，高 ISO 噪點比全片幅更早出現。善用 HDR、夜景模式多張堆疊等於軟體長曝光；但動態主體仍須靠夠快快門。\n【推薦 App】拍攝：Halide / ProCamera（iOS）、Open Camera / ProShot（Android）；後製：Lightroom Mobile、Snapseed。",
+    tip: "方向建議：先練「白天人像」再練「室內低光」，最後才挑戰夜景；每個場景固定只改一個參數。"
   },
   phone_photo_portrait: {
     title: "📱 22. 手機人像模式：虛化與光斑",
@@ -331,9 +334,9 @@ const photographyRepository = {
     chapterRead: "手機人像模式的「虛化」≈ 大光圈效果。下方沙盒用同一張人像，只拖光圈滑桿感受背景糊化與亮度變化（與光圈課相同原理）。",
     previewUrl: IMG.aperturePortrait,
     easy: "人像模式會用兩顆鏡頭（或 AI）分出主角，把背景變模糊——效果接近大光圈單眼。\n【玩沙盒】滑桿往左 F1.4：背景更糊、更亮；往右 F16：全景清晰、較暗。",
-    medium: "iPhone 可調「f 值」虛化強度；Android 各廠名稱不同。最佳距離 1～2 公尺。演算法在頭髮邊、玻璃、夜景光點容易破功。",
-    hard: "手機虛化是分割蒙版 + 模糊，非真實光學景深。理解光圈課後，才知何時改用手機人像、何時用相機大光圈。",
-    tip: "沙盒：與「貓咪瞳孔」課相同——同一張照片，只動光圈，觀察虛化與進光。"
+    medium: "【iOS】可在照片回放後再調 f 值虛化強度；【Android】人像模式名稱可能是『人像 / 景深 / 散景』，原理相同。\n最佳距離 1～2 公尺，主體與背景至少拉開 2 公尺。頭髮邊緣、玻璃、夜景光點是最常破功區。",
+    hard: "手機虛化是分割蒙版 + 模糊，不是真實光學景深。商業拍攝（婚禮證婚、產品近拍）若邊緣要求高，仍建議相機大光圈。\n【App 補強】Snapseed『鏡頭模糊』可微調遮罩；Lightroom 可先調亮部壓制再做局部銳化。",
+    tip: "實務流程：先拍 3 張（原生 / 人像 / 微調曝光），回家對比再決定哪張做正式交付。"
   },
   phone_photo_night: {
     title: "📱 23. 手機夜景與螢火蟲：腳架與夜景模式",
@@ -343,9 +346,9 @@ const photographyRepository = {
     previewUrl: IMG.fireflies,
     previewFallback: IMG.firefliesAlt,
     easy: "【步驟】① 腳架固定 ② 關閃光燈 ③ 開夜景模式或 Pro ④ 點螢火蟲處對焦 ⑤ 倒數拍攝勿碰手機。",
-    medium: "【夜景模式】自動拍多張合成，比單張拉高 ISO 乾淨。\n【專業模式】ISO 100、快門 2～10 秒、白平衡 3800～4500K。\n【注意】勿開人像虛化、勿用手電、移動物體會鬼影。",
-    hard: "小感光元件高 ISO 噪點比單眼早出現；夜景模式是演算法補救。",
-    tip: "與「黑暗中的螢火蟲」課對照：理解 ISO 後再選手機模式。"
+    medium: "【iOS】夜景秒數可上滑調整，先從 2～3 秒試拍；【Android】多數夜景模式會自動堆疊，Pro 模式可手動拉 2～10 秒。\n【參數建議】ISO 100～400、白平衡 3800～4500K、關閉人像虛化。\n【推薦 App】Slow Shutter Cam（iOS）、DeepSkyCamera / Open Camera（Android）可做長曝光控制。",
+    hard: "小感光元件高 ISO 噪點比單眼早出現；夜景模式是演算法補救。若主體會動，先選短秒數多拍幾張，再挑最穩定的一張後製。",
+    tip: "實務建議：每個地點連拍 5 張，記錄參數，回家比對噪點與清晰度，再建立你的夜景預設。"
   },
   camera_photo_fireflies: {
     title: "📷 23b. 相機拍螢火蟲：長曝光實戰",
@@ -366,9 +369,9 @@ const photographyRepository = {
     videoSubtype: "shoot",
     previewUrl: IMG.videoRecord,
     easy: "錄影時雙手握穩，開啟「運動模式／超穩定」；拍婚禮進場用 4K 30fps 就夠，慢動作才需要 60fps 或 120fps。",
-    medium: "4K 檔案大但後期裁切空間多。60fps 適合慢動作回放；24fps 更有電影感。橫拿手機（16:9）上傳 YouTube；直拿（9:16）給 TikTok／Reels。",
-    hard: "手機自動曝光在明暗穿越時會跳變，可鎖定曝光/對焦（AE/AF Lock）。外接麥克風與補光燈是 vlog 與婚禮紀錄的關鍵升級。",
-    tip: "下方剪映時間軸：拖動播放頭，模擬剪輯婚禮精華的節奏。"
+    medium: "【iOS】在設定中先開 ProRes/Log（支援機型）與防手震模式；【Android】可用專業錄影模式鎖快門與 ISO。\n4K 檔案大但後期裁切空間多。60fps 適合慢動作回放；24fps 更有電影感。橫拿手機（16:9）上傳 YouTube；直拿（9:16）給 TikTok／Reels。",
+    hard: "手機自動曝光在明暗穿越時會跳變，可鎖定 AE/AF。外接麥克風與補光燈是 vlog 與婚禮紀錄的關鍵升級。\n【推薦 App】Blackmagic Camera（iOS/Android 部分機型）、FiLMiC Pro（跨平台）可做更細錄影控制。",
+    tip: "實務方向：先練 15 秒穩定鏡頭，再練 30 秒敘事鏡頭，最後做 60 秒完整短片。"
   },
 
   // ── 模組七：📷 相機拍照專區 ──

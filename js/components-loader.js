@@ -14,7 +14,11 @@ async function includeComponentSlot(elementId, filePath, activeNavId, callback) 
         }
         initNavMegaMenus();
         if (callback) callback();
-    } catch (e) { console.error(e); }
+    } catch (e) {
+        console.error(e);
+        // 讓呼叫端有機會做降級處理（例如先渲染預設內容）
+        if (callback) callback(e);
+    }
 }
 
 /** 導覽下拉：hover 保留間隙、延遲關閉，並支援點擊開關 */

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>內容表達學：網站文案到簡報 - MrBill Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/components-loader.js"></script>
+  <script src="js/site-config.js"></script>
+  <script src="js/course-progress.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Noto Sans TC"', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .soft-card { border-radius: 1rem; border: 1px solid rgba(148, 163, 184, 0.25); background: rgba(255,255,255,0.88); }
+    .chip { border: 1px solid #cbd5e1; background: #fff; color: #334155; border-radius: 9999px; padding: 0.35rem 0.75rem; font-size: 0.75rem; font-weight: 700; }
+    .chip.active { background: #0f172a; color: #fff; border-color: #0f172a; }
+    .pulse-ok { animation: pulseOk 0.7s ease; }
+    @keyframes pulseOk { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col text-lg">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full space-y-8">
+    <section class="relative overflow-hidden rounded-3xl border border-fuchsia-200 shadow-xl">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80" alt="內容表達主視覺" class="w-full h-[280px] md:h-[360px] object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-r from-fuchsia-950/80 via-indigo-900/70 to-cyan-900/50"></div>
+      <div class="absolute inset-0 p-6 md:p-10 flex items-end">
+        <div class="max-w-3xl text-white">
+          <p class="text-xs md:text-sm font-black tracking-[0.2em] uppercase text-cyan-300">Content Expression Studio</p>
+          <h1 class="text-3xl md:text-5xl font-black leading-tight mt-2">內容表達學：網站文案到簡報</h1>
+          <p class="mt-3 text-sm md:text-base text-slate-200">用「情境化範本 + 對錯對照 + 互動練習」，把你腦中的想法快速轉成可讀、可講、可轉換的內容。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-indigo-50 via-fuchsia-50 to-cyan-50 rounded-3xl border border-indigo-100 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">新手學習路徑（先學前 → 再學後）</h2>
+      <div class="grid md:grid-cols-3 gap-4 text-sm">
+        <article class="soft-card p-4">
+          <p class="font-black text-rose-700">學前：憑感覺寫</p>
+          <p class="mt-2 text-slate-700">句子很長、重點不明、沒有行動指令，讀者看完不知道要做什麼。</p>
+        </article>
+        <article class="soft-card p-4">
+          <p class="font-black text-amber-700">學中：套用範本改寫</p>
+          <p class="mt-2 text-slate-700">同一主題可拆成網站文案、社群貼文、簡報頁三種版本。</p>
+        </article>
+        <article class="soft-card p-4">
+          <p class="font-black text-emerald-700">學後：可交付 + 可追蹤</p>
+          <p class="mt-2 text-slate-700">有明確 CTA、可衡量指標、可迭代流程，不再只靠靈感。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">先補名詞：CTA 是什麼？</h2>
+      <div class="grid md:grid-cols-2 gap-4 text-sm">
+        <article class="soft-card p-4 border-rose-200 bg-rose-50/70">
+          <p class="font-black text-rose-700">❌ 不清楚 CTA 的常見結果</p>
+          <p class="mt-2 text-slate-700">文章很多人看，但沒人下一步。因為讀者不知道「現在該按哪裡、按了會得到什麼」。</p>
+          <p class="mt-2 text-rose-700">例：按鈕只寫「了解更多」→ 意義太模糊，點擊率低。</p>
+        </article>
+        <article class="soft-card p-4 border-emerald-200 bg-emerald-50/70">
+          <p class="font-black text-emerald-700">✅ 白話定義</p>
+          <p class="mt-2 text-slate-700"><strong>CTA（Call To Action）</strong>就是「你希望讀者下一步做什麼」。</p>
+          <ul class="mt-2 list-disc pl-5 text-emerald-700 space-y-1">
+            <li>領清單</li>
+            <li>預約諮詢</li>
+            <li>加入社群</li>
+            <li>下載範本</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">對錯示範：你寫的是「資訊」還是「可執行內容」？</h2>
+      <div class="grid lg:grid-cols-2 gap-4 text-sm">
+        <article class="soft-card p-4 border-rose-200 bg-rose-50/70">
+          <p class="font-black text-rose-700">❌ 錯誤版本（看起來有內容，其實不能用）</p>
+          <p class="mt-2 text-slate-700">「我們服務很好，很多客戶都很滿意，歡迎聯絡。」</p>
+          <ul class="mt-3 list-disc pl-5 text-rose-700 space-y-1">
+            <li>沒有對象：給誰看不明</li>
+            <li>沒有條件：何時適用不明</li>
+            <li>沒有步驟：讀者不知道下一步</li>
+          </ul>
+        </article>
+        <article class="soft-card p-4 border-emerald-200 bg-emerald-50/70">
+          <p class="font-black text-emerald-700">✅ 正確版本（可讀、可做、可追）</p>
+          <p class="mt-2 text-slate-700">「給第一次做手工皂電商的人：先檢查 CTA 文字、表單步驟、FAQ。若 CTA 點擊率低於 3%，先把按鈕改成『領敏感肌選皂清單』，一週後再看 click_cta 變化。」</p>
+          <ul class="mt-3 list-disc pl-5 text-emerald-700 space-y-1">
+            <li>有對象：第一次做電商的人</li>
+            <li>有數據：3% 作為判斷閾值</li>
+            <li>有動作：先改文案再追蹤</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">常用範本切換器（重點版，不講空理論）</h2>
+      <p class="text-sm text-slate-600">直接選情境，會給你可複製的錯誤示範與優化版本。你可以拿去改成自己的產品。</p>
+      <div class="flex flex-wrap gap-2" id="content-scenario-bar"></div>
+      <div class="grid lg:grid-cols-2 gap-4">
+        <div class="soft-card p-4 border-rose-200 bg-rose-50/70">
+          <p class="font-black text-rose-700 mb-2">❌ 常見錯誤版本</p>
+          <div id="content-bad-output" class="rounded-xl bg-slate-900 text-emerald-300 p-3 text-xs leading-relaxed"></div>
+        </div>
+        <div class="soft-card p-4 border-emerald-200 bg-emerald-50/70">
+          <p class="font-black text-emerald-700 mb-2">✅ 建議修正版</p>
+          <div id="content-good-output" class="rounded-xl bg-slate-900 text-emerald-300 p-3 text-xs leading-relaxed"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">真實長案例（前後對照）</h2>
+      <div class="grid lg:grid-cols-2 gap-4 text-sm">
+        <article class="soft-card p-4 border-rose-200 bg-rose-50/70">
+          <p class="font-black text-rose-700">舊版本（看起來很努力，但轉換低）</p>
+          <p class="mt-2 text-slate-700">「我們是台南在地手工皂品牌，致力於提供天然與安全的清潔方案。很多顧客都說使用後很舒服，歡迎大家參考我們的產品，若有問題可以與我們聯絡。我們堅持選材與製程，期待讓更多人認識手工皂的美好。」</p>
+          <p class="mt-3 text-rose-700">問題：看完後讀者不知道「我現在該做什麼」。</p>
+        </article>
+        <article class="soft-card p-4 border-emerald-200 bg-emerald-50/70">
+          <p class="font-black text-emerald-700">新版本（可讀、可做、可追蹤）</p>
+          <p class="mt-2 text-slate-700">「你是敏感肌，洗完常緊繃或泛紅嗎？先不要急著換一堆保養品。先做 3 件事：① 選 pH 8-9 冷製皂 ② 避開香精與 SLS ③ 先做 24 小時局部測試。你可以先領《敏感肌選皂清單》，照表挑選，3 分鐘內就能縮小到 2-3 款適合你的皂。若需要，我們再提供一對一選皂建議。」</p>
+          <p class="mt-3 text-emerald-700">改善：痛點、條件、步驟、CTA 全都有，且可追蹤「清單下載率」。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-cyan-50 via-sky-50 to-indigo-50 rounded-3xl border border-cyan-100 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">過去 vs 現在 vs 未來：內容工作怎麼變</h2>
+      <div class="grid md:grid-cols-3 gap-4 text-sm">
+        <article class="soft-card p-4">
+          <p class="font-black text-slate-900">過去（單篇思維）</p>
+          <p class="mt-1 text-slate-700">寫一篇文就結束，沒有拆成多平台版本，數據回看也不足。</p>
+        </article>
+        <article class="soft-card p-4">
+          <p class="font-black text-slate-900">現在（多版本思維）</p>
+          <p class="mt-1 text-slate-700">同主題拆成網站文案、社群貼文、簡報敘事，形成內容鏈。</p>
+        </article>
+        <article class="soft-card p-4">
+          <p class="font-black text-slate-900">未來（系統化思維）</p>
+          <p class="mt-1 text-slate-700">先定義指標再產內容，持續 A/B 測試與版本迭代。</p>
+        </article>
+      </div>
+      <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1400&q=80" alt="內容改寫流程示意" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">簡報教學：一頁一重點的實作順序</h2>
+      <div class="grid md:grid-cols-3 gap-4 text-sm">
+        <article class="soft-card p-4"><p class="font-black text-indigo-700">第 1 頁：問題</p><p class="mt-1 text-slate-700">一句話痛點 + 1 組數字，先讓人願意看第二頁。</p></article>
+        <article class="soft-card p-4"><p class="font-black text-cyan-700">第 2 頁：做法</p><p class="mt-1 text-slate-700">固定 3 步驟，每步不超過 16 字，搭配圖示。</p></article>
+        <article class="soft-card p-4"><p class="font-black text-emerald-700">第 3 頁：結果</p><p class="mt-1 text-slate-700">放前後對照與下一步決策，讓簡報有行動結論。</p></article>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">一鍵生成我的版本（輸入就能拿初稿）</h2>
+      <p class="text-sm text-slate-600">把你的產業、對象、商品填進去，系統會自動替換成你可直接改寫的真實文案初稿。</p>
+      <div class="grid md:grid-cols-3 gap-3 text-sm">
+        <label class="space-y-1"><span class="font-bold text-slate-700">產業</span><input id="gen-industry" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：手工皂品牌" /></label>
+        <label class="space-y-1"><span class="font-bold text-slate-700">對象</span><input id="gen-audience" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：敏感肌上班族" /></label>
+        <label class="space-y-1"><span class="font-bold text-slate-700">商品 / 服務</span><input id="gen-product" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：低敏冷製皂" /></label>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" id="gen-draft-btn" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-bold text-sm">一鍵生成我的版本</button>
+        <button type="button" id="gen-reset-btn" class="px-4 py-2 rounded-lg bg-slate-200 text-slate-700 font-bold text-sm">清空</button>
+      </div>
+      <div id="gen-draft-output" class="rounded-2xl bg-slate-900 text-emerald-300 p-4 text-sm leading-relaxed min-h-[140px]">輸入後點「一鍵生成我的版本」，這裡會出現你的專屬初稿。</div>
+      <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm">
+        <p class="font-black text-indigo-900">名詞白話解釋（新手版）</p>
+        <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+          <li><strong>CTA：</strong>你希望讀者下一步做的動作（例如下載清單、預約諮詢）。</li>
+          <li><strong>轉換率：</strong>看過內容的人中，有多少人真的完成你要的動作。</li>
+          <li><strong>A/B 測試：</strong>同一位置放兩版文案，比較哪一版成效更好。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-fuchsia-50 via-rose-50 to-amber-50 rounded-3xl border border-rose-100 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">練習題</h2>
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 text-sm space-y-4">
+        <div class="h-3 rounded-full bg-slate-100 overflow-hidden">
+          <div id="content-quiz-bar" class="h-full bg-gradient-to-r from-fuchsia-500 to-cyan-500 transition-all duration-500" style="width:0%"></div>
+        </div>
+        <p class="font-black text-slate-900">互動練習：判斷這句 CTA 是否清楚</p>
+        <p id="content-quiz-question" class="text-slate-700">「有興趣可以看看更多內容。」</p>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="px-3 py-2 rounded-lg bg-emerald-600 text-white font-bold text-xs" onclick="answerContentQuiz(true)">清楚</button>
+          <button type="button" class="px-3 py-2 rounded-lg bg-rose-600 text-white font-bold text-xs" onclick="answerContentQuiz(false)">不清楚</button>
+        </div>
+        <p id="content-quiz-feedback" class="text-sm font-bold text-slate-700">作答後會顯示解釋與下一題。</p>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">課程教學</h2>
+      <p class="text-sm text-slate-600">下面是完整課綱版，不是簡介。每課都含：實務情境、常見失誤、操作步驟、交付標準與作業。</p>
+      <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
+        <span id="content-course-count" class="px-2 py-1 rounded-full bg-indigo-50 text-indigo-700">0/0 課完成</span>
+        <span id="content-course-rate" class="px-2 py-1 rounded-full bg-emerald-50 text-emerald-700">0%</span>
+        <button type="button" id="content-course-reset" class="ml-auto px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700">重置課程進度</button>
+      </div>
+      <div class="h-2 rounded-full bg-slate-100 overflow-hidden">
+        <div id="content-course-progress" class="h-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 transition-all duration-500" style="width:0%"></div>
+      </div>
+      <div class="grid lg:grid-cols-[260px,1fr] gap-4">
+        <aside id="content-course-nav" class="space-y-2"></aside>
+        <article id="content-course-panel" class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm"></article>
+      </div>
+    </section>
+
+    <div id="content-author-note"></div>
+  </main>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto"></footer>
+  <script>
+    const CONTENT_SCENARIOS = {
+      ecommerce: {
+        label: '電商商品頁',
+        bad: [
+          '我們的商品很好，大家都很喜歡，歡迎下單。',
+          '品質很棒，歡迎參考看看。',
+          '若有興趣可以再私訊。'
+        ],
+        good: [
+          '【痛點】你逛了很多商品頁，還是不知道哪款適合敏感肌？',
+          '【步驟】先看 pH 值，再看香精成分，最後看使用情境。',
+          '【行動】點「領敏感肌選購清單」，30 秒完成篩選。',
+          '【追蹤】下載率若低於 8%，先改按鈕文案再測。'
+        ]
+      },
+      report: {
+        label: '主管簡報',
+        bad: [
+          '這個專案做得不錯，數據也還可以。',
+          '大家都很努力，結果算有成長。',
+          '接下來再繼續加油。'
+        ],
+        good: [
+          '【結論】本月 CTA 點擊率從 2.1% 提升到 3.4%。',
+          '【原因】首屏文案改寫 + 表單流程縮短。',
+          '【下一步】只測 FAQ 位置，驗證是否再提升 0.5%。',
+          '【決策】若兩週後仍低於 3%，回頭重寫首屏價值主張。'
+        ]
+      },
+      social: {
+        label: '社群導流',
+        bad: [
+          '今天分享內容，想看的朋友可以點連結。',
+          '有興趣再私訊我。',
+          '完整內容在留言。'
+        ],
+        good: [
+          '【痛點】流量有了，詢單卻沒變？',
+          '【步驟】先看 click_cta、form_start、generate_lead 三個事件。',
+          '【行動】文末有事件命名表，直接套進你的站。',
+          '【誘因】附「一頁式漏斗檢查表」讓讀者立即可用。'
+        ]
+      },
+      reflection: {
+        label: '心得文',
+        bad: [
+          '今天學到很多，很有收穫。',
+          '老師講得很好，以上。',
+          '希望下次繼續進步。'
+        ],
+        good: [
+          '【起點卡關】我原本不知道內容為何有流量卻沒詢單。',
+          '【實作改法】我先重寫首屏 CTA，再調整 FAQ 區塊。',
+          '【結果與下步】本週 CTA 從 2% 到 3.1%，下週測試表單步驟。',
+          '【反思】最有效的是把抽象詞換成可執行動詞。'
+        ]
+      }
+    };
+    const CONTENT_QUIZ = [
+      { q: '「想知道更多請點這裡」', answer: false, why: '不清楚。讀者不知道點了能得到什麼。' },
+      { q: '「領取《敏感肌選皂清單》，3 分鐘完成篩選」', answer: true, why: '清楚。明確告知收穫與時間成本。' },
+      { q: '「歡迎私訊我們」', answer: false, why: '不清楚。沒有情境與誘因。' },
+      { q: '「下載活動簡報模板（含可編輯版）」', answer: true, why: '清楚。明確內容與價值。' }
+    ];
+    let contentQuizIdx = 0;
+    let contentQuizScore = 0;
+    const CONTENT_COURSE = [
+      {
+        id: 'c1',
+        title: '第 1 課：首頁首屏文案打底',
+        goal: '30 秒講清楚你是誰、幫誰、下一步做什麼。',
+        practical: '實務情境：接案簡報前，客戶問「你們跟別家差在哪？」這段就是你的第一印象。',
+        mistakes: ['只寫品牌口號，沒有對象', 'CTA 太模糊（了解更多）', '副標放太多抽象詞'],
+        steps: ['一句話寫明對象 + 痛點', '第二句給出可驗證的解法', '第三句放明確 CTA（動詞 + 利益 + 時間）'],
+        check: ['標題 18 字內', '副標 45 字內', 'CTA 可直接執行且可追蹤'],
+        hw: '改寫你的首頁 Hero 區塊，做 A/B 兩版。'
+      },
+      {
+        id: 'c2',
+        title: '第 2 課：產品頁賣點重寫',
+        goal: '把「功能清單」改成「使用者會得到什麼」。',
+        practical: '實務情境：商品頁停留時間高但下單低，通常是賣點只講功能、沒講結果。',
+        mistakes: ['賣點順序混亂', '沒有使用情境', '缺少風險排除（常見疑問）'],
+        steps: ['先列 3 個痛點', '每個痛點配 1 個功能 + 1 個結果', '每段最後補 FAQ 反對意見'],
+        check: ['每個賣點都能回答「所以呢？」', '有明確適用對象', '段落可被 AI 摘要引用'],
+        hw: '挑一個產品頁，重寫成「痛點→解法→成果→CTA」格式。'
+      },
+      {
+        id: 'c3',
+        title: '第 3 課：社群導流短文實作',
+        goal: '同主題拆成可閱讀、可互動、可導流的貼文。',
+        practical: '實務情境：有觸及沒詢單，常是貼文結尾沒有明確下一步。',
+        mistakes: ['第一句太長', '中段只有觀念無做法', '同一貼文塞兩個 CTA'],
+        steps: ['開頭先丟痛點問題', '中段給 2-3 個可做步驟', '結尾保留一個 CTA 並給誘因'],
+        check: ['前 2 行可單獨成立', '每段不超過 3 行', 'CTA 與貼文目標一致'],
+        hw: '把一篇長文拆成 3 則社群貼文，各自對應不同導流目標。'
+      },
+      {
+        id: 'c4',
+        title: '第 4 課：簡報一頁一重點',
+        goal: '每頁都有結論，不再堆資訊。',
+        practical: '實務情境：主管常說「你講很多，但我不知道要決策什麼」。',
+        mistakes: ['標題不是結論句', '同頁放超過 3 個重點', '沒有決策建議'],
+        steps: ['標題先寫結論句', '正文只放 1 組數據 + 1 張圖', '頁尾寫「下一步決策」'],
+        check: ['每頁 5 秒可看懂', '能回答「要做什麼」', '視覺層級清楚'],
+        hw: '重做舊簡報 3 頁：問題頁、做法頁、結果頁。'
+      },
+      {
+        id: 'c5',
+        title: '第 5 課：心得文與教學文差異',
+        goal: '把「感想」改成可複製的教學內容。',
+        practical: '實務情境：很多心得文只有情緒，讀者看完不知道怎麼做。',
+        mistakes: ['全篇只有心得', '沒有步驟與條件', '沒有前後對照結果'],
+        steps: ['先交代起點卡關', '再寫實作步驟', '最後寫結果與下一步'],
+        check: ['有可執行步驟', '有量化結果', '有可延伸資源'],
+        hw: '把你一篇心得文改成「教學版」，新增步驟與結果。'
+      },
+      {
+        id: 'c6',
+        title: '第 6 課：SEO/GEO 可引用段落',
+        goal: '讓內容同時對人與 AI 都好讀。',
+        practical: '實務情境：你有寫內容，但 AI 摘要時很少引用你的段落。',
+        mistakes: ['段落太長、沒結論', '缺少主詞與條件', '沒有明確實體名詞'],
+        steps: ['每段先給結論句', '補條件與數字', '再給實作步驟'],
+        check: ['一段只講一件事', '包含實體名詞', '可被單段摘錄'],
+        hw: '把任一章重寫成 4 段 GEO 友善格式。'
+      },
+      {
+        id: 'c7',
+        title: '第 7 課：詢單流程文案優化',
+        goal: '降低表單流失，提高真正詢單。',
+        practical: '實務情境：點擊 CTA 很高，但表單送出率偏低。',
+        mistakes: ['表單步驟太多', '欄位沒有必要性說明', '提交後沒有回應預期'],
+        steps: ['先刪非必要欄位', '在欄位旁補用途說明', '提交後給清楚回覆時間'],
+        check: ['表單 3 步內完成', '手機版可讀', '有提交後下一步'],
+        hw: '重寫你的詢單表單說明，並設計提交後回覆文案。'
+      },
+      {
+        id: 'c8',
+        title: '第 8 課：A/B 測試與迭代紀錄',
+        goal: '會看數據修文案，不再靠感覺。',
+        practical: '實務情境：改很多次文案卻不知道哪次真的有效。',
+        mistakes: ['一次改太多變因', '沒有記錄版本', '只看流量不看轉換'],
+        steps: ['一次只改一個變因', '記錄版本與日期', '7 天後看 click_cta 與轉換率'],
+        check: ['有版本命名規則', '有基準線', '有明確停損條件'],
+        hw: '建立你的文案測試表，至少跑 1 組 A/B。'
+      }
+    ];
+    let activeCourse = 0;
+    let contentCourseProgress = null;
+
+    function renderContentScenario(key) {
+      const cfg = CONTENT_SCENARIOS[key];
+      if (!cfg) return;
+      document.getElementById('content-bad-output').innerHTML = '<ul class="list-disc pl-4 space-y-1">' + cfg.bad.map(function(line) { return '<li>' + line + '</li>'; }).join('') + '</ul>';
+      document.getElementById('content-good-output').innerHTML = '<ul class="list-disc pl-4 space-y-1">' + cfg.good.map(function(line) { return '<li>' + line + '</li>'; }).join('') + '</ul>';
+      document.querySelectorAll('#content-scenario-bar .chip').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.key === key);
+      });
+    }
+    function renderGeneratedDraft() {
+      const industry = (document.getElementById('gen-industry').value || '').trim() || '你的產業';
+      const audience = (document.getElementById('gen-audience').value || '').trim() || '你的目標對象';
+      const product = (document.getElementById('gen-product').value || '').trim() || '你的商品或服務';
+      const html = [
+        '【首屏主標】',
+        '給' + audience + '的' + product + '解法：先解決最常見的卡關，再開始優化。',
+        '',
+        '【副標】',
+        '我們專注在' + industry + '情境，提供可直接照做的流程，不用再憑感覺反覆重寫。',
+        '',
+        '【三點賣點】',
+        '1) 先確認痛點與條件',
+        '2) 提供可執行步驟與範本',
+        '3) 每步都有可追蹤指標',
+        '',
+        '【CTA】',
+        '立即領取《' + audience + '適用的' + product + '實作清單》'
+      ].join('<br>');
+      document.getElementById('gen-draft-output').innerHTML = html;
+    }
+    function renderContentCourse(idx) {
+      const total = CONTENT_COURSE.length;
+      const item = CONTENT_COURSE[idx];
+      if (!item) return;
+      activeCourse = idx;
+      const nav = document.getElementById('content-course-nav');
+      nav.innerHTML = '';
+      CONTENT_COURSE.forEach(function(course, i) {
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-2';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'flex-1 text-left px-3 py-3 rounded-xl border text-sm font-bold ' + (i === idx ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-700 border-slate-200');
+        btn.textContent = course.title;
+        btn.onclick = function() {
+          if (contentCourseProgress) contentCourseProgress.select(i);
+          else renderContentCourse(i);
+        };
+        const check = document.createElement('input');
+        check.type = 'checkbox';
+        check.className = 'h-5 w-5 accent-emerald-600';
+        check.checked = contentCourseProgress ? contentCourseProgress.isCompleted(i) : false;
+        check.title = '標記本課完成';
+        check.addEventListener('click', function(e) { e.stopPropagation(); });
+        check.addEventListener('change', function() {
+          if (contentCourseProgress) {
+            contentCourseProgress.setCompleted(i, check.checked);
+            renderContentCourse(activeCourse);
+          }
+        });
+        row.appendChild(btn);
+        row.appendChild(check);
+        nav.appendChild(row);
+      });
+      const done = contentCourseProgress ? contentCourseProgress.isCompleted(idx) : false;
+      document.getElementById('content-course-panel').innerHTML =
+        '<p class="text-xs font-black text-indigo-600 uppercase tracking-wider">學習目標</p>' +
+        '<h3 class="text-xl font-black text-slate-900 mt-1">' + item.title + '</h3>' +
+        '<p class="mt-2 text-slate-700">' + item.goal + '</p>' +
+        '<div class="mt-3 rounded-xl border border-indigo-100 bg-indigo-50 p-3 text-slate-700"><strong>實務經驗：</strong>' + item.practical + '</div>' +
+        '<p class="mt-4 font-black text-slate-900">常見失誤（先避開）</p>' +
+        '<ul class="mt-2 list-disc pl-5 space-y-1 text-rose-700">' + item.mistakes.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ul>' +
+        '<p class="mt-4 font-black text-slate-900">本課步驟</p>' +
+        '<ol class="mt-2 list-decimal pl-5 space-y-1 text-slate-700">' + item.steps.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' +
+        '<p class="mt-4 font-black text-slate-900">交付檢查</p>' +
+        '<ul class="mt-2 list-disc pl-5 space-y-1 text-emerald-700">' + item.check.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ul>' +
+        '<button type="button" id="content-course-toggle" class="mt-4 px-3 py-2 rounded-lg text-xs font-bold ' + (done ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700') + '">' + (done ? '已完成（點擊取消）' : '標記本課完成') + '</button>' +
+        '<div class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-emerald-800"><strong>課後作業：</strong>' + item.hw + '</div>';
+      const toggleBtn = document.getElementById('content-course-toggle');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          if (contentCourseProgress) {
+            contentCourseProgress.toggleCompleted(activeCourse);
+            renderContentCourse(activeCourse);
+          }
+        });
+      }
+      if (contentCourseProgress) {
+        const st = contentCourseProgress.getStats();
+        document.getElementById('content-course-progress').style.width = st.percent + '%';
+      } else {
+        document.getElementById('content-course-progress').style.width = Math.round(((idx + 1) / total) * 100) + '%';
+      }
+    }
+    function renderContentCourseStats(st) {
+      document.getElementById('content-course-count').textContent = st.completed + '/' + st.total + ' 課完成';
+      document.getElementById('content-course-rate').textContent = st.percent + '%';
+      document.getElementById('content-course-progress').style.width = st.percent + '%';
+    }
+    function renderContentQuiz() {
+      const quiz = CONTENT_QUIZ[contentQuizIdx];
+      document.getElementById('content-quiz-question').textContent = quiz.q;
+      document.getElementById('content-quiz-feedback').textContent = '作答後會顯示解釋與下一題。';
+    }
+    function updateContentQuizBar() {
+      const pct = Math.round((contentQuizIdx / CONTENT_QUIZ.length) * 100);
+      document.getElementById('content-quiz-bar').style.width = pct + '%';
+    }
+    window.answerContentQuiz = function(userAnswer) {
+      const quiz = CONTENT_QUIZ[contentQuizIdx];
+      const ok = userAnswer === quiz.answer;
+      if (ok) contentQuizScore += 1;
+      const fb = document.getElementById('content-quiz-feedback');
+      fb.textContent = (ok ? '✅ 正確：' : '❌ 再想想：') + quiz.why;
+      fb.className = 'text-sm font-bold ' + (ok ? 'text-emerald-700 pulse-ok' : 'text-rose-700');
+      setTimeout(function() {
+        contentQuizIdx += 1;
+        if (contentQuizIdx >= CONTENT_QUIZ.length) {
+          document.getElementById('content-quiz-question').textContent = '完成！你答對 ' + contentQuizScore + ' / ' + CONTENT_QUIZ.length;
+          fb.textContent = '建議：低於 3 題，先回去重看「CTA 定義」與「對錯示範」再做一次。';
+          document.getElementById('content-quiz-bar').style.width = '100%';
+          return;
+        }
+        updateContentQuizBar();
+        renderContentQuiz();
+      }, 900);
+    };
+
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', 'components/header.html', 'nav-content-expression');
+      includeComponentSlot('global-footer', 'components/footer.html');
+      const bar = document.getElementById('content-scenario-bar');
+      Object.keys(CONTENT_SCENARIOS).forEach(function(key, idx) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip';
+        btn.dataset.key = key;
+        btn.textContent = CONTENT_SCENARIOS[key].label;
+        btn.onclick = function() { renderContentScenario(key); };
+        bar.appendChild(btn);
+        if (idx === 0) renderContentScenario(key);
+      });
+      document.getElementById('gen-draft-btn').addEventListener('click', renderGeneratedDraft);
+      document.getElementById('gen-reset-btn').addEventListener('click', function() {
+        ['gen-industry', 'gen-audience', 'gen-product'].forEach(function(id) { document.getElementById(id).value = ''; });
+        document.getElementById('gen-draft-output').textContent = '輸入後點「一鍵生成我的版本」，這裡會出現你的專屬初稿。';
+      });
+      renderContentQuiz();
+      contentCourseProgress = CourseProgress.create({
+        storageKey: 'course_progress_content_expression_v1',
+        total: CONTENT_COURSE.length,
+        onSelect: renderContentCourse,
+        onStatsChange: renderContentCourseStats
+      });
+      contentCourseProgress.bindResetButton(document.getElementById('content-course-reset'), '確定重置「內容表達學」課程進度嗎？');
+      contentCourseProgress.init();
+      renderAuthorSignature('content-author-note');
+    });
+  </script>
+</body>
+</html>

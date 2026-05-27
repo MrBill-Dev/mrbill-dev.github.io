@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>視覺設計學院 - MrBill Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/components-loader.js"></script>
+  <script src="js/site-config.js"></script>
+  <script src="js/course-progress.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Noto Sans TC"', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .academy-card { border-radius: 1rem; border: 1px solid rgba(148,163,184,0.25); background: rgba(255,255,255,0.9); }
+    .chip { border: 1px solid #cbd5e1; background: #fff; color: #334155; border-radius: 9999px; padding: 0.35rem 0.75rem; font-size: 0.75rem; font-weight: 700; }
+    .chip.active { background: #1e1b4b; color: #fff; border-color: #1e1b4b; }
+    .card-pop { animation: cardPop 0.55s ease; }
+    @keyframes cardPop { 0% { transform: translateY(6px); opacity: 0.6; } 100% { transform: translateY(0); opacity: 1; } }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col text-lg">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full space-y-8">
+    <section class="relative overflow-hidden rounded-3xl border border-violet-200 shadow-xl">
+      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80" alt="視覺設計學院主視覺" class="w-full h-[280px] md:h-[360px] object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-r from-violet-950/80 via-fuchsia-900/70 to-indigo-900/60"></div>
+      <div class="absolute inset-0 p-6 md:p-10 flex items-end">
+        <div class="max-w-3xl text-white">
+          <p class="text-xs md:text-sm font-black tracking-[0.2em] uppercase text-violet-300">Design Skills Academy</p>
+          <h1 class="text-3xl md:text-5xl font-black leading-tight mt-2">視覺設計學院</h1>
+          <p class="mt-3 text-sm md:text-base text-slate-200">不是一次學完所有工具，而是先選對工具、做到可交付，再逐步升級成多工具整合能力。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-violet-50 via-fuchsia-50 to-indigo-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">學前 vs 學後（新手先看）</h2>
+      <div class="grid md:grid-cols-3 gap-4 text-sm">
+        <article class="academy-card p-4"><p class="font-black text-rose-700">學前</p><p class="mt-1 text-slate-700">看很多作品會羨慕，但不知道該從哪個工具下手。</p></article>
+        <article class="academy-card p-4"><p class="font-black text-amber-700">學中</p><p class="mt-1 text-slate-700">先專精一個主工具，完成一個可交付任務。</p></article>
+        <article class="academy-card p-4"><p class="font-black text-emerald-700">學後</p><p class="mt-1 text-slate-700">能依情境選工具，不盲目「全都會」，而是「會做對」。</p></article>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8">
+      <h2 class="text-2xl font-black text-slate-900">工具分工地圖（情境導向）</h2>
+      <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+        <article class="rounded-2xl border border-sky-100 bg-sky-50 p-4"><p class="font-black text-sky-700">Photoshop</p><p class="mt-1 text-slate-700">修圖、去背、色調調整，讓素材品質達標。</p></article>
+        <article class="rounded-2xl border border-amber-100 bg-amber-50 p-4"><p class="font-black text-amber-700">Illustrator</p><p class="mt-1 text-slate-700">Logo、icon、向量圖，解決品牌資產與輸出一致性。</p></article>
+        <article class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4"><p class="font-black text-indigo-700">Figma</p><p class="mt-1 text-slate-700">UI 版型、設計系統、可協作原型，適合產品與網站。</p></article>
+        <article class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4"><p class="font-black text-emerald-700">Canva</p><p class="mt-1 text-slate-700">快速產圖、簡報、社群素材，效率最高的日常工具。</p></article>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">對錯示範：設計不是堆特效</h2>
+      <div class="grid lg:grid-cols-2 gap-4 text-sm">
+        <article class="academy-card p-5 border-rose-200 bg-rose-50/70">
+          <p class="font-black text-rose-700">❌ 錯誤示範</p>
+          <ul class="mt-3 list-disc pl-5 text-rose-700 space-y-1">
+            <li>同一畫面用 5 種字體、顏色無規則</li>
+            <li>主標落在高噪點背景上不可讀</li>
+            <li>所有內容都想放，沒有資訊階層</li>
+            <li>只輸出單一尺寸，手機版直接破版</li>
+          </ul>
+        </article>
+        <article class="academy-card p-5 border-emerald-200 bg-emerald-50/70">
+          <p class="font-black text-emerald-700">✅ 正確示範</p>
+          <ul class="mt-3 list-disc pl-5 text-emerald-700 space-y-1">
+            <li>固定 2 種字體、3 種字重與主色系</li>
+            <li>主標與背景對比至少 4.5:1</li>
+            <li>每頁只保留一個主訊息與一個 CTA</li>
+            <li>先做 1:1、4:5、16:9 三種尺寸驗證</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-6">
+      <h2 class="text-2xl font-black text-slate-900">圖文教學：活動主視覺完整流程</h2>
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80" alt="視覺設計流程工作桌示意" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
+      <div class="grid md:grid-cols-4 gap-3 text-sm">
+        <div class="academy-card p-4"><p class="font-black text-indigo-700">Step 1</p><p class="mt-1 text-slate-700">Figma 先做版型草圖：標題、圖區、CTA 的位置先定。</p></div>
+        <div class="academy-card p-4"><p class="font-black text-sky-700">Step 2</p><p class="mt-1 text-slate-700">Photoshop 修圖：去背、調光、降噪，主體可讀性優先。</p></div>
+        <div class="academy-card p-4"><p class="font-black text-amber-700">Step 3</p><p class="mt-1 text-slate-700">Illustrator 補 icon 與向量圖形，確保放大不失真。</p></div>
+        <div class="academy-card p-4"><p class="font-black text-emerald-700">Step 4</p><p class="mt-1 text-slate-700">Canva 批量套版，輸出社群尺寸與簡報封面。</p></div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">真實長案例：活動主視覺從亂到穩</h2>
+      <div class="grid lg:grid-cols-2 gap-4 text-sm">
+        <article class="academy-card p-4 border-rose-200 bg-rose-50/70">
+          <p class="font-black text-rose-700">舊版本（失敗）</p>
+          <p class="mt-2 text-slate-700">海報上同時放了活動名稱、三段描述、四個優惠、三個按鈕。因為沒有資訊層級，手機版縮小後主標只剩 20% 可讀。雖然很花，但重點不清楚，CTA 點擊率只有 0.8%。</p>
+        </article>
+        <article class="academy-card p-4 border-emerald-200 bg-emerald-50/70">
+          <p class="font-black text-emerald-700">新版本（成功）</p>
+          <p class="mt-2 text-slate-700">先固定一個主訊息：「限時工作坊報名」。副標只保留「日期＋地點」，CTA 改成「立即預約席次」。同時做 1:1、4:5、16:9 三版，確保任何平台都不破版。調整後 CTA 點擊率提升到 2.9%。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">互動工具：先選情境，再選程度</h2>
+      <p class="text-sm text-slate-600">你不用全部工具都會。先選你目前情境與程度，系統會推薦最短學習路徑與可執行任務。</p>
+      <div class="space-y-3">
+        <div class="text-xs font-black text-slate-500 uppercase tracking-wider">情境</div>
+        <div id="design-scenario-bar" class="flex flex-wrap gap-2"></div>
+        <div class="text-xs font-black text-slate-500 uppercase tracking-wider">程度</div>
+        <div id="design-level-bar" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-4 text-sm">
+        <div id="design-plan-card" class="academy-card p-4">
+          <p class="font-black text-indigo-700">推薦工具路徑</p>
+          <p id="design-plan" class="mt-2 text-slate-700"></p>
+          <p id="design-detail" class="mt-2 text-slate-600"></p>
+        </div>
+        <div id="design-homework-card" class="academy-card p-4">
+          <p class="font-black text-emerald-700">本週可交付任務</p>
+          <ul id="design-homework" class="mt-2 list-disc pl-5 text-slate-700 space-y-1"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">一鍵生成我的設計任務單</h2>
+      <p class="text-sm text-slate-600">輸入你的產業、目標對象、輸出平台，系統會給你「工具順序 + 交付清單 + 檢查重點」。</p>
+      <div class="grid md:grid-cols-3 gap-3 text-sm">
+        <label class="space-y-1"><span class="font-bold text-slate-700">產業</span><input id="design-industry" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：健身教練品牌" /></label>
+        <label class="space-y-1"><span class="font-bold text-slate-700">對象</span><input id="design-audience" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：25-35 歲上班族" /></label>
+        <label class="space-y-1"><span class="font-bold text-slate-700">輸出平台</span><input id="design-platform" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：IG + 簡報封面" /></label>
+      </div>
+      <button type="button" id="design-gen-btn" class="px-4 py-2 rounded-lg bg-violet-600 text-white font-bold text-sm">一鍵生成我的版本</button>
+      <div id="design-gen-output" class="rounded-2xl bg-slate-900 text-emerald-300 p-4 text-sm leading-relaxed min-h-[130px]">填完欄位後點按鈕，這裡會產生你的設計任務單。</div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">互動練習：設計判斷小測（含動畫回饋）</h2>
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-4 text-sm">
+        <div class="h-3 rounded-full bg-slate-200 overflow-hidden">
+          <div id="design-quiz-bar" class="h-full bg-gradient-to-r from-violet-500 to-cyan-500 transition-all duration-500" style="width:0%"></div>
+        </div>
+        <p id="design-quiz-question" class="font-black text-slate-900"></p>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" onclick="answerDesignQuiz(true)" class="px-3 py-2 rounded-lg bg-emerald-600 text-white font-bold text-xs">正確做法</button>
+          <button type="button" onclick="answerDesignQuiz(false)" class="px-3 py-2 rounded-lg bg-rose-600 text-white font-bold text-xs">錯誤做法</button>
+        </div>
+        <p id="design-quiz-feedback" class="font-bold text-slate-700">作答後顯示說明。</p>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-fuchsia-50 via-violet-50 to-indigo-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">練習題</h2>
+      <ul class="space-y-3 text-slate-700 text-sm">
+        <li><strong>題目 1：</strong>做一張活動主視覺，輸出 1:1 / 4:5 / 16:9 三尺寸。</li>
+        <li><strong>題目 2：</strong>做一頁產品簡報，限制 3 色、2 字體、1 個 CTA。</li>
+        <li><strong>題目 3：</strong>用你選的主工具做主版，再用第二工具補上缺點（例如修圖或 icon）。</li>
+      </ul>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">課程教學</h2>
+      <p class="text-sm text-slate-600">下面是實戰型課綱，每課都有真實專案場景、常見錯誤、交付規範與驗收清單。</p>
+      <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
+        <span id="design-course-count" class="px-2 py-1 rounded-full bg-violet-50 text-violet-700">0/0 課完成</span>
+        <span id="design-course-rate" class="px-2 py-1 rounded-full bg-emerald-50 text-emerald-700">0%</span>
+        <button type="button" id="design-course-reset" class="ml-auto px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700">重置課程進度</button>
+      </div>
+      <div class="h-2 rounded-full bg-slate-100 overflow-hidden">
+        <div id="design-course-progress" class="h-full bg-gradient-to-r from-violet-500 to-cyan-500 transition-all duration-500" style="width:0%"></div>
+      </div>
+      <div class="grid lg:grid-cols-[260px,1fr] gap-4">
+        <aside id="design-course-nav" class="space-y-2"></aside>
+        <article id="design-course-panel" class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm"></article>
+      </div>
+    </section>
+
+    <div id="design-author-note"></div>
+  </main>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto"></footer>
+  <script>
+    const DESIGN_SCENARIOS = {
+      social: { label: '社群素材', beginner: 'Canva → Photoshop', advanced: 'Canva → Photoshop → Figma', detail: '先做可快速複製的模板，再補素材質感。', homeworkBase: ['做 3 張社群模板', '輸出 1:1 與 4:5 版本'] },
+      ui: { label: '網站 UI', beginner: 'Figma → Photoshop', advanced: 'Figma → Photoshop → Illustrator', detail: '先把版面系統做好，再補圖像與 icon 細節。', homeworkBase: ['做首頁 Hero 區塊', '建立按鈕與卡片元件'] },
+      brand: { label: '品牌識別', beginner: 'Illustrator → Canva', advanced: 'Illustrator → Photoshop → Canva', detail: '先完成 Logo 與品牌基礎，再擴展到應用版面。', homeworkBase: ['完成 Logo 黑白/彩色版', '整理品牌色與字體規範'] }
+    };
+    const DESIGN_LEVELS = {
+      beginner: { label: '初學', suffix: '（先能交付）', extra: '本週只專注在第一工具，不要分心學太多。' },
+      advanced: { label: '進階', suffix: '（開始整合）', extra: '第二工具只補強第一工具做不到的地方。' }
+    };
+    let activeScenario = 'social';
+    let activeLevel = 'beginner';
+    const DESIGN_COURSE = [
+      { title: '第 1 課：資訊層級與排版', goal: '先讓人看懂，再追求漂亮。', practical: '實務場景：活動主視覺在手機看不懂，通常不是美感問題，而是層級錯。', mistakes: ['同頁放太多訊息', '主標不夠醒目', '重要訊息沒有留白'], steps: ['主標先寫結論', '次標補條件與時間', '用留白拉出閱讀順序'], check: ['3 秒知道重點', 'CTA 一眼可見', '手機縮圖仍可讀'], hw: '重做一張舊海報，只保留一個主訊息。' },
+      { title: '第 2 課：色彩與可讀性', goal: '對比與辨識優先於裝飾。', practical: '實務場景：作品在自己螢幕好看，但上線後手機看不清。', mistakes: ['高飽和色亂用', '文字與背景對比不足', '品牌色沒有固定規則'], steps: ['先定主色與輔色', '檢查標題對比度', '統一按鈕與重點色'], check: ['對比達 4.5:1', '顏色有功能分工', '暗底亮底都可用'], hw: '把現有版面做出高對比與低對比兩版比較。' },
+      { title: '第 3 課：字體與網格系統', goal: '讓多頁視覺保持一致，不會每頁重做。', practical: '實務場景：提案改版時最常爆的是字級與間距不一致。', mistakes: ['每頁字體不同', '行距忽大忽小', '區塊對齊基準不一'], steps: ['固定字體階層', '建立 8pt 間距規則', '以網格對齊所有元件'], check: ['標題/內文層級固定', '間距有節奏', '版面對齊一致'], hw: '建立一份簡易設計規範（字級+間距+按鈕樣式）。' },
+      { title: '第 4 課：工具分工實作', goal: '知道哪個工具先做、哪個後做。', practical: '實務場景：常見錯誤是先修圖再改版，最後全重做。', mistakes: ['流程順序錯', '素材未先整理', '輸出尺寸到最後才補'], steps: ['Figma 定版型', 'Photoshop 修素材', 'Canva 批量輸出'], check: ['先有母版再修圖', '有尺寸清單', '輸出命名一致'], hw: '完成 1:1 與 4:5 兩版，內容一致但比例不同。' },
+      { title: '第 5 課：社群圖組批量製作', goal: '同一主題快速做多尺寸，不犧牲質感。', practical: '實務場景：每週都要發文，手工重做會拖慢產能。', mistakes: ['尺寸切換後破版', '圖文比例失衡', '每張風格都不同'], steps: ['先做主版', '再套多尺寸模板', '最後逐張檢查重點區'], check: ['三尺寸不破版', '重點區不被裁切', '品牌元素一致'], hw: '做一組 5 張輪播圖，含封面與 CTA 收尾。' },
+      { title: '第 6 課：簡報封面與內頁視覺', goal: '做出可提案、可說服的簡報視覺。', practical: '實務場景：簡報失敗常不是內容爛，而是版面沒有「決策感」。', mistakes: ['封面沒有主張', '內頁資訊堆疊', '圖表與敘述脫節'], steps: ['封面先有一句價值主張', '內頁一頁一結論', '圖表旁邊放決策語句'], check: ['封面可獨立理解', '每頁有結論', '資訊層級明確'], hw: '完成 1 份 6 頁提案視覺模板。' },
+      { title: '第 7 課：交付與版本管理', goal: '做出可交付、可修改、可延伸的設計檔。', practical: '實務場景：交檔後找不到母版與素材，導致每次修改都重做。', mistakes: ['命名混亂', '沒有打包素材', '客戶拿不到可編修檔'], steps: ['檔名規則統一', '輸出多尺寸與壓縮版', '提供母版與字體替代方案'], check: ['資料夾結構清楚', '可在 3 分鐘內找到檔案', '客戶可二次編修'], hw: '交付一份含母版、輸出版、素材清單的資料夾。' },
+      { title: '第 8 課：改稿溝通與提案策略', goal: '面對反覆改稿時，維持品質與效率。', practical: '實務場景：設計師最耗時的不是做圖，是不清楚的改稿需求。', mistakes: ['只收「感覺不對」', '沒有改稿範圍', '每次改版都動到全部'], steps: ['先確認目標受眾', '把意見轉成可執行項目', '分批次改稿並留版本紀錄'], check: ['改稿有優先順序', '每輪有驗收點', '改前改後可比對'], hw: '模擬一次客戶改稿，完成 v1→v2 版本說明。' }
+    ];
+    let designCourseIdx = 0;
+    let designCourseProgress = null;
+    const DESIGN_QUIZ = [
+      { q: '主視覺海報同時用 5 種字體能展現豐富感。', answer: false, why: '錯。字體過多會破壞層級與識別。' },
+      { q: '輸出前先做 1:1、4:5、16:9 尺寸檢查。', answer: true, why: '對。可避免各平台破版。' },
+      { q: '初學者應同時精通四套工具再接案。', answer: false, why: '錯。先專精一套可交付再擴展。' },
+      { q: 'CTA 與背景要有足夠對比，才看得到重點。', answer: true, why: '對。可讀性優先於裝飾。' }
+    ];
+    let designQuizIdx = 0;
+    let designQuizScore = 0;
+
+    function renderDesignRecommendation() {
+      const cfg = DESIGN_SCENARIOS[activeScenario];
+      const lv = DESIGN_LEVELS[activeLevel];
+      if (!cfg || !lv) return;
+      const planKey = activeLevel === 'beginner' ? 'beginner' : 'advanced';
+      document.getElementById('design-plan').textContent = cfg[planKey] + ' ' + lv.suffix;
+      document.getElementById('design-detail').textContent = cfg.detail + ' ' + lv.extra;
+      const ul = document.getElementById('design-homework');
+      ul.innerHTML = '';
+      cfg.homeworkBase.concat(activeLevel === 'advanced' ? ['加做一版整合輸出（例如簡報封面）'] : ['先做一版完成度高的單頁']).forEach(function(item) {
+        const li = document.createElement('li');
+        li.textContent = item;
+        ul.appendChild(li);
+      });
+      document.querySelectorAll('#design-scenario-bar .chip').forEach(btn => btn.classList.toggle('active', btn.dataset.key === activeScenario));
+      document.querySelectorAll('#design-level-bar .chip').forEach(btn => btn.classList.toggle('active', btn.dataset.key === activeLevel));
+      document.getElementById('design-plan-card').classList.add('card-pop');
+      document.getElementById('design-homework-card').classList.add('card-pop');
+      setTimeout(function() {
+        document.getElementById('design-plan-card').classList.remove('card-pop');
+        document.getElementById('design-homework-card').classList.remove('card-pop');
+      }, 600);
+    }
+    function renderDesignCourse(idx) {
+      const item = DESIGN_COURSE[idx];
+      if (!item) return;
+      designCourseIdx = idx;
+      const nav = document.getElementById('design-course-nav');
+      nav.innerHTML = '';
+      DESIGN_COURSE.forEach(function(course, i) {
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-2';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'flex-1 text-left px-3 py-3 rounded-xl border text-sm font-bold ' + (i === idx ? 'bg-violet-600 text-white border-violet-600' : 'bg-white text-slate-700 border-slate-200');
+        btn.textContent = course.title;
+        btn.onclick = function() {
+          if (designCourseProgress) designCourseProgress.select(i);
+          else renderDesignCourse(i);
+        };
+        const check = document.createElement('input');
+        check.type = 'checkbox';
+        check.className = 'h-5 w-5 accent-emerald-600';
+        check.checked = designCourseProgress ? designCourseProgress.isCompleted(i) : false;
+        check.title = '標記本課完成';
+        check.addEventListener('click', function(e) { e.stopPropagation(); });
+        check.addEventListener('change', function() {
+          if (designCourseProgress) {
+            designCourseProgress.setCompleted(i, check.checked);
+            renderDesignCourse(designCourseIdx);
+          }
+        });
+        row.appendChild(btn);
+        row.appendChild(check);
+        nav.appendChild(row);
+      });
+      const done = designCourseProgress ? designCourseProgress.isCompleted(idx) : false;
+      document.getElementById('design-course-panel').innerHTML =
+        '<p class="text-xs font-black text-violet-600 uppercase tracking-wider">學習目標</p>' +
+        '<h3 class="text-xl font-black text-slate-900 mt-1">' + item.title + '</h3>' +
+        '<p class="mt-2 text-slate-700">' + item.goal + '</p>' +
+        '<div class="mt-3 rounded-xl border border-violet-100 bg-violet-50 p-3 text-slate-700"><strong>實務經驗：</strong>' + item.practical + '</div>' +
+        '<p class="mt-4 font-black text-slate-900">常見錯誤（先避開）</p>' +
+        '<ul class="mt-2 list-disc pl-5 space-y-1 text-rose-700">' + item.mistakes.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ul>' +
+        '<p class="mt-4 font-black text-slate-900">本課步驟</p>' +
+        '<ol class="mt-2 list-decimal pl-5 space-y-1 text-slate-700">' + item.steps.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' +
+        '<p class="mt-4 font-black text-slate-900">交付檢查</p>' +
+        '<ul class="mt-2 list-disc pl-5 space-y-1 text-emerald-700">' + item.check.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ul>' +
+        '<button type="button" id="design-course-toggle" class="mt-4 px-3 py-2 rounded-lg text-xs font-bold ' + (done ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700') + '">' + (done ? '已完成（點擊取消）' : '標記本課完成') + '</button>' +
+        '<div class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-emerald-800"><strong>課後作業：</strong>' + item.hw + '</div>';
+      const toggleBtn = document.getElementById('design-course-toggle');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          if (designCourseProgress) {
+            designCourseProgress.toggleCompleted(designCourseIdx);
+            renderDesignCourse(designCourseIdx);
+          }
+        });
+      }
+      if (designCourseProgress) {
+        const st = designCourseProgress.getStats();
+        document.getElementById('design-course-progress').style.width = st.percent + '%';
+      }
+    }
+    function renderDesignCourseStats(st) {
+      document.getElementById('design-course-count').textContent = st.completed + '/' + st.total + ' 課完成';
+      document.getElementById('design-course-rate').textContent = st.percent + '%';
+      document.getElementById('design-course-progress').style.width = st.percent + '%';
+    }
+    function generateDesignDraft() {
+      const industry = (document.getElementById('design-industry').value || '').trim() || '你的產業';
+      const audience = (document.getElementById('design-audience').value || '').trim() || '你的目標受眾';
+      const platform = (document.getElementById('design-platform').value || '').trim() || '你的平台';
+      document.getElementById('design-gen-output').innerHTML = [
+        '【設計任務】',
+        '為' + industry + '製作一組給' + audience + '的視覺素材，輸出到 ' + platform + '。',
+        '',
+        '【建議工具順序】',
+        '1) Figma：先定版型與資訊層級',
+        '2) Photoshop：修圖與色調統一',
+        '3) Canva：快速產出多尺寸版本',
+        '',
+        '【交付清單】',
+        '- 主視覺 1:1 / 4:5 / 16:9',
+        '- 一頁簡報封面版',
+        '- 可編修母版',
+        '',
+        '【驗收重點】',
+        '- 主標可讀、CTA 明確',
+        '- 手機版不破版',
+        '- 顏色與字體一致'
+      ].join('<br>');
+    }
+    function renderDesignQuiz() {
+      document.getElementById('design-quiz-question').textContent = DESIGN_QUIZ[designQuizIdx].q;
+      document.getElementById('design-quiz-feedback').textContent = '作答後顯示說明。';
+    }
+    window.answerDesignQuiz = function(userAnswer) {
+      const q = DESIGN_QUIZ[designQuizIdx];
+      const ok = userAnswer === q.answer;
+      if (ok) designQuizScore += 1;
+      const fb = document.getElementById('design-quiz-feedback');
+      fb.textContent = (ok ? '✅ ' : '❌ ') + q.why;
+      fb.className = 'font-bold ' + (ok ? 'text-emerald-700 card-pop' : 'text-rose-700 card-pop');
+      setTimeout(function() {
+        designQuizIdx += 1;
+        if (designQuizIdx >= DESIGN_QUIZ.length) {
+          document.getElementById('design-quiz-question').textContent = '完成！你答對 ' + designQuizScore + ' / ' + DESIGN_QUIZ.length;
+          fb.textContent = '低於 3 題建議重看「對錯示範」與「流程教學」。';
+          document.getElementById('design-quiz-bar').style.width = '100%';
+          return;
+        }
+        document.getElementById('design-quiz-bar').style.width = Math.round((designQuizIdx / DESIGN_QUIZ.length) * 100) + '%';
+        renderDesignQuiz();
+      }, 900);
+    };
+
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', 'components/header.html');
+      includeComponentSlot('global-footer', 'components/footer.html');
+      const scenarioBar = document.getElementById('design-scenario-bar');
+      Object.keys(DESIGN_SCENARIOS).forEach(function(key) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip';
+        btn.dataset.key = key;
+        btn.textContent = DESIGN_SCENARIOS[key].label;
+        btn.onclick = function() { activeScenario = key; renderDesignRecommendation(); };
+        scenarioBar.appendChild(btn);
+      });
+      const levelBar = document.getElementById('design-level-bar');
+      Object.keys(DESIGN_LEVELS).forEach(function(key) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip';
+        btn.dataset.key = key;
+        btn.textContent = DESIGN_LEVELS[key].label;
+        btn.onclick = function() { activeLevel = key; renderDesignRecommendation(); };
+        levelBar.appendChild(btn);
+      });
+      renderDesignRecommendation();
+      renderDesignQuiz();
+      designCourseProgress = CourseProgress.create({
+        storageKey: 'course_progress_design_academy_v1',
+        total: DESIGN_COURSE.length,
+        onSelect: renderDesignCourse,
+        onStatsChange: renderDesignCourseStats
+      });
+      designCourseProgress.bindResetButton(document.getElementById('design-course-reset'), '確定重置「視覺設計學院」課程進度嗎？');
+      designCourseProgress.init();
+      document.getElementById('design-gen-btn').addEventListener('click', generateDesignDraft);
+      renderAuthorSignature('design-author-note');
+    });
+  </script>
+</body>
+</html>

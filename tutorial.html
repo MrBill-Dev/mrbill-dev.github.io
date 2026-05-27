@@ -76,7 +76,7 @@
     </div>
 
     <div id="tutorial-layout" class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full min-w-0">
-      <aside id="tutorial-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto lg:h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden custom-scrollbar"></aside>
+      <aside id="tutorial-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto overflow-y-visible overflow-x-hidden custom-scrollbar"></aside>
 
       <div id="lesson-main" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 scroll-mt-20">
         <div class="bg-white p-4 sm:p-6 md:p-8 rounded-3xl border border-slate-100 space-y-5 fade-in-up shadow-sm min-w-0 overflow-hidden">
@@ -139,10 +139,34 @@
   <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
 
   <script>
-    const LESSON_ORDER = typeof TUTORIAL_ORDER !== 'undefined' ? TUTORIAL_ORDER : Object.keys(tutorialRepository);
+    let LESSON_ORDER = [];
     let currentLessonKey = 'intro_welcome';
     let totalXp = 0;
     let completedSet = new Set();
+
+    function loadScriptTag(src) {
+      return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = () => resolve(src);
+        s.onerror = () => reject(new Error('載入失敗: ' + src));
+        document.head.appendChild(s);
+      });
+    }
+
+    async function ensureTutorialDataReady() {
+      if (typeof tutorialRepository !== 'undefined' && tutorialRepository) return true;
+      const candidates = ['js/tutorial-data.js', './js/tutorial-data.js', '/js/tutorial-data.js'];
+      for (const src of candidates) {
+        try {
+          await loadScriptTag(src);
+          if (typeof tutorialRepository !== 'undefined' && tutorialRepository) return true;
+        } catch (_) {
+          // 嘗試下一個候選路徑
+        }
+      }
+      return false;
+    }
 
     function loadProgress() {
       try {
@@ -494,10 +518,21 @@
       loadLesson(nextKey, targetBtn);
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
+      const dataReady = await ensureTutorialDataReady();
+      if (!dataReady) {
+        const title = document.getElementById('tuto-title');
+        const desc = document.getElementById('tuto-desc');
+        if (title) title.textContent = '課程資料載入失敗';
+        if (desc) desc.textContent = '請改用 HTTP 預覽（Go Live）並強制重新整理，或確認 js/tutorial-data.js 路徑可讀取。';
+        return;
+      }
+      LESSON_ORDER = typeof TUTORIAL_ORDER !== 'undefined' ? TUTORIAL_ORDER : Object.keys(tutorialRepository);
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       loadProgress();
       renderPreface();
+      // 先渲染第一課，避免側欄元件載入失敗時整頁停在「載入中」
+      loadLesson('intro_welcome', null, { scroll: false });
       includeComponentSlot('global-header', 'components/header.html', 'nav-tutorial');
       includeComponentSlot('global-footer', 'components/footer.html');
       includeComponentSlot('tutorial-sidebar', 'components/sidebar-tutorial.html', null, () => {

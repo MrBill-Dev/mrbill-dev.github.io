@@ -49,6 +49,18 @@
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full min-w-0 space-y-6 overflow-x-hidden">
+    <section class="relative overflow-hidden rounded-3xl border border-slate-200 shadow-lg">
+      <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80" alt="攝影主視覺" class="w-full h-[280px] md:h-[360px] object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/40 to-transparent"></div>
+      <div class="absolute inset-0 p-6 md:p-10 flex items-end">
+        <div class="max-w-3xl text-white">
+          <p class="text-xs md:text-sm font-black tracking-[0.2em] uppercase text-amber-300">Photography Lab</p>
+          <h1 class="text-3xl md:text-5xl font-black leading-tight mt-2">攝影與光影敘事學堂</h1>
+          <p class="mt-3 text-sm md:text-base text-slate-200 md:max-w-3xl leading-relaxed">從曝光、構圖、對焦到後期與剪映，建立可重複的影像工作流，讓作品不只好看，也能穩定交付。</p>
+        </div>
+      </div>
+    </section>
+
     <div id="intro-photography-block" class="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 md:p-8 rounded-2xl border border-purple-100 fade-in-up preface-split">
       <h3 id="photo-preface-title" class="preface-split-title text-xl md:text-2xl font-black text-purple-950 leading-snug"></h3>
       <div id="photo-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
@@ -66,7 +78,7 @@
 
     <div id="photo-layout" class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full min-w-0">
       
-      <aside id="photography-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 min-w-0 max-w-full lg:max-w-[16.5rem] bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto lg:h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden custom-scrollbar"></aside>
+      <aside id="photography-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 min-w-0 max-w-full lg:max-w-[16.5rem] bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto overflow-y-visible overflow-x-hidden custom-scrollbar"></aside>
 
       <div id="lesson-main-column" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 scroll-mt-20">
         
@@ -146,6 +158,9 @@
           <div class="pt-4 border-t border-slate-100">
             
             <p id="sandbox-hint" class="hidden text-sm font-medium text-slate-500 mb-2 bg-slate-50 rounded-xl px-4 py-2 border border-slate-100"></p>
+            <div id="sandbox-demo-tools" class="mb-3 flex flex-wrap items-center gap-2">
+              <button type="button" id="btn-reset-demo" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 text-xs font-bold shadow-sm hover:bg-slate-50">↺ 重設本課參數</button>
+            </div>
 
             <div id="panel-exposure-mode" class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div id="wrap-slider-aperture" class="space-y-1.5">
@@ -474,7 +489,6 @@
         opts = opts || {};
         const lesson = photographyRepository[key];
         if (!lesson) return;
-
         currentLessonKey = key;
         currentCapcutStep = lesson.capcutStep || 'import';
         document.getElementById('photo-title').textContent = lesson.title;
@@ -682,6 +696,13 @@
           const lightFb = lesson.previewFallback || IMG.splitLightAlt || IMG.aperturePortrait;
           setPreviewSrc(document.getElementById('view-bg-layer'), currentTargetImageSrc, lightFb, IMG.aperturePortrait);
           applyLightingPresetDefaults(lesson.lightingPreset);
+          if (key === 'photo_light_rim') {
+            setSandboxHint('← 人像逆光示範：先拉「補光強度」— 低＝剪影；提高＝臉部細節＋髮絲輪廓光');
+          } else if (key === 'photo_light_split') {
+            setSandboxHint('← 分割光：主光推到 90° 側邊，並降低補光');
+          } else {
+            setSandboxHint('← 拖動三個滑桿，觀察臉部明暗與輪廓分離');
+          }
           runLightingSimulation();
 
         } else {
@@ -756,6 +777,32 @@
       document.getElementById('triangle-diagram').classList.add('hidden');
       setSandboxHint('');
       setSliderFocus('all');
+    }
+
+    function runSliderStep(id, value, runner) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.value = value;
+      if (typeof runner === 'function') runner();
+    }
+
+    function resetCurrentModeControls() {
+      if (currentActiveMode === 'aperture') runSliderStep('slider-aperture', 0, runApertureCompare);
+      else if (currentActiveMode === 'shutter') runSliderStep('slider-shutter', 5, runShutterCompare);
+      else if (currentActiveMode === 'iso') runSliderStep('slider-iso', 0, runIsoCompare);
+      else if (currentActiveMode === 'composition') runSliderStep('slider-rotate', 0, runCompositionAdjustment);
+      else if (currentActiveMode === 'darkroom') runSliderStep('slider-ev', 0, runDarkroomRecoverySimulation);
+      else if (currentActiveMode === 'focus') runSliderStep('slider-focus', 5, runFocusSimulation);
+      else if (currentActiveMode === 'lens') runSliderStep('slider-focal', 3, runLensSimulation);
+      else if (currentActiveMode === 'wb') runSliderStep('slider-kelvin', 5, runWhiteBalanceSimulation);
+      else if (currentActiveMode === 'histogram') runSliderStep('slider-hist-ev', 0, runHistogramSimulation);
+      else if (currentActiveMode === 'video') runSliderStep('slider-timeline', 2, runVideoTimelineSimulation);
+      else if (currentActiveMode === 'curtain') runSliderStep('slider-curtain-shutter', 2, runCurtainLightStreakSimulation);
+      else if (currentActiveMode === 'lighting') {
+        runSliderStep('slider-light-angle', 4, runLightingSimulation);
+        runSliderStep('slider-fill', 5, runLightingSimulation);
+        runSliderStep('slider-softness', 6, runLightingSimulation);
+      }
     }
 
     function runExposureSandbox() {
@@ -1022,21 +1069,41 @@
       const lightX = 15 + angleVal * 7;
       const shadowStr = Math.max(0.15, 0.65 - fillVal * 0.045);
       const blurSpread = 8 + softVal * 4;
-      const rimBoost = currentLessonKey === 'photo_light_rim' ? 0.15 : 0;
+      const rimBoost = currentLessonKey === 'photo_light_rim' ? 0.22 + fillVal * 0.012 : 0;
       const splitEdge = 46 + angleVal * 3;
+      const rimSilhouette = currentLessonKey === 'photo_light_rim' && fillVal <= 3;
 
-      mask.style.opacity = 0.85;
+      mask.style.opacity = 0.88;
       if (currentLessonKey === 'photo_light_split') {
         mask.style.background = `linear-gradient(90deg, rgba(255,230,200,0.15) 0%, transparent ${splitEdge}%, rgba(0,0,0,${0.5 + (10 - fillVal) * 0.04}) ${splitEdge + 1}%, rgba(0,0,0,0.88) 100%)`;
+      } else if (currentLessonKey === 'photo_light_rim') {
+        const faceDark = rimSilhouette ? 0.82 : Math.max(0.25, 0.72 - fillVal * 0.05);
+        const rimGlow = 0.12 + fillVal * 0.02 + (10 - angleVal) * 0.008;
+        mask.style.background = `
+          radial-gradient(ellipse 55% 70% at 50% 18%, rgba(255,210,140,${rimGlow}) 0%, transparent 55%),
+          radial-gradient(ellipse ${blurSpread}% ${blurSpread * 1.1}% at ${Math.min(85, lightX + 35)}% 28%, transparent 0%, rgba(0,0,0,${faceDark}) 72%),
+          linear-gradient(180deg, rgba(255,200,120,${rimGlow * 0.6}) 0%, transparent 40%, rgba(0,0,0,${faceDark * 0.5}) 100%)
+        `;
       } else {
         mask.style.background = `
           radial-gradient(ellipse ${blurSpread}% ${blurSpread * 1.2}% at ${lightX}% 35%, transparent 0%, rgba(0,0,0,${shadowStr - rimBoost}) 70%),
           linear-gradient(${angleDeg + 90}deg, rgba(0,0,0,${0.5 - fillVal * 0.03}) 0%, transparent 55%, rgba(255,220,180,${0.08 + rimBoost}) 100%)
         `;
       }
-      bg.style.filter = `contrast(${1 + (10 - softVal) * 0.02}) brightness(${0.92 + fillVal * 0.008})`;
+      bg.style.filter = currentLessonKey === 'photo_light_rim'
+        ? `contrast(${1.05 + (10 - softVal) * 0.02}) brightness(${rimSilhouette ? 0.72 : 0.88 + fillVal * 0.025})`
+        : `contrast(${1 + (10 - softVal) * 0.02}) brightness(${0.92 + fillVal * 0.008})`;
 
       let msg = '💡 調整主光角度與補光，觀察臉部明暗比例與輪廓分離。';
+      if (currentLessonKey === 'photo_light_rim') {
+        if (rimSilhouette) {
+          msg = '🌑 補光偏低：臉部接近剪影，注意頭髮與肩線的亮邊（輪廓光）。';
+        } else if (fillVal >= 7) {
+          msg = '✨ 補光提高：臉部細節回來了，同時保留髮絲邊緣光暈。';
+        } else {
+          msg = '💡 輪廓光示範：觀察臉部明暗與髮際亮邊，避免臉部整片過曝。';
+        }
+      }
       if (currentLessonKey === 'photo_light_rembrandt' && angleVal >= 3 && angleVal <= 5 && fillVal <= 4) {
         msg = '🎭 林布蘭光成立！45° 主光 + 低補光，頰部應出現倒三角亮區。';
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
@@ -1048,6 +1115,12 @@
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
       } else if (currentLessonKey === 'photo_light_soft_hard' && softVal >= 7) {
         msg = '☁️ 柔光：陰影邊緣羽化，適合婚禮美肌與新娘特寫。';
+        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
+      } else if (currentLessonKey === 'photo_light_rim' && fillVal <= 2) {
+        msg = '🌑 剪影模式：主體變暗、背景亮，髮絲與肩線輪廓光最明顯。';
+        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
+      } else if (currentLessonKey === 'photo_light_rim' && fillVal >= 7) {
+        msg = '✨ 輪廓光＋臉部細節：補光足夠時，臉不再全黑，髮際仍保留亮邊。';
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
       } else {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-amber-50 text-amber-900 border-amber-100";
@@ -1280,6 +1353,8 @@
             return img.getAttribute('src');
           }
         });
+        const resetBtn = document.getElementById('btn-reset-demo');
+        if (resetBtn) resetBtn.addEventListener('click', resetCurrentModeControls);
     });
   </script>
 </body>

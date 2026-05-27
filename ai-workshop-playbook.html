@@ -6,6 +6,7 @@
   <title>AI 實戰教學總覽 | MrBill</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/components-loader.js"></script>
+  <script src="js/site-config.js"></script>
 </head>
 <body class="site-colorful bg-slate-50 text-slate-800 min-h-screen flex flex-col overflow-x-hidden">
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
@@ -55,6 +56,8 @@
         <a href="marketing-seo-geo.html" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 no-underline"><p class="font-black text-slate-900">SEO / GEO 實戰</p><p class="text-sm text-slate-600 mt-1">把 AI 應用到真實流量與轉換。</p></a>
       </div>
     </section>
+
+    <div id="workshop-author-note"></div>
   </main>
   <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
   <script>
@@ -118,6 +121,7 @@
     window.addEventListener('DOMContentLoaded', function() {
       includeComponentSlot('global-header', 'components/header.html');
       includeComponentSlot('global-footer', 'components/footer.html');
+      renderAuthorSignature('workshop-author-note');
       renderPack('starter');
       document.querySelectorAll('.pack-btn').forEach(btn => btn.addEventListener('click', () => renderPack(btn.dataset.pack)));
       bindDrill();

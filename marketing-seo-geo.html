@@ -31,6 +31,12 @@
     .article-prose p { line-height: 1.9; color: #334155; }
     .article-prose ul { margin-left: 1.25rem; list-style: disc; color: #334155; }
     .article-prose li { margin-bottom: 0.4rem; line-height: 1.75; }
+    .article-prose pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      overflow-x: hidden;
+    }
     .marketing-panel { animation: panelIn 0.32s cubic-bezier(0.16, 1, 0.3, 1); }
     .marketing-panel[hidden] { display: none; }
     .mk-nav-link.is-active {
@@ -121,7 +127,7 @@
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full min-w-0 space-y-6 overflow-x-hidden">
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full min-w-0">
-      <aside id="marketing-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 min-w-0 max-w-full lg:max-w-[16.5rem] bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto lg:h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden custom-scrollbar"></aside>
+      <aside id="marketing-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 min-w-0 max-w-full lg:max-w-[16.5rem] bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto overflow-y-visible overflow-x-hidden custom-scrollbar"></aside>
 
       <article id="marketing-content-stage" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 article-prose site-prose-safe scroll-mt-24">
         <section id="mk-overview" class="marketing-panel bg-white p-6 md:p-8 rounded-3xl border border-indigo-100 shadow-sm space-y-5">
@@ -178,6 +184,45 @@
               <div class="rounded-xl bg-white border border-emerald-100 p-3"><p class="font-black text-slate-900">Lv.2 結構</p><p class="mt-1 text-slate-700">把文章改成可擷取段落：結論在前、一段一重點、附條件。</p></div>
               <div class="rounded-xl bg-white border border-emerald-100 p-3"><p class="font-black text-slate-900">Lv.3 驗證</p><p class="mt-1 text-slate-700">用 UTM + GA4 檢查每種貼文的 CTR、停留、詢單差異。</p></div>
               <div class="rounded-xl bg-white border border-emerald-100 p-3"><p class="font-black text-slate-900">Lv.4 優化</p><p class="mt-1 text-slate-700">固定週迭代：只改 1-2 個變數，建立可複製 SOP。</p></div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-5 text-sm space-y-4">
+            <p class="font-black text-indigo-900">新手名詞白話辭典（先看這裡再往下讀）</p>
+            <div class="grid md:grid-cols-2 gap-3">
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">KPI</p><p class="text-slate-700 mt-1">你要追的目標數字。例：每月詢單 20 筆。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">CTR</p><p class="text-slate-700 mt-1">點擊率。看到你的人裡，有多少人真的點進來。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">CTA</p><p class="text-slate-700 mt-1">你要讀者做的下一步。例：下載清單、加 LINE。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">轉換（Conversion）</p><p class="text-slate-700 mt-1">有價值的動作真的發生。例：送出表單、完成下單。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">UTM</p><p class="text-slate-700 mt-1">網址後面的來源標記，幫你分辨流量從哪篇貼文來。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">GA4 事件（Event）</p><p class="text-slate-700 mt-1">網站行為紀錄點。例：點按鈕、捲動到底、送出詢單。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">SEO</p><p class="text-slate-700 mt-1">讓 Google 看懂你，並願意把你排在前面。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">GEO</p><p class="text-slate-700 mt-1">讓 AI 摘要系統更容易引用你段落的寫法。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">Search Intent</p><p class="text-slate-700 mt-1">搜尋意圖。使用者是想學習、比較，還是準備購買？</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">On-page</p><p class="text-slate-700 mt-1">頁內優化。標題、描述、小標、內文、圖片說明。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">E-E-A-T</p><p class="text-slate-700 mt-1">經驗、專業、權威、可信度。讓內容更有說服力。</p></div>
+              <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">漏斗（Funnel）</p><p class="text-slate-700 mt-1">從進站 → 互動 → 轉換，每一步的流失與改善點。</p></div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-2xl border border-rose-100 bg-rose-50 p-4">
+              <p class="font-black text-rose-800 mb-2">❌ 常見誤解（看不懂術語時最常犯）</p>
+              <ul class="space-y-1 text-rose-700">
+                <li>「SEO 就是塞關鍵字，越多越好」</li>
+                <li>「CTR 高就代表一定有成交」</li>
+                <li>「流量上升，表示內容成功」</li>
+                <li>「有 GA4 就會自動知道問題」</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+              <p class="font-black text-emerald-800 mb-2">✅ 正確理解（可直接套用）</p>
+              <ul class="space-y-1 text-emerald-700">
+                <li>SEO 是「回答意圖 + 結構清楚 + 技術可讀」，不是亂塞字。</li>
+                <li>CTR 只代表有被點，還要看 <code class="bg-white px-1 rounded">click_cta</code> 與 <code class="bg-white px-1 rounded">generate_lead</code>。</li>
+                <li>流量只是第一步，重點是漏斗後段是否轉換。</li>
+                <li>GA4 要先定義事件，數據才有意義。</li>
+              </ul>
             </div>
           </div>
         </section>
@@ -729,8 +774,8 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
           <!-- 模擬數據表 -->
           <div class="rounded-2xl border border-slate-200 overflow-hidden text-sm">
             <p class="px-5 pt-5 font-black text-slate-900">假設這是小明的某週 GA4 數據</p>
-            <div class="overflow-x-auto">
-              <table class="w-full mt-3 text-xs">
+            <div class="overflow-x-auto hidden md:block">
+              <table class="w-full mt-3 text-xs min-w-[760px]">
                 <thead class="bg-slate-50 text-slate-500 uppercase text-left">
                   <tr>
                     <th class="px-4 py-3 font-black">頁面</th>
@@ -768,6 +813,23 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div class="md:hidden px-4 pt-3 pb-2 space-y-3">
+              <article class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p class="font-black text-slate-900">台南手工皂推薦</p>
+                <p class="text-xs text-slate-600 mt-1">流量 <strong>180</strong> · 讀完率 <strong class="text-emerald-600">72%</strong> · CTA <strong class="text-rose-600">3 次</strong> · 詢問 <strong>1</strong></p>
+                <p class="text-xs text-amber-700 mt-2">診斷：讀完率高但沒按，CTA 太不明顯。</p>
+              </article>
+              <article class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p class="font-black text-slate-900">敏感肌手工皂選購</p>
+                <p class="text-xs text-slate-600 mt-1">流量 <strong>95</strong> · 讀完率 <strong class="text-rose-600">18%</strong> · CTA <strong>2 次</strong> · 詢問 <strong>0</strong></p>
+                <p class="text-xs text-rose-700 mt-2">診斷：讀完率太低，內容不符合搜尋意圖。</p>
+              </article>
+              <article class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p class="font-black text-slate-900">手工皂客製禮盒</p>
+                <p class="text-xs text-slate-600 mt-1">流量 <strong>75</strong> · 讀完率 <strong class="text-emerald-600">61%</strong> · CTA <strong class="text-emerald-600">18 次</strong> · 詢問 <strong>1</strong></p>
+                <p class="text-xs text-emerald-700 mt-2">診斷：點了沒詢問，詢問流程太麻煩。</p>
+              </article>
             </div>
             <p class="px-5 pb-5 pt-3 text-slate-600 text-xs">三頁三個問題，各自的優化方向完全不同——這就是為什麼要看詳細報表，而不是只看「總流量」。</p>
           </div>
