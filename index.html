@@ -1,592 +1,908 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" class="scroll-smooth">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MrBill AI Learning Studio</title>
-  
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
-
+  <script src="js/components-loader.js"></script>
+  <script src="js/ai-lab.js"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'Noto Sans TC', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#f5f3ff',
-              100: '#ede9fe',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-            },
-            accent: {
-              50: '#ecfeff',
-              500: '#06b6d4',
-              600: '#0891b2',
-            }
-          },
-          boxShadow: {
-            'premium': '0 10px 30px -10px rgba(0, 0, 0, 0.04), 0 1px 1px 0 rgba(0, 0, 0, 0.02)',
-            'premium-hover': '0 20px 40px -15px rgba(79, 70, 229, 0.12), 0 1px 10px 0 rgba(0, 0, 0, 0.02)',
-          }
+          fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Noto Sans TC"', 'sans-serif'] },
+          colors: { brand: { 50: '#f5f3ff', 100: '#ede9fe', 500: '#6366f1', 600: '#4f46e5' } }
         }
       }
     }
   </script>
-
   <style>
-    body {
-      font-family: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif;
+    :root {
+      --tone-indigo: #6366f1;
+      --tone-cyan: #06b6d4;
+      --tone-violet: #8b5cf6;
+      --tone-amber: #f59e0b;
+      --surface-glass: rgba(255, 255, 255, 0.72);
+      --surface-border: rgba(148, 163, 184, 0.25);
+      --shadow-soft: 0 24px 48px rgba(79, 70, 229, 0.12);
     }
-    /* 高級進場與懸停動畫 */
-    .fade-in-up {
-      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); filter: blur(4px); }
-      to { opacity: 1; transform: translateY(0); filter: blur(0); }
-    }
-    .nav-link-active {
-      color: #4f46e5;
-      background-color: #f5f3ff;
-    }
-    .card-transition {
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .card-transition:hover {
-      transform: translateY(-6px);
+    html, body { overflow-x: hidden; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* ── Hero 動畫背景 ── */
+    .hero-bg {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, #0f0c29 0%, #302b63 40%, #24243e 100%);
     }
+    .hero-bg::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,0.55) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(72px); opacity: 0.55; pointer-events: none;
+    }
+    .orb-1 { width: 480px; height: 480px; background: radial-gradient(circle, #6366f1, #4f46e5);
+              top: -120px; left: -80px; animation: floatA 12s ease-in-out infinite; }
+    .orb-2 { width: 360px; height: 360px; background: radial-gradient(circle, #06b6d4, #0e7490);
+              top: -60px; right: -60px; animation: floatB 16s ease-in-out infinite; }
+    .orb-3 { width: 260px; height: 260px; background: radial-gradient(circle, #a78bfa, #7c3aed);
+              bottom: -40px; left: 30%; animation: floatC 10s ease-in-out infinite; }
+    .orb-4 { width: 200px; height: 200px; background: radial-gradient(circle, #34d399, #059669);
+              bottom: 20px; right: 10%; animation: floatA 14s ease-in-out infinite reverse; }
+    @keyframes floatA {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(40px,-60px) scale(1.12); }
+      66%      { transform: translate(-30px,30px) scale(0.92); }
+    }
+    @keyframes floatB {
+      0%,100% { transform: translate(0,0) scale(1); }
+      40%      { transform: translate(-50px,40px) scale(1.08); }
+      70%      { transform: translate(30px,-20px) scale(0.94); }
+    }
+    @keyframes floatC {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%      { transform: translate(20px,-40px) scale(1.15); }
+    }
+
+    /* star / dot grid */
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, black 40%, transparent 100%);
+    }
+
+    /* ── 卡片 hover 提升 ── */
+    .card-lift { transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), box-shadow 0.22s; }
+    .card-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(99,102,241,0.12); }
+
+    /* ── 按鈕 shimmer ── */
+    .btn-shimmer { position: relative; overflow: hidden; }
+    .btn-shimmer::after {
+      content: ''; position: absolute; top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.22), transparent);
+      transform: skewX(-20deg);
+      animation: shimmer 3.5s ease-in-out infinite;
+    }
+    @keyframes shimmer { 0%,100% { left: -75%; } 50% { left: 125%; } }
+
+    /* 全寬 Hero */
+    .hero-fullbleed {
+      position: relative;
+      left: 50%;
+      right: 50%;
+      width: 100vw;
+      margin-left: -50vw;
+      margin-right: -50vw;
+    }
+    .parallax-layer { will-change: transform; transition: transform 0.1s linear; }
+
+    /* 整站色帶 */
+    body.site-colorful {
+      background:
+        radial-gradient(ellipse 120% 80% at 0% 0%, rgba(99, 102, 241, 0.12), transparent 50%),
+        radial-gradient(ellipse 100% 60% at 100% 20%, rgba(6, 182, 212, 0.1), transparent 45%),
+        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(167, 139, 250, 0.08), transparent 40%),
+        #f1f5f9;
+    }
+    .section-tint-indigo { background: linear-gradient(180deg, rgba(99,102,241,0.06) 0%, transparent 100%); }
+    .section-tint-amber { background: linear-gradient(180deg, rgba(245,158,11,0.06) 0%, transparent 100%); }
+    .home-band {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2rem;
+      border: 1px solid var(--surface-border);
+      background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(248,250,252,0.65));
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(8px);
+    }
+    .home-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 45%);
+    }
+    .reveal-block {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal-block.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .home-heading {
+      background: linear-gradient(90deg, #312e81, #0f766e, #7c3aed);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .section-kicker {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #6366f1;
+      margin-bottom: 0.5rem;
+    }
+    .home-section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.35), transparent);
+      margin: 0.5rem 0 2rem;
+    }
+    .home-surface-alt {
+      border-radius: 2rem;
+      padding: 2rem 1.5rem;
+      background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(241,245,249,0.35) 100%);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    @media (min-width: 768px) {
+      .home-surface-alt { padding: 2.5rem 2rem; }
+    }
+    .mini-feature {
+      border-radius: 1.25rem;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1.25rem 1.25rem;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .mini-feature:hover {
+      border-color: rgba(99, 102, 241, 0.35);
+      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.08);
+      transform: translateY(-2px);
+    }
+    .orb-wisp {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(45px);
+      opacity: 0.3;
+      pointer-events: none;
+      animation: drift 10s ease-in-out infinite;
+    }
+    .orb-wisp.wisp-a { width: 180px; height: 180px; right: -30px; top: -40px; background: var(--tone-indigo); }
+    .orb-wisp.wisp-b { width: 160px; height: 160px; left: -20px; bottom: -35px; background: var(--tone-cyan); animation-delay: 2s; }
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(18px, -16px); }
+    }
+
+    /* AI 學習區統一版面（互動練習 / Prompt / 小遊戲） */
+    .ai-lab-stack {
+      max-width: 72rem;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .ai-lab-hero {
+      width: 100%;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) { .ai-lab-hero { padding: 2rem; } }
+    .ai-lab-hero-indigo {
+      border: 1px solid #c7d2fe;
+      background: linear-gradient(135deg, #eef2ff 0%, #fff 50%, #ecfeff 100%);
+    }
+    .ai-lab-hero-emerald {
+      border: 1px solid #a7f3d0;
+      background: linear-gradient(135deg, #ecfdf5 0%, #fff 50%, #ecfeff 100%);
+    }
+    .ai-lab-hero-purple {
+      border: 1px solid #e9d5ff;
+      background: linear-gradient(135deg, #faf5ff 0%, #fff 55%, #eef2ff 100%);
+    }
+    .ai-lab-panel {
+      width: 100%;
+      background: #fff;
+      border-radius: 1.5rem;
+      border: 1px solid #e2e8f0;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    }
+    @media (min-width: 768px) { .ai-lab-panel { padding: 2rem 2.5rem; } }
+    .ai-lab-panel-emerald { border-color: #a7f3d0; }
+    .ai-lab-panel-purple { border-color: #e9d5ff; }
+    .ai-lab-callout {
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.875rem;
+    }
+    .ai-lab-callout-indigo { border: 1px solid #c7d2fe; background: rgba(238, 242, 255, 0.85); }
+    .ai-lab-callout-emerald { border: 1px solid #a7f3d0; background: rgba(236, 253, 245, 0.85); }
+    .ai-lab-mode-bar {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .ai-lab-grid-2 {
+      width: 100%;
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 1024px) { .ai-lab-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .ai-lab-grid-3 {
+      width: 100%;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) { .ai-lab-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .ai-lab-card {
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .ai-lab-card-media { width: 100%; height: 9rem; object-fit: cover; flex-shrink: 0; }
+    .ai-lab-card-icon {
+      height: 9rem;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.25rem;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .ai-lab-card-body {
+      padding: 1rem 1.25rem 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .ai-lab-subcard {
+      width: 100%;
+      border-radius: 1.5rem;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      padding: 1.5rem;
+    }
+    @media (min-width: 768px) { .ai-lab-subcard { padding: 2rem; } }
   </style>
 </head>
+<body class="site-colorful text-slate-800 antialiased min-h-screen flex flex-col text-lg">
 
-<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-      
-      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
-        <div class="w-10 h-10 bg-gradient-to-tr from-brand-600 to-accent-500 rounded-xl flex items-center justify-center shadow-md shadow-brand-500/20 text-white font-bold text-xl">B</div>
-        <div class="flex flex-col">
-          <span class="font-extrabold text-slate-900 tracking-tight text-lg">MrBill AI Studio</span>
-          <span class="text-xs text-slate-400 font-medium tracking-wider uppercase">Tech & Creative</span>
-        </div>
+  <!-- 全寬主視覺（僅首頁 tab 顯示） -->
+  <div id="home-hero-bleed" class="hero-fullbleed hero-bg py-24 md:py-36 px-6 md:px-12 text-center shadow-2xl shadow-indigo-950/25 hidden">
+    <div class="hero-orb orb-1 parallax-layer" data-parallax="0.15"></div>
+    <div class="hero-orb orb-2 parallax-layer" data-parallax="0.25"></div>
+    <div class="hero-orb orb-3 parallax-layer" data-parallax="0.1"></div>
+    <div class="hero-orb orb-4 parallax-layer" data-parallax="0.2"></div>
+    <div class="hero-grid parallax-layer" data-parallax="0.05"></div>
+    <div class="relative z-10 max-w-5xl mx-auto space-y-7 fade-in-up">
+      <div class="flex justify-center">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-black bg-white/10 text-cyan-100 uppercase tracking-widest ring-1 ring-white/20 backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block"></span>
+          MrBill 數位實驗室 · 持續更新中
+        </span>
       </div>
-
-      <nav class="hidden md:flex items-center gap-1">
-        <button id="btn-home" onclick="switchTab('home')" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-brand-600 hover:bg-slate-50 transition-all">首頁入口</button>
-        <button id="btn-course" onclick="switchTab('course')" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-brand-600 hover:bg-slate-50 transition-all">AI 課程</button>
-        <button id="btn-practice" onclick="switchTab('practice')" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-brand-600 hover:bg-slate-50 transition-all">互動練習</button>
-        <button id="btn-showcase" onclick="switchTab('showcase')" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-brand-600 hover:bg-slate-50 transition-all">作品展示</button>
-        <button id="btn-tool" onclick="switchTab('tool')" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-brand-600 hover:bg-slate-50 transition-all">Prompt 工具</button>
-        <button id="btn-game" onclick="switchTab('game')" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:text-brand-600 hover:bg-slate-50 transition-all">AI 小遊戲</button>
-      </nav>
-
-      <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors">
-        <svg id="menu-icon" class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </div>
-
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-6 py-4 space-y-2 absolute w-full left-0 shadow-lg">
-      <button onclick="switchTab('home'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600">首頁入口</button>
-      <button onclick="switchTab('course'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600">AI 課程</button>
-      <button onclick="switchTab('practice'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600">互動練習</button>
-      <button onclick="switchTab('showcase'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600">作品展示</button>
-      <button onclick="switchTab('tool'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600">Prompt 工具</button>
-      <button onclick="switchTab('game'); toggleMobileMenu()" class="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600">AI 小遊戲</button>
-    </div>
-  </header>
-
-  <section class="bg-gradient-to-b from-brand-50 via-white to-[#f8fafc] py-20 px-6 relative overflow-hidden border-b border-slate-100">
-    <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#4f46e5_1px,transparent_1px)] [background-size:16px_16px]"></div>
-    <div class="max-w-4xl mx-auto text-center relative z-10 fade-in-up">
-      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-brand-100 text-brand-700 uppercase tracking-wider mb-4">💡 Next-Gen Learning Platform</span>
-      <h1 class="text-4xl md:text-6xl font-black text-slate-950 tracking-tight leading-tight md:leading-none">
-        AI 教學與互動學習空間
+      <h1 class="mx-auto max-w-4xl text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[1.08] md:leading-[1.06]">
+        <span class="block">指尖編寫世界，</span>
+        <span class="block bg-gradient-to-r from-cyan-300 via-violet-300 to-indigo-300 bg-clip-text text-transparent">光影點亮靈感</span>
       </h1>
-      <p class="text-lg md:text-xl text-slate-500 mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
-        建構孩子與開發者的未來視野。融合<span class="text-brand-600 font-semibold">網頁前端</span>、<span class="text-accent-600 font-semibold">影像美學</span>與 <span class="text-slate-900 font-semibold">AI 實踐</span>，讓思考成為最棒的創作工具。
+      <p class="text-base sm:text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-medium px-2 sm:px-0">
+        我們厭倦「看過等於學過」的謊言。<strong class="text-white whitespace-nowrap">親身挑戰，AI 伴你啟新章。</strong>
       </p>
+      <div class="flex flex-wrap justify-center gap-3 pt-2">
+        <a href="tutorial.html" class="btn-shimmer px-7 py-3.5 rounded-2xl bg-indigo-500 text-white font-black text-base shadow-lg shadow-indigo-500/40 hover:bg-indigo-400 transition-colors no-underline">前端與設計手冊 →</a>
+        <a href="photography.html" class="btn-shimmer px-7 py-3.5 rounded-2xl bg-amber-500 text-white font-black text-base shadow-lg shadow-amber-500/40 hover:bg-amber-400 transition-colors no-underline">攝影視覺學堂 →</a>
+        <a href="marketing-seo-geo.html" class="btn-shimmer px-7 py-3.5 rounded-2xl bg-emerald-500 text-white font-black text-base shadow-lg shadow-emerald-500/40 hover:bg-emerald-400 transition-colors no-underline">SEO / GEO 實戰 →</a>
+        <button type="button" onclick="switchTab('course')" class="px-7 py-3.5 rounded-2xl bg-white/10 text-white font-black text-base border border-white/25 hover:bg-white/20 transition-colors backdrop-blur-sm">AI 課程大綱</button>
+      </div>
+      <div class="flex flex-wrap justify-center gap-10 pt-8 border-t border-white/10 text-white">
+        <div class="text-center"><p class="text-3xl md:text-4xl font-black text-cyan-300">30+</p><p class="text-sm text-slate-400 mt-1">攝影互動課</p></div>
+        <div class="text-center"><p class="text-3xl md:text-4xl font-black text-indigo-300">Live</p><p class="text-sm text-slate-400 mt-1">Code 沙盒</p></div>
+        <div class="text-center"><p class="text-3xl md:text-4xl font-black text-violet-300">RTCS</p><p class="text-sm text-slate-400 mt-1">Prompt 架構</p></div>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <main class="max-w-7xl mx-auto px-6 py-12 flex-grow w-full">
+  <main class="max-w-7xl mx-auto px-6 py-8 flex-grow w-full">
 
-    <section id="sect-home" class="tab-content space-y-12">
-      <div class="flex items-center justify-between">
-        <div>
-          <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">🚀 核心學習領域</h2>
-          <p class="text-sm text-slate-400 mt-1">點選導覽列或下方卡片進入深度探索</p>
+    <section id="sect-home" class="tab-content hidden space-y-16 pb-16">
+      <div class="reveal-block space-y-10">
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="card-lift bg-white p-7 rounded-3xl border border-indigo-100 shadow-sm group">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">💻</div>
+              <h3 class="text-lg font-black text-slate-900">前端工程</h3>
+              <p class="text-slate-500 text-base mt-2 leading-relaxed">HTML、CSS、JavaScript 沙盒即寫即看。版面、RWD、互動元件——網站怎麼長出來，一行一行看懂。</p>
+            </div>
+            <div class="card-lift bg-white p-7 rounded-3xl border border-amber-100 shadow-sm group">
+              <div class="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📸</div>
+              <h3 class="text-lg font-black text-slate-900">影像美學</h3>
+              <p class="text-slate-500 text-base mt-2 leading-relaxed">光圈、快門、ISO、打燈、剪映。手機與相機分流教學，互動沙盒感受曝光與景深，不是背口訣。</p>
+            </div>
+            <div class="card-lift bg-white p-7 rounded-3xl border border-purple-100 shadow-sm group">
+              <div class="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🤖</div>
+              <h3 class="text-lg font-black text-slate-900">AI 協作力</h3>
+              <p class="text-slate-500 text-base mt-2 leading-relaxed">搞懂大語言模型在做什麼、Prompt 怎麼寫才精準。會問問題的人，比會死記語法的人更吃香。</p>
+            </div>
+          </div>
+          <div class="home-band p-6 md:p-8 space-y-6">
+            <h2 class="text-3xl font-black tracking-tight">🗺 <span class="home-heading">平台學習地圖</span></h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <a href="tutorial.html" class="group bg-white rounded-2xl p-5 border border-slate-100 hover:border-indigo-200 hover:shadow-md transition-all no-underline">
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">專區 A</span>
+                <h3 class="text-lg font-bold text-slate-900 mt-3 group-hover:text-indigo-600">前端與設計手冊</h3>
+                <p class="text-sm text-slate-500 mt-2 leading-relaxed">語法教學 + 即時程式沙盒。適合想自己做網頁、Landing Page 的學員。</p>
+              </a>
+              <a href="photography.html" class="group bg-white rounded-2xl p-5 border border-slate-100 hover:border-amber-200 hover:shadow-md transition-all no-underline">
+                <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-1 rounded-lg">專區 B</span>
+                <h3 class="text-lg font-bold text-slate-900 mt-3 group-hover:text-amber-700">攝影視覺學堂</h3>
+                <p class="text-sm text-slate-500 mt-2 leading-relaxed">曝光三角、打燈、錄影剪映。婚禮、Vlog、螢火蟲夜景等實戰情境。</p>
+              </a>
+              <button onclick="switchTab('course')" class="group bg-white rounded-2xl p-5 border border-slate-100 hover:border-brand-200 hover:shadow-md transition-all text-left w-full">
+                <span class="text-xs font-bold text-brand-600 bg-brand-50 px-2 py-1 rounded-lg">專區 C</span>
+                <h3 class="text-lg font-bold text-slate-900 mt-3 group-hover:text-brand-600">AI 完整課程</h3>
+                <p class="text-sm text-slate-500 mt-2 leading-relaxed">涵蓋 LLM、RAG、Agent、多模態與 AI 治理。</p>
+              </button>
+              <button onclick="switchTab('practice')" class="group bg-white rounded-2xl p-5 border border-slate-100 hover:border-cyan-200 hover:shadow-md transition-all text-left w-full">
+                <span class="text-xs font-bold text-cyan-600 bg-cyan-50 px-2 py-1 rounded-lg">專區 D</span>
+                <h3 class="text-lg font-bold text-slate-900 mt-3">概念互動練習</h3>
+                <p class="text-sm text-slate-500 mt-2 leading-relaxed">18+ 問題，從基礎概念到倫理安全完整整理。</p>
+              </button>
+              <button onclick="switchTab('tool')" class="group bg-white rounded-2xl p-5 border border-slate-100 hover:border-purple-200 hover:shadow-md transition-all text-left w-full">
+                <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded-lg">專區 E</span>
+                <h3 class="text-lg font-bold text-slate-900 mt-3">Prompt 工具</h3>
+                <p class="text-sm text-slate-500 mt-2 leading-relaxed">分類式 .md 模板與 AI 模擬回覆預覽。</p>
+              </button>
+              <button onclick="switchTab('game')" class="group bg-white rounded-2xl p-5 border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all text-left w-full">
+                <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg">專區 F</span>
+                <h3 class="text-lg font-bold text-slate-900 mt-3">AI 小遊戲中心</h3>
+                <p class="text-sm text-slate-500 mt-2 leading-relaxed">測驗、快問快答、情境配對三種模式。</p>
+              </button>
+            </div>
+          </div>
+      </div>
+
+      <div class="reveal-block space-y-8">
+          <div class="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white rounded-[2rem] p-8 md:p-12 space-y-8">
+            <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-indigo-600/20 blur-3xl pointer-events-none"></div>
+            <div class="absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none"></div>
+            <div class="text-center md:text-left relative">
+              <h2 class="text-3xl font-black tracking-tight">📈 建議學習路徑</h2>
+              <p class="text-slate-400 mt-2 text-base max-w-2xl">可依年齡與目標跳段，但「先看得懂、再動手做」是共通原則。</p>
+            </div>
+            <div class="relative grid md:grid-cols-4 gap-6">
+              <div class="relative pl-8 border-l-2 border-indigo-500">
+                <span class="absolute -left-3 top-0 w-6 h-6 rounded-full bg-indigo-500 text-xs font-black flex items-center justify-center">1</span>
+                <h4 class="font-bold text-lg">啟蒙觀念</h4>
+                <p class="text-slate-400 text-sm mt-2 leading-relaxed">互動練習 + AI 小遊戲，建立「AI 是工具不是魔法」的正確期待。</p>
+              </div>
+              <div class="relative pl-8 border-l-2 border-cyan-500">
+                <span class="absolute -left-3 top-0 w-6 h-6 rounded-full bg-cyan-500 text-xs font-black flex items-center justify-center">2</span>
+                <h4 class="font-bold text-lg">前端實作</h4>
+                <p class="text-slate-400 text-sm mt-2 leading-relaxed">手冊沙盒寫出第一個會動的網頁，理解 DOM 與樣式如何協作。</p>
+              </div>
+              <div class="relative pl-8 border-l-2 border-amber-500">
+                <span class="absolute -left-3 top-0 w-6 h-6 rounded-full bg-amber-500 text-xs font-black flex items-center justify-center">3</span>
+                <h4 class="font-bold text-lg">影像表達</h4>
+                <p class="text-slate-400 text-sm mt-2 leading-relaxed">攝影學堂掌握光與構圖，產出能放進網站與影片的作品。</p>
+              </div>
+              <div class="relative pl-8 border-l-2 border-emerald-500">
+                <span class="absolute -left-3 top-0 w-6 h-6 rounded-full bg-emerald-500 text-xs font-black flex items-center justify-center">4</span>
+                <h4 class="font-bold text-lg">AI 協作整合</h4>
+                <p class="text-slate-400 text-sm mt-2 leading-relaxed">Prompt 工具加速寫文案、修 Code；懂底層才能審稿不踩雷。</p>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-5">
+            <h3 class="text-2xl font-black text-slate-900">👥 誰適合來這裡？</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div class="home-band p-6"><span class="text-2xl">🧒</span><h4 class="font-bold text-slate-900 mt-3">國小高年級～高中</h4><p class="text-slate-500 text-sm mt-2 leading-relaxed">用互動問答和遊戲先建立 AI 與網頁的基本觀念，避免一開始被術語嚇退，逐步養成動手做的信心。</p></div>
+              <div class="home-band p-6"><span class="text-2xl">👨‍👩‍👧</span><h4 class="font-bold text-slate-900 mt-3">親子共學家庭</h4><p class="text-slate-500 text-sm mt-2 leading-relaxed">家長可先理解每個主題的重點與風險，再陪孩子實作。從「會用工具」進階到「會判斷內容品質」。</p></div>
+              <div class="home-band p-6"><span class="text-2xl">🔄</span><h4 class="font-bold text-slate-900 mt-3">轉職／自學開發者</h4><p class="text-slate-500 text-sm mt-2 leading-relaxed">補齊前端基礎與 AI 協作流程，將零散知識整合成可交付作品，適合要做作品集或接案的人。</p></div>
+              <div class="home-band p-6"><span class="text-2xl">🎬</span><h4 class="font-bold text-slate-900 mt-3">影像創作者</h4><p class="text-slate-500 text-sm mt-2 leading-relaxed">從曝光、構圖、錄影到剪輯與 AI 輔助流程一次打通，讓視覺產出可同時兼顧品質與效率。</p></div>
+            </div>
+          </div>
+          <div class="space-y-5">
+            <h3 class="text-2xl font-black text-slate-900">🎯 我們怎麼教？</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div class="home-band p-6"><h4 class="font-bold text-slate-900">實作優先</h4><p class="text-slate-600 mt-2 text-sm leading-relaxed">每個單元都能立即動手：寫一段、拍一張、剪一段，避免只看理論卻無法落地。</p></div>
+              <div class="home-band p-6"><h4 class="font-bold text-slate-900">三層難度</h4><p class="text-slate-600 mt-2 text-sm leading-relaxed">初學看懂概念，中階做出作品，進階優化流程。不同背景都能接得上。</p></div>
+              <div class="home-band p-6"><h4 class="font-bold text-slate-900">跨域整合</h4><p class="text-slate-600 mt-2 text-sm leading-relaxed">把前端、影像、行銷與 AI 串成一條完整工作流，不再分散在不同平台。</p></div>
+              <div class="home-band p-6"><h4 class="font-bold text-slate-900">人機協作</h4><p class="text-slate-600 mt-2 text-sm leading-relaxed">AI 負責加速，人類負責審美、邏輯與責任，建立可長期使用的工作方法。</p></div>
+            </div>
+          </div>
+      </div>
+
+      <div class="reveal-block home-surface-alt space-y-10">
+          <div class="space-y-2">
+            <span class="section-kicker">Start Here</span>
+            <h2 class="text-3xl font-black tracking-tight text-slate-900">🚀 精選入口</h2>
+            <p class="text-slate-500 text-base max-w-2xl">三大主軸一次進站：先選你最想解決的問題，再沿著學習路徑往下走。</p>
+            <div class="home-section-divider"></div>
+          </div>
+          <div class="grid md:grid-cols-3 gap-8">
+            <div onclick="switchTab('course')" class="card-lift bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm cursor-pointer flex flex-col group">
+              <div class="relative overflow-hidden h-44">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent"></div>
+                <span class="absolute bottom-3 left-4 px-2.5 py-1 text-xs font-bold rounded-lg bg-brand-500 text-white">AI 科學思維</span>
+              </div>
+              <div class="p-6 flex flex-col flex-1">
+                <h3 class="text-xl font-black text-slate-900">AI 核心觀念與課程大綱</h3>
+                <p class="text-base text-slate-500 mt-2 leading-relaxed flex-1">神經網路、大語言模型、Prompt 架構——用聽得懂的語言建立正確模型。</p>
+                <div class="text-brand-600 font-black text-sm mt-4 pt-3 border-t border-slate-100">探索課程 →</div>
+              </div>
+            </div>
+            <a href="photography.html" class="card-lift bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm flex flex-col group no-underline">
+              <div class="relative overflow-hidden h-44">
+                <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80" alt="攝影視覺學堂" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent"></div>
+                <span class="absolute bottom-3 left-4 px-2.5 py-1 text-xs font-bold rounded-lg bg-amber-500 text-white">互動沙盒</span>
+              </div>
+              <div class="p-6 flex flex-col flex-1">
+                <h3 class="text-xl font-black text-slate-900">攝影視覺學堂</h3>
+                <p class="text-base text-slate-500 mt-2 leading-relaxed flex-1">曝光、打燈、剪映——超過三十堂互動課，手機與相機分開教。</p>
+                <div class="text-amber-700 font-black text-sm mt-4 pt-3 border-t border-slate-100">進入學堂 →</div>
+              </div>
+            </a>
+            <a href="tutorial.html" class="card-lift bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm flex flex-col group no-underline">
+              <div class="relative overflow-hidden h-44">
+                <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent"></div>
+                <span class="absolute bottom-3 left-4 px-2.5 py-1 text-xs font-bold rounded-lg bg-indigo-500 text-white">Live Code</span>
+              </div>
+              <div class="p-6 flex flex-col flex-1">
+                <h3 class="text-xl font-black text-slate-900">前端與設計手冊</h3>
+                <p class="text-base text-slate-500 mt-2 leading-relaxed flex-1">HTML／CSS／JS 範例 + 沙盒編譯，從靜態版面做到有互動的網頁。</p>
+                <div class="text-indigo-600 font-black text-sm mt-4 pt-3 border-t border-slate-100">打開手冊 →</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="home-band p-8 md:p-10">
+            <div class="grid lg:grid-cols-5 gap-8 items-start">
+              <div class="lg:col-span-2 space-y-3">
+                <span class="section-kicker text-emerald-600">Cross · Skill</span>
+                <h2 class="text-2xl md:text-3xl font-black text-slate-900">✨ 當 AI 遇上創意產出</h2>
+                <p class="text-slate-600 leading-relaxed text-base">未來的創作者不是只會按按鈕，而是能把網頁、影像、文字組裝成完整作品的人。</p>
+                <p class="text-sm text-slate-500 leading-relaxed">本站把「看得懂原理」放在「用工具加速」之前，讓 AI 成為放大器，而不是取代思考的捷徑。</p>
+              </div>
+              <div class="lg:col-span-3 grid sm:grid-cols-2 gap-4">
+                <div class="mini-feature">
+                  <span class="text-xl">🌐</span>
+                  <h4 class="font-bold text-slate-900 mt-2">網站架設</h4>
+                  <p class="text-sm text-slate-600 mt-1 leading-relaxed">自己寫的 HTML 放進作品集，懂結構才能審 AI 生成的 Code。</p>
+                </div>
+                <div class="mini-feature">
+                  <span class="text-xl">📷</span>
+                  <h4 class="font-bold text-slate-900 mt-2">視覺內容</h4>
+                  <p class="text-sm text-slate-600 mt-1 leading-relaxed">先懂曝光與構圖，再談 AI 修圖與生成，品質才可控。</p>
+                </div>
+                <div class="mini-feature">
+                  <span class="text-xl">🎬</span>
+                  <h4 class="font-bold text-slate-900 mt-2">影片剪輯</h4>
+                  <p class="text-sm text-slate-600 mt-1 leading-relaxed">剪映流程搭配快門觀念，讓動態作品也有攝影底子。</p>
+                </div>
+                <div class="mini-feature">
+                  <span class="text-xl">⚡</span>
+                  <h4 class="font-bold text-slate-900 mt-2">AI 加速</h4>
+                  <p class="text-sm text-slate-600 mt-1 leading-relaxed">結構化 Prompt 寫教案與文案，人類負責把關與定調。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="reveal-block space-y-8">
+          <div class="home-band p-6 md:p-10 space-y-5">
+            <h2 class="text-3xl font-black">❓ <span class="home-heading">常見問題</span></h2>
+            <div class="space-y-3 max-w-none">
+              <details class="bg-white rounded-2xl border border-slate-100 p-5 group">
+                <summary class="font-bold text-slate-900 cursor-pointer list-none flex justify-between items-center">需要先有程式基礎嗎？<span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span></summary>
+                <p class="text-slate-600 text-sm mt-3 leading-relaxed">不需要。前端手冊與攝影學堂都從白話層開始；AI 課程也會先建立觀念再進階。</p>
+              </details>
+              <details class="bg-white rounded-2xl border border-slate-100 p-5 group">
+                <summary class="font-bold text-slate-900 cursor-pointer list-none flex justify-between items-center">AI 會取代程式設計師嗎？<span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span></summary>
+                <p class="text-slate-600 text-sm mt-3 leading-relaxed">AI 會取代重複勞動；懂原理、會審 Code 的人反而產能更高。</p>
+              </details>
+              <details class="bg-white rounded-2xl border border-slate-100 p-5 group">
+                <summary class="font-bold text-slate-900 cursor-pointer list-none flex justify-between items-center">攝影課一定要單眼相機嗎？<span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span></summary>
+                <p class="text-slate-600 text-sm mt-3 leading-relaxed">不用。本站有手機與相機分流教學，原理一致，操作分開。</p>
+              </details>
+              <details class="bg-white rounded-2xl border border-slate-100 p-5 group">
+                <summary class="font-bold text-slate-900 cursor-pointer list-none flex justify-between items-center">內容會持續更新嗎？<span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span></summary>
+                <p class="text-slate-600 text-sm mt-3 leading-relaxed">會。課程、練習與工具模組都會持續新增並同步到首頁入口。</p>
+              </details>
+            </div>
+          </div>
+          <div class="text-center bg-white/88 rounded-3xl border border-slate-100 py-12 px-6 shadow-sm backdrop-blur">
+            <h2 class="text-2xl md:text-3xl font-black text-slate-900">準備好開始了嗎？</h2>
+            <p class="text-slate-500 mt-3 max-w-xl mx-auto">選一個入口，今天就能完成一小段實作。</p>
+            <div class="flex flex-wrap justify-center gap-3 mt-8">
+              <button onclick="switchTab('practice')" class="px-6 py-3 rounded-xl bg-brand-600 text-white font-bold hover:bg-brand-700 transition-colors">先做互動練習</button>
+              <button onclick="switchTab('tool')" class="px-6 py-3 rounded-xl bg-slate-100 text-slate-800 font-bold hover:bg-slate-200 transition-colors">試用 Prompt 工具</button>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section id="sect-course" class="tab-content hidden space-y-10 fade-in-up pb-12">
+      <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-600 p-8 md:p-12 text-white">
+        <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
+        <h2 class="text-3xl md:text-4xl font-black relative">📚 AI 實戰學程（2025 情境對齊）</h2>
+        <p class="text-indigo-100 mt-3 max-w-3xl relative leading-relaxed">涵蓋 LLM、RAG、Agent、多模態、IDE 協作、企業治理——對應 ChatGPT、Claude、Gemini、Cursor、Midjourney 等真實工作流。</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white rounded-2xl p-5 border border-indigo-100 shadow-sm text-center"><p class="text-2xl font-black text-indigo-600">8</p><p class="text-xs font-bold text-slate-600 mt-1">核心模組</p></div>
+        <div class="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm text-center"><p class="text-2xl font-black text-purple-600">.md</p><p class="text-xs font-bold text-slate-600 mt-1">結構化 Prompt</p></div>
+        <div class="bg-white rounded-2xl p-5 border border-cyan-100 shadow-sm text-center"><p class="text-2xl font-black text-cyan-600">RAG</p><p class="text-xs font-bold text-slate-600 mt-1">企業知識庫</p></div>
+        <div class="bg-white rounded-2xl p-5 border border-emerald-100 shadow-sm text-center"><p class="text-2xl font-black text-emerald-600">Agent</p><p class="text-xs font-bold text-slate-600 mt-1">自動化工作流</p></div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-indigo-500">
+          <h3 class="text-xl font-black text-slate-900">M1 · 大語言模型與生成式 AI 原理</h3>
+          <p class="mt-2 text-slate-600 leading-relaxed">Token、上下文視窗、Transformer、幻覺機制。能解釋「為何 AI 會自信說錯」並選對模型（對話 / 推理 / 多模態）。</p>
+          <p class="text-sm font-bold text-indigo-600 mt-3">實務：比較 GPT-4o、Claude、Gemini 適用場景 · 搭配概念練習「基礎觀念」</p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-purple-500">
+          <h3 class="text-xl font-black text-slate-900">M2 · Prompt 工程與 Markdown 工作流</h3>
+          <p class="mt-2 text-slate-600 leading-relaxed">Role / Task / Context / Constraints / Output；Chain-of-Thought、Few-shot。以 .md 撰寫可複製、可版本控管的指令模板。</p>
+          <p class="text-sm font-bold text-purple-600 mt-3">實務：本站 Prompt 矩陣 · 模擬 AI 回覆預覽</p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-cyan-500">
+          <h3 class="text-xl font-black text-slate-900">M3 · RAG 與企業知識應用</h3>
+          <p class="mt-2 text-slate-600 leading-relaxed">文件切片、向量搜尋、引用回答。客服 FAQ、內部 SOP、法規查詢——避免把機密資料丟進公開免費版。</p>
+          <p class="text-sm font-bold text-cyan-600 mt-3">實務：NotebookLM / 自建知識庫概念 · 搭配倫理單元</p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-violet-500">
+          <h3 class="text-xl font-black text-slate-900">M4 · AI Agent 與自動化</h3>
+          <p class="mt-2 text-slate-600 leading-relaxed">任務拆解、工具呼叫（搜尋、API、檔案）。理解 Cursor、Copilot、Zapier+AI 的邊界與風險控管。</p>
+          <p class="text-sm font-bold text-violet-600 mt-3">實務：定義「人類必須審核」的關卡清單</p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-emerald-500">
+          <h3 class="text-xl font-black text-slate-900">M5 · 開發協作（Vibe Coding / Code Review）</h3>
+          <p class="mt-2 text-slate-600 leading-relaxed">AI 生成 HTML/CSS/JS、單元測試、重構建議。人類負責架構、安全、RWD、無障礙與 GA4 事件。</p>
+          <p class="text-sm font-bold text-emerald-600 mt-3">實務：<a href="tutorial.html" class="underline">前端手冊</a> + IDE 外掛</p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-amber-500">
+          <h3 class="text-xl font-black text-slate-900">M6 · 多模態：影像、影片、語音</h3>
+          <p class="mt-2 text-slate-600 leading-relaxed">Midjourney / Flux 提示詞、Runway / Kling 短片、Whisper 字幕、TTS 配音。先懂攝影曝光再生成，品質才可控。</p>
+          <p class="text-sm font-bold text-amber-600 mt-3">實務：<a href="photography.html" class="underline">攝影學堂</a></p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-rose-500">
+          <h3 class="text-xl font-black text-slate-900">M7 · 行銷、SEO 與 GEO</h3>
+          <p class="mt-2 text-slate-600 leading-relaxed">AI 輔助內容產出 + 人工 E-E-A-T；結構化段落利於 Google 與 AI 摘要引用；GA4 驗證轉換。</p>
+          <p class="text-sm font-bold text-rose-600 mt-3">實務：<a href="marketing-seo-geo.html" class="underline">SEO / GEO 實戰</a></p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-slate-500">
+          <h3 class="text-xl font-black text-slate-900">M8 · 治理、倫理與合規</h3>
+          <p class="mt-2 text-slate-600 leading-relaxed">幻覺查證、個資法、版權、偏見、深度偽造標示。企業採用 ChatGPT Team / Azure OpenAI 的決策要點。</p>
+          <p class="text-sm font-bold text-slate-600 mt-3">實務：概念練習「倫理與安全」· 小遊戲「幻覺辨識」</p>
         </div>
       </div>
-      
+
+      <div class="bg-slate-900 text-white rounded-[2rem] p-8">
+        <h3 class="font-black text-lg mb-4">🗓 建議學習路徑（16 週）</h3>
+        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <div class="rounded-xl bg-white/10 p-4"><span class="font-bold text-cyan-300">週 1–2</span><p class="text-slate-300 mt-1">M1–M2 原理 + Prompt</p></div>
+          <div class="rounded-xl bg-white/10 p-4"><span class="font-bold text-purple-300">週 3–4</span><p class="text-slate-300 mt-1">M3 RAG + M8 倫理</p></div>
+          <div class="rounded-xl bg-white/10 p-4"><span class="font-bold text-emerald-300">週 5–8</span><p class="text-slate-300 mt-1">M4–M5 Agent + 開發</p></div>
+          <div class="rounded-xl bg-white/10 p-4"><span class="font-bold text-amber-300">週 9–16</span><p class="text-slate-300 mt-1">M6–M7 多模態 + 行銷專題</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sect-practice" class="tab-content hidden fade-in-up pb-12">
+      <div class="ai-lab-stack">
+      <div class="ai-lab-hero ai-lab-hero-indigo">
+        <div class="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-indigo-200/40 blur-2xl pointer-events-none"></div>
+        <div class="relative">
+          <p class="text-xs font-black uppercase tracking-wider text-indigo-600 mb-2">Interactive Lab</p>
+          <h2 class="text-3xl font-black text-slate-900">🧩 概念互動練習箱</h2>
+          <p class="text-slate-500 mt-2 text-base">7 大主題、35+ 題＋上課示範腳本、課堂活動與延伸練習。點選問題後可切換「解析／怎麼教／下一步」——適合自學也適合帶班。</p>
+        </div>
+      </div>
+      <div class="ai-lab-panel">
+        <div class="ai-lab-callout ai-lab-callout-indigo">
+          <p class="font-black text-indigo-900">新手操作提醒</p>
+          <p class="text-slate-700 mt-1">先挑一個主題，先看「概念解析」理解名詞，再切到「上課怎麼帶」學流程，最後看「延伸與下一步」知道課後要做什麼。</p>
+        </div>
+        <div id="practice-root"></div>
+      </div>
+      <div class="ai-lab-grid-2">
+        <div class="ai-lab-subcard">
+          <h3 class="text-xl font-black text-slate-900">🧭 新手上手路線（建議 7 天）</h3>
+          <ol class="mt-3 list-decimal pl-5 space-y-2 text-sm text-slate-700">
+            <li>Day 1：基礎觀念 2 題（LLM + Token）</li>
+            <li>Day 2：Prompt 工程 2 題（RTCS + Few-shot）</li>
+            <li>Day 3：職場應用 1 題（寫文案或審 Code）</li>
+            <li>Day 4：倫理安全 1 題（個資 / 幻覺）</li>
+            <li>Day 5：多模態 1 題（產圖或影片）</li>
+            <li>Day 6：到 Prompt 工具做一份 .md 交付稿</li>
+            <li>Day 7：到小遊戲跑完「下一步指引」</li>
+          </ol>
+        </div>
+        <div class="ai-lab-subcard">
+          <h3 class="text-xl font-black text-slate-900">🧪 你可以直接做的實戰任務</h3>
+          <div class="mt-3 space-y-3 text-sm">
+            <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-3">
+              <p class="font-black text-indigo-800">任務 A：把理論變教學稿</p>
+              <p class="text-slate-700 mt-1">把任一題改寫成「給國中生可懂」版本，並加一個課堂活動。</p>
+            </div>
+            <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-3">
+              <p class="font-black text-emerald-800">任務 B：雙模型比較</p>
+              <p class="text-slate-700 mt-1">同一份 Prompt 丟兩種 AI，比較差異並寫修正版。</p>
+            </div>
+            <div class="rounded-xl border border-amber-100 bg-amber-50 p-3">
+              <p class="font-black text-amber-800">任務 C：產圖審稿</p>
+              <p class="text-slate-700 mt-1">做一張 AI 圖，列出「可用點 / 風險點 / 人工修正點」。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <section id="sect-showcase" class="tab-content hidden space-y-8 fade-in-up pb-12">
+      <div class="border-b border-slate-100 pb-4">
+        <h2 class="text-3xl font-black text-slate-900">🎨 多媒體與 AI 創意藝廊</h2>
+        <p class="text-slate-500 mt-2 text-base">展示「技術 + 美學」的整合方向。實作練習請進入攝影學堂與前端手冊。</p>
+      </div>
       <div class="grid md:grid-cols-3 gap-8">
-        <div onclick="switchTab('course')" class="bg-white rounded-3xl p-6 shadow-premium card-transition hover:shadow-premium-hover cursor-pointer border border-slate-100 flex flex-col justify-between">
+        <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+          <div class="aspect-video bg-slate-100"><img src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover" /></div>
+          <div class="p-6"><span class="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">AI 生成</span><h4 class="font-bold text-lg mt-2">超現實光影空間</h4><p class="text-sm text-slate-500 mt-2 leading-relaxed">Prompt 描述材質與光比，再人工微調構圖。</p></div>
+        </div>
+        <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+          <div class="aspect-video bg-slate-100"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover" /></div>
+          <div class="p-6"><span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">攝影實拍</span><h4 class="font-bold text-lg mt-2">婚禮逆光與後簾同步</h4><p class="text-sm text-slate-500 mt-2 leading-relaxed">對應攝影學堂「閃燈與慢速快門」單元。</p></div>
+        </div>
+        <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+          <div class="aspect-video bg-slate-100"><img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover" /></div>
+          <div class="p-6"><span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">前端作品</span><h4 class="font-bold text-lg mt-2">互動學習平台介面</h4><p class="text-sm text-slate-500 mt-2 leading-relaxed">HTML + Tailwind 打造的教學站，即你正在瀏覽的架構。</p></div>
+        </div>
+        <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+          <div class="aspect-video bg-slate-100"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover" /></div>
+          <div class="p-6"><span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">風景攝影</span><h4 class="font-bold text-lg mt-2">山景曝光與直方圖</h4><p class="text-sm text-slate-500 mt-2 leading-relaxed">理解動態範圍，避免高光過曝死白。</p></div>
+        </div>
+        <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+          <div class="aspect-video bg-slate-100"><img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover" /></div>
+          <div class="p-6"><span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">影片剪輯</span><h4 class="font-bold text-lg mt-2">活動精華快剪</h4><p class="text-sm text-slate-500 mt-2 leading-relaxed">剪映轉場 + 踩點節奏，對應錄影專區課程。</p></div>
+        </div>
+        <div class="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
+          <div class="aspect-video bg-slate-100"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="" class="w-full h-full object-cover" /></div>
+          <div class="p-6"><span class="text-xs font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded">人像</span><h4 class="font-bold text-lg mt-2">大光圈虛化特寫</h4><p class="text-sm text-slate-500 mt-2 leading-relaxed">攝影學堂光圈沙盒的實拍目標效果。</p></div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-4 justify-center pt-4">
+        <a href="photography.html" class="px-6 py-3 rounded-xl bg-amber-600 text-white font-bold no-underline hover:bg-amber-700 transition-colors">去攝影學堂實作 →</a>
+        <a href="tutorial.html" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-bold no-underline hover:bg-indigo-700 transition-colors">去前端手冊實作 →</a>
+      </div>
+    </section>
+
+    <section id="sect-tool" class="tab-content hidden fade-in-up pb-12">
+      <div class="ai-lab-stack">
+      <div class="ai-lab-hero ai-lab-hero-purple">
+        <h2 class="text-3xl font-black text-slate-900">🧰 高階 Prompt 提示詞工程矩陣</h2>
+        <p class="text-slate-500 mt-2 text-base">選應用場景 → 選<strong>實戰情境流程</strong>（含產圖需求）→ 微調 RTCS 因子 → 一鍵產出 .md Prompt，並預覽 AI 回覆與常見踩雷。</p>
+      </div>
+      <div class="ai-lab-subcard border-purple-100 bg-gradient-to-br from-purple-50 via-white to-indigo-50">
+        <div class="grid lg:grid-cols-2 gap-6 items-center">
           <div>
-            <div class="overflow-hidden rounded-2xl mb-5 aspect-[4/3] bg-slate-100">
-              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" alt="AI"/>
-            </div>
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-brand-50 text-brand-600">基礎觀念</span>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900">AI 核心觀念導引</h3>
-            <p class="text-sm text-slate-500 mt-2 leading-relaxed">理解機器學習、大語言模型如何運作，培養科技時代的邏輯思維基礎。</p>
+            <p class="text-xs font-black uppercase tracking-wider text-purple-600">Prompt Starter</p>
+            <h3 class="text-2xl md:text-3xl font-black text-slate-900 mt-2">新手看這裡：先照 4 步走，不用一次全懂</h3>
+            <ol class="mt-4 list-decimal pl-5 space-y-2 text-sm text-slate-700">
+              <li>先選「應用分類」：教學 / 開發 / 行銷 / 影像...</li>
+              <li>再選一個「實戰情境」：例如 45 分工作坊或電商產圖</li>
+              <li>微調 Role/Task/Context/Style，看右側 Prompt 即時更新</li>
+              <li>點進階技巧（可複選），再複製 .md 直接貼到你常用 AI</li>
+            </ol>
           </div>
-          <div class="mt-6 pt-4 border-t border-slate-50 flex items-center text-sm font-bold text-brand-600 gap-1">探索課程 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
-        </div>
-
-        <div onclick="switchTab('tool')" class="bg-white rounded-3xl p-6 shadow-premium card-transition hover:shadow-premium-hover cursor-pointer border border-slate-100 flex flex-col justify-between">
-          <div>
-            <div class="overflow-hidden rounded-2xl mb-5 aspect-[4/3] bg-slate-100">
-              <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" alt="Prompt"/>
-            </div>
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-accent-50 text-accent-600">高效實作</span>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900">Prompt 工程與對話</h3>
-            <p class="text-sm text-slate-500 mt-2 leading-relaxed">精準操控指令（Prompts），學會將精確的需求轉化為 AI 的高質量產出。</p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-slate-50 flex items-center text-sm font-bold text-accent-600 gap-1">玩轉工具 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
-        </div>
-
-        <div onclick="switchTab('showcase')" class="bg-white rounded-3xl p-6 shadow-premium card-transition hover:shadow-premium-hover cursor-pointer border border-slate-100 flex flex-col justify-between">
-          <div>
-            <div class="overflow-hidden rounded-2xl mb-5 aspect-[4/3] bg-slate-100">
-              <img src="https://images.unsplash.com/photo-1501183007986-d0d080b147f9?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" alt="Showcase"/>
-            </div>
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-emerald-50 text-emerald-600">美學實踐</span>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900">數位創意作品展示</h3>
-            <p class="text-sm text-slate-500 mt-2 leading-relaxed">結合攝影構圖、影片剪輯節奏與 AI 生成技術，打造令人驚豔的視覺藝術。</p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-slate-50 flex items-center text-sm font-bold text-emerald-600 gap-1">觀看展示 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></div>
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1000&q=80" alt="Prompt 工作流與 AI 情境示意" class="w-full rounded-2xl border border-purple-100 shadow-sm" loading="lazy" />
         </div>
       </div>
-    </section>
-
-    <section id="sect-course" class="tab-content hidden space-y-8 fade-in-up">
-      <div>
-        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">📚 AI 完整課堂進程</h2>
-        <p class="text-sm text-slate-400 mt-1">結構化教學大綱，專為寒暑假啟蒙教育設計</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white p-8 rounded-3xl shadow-premium border border-slate-100 group hover:border-brand-100 transition-colors">
-          <div class="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center text-brand-600 font-bold text-xl mb-6">01</div>
-          <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors">什麼是人工智能（AI）？</h3>
-          <p class="mt-3 text-slate-500 text-sm leading-relaxed">
-            人工智慧是透過演算法讓計算機模擬人類的學習、推理與思考能力。在日常生活中，不論是 ChatGPT 的文本回應、自動駕駛、手機影像自動優化，還是語音助理，背後都是 AI 模型的運算結晶。
-          </p>
-        </div>
-
-        <div class="bg-white p-8 rounded-3xl shadow-premium border border-slate-100 group hover:border-brand-100 transition-colors">
-          <div class="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center text-brand-600 font-bold text-xl mb-6">02</div>
-          <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors">Prompt 工程與溝通藝術</h3>
-          <p class="mt-3 text-slate-500 text-sm leading-relaxed">
-            提示詞（Prompt）是人類與 AI 模型溝通的橋樑。好的提示詞需要具備明確的「角色設定、任務目標、上下文脈絡、輸出格式限制」。指令描述得越精準，AI 給予的回饋品質就越高。
-          </p>
-        </div>
-
-        <div class="bg-white p-8 rounded-3xl shadow-premium border border-slate-100">
-          <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-brand-500"></span> 寒暑假實作趣味任務
-          </h3>
-          <ul class="space-y-3.5 text-sm font-medium text-slate-600">
-            <li class="flex items-center gap-3 bg-slate-50 p-3 rounded-xl"><span class="text-emerald-500 font-bold">✔</span> 恐龍冒險故事：利用 Prompt 建構多重結局腳本</li>
-            <li class="flex items-center gap-3 bg-slate-50 p-3 rounded-xl"><span class="text-emerald-500 font-bold">✔</span> 智能寫作夥伴：引導 AI 進行文章架構激盪與修辭優化</li>
-            <li class="flex items-center gap-3 bg-slate-50 p-3 rounded-xl"><span class="text-emerald-500 font-bold">✔</span> 虛擬角色扮演：設計獨特個性與對白邏輯的專屬 Agent</li>
-          </ul>
-        </div>
-
-        <div class="bg-white p-8 rounded-3xl shadow-premium border border-slate-100 bg-gradient-to-br from-brand-50/50 to-transparent">
-          <h3 class="text-lg font-bold text-slate-900 mb-3">🚀 未來的延伸思考</h3>
-          <p class="text-slate-500 text-sm leading-relaxed mb-4">
-            AI 並非要取代人類的創意，而是要成為擴展想像力的槓桿。在課程中，我們同時注重培養孩子們的「批判性思考」能力——學會判斷 AI 生成內容的準確性、合理性，並將其與程式開發、影音創作等實務技能深度互補。
-          </p>
-          <button onclick="switchTab('tool')" class="px-5 py-2.5 rounded-xl bg-brand-600 text-white text-xs font-bold shadow-md shadow-brand-500/20 hover:bg-brand-700 transition-colors">立即體驗 Prompt 工具</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="sect-practice" class="tab-content hidden space-y-8 fade-in-up">
-      <div>
-        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">🧩 概念互動練習箱</h2>
-        <p class="text-sm text-slate-400 mt-1">點擊核心問題，即時解鎖觀念導讀</p>
-      </div>
-
-      <div class="bg-white p-8 rounded-3xl shadow-premium border border-slate-100 max-w-4xl mx-auto">
-        <div class="grid sm:grid-cols-2 gap-4">
-          <button onclick="showAnswer('ai')" class="practice-btn text-left p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 hover:bg-brand-50/30 font-bold text-slate-800 hover:text-brand-700 transition-all card-transition">
-            ❓ AI 到底是怎麼學會人類說話的？
-          </button>
-          <button onclick="showAnswer('prompt')" class="practice-btn text-left p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 hover:bg-brand-50/30 font-bold text-slate-800 hover:text-brand-700 transition-all card-transition">
-            ❓ 為什麼我給 AI 的指令它總是不懂？
-          </button>
-          <button onclick="showAnswer('job')" class="practice-btn text-left p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 hover:bg-brand-50/30 font-bold text-slate-800 hover:text-brand-700 transition-all card-transition">
-            ❓ AI 時代下，學寫程式還有用嗎？
-          </button>
-          <button onclick="showAnswer('future')" class="practice-btn text-left p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 hover:bg-brand-50/30 font-bold text-slate-800 hover:text-brand-700 transition-all card-transition">
-            ❓ 小朋友應該怎麼準備未來與 AI 共存？
-          </button>
-        </div>
-
-        <div id="answerDisplay" class="mt-8 hidden p-6 rounded-2xl bg-gradient-to-r from-brand-50 to-accent-50/40 border border-brand-100/50 transition-all duration-300">
-          <h4 id="answerTitle" class="font-extrabold text-brand-900 text-lg mb-2"></h4>
-          <p id="answerContent" class="text-slate-600 text-sm leading-relaxed"></p>
-        </div>
-      </div>
-    </section>
-
-    <section id="sect-showcase" class="tab-content hidden space-y-8 fade-in-up">
-      <div>
-        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">🎨 多媒體與 AI 創作藝廊</h2>
-        <p class="text-sm text-slate-400 mt-1">展示結合前端架構、攝影構圖眼光與 AI 協同產出的示範作品</p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-3xl shadow-premium overflow-hidden border border-slate-100 card-transition group">
-          <div class="overflow-hidden aspect-video bg-slate-100 relative">
-            <img src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Showcase 1"/>
-            <span class="absolute top-4 left-4 px-2.5 py-1 text-[11px] font-bold tracking-wide uppercase rounded-lg bg-white/90 backdrop-blur-sm text-brand-600 shadow-sm">AI Midjourney</span>
-          </div>
-          <div class="p-5">
-            <h4 class="font-bold text-slate-900 text-base">超現實未來主義光影空間</h4>
-            <p class="text-xs text-slate-400 mt-1">探索賽博朋克與精緻攝影布光的完美平衡交織。</p>
+      <div class="ai-lab-panel ai-lab-panel-purple space-y-6">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm">
+          <p class="font-black text-slate-900 mb-2">常見 AI 平台差異（別只用同一家）</p>
+          <div class="grid md:grid-cols-3 gap-3">
+            <div class="rounded-xl bg-white border border-slate-200 p-3"><p class="font-bold text-slate-900">ChatGPT 系列</p><p class="text-slate-600 mt-1">通用寫作、多模態整合方便，外掛與生態完整。</p></div>
+            <div class="rounded-xl bg-white border border-slate-200 p-3"><p class="font-bold text-slate-900">Claude 系列</p><p class="text-slate-600 mt-1">長文理解與結構化輸出穩定，文件分析表現好。</p></div>
+            <div class="rounded-xl bg-white border border-slate-200 p-3"><p class="font-bold text-slate-900">Gemini / 其他模型</p><p class="text-slate-600 mt-1">與 Google 生態、搜尋資料整合有優勢，適合特定工作流。</p></div>
           </div>
         </div>
-
-        <div class="bg-white rounded-3xl shadow-premium overflow-hidden border border-slate-100 card-transition group">
-          <div class="overflow-hidden aspect-video bg-slate-100 relative">
-            <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Showcase 2"/>
-            <span class="absolute top-4 left-4 px-2.5 py-1 text-[11px] font-bold tracking-wide uppercase rounded-lg bg-white/90 backdrop-blur-sm text-accent-600 shadow-sm">Frontend Gen</span>
-          </div>
-          <div class="p-5">
-            <h4 class="font-bold text-slate-900 text-base">動態模組化網頁元件介面</h4>
-            <p class="text-xs text-slate-400 mt-1">高度重構、乾淨清爽的響應式前台UI控制架構。</p>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-3xl shadow-premium overflow-hidden border border-slate-100 card-transition group">
-          <div class="overflow-hidden aspect-video bg-slate-100 relative">
-            <img src="https://images.unsplash.com/photo-1531747118685-ca8fa6e08806?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Showcase 3"/>
-            <span class="absolute top-4 left-4 px-2.5 py-1 text-[11px] font-bold tracking-wide uppercase rounded-lg bg-white/90 backdrop-blur-sm text-emerald-600 shadow-sm">Kids Coding</span>
-          </div>
-          <div class="p-5">
-            <h4 class="font-bold text-slate-900 text-base">孩子獨立設計的恐龍生成文本</h4>
-            <p class="text-xs text-slate-400 mt-1">課堂上引導孩子編排出的冒險提示詞文本範例。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="sect-tool" class="tab-content hidden space-y-8 fade-in-up">
-      <div>
-        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">🧰 高階 Prompt 提示詞矩陣大師</h2>
-        <p class="text-sm text-slate-400 mt-1">透過點選下方維度因子，秒級組裝出符合結構化工程的精準 AI 指令</p>
-      </div>
-
-      <div class="bg-white p-8 rounded-3xl shadow-premium border border-slate-100 max-w-4xl mx-auto space-y-6">
-        
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">1. 賦予 AI 專家角色 (Role)</label>
-          <div id="matrix-role" class="flex flex-wrap gap-2">
-            <button onclick="selectFactor('role', this, '專業的國小金牌教師')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">🏫 國小金牌教師</button>
-            <button onclick="selectFactor('role', this, '富有科幻想像力的童話作家')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">🦖 科幻童話作家</button>
-            <button onclick="selectFactor('role', this, '資深資導與前端網頁架構師')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">💻 前端網頁架構師</button>
+          <label class="block text-xs font-bold uppercase tracking-wider text-purple-600 mb-3">Step 0 · 應用分類</label>
+          <div id="prompt-cat-bar" class="flex flex-wrap gap-2"></div>
+        </div>
+        <div id="prompt-scenario-panel" class="rounded-2xl border border-purple-100 bg-purple-50/40 p-5 space-y-3"></div>
+        <div id="prompt-tech-bar" class="flex flex-wrap gap-2"></div>
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="space-y-5">
+            <div><label class="block text-xs font-bold text-slate-400 mb-2">Role</label><div id="matrix-role" class="flex flex-wrap gap-2"></div></div>
+            <div><label class="block text-xs font-bold text-slate-400 mb-2">Task</label><div id="matrix-task" class="flex flex-wrap gap-2"></div></div>
+            <div><label class="block text-xs font-bold text-slate-400 mb-2">Context</label><div id="matrix-context" class="flex flex-wrap gap-2"></div></div>
+            <div><label class="block text-xs font-bold text-slate-400 mb-2">Style</label><div id="matrix-style" class="flex flex-wrap gap-2"></div></div>
+            <div id="prompt-image-builder" class="hidden rounded-2xl border border-amber-200 bg-amber-50/50 p-5 space-y-3"></div>
+            <div id="prompt-workflow-panel" class="rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-3"></div>
+          </div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center flex-wrap gap-2">
+              <span class="text-xs font-bold text-slate-500 uppercase">Markdown Prompt</span>
+              <button type="button" onclick="copyPromptOutput()" class="px-4 py-2 rounded-lg bg-purple-600 text-white text-sm font-bold hover:bg-purple-700">複製 .md</button>
+            </div>
+            <div id="formedPromptOutputContainer" class="w-full min-h-[220px] max-h-[320px] overflow-y-auto p-4 rounded-2xl bg-slate-900 text-emerald-300 font-mono text-xs leading-relaxed whitespace-pre-wrap select-all border border-slate-700"></div>
+            <div id="prompt-pitfalls" class="p-4 rounded-xl bg-rose-50 border border-rose-100 text-sm text-rose-900 hidden"></div>
+            <div id="prompt-sim-response" class="p-5 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 min-h-[200px] text-sm"></div>
           </div>
         </div>
-
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">2. 定義核心目標任務 (Task)</label>
-          <div id="matrix-task" class="flex flex-wrap gap-2">
-            <button onclick="selectFactor('task', this, '將繁複的 AI 概念用小學生聽得懂的比喻來解釋')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">💡 白話解釋AI觀念</button>
-            <button onclick="selectFactor('task', this, '創作出一部包含主角克服危機、反轉結局的短篇冒險故事')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">📝 創作趣味冒險短劇</button>
-            <button onclick="selectFactor('task', this, '撰寫一段具備良好 RWD 響應式佈局且附帶優雅動畫效果的 HTML 程式碼')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">🛠 生成精美前端元件</button>
-          </div>
+      </div>
+      <div class="ai-lab-subcard">
+        <h3 class="text-2xl font-black text-slate-900">📚 Prompt 實戰延伸課程（課後可接續）</h3>
+        <p class="text-slate-500 mt-2">看不懂這塊要做什麼的話，照這個順序：先做一份 .md Prompt → 產出草稿 → 人工修正 → 回來對照哪一步卡住，再補對應單元。</p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5 text-sm">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p class="font-black text-slate-900">L1 提示詞結構化</p><p class="mt-1 text-slate-600">RTCS 五段式 + 常見錯誤修正。</p></div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p class="font-black text-slate-900">L2 多模型比較</p><p class="mt-1 text-slate-600">同題在不同 AI 的輸出差異與選型。</p></div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p class="font-black text-slate-900">L3 產圖與版權風險</p><p class="mt-1 text-slate-600">影像 Prompt、授權、人工審核清單。</p></div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p class="font-black text-slate-900">L4 團隊導入 SOP</p><p class="mt-1 text-slate-600">模板庫、審稿規範、GA4 成效追蹤。</p></div>
         </div>
-
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">3. 限定輸出語調風格 (Tone/Style)</label>
-          <div id="matrix-style" class="flex flex-wrap gap-2">
-            <button onclick="selectFactor('style', this, '充滿親和力、多用生動排版與表情符號')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">🎈 活潑生動</button>
-            <button onclick="selectFactor('style', this, '架構嚴謹清晰、條列重點且邏輯緊密')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">🎯 嚴謹條列</button>
-            <button onclick="selectFactor('style', this, '充滿視覺感描述，注重色彩與動態細節')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all">📸 充滿細節細膩</button>
-          </div>
+        <div class="mt-5">
+          <a href="ai-workshop-playbook.html" class="inline-flex items-center px-5 py-3 rounded-xl bg-purple-600 text-white font-bold no-underline hover:bg-purple-700 transition-colors">查看完整 AI 實戰教學頁 →</a>
         </div>
-
-        <div class="pt-4 border-t border-slate-100">
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">產出的結構化提示詞結果：</span>
-            <button onclick="copyPromptText()" class="text-xs font-bold text-brand-600 hover:text-brand-700 bg-brand-50 px-3 py-1.5 rounded-lg transition-colors">複製代碼</button>
-          </div>
-          <div id="promptOutput" class="w-full min-h-[100px] p-5 rounded-2xl bg-slate-900 text-emerald-400 font-mono text-sm leading-relaxed whitespace-pre-wrap select-all">請點選上方因子，或者直接在此處編輯...</div>
-        </div>
-
+      </div>
       </div>
     </section>
 
-    <section id="sect-game" class="tab-content hidden space-y-8 fade-in-up">
-      <div>
-        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">🎮 AI 小學者闖關競賽</h2>
-        <p class="text-sm text-slate-400 mt-1">專為孩子設計的觀念互動遊戲，動腦挑戰最高榮譽</p>
+    <section id="sect-game" class="tab-content hidden fade-in-up pb-12">
+      <div class="ai-lab-stack">
+      <div class="ai-lab-hero ai-lab-hero-emerald">
+        <div class="absolute -left-8 -bottom-8 h-28 w-28 rounded-full bg-emerald-200/40 blur-2xl pointer-events-none"></div>
+        <div class="relative">
+          <p class="text-xs font-black uppercase tracking-wider text-emerald-600 mb-2">Game Studio</p>
+          <h2 class="text-3xl font-black text-slate-900">🎮 AI 知識小遊戲中心</h2>
+          <p class="text-slate-500 mt-2 text-base">不只問答：用「下一步指引」「情境決策」「工具選擇」幫新手搞清楚——我現在該用哪個 AI、怎麼問、做完之後還要做什麼。</p>
+        </div>
       </div>
-
-      <div class="bg-white p-8 rounded-3xl shadow-premium border border-slate-100 max-w-2xl mx-auto relative overflow-hidden">
-        
-        <div class="flex justify-between items-center mb-6">
-          <div class="text-sm font-bold text-slate-400">進度：<span id="quiz-progress" class="text-slate-800">1 / 3</span></div>
-          <div class="text-sm font-bold text-brand-600 bg-brand-50 px-3 py-1 rounded-lg">得分：<span id="quiz-score">0</span></div>
+      <div id="game-mode-bar" class="ai-lab-mode-bar"></div>
+      <div class="ai-lab-panel ai-lab-panel-emerald">
+        <div class="ai-lab-callout ai-lab-callout-emerald">
+          <p class="font-black text-emerald-900">第一次玩建議順序</p>
+          <p class="text-slate-700 mt-1">先從「下一步指引」做完一輪，再到「情境決策」看你卡在哪，最後用「工具選擇」決定下一步該練哪種 AI 工具。</p>
         </div>
-        <div class="w-full h-1.5 bg-slate-100 rounded-full mb-8 overflow-hidden">
-          <div id="quiz-progress-bar" class="h-full bg-brand-500 rounded-full transition-all duration-300" style="width: 33.3%"></div>
+        <div class="flex justify-between items-center mb-5">
+          <div class="text-sm font-bold text-slate-400">進度：<span id="game-progress-label" class="font-black text-slate-800">—</span></div>
+          <div class="text-sm font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg">得分：<span id="game-score-label">0</span></div>
         </div>
-
-        <div id="quiz-box" class="space-y-6">
-          <h3 id="quiz-question" class="text-lg font-extrabold text-slate-900 leading-snug">問題加載中...</h3>
-          
-          <div id="quiz-options" class="grid gap-3">
-            </div>
-          
-          <div id="quiz-feedback" class="mt-4 hidden p-4 rounded-xl font-bold text-center text-sm transition-all duration-200"></div>
-        </div>
-
-        <div class="mt-8 pt-6 border-t border-slate-50 flex justify-end">
-          <button onclick="resetQuiz()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-500 hover:bg-slate-50 transition-colors">重置遊戲</button>
-        </div>
-
+        <div id="game-board-viewport" class="space-y-4 min-h-[220px] w-full"></div>
+      </div>
+      <div class="ai-lab-grid-3">
+        <article class="ai-lab-card">
+          <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=800&q=80" alt="AI 任務闖關示意" class="ai-lab-card-media" loading="lazy" />
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">闖關玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">每關只給目標，不給答案，訓練你自己拆步驟。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="分組協作學習示意" class="ai-lab-card-media" loading="lazy" />
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">雙人協作玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">一人下 Prompt、一人審稿，輪替角色強化判斷。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="課後反思與記錄示意" class="ai-lab-card-media" loading="lazy" />
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">課後延伸玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">把今天結果寫成「可交付紀錄」，累積作品與履歷。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <div class="ai-lab-card-icon" aria-hidden="true">🧪</div>
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">任務挑戰玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">抽一個真實任務（寫文案/修碼/產圖），在 10 分鐘內做出可交付版本。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <div class="ai-lab-card-icon" aria-hidden="true">👥</div>
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">雙人教練玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">A 負責下 Prompt，B 負責審稿；每輪交換角色，訓練提問與查證。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <div class="ai-lab-card-icon" aria-hidden="true">📒</div>
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">課後路徑玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">依「下一步指引」完成一條路徑，繳交 Prompt + 成果截圖 + 修正紀錄。</p></div>
+        </article>
+      </div>
       </div>
     </section>
 
   </main>
 
-  <footer class="bg-white border-t border-slate-100 py-8 px-6 text-center text-slate-400 text-xs font-medium">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div>&copy; 2026 MrBill Learning Studio. Designed for Kids & Tech Creators.</div>
-      <div class="flex gap-4">
-        <a href="#" class="hover:text-slate-600 transition-colors">GitHub Stack</a>
-        <a href="#" class="hover:text-slate-600 transition-colors">攝影作品</a>
-        <a href="#" class="hover:text-slate-600 transition-colors">前端資源庫</a>
-      </div>
-    </div>
-  </footer>
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-6 mt-auto"></footer>
 
   <script>
-    // ==========================================
-    // 1. SPA TAB TAB SWITCH LOGIC (模組切換)
-    // ==========================================
     function switchTab(tabId) {
-      // 隱藏所有區塊
-      document.querySelectorAll('.tab-content').forEach(element => {
-        element.classList.add('hidden');
-      });
-      // 顯示目標區塊
-      const activeSection = document.getElementById(`sect-${tabId}`);
-      if (activeSection) {
-        activeSection.classList.remove('hidden');
-        activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.tab-content').forEach(function(sect) { sect.classList.add('hidden'); });
+      const targetSect = document.getElementById('sect-' + tabId);
+      if (targetSect) targetSect.classList.remove('hidden');
+      const hero = document.getElementById('home-hero-bleed');
+      if (hero) {
+        if (tabId === 'home') hero.classList.remove('hidden');
+        else hero.classList.add('hidden');
       }
-
-      // 更新導覽列高亮狀態
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('nav-link-active', 'bg-brand-50', 'text-brand-600');
-        btn.classList.add('text-slate-600');
-      });
-      const activeBtn = document.getElementById(`btn-${tabId}`);
-      if (activeBtn) {
-        activeBtn.classList.add('nav-link-active', 'bg-brand-50', 'text-brand-600');
-        activeBtn.classList.remove('text-slate-600');
-      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    // 手機版漢堡選單切換
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
+    function parseUrlRoute() {
+      const urlParams = new URLSearchParams(window.location.search);
+      switchTab(urlParams.get('tab') || 'home');
     }
-
-    // 初始化預設頁面為首頁
-    window.addEventListener('DOMContentLoaded', () => {
-      switchTab('home');
-      buildPrompt(); // 初始化 Prompt 預設內容
-      loadQuestion(); // 初始化小遊戲
-    });
-
-
-    // ==========================================
-    // 2. PRACTICE QA INTERACTIVE (互動練習)
-    // ==========================================
-    const practiceRepo = {
-      ai: {
-        title: "💡 AI 是靠著「大量閱讀」來學習說話的！",
-        content: "想像一個超級聰明的工程師寶寶，閱讀了全世界數十億本書籍、網頁和對話紀錄。AI 會在這些龐大的資料中，去尋找文字之間的規律（例如看到『祝你生日』，後面機率最高接續的字就是『快樂』）。它並不像真人一樣擁有情感，而是非常高超的機率預測大師！"
-      },
-      prompt: {
-        title: "🎯 秘訣在於指令不夠具體與缺乏結構化！",
-        content: "AI 沒有讀心術。當你只輸入『幫我寫個故事』時，它只能隨機瞎猜。如果你改成：『請扮演幽默的童話作家（Role），幫我寫一段關於一隻害羞恐龍在森林迷路的300字故事（Task），多用表情符號（Style）』。給予清晰的指令架構，AI 馬上就能給出完美的回饋！"
-      },
-      job: {
-        title: "🛠 更有用！因為你升級成了『AI 架構督導工程師』",
-        content: "雖然 AI 可以極速生成基礎代碼，但它常常犯錯、也不懂得大型架構的整合美感。未來懂得前端開發（HTML/CSS/JS/Tailwind）的工程師，將可以利用 AI 以 10 倍的速度產出原型，關鍵能力在於『看懂程式碼、精準除錯、規劃安全優良的用戶體驗（UX）』。"
-      },
-      future: {
-        title: "🚀 培養『提問力』與『邏輯整合美學』是核心！",
-        content: "未來死記硬背的知識不再重要，因為 AI 三秒就能幫你查出來。孩子們要保持強烈的好奇心，練習如何『精準對 AI 提問』。同時，親自動手實作網頁、拍攝真實照片、剪輯具備人性溫度的影片，這些融合人類情感與審美觀的軟實力，是 AI 永遠無法取代的。"
-      }
-    };
-
-    function showAnswer(key) {
-      const displayContainer = document.getElementById('answerDisplay');
-      const titleNode = document.getElementById('answerTitle');
-      const contentNode = document.getElementById('answerContent');
-      
-      titleNode.textContent = practiceRepo[key].title;
-      contentNode.textContent = practiceRepo[key].content;
-      
-      displayContainer.classList.remove('hidden');
-      displayContainer.style.animation = 'none';
-      displayContainer.offsetHeight; // trigger reflow
-      displayContainer.style.animation = 'fadeInUp 0.4s ease forwards';
+    function initParallax() {
+      var ticking = false;
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(function() {
+            var y = window.scrollY;
+            document.querySelectorAll('[data-parallax]').forEach(function(el) {
+              var speed = parseFloat(el.getAttribute('data-parallax')) || 0.2;
+              el.style.transform = 'translate3d(0, ' + (y * speed) + 'px, 0)';
+            });
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
     }
-
-
-    // ==========================================
-    // 3. ADVANCED PROMPT BUILDER (提示詞矩陣大師)
-    // ==========================================
-    let currentSelections = {
-      role: '一個擁有多年教學經驗的頂尖 AI 指導員',
-      task: '用淺顯易懂的生動比喻，教導孩子大語言模型的運作原理',
-      style: '語氣幽默活潑、條列清晰，多善用逗趣的繪本風格與表情符號排版'
-    };
-
-    function selectFactor(category, button, rawValue) {
-      // 清除同類別所有按鈕的選取樣式
-      const container = document.getElementById(`matrix-${category}`);
-      container.querySelectorAll('button').forEach(btn => {
-        btn.classList.remove('bg-brand-600', 'text-white', 'border-brand-600');
-        btn.classList.add('bg-slate-50', 'text-slate-700', 'border-slate-200');
-      });
-
-      // 賦予目前點擊按鈕選取樣式
-      button.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200');
-      button.classList.add('bg-brand-600', 'text-white', 'border-brand-600');
-
-      // 更新儲存狀態並重新渲染
-      currentSelections[category] = rawValue;
-      buildPrompt();
-    }
-
-    function buildPrompt() {
-      const template = `[角色設定]\n你是一位${currentSelections.role}。\n\n[核心任務任務]\n請協助執行以下任務：${currentSelections.task}。\n\n[輸出語調風格Style]\n請嚴格遵循此風格：${currentSelections.style}。`;
-      document.getElementById('promptOutput').textContent = template;
-    }
-
-    function copyPromptText() {
-      const text = document.getElementById('promptOutput').textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Prompt 已成功複製到剪貼簿，趕快去塞給 ChatGPT 玩玩看吧！');
-      });
-    }
-
-
-    // ==========================================
-    // 4. STATEFUL GAME SYSTEM (AI小遊戲引擎)
-    // ==========================================
-    const quizData = [
-      {
-        question: "1. 當我們想要讓 AI 完美扮演一個特定專家時，提示詞（Prompt）裡面最重要先定義什麼要素？",
-        options: ["A. 它的硬體記憶體大小", "B. 賦予明確的『角色設定（Role）』", "C. 電腦螢幕的解析度"],
-        correct: 1,
-        desc: "答對了！給予明確的角色設定（例如：你是一位資深前端開發大師），AI 就會調用對應的專業語料與語氣。"
-      },
-      {
-        question: "2. 下面哪一項『不是』人工智慧（AI）目前在日常生活中常見的應用實踐？",
-        options: ["A. 幫攝影師自動進行照片去背", "B. ChatGPT 幫忙寫代碼與寫作文", "C. 幫阿嬤自動去菜市場買實體高麗菜回來"],
-        correct: 2,
-        desc: "沒錯！目前的 AI 是強大的虛擬大腦與數位創作助手，還沒辦法自己在沒有機械人載體下跑去菜市場買實體青菜喔！"
-      },
-      {
-        question: "3. 網頁設計中常聽到的『RWD』響應式設計，它的最主要目的是什麼？",
-        options: ["A. 讓網頁可以在手機、平板、電腦不同的螢幕尺寸下，都展現乾淨漂亮的排版佈局", "B. 讓網頁下載速度變快二倍", "C. 讓網頁自動生成音樂"],
-        correct: 0,
-        desc: "極度正確！RWD（Responsive Web Design）是網頁前端開發的標準，讓同一個網站能自適應所有行動端裝置！"
-      }
-    ];
-
-    let currentQuestionIndex = 0;
-    let score = 0;
-
-    function loadQuestion() {
-      const feedbackNode = document.getElementById('quiz-feedback');
-      feedbackNode.classList.add('hidden');
-      
-      if (currentQuestionIndex >= quizData.length) {
-        // 答題結束
-        document.getElementById('quiz-question').textContent = `🎉 恭喜全部挑戰完成！`;
-        document.getElementById('quiz-options').innerHTML = `<p class="text-center py-6 text-slate-500 text-sm font-medium">你最終獲得了完美總分: <span class="text-brand-600 font-extrabold text-xl">${score}</span> 分！<br>你已經具備與未來 AI 攜手創作的黃金觀念基礎囉！</p>`;
+    function initRevealBlocks() {
+      var blocks = document.querySelectorAll('.reveal-block');
+      if (!blocks.length || !('IntersectionObserver' in window)) {
+        blocks.forEach(function(b) { b.classList.add('is-visible'); });
         return;
       }
-
-      // 更新進度條 UI
-      document.getElementById('quiz-progress').textContent = `${currentQuestionIndex + 1} / ${quizData.length}`;
-      const progressPercent = ((currentQuestionIndex + 1) / quizData.length) * 100;
-      document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
-
-      // 載入問題
-      const currentQuiz = quizData[currentQuestionIndex];
-      document.getElementById('quiz-question').textContent = currentQuiz.question;
-
-      // 載入選項
-      const optionsContainer = document.getElementById('quiz-options');
-      optionsContainer.innerHTML = '';
-      currentQuiz.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = "w-full text-left p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-brand-400 hover:bg-brand-50/20 text-sm font-semibold text-slate-700 transition-all text-left";
-        btn.textContent = opt;
-        btn.onclick = () => checkAnswer(idx);
-        optionsContainer.appendChild(btn);
-      });
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+      blocks.forEach(function(b) { obs.observe(b); });
     }
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', 'components/header.html', null, function() { parseUrlRoute(); });
+      includeComponentSlot('global-footer', 'components/footer.html');
+      initParallax();
+      initRevealBlocks();
+      if (typeof initAiLab === 'function') initAiLab();
+    });
 
-    function checkAnswer(selectedIdx) {
-      const currentQuiz = quizData[currentQuestionIndex];
-      const feedbackNode = document.getElementById('quiz-feedback');
-      
-      feedbackNode.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-700', 'bg-rose-50', 'text-rose-700');
-
-      if (selectedIdx === currentQuiz.correct) {
-        score += 100;
-        document.getElementById('quiz-score').textContent = score;
-        feedbackNode.classList.add('bg-emerald-50', 'text-emerald-700');
-        feedbackNode.textContent = `🎯 ${currentQuiz.desc}`;
-      } else {
-        feedbackNode.classList.add('bg-rose-50', 'text-rose-700');
-        feedbackNode.textContent = `❌ 哎呀，再想想看！正確答案是選項: ${currentQuiz.options[currentQuiz.correct]}`;
-      }
-
-      // 阻斷選項重複點擊
-      document.getElementById('quiz-options').querySelectorAll('button').forEach(b => b.disabled = true);
-
-      // 自動在一秒半後切換至下一題
-      setTimeout(() => {
-        currentQuestionIndex++;
-        loadQuestion();
-      }, 2500);
-    }
-
-    function resetQuiz() {
-      currentQuestionIndex = 0;
-      score = 0;
-      document.getElementById('quiz-score').textContent = score;
-      loadQuestion();
-    }
   </script>
 </body>
 </html>

@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEO / GEO 與 GA4 實戰 - MrBill Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/components-loader.js"></script>
+  <script src="js/site-config.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Noto Sans TC"', 'sans-serif'] },
+          colors: { brand: { 50: '#f5f3ff', 500: '#6366f1', 600: '#4f46e5' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.16), transparent 30rem),
+        radial-gradient(circle at top right, rgba(6, 182, 212, 0.14), transparent 28rem),
+        #f8fafc;
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    .article-prose p { line-height: 1.9; color: #334155; }
+    .article-prose ul { margin-left: 1.25rem; list-style: disc; color: #334155; }
+    .article-prose li { margin-bottom: 0.4rem; line-height: 1.75; }
+    .marketing-panel { animation: panelIn 0.32s cubic-bezier(0.16, 1, 0.3, 1); }
+    .marketing-panel[hidden] { display: none; }
+    .mk-nav-link.is-active {
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      color: #fff;
+      box-shadow: 0 16px 32px rgba(79, 70, 229, 0.2);
+      transform: translateX(4px);
+    }
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .mk-hero-full {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0c4a6e 0%, #312e81 35%, #581c87 70%, #0f172a 100%);
+    }
+    .mk-hero-orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; pointer-events: none;
+    }
+    .mk-orb-a { width: 420px; height: 420px; background: #06b6d4; top: -100px; left: 10%; animation: mkFloat 14s ease-in-out infinite; }
+    .mk-orb-b { width: 360px; height: 360px; background: #6366f1; top: 0; right: 5%; animation: mkFloat 18s ease-in-out infinite reverse; }
+    .mk-orb-c { width: 280px; height: 280px; background: #10b981; bottom: -60px; left: 40%; animation: mkFloat 12s ease-in-out infinite; }
+    @keyframes mkFloat {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(30px,-40px) scale(1.08); }
+    }
+    .mk-grid-bg {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black, transparent);
+    }
+    .mk-flow-card { backdrop-filter: blur(12px); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg">
+
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <!-- 全寬主視覺 -->
+  <section id="mk-intro" class="mk-hero-full py-16 md:py-24 px-6 md:px-12">
+    <div class="mk-hero-orb mk-orb-a mk-parallax" data-mk-parallax="0.12"></div>
+    <div class="mk-hero-orb mk-orb-b mk-parallax" data-mk-parallax="0.2"></div>
+    <div class="mk-hero-orb mk-orb-c mk-parallax" data-mk-parallax="0.08"></div>
+    <div class="mk-grid-bg mk-parallax" data-mk-parallax="0.04"></div>
+    <div class="relative z-10 max-w-6xl mx-auto">
+      <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+        <div class="space-y-6 text-white">
+          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-black bg-emerald-400/20 text-emerald-200 ring-1 ring-emerald-400/30 uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Growth System · SEO + GEO + GA4
+          </span>
+          <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.08]">
+            讓內容被<span class="text-cyan-300"> Google 找到</span>、被<span class="text-violet-300"> AI 引用</span>、用<span class="text-emerald-300"> 數據證明有效</span>
+          </h1>
+          <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl">不懂寫程式也能照做：左邊選章節切換教學，每章都有情境故事、操作步驟與真實範例。</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">🔍 SEO 搜尋排名</span>
+            <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">🤖 GEO AI 引用</span>
+            <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">📊 GA4 轉換追蹤</span>
+          </div>
+        </div>
+        <div class="mk-flow-card rounded-3xl p-6 md:p-8 space-y-4">
+          <p class="text-xs font-black text-cyan-200 uppercase tracking-widest">內容成長閉環</p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white font-black">1</span>
+              <div><p class="text-xs font-bold text-indigo-600">定目標</p><p class="text-sm font-black text-slate-900">每月詢單數 + KPI 拆解</p></div>
+            </div>
+            <div class="flex justify-center text-cyan-400 text-xl">↓</div>
+            <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-600 text-white font-black">2</span>
+              <div><p class="text-xs font-bold text-cyan-600">寫內容</p><p class="text-sm font-black text-slate-900">SEO 結構 + GEO 可引用段落</p></div>
+            </div>
+            <div class="flex justify-center text-violet-400 text-xl">↓</div>
+            <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white font-black">3</span>
+              <div><p class="text-xs font-bold text-emerald-600">驗成效</p><p class="text-sm font-black text-slate-900">GA4 事件 → 每週優化 1–2 變數</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-7xl mx-auto px-6 py-8 flex-grow w-full space-y-6">
+    <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full min-w-0">
+      <aside id="marketing-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto lg:h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden custom-scrollbar"></aside>
+
+      <article id="marketing-content-stage" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 article-prose">
+        <section id="mk-overview" class="marketing-panel bg-white p-6 md:p-8 rounded-3xl border border-indigo-100 shadow-sm space-y-5">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600 text-white font-black">0</span>
+            <div>
+              <p class="text-sm font-black text-indigo-600 uppercase tracking-wider">Learning Path</p>
+              <h2 class="text-2xl md:text-3xl font-black text-slate-900">先抓全局：SEO、GEO、GA4 各自負責什麼？</h2>
+            </div>
+          </div>
+          <p>把行銷內容做有效，不能只問「我要寫什麼」。比較穩的做法是把它拆成三個連續問題：使用者會怎麼搜尋、AI 能不能準確引用、最後有沒有帶來可追蹤的商業行為。</p>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4">
+              <p class="text-xs font-black text-indigo-700 uppercase">SEO</p>
+              <h3 class="mt-2 text-lg font-black text-slate-900">被搜尋找到</h3>
+              <p class="mt-2 text-sm">用關鍵字、搜尋意圖、站內結構，讓 Google 看懂這頁要解決什麼問題。</p>
+            </div>
+            <div class="rounded-2xl border border-cyan-100 bg-cyan-50 p-4">
+              <p class="text-xs font-black text-cyan-700 uppercase">GEO</p>
+              <h3 class="mt-2 text-lg font-black text-slate-900">被 AI 摘要引用</h3>
+              <p class="mt-2 text-sm">把段落寫成清楚結論、條件、步驟與例外，讓生成式搜尋容易擷取。</p>
+            </div>
+            <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+              <p class="text-xs font-black text-emerald-700 uppercase">GA4</p>
+              <h3 class="mt-2 text-lg font-black text-slate-900">被數據驗證</h3>
+              <p class="mt-2 text-sm">用事件與轉換追蹤判斷內容是否帶來詢單、加入 LINE 或成交。</p>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm">
+            <p class="font-black text-slate-900 mb-2">建議閱讀方式</p>
+            <p>左邊選單現在是「內容切換」：點一章只會換右側內容，不會整頁跳動。若你要實作，照「目標與 KPI → 關鍵字 → On-page → GEO 結構 → GA4」的順序做最穩。</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-4 text-sm">
+            <p class="font-black text-slate-900 mb-3">AI 工具差異（不要只綁單一平台）</p>
+            <div class="grid md:grid-cols-3 gap-3">
+              <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-3">
+                <p class="font-black text-indigo-800">ChatGPT 系列</p>
+                <p class="mt-1 text-slate-700">多模態整合與插件生態完整，適合日常通用產出與快速迭代。</p>
+              </div>
+              <div class="rounded-xl border border-purple-100 bg-purple-50 p-3">
+                <p class="font-black text-purple-800">Claude 系列</p>
+                <p class="mt-1 text-slate-700">長文本理解與結構化輸出穩定，適合策略文件與教學稿整理。</p>
+              </div>
+              <div class="rounded-xl border border-cyan-100 bg-cyan-50 p-3">
+                <p class="font-black text-cyan-800">Gemini / 其他模型</p>
+                <p class="mt-1 text-slate-700">與 Google 生態或特定任務整合有優勢，適合混合工作流比較。</p>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-sm">
+            <p class="font-black text-emerald-900 mb-3">由淺入深學習地圖（4 階）</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div class="rounded-xl bg-white border border-emerald-100 p-3"><p class="font-black text-slate-900">Lv.1 基礎</p><p class="mt-1 text-slate-700">先做 KPI、定轉換事件，搞懂「有流量 ≠ 有成交」。</p></div>
+              <div class="rounded-xl bg-white border border-emerald-100 p-3"><p class="font-black text-slate-900">Lv.2 結構</p><p class="mt-1 text-slate-700">把文章改成可擷取段落：結論在前、一段一重點、附條件。</p></div>
+              <div class="rounded-xl bg-white border border-emerald-100 p-3"><p class="font-black text-slate-900">Lv.3 驗證</p><p class="mt-1 text-slate-700">用 UTM + GA4 檢查每種貼文的 CTR、停留、詢單差異。</p></div>
+              <div class="rounded-xl bg-white border border-emerald-100 p-3"><p class="font-black text-slate-900">Lv.4 優化</p><p class="mt-1 text-slate-700">固定週迭代：只改 1-2 個變數，建立可複製 SOP。</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="mk-kpi" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600 text-white font-black text-sm">1</span>
+            <h2 class="text-2xl font-black text-slate-900">先定義目標與 KPI</h2>
+          </div>
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="行銷數據儀表板" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
+
+          <!-- 情境故事 -->
+          <div class="rounded-2xl border-l-4 border-indigo-400 bg-indigo-50 p-5 text-sm">
+            <p class="font-black text-indigo-900 mb-2">📖 情境：小明開了一家台南手工皂工作室</p>
+            <p>小明把 IG 和網站都更新了，流量也增加了，但每個月真正傳訊息詢問的人還是不到 5 個。問題不是「沒人來」，而是「來了之後不知道下一步」。</p>
+            <p class="mt-2">這就是只追流量、沒有定義轉換目標的結果。</p>
+          </div>
+
+          <p>不要一開始就只追「流量」。先拆成三層，從外到內：</p>
+          <div class="grid md:grid-cols-3 gap-3 text-sm">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900 mb-1">第一層：曝光</p>
+              <p>有沒有人在 Google 看到你？<br/>→ Google Search Console 看曝光數、排名、點擊率。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900 mb-1">第二層：互動</p>
+              <p>進來的人有沒有看完、有沒有點按鈕？<br/>→ GA4 看停留時間、捲動深度、按鈕點擊。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900 mb-1">第三層：轉換</p>
+              <p>有沒有傳訊、填表、加 LINE、下單？<br/>→ GA4 轉換事件記錄真實詢單數量。</p>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
+            <p class="font-black text-slate-800 mb-3">用小明的例子做一次（30 分鐘內完成）</p>
+            <ol class="list-decimal pl-5 space-y-2">
+              <li><strong>寫下商業目標</strong>：「每個月至少 20 筆手工皂詢問」。</li>
+              <li><strong>往前推兩個前置指標</strong>：自然搜尋流量要有 500 人次、主頁 CTA 按鈕點擊率要超過 5%。</li>
+              <li><strong>在 GA4 設一個轉換事件</strong>：按了「加 LINE 詢問」= 一筆轉換。</li>
+            </ol>
+            <p class="mt-3 text-slate-600">做完這三步，你就知道每週要改什麼、改了有沒有效。</p>
+          </div>
+
+          <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 text-sm">
+            <p class="font-black text-emerald-900 mb-2">流量增加但沒詢問 = 訊號</p>
+            <p>如果流量漲了但詢問沒漲，通常是：關鍵字太泛（吸到不會買的人）、或者內容沒有說清楚「你能幫我解決什麼、我要怎麼開始聯絡你」。這兩點先修，再談流量。</p>
+          </div>
+        </section>
+
+        <section id="mk-seo-foundation" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600 text-white font-black text-sm">2</span>
+            <h2 class="text-2xl font-black text-slate-900">SEO 核心觀念（搜尋引擎優化）</h2>
+          </div>
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="SEO 策略規劃工作情境" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
+
+          <!-- 白話比喻 -->
+          <div class="rounded-2xl border-l-4 border-cyan-400 bg-cyan-50 p-5 text-sm">
+            <p class="font-black text-cyan-900 mb-2">💡 把 SEO 想成「幫 Google 考卷改答案」</p>
+            <p>Google 每天爬幾億個網頁，要快速判斷：這一頁是在說什麼、能不能信、適合給哪種搜尋的人看。你的工作就是把這份「考卷」答得清楚，讓 Google 願意把你排到前面。</p>
+          </div>
+
+          <p>SEO 拆開只有三件事：內容夠不夠回答讀者問題、技術上有沒有被 Google 看到、有沒有其他地方為你背書。</p>
+
+          <!-- 三欄說明 -->
+          <div class="grid md:grid-cols-3 gap-4 text-sm">
+            <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4">
+              <p class="text-xs font-black text-indigo-700 uppercase mb-2">內容</p>
+              <p class="font-black text-slate-900">回答讀者真正的問題</p>
+              <p class="mt-2">搜尋「台南手工皂推薦」的人，是想比較選擇，不是想看你的品牌故事。先回答他的問題，再說你的故事。</p>
+            </div>
+            <div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">
+              <p class="text-xs font-black text-amber-700 uppercase mb-2">技術</p>
+              <p class="font-black text-slate-900">讓 Google 能「讀懂」你</p>
+              <p class="mt-2">標題、描述、小標層級、圖片說明文字……這些是 Google 理解網頁的線索，少了會讓它猜，猜錯就排不到你想要的結果。</p>
+            </div>
+            <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+              <p class="text-xs font-black text-emerald-700 uppercase mb-2">信任</p>
+              <p class="font-black text-slate-900">讓 Google 「相信」你</p>
+              <p class="mt-2">別人提到你、連結到你、跟你合作——這些都是外部信任信號。對新站來說，先做好內容比拚命找外鏈更重要。</p>
+            </div>
+          </div>
+
+          <!-- 對比：錯誤做法 vs 正確做法 -->
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-2xl border border-red-100 bg-red-50 p-4">
+              <p class="font-black text-red-800 mb-2">❌ 常見錯誤做法</p>
+              <ul class="space-y-1 text-red-700">
+                <li>→ 先花錢買廣告，再回來做 SEO</li>
+                <li>→ 一開始就想找人交換連結</li>
+                <li>→ 把關鍵字硬塞進每一段</li>
+                <li>→ 內容只有 200 字就上線</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+              <p class="font-black text-emerald-800 mb-2">✅ 有效做法順序</p>
+              <ul class="space-y-1 text-emerald-700">
+                <li>1. 先確認這頁要回答哪個問題</li>
+                <li>2. 把問題答清楚（至少 600-1000 字）</li>
+                <li>3. 確認標題、描述、小標都有放關鍵字</li>
+                <li>4. 再找機會讓其他網站提到你</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="mk-keyword" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600 text-white font-black text-sm">3</span>
+            <h2 class="text-2xl font-black text-slate-900">關鍵字研究與搜尋意圖</h2>
+          </div>
+
+          <div class="rounded-2xl border-l-4 border-indigo-400 bg-indigo-50 p-5 text-sm">
+            <p class="font-black text-indigo-900 mb-2">📖 一個關鍵字，可能是三種不同的人在搜尋</p>
+            <p>同樣搜尋「台南手工皂」——有人想知道怎麼做（資訊型）、有人在比較哪家好（比較型）、有人已經想買了（交易型）。同一篇文章試圖服務三種人，通常三種人都不滿意。</p>
+          </div>
+
+          <!-- 三種意圖完整說明 -->
+          <div class="grid md:grid-cols-3 gap-4 text-sm">
+            <div class="rounded-2xl border border-slate-200 bg-white p-4 space-y-2">
+              <p class="text-xs font-black text-indigo-600 uppercase">資訊型</p>
+              <p class="font-black text-slate-900">想學、想了解</p>
+              <p class="text-slate-600">搜尋：「手工皂怎麼做」「冷製皂是什麼」</p>
+              <p class="mt-2 text-slate-700">→ 內容重點：詳細解說、步驟、FAQ<br/>→ CTA：加入社群或訂閱</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4 space-y-2">
+              <p class="text-xs font-black text-cyan-600 uppercase">比較型</p>
+              <p class="font-black text-slate-900">在評估、在挑選</p>
+              <p class="text-slate-600">搜尋：「台南手工皂推薦」「敏感肌手工皂哪牌好」</p>
+              <p class="mt-2 text-slate-700">→ 內容重點：比較表、真實評語、條件篩選<br/>→ CTA：查看商品或填問卷</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4 space-y-2">
+              <p class="text-xs font-black text-emerald-600 uppercase">交易型</p>
+              <p class="font-black text-slate-900">準備行動了</p>
+              <p class="text-slate-600">搜尋：「台南手工皂購買」「手工皂禮盒訂製」</p>
+              <p class="mt-2 text-slate-700">→ 內容重點：信任感、案例、價格、明確按鈕<br/>→ CTA：立刻購買或加 LINE</p>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
+            <p class="font-black text-slate-800 mb-3">填完這張表，一篇文章的架構就出來了</p>
+            <pre class="overflow-x-auto rounded-xl bg-slate-900 p-4 text-emerald-300 text-xs leading-relaxed">主關鍵字：台南手工皂推薦
+搜尋意圖：比較型
+目標讀者：有皮膚敏感問題、第一次買手工皂的人
+標題草案：2026 台南手工皂推薦｜敏感肌適合哪種？5 款比較整理
+H2 章節：
+  1) 手工皂和一般市售皂有什麼不同？
+  2) 敏感肌選手工皂的 3 個重點
+  3) 台南 5 家值得推薦的手工皂品牌比較
+  4) 常見問題 FAQ
+CTA：加 LINE 詢問客製禮盒</pre>
+          </div>
+
+          <div class="rounded-2xl border border-amber-100 bg-amber-50 p-4 text-sm">
+            <p class="font-black text-amber-900 mb-2">工具推薦（免費可用）</p>
+            <ul class="space-y-1 text-amber-800">
+              <li><strong>Google 搜尋框自動完成</strong>：直接打關鍵字看 Google 猜你想搜什麼，全是真實搜尋詞。</li>
+              <li><strong>Google 搜尋結果下方「相關搜尋」</strong>：長尾關鍵字的寶庫，直接抄進 FAQ。</li>
+              <li><strong>Google Search Console</strong>：你的網站已經有哪些關鍵字在帶流量，哪些排第 5-15 名可以優化衝上去。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="mk-onpage" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
+          <h2 class="text-2xl font-black text-slate-900">On-page 操作清單（可直接執行）</h2>
+          <ul>
+            <li>每頁 `title` 40-60 字元，前段放主關鍵字。</li>
+            <li>每頁 `meta description` 80-140 字，寫明價值與 CTA。</li>
+            <li>一頁一個 `h1`，其餘用 `h2/h3` 做清楚章節層級。</li>
+            <li>圖片加 `alt`，檔名使用語意（例如 `ga4-event-map.png`）。</li>
+            <li>內部連結：相關文章互相導流，幫搜尋引擎理解站內主題群。</li>
+          </ul>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm">
+            <p class="font-black text-slate-800 mb-2">HTML 實作範例</p>
+            <pre class="overflow-x-auto rounded-lg bg-slate-900 p-3 text-emerald-300">&lt;title&gt;GA4 事件設定教學：從 0 到可追蹤轉換 | MrBill AI Studio&lt;/title&gt;
+&lt;meta name="description" content="完整示範 GA4 事件與轉換設定，附 SEO / GEO 操作步驟與檢查表。" /&gt;
+&lt;h1&gt;GA4 事件設定教學&lt;/h1&gt;
+&lt;img src="images/ga4-event-map.png" alt="GA4 事件命名與轉換映射圖" /&gt;</pre>
+          </div>
+          <div class="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm">
+            <p class="font-black text-amber-900 mb-2">上線前 5 分鐘檢查</p>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>把標題貼到搜尋結果預覽工具，確認不會被截斷。</li>
+              <li>看第一屏是否說清楚「誰適合、能得到什麼」。</li>
+              <li>每 2-3 個段落放一次小標或範例，降低閱讀疲勞。</li>
+              <li>至少放 2 個內部連結：上一層主題頁與下一步行動頁。</li>
+              <li>CTA 使用動詞，例如「下載檢查表」比「更多資訊」有效。</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="mk-tech-seo" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
+          <h2 class="text-2xl font-black text-slate-900">技術 SEO：索引、速度、可爬取</h2>
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="網站技術優化與效能監控" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
+          <p>技術沒打好，內容再好也可能排不進去。先做基礎健康檢查：</p>
+          <ul>
+            <li>提交 `sitemap.xml`，確認 `robots.txt` 沒擋到重點頁。</li>
+            <li>用 Search Console 看「已建立索引」與「已探索但未建立索引」。</li>
+            <li>改善 Core Web Vitals（LCP、CLS、INP）。</li>
+            <li>避免重複頁面，必要時使用 canonical。</li>
+          </ul>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm">
+            <p class="font-black text-slate-800 mb-2">每週技術檢查 15 分鐘</p>
+            <ol class="list-decimal pl-5 space-y-1">
+              <li>開 Search Console 看新的索引錯誤。</li>
+              <li>用 PageSpeed 檢查核心頁，記錄 LCP / CLS。</li>
+              <li>把本週新頁 URL 送檢索（Request indexing）。</li>
+            </ol>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-black text-slate-900 mb-2">優先修什麼？</p>
+              <p>先修「搜尋引擎看不到」的問題，例如 noindex、robots 擋住、canonical 指錯。速度與版面體驗重要，但如果頁面不能被索引，其他優化都不會產生排名效果。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-black text-slate-900 mb-2">常見踩雷</p>
+              <p>大量複製相似頁、圖片沒有尺寸造成 CLS、手機版內容少於桌機版、重要內容靠點擊後才載入，這些都會讓搜尋引擎理解成本變高。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="mk-geo-foundation" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-600 text-white font-black text-sm">5</span>
+            <h2 class="text-2xl font-black text-slate-900">GEO 是什麼？（生成式搜尋優化）</h2>
+          </div>
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" alt="生成式 AI 與內容摘要情境圖" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
+
+          <!-- 白話解釋 -->
+          <div class="rounded-2xl border-l-4 border-cyan-400 bg-cyan-50 p-5 text-sm">
+            <p class="font-black text-cyan-900 mb-2">💡 從 Google 搜尋到 AI 搜尋，規則變了一點</p>
+            <p>以前你打「台南手工皂推薦」，Google 給你十個連結你自己點。現在你問 ChatGPT 或 Google AI Overview，它會直接幫你整理一個答案，只引用幾個「它信任的來源」。</p>
+            <p class="mt-2">GEO 就是讓你的內容更容易成為那幾個被引用的來源。</p>
+          </div>
+
+          <p>GEO 不是取代 SEO，而是在 SEO 基礎上，再讓你的內容格式更符合 AI 模型的「閱讀習慣」。</p>
+
+          <!-- AI 偏好什麼 -->
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
+            <p class="font-black text-slate-900 mb-3">AI 在閱讀你的文章時，偏好什麼結構？</p>
+            <div class="space-y-3">
+              <div class="flex gap-3">
+                <span class="shrink-0 w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 text-xs font-black flex items-center justify-center">1</span>
+                <div><strong>結論在前</strong>：先給答案，再解釋原因。不要讓 AI 讀了三段才找到重點。</div>
+              </div>
+              <div class="flex gap-3">
+                <span class="shrink-0 w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 text-xs font-black flex items-center justify-center">2</span>
+                <div><strong>一段一結論</strong>：每個段落只說一件事，段落結尾有明確結語。</div>
+              </div>
+              <div class="flex gap-3">
+                <span class="shrink-0 w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 text-xs font-black flex items-center justify-center">3</span>
+                <div><strong>條列比長段好</strong>：步驟、清單、比較表——AI 更容易把這些結構性資訊摘要出來引用。</div>
+              </div>
+              <div class="flex gap-3">
+                <span class="shrink-0 w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 text-xs font-black flex items-center justify-center">4</span>
+                <div><strong>有具體數據或條件</strong>：「大約」「可能」這種模糊說法不容易被引用；「敏感肌建議選 pH 值 8-9 以下的皂」這種有條件、有根據的說法才容易成為引用素材。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm">
+            <p class="font-black text-emerald-900 mb-1">GEO 操作關鍵字訣</p>
+            <p>把每章用四段式寫：<strong>是什麼 → 什麼時候用 → 怎麼做 → 常見錯誤</strong>。這個結構最容易被 AI 拆成一個完整的「可回答片段」。</p>
+          </div>
+        </section>
+
+        <section id="mk-geo-content" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-600 text-white font-black text-sm">6</span>
+            <h2 class="text-2xl font-black text-slate-900">可被引用的內容結構（GEO 實作）</h2>
+          </div>
+
+          <!-- Before / After 對比 -->
+          <div class="rounded-2xl border border-slate-200 overflow-hidden text-sm">
+            <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+              <div class="p-5 bg-red-50">
+                <p class="font-black text-red-800 mb-3">❌ 一般寫法（AI 難以引用）</p>
+                <p class="text-slate-700 leading-relaxed italic">「我們的手工皂使用天然原料，對肌膚非常友善，許多客人用了都說很好，歡迎大家多多支持我們！」</p>
+                <p class="mt-3 text-red-700">問題：沒有具體條件、沒有數據、沒有對讀者有用的結論。AI 不知道要怎麼幫讀者摘要這段話。</p>
+              </div>
+              <div class="p-5 bg-emerald-50">
+                <p class="font-black text-emerald-800 mb-3">✅ GEO 寫法（容易被引用）</p>
+                <p class="text-slate-700 leading-relaxed italic">「敏感肌選手工皂時，建議選擇 pH 值 8-9 的冷製皂、不含 SLS 及香精。使用前先在手腕內側測試 24 小時，無紅疹後再全臉使用。」</p>
+                <p class="mt-3 text-emerald-700">改善：有具體數值（pH 8-9）、有排除條件（不含 SLS）、有操作步驟。讀者和 AI 都能直接引用這段。</p>
+              </div>
+            </div>
+          </div>
+
+          <p>改寫的核心原則：把「感受」換成「條件」，把「說好」換成「為什麼好」。</p>
+
+          <!-- 實作清單 -->
+          <div class="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 text-sm space-y-3">
+            <p class="font-black text-indigo-900">每篇文章的 GEO 實作清單</p>
+            <div class="space-y-2 text-indigo-800">
+              <label class="flex gap-2 items-start"><input type="checkbox" class="mt-0.5 shrink-0" /> <span>第一段先給結論（讀者搜尋這個字最想知道的答案）</span></label>
+              <label class="flex gap-2 items-start"><input type="checkbox" class="mt-0.5 shrink-0" /> <span>每個 H2 小標是一個完整的問題或結論，不是「概述」</span></label>
+              <label class="flex gap-2 items-start"><input type="checkbox" class="mt-0.5 shrink-0" /> <span>有至少一個具體數字或可驗證的條件</span></label>
+              <label class="flex gap-2 items-start"><input type="checkbox" class="mt-0.5 shrink-0" /> <span>文末有 FAQ 區塊，問題格式用「XX 是什麼」「XX 怎麼做」</span></label>
+              <label class="flex gap-2 items-start"><input type="checkbox" class="mt-0.5 shrink-0" /> <span>全文同一個概念只用一個名稱（不要「GA4」「分析工具」「GA」混用）</span></label>
+            </div>
+          </div>
+
+          <!-- 段落改寫練習 -->
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
+            <p class="font-black text-slate-900 mb-3">改寫練習：你會怎麼改這句話？</p>
+            <blockquote class="rounded-xl border-l-4 border-slate-400 bg-white p-4 text-slate-600 italic">「我們的 SEO 課程很實用，學員都很滿意，適合各種程度的人。」</blockquote>
+            <p class="mt-3 text-slate-600">→ 試著改成：有具體對象（什麼程度的人）、有具體結果（學了能做什麼）、有條件（什麼情況下適合）。這樣 AI 才有辦法幫讀者回答「這個課程適合我嗎」。</p>
+          </div>
+        </section>
+
+        <section id="mk-entity" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
+          <h2 class="text-2xl font-black text-slate-900">實體與權威信號</h2>
+          <p>GEO 很吃「你是誰」。作者、品牌、服務範圍、案例脈絡越清楚，越容易被當作可信來源。</p>
+          <ul>
+            <li>固定作者頁與簡介，連結到相關作品與社群。</li>
+            <li>同一主題建立內容群（pillar + cluster）。</li>
+            <li>跨平台名稱一致（網站、YouTube、社群）。</li>
+          </ul>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm">
+            <p class="font-black text-slate-900 mb-2">權威信號怎麼補</p>
+            <ul>
+              <li>作者簡介寫清楚經驗、服務領域與可驗證作品。</li>
+              <li>案例頁加入問題、做法、結果，不只放作品截圖。</li>
+              <li>重要教學附日期與更新紀錄，讓讀者知道內容是否仍有效。</li>
+              <li>引用外部來源時，優先連到官方文件、研究報告或原始數據。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="mk-social" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
+          <h2 class="text-2xl font-black text-slate-900">社群發文流量教學（導回 SEO/GEO）</h2>
+          <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=80" alt="社群內容排程與流量分析" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
+          <p>社群的價值不只是按讚，而是把高意圖流量導回站內內容，形成搜尋與品牌雙循環。</p>
+          <ul>
+            <li>一篇長文拆成 5-8 則短貼文（痛點、案例、清單、反常識）。</li>
+            <li>每篇社群文只推一個主題連結，避免訊息分散。</li>
+            <li>加 UTM 參數，讓 GA4 能分辨來源與活動成效。</li>
+            <li>每週固定回顧：哪個主題 CTR 高、停留久、轉換好。</li>
+          </ul>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm">
+            <p class="font-black text-slate-800 mb-2">UTM 實例</p>
+            <pre class="overflow-x-auto rounded-lg bg-slate-900 p-3 text-emerald-300">https://your-site.com/ga4-guide
+?utm_source=facebook
+&utm_medium=social
+&utm_campaign=ga4_tutorial_may
+&utm_content=carousel_01</pre>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-black text-slate-900 mb-2">長文拆社群的順序</p>
+              <ol class="list-decimal pl-5 space-y-1">
+                <li>先拆痛點：讀者現在卡在哪。</li>
+                <li>再拆觀念：為什麼舊方法無效。</li>
+                <li>接著拆步驟：給 3-5 個可做動作。</li>
+                <li>最後拆案例：展示前後差異與結果。</li>
+              </ol>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-black text-slate-900 mb-2">導流 CTA 寫法</p>
+              <p>不要只寫「全文連結在留言」。改成「我把 GA4 事件命名表整理在文章第 7 章，照著填就能建立第一版追蹤」。讀者會更清楚點進去能拿到什麼。</p>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-rose-200 bg-rose-50 p-5">
+            <p class="font-black text-rose-900 mb-3">對與錯：同主題發文差異（可直接照抄結構）</p>
+            <div class="grid lg:grid-cols-2 gap-4 text-sm">
+              <div class="rounded-xl bg-white border border-rose-100 p-4">
+                <p class="font-black text-rose-700">❌ 錯誤寫法（空泛、無導流）</p>
+                <p class="mt-2 text-slate-700">「今天分享 GA4 很重要，大家要好好學習！完整內容看留言連結。」</p>
+                <ul class="mt-3 list-disc pl-5 text-slate-600 space-y-1">
+                  <li>沒有痛點，不知道是給誰看</li>
+                  <li>沒有可執行步驟，只剩口號</li>
+                  <li>CTA 模糊，讀者不想點</li>
+                </ul>
+              </div>
+              <div class="rounded-xl bg-white border border-emerald-100 p-4">
+                <p class="font-black text-emerald-700">✅ 正確寫法（可讀、可點、可追）</p>
+                <p class="mt-2 text-slate-700">「你的流量有進來、詢單卻變少？先檢查 3 個 GA4 事件：<code class="bg-slate-100 px-1 rounded">click_cta</code>、<code class="bg-slate-100 px-1 rounded">generate_lead</code>、<code class="bg-slate-100 px-1 rounded">scroll_90</code>。我把命名表和判讀範例放在第 7 章，照著填就能做第一版漏斗。」</p>
+                <ul class="mt-3 list-disc pl-5 text-slate-600 space-y-1">
+                  <li>先點痛點（流量有、詢單少）</li>
+                  <li>給步驟（3 個事件）</li>
+                  <li>CTA 明確（第 7 章可拿表）</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm space-y-4">
+            <p class="font-black text-slate-900">四種常見社群發文範例（每篇都要導回站內）</p>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="rounded-xl border border-slate-200 bg-white p-4">
+                <p class="font-black text-indigo-700">A. 痛點型貼文（吸引停留）</p>
+                <pre class="mt-2 overflow-x-auto rounded-lg bg-slate-900 p-3 text-emerald-300 text-xs">開頭：你是不是也遇過「流量變多但詢單變少」？
+內容：這通常不是 SEO 問題，而是 CTA 路徑斷掉。
+步驟：先看 click_cta、再看 form_start、最後看 generate_lead。
+CTA：我把對照表放在文章第 7 章，直接套你網站。</pre>
+              </div>
+              <div class="rounded-xl border border-slate-200 bg-white p-4">
+                <p class="font-black text-cyan-700">B. 案例型貼文（建立信任）</p>
+                <pre class="mt-2 overflow-x-auto rounded-lg bg-slate-900 p-3 text-emerald-300 text-xs">案例：台南手工皂品牌，兩週內將 CTA 點擊率 +42%
+做法：首頁 CTA 文案由「了解更多」改為「領敏感肌選皂清單」
+結果：自然流量持平，詢單提升
+CTA：完整改寫前後截圖在站內案例頁。</pre>
+              </div>
+              <div class="rounded-xl border border-slate-200 bg-white p-4">
+                <p class="font-black text-amber-700">C. 清單型貼文（方便收藏）</p>
+                <pre class="mt-2 overflow-x-auto rounded-lg bg-slate-900 p-3 text-emerald-300 text-xs">主題：新手做 GEO 最常犯的 5 個錯
+1) 一段講 4 件事
+2) 沒有實體名詞（地點、人物、數字）
+3) 沒有 FAQ
+4) 沒有作者與更新日期
+5) 全文沒有行動步驟
+CTA：文末附修正版模板。</pre>
+              </div>
+              <div class="rounded-xl border border-slate-200 bg-white p-4">
+                <p class="font-black text-emerald-700">D. 反常識型貼文（提高互動）</p>
+                <pre class="mt-2 overflow-x-auto rounded-lg bg-slate-900 p-3 text-emerald-300 text-xs">觀點：SEO 不是先寫文，而是先定事件
+理由：沒有事件就不知道內容有沒有轉換價值
+示範：page_view 高不代表有效，關鍵是 click_cta / generate_lead
+CTA：站內有「事件命名表 + UTM 模板」。</pre>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-5">
+            <p class="font-black text-slate-900 mb-3">更像真實貼文的版型（含優缺點）</p>
+            <div class="grid lg:grid-cols-2 gap-4 text-sm">
+              <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+                <div class="flex items-center gap-2">
+                  <div class="w-9 h-9 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black">MB</div>
+                  <div><p class="font-black text-slate-900">MrBill 行銷實驗室</p><p class="text-xs text-slate-500">2 小時前 · Facebook</p></div>
+                </div>
+                <p class="text-slate-700 leading-relaxed">【流量有了，詢單卻沒漲？】<br/>很多站都卡在這裡：文章有人看，但 CTA 沒被點、表單沒被送。<br/>我實測最先該看的 3 個事件是：CTA 點擊、表單開始、詢單送出。<br/>如果前兩個高、最後一個低，通常是表單流程太長或信任感不足。<br/>我把「事件命名表＋判讀範例＋修正順序」放在站內一頁，照著跑就能找到卡點。</p>
+                <p class="text-indigo-700 font-bold">👉 完整拆解：your-site.com/ga4-funnel（文末有 UTM 範本）</p>
+                <p class="text-xs text-slate-500">#GA4 #SEO #內容行銷 #轉換率優化</p>
+                <div class="flex items-center justify-between text-xs text-slate-500 border-t border-slate-200 pt-2">
+                  <span>👍 128　💬 24　↗️ 13</span>
+                  <span>查看 8 則留言</span>
+                </div>
+                <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+                  <p class="font-black text-emerald-800">優點</p>
+                  <ul class="list-disc pl-5 mt-1 text-emerald-700 space-y-1">
+                    <li>開頭直接命中痛點，停留率高</li>
+                    <li>給明確步驟，增加收藏與轉發</li>
+                    <li>CTA 告訴讀者「點進去能拿到什麼」</li>
+                  </ul>
+                </div>
+                <div class="rounded-xl border border-rose-200 bg-rose-50 p-3">
+                  <p class="font-black text-rose-800">缺點（可再優化）</p>
+                  <ul class="list-disc pl-5 mt-1 text-rose-700 space-y-1">
+                    <li>技術名詞偏多，新手可能有門檻</li>
+                    <li>若沒附真實數據截圖，說服力會下降</li>
+                  </ul>
+                </div>
+              </article>
+              <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+                <div class="flex items-center gap-2">
+                  <div class="w-9 h-9 rounded-full bg-amber-600 text-white flex items-center justify-center font-black">BH</div>
+                  <div><p class="font-black text-slate-900">BillHuang Studio</p><p class="text-xs text-slate-500">昨天 · Instagram</p></div>
+                </div>
+                <p class="text-slate-700 leading-relaxed">【案例】台南手工皂網站 14 天詢單 +42%<br/>我們只做兩件事：<br/>1) 首屏按鈕從「了解更多」改成「領敏感肌選皂清單」<br/>2) 社群每篇只導一頁，並用 UTM 分辨貼文成效。<br/>接著把文章改成「痛點一句＋步驟三點＋案例一段」，讓讀者 8 秒內知道這篇能解什麼問題，點進站內後才願意留聯絡。</p>
+                <p class="text-amber-700 font-bold">🔗 完整前後對照圖：精選限動 / 站內案例頁（含 GA4 圖表）</p>
+                <p class="text-xs text-slate-500">#手工皂行銷 #案例拆解 #GEO #內容導流</p>
+                <div class="flex items-center justify-between text-xs text-slate-500 border-t border-slate-200 pt-2">
+                  <span>❤️ 96　💬 17　🔖 31</span>
+                  <span>查看洞察數據</span>
+                </div>
+                <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+                  <p class="font-black text-emerald-800">優點</p>
+                  <ul class="list-disc pl-5 mt-1 text-emerald-700 space-y-1">
+                    <li>有數字、有步驟，可信度高</li>
+                    <li>一句話就講清楚改動重點</li>
+                    <li>適合轉成短影音口播腳本</li>
+                  </ul>
+                </div>
+                <div class="rounded-xl border border-rose-200 bg-rose-50 p-3">
+                  <p class="font-black text-rose-800">缺點（可再優化）</p>
+                  <ul class="list-disc pl-5 mt-1 text-rose-700 space-y-1">
+                    <li>若缺「對照截圖」，容易被視為話術</li>
+                    <li>沒有交代適用條件，讀者易誤套</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="mk-ga4-setup" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-sm">8</span>
+            <h2 class="text-2xl font-black text-slate-900">GA4 設定：先把事件定義好</h2>
+          </div>
+
+          <!-- 白話比喻 -->
+          <div class="rounded-2xl border-l-4 border-emerald-400 bg-emerald-50 p-5 text-sm">
+            <p class="font-black text-emerald-900 mb-2">💡 把 GA4 想成你店裡的「監視器 + 計數器」</p>
+            <p>實體店面會知道：今天進來多少人（流量）、在哪個區域待最久（停留）、拿起商品看了沒有（互動）、最後買了多少（轉換）。</p>
+            <p class="mt-2">GA4 就是你網站的這套系統。但不同的是，你要先「裝好感應器」，才能收到對應的數據。這些感應器就叫做「事件（Event）」。</p>
+          </div>
+
+          <!-- 四種必要事件白話說明 -->
+          <div class="space-y-3 text-sm">
+            <p class="font-black text-slate-900">你網站最少要追蹤這四件事：</p>
+            <div class="grid md:grid-cols-2 gap-3">
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <p class="font-black text-slate-900">有人進來了</p>
+                <p class="text-slate-500 text-xs mt-0.5">事件名稱：<code class="bg-slate-100 px-1 rounded">page_view</code></p>
+                <p class="mt-2">每次有人打開你的頁面就算一次，GA4 預設已經在追蹤，不用另外設定。</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <p class="font-black text-slate-900">有人讀完了</p>
+                <p class="text-slate-500 text-xs mt-0.5">事件名稱：<code class="bg-slate-100 px-1 rounded">scroll</code>（捲到 90%）</p>
+                <p class="mt-2">代表這個人真的有讀，不是進來兩秒就關掉。GA4 預設追蹤捲動到 90%。</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <p class="font-black text-slate-900">有人按了按鈕</p>
+                <p class="text-slate-500 text-xs mt-0.5">事件名稱：<code class="bg-slate-100 px-1 rounded">click_cta</code>（自訂）</p>
+                <p class="mt-2">按了「加 LINE」「立即預約」「下載資料」等主要行動按鈕，代表有意圖。</p>
+              </div>
+              <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+                <p class="font-black text-emerald-900">有人真的詢問了</p>
+                <p class="text-emerald-700 text-xs mt-0.5">事件名稱：<code class="bg-emerald-100 px-1 rounded">generate_lead</code>（轉換事件）</p>
+                <p class="mt-2 text-emerald-800">表單送出或 LINE 加好友成功，這是真正的商業行為，要設為「轉換事件」。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
+            <p class="font-black text-slate-800 mb-2">給不懂寫程式的人：用 GTM 按鈕點擊觸發</p>
+            <ol class="list-decimal pl-5 space-y-2">
+              <li>安裝 Google Tag Manager（GTM）到你的網站，不用改程式碼。</li>
+              <li>在 GTM 建立「按鈕點擊觸發器」，選定你的 CTA 按鈕。</li>
+              <li>建立 GA4 事件標籤，事件名稱填 <code class="bg-white border px-1 rounded">click_cta</code>。</li>
+              <li>發布 → 到 GA4 的「即時報表」測試點按鈕，看事件有沒有出現。</li>
+            </ol>
+            <p class="mt-3 text-slate-600">不確定怎麼做？搜尋「GTM GA4 按鈕點擊追蹤」，有許多中文教學影片。</p>
+          </div>
+        </section>
+
+        <section id="mk-ga4-analysis" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-600 text-white font-black text-sm">9</span>
+            <h2 class="text-2xl font-black text-slate-900">GA4 分析：看懂「哪種內容能帶轉換」</h2>
+          </div>
+
+          <div class="rounded-2xl border-l-4 border-emerald-400 bg-emerald-50 p-5 text-sm">
+            <p class="font-black text-emerald-900 mb-2">📖 用一個真實情境理解 GA4 報表</p>
+            <p>小明的手工皂網站上週有 350 次造訪，但只有 2 筆詢問。GA4 能幫他找到：是哪篇文章吸了最多人、這些人有沒有看完、最後是在哪個步驟放棄了。</p>
+          </div>
+
+          <!-- 模擬數據表 -->
+          <div class="rounded-2xl border border-slate-200 overflow-hidden text-sm">
+            <p class="px-5 pt-5 font-black text-slate-900">假設這是小明的某週 GA4 數據</p>
+            <div class="overflow-x-auto">
+              <table class="w-full mt-3 text-xs">
+                <thead class="bg-slate-50 text-slate-500 uppercase text-left">
+                  <tr>
+                    <th class="px-4 py-3 font-black">頁面</th>
+                    <th class="px-4 py-3 font-black">流量</th>
+                    <th class="px-4 py-3 font-black">讀完率</th>
+                    <th class="px-4 py-3 font-black">CTA 點擊</th>
+                    <th class="px-4 py-3 font-black">詢問數</th>
+                    <th class="px-4 py-3 font-black">診斷</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr class="bg-white">
+                    <td class="px-4 py-3">台南手工皂推薦</td>
+                    <td class="px-4 py-3 font-bold">180</td>
+                    <td class="px-4 py-3 text-emerald-600 font-bold">72%</td>
+                    <td class="px-4 py-3 text-red-500 font-bold">3 次</td>
+                    <td class="px-4 py-3">1</td>
+                    <td class="px-4 py-3 text-amber-700">讀完率高但沒按 → <strong>CTA 太不明顯</strong></td>
+                  </tr>
+                  <tr class="bg-slate-50">
+                    <td class="px-4 py-3">敏感肌手工皂選購</td>
+                    <td class="px-4 py-3 font-bold">95</td>
+                    <td class="px-4 py-3 text-red-500 font-bold">18%</td>
+                    <td class="px-4 py-3">2 次</td>
+                    <td class="px-4 py-3">0</td>
+                    <td class="px-4 py-3 text-red-700">讀完率太低 → <strong>內容不符合意圖</strong></td>
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="px-4 py-3">手工皂客製禮盒</td>
+                    <td class="px-4 py-3 font-bold">75</td>
+                    <td class="px-4 py-3 text-emerald-600 font-bold">61%</td>
+                    <td class="px-4 py-3 text-emerald-600 font-bold">18 次</td>
+                    <td class="px-4 py-3 font-bold text-emerald-700">1</td>
+                    <td class="px-4 py-3 text-emerald-700">點了沒詢問 → <strong>詢問流程太麻煩</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="px-5 pb-5 pt-3 text-slate-600 text-xs">三頁三個問題，各自的優化方向完全不同——這就是為什麼要看詳細報表，而不是只看「總流量」。</p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-4 text-sm">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900 mb-2">讀完率低怎麼辦</p>
+              <p>代表內容不符合讀者預期。重新審視標題是否過度誇大、第一段是否說清楚「這頁能給你什麼」。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900 mb-2">讀完了但沒點 CTA</p>
+              <p>CTA 太小、文字不夠吸引人、或位置放在太下面。試著把 CTA 提到文章三分之一的位置，並改成動詞開頭的文案。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900 mb-2">點了 CTA 但沒詢問</p>
+              <p>表單太複雜、LINE 加入頁面打不開、或是讀者有疑慮但找不到解答。在 CTA 附近補一句「常見問題」或「30 秒就能完成」。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="mk-ops" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
+          <h2 class="text-2xl font-black text-slate-900">30 天操作節奏（可照表執行）</h2>
+          <ul>
+            <li>第 1 週：關鍵字盤點、內容地圖、GA4 事件校正。</li>
+            <li>第 2 週：發 2 篇核心長文（SEO 主軸 + GEO 結構化）。</li>
+            <li>第 3 週：社群拆文導流 + Search Console 看曝光變化。</li>
+            <li>第 4 週：GA4 回顧與改版，優化 CTA、標題、內部連結。</li>
+          </ul>
+          <p>循環做 2-3 輪，通常就能看出穩定成長曲線。</p>
+          <div class="rounded-2xl border border-indigo-200 bg-indigo-50 p-4 text-sm">
+            <p class="font-black text-indigo-900 mb-1">執行重點</p>
+            <p>每次優化只改 1-2 個變數（例如標題 + CTA），這樣 GA4 回看時才知道哪個改動真的有效。</p>
+          </div>
+          <div class="grid md:grid-cols-4 gap-3 text-sm">
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-black text-slate-900">週一</p>
+              <p class="mt-1">看 Search Console 找曝光上升但 CTR 低的頁。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-black text-slate-900">週二</p>
+              <p class="mt-1">改標題、描述、第一屏與 CTA。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-black text-slate-900">週三</p>
+              <p class="mt-1">拆社群貼文導流，全部加 UTM。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-black text-slate-900">週五</p>
+              <p class="mt-1">用 GA4 看 CTA、詢單與來源品質。</p>
+            </div>
+          </div>
+        </section>
+
+        <div id="marketing-author-note"></div>
+      </article>
+    </div>
+  </main>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-6 mt-auto"></footer>
+
+  <script>
+    function initMarketingSectionSwitcher(sidebarId, contentId) {
+      const sidebar = document.getElementById(sidebarId);
+      const content = document.getElementById(contentId);
+      if (!sidebar || !content) return;
+
+      const links = Array.from(sidebar.querySelectorAll('.mk-nav-link'));
+      const panels = Array.from(content.querySelectorAll('.marketing-panel'));
+      const panelIds = new Set(panels.map(function(panel) { return panel.id; }));
+
+      function setActivePanel(targetId, updateHash) {
+        const nextId = panelIds.has(targetId) ? targetId : 'mk-overview';
+
+        panels.forEach(function(panel) {
+          panel.hidden = panel.id !== nextId;
+        });
+
+        links.forEach(function(link) {
+          const isActive = link.getAttribute('href') === '#' + nextId;
+          link.classList.toggle('is-active', isActive);
+          link.classList.toggle('text-slate-600', !isActive);
+          link.classList.toggle('hover:bg-slate-50', !isActive);
+          link.setAttribute('aria-current', isActive ? 'true' : 'false');
+        });
+
+        if (updateHash) {
+          history.replaceState(null, '', '#' + nextId);
+        }
+      }
+
+      links.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          const targetId = (link.getAttribute('href') || '').replace('#', '');
+          setActivePanel(targetId, true);
+        });
+      });
+
+      setActivePanel(location.hash.replace('#', '') || 'mk-overview', false);
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', 'components/header.html', 'nav-marketing');
+      includeComponentSlot('global-footer', 'components/footer.html');
+      includeComponentSlot('marketing-sidebar', 'components/sidebar-marketing.html', null, function() {
+        initSidebarKeywordSearch('marketing-sidebar', {
+          buttonSelector: '.mk-nav-link',
+          placeholder: '搜尋 SEO / GEO / GA4...'
+        });
+        initMarketingSectionSwitcher('marketing-sidebar', 'marketing-content-stage');
+      });
+      renderAuthorSignature('marketing-author-note');
+    });
+
+    window.addEventListener('scroll', function() {
+      var y = window.scrollY;
+      document.querySelectorAll('[data-mk-parallax]').forEach(function(el) {
+        var speed = parseFloat(el.getAttribute('data-mk-parallax')) || 0.15;
+        el.style.transform = 'translate3d(0, ' + (y * speed) + 'px, 0)';
+      });
+    }, { passive: true });
+  </script>
+</body>
+</html>

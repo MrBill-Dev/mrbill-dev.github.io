@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 實戰教學總覽 | MrBill</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/components-loader.js"></script>
+</head>
+<body class="site-colorful bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+  <main class="max-w-6xl mx-auto w-full px-6 py-10 space-y-8 flex-grow">
+    <section class="rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-600 text-white p-8 md:p-10 space-y-4">
+      <p class="text-xs font-black uppercase tracking-wider text-indigo-100">AI Workshop Playbook</p>
+      <h1 class="text-3xl md:text-5xl font-black">AI 實戰教學總覽（可直接上課）</h1>
+      <p class="text-indigo-100 max-w-3xl">這頁是「教學控制台」：你可以選場景、看流程、拿作業模板、快速跳到站內對應練習，不再只是簡介頁。</p>
+      <div class="flex flex-wrap gap-3">
+        <button type="button" data-pack="starter" class="pack-btn px-4 py-2 rounded-xl bg-white text-indigo-700 font-black">新手班（90 分）</button>
+        <button type="button" data-pack="creator" class="pack-btn px-4 py-2 rounded-xl bg-white/20 text-white font-black">創作者班（120 分）</button>
+        <button type="button" data-pack="team" class="pack-btn px-4 py-2 rounded-xl bg-white/20 text-white font-black">團隊導入班（180 分）</button>
+      </div>
+    </section>
+
+    <section class="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">🗂 課程包內容（可切換）</h2>
+      <div id="pack-content" class="grid lg:grid-cols-3 gap-4"></div>
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <p class="font-black text-slate-900 mb-2">可交付成果（下課要拿到）</p>
+        <ul id="pack-deliverables" class="list-disc pl-5 text-sm text-slate-700 space-y-1"></ul>
+      </div>
+    </section>
+
+    <section class="rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
+      <h2 class="text-2xl font-black text-slate-900">🧪 課堂互動工具</h2>
+      <div class="grid md:grid-cols-3 gap-4 mt-4">
+        <button type="button" data-drill="icebreak" class="drill-btn text-left rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <p class="font-black text-slate-900">破冰提問器</p><p class="text-sm text-slate-600 mt-1">快速產生 3 個開場題。</p>
+        </button>
+        <button type="button" data-drill="debate" class="drill-btn text-left rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <p class="font-black text-slate-900">對錯辯論題</p><p class="text-sm text-slate-600 mt-1">訓練查證與風險判斷。</p>
+        </button>
+        <button type="button" data-drill="homework" class="drill-btn text-left rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <p class="font-black text-slate-900">作業模板</p><p class="text-sm text-slate-600 mt-1">直接發給學員的繳交格式。</p>
+        </button>
+      </div>
+      <pre id="drill-output" class="hidden mt-4 p-4 rounded-2xl bg-slate-900 text-emerald-300 text-sm whitespace-pre-wrap"></pre>
+    </section>
+
+    <section class="rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
+      <h2 class="text-2xl font-black text-slate-900">🚀 立即去做（站內直通）</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <a href="index.html?tab=practice" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 no-underline"><p class="font-black text-slate-900">概念互動練習箱</p><p class="text-sm text-slate-600 mt-1">先建觀念，避免亂用 AI。</p></a>
+        <a href="index.html?tab=tool" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 no-underline"><p class="font-black text-slate-900">Prompt 工程矩陣</p><p class="text-sm text-slate-600 mt-1">直接產出可貼用的 .md Prompt。</p></a>
+        <a href="index.html?tab=game" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 no-underline"><p class="font-black text-slate-900">AI 小遊戲中心</p><p class="text-sm text-slate-600 mt-1">做決策、選工具、找下一步。</p></a>
+        <a href="marketing-seo-geo.html" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 no-underline"><p class="font-black text-slate-900">SEO / GEO 實戰</p><p class="text-sm text-slate-600 mt-1">把 AI 應用到真實流量與轉換。</p></a>
+      </div>
+    </section>
+  </main>
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-6 mt-auto"></footer>
+  <script>
+    const packs = {
+      starter: {
+        cards: [
+          ['Module 1', '提示詞基礎', 'RTCS + Few-shot + 查證標註'],
+          ['Module 2', '多模型比較', '同題比較 ChatGPT / Claude / Gemini'],
+          ['Module 3', '案例改寫', '把理論文改成可執行教學稿']
+        ],
+        deliverables: ['一份可複製 Prompt .md', '一份 AI 草稿 + 人工修訂版', '一份查證清單（來源與風險）']
+      },
+      creator: {
+        cards: [
+          ['Module 1', '創作工作流', '文案、圖像、短影音的串接流程'],
+          ['Module 2', '產圖風險控管', '授權、品牌一致性、人工修正'],
+          ['Module 3', '內容分發', 'SEO / GEO / 社群同步改寫']
+        ],
+        deliverables: ['一個跨平台內容包（文+圖+短影音腳本）', '一張產圖審稿單', '一份 UTM 成效追蹤表']
+      },
+      team: {
+        cards: [
+          ['Module 1', '部門導入策略', '哪些任務先導入、哪些先禁止'],
+          ['Module 2', 'SOP 與權限', '資料分級、審稿節點、版本控管'],
+          ['Module 3', '成效營運', '週會回顧與 KPI 優化']
+        ],
+        deliverables: ['AI 使用政策草案', '跨部門 Prompt 模板庫', '90 天導入里程碑']
+      }
+    };
+
+    function renderPack(key) {
+      const pack = packs[key];
+      const content = document.getElementById('pack-content');
+      const deliv = document.getElementById('pack-deliverables');
+      content.innerHTML = pack.cards.map(c =>
+        `<article class="rounded-2xl border border-slate-200 bg-slate-50 p-4"><p class="text-xs font-black text-indigo-600">${c[0]}</p><h3 class="text-lg font-black mt-1">${c[1]}</h3><p class="text-sm text-slate-600 mt-2">${c[2]}</p></article>`
+      ).join('');
+      deliv.innerHTML = pack.deliverables.map(d => `<li>${d}</li>`).join('');
+      document.querySelectorAll('.pack-btn').forEach(btn => {
+        const active = btn.dataset.pack === key;
+        btn.className = active ? 'pack-btn px-4 py-2 rounded-xl bg-white text-indigo-700 font-black'
+                               : 'pack-btn px-4 py-2 rounded-xl bg-white/20 text-white font-black';
+      });
+    }
+
+    function bindDrill() {
+      const out = document.getElementById('drill-output');
+      const map = {
+        icebreak: '破冰提問（3 選 1）\\n1) 你最近用 AI 最失敗的一次是什麼？\\n2) 你認為 AI 最不能取代人的能力是？\\n3) 你最怕 AI 在工作上犯哪種錯？',
+        debate: '辯論題\\n正方：只要 AI 能做，就應該自動化。\\n反方：關鍵流程必須保留人工審核。\\n請各組提出 2 個證據與 1 個反例。',
+        homework: '作業模板\\n- 任務目標：\\n- Prompt(.md)：\\n- AI 初稿：\\n- 人工修正版：\\n- 查證來源：\\n- 你這次學到的取捨：'
+      };
+      document.querySelectorAll('.drill-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          out.classList.remove('hidden');
+          out.textContent = map[btn.dataset.drill] || '';
+        });
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', 'components/header.html');
+      includeComponentSlot('global-footer', 'components/footer.html');
+      renderPack('starter');
+      document.querySelectorAll('.pack-btn').forEach(btn => btn.addEventListener('click', () => renderPack(btn.dataset.pack)));
+      bindDrill();
+    });
+  </script>
+</body>
+</html>

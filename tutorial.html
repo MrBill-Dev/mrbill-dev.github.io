@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>前端與設計手冊 - MrBill Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/components-loader.js"></script>
+  <script src="js/site-config.js"></script>
+  <script src="js/tutorial-data.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Noto Sans TC"', 'sans-serif'] },
+          colors: { brand: { 50: '#f5f3ff', 100: '#ede9fe', 500: '#6366f1', 600: '#4f46e5' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+    .xp-pop { animation: pop 0.4s ease; }
+    @keyframes floatBadge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    .float-badge { animation: floatBadge 2s ease-in-out infinite; }
+    .track-intro { background: #eef2ff; color: #4338ca; }
+    .track-html { background: #ecfdf5; color: #047857; }
+    .track-css { background: #fff7ed; color: #c2410c; }
+    .track-js { background: #f0f9ff; color: #0369a1; }
+    .track-advanced { background: #fdf4ff; color: #7e22ce; }
+    .track-master { background: #fffbeb; color: #b45309; }
+    #sandbox-preview-canvas { overflow-x: auto; max-width: 100%; min-width: 0; }
+    #sandbox-preview-canvas .grid,
+    #sandbox-preview-canvas [class*="grid"] { max-width: 100%; }
+    #tutorial-layout { width: 100%; min-width: 0; }
+    #tutorial-sidebar { min-width: 0; max-width: 100%; }
+    #lesson-main { min-width: 0; }
+    @media (min-width: 1024px) {
+      #tutorial-sidebar { width: 16.5rem; max-width: 16.5rem; flex-shrink: 0; }
+      #lesson-main { flex: 1 1 0%; min-width: 0; }
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg">
+
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full min-w-0 space-y-6 overflow-x-hidden">
+
+    <!-- 前言 + 工具 + XP -->
+    <div class="bg-gradient-to-r from-indigo-50/80 to-cyan-50/50 p-6 md:p-8 rounded-2xl border border-indigo-100/50 fade-in-up space-y-5">
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+        <div class="flex-1">
+          <h3 id="preface-title" class="text-xl md:text-2xl font-black text-indigo-950 mb-2"></h3>
+          <div id="preface-body" class="text-base text-slate-600 leading-relaxed font-medium"></div>
+        </div>
+        <div class="shrink-0 bg-white rounded-2xl border border-indigo-100 p-4 min-w-[200px] shadow-sm">
+          <div class="flex justify-between text-sm font-bold text-slate-500 mb-2">
+            <span>⭐ 冒險 XP</span>
+            <span id="xp-label">0</span>
+          </div>
+          <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
+            <div id="xp-bar" class="h-full bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full transition-all duration-500" style="width:0%"></div>
+          </div>
+          <p class="text-xs text-slate-400 mt-2">完成小測驗 +50 · 點「我完成了」+30</p>
+        </div>
+      </div>
+      <div id="preface-tools" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+      <div id="preface-path" class="flex flex-wrap gap-2 text-xs font-bold"></div>
+    </div>
+
+    <div id="tutorial-layout" class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full min-w-0">
+      <aside id="tutorial-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto lg:h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden custom-scrollbar"></aside>
+
+      <div id="lesson-main" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 scroll-mt-20">
+        <div class="bg-white p-4 sm:p-6 md:p-8 rounded-3xl border border-slate-100 space-y-5 fade-in-up shadow-sm min-w-0 overflow-hidden">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="track-badge" class="text-xs font-black px-2.5 py-1 rounded-lg track-intro">入門</span>
+            <span id="complete-badge" class="hidden text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-700">✓ 已完成</span>
+          </div>
+          <div>
+            <h3 id="tuto-title" class="text-2xl font-black text-slate-900">載入中...</h3>
+            <p id="tuto-desc" class="text-base text-slate-500 mt-2 leading-relaxed"></p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-100">
+              <span class="text-xs font-black text-indigo-600 uppercase tracking-wider">💡 概念是什麼？</span>
+              <p id="lesson-concept" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium"></p>
+            </div>
+            <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-100">
+              <span class="text-xs font-black text-amber-700 uppercase tracking-wider">🎯 怎麼練？</span>
+              <p id="lesson-practice" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium whitespace-pre-line"></p>
+            </div>
+          </div>
+
+          <div id="lesson-playground" class="hidden p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 min-w-0 max-w-full overflow-hidden"></div>
+
+          <div class="space-y-3 border-t border-b border-slate-100 py-6">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+              <span class="text-xs font-black text-slate-400 uppercase tracking-wider">💻 程式沙盒（改完按運行）</span>
+              <button onclick="runSandboxCompiler()" class="px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl text-sm shadow-md hover:bg-indigo-700 transition-colors hover:scale-[1.02] active:scale-95">運行 ▶</button>
+            </div>
+            <textarea id="sandbox-editor" class="w-full max-w-full h-52 p-5 bg-slate-900 text-emerald-400 font-mono text-sm rounded-2xl outline-none leading-relaxed box-border" spellcheck="false"></textarea>
+            <div class="space-y-2">
+              <span class="text-xs font-black text-slate-400 uppercase tracking-wider">✨ 即時預覽</span>
+              <div id="sandbox-preview-canvas" class="w-full p-6 bg-slate-50 rounded-2xl border border-slate-200 min-h-[160px] overflow-auto transition-all"></div>
+            </div>
+          </div>
+
+          <div id="lesson-quiz" class="hidden p-5 rounded-2xl bg-purple-50 border border-purple-100 space-y-3">
+            <p class="font-black text-purple-900 text-sm">🎮 關卡小測（答對 +50 XP）</p>
+            <p id="quiz-question" class="font-bold text-slate-800"></p>
+            <div id="quiz-options" class="grid sm:grid-cols-3 gap-2"></div>
+            <p id="quiz-feedback" class="hidden text-sm font-bold rounded-xl px-4 py-2"></p>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <button type="button" onclick="markLessonComplete()" class="px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700 transition-colors">我完成了本關 ✓</button>
+            <button type="button" onclick="goNextLesson()" class="px-5 py-2.5 rounded-xl bg-slate-100 text-slate-800 font-bold text-sm hover:bg-slate-200 transition-colors">下一課 →</button>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-amber-50 border border-amber-100 text-sm leading-relaxed">
+            <span class="font-black block text-amber-950 text-base">📌 設計師小提示</span>
+            <p id="tuto-ui-tip" class="font-medium text-slate-600 mt-1"></p>
+          </div>
+          <div id="tutorial-author-note"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-6 mt-auto"></footer>
+
+  <script>
+    const LESSON_ORDER = typeof TUTORIAL_ORDER !== 'undefined' ? TUTORIAL_ORDER : Object.keys(tutorialRepository);
+    let currentLessonKey = 'intro_welcome';
+    let totalXp = 0;
+    let completedSet = new Set();
+
+    function loadProgress() {
+      try {
+        totalXp = parseInt(localStorage.getItem('mrbill_tuto_xp') || '0', 10);
+        const done = JSON.parse(localStorage.getItem('mrbill_tuto_done') || '[]');
+        completedSet = new Set(done);
+      } catch (e) { totalXp = 0; completedSet = new Set(); }
+      updateXpUi();
+    }
+
+    function saveProgress() {
+      localStorage.setItem('mrbill_tuto_xp', String(totalXp));
+      localStorage.setItem('mrbill_tuto_done', JSON.stringify([...completedSet]));
+    }
+
+    function addXp(n) {
+      totalXp += n;
+      const bar = document.getElementById('xp-bar');
+      const label = document.getElementById('xp-label');
+      bar.classList.add('xp-pop');
+      setTimeout(() => bar.classList.remove('xp-pop'), 400);
+      const pct = Math.min(100, (totalXp % 500) / 5);
+      bar.style.width = pct + '%';
+      label.textContent = totalXp;
+      saveProgress();
+    }
+
+    function updateXpUi() {
+      document.getElementById('xp-label').textContent = totalXp;
+      document.getElementById('xp-bar').style.width = Math.min(100, (totalXp % 500) / 5) + '%';
+    }
+
+    function renderPreface() {
+      document.getElementById('preface-title').textContent = tutorialPreface.title;
+      document.getElementById('preface-body').innerHTML = tutorialPreface.contentHtml || '';
+      document.getElementById('preface-tools').innerHTML = (tutorialPreface.tools || []).map(t => `
+        <div class="bg-white/80 rounded-xl p-3 border border-indigo-100/80">
+          <span class="text-xl">${t.icon}</span>
+          <p class="font-bold text-slate-800 text-sm mt-1">${t.name}</p>
+          <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">${t.desc}</p>
+        </div>`).join('');
+      document.getElementById('preface-path').innerHTML = (tutorialPreface.path || []).map(p =>
+        `<span class="px-3 py-1.5 rounded-full bg-white border border-indigo-100 text-indigo-700">${p}</span>`).join('');
+    }
+
+    function trackClass(track) {
+      return { intro: 'track-intro', html: 'track-html', css: 'track-css', js: 'track-js', advanced: 'track-advanced', master: 'track-master' }[track] || 'track-intro';
+    }
+
+    function trackLabel(track) {
+      return { intro: '入門', html: 'HTML', css: 'CSS', js: 'JavaScript', advanced: '進階', master: '大師' }[track] || '課程';
+    }
+
+    /** 同步修改沙盒編輯器內某個 CSS 規則的屬性（互動區 → 程式碼一起更新） */
+    function patchEditorCss(ruleClass, property, value) {
+      const editor = document.getElementById('sandbox-editor');
+      let code = editor.value;
+      const rule = ruleClass.replace(/^\./, '');
+      const propRe = new RegExp(
+        '(\\.' + rule + '\\s*\\{[^}]*?' + property.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*:\\s*)[^;]+',
+        'i'
+      );
+      if (propRe.test(code)) {
+        code = code.replace(propRe, '$1' + value);
+      } else {
+        const openRe = new RegExp('(\\.' + rule + '\\s*\\{)', 'i');
+        code = code.replace(openRe, '$1\n    ' + property + ': ' + value + ';');
+      }
+      editor.value = code;
+      runSandboxCompiler();
+    }
+
+    function patchRootVar(varName, value) {
+      const editor = document.getElementById('sandbox-editor');
+      let code = editor.value;
+      const re = new RegExp('(--' + varName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*:\\s*)[^;]+', 'i');
+      if (re.test(code)) code = code.replace(re, '$1' + value);
+      editor.value = code;
+      runSandboxCompiler();
+    }
+
+    function patchMediaMinWidth(px) {
+      const editor = document.getElementById('sandbox-editor');
+      editor.value = editor.value.replace(
+        /@media\s*\(\s*min-width\s*:\s*\d+px\s*\)/gi,
+        '@media (min-width: ' + px + 'px)'
+      );
+      runSandboxCompiler();
+    }
+
+    function setSandboxCode(code) {
+      document.getElementById('sandbox-editor').value = code;
+      runSandboxCompiler();
+    }
+
+    const POSITION_DEMOS = {
+      static: `<style>\n  .stage { height: 100px; background: #f1f5f9; border-radius: 12px; border: 2px dashed #cbd5e1; padding: 12px; }\n  .pin { position: static; background: #94a3b8; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; display: inline-block; }\n  .hint { font-size: 13px; color: #64748b; margin-bottom: 8px; }\n</style>\n<p class="hint"><strong>static</strong>：預設，無法用 top/left 偏移</p>\n<div class="stage"><span class="pin">標籤</span></div>`,
+      relative: `<style>\n  .stage { height: 100px; background: #f1f5f9; border-radius: 12px; border: 2px dashed #cbd5e1; padding: 12px; }\n  .pin { position: relative; top: 20px; left: 24px; background: #0ea5e9; color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; display: inline-block; }\n  .hint { font-size: 13px; color: #64748b; margin-bottom: 8px; }\n</style>\n<p class="hint"><strong>relative</strong>：相對原位置偏移，仍佔原本空間</p>\n<div class="stage"><span class="pin">偏移</span></div>`,
+      absolute: `<style>\n  .stage { position: relative; height: 120px; background: #f1f5f9; border-radius: 12px; border: 2px dashed #cbd5e1; overflow: hidden; }\n  .pin { position: absolute; top: 12px; right: 12px; background: #ef4444; color: #fff; font-size: 12px; font-weight: bold; padding: 6px 10px; border-radius: 6px; }\n  .hint { font-size: 13px; color: #64748b; margin-bottom: 8px; }\n</style>\n<p class="hint"><strong>absolute</strong>：父層 .stage 設 relative，子層貼角</p>\n<div class="stage"><span class="pin">角標</span></div>`,
+      fixed: `<style>\n  .hint { font-size: 13px; color: #64748b; padding: 12px; min-height: 70px; }\n  .pin { position: fixed; bottom: 12px; right: 12px; background: #f59e0b; color: #fff; font-size: 12px; font-weight: bold; padding: 8px 12px; border-radius: 8px; z-index: 5; }\n</style>\n<p class="hint"><strong>fixed</strong>：相對「預覽視窗」固定（右下角按鈕常見）</p>\n<span class="pin">fixed</span>`,
+      sticky: `<style>\n  .stage { height: 160px; overflow-y: auto; border: 2px dashed #cbd5e1; border-radius: 12px; background: #fff; }\n  .bar { position: sticky; top: 0; background: #4f46e5; color: #fff; padding: 8px 12px; font-weight: bold; font-size: 13px; z-index: 1; }\n  .body { height: 280px; padding: 12px; font-size: 13px; color: #64748b; background: #f8fafc; }\n  .hint { font-size: 13px; color: #64748b; margin-bottom: 8px; }\n</style>\n<p class="hint"><strong>sticky</strong>：在 .stage 內往下捲，標題會黏在頂部</p>\n<div class="stage">\n  <div class="bar">sticky 標題</div>\n  <div class="body">繼續往下捲動預覽區…</div>\n</div>`
+    };
+
+    function renderPlayground(lesson) {
+      const box = document.getElementById('lesson-playground');
+      box.classList.add('hidden');
+      box.innerHTML = '';
+      if (!lesson.playground) return;
+
+      box.classList.remove('hidden');
+      if (lesson.playground === 'padding') {
+        box.innerHTML = `
+          <p class="text-sm font-bold text-slate-600">🕹 互動：拖曳調整內距 padding</p>
+          <input type="range" id="pg-padding" min="4" max="48" value="20" class="w-full accent-indigo-600" />
+          <p class="text-xs text-slate-500">目前 padding: <span id="pg-padding-val">20</span>px</p>`;
+        const slider = document.getElementById('pg-padding');
+        slider.oninput = function() {
+          const v = this.value;
+          document.getElementById('pg-padding-val').textContent = v;
+          patchEditorCss('inner', 'padding', v + 'px');
+        };
+      } else if (lesson.playground === 'flex') {
+        box.innerHTML = `
+          <p class="text-sm font-bold text-slate-600">🕹 互動：切換 Flex 對齊（左側程式碼會同步）</p>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" class="pg-flex-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-bold" data-j="space-between">space-between</button>
+            <button type="button" class="pg-flex-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-j="center">center</button>
+            <button type="button" class="pg-flex-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-j="flex-start">flex-start</button>
+            <button type="button" class="pg-flex-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-j="flex-end">flex-end</button>
+          </div>`;
+        box.querySelectorAll('.pg-flex-btn').forEach(btn => {
+          btn.onclick = function() {
+            box.querySelectorAll('.pg-flex-btn').forEach(b => {
+              b.className = 'pg-flex-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold';
+            });
+            this.className = 'pg-flex-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-bold';
+            patchEditorCss('bar', 'justify-content', this.dataset.j);
+          };
+        });
+      } else if (lesson.playground === 'grid') {
+        box.innerHTML = `
+          <p class="text-sm font-bold text-slate-600">🕹 互動：調整 Grid 欄數（程式碼 grid-template-columns 會同步）</p>
+          <input type="range" id="pg-cols" min="1" max="3" value="3" class="w-full max-w-full accent-indigo-600" />
+          <p class="text-xs text-slate-500">目前 <span id="pg-cols-val">3</span> 欄 · minmax(72px,1fr) 窄框自動換行不撐破頁面</p>`;
+        document.getElementById('pg-cols').oninput = function() {
+          const n = this.value;
+          document.getElementById('pg-cols-val').textContent = n;
+          patchEditorCss('grid', 'grid-template-columns', 'repeat(' + n + ', minmax(72px, 1fr))');
+        };
+      } else if (lesson.playground === 'hue') {
+        box.innerHTML = `
+          <p class="text-sm font-bold text-slate-600">🕹 互動：調整漸層色相（會改 .card 的 background）</p>
+          <input type="range" id="pg-hue" min="0" max="360" value="240" class="w-full accent-cyan-600" />`;
+        document.getElementById('pg-hue').oninput = function() {
+          const h = this.value;
+          const h2 = (parseInt(h, 10) + 60) % 360;
+          patchEditorCss('card', 'background', `linear-gradient(135deg, hsl(${h}, 70%, 55%), hsl(${h2}, 70%, 50%))`);
+        };
+      } else if (lesson.playground === 'position') {
+        box.innerHTML = `
+          <p class="text-sm font-bold text-slate-600">🕹 互動：切換 position 五種模式（左側程式碼整段更新）</p>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" class="pg-pos-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-bold" data-mode="static">static</button>
+            <button type="button" class="pg-pos-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-mode="relative">relative</button>
+            <button type="button" class="pg-pos-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-mode="absolute">absolute</button>
+            <button type="button" class="pg-pos-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-mode="fixed">fixed</button>
+            <button type="button" class="pg-pos-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-mode="sticky">sticky</button>
+          </div>`;
+        box.querySelectorAll('.pg-pos-btn').forEach(btn => {
+          btn.onclick = function() {
+            box.querySelectorAll('.pg-pos-btn').forEach(b => {
+              b.className = 'pg-pos-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold';
+            });
+            this.className = 'pg-pos-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-bold';
+            if (POSITION_DEMOS[this.dataset.mode]) setSandboxCode(POSITION_DEMOS[this.dataset.mode]);
+          };
+        });
+      } else if (lesson.playground === 'media') {
+        box.innerHTML = `
+          <p class="text-sm font-bold text-slate-600">🕹 互動：調整 @media 斷點 min-width（px）</p>
+          <input type="range" id="pg-bp" min="320" max="900" value="600" step="20" class="w-full accent-indigo-600" />
+          <p class="text-xs text-slate-500">目前 <code>@media (min-width: <span id="pg-bp-val">600</span>px)</code> · 拉窄預覽區對照</p>`;
+        document.getElementById('pg-bp').oninput = function() {
+          document.getElementById('pg-bp-val').textContent = this.value;
+          patchMediaMinWidth(this.value);
+        };
+      } else if (lesson.playground === 'transition') {
+        box.innerHTML = `
+          <p class="text-sm font-bold text-slate-600">🕹 互動：調整 .btn 的 transition 秒數</p>
+          <input type="range" id="pg-trans" min="0" max="20" value="5" class="w-full accent-indigo-600" />
+          <p class="text-xs text-slate-500">約 <span id="pg-trans-val">0.25</span>s（滑鼠移入按鈕感受）</p>`;
+        document.getElementById('pg-trans').oninput = function() {
+          const sec = (this.value / 20).toFixed(2);
+          document.getElementById('pg-trans-val').textContent = sec;
+          patchEditorCss('btn', 'transition', 'background ' + sec + 's ease, transform ' + sec + 's ease, box-shadow ' + sec + 's ease');
+        };
+      } else if (lesson.playground === 'animation') {
+        box.innerHTML = `
+          <p class="text-sm font-bold text-slate-600">🕹 互動：切換 .demo 使用的 @keyframes</p>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" class="pg-anim-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-bold" data-anim="bounce 1s ease-in-out infinite">bounce</button>
+            <button type="button" class="pg-anim-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-anim="fadeIn 1.2s ease both">fadeIn</button>
+            <button type="button" class="pg-anim-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-anim="spin 0.8s linear infinite">spin</button>
+          </div>`;
+        box.querySelectorAll('.pg-anim-btn').forEach(btn => {
+          btn.onclick = function() {
+            box.querySelectorAll('.pg-anim-btn').forEach(b => {
+              b.className = 'pg-anim-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold';
+            });
+            this.className = 'pg-anim-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-bold';
+            patchEditorCss('demo', 'animation', this.dataset.anim);
+          };
+        });
+      } else if (lesson.playground === 'variables') {
+        box.innerHTML = `
+          <p class="text-sm font-bold text-slate-600">🕹 互動：一鍵更換 :root 的 --brand 主色</p>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" class="pg-var-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-bold" data-color="#4f46e5">靛紫</button>
+            <button type="button" class="pg-var-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-color="#059669">翡翠</button>
+            <button type="button" class="pg-var-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-color="#dc2626">紅</button>
+            <button type="button" class="pg-var-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold" data-color="#ea580c">橘</button>
+          </div>`;
+        const brandSoftMap = { '#4f46e5': '#ede9fe', '#059669': '#d1fae5', '#dc2626': '#fee2e2', '#ea580c': '#ffedd5' };
+        box.querySelectorAll('.pg-var-btn').forEach(btn => {
+          btn.onclick = function() {
+            box.querySelectorAll('.pg-var-btn').forEach(b => {
+              b.className = 'pg-var-btn px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold';
+            });
+            this.className = 'pg-var-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-sm font-bold';
+            patchRootVar('brand', this.dataset.color);
+            patchRootVar('brand-soft', brandSoftMap[this.dataset.color] || '#f1f5f9');
+          };
+        });
+      }
+    }
+
+    function renderQuiz(lesson) {
+      const wrap = document.getElementById('lesson-quiz');
+      const fb = document.getElementById('quiz-feedback');
+      fb.classList.add('hidden');
+      if (!lesson.quiz) { wrap.classList.add('hidden'); return; }
+      wrap.classList.remove('hidden');
+      document.getElementById('quiz-question').textContent = lesson.quiz.q;
+      const opts = document.getElementById('quiz-options');
+      opts.innerHTML = '';
+      lesson.quiz.opts.forEach((text, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'p-3 rounded-xl bg-white border border-purple-200 text-sm font-bold text-slate-700 hover:bg-purple-100 transition-colors text-left';
+        btn.textContent = text;
+        btn.onclick = function() {
+          if (i === lesson.quiz.ans) {
+            fb.className = 'text-sm font-bold rounded-xl px-4 py-2 bg-emerald-100 text-emerald-800 block';
+            fb.textContent = '🎉 答對了！+50 XP';
+            addXp(50);
+          } else {
+            fb.className = 'text-sm font-bold rounded-xl px-4 py-2 bg-rose-100 text-rose-800 block';
+            fb.textContent = '再想想～看「概念」區塊有提示';
+          }
+          fb.classList.remove('hidden');
+        };
+        opts.appendChild(btn);
+      });
+    }
+
+    /** 一律用 iframe 預覽，避免沙盒內 body/:root/header 樣式污染整頁字體與導覽 */
+    function runSandboxCompiler() {
+      const code = document.getElementById('sandbox-editor').value;
+      const canvas = document.getElementById('sandbox-preview-canvas');
+      canvas.innerHTML = '';
+      const iframe = document.createElement('iframe');
+      iframe.className = 'w-full min-h-[200px] border-0 rounded-xl bg-white';
+      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+      iframe.setAttribute('title', '課程預覽');
+      const baseCss = [
+        '*,*::before,*::after{box-sizing:border-box;}',
+        'body{font-family:-apple-system,"Noto Sans TC",sans-serif;padding:12px;margin:0;line-height:1.6;max-width:100%;overflow-x:auto;color:#334155;font-size:15px;}',
+        'img,video{max-width:100%;height:auto;}',
+        'a{color:#4f46e5;}'
+      ].join('');
+      let srcdoc;
+      if (/<!DOCTYPE/i.test(code)) {
+        srcdoc = code;
+      } else if (/^<html[\s>]/i.test(code.trim())) {
+        srcdoc = code;
+      } else {
+        srcdoc = `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${baseCss}</style></head><body>${code}</body></html>`;
+      }
+      iframe.srcdoc = srcdoc;
+      canvas.appendChild(iframe);
+      canvas.classList.add('fade-in-up');
+      setTimeout(() => canvas.classList.remove('fade-in-up'), 500);
+    }
+
+    function scrollToLesson() {
+      const el = document.getElementById('lesson-main');
+      if (!el) return;
+      requestAnimationFrame(() => {
+        const top = el.getBoundingClientRect().top + window.scrollY - 88;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      });
+    }
+
+    window.loadLesson = window.switchLessonEngine = function(key, btnElement, opts) {
+      opts = opts || {};
+      const lesson = tutorialRepository[key];
+      if (!lesson) return;
+      currentLessonKey = key;
+
+      document.getElementById('tuto-title').textContent = lesson.title;
+      document.getElementById('tuto-desc').textContent = lesson.desc;
+      document.getElementById('lesson-concept').innerHTML = lesson.concept || '';
+      document.getElementById('lesson-practice').textContent = lesson.practice || '';
+      document.getElementById('tuto-ui-tip').textContent = lesson.tip || '';
+      document.getElementById('sandbox-editor').value = lesson.code || '';
+
+      const badge = document.getElementById('track-badge');
+      badge.textContent = trackLabel(lesson.track);
+      badge.className = 'text-xs font-black px-2.5 py-1 rounded-lg ' + trackClass(lesson.track);
+
+      document.getElementById('complete-badge').classList.toggle('hidden', !completedSet.has(key));
+
+      renderPlayground(lesson);
+      renderQuiz(lesson);
+      runSandboxCompiler();
+
+      document.querySelectorAll('.tuto-nav-btn').forEach(b => {
+        b.className = 'tuto-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors';
+      });
+      if (btnElement) btnElement.className = 'tuto-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold bg-brand-50 text-indigo-600 transition-colors';
+
+      if (opts.scroll !== false) scrollToLesson();
+    };
+
+    function markLessonComplete() {
+      if (!completedSet.has(currentLessonKey)) {
+        completedSet.add(currentLessonKey);
+        addXp(30);
+        document.getElementById('complete-badge').classList.remove('hidden');
+      }
+    }
+
+    function goNextLesson() {
+      const i = LESSON_ORDER.indexOf(currentLessonKey);
+      if (i < 0 || i >= LESSON_ORDER.length - 1) return;
+      const nextKey = LESSON_ORDER[i + 1];
+      const buttons = document.querySelectorAll('.tuto-nav-btn');
+      let targetBtn = null;
+      buttons.forEach(b => {
+        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + nextKey + "'")) targetBtn = b;
+      });
+      loadLesson(nextKey, targetBtn);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      loadProgress();
+      renderPreface();
+      includeComponentSlot('global-header', 'components/header.html', 'nav-tutorial');
+      includeComponentSlot('global-footer', 'components/footer.html');
+      includeComponentSlot('tutorial-sidebar', 'components/sidebar-tutorial.html', null, () => {
+        initSidebarKeywordSearch('tutorial-sidebar', {
+          buttonSelector: '.tuto-nav-btn',
+          placeholder: '搜尋章節關鍵字...'
+        });
+        loadLesson('intro_welcome', document.querySelector('.tuto-nav-btn'), { scroll: false });
+      });
+      renderAuthorSignature('tutorial-author-note');
+    });
+  </script>
+</body>
+</html>
