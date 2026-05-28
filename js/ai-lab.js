@@ -390,6 +390,7 @@ const promptTechniques = [
 ];
 
 let promptState = { category: 'teach', scenarioId: '', role: '', task: '', context: '', style: '', techniques: [] };
+let promptFlowState = { scenarioId: '', activeStep: 0, done: [] };
 
 function getActiveScenario() {
   const list = promptScenarios[promptState.category] || [];
@@ -479,6 +480,9 @@ function initPromptLab() {
   function loadScenario(sc) {
     var desc = document.getElementById('prompt-scenario-desc');
     if (desc) desc.textContent = sc.desc;
+    promptFlowState.scenarioId = sc.id;
+    promptFlowState.activeStep = 0;
+    promptFlowState.done = [];
     renderWorkflow(sc);
     renderPitfalls(sc);
     if (sc.imagePreset) {
@@ -495,12 +499,24 @@ function initPromptLab() {
   function renderWorkflow(sc) {
     var wp = document.getElementById('prompt-workflow-panel');
     if (!wp || !sc.workflow) return;
+    var total = sc.workflow.length || 0;
     wp.innerHTML = '<p class="text-xs font-black text-slate-500 uppercase mb-2">📋 實際帶課／執行流程</p>' +
+      '<div class="mb-3 p-3 rounded-xl border border-slate-200 bg-white">' +
+      '<div class="flex items-center justify-between text-xs text-slate-500 mb-1"><span>流程進度</span><span id="flow-progress-label">0 / ' + total + '</span></div>' +
+      '<div class="h-2 rounded-full bg-slate-100 overflow-hidden"><div id="flow-progress-bar" class="h-full bg-purple-500" style="width:0%"></div></div>' +
+      '</div>' +
       sc.workflow.map(function(w) {
         return '<button type="button" data-flow-step="' + w.n + '" class="w-full text-left flex gap-3 p-3 rounded-xl bg-white border border-slate-100 hover:border-purple-300 transition-colors"><span class="w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-black flex items-center justify-center text-sm shrink-0">' + w.n + '</span>' +
           '<div><p class="font-bold text-slate-900">' + w.t + '</p><p class="text-sm text-slate-600">' + w.a + '</p><p class="text-xs text-purple-600 font-bold mt-1">工具：' + w.tool + '（點擊套用）</p></div></button>';
       }).join('') +
       '<div id="prompt-flow-trigger" class="hidden mt-3 p-3 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-sm font-bold"></div>';
+    function updateFlowProgress() {
+      var label = document.getElementById('flow-progress-label');
+      var bar = document.getElementById('flow-progress-bar');
+      var doneCount = promptFlowState.done.length;
+      if (label) label.textContent = doneCount + ' / ' + total;
+      if (bar) bar.style.width = (total ? Math.round((doneCount / total) * 100) : 0) + '%';
+    }
     wp.querySelectorAll('[data-flow-step]').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var stepNo = Number(btn.getAttribute('data-flow-step'));
@@ -510,16 +526,24 @@ function initPromptLab() {
           b.classList.remove('ring-2', 'ring-purple-300');
         });
         btn.classList.add('ring-2', 'ring-purple-300');
+        promptFlowState.activeStep = stepNo;
+        if (promptFlowState.done.indexOf(stepNo) < 0) promptFlowState.done.push(stepNo);
+        updateFlowProgress();
         promptState.context = '流程 Step ' + step.n + '：' + step.t + '。執行動作：' + step.a + '。工具：' + step.tool + '。';
+        promptState.task = '請先完成流程 Step ' + step.n + '（' + step.t + '），再輸出本階段可交付內容。';
+        promptState.style = '先列本步驟目標，再給可執行清單；最後補下一步銜接。';
+        renderFactorButtons('task', promptState.task, [promptState.task].concat(promptCategories[promptState.category].tasks || []));
         renderFactorButtons('context', promptState.context, [promptState.context].concat(promptCategories[promptState.category].contexts || []));
+        renderFactorButtons('style', promptState.style, [promptState.style].concat(promptCategories[promptState.category].styles || []));
         var trigger = document.getElementById('prompt-flow-trigger');
         if (trigger) {
           trigger.classList.remove('hidden');
-          trigger.textContent = '已觸發：Step ' + step.n + ' 已套用到 Context，右側 Prompt 與預覽已更新。';
+          trigger.textContent = '已觸發：Step ' + step.n + ' 已套用到 Task / Context / Style，右側 Prompt 與預覽已更新。';
         }
         updatePromptOutputs();
       });
     });
+    updateFlowProgress();
   }
 
   function renderPitfalls(sc) {
@@ -538,31 +562,90 @@ function initPromptLab() {
     var subjects = ['產品白底', '婚禮人像', '美食側光', '風景大片', '科技主視覺'];
     var lights = ['soft window light', 'golden hour', 'studio softbox', 'neon rim light'];
     var lenses = ['50mm f/1.8', '85mm f/1.4', '24mm wide', 'macro close-up'];
-    var references = {
+    var imagePool = {
       '產品白底': [
-        { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80', note: '白底商品構圖，適合 catalog 風格' },
-        { img: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=900&q=80', note: '主體置中，陰影乾淨，適合電商主圖' },
-        { img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80', note: '單品特寫，對比清晰，利於去背' }
+        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80'
       ],
       '婚禮人像': [
-        { img: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80', note: '柔和自然光，膚色參考友善' },
-        { img: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80', note: '人物與禮服細節完整，適合婚禮氛圍' },
-        { img: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=900&q=80', note: '逆光感人像，情緒氛圍較強' }
+        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1513278974582-3e1b4a4fa21c?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=80'
       ],
       '美食側光': [
-        { img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80', note: '側光強化食材層次，適合菜單視覺' },
-        { img: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80', note: '暖色調美食，適合社群貼文' },
-        { img: 'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=900&q=80', note: '對比清楚，適合近距離細節描述' }
+        'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=900&q=80'
       ],
       '風景大片': [
-        { img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80', note: '廣角山景，前中後景深明確' },
-        { img: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80', note: '自然光過渡平順，適合大片感' },
-        { img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80', note: '森林氛圍，適合 cinematic 類型' }
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80'
       ],
       '科技主視覺': [
-        { img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80', note: '科技感高，適合產品展示頁' },
-        { img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80', note: '冷色調主視覺，適合品牌形象圖' },
-        { img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80', note: '團隊 + 螢幕場景，適合 SaaS 首屏' }
+        'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80'
+      ]
+    };
+    var lightPool = {
+      'soft window light': [
+        'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80'
+      ],
+      'golden hour': [
+        'https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=80'
+      ],
+      'studio softbox': [
+        'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80'
+      ],
+      'neon rim light': [
+        'https://images.unsplash.com/photo-1523359346063-d879354c0ea5?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1542204625-de293a4f9c67?auto=format&fit=crop&w=900&q=80'
+      ]
+    };
+    var lensPool = {
+      '50mm f/1.8': [
+        'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80'
+      ],
+      '85mm f/1.4': [
+        'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=900&q=80'
+      ],
+      '24mm wide': [
+        'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80'
+      ],
+      'macro close-up': [
+        'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1459666644539-a9755287d6b0?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80'
       ]
     };
     var chosen = { subject: subjects[0], light: lights[0], lens: lenses[0] };
@@ -593,15 +676,34 @@ function initPromptLab() {
       var grid = document.getElementById('img-ref-grid');
       var caption = document.getElementById('img-ref-caption');
       if (!grid || !caption) return;
-      var list = references[chosen.subject] || references[subjects[0]];
-      var rolled = list.slice().sort(function() { return Math.random() - 0.5; });
-      grid.innerHTML = rolled.map(function(x) {
+      var pool = imagePool[chosen.subject] || imagePool[subjects[0]];
+      var lp = lightPool[chosen.light] || lightPool[lights[0]];
+      var kp = lensPool[chosen.lens] || lensPool[lenses[0]];
+      var sIdx = (lights.indexOf(chosen.light) + lenses.indexOf(chosen.lens) + pool.length) % pool.length;
+      var lIdx = (subjects.indexOf(chosen.subject) + lenses.indexOf(chosen.lens) + lp.length) % lp.length;
+      var kIdx = (subjects.indexOf(chosen.subject) + lights.indexOf(chosen.light) + kp.length) % kp.length;
+      var cards = [
+        { img: pool[sIdx], note: '主題參考：' + chosen.subject },
+        { img: lp[lIdx], note: '光線參考：' + chosen.light },
+        { img: kp[kIdx], note: '鏡頭參考：' + chosen.lens }
+      ];
+      var seen = {};
+      var list = cards.map(function(card, idx) {
+        var img = card.img;
+        if (seen[img]) {
+          img = pool[(sIdx + idx + 1) % pool.length];
+          card.note += '（備援）';
+        }
+        seen[img] = true;
+        return { img: img, note: card.note };
+      });
+      grid.innerHTML = list.map(function(x) {
         return '<figure class="rounded-lg overflow-hidden border border-slate-200 bg-slate-50">' +
-          '<img src="' + x.img + '" alt="' + chosen.subject + ' 參考圖" class="w-full h-24 object-cover" loading="lazy" />' +
+          '<img src="' + x.img + '" alt="' + chosen.subject + ' 參考圖" class="w-full h-24 object-cover" loading="lazy" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=80\';" />' +
           '<figcaption class="p-2 text-[11px] text-slate-600 leading-relaxed">' + x.note + '</figcaption>' +
           '</figure>';
       }).join('');
-      caption.textContent = '目前組合：' + chosen.subject + ' / ' + chosen.light + ' / ' + chosen.lens + '。可先用參考圖校正風格，再貼左側 Prompt 到 AI 產生正式版本。';
+      caption.textContent = '目前組合：' + chosen.subject + ' / ' + chosen.light + ' / ' + chosen.lens + '。三張分別對應主題、光線、鏡頭，切換任一項都會換新圖。';
     }
     function bindImg(containerId, opts, prefix) {
       var c = document.getElementById(containerId);
@@ -701,10 +803,17 @@ function composeSimPreviewMarkdown() {
   }
   var base = (sc && sc.sampleResponse) ? sc.sampleResponse : cat.sampleResponse;
   if (!base || !String(base).trim()) return buildFallbackSimPreview();
+  var flowHint = '';
+  if (sc && promptFlowState.scenarioId === sc.id && promptFlowState.activeStep) {
+    var active = (sc.workflow || []).find(function(x) { return x.n === promptFlowState.activeStep; });
+    if (active) {
+      flowHint = '### 目前流程焦點\n- Step ' + active.n + '：' + active.t + '\n- 動作：' + active.a + '\n- 工具：' + active.tool + '\n\n';
+    }
+  }
   var roleShort = (promptState.role || cat.role).slice(0, 36);
   var taskShort = (promptState.task || cat.tasks[0]).slice(0, 48);
   return '## 依目前 Prompt 設定的回覆預覽\n\n> 角色：' + roleShort + (roleShort.length >= 36 ? '…' : '') +
-    '｜任務：' + taskShort + (taskShort.length >= 48 ? '…' : '') + '\n\n' + base;
+    '｜任務：' + taskShort + (taskShort.length >= 48 ? '…' : '') + '\n\n' + flowHint + base;
 }
 
 function buildFallbackSimPreview() {
