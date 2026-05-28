@@ -1,91 +1,126 @@
-<div>
-  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3">0. 入門必讀</div>
-  <div class="space-y-1.5">
-    <button onclick="loadLesson('intro_welcome', this)" class="tuto-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold bg-brand-50 text-indigo-600 transition-colors">🚀 開始冒險</button>
-    <button onclick="loadLesson('html_vs_css', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">⚖️ 別用行內 style</button>
-    <button onclick="loadLesson('intro_devtools', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">🔧 F12 開發者工具</button>
-    <button onclick="loadLesson('intro_files', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">📁 檔案結構</button>
+<div class="space-y-3">
+  <div class="space-y-2">
+    <label for="tutorial-global-search" class="block text-xs font-bold text-slate-500">搜尋所有課程</label>
+    <input id="tutorial-global-search" type="text" placeholder="輸入關鍵字（例如：z-index、API、Git）" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
+    <div id="tutorial-search-results" class="hidden max-h-64 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 space-y-1"></div>
+  </div>
+  <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+    <p class="text-xs font-bold text-slate-500">目前路線進度</p>
+    <p class="text-sm font-black text-slate-800"><span id="track-progress-current">1</span> / <span id="track-progress-total">12</span></p>
   </div>
 </div>
-<div>
-  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3 mt-4">1. HTML 結構</div>
-  <div class="space-y-1.5">
-    <button onclick="loadLesson('html_skeleton', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">文件骨架</button>
-    <button onclick="loadLesson('html_headings', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">標題與段落</button>
-    <button onclick="loadLesson('html_inline', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">超連結</button>
-    <button onclick="loadLesson('html_media', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">圖片 img</button>
-    <button onclick="loadLesson('html_lists', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">清單</button>
-    <button onclick="loadLesson('html_list_details', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">清單進階細節</button>
-    <button onclick="loadLesson('html_description_list', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">dl / dt / dd</button>
-    <button onclick="loadLesson('html_div_span', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">div / span 容器</button>
-    <button onclick="loadLesson('html_tables', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">表格</button>
-    <button onclick="loadLesson('html_containers', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">語意化標籤</button>
-    <button onclick="loadLesson('html_inputs', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">input 輸入</button>
-    <button onclick="loadLesson('html_float_align_bg', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">float / 對齊 / 背景</button>
-    <button onclick="loadLesson('html_button', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">button 按鈕</button>
-    <button onclick="loadLesson('html_form', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">完整表單</button>
-    <button onclick="loadLesson('html_nav', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">nav 導覽列</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3 mt-4">2. CSS 基礎</div>
-  <div class="space-y-1.5">
-    <button onclick="loadLesson('css_selectors', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">選擇器 class</button>
-    <button onclick="loadLesson('css_colors', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">色彩漸層</button>
-    <button onclick="loadLesson('css_typography', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">字體行高</button>
-    <button onclick="loadLesson('css_spacing', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">padding / margin</button>
-    <button onclick="loadLesson('css_box_model', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">盒子模型</button>
-    <button onclick="loadLesson('css_display', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">display</button>
-    <button onclick="loadLesson('css_flexbox', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">Flexbox ⭐</button>
-    <button onclick="loadLesson('css_grid', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">Grid ⭐</button>
-    <button onclick="loadLesson('css_position', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">position</button>
-    <button onclick="loadLesson('css_shadows', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">陰影</button>
-    <button onclick="loadLesson('css_transitions', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">transition</button>
-    <button onclick="loadLesson('css_variables', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">CSS 變數</button>
-    <button onclick="loadLesson('css_pseudo', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">偽類 / 偽元素</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-purple-600 uppercase tracking-wider px-2 mb-3 mt-4">3. CSS/JS 進階</div>
-  <div class="space-y-1.5">
-    <button onclick="loadLesson('css_flex_advanced', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">Flex wrap / gap</button>
-    <button onclick="loadLesson('css_media_rwd', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">@media RWD</button>
-    <button onclick="loadLesson('css_animation', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">@keyframes</button>
-    <button onclick="loadLesson('css_zindex', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">z-index</button>
-    <button onclick="loadLesson('js_fetch', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">fetch API</button>
-    <button onclick="loadLesson('adv_ui_patterns', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">實戰：Tab / Modal</button>
-    <button onclick="loadLesson('work_overflow', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">文字省略號 …</button>
-    <button onclick="loadLesson('work_units_rem', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">rem / em 單位</button>
-    <button onclick="loadLesson('work_flex_center', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">置中排版實戰</button>
-    <button onclick="loadLesson('work_responsive_img', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">srcset 圖片</button>
-    <button onclick="loadLesson('js_form_submit', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">表單驗證</button>
-    <button onclick="loadLesson('work_devtools_network', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">Network 除錯</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3 mt-4">4. JavaScript</div>
-  <div class="space-y-1.5">
-    <button onclick="loadLesson('intro_js_whatis', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">JS 在做什麼？</button>
-    <button onclick="loadLesson('js_variables', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">const / let</button>
-    <button onclick="loadLesson('js_conditionals', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">if / else</button>
-    <button onclick="loadLesson('js_arrays', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">陣列</button>
-    <button onclick="loadLesson('js_objects', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">物件</button>
-    <button onclick="loadLesson('js_functions', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">函式</button>
-    <button onclick="loadLesson('js_events', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">事件監聽</button>
-    <button onclick="loadLesson('js_dom', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">DOM 操作</button>
-    <button onclick="loadLesson('js_queryselector', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">querySelector</button>
-    <button onclick="loadLesson('js_arrow', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">箭頭函式</button>
-    <button onclick="loadLesson('js_ecosystem', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">jQuery / Vue / 業界</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-amber-700 uppercase tracking-wider px-2 mb-3 mt-4">5. 🏆 大師之路</div>
-  <div class="space-y-1.5">
-    <button onclick="loadLesson('master_semantic', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">語意化檢核</button>
-    <button onclick="loadLesson('master_a11y', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">無障礙 a11y</button>
-    <button onclick="loadLesson('master_performance', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">效能優化</button>
-    <button onclick="loadLesson('master_deploy', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">上線部署</button>
-    <button onclick="loadLesson('work_git', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">Git 工作流程</button>
-    <button onclick="loadLesson('master_capstone', this)" class="tuto-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 transition-colors">🎓 畢業專題</button>
-  </div>
-</div>
+
+<section data-track-panel="html" class="space-y-2">
+  <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">HTML 路線</p>
+  <button onclick="loadLesson('intro_welcome', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">開始冒險</button>
+  <button onclick="loadLesson('html_vs_css', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">別用行內 style</button>
+  <button onclick="loadLesson('intro_devtools', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">F12 工具</button>
+  <button onclick="loadLesson('intro_files', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">檔案結構</button>
+  <button onclick="loadLesson('html_skeleton', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">文件骨架</button>
+  <button onclick="loadLesson('html_headings', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">標題段落</button>
+  <button onclick="loadLesson('html_inline', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">超連結</button>
+  <button onclick="loadLesson('html_media', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">圖片</button>
+  <button onclick="loadLesson('html_lists', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">清單</button>
+  <button onclick="loadLesson('html_list_details', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">清單進階</button>
+  <button onclick="loadLesson('html_description_list', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">術語清單</button>
+  <button onclick="loadLesson('html_div_span', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">div/span</button>
+  <button onclick="loadLesson('html_tables', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">表格</button>
+  <button onclick="loadLesson('html_containers', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">語意容器</button>
+  <button onclick="loadLesson('html_inputs', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">input 輸入</button>
+  <button onclick="loadLesson('html_float_align_bg', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">float/對齊/背景</button>
+  <button onclick="loadLesson('html_button', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">button 按鈕</button>
+  <button onclick="loadLesson('html_form', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">完整表單</button>
+  <button onclick="loadLesson('html_nav', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">nav 導覽列</button>
+</section>
+
+<section data-track-panel="css" class="hidden space-y-2">
+  <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">CSS 路線</p>
+  <button onclick="loadLesson('css_selectors', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">選擇器</button>
+  <button onclick="loadLesson('css_colors', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">色彩漸層</button>
+  <button onclick="loadLesson('css_typography', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">字體行高</button>
+  <button onclick="loadLesson('css_spacing', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">間距模型</button>
+  <button onclick="loadLesson('css_box_model', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">盒子模型</button>
+  <button onclick="loadLesson('css_display', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Display</button>
+  <button onclick="loadLesson('css_flexbox', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Flexbox</button>
+  <button onclick="loadLesson('css_grid', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Grid</button>
+  <button onclick="loadLesson('css_position', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Position</button>
+  <button onclick="loadLesson('css_shadows', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">陰影</button>
+  <button onclick="loadLesson('css_transitions', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Transition</button>
+  <button onclick="loadLesson('css_variables', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">CSS 變數</button>
+  <button onclick="loadLesson('css_pseudo', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">偽類偽元素</button>
+  <button onclick="loadLesson('css_flex_advanced', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Flex 進階</button>
+  <button onclick="loadLesson('css_media_rwd', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">RWD</button>
+  <button onclick="loadLesson('css_animation', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Animation</button>
+  <button onclick="loadLesson('css_zindex', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">z-index</button>
+</section>
+
+<section data-track-panel="js" class="hidden space-y-2">
+  <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">JS 路線</p>
+  <button onclick="loadLesson('intro_js_whatis', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">JS 是什麼</button>
+  <button onclick="loadLesson('js_variables', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">變數</button>
+  <button onclick="loadLesson('js_conditionals', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">條件判斷</button>
+  <button onclick="loadLesson('js_arrays', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">陣列</button>
+  <button onclick="loadLesson('js_objects', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">物件</button>
+  <button onclick="loadLesson('js_functions', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">函式</button>
+  <button onclick="loadLesson('js_events', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">事件</button>
+  <button onclick="loadLesson('js_dom', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">DOM</button>
+  <button onclick="loadLesson('js_queryselector', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">querySelector</button>
+  <button onclick="loadLesson('js_arrow', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">箭頭函式</button>
+  <button onclick="loadLesson('js_ecosystem', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">生態工具</button>
+  <button onclick="loadLesson('js_fetch', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">API</button>
+  <button onclick="loadLesson('adv_ui_patterns', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Tab/Modal 實戰</button>
+  <button onclick="loadLesson('js_form_submit', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">表單驗證</button>
+  <button onclick="loadLesson('work_devtools_network', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Network 除錯</button>
+</section>
+
+<section data-track-panel="jquery" class="hidden space-y-2">
+  <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">jQuery 路線（12 課）</p>
+  <button onclick="loadLesson('jq_01_intro', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">01 DOM 與價值</button>
+  <button onclick="loadLesson('jq_02_selectors', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">02 選取器鏈式</button>
+  <button onclick="loadLesson('jq_03_events', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">03 事件委派</button>
+  <button onclick="loadLesson('jq_04_dom', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">04 DOM 增刪改</button>
+  <button onclick="loadLesson('jq_05_effects', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">05 動畫回饋</button>
+  <button onclick="loadLesson('jq_06_ajax', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">06 AJAX/API</button>
+  <button onclick="loadLesson('jq_07_form', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">07 表單驗證</button>
+  <button onclick="loadLesson('jq_08_components', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">08 Tab/Modal 元件</button>
+  <button onclick="loadLesson('jq_09_plugin', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">09 外掛整合</button>
+  <button onclick="loadLesson('jq_10_performance', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">10 效能優化</button>
+  <button onclick="loadLesson('jq_11_architecture', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">11 模組架構</button>
+  <button onclick="loadLesson('jq_12_master_workflow', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">12 大師實戰</button>
+</section>
+
+<section data-track-panel="vue" class="hidden space-y-2">
+  <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">Vue 路線（12 課）</p>
+  <button onclick="loadLesson('vue_00_preface', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">00 前言與版本差異</button>
+  <button onclick="loadLesson('vue_01_intro', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">01 反應式核心</button>
+  <button onclick="loadLesson('vue_02_template', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">02 模板語法</button>
+  <button onclick="loadLesson('vue_03_directives', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">03 指令與清單</button>
+  <button onclick="loadLesson('vue_04_events', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">04 事件與 v-model</button>
+  <button onclick="loadLesson('vue_05_computed_watch', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">05 computed/watch</button>
+  <button onclick="loadLesson('vue_06_components', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">06 元件化</button>
+  <button onclick="loadLesson('vue_07_props_emit', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">07 props/emit</button>
+  <button onclick="loadLesson('vue_08_lifecycle', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">08 生命週期</button>
+  <button onclick="loadLesson('vue_09_router', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">09 Router 觀念</button>
+  <button onclick="loadLesson('vue_10_state', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">10 狀態管理</button>
+  <button onclick="loadLesson('vue_11_async', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">11 非同步資料流</button>
+  <button onclick="loadLesson('vue_12_master_composable', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">12 Composable 實戰</button>
+</section>
+
+<section data-track-panel="git" class="hidden space-y-2">
+  <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">Git 路線（8 課）</p>
+  <button onclick="loadLesson('git_01_intro', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">01 版本控制核心</button>
+  <button onclick="loadLesson('git_02_status_add_commit', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">02 status/add/commit</button>
+  <button onclick="loadLesson('git_03_branching', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">03 分支策略</button>
+  <button onclick="loadLesson('git_04_merge_rebase', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">04 merge/rebase</button>
+  <button onclick="loadLesson('git_05_conflict', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">05 衝突處理</button>
+  <button onclick="loadLesson('git_06_remote_pr', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">06 Remote/PR</button>
+  <button onclick="loadLesson('git_07_revert_cherry_pick', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">07 revert/cherry-pick</button>
+  <button onclick="loadLesson('git_08_master_release', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">08 發布與版本標籤</button>
+  <button onclick="loadLesson('work_git', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">09 Git 工作流實戰</button>
+</section>
+
+<section data-track-panel="deploy" class="hidden space-y-2">
+  <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">上線與畢業專題</p>
+  <button onclick="loadLesson('master_deploy', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">上線部署</button>
+  <button onclick="loadLesson('master_capstone', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">畢業專題</button>
+</section>

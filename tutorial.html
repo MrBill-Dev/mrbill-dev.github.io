@@ -36,6 +36,10 @@
     .track-js { background: #f0f9ff; color: #0369a1; }
     .track-advanced { background: #fdf4ff; color: #7e22ce; }
     .track-master { background: #fffbeb; color: #b45309; }
+    .track-jquery { background: #e0f2fe; color: #0c4a6e; }
+    .track-vue { background: #dcfce7; color: #166534; }
+    .track-git { background: #ede9fe; color: #5b21b6; }
+    .track-deploy { background: #fee2e2; color: #9f1239; }
     #sandbox-preview-canvas { overflow-x: auto; max-width: 100%; min-width: 0; }
     #sandbox-preview-canvas .grid,
     #sandbox-preview-canvas [class*="grid"] { max-width: 100%; }
@@ -134,6 +138,18 @@
       <aside id="tutorial-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto overflow-y-visible overflow-x-hidden custom-scrollbar"></aside>
 
       <div id="lesson-main" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 scroll-mt-20">
+        <div class="bg-white rounded-2xl border border-slate-100 p-3 md:p-4">
+          <div class="flex flex-wrap gap-2">
+            <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-indigo-600 text-white" data-track-tab="html">HTML</button>
+            <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="css">CSS</button>
+            <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="js">JS</button>
+            <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="jquery">jQuery</button>
+            <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="vue">Vue</button>
+            <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="git">Git</button>
+            <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="deploy">上線專題</button>
+          </div>
+          <p id="track-guide-text" class="text-sm text-slate-500 mt-2">學習順序已固定：HTML → CSS → JS → jQuery → Vue → Git → 上線專題。建議依序完成，每段都會接續下一課。</p>
+        </div>
         <div class="bg-white p-4 sm:p-6 md:p-8 rounded-3xl border border-slate-100 space-y-5 fade-in-up shadow-sm min-w-0">
           <div class="flex flex-wrap items-center gap-2">
             <span id="track-badge" class="text-xs font-black px-2.5 py-1 rounded-lg track-intro">入門</span>
@@ -152,6 +168,21 @@
             <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-100">
               <span class="text-xs font-black text-amber-700 uppercase tracking-wider">🎯 怎麼練？</span>
               <p id="lesson-practice" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium whitespace-pre-line"></p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-100">
+              <span class="text-xs font-black text-emerald-700 uppercase tracking-wider">🧭 新手提示</span>
+              <p id="lesson-newbie-tip" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium"></p>
+            </div>
+            <div class="p-4 rounded-2xl bg-rose-50/80 border border-rose-100">
+              <span class="text-xs font-black text-rose-700 uppercase tracking-wider">🚫 常見錯誤</span>
+              <p id="lesson-common-mistakes" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium"></p>
+            </div>
+            <div class="p-4 rounded-2xl bg-sky-50/80 border border-sky-100">
+              <span class="text-xs font-black text-sky-700 uppercase tracking-wider">📦 作業提交標準</span>
+              <p id="lesson-submission-standard" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium whitespace-pre-line"></p>
             </div>
           </div>
 
@@ -248,6 +279,7 @@
   <script>
     let LESSON_ORDER = [];
     let currentLessonKey = 'intro_welcome';
+    let activeTrack = 'html';
     let totalXp = 0;
     let completedSet = new Set();
 
@@ -316,23 +348,183 @@
           <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">${t.desc}</p>
         </div>`).join('');
       document.getElementById('preface-path').innerHTML = [
-        ['intro', '① 入門'],
-        ['html', '② HTML'],
-        ['css', '③ CSS'],
-        ['js', '④ JavaScript'],
-        ['advanced', '⑤ 進階實戰'],
-        ['master', '⑥ 大師之路']
+        ['html', 'HTML'],
+        ['css', 'CSS'],
+        ['js', 'JS'],
+        ['jquery', 'jQuery'],
+        ['vue', 'Vue'],
+        ['git', 'Git'],
+        ['deploy', '上線專題']
       ].map(function(item) {
-        return '<button type="button" onclick="jumpTrackStart(\'' + item[0] + '\')" class="px-3 py-1.5 rounded-full bg-white border border-indigo-100 text-indigo-700">' + item[1] + '</button>';
+        return '<button type="button" onclick="setActiveTrack(\'' + item[0] + '\', true)" class="px-3 py-1.5 rounded-full bg-white border border-indigo-100 text-indigo-700">' + item[1] + '</button>';
       }).join('');
     }
 
     function trackClass(track) {
-      return { intro: 'track-intro', html: 'track-html', css: 'track-css', js: 'track-js', advanced: 'track-advanced', master: 'track-master' }[track] || 'track-intro';
+      return { intro: 'track-intro', html: 'track-html', css: 'track-css', js: 'track-js', advanced: 'track-advanced', master: 'track-master', jquery: 'track-jquery', vue: 'track-vue', git: 'track-git', deploy: 'track-deploy' }[track] || 'track-intro';
     }
 
     function trackLabel(track) {
-      return { intro: '入門', html: 'HTML', css: 'CSS', js: 'JavaScript', advanced: '進階', master: '大師' }[track] || '課程';
+      return { intro: '入門', html: 'HTML', css: 'CSS', js: 'JavaScript', advanced: '進階', master: '大師', jquery: 'jQuery', vue: 'Vue', git: 'Git', deploy: '上線專題' }[track] || '課程';
+    }
+
+    function resolveLessonRepository() {
+      if (typeof tutorialTrackRepository !== 'undefined' && tutorialTrackRepository) return tutorialTrackRepository;
+      return tutorialRepository;
+    }
+
+    function resolveOrderByTrack(track) {
+      if (typeof TUTORIAL_ORDER_BY_TRACK !== 'undefined' && TUTORIAL_ORDER_BY_TRACK && TUTORIAL_ORDER_BY_TRACK[track]) {
+        return TUTORIAL_ORDER_BY_TRACK[track];
+      }
+      return LESSON_ORDER;
+    }
+
+    function getTrackSequence() {
+      return ['html', 'css', 'js', 'jquery', 'vue', 'git', 'deploy'];
+    }
+
+    function getTrackForLesson(lesson, key) {
+      var cssAdvancedKeys = ['css_flex_advanced', 'css_media_rwd', 'css_animation', 'css_zindex'];
+      if (cssAdvancedKeys.indexOf(key) >= 0) return 'css';
+      if (key === 'work_devtools_network') return 'js';
+      var lessonTrackMap = { intro: 'html', html: 'html', css: 'css', js: 'js', advanced: 'js', master: 'deploy', jquery: 'jquery', vue: 'vue', git: 'git', deploy: 'deploy' };
+      return lessonTrackMap[lesson.track] || 'html';
+    }
+
+    function buildLessonCoach(lesson, key) {
+      if (lesson.newbieTip && lesson.commonMistakes && lesson.submissionStandard) {
+        return {
+          newbieTip: lesson.newbieTip,
+          commonMistakes: lesson.commonMistakes,
+          submissionStandard: lesson.submissionStandard
+        };
+      }
+      var topic = lesson.title || key || '本課';
+      return {
+        newbieTip: '先跑通原範例，再只改 1 個變數觀察差異。每次只做一個改動，最容易建立穩定手感。',
+        commonMistakes: '最常見是一次改太多、沒按運行驗證，或只抄不解釋。請每步都能說明「為什麼這樣寫」。',
+        submissionStandard: '提交前請確認：\n1) 範例可正常運行\n2) 至少有 1 個可解釋的自改重點\n3) 你能用 2 句話說明「' + topic + '」的使用時機'
+      };
+    }
+
+    function updateTrackProgress() {
+      var order = resolveOrderByTrack(activeTrack) || [];
+      var current = Math.max(order.indexOf(currentLessonKey) + 1, 1);
+      var curEl = document.getElementById('track-progress-current');
+      var totalEl = document.getElementById('track-progress-total');
+      if (curEl) curEl.textContent = String(current);
+      if (totalEl) totalEl.textContent = String(order.length || 12);
+    }
+
+    function extractLessonKeyFromButton(btn) {
+      if (!btn) return '';
+      var onclick = btn.getAttribute('onclick') || '';
+      var m = onclick.match(/loadLesson\('([^']+)'/);
+      return m ? m[1] : '';
+    }
+
+    function initTutorialGlobalSearch() {
+      var sidebar = document.getElementById('tutorial-sidebar');
+      if (!sidebar) return;
+      var input = sidebar.querySelector('#tutorial-global-search');
+      var resultBox = sidebar.querySelector('#tutorial-search-results');
+      if (!input || !resultBox) return;
+
+      var buttons = Array.from(sidebar.querySelectorAll('.tuto-nav-btn'));
+      var repo = resolveLessonRepository();
+      var entries = buttons.map(function(btn) {
+        var key = extractLessonKeyFromButton(btn);
+        var lesson = (repo && key && repo[key]) ? repo[key] : ((typeof tutorialRepository !== 'undefined' && key) ? tutorialRepository[key] : null);
+        var track = lesson ? getTrackForLesson(lesson, key) : activeTrack;
+        var label = (btn.textContent || '').trim();
+        var keywords = (label + ' ' + (lesson && lesson.title ? lesson.title : '') + ' ' + (lesson && lesson.desc ? lesson.desc : '')).toLowerCase();
+        return { key: key, track: track, label: label, keywords: keywords };
+      }).filter(function(entry) { return !!entry.key; });
+
+      function openResult(entry) {
+        setActiveTrack(entry.track, false);
+        var targetBtn = document.querySelector('[data-track-panel="' + entry.track + '"] .tuto-nav-btn[onclick*="' + entry.key + '"]');
+        loadLesson(entry.key, targetBtn || null);
+        input.value = '';
+        resultBox.classList.add('hidden');
+        resultBox.innerHTML = '';
+      }
+
+      function renderResults(q) {
+        if (!q) {
+          resultBox.classList.add('hidden');
+          resultBox.innerHTML = '';
+          return;
+        }
+        var matches = entries.filter(function(entry) {
+          return entry.keywords.indexOf(q) >= 0;
+        }).slice(0, 12);
+        if (!matches.length) {
+          resultBox.classList.remove('hidden');
+          resultBox.innerHTML = '<p class="px-2 py-1 text-xs text-slate-500">找不到相關課程</p>';
+          return;
+        }
+        resultBox.classList.remove('hidden');
+        resultBox.innerHTML = matches.map(function(entry) {
+          return '<button type="button" class="tutorial-search-item w-full text-left px-2 py-2 rounded-lg hover:bg-indigo-50 text-sm font-semibold text-slate-700" data-key="' + entry.key + '">' + entry.label + ' <span class="text-xs font-bold text-indigo-500 ml-1">#' + entry.track.toUpperCase() + '</span></button>';
+        }).join('');
+        resultBox.querySelectorAll('.tutorial-search-item').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var key = btn.getAttribute('data-key');
+            var hit = matches.find(function(entry) { return entry.key === key; });
+            if (hit) openResult(hit);
+          });
+        });
+      }
+
+      input.addEventListener('input', function() {
+        renderResults((input.value || '').trim().toLowerCase());
+      });
+      document.addEventListener('click', function(e) {
+        if (!sidebar.contains(e.target)) {
+          resultBox.classList.add('hidden');
+        }
+      });
+    }
+
+    function setActiveTrack(track, jumpFirst) {
+      var allow = ['html', 'css', 'js', 'jquery', 'vue', 'git', 'deploy'];
+      activeTrack = allow.indexOf(track) >= 0 ? track : 'html';
+      localStorage.setItem('mrbill_tuto_track', activeTrack);
+
+      document.querySelectorAll('[data-track-panel]').forEach(function(panel) {
+        panel.classList.toggle('hidden', panel.getAttribute('data-track-panel') !== activeTrack);
+      });
+      document.querySelectorAll('[data-track-tab]').forEach(function(btn) {
+        var on = btn.getAttribute('data-track-tab') === activeTrack;
+        btn.classList.toggle('bg-indigo-600', on);
+        btn.classList.toggle('text-white', on);
+        btn.classList.toggle('bg-slate-100', !on);
+        btn.classList.toggle('text-slate-700', !on);
+      });
+      var guide = document.getElementById('track-guide-text');
+      if (guide) {
+        var map = {
+          html: 'HTML 先打結構基礎，先會語意化標籤與表單，後面學 CSS/JS 才不會亂。',
+          css: 'CSS 專注排版、RWD、互動樣式，建立可讀可維護的視覺規則。',
+          js: 'JS 路線會進到 DOM、資料、API 與實戰除錯，完成前端核心能力。',
+          jquery: 'jQuery 路線聚焦舊站維護與快速互動補強，適合接案或維運場景。',
+          vue: 'Vue 路線聚焦元件化、資料流與工程架構，走到可交付中大型專案。',
+          git: 'Git 路線聚焦版本控制、分支協作、Pull Request 與回滾策略，讓交付流程可追蹤。',
+          deploy: '上線與畢業專題路線，聚焦發布、驗收與作品交付品質。'
+        };
+        guide.textContent = map[activeTrack] || map.html;
+      }
+
+      LESSON_ORDER = resolveOrderByTrack(activeTrack).slice();
+      if (jumpFirst && LESSON_ORDER.length) {
+        var first = LESSON_ORDER[0];
+        var targetBtn = document.querySelector('[data-track-panel="' + activeTrack + '"] .tuto-nav-btn');
+        loadLesson(first, targetBtn, { scroll: false });
+      } else {
+        updateTrackProgress();
+      }
     }
 
     /** 同步修改沙盒編輯器內某個 CSS 規則的屬性（互動區 → 程式碼一起更新） */
@@ -663,30 +855,17 @@
       document.body.style.overflow = '';
     }
 
-    function jumpTrackStart(track) {
-      var firstByTrack = {
-        intro: 'intro_welcome',
-        html: 'html_skeleton',
-        css: 'css_selectors',
-        js: 'intro_js_whatis',
-        advanced: 'css_flex_advanced',
-        master: 'master_semantic'
-      };
-      var lessonKey = firstByTrack[track];
-      if (!lessonKey) return;
-      var btn = null;
-      document.querySelectorAll('.tuto-nav-btn').forEach(function(b) {
-        var onclick = b.getAttribute('onclick') || '';
-        if (onclick.indexOf("'" + lessonKey + "'") >= 0) btn = b;
-      });
-      loadLesson(lessonKey, btn || null);
-    }
-
     window.loadLesson = window.switchLessonEngine = function(key, btnElement, opts) {
       opts = opts || {};
-      const lesson = tutorialRepository[key];
+      const repo = resolveLessonRepository();
+      const lesson = repo[key] || (typeof tutorialRepository !== 'undefined' ? tutorialRepository[key] : null);
       if (!lesson) return;
       currentLessonKey = key;
+
+      var desiredTrack = getTrackForLesson(lesson, key);
+      if (desiredTrack && activeTrack !== desiredTrack) {
+        setActiveTrack(desiredTrack, false);
+      }
 
       document.getElementById('tuto-title').textContent = lesson.title;
       document.getElementById('tuto-desc').textContent = lesson.desc;
@@ -694,12 +873,16 @@
       document.getElementById('lesson-practice').textContent = lesson.practice || '';
       document.getElementById('tuto-ui-tip').textContent = lesson.tip || '';
       document.getElementById('sandbox-editor').value = lesson.code || '';
+      var coach = buildLessonCoach(lesson, key);
+      document.getElementById('lesson-newbie-tip').textContent = coach.newbieTip;
+      document.getElementById('lesson-common-mistakes').textContent = coach.commonMistakes;
+      document.getElementById('lesson-submission-standard').textContent = coach.submissionStandard;
 
       const badge = document.getElementById('track-badge');
       badge.textContent = trackLabel(lesson.track);
       badge.className = 'text-xs font-black px-2.5 py-1 rounded-lg ' + trackClass(lesson.track);
       const cssPanel = document.getElementById('css-selector-panel');
-      if (cssPanel) cssPanel.classList.toggle('hidden', lesson.track !== 'css');
+      if (cssPanel) cssPanel.classList.toggle('hidden', key !== 'css_selectors');
 
       document.getElementById('complete-badge').classList.toggle('hidden', !completedSet.has(key));
 
@@ -708,9 +891,11 @@
       runSandboxCompiler();
 
       document.querySelectorAll('.tuto-nav-btn').forEach(b => {
-        b.className = 'tuto-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors';
+        b.className = 'tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors';
       });
       if (btnElement) btnElement.className = 'tuto-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold bg-brand-50 text-indigo-600 transition-colors';
+
+      updateTrackProgress();
 
       if (opts.scroll !== false) scrollToLesson();
     };
@@ -724,9 +909,25 @@
     }
 
     function goNextLesson() {
+      LESSON_ORDER = resolveOrderByTrack(activeTrack).slice();
       const i = LESSON_ORDER.indexOf(currentLessonKey);
-      if (i < 0 || i >= LESSON_ORDER.length - 1) return;
-      const nextKey = LESSON_ORDER[i + 1];
+      let nextKey = null;
+      if (i >= 0 && i < LESSON_ORDER.length - 1) {
+        nextKey = LESSON_ORDER[i + 1];
+      } else {
+        var sequence = getTrackSequence();
+        var trackIdx = sequence.indexOf(activeTrack);
+        if (trackIdx >= 0 && trackIdx < sequence.length - 1) {
+          var nextTrack = sequence[trackIdx + 1];
+          var nextOrder = resolveOrderByTrack(nextTrack);
+          if (nextOrder && nextOrder.length) {
+            setActiveTrack(nextTrack, false);
+            LESSON_ORDER = nextOrder.slice();
+            nextKey = nextOrder[0];
+          }
+        }
+      }
+      if (!nextKey) return;
       const buttons = document.querySelectorAll('.tuto-nav-btn');
       let targetBtn = null;
       buttons.forEach(b => {
@@ -789,16 +990,26 @@
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       loadProgress();
       renderPreface();
-      // 先渲染第一課，避免側欄元件載入失敗時整頁停在「載入中」
-      loadLesson('intro_welcome', null, { scroll: false });
+      activeTrack = localStorage.getItem('mrbill_tuto_track') || 'html';
+      var bootOrder = resolveOrderByTrack(activeTrack);
+      if (bootOrder && bootOrder.length) {
+        LESSON_ORDER = bootOrder.slice();
+        currentLessonKey = bootOrder[0];
+      }
+      loadLesson(currentLessonKey, null, { scroll: false });
       includeComponentSlot('global-header', 'components/header.html', 'nav-tutorial');
       includeComponentSlot('global-footer', 'components/footer.html');
       includeComponentSlot('tutorial-sidebar', 'components/sidebar-tutorial.html', null, () => {
-        initSidebarKeywordSearch('tutorial-sidebar', {
-          buttonSelector: '.tuto-nav-btn',
-          placeholder: '搜尋章節關鍵字...'
+        initTutorialGlobalSearch();
+        document.querySelectorAll('[data-track-tab]').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            setActiveTrack(btn.getAttribute('data-track-tab') || 'html', true);
+          });
         });
-        loadLesson('intro_welcome', document.querySelector('.tuto-nav-btn'), { scroll: false });
+        setActiveTrack(activeTrack, false);
+        var firstBtn = document.querySelector('[data-track-panel="' + activeTrack + '"] .tuto-nav-btn');
+        var firstKey = resolveOrderByTrack(activeTrack)[0];
+        loadLesson(firstKey, firstBtn || document.querySelector('.tuto-nav-btn'), { scroll: false });
       });
       const selectorPanel = document.getElementById('css-selector-panel');
       if (selectorPanel) {
