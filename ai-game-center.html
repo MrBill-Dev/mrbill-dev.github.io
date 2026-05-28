@@ -61,10 +61,22 @@
       width: min(100%, 430px);
       aspect-ratio: 1 / 1;
       margin: 0 auto;
-      border-radius: 1rem;
+      border-radius: 1.25rem;
       border: 1px solid #c4b5fd;
-      background: rgba(237, 233, 254, 0.32);
+      background:
+        linear-gradient(135deg, rgba(245, 243, 255, 0.95), rgba(238, 242, 255, 0.92)),
+        repeating-linear-gradient(0deg, transparent 0 15%, rgba(99, 102, 241, 0.06) 15% 16%),
+        repeating-linear-gradient(90deg, transparent 0 15%, rgba(99, 102, 241, 0.06) 15% 16%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 10px 28px rgba(99,102,241,0.12);
       overflow: hidden;
+    }
+    .unblock-chip {
+      box-shadow: 0 8px 18px rgba(79, 70, 229, 0.16);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .unblock-chip:active {
+      transform: scale(0.98);
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.14);
     }
     .shooter-arena { position: relative; height: 260px; border-radius: 1rem; border: 1px solid #bae6fd; background: radial-gradient(circle at 20% 20%, #ecfeff 0%, #f8fafc 65%); overflow: hidden; }
     .target-dot { position: absolute; min-width: 74px; height: 44px; padding: 0 8px; border-radius: 9999px; border: 2px solid #0ea5e9; background: radial-gradient(circle at 30% 30%, #a5f3fc, #06b6d4); color: #0c4a6e; font-weight: 900; display: flex; align-items: center; justify-content: center; cursor: crosshair; animation: targetPulse 0.9s ease-in-out infinite; }

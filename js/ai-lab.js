@@ -1152,16 +1152,20 @@ let mazeTipText = '先找到鑰匙，再去終點。';
 let unblockBlocks = [];
 let unblockMoves = 0;
 let unblockDrag = null;
+let unblockLevel = 0;
 let shooterHits = 0;
 let shooterMiss = 0;
 let shooterRoundIdx = 0;
 let shooterRoundNeed = 0;
 let shooterRoundDone = 0;
 let mazeKeyListenerBound = false;
+let dragTapPickSlot = null;
 
 let mazeMap = [];
+let mazeStartCell = { r: 0, c: 0 };
 let mazeKeyCell = { r: 0, c: 0 };
 let mazeGoalCell = { r: 0, c: 0 };
+let mazeStage = 0;
 const puzzleGoal = ['Role', 'Task', 'Context', 'Constraints', 'Output', 'Review'];
 const mazeLevels = [
   {
@@ -1402,12 +1406,44 @@ function initPuzzleTiles() {
   arr = [arr[1], arr[0], arr[3], arr[2], arr[5], arr[4]];
 }
 
+function generateRandomMazeLevel() {
+  var size = 9;
+  var map = Array.from({ length: size }, function() {
+    return Array.from({ length: size }, function() { return Math.random() < 0.35 ? 1 : 0; });
+  });
+  var start = { r: 0, c: 0 };
+  var key = { r: 2 + Math.floor(Math.random() * 3), c: 2 + Math.floor(Math.random() * 3) };
+  var goal = { r: size - 1, c: size - 1 };
+  // carve guaranteed path start -> key -> goal
+  var carvePath = function(from, to) {
+    var r = from.r, c = from.c;
+    map[r][c] = 0;
+    while (c !== to.c) { c += (to.c > c ? 1 : -1); map[r][c] = 0; }
+    while (r !== to.r) { r += (to.r > r ? 1 : -1); map[r][c] = 0; }
+  };
+  carvePath(start, key);
+  carvePath(key, goal);
+  map[start.r][start.c] = 0;
+  map[key.r][key.c] = 0;
+  map[goal.r][goal.c] = 0;
+  return {
+    map: map,
+    start: start,
+    key: key,
+    goal: goal,
+    tips: {
+      [start.r + ',' + (start.c + 1)]: '先定義目標，再開始做。',
+      [key.r + ',' + key.c]: '拿到 Key：先查證資料再輸出。',
+      [(goal.r - 1) + ',' + goal.c]: '快到終點：記得人工審稿。'
+    }
+  };
+}
+
 function initMazeLevel() {
-  var next = Math.floor(Math.random() * mazeLevels.length);
-  if (mazeLevels.length > 1 && next === mazeLevelIdx) next = (next + 1) % mazeLevels.length;
-  mazeLevelIdx = next;
-  var lv = mazeLevels[mazeLevelIdx];
+  mazeStage += 1;
+  var lv = generateRandomMazeLevel();
   mazeMap = lv.map.map(function(row) { return row.slice(); });
+  mazeStartCell = { r: lv.start.r, c: lv.start.c };
   mazePos = { r: lv.start.r, c: lv.start.c };
   mazeKeyCell = { r: lv.key.r, c: lv.key.c };
   mazeGoalCell = { r: lv.goal.r, c: lv.goal.c };
@@ -1422,6 +1458,7 @@ function initUnblockLevel() {
   unblockBlocks = lv.map(function(b) { return Object.assign({}, b); });
   unblockMoves = 0;
   unblockDrag = null;
+  unblockLevel += 1;
 }
 
 function tryMoveMaze(dr, dc) {
@@ -1449,7 +1486,9 @@ function resetCurrentGameProgress() {
   decisionNode = 'start'; toolPickIdx = 0; toolPickScore = 0; pathwayPick = null; matchIdx = 0; matchScore = 0;
   flipDeck = []; flipOpenIds = []; flipLock = false; flipMatched = 0;
   dragScore = 0; dragPlaced = 0; dragIdx = 0;
+  mazeStage = 0;
   initMazeLevel();
+  unblockLevel = 0;
   initUnblockLevel();
   shooterHits = 0; shooterMiss = 0; shooterRoundIdx = 0; shooterRoundNeed = 0; shooterRoundDone = 0;
   gameCombo = 0;
@@ -1764,6 +1803,7 @@ function renderGame() {
     var slotsWrap = document.getElementById('drag-slots');
     var feedback = document.getElementById('drag-feedback');
     var slots = ['聊天模型（Prompt）', 'IDE Agent（Cursor/Copilot）', 'RAG / NotebookLM', '產圖工具（MJ / DALL·E）'];
+    dragTapPickSlot = null;
     var row = dragRounds[dragIdx];
     var chip = document.createElement('div');
     chip.className = 'drag-chip';
@@ -1772,6 +1812,12 @@ function renderGame() {
     chip.dataset.slot = row.slot;
     chip.addEventListener('dragstart', function() { chip.classList.add('dragging'); });
     chip.addEventListener('dragend', function() { chip.classList.remove('dragging'); });
+    chip.addEventListener('click', function() {
+      dragTapPickSlot = row.slot;
+      feedback.classList.remove('hidden');
+      feedback.className = 'mt-4 p-3 rounded-xl font-bold text-sm bg-cyan-50 text-cyan-800 block';
+      feedback.textContent = '已選任務：「' + row.item + '」，現在點右側你認為正確的工具區。';
+    });
     itemsWrap.appendChild(chip);
     slots.forEach(function(name) {
       var slot = document.createElement('div');
@@ -1804,6 +1850,27 @@ function renderGame() {
           feedback.textContent = '❌ 這個任務更適合：' + wanted;
         }
       });
+      slot.addEventListener('click', function() {
+        if (!dragTapPickSlot) return;
+        var ok = dragTapPickSlot === name;
+        feedback.classList.remove('hidden');
+        if (ok) {
+          slot.classList.add('is-hit', 'burst');
+          chip.remove();
+          dragScore += 1;
+          dragPlaced += 1;
+          dragIdx += 1;
+          registerGameResult(true);
+          feedback.className = 'mt-4 p-3 rounded-xl font-bold text-sm bg-emerald-50 text-emerald-800 block';
+          feedback.textContent = '✅ 配對正確！' + row.item + ' → ' + name;
+          dragTapPickSlot = null;
+          setTimeout(function() { renderGame(); }, 500);
+        } else {
+          registerGameResult(false);
+          feedback.className = 'mt-4 p-3 rounded-xl font-bold text-sm bg-rose-50 text-rose-700 block';
+          feedback.textContent = '❌ 這個任務更適合：' + dragTapPickSlot;
+        }
+      });
       slotsWrap.appendChild(slot);
     });
   } else if (gameMode === 'maze') {
@@ -1813,7 +1880,7 @@ function renderGame() {
     var atGoal = mazePos.r === mazeGoalCell.r && mazePos.c === mazeGoalCell.c;
     if (atGoal && mazeHasKey) {
       registerGameResult(true);
-      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center"><p class="text-2xl font-black text-emerald-700">🏁 迷宮破關！</p><p class="star-row mt-2">星等：' + buildStarsByRatio(mazeSteps <= 20 ? 1 : mazeSteps <= 32 ? 0.72 : 0.55) + '</p><p class="text-sm text-slate-700 mt-1">步數：' + mazeSteps + '（越少越高分）</p><div class="mt-4 grid sm:grid-cols-2 gap-2"><button type="button" class="p-3 rounded-xl bg-emerald-600 text-white font-bold" onclick="initMazeLevel();renderGame()">再挑戰新關卡</button><button type="button" class="p-3 rounded-xl bg-slate-100 text-slate-800 font-bold" onclick="mazeHasKey=false;mazeSteps=0;mazePos={r:mazeLevels[mazeLevelIdx].start.r,c:mazeLevels[mazeLevelIdx].start.c};mazeTipText=\'重玩本關：先拿鑰匙，再到終點。\';renderGame()">重玩這一關</button></div></div>';
+      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center"><p class="text-2xl font-black text-emerald-700">🏁 迷宮破關！</p><p class="text-sm font-bold text-emerald-700 mt-1">第 ' + mazeStage + ' 關完成</p><p class="star-row mt-2">星等：' + buildStarsByRatio(mazeSteps <= 20 ? 1 : mazeSteps <= 32 ? 0.72 : 0.55) + '</p><p class="text-sm text-slate-700 mt-1">步數：' + mazeSteps + '（越少越高分）</p><p class="text-sm text-slate-700 mt-3 font-bold">要進行下一關嗎？</p><div class="mt-3 grid sm:grid-cols-2 gap-2"><button type="button" class="p-3 rounded-xl bg-emerald-600 text-white font-bold" onclick="initMazeLevel();renderGame()">✅ 好，下一關</button><button type="button" class="p-3 rounded-xl bg-slate-100 text-slate-800 font-bold" onclick="mazeHasKey=false;mazeSteps=0;mazePos={r:mazeStartCell.r,c:mazeStartCell.c};mazeTipText=\'重玩本關：先拿鑰匙，再到終點。\';renderGame()">🔁 先重玩本關</button></div></div>';
       return;
     }
     vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI 迷宮：先拿 🔑 再走到 🏁</h3><p class="text-sm text-slate-500">可用鍵盤方向鍵，或右側控制器。每走到提示點會解鎖一條 AI 重點。</p><div class="mt-4 grid lg:grid-cols-[1fr_220px] gap-3 items-start"><div><div id="maze-grid" class="maze-grid"></div><div class="mt-3 p-3 rounded-xl bg-indigo-50 border border-indigo-100 text-sm text-indigo-900"><strong>學習提示：</strong> ' + mazeTipText + '</div></div><div class="rounded-xl border border-slate-200 bg-slate-50 p-3"><p class="text-xs font-black text-slate-500 mb-2">移動控制</p><div class="grid grid-cols-3 gap-2"><button type="button" id="maze-up" class="p-2 rounded-lg bg-white border font-bold">⬆️</button><div></div><div></div><button type="button" id="maze-left" class="p-2 rounded-lg bg-white border font-bold">⬅️</button><button type="button" id="maze-down" class="p-2 rounded-lg bg-white border font-bold">⬇️</button><button type="button" id="maze-right" class="p-2 rounded-lg bg-white border font-bold">➡️</button></div></div></div>';
@@ -1843,7 +1910,7 @@ function renderGame() {
     setGameMeter(Math.min(100, ((goalBlock ? goalBlock.c : 0) / 4) * 100));
     if (unblockSolved) {
       registerGameResult(true);
-      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-violet-50 border border-violet-200 text-center"><p class="text-2xl font-black text-violet-700">🧱 解路成功！</p><p class="star-row mt-2">星等：' + buildStarsByRatio(unblockMoves <= 10 ? 1 : unblockMoves <= 16 ? 0.72 : 0.55) + '</p><p class="text-sm text-slate-700 mt-1">拖曳步數：' + unblockMoves + '</p><p class="text-sm text-violet-700 mt-1">學到：先排障礙，再讓主任務通關（像做專案一樣）。</p><button type="button" class="mt-4 w-full p-3 rounded-xl bg-violet-600 text-white font-bold" onclick="initUnblockLevel();renderGame()">下一局 Unblock</button></div>';
+      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-violet-50 border border-violet-200 text-center"><p class="text-2xl font-black text-violet-700">🧱 解路成功！</p><p class="text-sm font-bold text-violet-700 mt-1">第 ' + unblockLevel + ' 關完成</p><p class="star-row mt-2">星等：' + buildStarsByRatio(unblockMoves <= 10 ? 1 : unblockMoves <= 16 ? 0.72 : 0.55) + '</p><p class="text-sm text-slate-700 mt-1">拖曳步數：' + unblockMoves + '</p><p class="text-sm text-violet-700 mt-1">學到：先排障礙，再讓主任務通關（像做專案一樣）。</p><p class="text-sm text-slate-700 mt-3 font-bold">要進行下一關嗎？</p><div class="mt-3 grid sm:grid-cols-2 gap-2"><button type="button" class="p-3 rounded-xl bg-violet-600 text-white font-bold" onclick="initUnblockLevel();renderGame()">✅ 下一關</button><button type="button" class="p-3 rounded-xl bg-slate-100 text-slate-800 font-bold" onclick="initUnblockLevel();renderGame()">🎲 換一關</button></div></div>';
       return;
     }
     vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI Unblock：拖曳方塊幫「AI包」找出口</h3><p class="text-sm text-slate-500">滑鼠拖曳方塊，只能沿著方塊方向移動。目標：讓 AI包 往右邊出口離開。</p><div id="unblock-board" class="unblock-board mt-4"></div><p class="text-sm mt-3 text-slate-600">提示：卡住時先移「Review / Guard」等擋路方塊。</p>';
@@ -1852,7 +1919,7 @@ function renderGame() {
     var cell = boardRect.width / 6;
     unblockBlocks.forEach(function(b) {
       var el = document.createElement('div');
-      el.className = 'absolute rounded-lg border font-black text-xs flex items-center justify-center select-none cursor-grab';
+      el.className = 'unblock-chip absolute rounded-lg border font-black text-xs flex items-center justify-center select-none cursor-grab';
       el.style.left = (b.c * cell + 4) + 'px';
       el.style.top = (b.r * cell + 4) + 'px';
       el.style.width = ((b.dir === 'h' ? b.len : 1) * cell - 8) + 'px';
