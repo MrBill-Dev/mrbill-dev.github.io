@@ -175,6 +175,7 @@
       </div>
       <div class="flex flex-wrap gap-2">
         <button type="button" id="gen-draft-btn" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-bold text-sm">一鍵生成我的版本</button>
+        <button type="button" id="gen-draft-multi-btn" class="px-4 py-2 rounded-lg bg-fuchsia-600 text-white font-bold text-sm">生成 4 種創意版本</button>
         <button type="button" id="gen-reset-btn" class="px-4 py-2 rounded-lg bg-slate-200 text-slate-700 font-bold text-sm">清空</button>
       </div>
       <div id="gen-draft-output" class="rounded-2xl bg-slate-900 text-emerald-300 p-4 text-sm leading-relaxed min-h-[140px]">輸入後點「一鍵生成我的版本」，這裡會出現你的專屬初稿。</div>
@@ -407,6 +408,49 @@
       ].join('<br>');
       document.getElementById('gen-draft-output').innerHTML = html;
     }
+    function renderGeneratedDraftMulti() {
+      const industry = (document.getElementById('gen-industry').value || '').trim() || '你的產業';
+      const audience = (document.getElementById('gen-audience').value || '').trim() || '你的目標對象';
+      const product = (document.getElementById('gen-product').value || '').trim() || '你的商品或服務';
+      const versions = [
+        {
+          title: '版本 A｜數據理性型',
+          lines: [
+            '【主標】給' + audience + '的' + product + '優化方案（可量化）',
+            '【說明】聚焦' + industry + '場景，先定 KPI，再給步驟。',
+            '【CTA】下載《7 天指標追蹤表》並開始第一輪 A/B 測試。'
+          ]
+        },
+        {
+          title: '版本 B｜故事共鳴型',
+          lines: [
+            '【開場】你是否也遇過：做了很多內容，卻沒有人採取行動？',
+            '【轉折】在' + industry + '中，' + audience + '最常卡在「看懂但不行動」。',
+            '【CTA】領取《' + product + '改寫範本》，把內容改成可執行版本。'
+          ]
+        },
+        {
+          title: '版本 C｜清單教學型',
+          lines: [
+            '【3 步】1) 定義對象 2) 重寫主張 3) 設定明確 CTA',
+            '【適用】特別適合' + audience + '要快速上線' + product + '內容時使用。',
+            '【CTA】立即複製《一頁式內容檢查清單》。'
+          ]
+        },
+        {
+          title: '版本 D｜社群導流型',
+          lines: [
+            '【Hook】不是你不會寫，是你的內容沒有下一步指令。',
+            '【Value】把' + industry + '常見主題拆成「貼文 + 落地頁 + FAQ」。',
+            '【CTA】私訊關鍵字「' + product + '模板」拿完整素材包。'
+          ]
+        }
+      ];
+      document.getElementById('gen-draft-output').innerHTML = versions.map(function(v) {
+        return '<div class="mb-4"><p class="font-black text-cyan-300">' + v.title + '</p><ul class="mt-1 list-disc pl-5">' +
+          v.lines.map(function(line) { return '<li>' + line + '</li>'; }).join('') + '</ul></div>';
+      }).join('');
+    }
     function renderContentCourse(idx) {
       const total = CONTENT_COURSE.length;
       const item = CONTENT_COURSE[idx];
@@ -520,6 +564,7 @@
         if (idx === 0) renderContentScenario(key);
       });
       document.getElementById('gen-draft-btn').addEventListener('click', renderGeneratedDraft);
+      document.getElementById('gen-draft-multi-btn').addEventListener('click', renderGeneratedDraftMulti);
       document.getElementById('gen-reset-btn').addEventListener('click', function() {
         ['gen-industry', 'gen-audience', 'gen-product'].forEach(function(id) { document.getElementById(id).value = ''; });
         document.getElementById('gen-draft-output').textContent = '輸入後點「一鍵生成我的版本」，這裡會出現你的專屬初稿。';

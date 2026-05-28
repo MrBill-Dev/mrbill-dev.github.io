@@ -140,8 +140,35 @@
         <label class="space-y-1"><span class="font-bold text-slate-700">對象</span><input id="design-audience" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：25-35 歲上班族" /></label>
         <label class="space-y-1"><span class="font-bold text-slate-700">輸出平台</span><input id="design-platform" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：IG + 簡報封面" /></label>
       </div>
-      <button type="button" id="design-gen-btn" class="px-4 py-2 rounded-lg bg-violet-600 text-white font-bold text-sm">一鍵生成我的版本</button>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" id="design-gen-btn" class="px-4 py-2 rounded-lg bg-violet-600 text-white font-bold text-sm">一鍵生成我的版本</button>
+        <button type="button" id="design-gen-multi-btn" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-bold text-sm">生成 4 種任務單</button>
+      </div>
       <div id="design-gen-output" class="rounded-2xl bg-slate-900 text-emerald-300 p-4 text-sm leading-relaxed min-h-[130px]">填完欄位後點按鈕，這裡會產生你的設計任務單。</div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+      <h2 class="text-2xl font-black text-slate-900">🧰 免費素材去哪裡拿？（含工具相容）</h2>
+      <p class="text-sm text-slate-600">建議放在「任務單生成」下方，因為學員剛拿到任務時最需要找素材與工具相容資訊。</p>
+      <div class="overflow-x-auto rounded-xl border border-slate-200">
+        <table class="min-w-[920px] w-full text-sm">
+          <thead class="bg-slate-50">
+            <tr class="text-left text-slate-700">
+              <th class="px-3 py-2 border-b">素材來源</th>
+              <th class="px-3 py-2 border-b">適合素材</th>
+              <th class="px-3 py-2 border-b">可用工具</th>
+              <th class="px-3 py-2 border-b">備註</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-700">
+            <tr><td class="px-3 py-2 border-b"><a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="underline font-bold">Unsplash</a> / <a href="https://www.pexels.com" target="_blank" rel="noopener noreferrer" class="underline font-bold">Pexels</a> / <a href="https://pixabay.com" target="_blank" rel="noopener noreferrer" class="underline font-bold">Pixabay</a></td><td class="px-3 py-2 border-b">免費照片、背景圖</td><td class="px-3 py-2 border-b">Canva / Figma / Photoshop</td><td class="px-3 py-2 border-b">商用前仍需看授權條款</td></tr>
+            <tr><td class="px-3 py-2 border-b"><a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer" class="underline font-bold">Flaticon</a> / <a href="https://icons8.com/icons" target="_blank" rel="noopener noreferrer" class="underline font-bold">Icons8</a> / <a href="https://remixicon.com" target="_blank" rel="noopener noreferrer" class="underline font-bold">Remix Icon</a></td><td class="px-3 py-2 border-b">Icon、UI 圖示</td><td class="px-3 py-2 border-b">Figma / Illustrator / Canva</td><td class="px-3 py-2 border-b">注意是否需標示作者</td></tr>
+            <tr><td class="px-3 py-2 border-b"><a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer" class="underline font-bold">Google Fonts</a> / <a href="https://www.fontshare.com" target="_blank" rel="noopener noreferrer" class="underline font-bold">Fontshare</a></td><td class="px-3 py-2 border-b">免費字體</td><td class="px-3 py-2 border-b">Figma / Canva / 網頁 CSS</td><td class="px-3 py-2 border-b">中文字體需確認授權範圍</td></tr>
+            <tr><td class="px-3 py-2 border-b"><a href="https://undraw.co/illustrations" target="_blank" rel="noopener noreferrer" class="underline font-bold">unDraw</a> / <a href="https://storyset.com" target="_blank" rel="noopener noreferrer" class="underline font-bold">Storyset</a> / <a href="https://blush.design" target="_blank" rel="noopener noreferrer" class="underline font-bold">Blush</a></td><td class="px-3 py-2 border-b">插圖、場景圖</td><td class="px-3 py-2 border-b">Figma / PowerPoint / Canva</td><td class="px-3 py-2 border-b">可改色，適合品牌化</td></tr>
+            <tr><td class="px-3 py-2"><a href="https://mixkit.co" target="_blank" rel="noopener noreferrer" class="underline font-bold">Mixkit</a> / <a href="https://coverr.co" target="_blank" rel="noopener noreferrer" class="underline font-bold">Coverr</a></td><td class="px-3 py-2">免費影片素材</td><td class="px-3 py-2">Premiere / CapCut / Canva</td><td class="px-3 py-2">注意平台對再散布限制</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
@@ -335,6 +362,26 @@
         '- 顏色與字體一致'
       ].join('<br>');
     }
+    function generateDesignDraftMulti() {
+      const industry = (document.getElementById('design-industry').value || '').trim() || '你的產業';
+      const audience = (document.getElementById('design-audience').value || '').trim() || '你的目標受眾';
+      const platform = (document.getElementById('design-platform').value || '').trim() || '你的平台';
+      const versions = [
+        ['版本 A｜社群快發型', '主工具：Canva', '交付：1:1 + 4:5 + 封面', '重點：3 秒看懂主標與 CTA'],
+        ['版本 B｜品牌穩重型', '主工具：Illustrator + Photoshop', '交付：Logo 應用 + 海報 + 簡報封面', '重點：字體與色彩一致性'],
+        ['版本 C｜UI 產品型', '主工具：Figma', '交付：Landing Hero + 元件庫 + 手機版', '重點：RWD 與可讀性驗證'],
+        ['版本 D｜提案簡報型', '主工具：Figma/Canva + 圖表', '交付：6 頁提案模板', '重點：一頁一結論 + 視覺層級']
+      ];
+      document.getElementById('design-gen-output').innerHTML = versions.map(function(v) {
+        return '<div class="mb-4"><p class="font-black text-cyan-300">' + v[0] + '</p><ul class="list-disc pl-5 mt-1">' +
+          '<li>適用：' + industry + ' / ' + audience + '</li>' +
+          '<li>平台：' + platform + '</li>' +
+          '<li>' + v[1] + '</li>' +
+          '<li>' + v[2] + '</li>' +
+          '<li>' + v[3] + '</li>' +
+          '</ul></div>';
+      }).join('');
+    }
     function renderDesignQuiz() {
       document.getElementById('design-quiz-question').textContent = DESIGN_QUIZ[designQuizIdx].q;
       document.getElementById('design-quiz-feedback').textContent = '作答後顯示說明。';
@@ -393,6 +440,7 @@
       designCourseProgress.bindResetButton(document.getElementById('design-course-reset'), '確定重置「視覺設計學院」課程進度嗎？');
       designCourseProgress.init();
       document.getElementById('design-gen-btn').addEventListener('click', generateDesignDraft);
+      document.getElementById('design-gen-multi-btn').addEventListener('click', generateDesignDraftMulti);
       renderAuthorSignature('design-author-note');
     });
   </script>

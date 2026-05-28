@@ -606,7 +606,7 @@
 
       <div class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-6">
         <h3 class="text-2xl font-black text-slate-900">🧭 新手先看：你每天在用的 AI，到底差在哪？</h3>
-        <div class="grid md:grid-cols-3 gap-4 text-sm">
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4 text-sm">
           <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
             <p class="font-black text-slate-900">ChatGPT</p>
             <p class="mt-1 text-slate-600">通用問答、寫作、整理資訊很快，適合日常工作與學習。</p>
@@ -616,8 +616,46 @@
             <p class="mt-1 text-slate-600">長文分析與結構化整理穩定，適合讀文件、寫教案。</p>
           </div>
           <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <p class="font-black text-slate-900">Gemini / 其他</p>
-            <p class="mt-1 text-slate-600">整合搜尋與特定生態有優勢，適合搭配既有工作流。</p>
+            <p class="font-black text-slate-900">Gemini</p>
+            <p class="mt-1 text-slate-600">整合 Google 生態與搜尋優勢，適合文件、雲端流程與研究摘要。</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-black text-slate-900">通義 / 豆包 / Kimi / 文心</p>
+            <p class="mt-1 text-slate-600">中文語境與在地平台整合常較友善，適合特定地區工作流需求。</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-black text-slate-900">Midjourney / DALL·E / Flux / SD</p>
+            <p class="mt-1 text-slate-600">影像生成精準度與風格控制表現強，適合主視覺發想；商用仍需人工審稿與授權確認。</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-black text-slate-900">Cursor / Copilot 類</p>
+            <p class="mt-1 text-slate-600">IDE 協作最有感：可結合專案脈絡做改碼、重構、除錯與測試建議。</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-black text-slate-900">Whisper / ElevenLabs / Runway</p>
+            <p class="mt-1 text-slate-600">偏語音與影片工作流：字幕、配音、短片合成，適合多媒體交付。</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-black text-slate-900">開源本機模型（Llama / Qwen 等）</p>
+            <p class="mt-1 text-slate-600">重隱私與可控性，適合內部資料；但建置與硬體門檻較高。</p>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4 text-sm">
+          <div class="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <p class="font-black text-amber-800">💳 免費版 vs 付費版（新手必懂）</p>
+            <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+              <li>免費版：速度與配額受限、尖峰時段較不穩。</li>
+              <li>付費版：通常更快、更穩，長文與高階模型可用性較高。</li>
+              <li>精度差異常來自「模型等級 + 可用上下文長度 + 工具功能」。</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-cyan-200 bg-cyan-50 p-4">
+            <p class="font-black text-cyan-800">🖥️ 本機架設 vs ☁️ 雲端 AI</p>
+            <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+              <li>本機：資料可控、離線可用，但需 GPU/記憶體與部署維護能力。</li>
+              <li>雲端：上手快、模型更新快，適合大多數新手與團隊。</li>
+              <li>準確度不只看本機或雲端，還要看模型品質、資料新鮮度與提示詞設計。</li>
+            </ul>
           </div>
         </div>
 
@@ -1037,7 +1075,81 @@
 
   <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
 
+  <button id="ai-update-fab" type="button" onclick="openAiUpdateModal()" class="fixed z-40 right-4 bottom-20 md:bottom-8 px-4 py-3 rounded-full bg-indigo-600 text-white text-sm font-black shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-colors">
+    📰 AI 更新重點
+  </button>
+
+  <div id="ai-update-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 p-4 md:p-6">
+    <div class="max-w-4xl mx-auto h-full flex items-center">
+      <div class="w-full max-h-[88vh] overflow-y-auto rounded-2xl bg-white border border-slate-200 p-5 md:p-6">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <h3 class="text-xl md:text-2xl font-black text-slate-900">📰 AI 大記事</h3>
+            <p class="text-sm text-slate-600 mt-1">截至 2026/05/28：近期更新改版重點與實務影響（可展開/收合）。</p>
+          </div>
+          <button type="button" onclick="closeAiUpdateModal()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">關閉 ✕</button>
+        </div>
+        <div class="mt-4 space-y-3 text-sm">
+          <details class="rounded-xl border border-indigo-100 bg-indigo-50 p-4" open>
+            <summary class="font-black text-indigo-800 cursor-pointer">多模態能力持續增強（文字 / 圖片 / 語音 / 影片）</summary>
+            <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+              <li><strong>更新重點：</strong>跨模態理解與生成更穩，流程更一體化。</li>
+              <li><strong>影響：</strong>內容、設計、影音可在同一流程產出，跨職能協作成本降低。</li>
+            </ul>
+          </details>
+          <details class="rounded-xl border border-cyan-100 bg-cyan-50 p-4" open>
+            <summary class="font-black text-cyan-800 cursor-pointer">Agent / IDE 協作升級（開發與自動化）</summary>
+            <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+              <li><strong>更新重點：</strong>多步驟執行、檔案操作、測試建議更成熟。</li>
+              <li><strong>影響：</strong>交付速度提升，但更需要「人工審核節點」與版本管理。</li>
+            </ul>
+          </details>
+          <details class="rounded-xl border border-amber-100 bg-amber-50 p-4">
+            <summary class="font-black text-amber-800 cursor-pointer">影像生成模型精準度與控制性提升</summary>
+            <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+              <li><strong>更新重點：</strong>風格一致性、細節控制、提示詞可控性逐步提升。</li>
+              <li><strong>影響：</strong>主視覺草稿速度更快，但商用需持續做授權/品牌一致性檢查。</li>
+            </ul>
+          </details>
+          <details class="rounded-xl border border-rose-100 bg-rose-50 p-4">
+            <summary class="font-black text-rose-800 cursor-pointer">免費版 vs 付費版差距（穩定性/精度/能力）</summary>
+            <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+              <li><strong>更新重點：</strong>付費方案通常優先拿到高階模型與長上下文能力。</li>
+              <li><strong>影響：</strong>複雜任務（長文、程式、多步驟）差距明顯，免費版更適合輕量場景。</li>
+            </ul>
+          </details>
+          <details class="rounded-xl border border-emerald-100 bg-emerald-50 p-4">
+            <summary class="font-black text-emerald-800 cursor-pointer">本機部署 vs 雲端 AI（硬體/成本/準確度）</summary>
+            <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+              <li><strong>更新重點：</strong>本機方案更重隱私可控，雲端方案更重更新速度與生態整合。</li>
+              <li><strong>影響：</strong>新手多數先用雲端；有敏感資料與維運能力時再評估本機混合架構。</li>
+            </ul>
+          </details>
+          <details class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <summary class="font-black text-slate-800 cursor-pointer">治理與合規成為必修（企業導入）</summary>
+            <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+              <li><strong>更新重點：</strong>資料分級、權限邊界、來源可追溯、審稿流程成為標配。</li>
+              <li><strong>影響：</strong>不只追求「做得快」，也要確保「可查證、可回溯、可負責」。</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
+    function openAiUpdateModal() {
+      var m = document.getElementById('ai-update-modal');
+      if (!m) return;
+      m.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeAiUpdateModal() {
+      var m = document.getElementById('ai-update-modal');
+      if (!m) return;
+      m.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(function(sect) { sect.classList.add('hidden'); });
       const targetSect = document.getElementById('sect-' + tabId);
@@ -1091,6 +1203,12 @@
       initParallax();
       initRevealBlocks();
       if (typeof initAiLab === 'function') initAiLab();
+      var updateModal = document.getElementById('ai-update-modal');
+      if (updateModal) {
+        updateModal.addEventListener('click', function(e) {
+          if (e.target === updateModal) closeAiUpdateModal();
+        });
+      }
     });
 
   </script>
