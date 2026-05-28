@@ -16,7 +16,7 @@ const practiceCategories = [
     items: [
       practiceItem('大語言模型（LLM）到底在做什麼？', 'LLM = 超高階的文字機率預測器',
         'ChatGPT、Claude、Gemini 本質上都在做同一件事：根據前面出現的文字，預測下一個最可能出現的 token。它讀過海量資料，學到「祝你生日」後面常接「快樂」。這不是真正「理解」世界，而是極強的統計模式匹配——所以會自信地說錯話（幻覺），也需要人類審稿。',
-        '2025 主流：GPT-4o、Claude 3.5/4、Gemini 2、DeepSeek、Llama 3 皆屬此類。',
+        '常見主流模型都屬於此類：擅長語言生成、摘要整理與多步任務協作。',
         { key: 'llm', lesson: '開場 3 分鐘：請學員在手機輸入「祝你生日」，觀察 AI 接龍。再問：「它真的懂生日嗎？」引導到「預測」而非「思考」。',
           steps: ['用白話定義 LLM（文字接龍機器人）', '示範一次正確接龍 vs 一次幻覺', '強調：AI 輸出 = 草稿，人要審'],
           classroom: '分組各寫 1 個「AI 可能說錯的領域」（法律、醫療、股價…），下課前貼到共筆牆。',
@@ -43,7 +43,7 @@ const practiceCategories = [
     color: 'cyan',
     items: [
       { key: 'code', q: 'AI 時代還要學寫程式嗎？', title: '要學的是「審稿、架構、除錯」', content: 'AI 能產出 80% 的 CRUD、元件、測試草稿，但 RWD 跑版、XSS、效能、無障礙、業務邏輯錯誤仍要人判斷。會讀 Code、會拆需求、會寫測試的人，用 AI 產能可 3–5 倍；不會的人容易把 bug 直接上線。', tip: '本站前端手冊 + Cursor 類工具是典型協作流程。' },
-      { key: 'copilot', q: 'Cursor / Copilot 跟 ChatGPT 網頁版差在哪？', title: 'IDE 整合 = 看得見整個專案脈絡', content: '網頁 ChatGPT 只有你貼的片段；Cursor 等能索引 repo、跨檔重構、在終端跑指令。適合日常開發。ChatGPT 適合討論架構、寫文件、腦力激盪。兩者常一起用。', tip: '2025 趨勢：Agent 可直接改多檔並跑測試，但仍需 code review。' },
+      { key: 'copilot', q: 'Cursor / Copilot 跟 ChatGPT 網頁版差在哪？', title: 'IDE 整合 = 看得見整個專案脈絡', content: '網頁 ChatGPT 只有你貼的片段；Cursor 等能索引 repo、跨檔重構、在終端跑指令。適合日常開發。ChatGPT 適合討論架構、寫文件、腦力激盪。兩者常一起用。', tip: '目前趨勢：Agent 可直接改多檔、跑測試與修錯，但仍需 code review。' },
       { key: 'seo-ai', q: 'AI 寫的文章可以直接上架做 SEO 嗎？', title: '可以輔助，但要人工加「經驗與證據」', content: '純 AI 內容常缺乏 E-E-A-T（經驗、專業、權威、信任）。Google 懲罰低品質量產。建議：AI 出大綱與初稿，人補真實案例、數據、截圖、更新日期。搭配本站 SEO/GEO 教學結構化段落。', tip: 'GEO（生成式搜尋優化）讓內容易被 AI 摘要引用。' }
     ]
   },
@@ -63,7 +63,7 @@ const practiceCategories = [
     color: 'amber',
     items: [
       { key: 'image', q: 'Midjourney / DALL·E / Flux 怎麼選？', title: '依用途：風格化 vs 精準 vs 本地化', content: 'Midjourney 擅長藝術感與氛圍；DALL·E 與 ChatGPT 整合方便；Flux、SD 開源可本地跑。提示詞要寫：主體、光線、鏡頭、材質、比例（16:9）、排除項（no text）。懂攝影用語（光圈、色溫）品質更好。', tip: '生成圖當參考或素材，品牌主視覺仍建議實拍或設計師修。' },
-      { key: 'video', q: 'Sora / Runway / Kling 現在能取代拍攝嗎？', title: '2025 仍偏短片段與 B-roll，難取代真實商業拍攝', content: 'AI 影片適合概念預覽、社群短影音、特效補充。人物手指、文字、物理一致性仍常出錯。婚禮、產品、教學仍要真實拍攝 + 剪映後製；AI 可做字幕、配音、粗剪。', tip: '本站攝影學堂打底，AI 當加速器。' },
+      { key: 'video', q: 'Sora / Runway / Kling 現在能取代拍攝嗎？', title: '目前仍以短片段與 B-roll 最穩，難完全取代真實商業拍攝', content: 'AI 影片適合概念預覽、社群短影音、特效補充。人物手指、文字、物理一致性已有改善，但商業交付仍要人工審稿。婚禮、產品、教學仍以真實拍攝 + 後製為主；AI 可做字幕、配音、粗剪與分鏡草稿。', tip: '本站攝影學堂打底，AI 當加速器。' },
       { key: 'voice', q: 'AI 配音與克隆聲線要注意什麼？', title: '需同意權與標示，避免冒充', content: 'ElevenLabs、Azure TTS 等可做多語言配音。未經同意克隆他人聲音可能違法。教學影片、Podcast 可大幅節省錄音時間，但重要發布建議標示「AI 旁白」。', tip: '結合 Whisper 可做自動字幕與會議摘要。' },
       { key: 'img-prompt', q: '產圖 Prompt 要寫哪些要素才不會翻車？', title: '主體 + 光線 + 鏡頭 + 比例 + 排除項', content: '英文 Prompt 建議順序：Subject（主體）→ Environment（場景）→ Lighting（光線）→ Camera/lens（鏡頭）→ Style（風格）→ --ar 比例 → --no text, watermark。先出 4 張草稿選構圖，再放大精修；品牌主視覺仍要設計師或實拍把關。', tip: '到 Prompt 矩陣「影像創作」→ 產圖情境流程。' }
     ]
@@ -95,7 +95,7 @@ const practiceTeach = {
   rag: { lesson: '比喻：開卷考（RAG）vs 閉卷考（純模型）。準備 3 頁公司 FAQ PDF 上傳 NotebookLM 現場問答。', steps: ['定義檢索+生成', '示範無 RAG 時的胡說', '示範有文件時的引用'], classroom: '分組：一組只問模型，一組用文件，比答案可信度。', extend: '向量資料庫、chunk 大小、hybrid search。', nextStep: '→ 企業內訓可畫「哪些資料可上雲」流程圖。' },
   agent: { lesson: '用「外送平台調度」比喻 Agent：下單→拆單→騎手→回報。強調每多一步都要人設檢查點。', steps: ['對比聊天 vs Agent', '列 3 個適合 Agent 的任務', '列 3 個禁止全自動的任務'], classroom: '白板畫：人類必審關卡（金流、醫療、合約）。', extend: 'tool calling、MCP、權限沙盒。', nextStep: '→ 開發者用 Cursor Agent 示範「改一個 bug」。' },
   structure: { lesson: '現場把「幫我寫文案」改成 RTCS 五段式，投影前後差異。', steps: ['Role', 'Task', 'Context', 'Constraints', 'Output'], classroom: '每人寫一題作業 Prompt，鄰座互評是否缺段。', extend: 'JSON mode、function calling、system prompt 管理。', nextStep: '→ 打開本站 Prompt 矩陣實作。' },
-  cot: { lesson: '數學應用題：先禁止直接答，要求「步驟 1、2、3」。', steps: ['寫明 think step by step', '要求最終答案獨立一段', '複雜題用推理模型'], classroom: '比賽：同一題，有無 CoT 的正確率（教師預先測過）。', extend: 'o1、DeepSeek-R1、self-consistency。', nextStep: '→ Prompt 矩陣勾選「思維鏈」技巧。' },
+  cot: { lesson: '數學應用題：先禁止直接答，要求「步驟 1、2、3」。', steps: ['寫明 think step by step', '要求最終答案獨立一段', '複雜題用推理模型'], classroom: '比賽：同一題，有無 CoT 的正確率（教師預先測過）。', extend: '主流推理模型、self-consistency。', nextStep: '→ Prompt 矩陣勾選「思維鏈」技巧。' },
   fewshot: { lesson: '給兩封真實 Email 當範例，第三封讓 AI 模仿。', steps: ['範例要一致', '標註輸入/輸出', '說明禁止事項'], classroom: '轉換練習：口語 → 正式公文（附 2 範例）。', extend: 'dynamic few-shot、範例庫維護。', nextStep: '→ 行銷分類練習 GEO 文案。' },
   code: { lesson: '現場 AI 生成按鈕，用手機檢查 tap 區域是否夠大。', steps: ['AI 出草稿', '人跑 Lighthouse', '人修 a11y'], classroom: 'Bug hunt：故意留 2 個 AI 常犯的錯讓學員找。', extend: 'TDD + AI、CI 內建 review bot。', nextStep: '→ tutorial.html 沙盒。' },
   'chat-vs-ide': { lesson: '畫決策樹：單檔 snippet → 聊天；多檔專案 → IDE。', steps: ['列工具', '列風險', '示範 Cursor @codebase'], classroom: '分組辯論：「還要不要背語法？」', extend: 'Vibe coding 界線、資安掃描。', nextStep: '→ 小遊戲「工具選擇」模式。' },
@@ -134,7 +134,7 @@ function initPracticeLab() {
   const root = document.getElementById('practice-root');
   if (!root) return;
   let html = '<div class="flex flex-wrap gap-2 mb-4" id="practice-tabs"></div>';
-  html += '<p class="text-sm text-slate-500 mb-4">點選問題後，切換下方分頁：概念解析／實作帶練步驟／延伸與下一步。每個名詞都有白話解釋。</p>';
+  html += '<p class="text-sm text-slate-500 mb-4">點選問題後，切換下方分頁：概念解析／實作帶練步驟／延伸與下一步。遇到不懂名詞，先看下方「新手名詞小字典」，再回來看這題會更好吸收。</p>';
   html += '<div id="practice-questions" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>';
   html += `<div id="answerDisplay" class="mt-8 hidden rounded-2xl border border-indigo-100 overflow-hidden">
     <div class="flex flex-wrap gap-1 p-3 bg-indigo-50 border-b border-indigo-100" id="practice-answer-tabs">
@@ -151,11 +151,14 @@ function initPracticeLab() {
     </div>
   </div>`;
   html += `<div class="mt-8 rounded-2xl border border-cyan-100 bg-cyan-50 p-5">
-    <p class="text-xs font-black text-cyan-700 uppercase tracking-wider mb-3">新手名詞小字典</p>
+    <p class="text-xs font-black text-cyan-700 uppercase tracking-wider mb-3">新手名詞翻譯區</p>
     <div class="grid md:grid-cols-3 gap-3 text-sm mb-4">
       <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Token</p><p class="text-slate-600 mt-1">可理解成 AI 計算字數與成本的單位。</p></div>
       <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">RAG</p><p class="text-slate-600 mt-1">先查你的資料，再回覆，不靠模型亂猜。</p></div>
       <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Prompt</p><p class="text-slate-600 mt-1">你給 AI 的任務說明書，寫越清楚越準。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Agent</p><p class="text-slate-600 mt-1">會自己拆任務並呼叫工具的 AI，不只是聊天。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Few-shot</p><p class="text-slate-600 mt-1">先給 2-3 個範例，AI 會比較穩定模仿格式。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">推理模型</p><p class="text-slate-600 mt-1">適合多步驟難題，但速度可能較慢、成本較高。</p></div>
     </div>
   </div>`;
   html += `<div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-5">
@@ -1012,7 +1015,7 @@ function copyPromptOutput() {
 // ─── 小遊戲 ───
 const quizBank = [
   { q: 'Prompt 工程中建議最先定義的是？', opts: ['電腦型號', 'Role 角色與任務邊界', '字體大小'], ans: 1, fb: '角色決定語氣、知識範圍與輸出格式。' },
-  { q: '下列哪項「不是」2025 常見 AI 應用？', opts: ['程式碼審查', '自動開車接小孩上學（無人監管）', '會議逐字稿摘要'], ans: 1, fb: '全自動無人載客仍受法規與技術限制。' },
+  { q: '下列哪項「不是」目前常見 AI 應用？', opts: ['程式碼審查', '自動開車接小孩上學（無人監管）', '會議逐字稿摘要'], ans: 1, fb: '全自動無人載客仍受法規與技術限制。' },
   { q: 'RAG 的主要目的是？', opts: ['讓模型跑得更快', '先檢索私有資料再生成答案', '取代所有訓練'], ans: 1, fb: '減少幻覺、回答企業內部知識。' },
   { q: 'AI 幻覺（Hallucination）是指？', opts: ['畫面有幻覺效果', '模型自信地輸出錯誤事實', '使用者太累'], ans: 1, fb: '關鍵資訊務必查證。' },
   { q: 'Context Window 指的是？', opts: ['瀏覽器視窗大小', '模型一次能處理的 token 上限', '螢幕解析度'], ans: 1, fb: '超過就要截斷或摘要舊對話。' },
@@ -1031,7 +1034,7 @@ const trueFalseBank = [
   { s: '免費版 ChatGPT 適合貼未去識別的客戶合約。', a: false, fb: '應使用企業方案或避免上傳敏感資料。' },
   { s: 'RAG 可讓 AI 回答你公司內部文件內容。', a: true, fb: '先檢索再生成。' },
   { s: 'AI 生成的圖片一定沒有版權爭議。', a: false, fb: '需看平台條款與訓練資料來源。' },
-  { s: 'o1 / 推理模型適合複雜多步問題。', a: true, fb: '內建較長推理鏈。' },
+  { s: '推理模型適合複雜多步問題。', a: true, fb: '通常具備較長推理鏈。' },
   { s: 'GEO 就是把文章寫得像機器人。', a: false, fb: '是讓人與 AI 都易讀的清楚結構。' },
   { s: 'Token 越多通常代表成本越高。', a: true, fb: '輸入輸出都計費。' }
 ];
@@ -1128,6 +1131,136 @@ let decisionNode = 'start';
 let toolPickIdx = 0, toolPickScore = 0;
 let pathwayPick = null;
 let matchIdx = 0, matchScore = 0;
+let flipDeck = [];
+let flipOpenIds = [];
+let flipLock = false;
+let flipMatched = 0;
+let dragScore = 0;
+let dragPlaced = 0;
+let dragIdx = 0;
+let gameCombo = 0;
+let gameBestCombo = 0;
+let gameTimerId = null;
+let gameTimeLeft = 0;
+let gameTimeUp = false;
+let mazeHasKey = false;
+let mazeSteps = 0;
+let mazePos = { r: 0, c: 0 };
+let mazeLevelIdx = 0;
+let mazeTips = {};
+let mazeTipText = '先找到鑰匙，再去終點。';
+let unblockBlocks = [];
+let unblockMoves = 0;
+let unblockDrag = null;
+let shooterHits = 0;
+let shooterMiss = 0;
+let shooterRoundIdx = 0;
+let shooterRoundNeed = 0;
+let shooterRoundDone = 0;
+let mazeKeyListenerBound = false;
+
+let mazeMap = [];
+let mazeKeyCell = { r: 0, c: 0 };
+let mazeGoalCell = { r: 0, c: 0 };
+const puzzleGoal = ['Role', 'Task', 'Context', 'Constraints', 'Output', 'Review'];
+const mazeLevels = [
+  {
+    map: [
+      [0, 0, 1, 0, 0, 1, 0, 0, 0],
+      [1, 0, 1, 0, 1, 1, 0, 1, 0],
+      [0, 0, 0, 0, 0, 1, 0, 1, 0],
+      [0, 1, 1, 1, 0, 0, 0, 1, 0],
+      [0, 0, 0, 1, 0, 1, 0, 0, 0],
+      [1, 1, 0, 1, 0, 1, 1, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 1, 1, 1, 1, 1, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    start: { r: 0, c: 0 },
+    key: { r: 2, c: 4 },
+    goal: { r: 8, c: 8 },
+    tips: { '0,1': 'Prompt 先講清楚目標再做。', '2,4': '拿到 Key：先查資料再回答。', '6,3': '遇到不確定，先查證再輸出。' }
+  },
+  {
+    map: [
+      [0, 1, 0, 0, 0, 0, 1, 0, 0],
+      [0, 1, 0, 1, 1, 0, 1, 0, 1],
+      [0, 0, 0, 1, 0, 0, 0, 0, 1],
+      [1, 1, 0, 1, 0, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0, 1],
+      [0, 1, 1, 1, 0, 1, 0, 1, 0],
+      [0, 0, 0, 1, 0, 0, 0, 1, 0],
+      [1, 1, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 1, 0]
+    ],
+    start: { r: 0, c: 0 },
+    key: { r: 4, c: 3 },
+    goal: { r: 8, c: 8 },
+    tips: { '2,0': 'Token 是成本與記憶單位。', '4,3': '拿到 Key：RAG 可降低幻覺。', '7,2': 'Agent 做多步，需設定邊界。' }
+  }
+];
+const unblockLevels = [
+  [
+    { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true },
+    { id: 'a', r: 0, c: 0, len: 3, dir: 'v', label: 'Prompt' },
+    { id: 'b', r: 0, c: 2, len: 2, dir: 'h', label: 'RAG' },
+    { id: 'c', r: 0, c: 4, len: 3, dir: 'v', label: 'Token' },
+    { id: 'd', r: 3, c: 1, len: 3, dir: 'h', label: 'Agent' },
+    { id: 'e', r: 4, c: 3, len: 2, dir: 'v', label: 'Review' }
+  ],
+  [
+    { id: 'goal', r: 2, c: 1, len: 2, dir: 'h', label: 'AI包', goal: true },
+    { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt' },
+    { id: 'b', r: 0, c: 2, len: 3, dir: 'v', label: 'RAG' },
+    { id: 'c', r: 1, c: 3, len: 2, dir: 'h', label: 'Tool' },
+    { id: 'd', r: 3, c: 0, len: 3, dir: 'h', label: 'Agent' },
+    { id: 'e', r: 4, c: 4, len: 2, dir: 'v', label: 'Guard' }
+  ]
+];
+const shooterRounds = [
+  {
+    question: '射掉「安全做法」目標（共 3 個）',
+    targets: [
+      { label: '查證來源', good: true }, { label: '不貼個資', good: true }, { label: '人工審稿', good: true },
+      { label: '全信AI', good: false }, { label: '跳過測試', good: false }, { label: '直接上線', good: false }
+    ]
+  },
+  {
+    question: '射掉「Prompt 結構」目標（共 3 個）',
+    targets: [
+      { label: 'Role', good: true }, { label: 'Task', good: true }, { label: 'Context', good: true },
+      { label: '亂寫一段', good: false }, { label: '無限制', good: false }, { label: '不審稿', good: false }
+    ]
+  }
+];
+
+const modeTimeLimit = {
+  pathway: 0,
+  decision: 0,
+  toolpick: 75,
+  quiz: 90,
+  tf: 60,
+  match: 90,
+  flip: 75,
+  drag: 75,
+  maze: 0,
+  puzzle: 0,
+  shooter: 45
+};
+
+const flipPairs = [
+  { term: 'Prompt', meaning: '給 AI 的任務說明書' },
+  { term: 'Token', meaning: '文字與成本的計算單位' },
+  { term: 'RAG', meaning: '先查資料再回答' },
+  { term: 'Agent', meaning: '可拆步驟執行任務的 AI' }
+];
+
+const dragRounds = [
+  { item: '寫社群貼文草稿', slot: '聊天模型（Prompt）' },
+  { item: '跨檔改程式並跑測試', slot: 'IDE Agent（Cursor/Copilot）' },
+  { item: '公司 PDF 內部問答', slot: 'RAG / NotebookLM' },
+  { item: '活動主視覺草稿', slot: '產圖工具（MJ / DALL·E）' }
+];
 
 const gameModes = [
   { id: 'pathway', label: '🧭 下一步指引', default: true },
@@ -1135,7 +1268,12 @@ const gameModes = [
   { id: 'toolpick', label: '🛠 工具選擇' },
   { id: 'quiz', label: '📝 知識測驗' },
   { id: 'tf', label: '⚡ 是非快問' },
-  { id: 'match', label: '🎯 情境配對' }
+  { id: 'match', label: '🎯 情境配對' },
+  { id: 'flip', label: '🃏 翻牌記憶戰' },
+  { id: 'drag', label: '🧲 拖曳配對戰' },
+  { id: 'maze', label: '🧩 AI 迷宮' },
+  { id: 'puzzle', label: '🧱 Prompt 拼圖' },
+  { id: 'shooter', label: '🎯 AI 射擊場' }
 ];
 
 function initGameLab() {
@@ -1152,12 +1290,171 @@ function initGameLab() {
         b.className = 'game-mode px-3 py-2 rounded-xl text-sm font-bold border bg-white text-slate-600 border-slate-200';
       });
       btn.className = 'game-mode px-3 py-2 rounded-xl text-sm font-bold border bg-emerald-600 text-white border-emerald-600';
-      quizIdx = 0; quizScore = 0; tfIdx = 0; tfScore = 0;
-      decisionNode = 'start'; toolPickIdx = 0; toolPickScore = 0; pathwayPick = null; matchIdx = 0; matchScore = 0;
+      resetCurrentGameProgress();
       renderGame();
     });
   });
+  if (!mazeKeyListenerBound) {
+    window.addEventListener('keydown', function(e) {
+      if (gameMode !== 'maze') return;
+      if (e.key === 'ArrowUp') { e.preventDefault(); tryMoveMaze(-1, 0); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); tryMoveMaze(1, 0); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); tryMoveMaze(0, -1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); tryMoveMaze(0, 1); }
+    });
+    mazeKeyListenerBound = true;
+  }
+  resetCurrentGameProgress();
   renderGame();
+}
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function setGameMeter(percent) {
+  var fill = document.getElementById('game-meter-fill');
+  if (!fill) return;
+  fill.style.width = Math.max(0, Math.min(100, percent)) + '%';
+}
+
+function updateArcadeHud() {
+  var comboEl = document.getElementById('game-combo-label');
+  var timerEl = document.getElementById('game-timer-label');
+  var comboBadge = document.getElementById('hud-combo-badge');
+  var timerBadge = document.getElementById('hud-timer-badge');
+  if (comboEl) comboEl.textContent = String(gameCombo);
+  if (timerEl) timerEl.textContent = gameTimeLeft > 0 ? (gameTimeLeft + 's') : '∞';
+  if (comboBadge) {
+    comboBadge.classList.remove('pop');
+    if (gameCombo > 0) {
+      comboBadge.classList.add('pop');
+      setTimeout(function() { comboBadge.classList.remove('pop'); }, 180);
+    }
+  }
+  if (timerBadge) {
+    timerBadge.classList.toggle('warn', gameTimeLeft > 0 && gameTimeLeft <= 10);
+  }
+}
+
+function showGameFx(text, type) {
+  var fx = document.getElementById('game-fx-text');
+  if (!fx) return;
+  fx.className = 'game-fx-text ' + (type || 'good');
+  fx.textContent = text;
+  // force reflow for replay animation
+  void fx.offsetWidth;
+  fx.classList.add('show');
+}
+
+function stopGameTimer() {
+  if (gameTimerId) {
+    clearInterval(gameTimerId);
+    gameTimerId = null;
+  }
+}
+
+function startGameTimer(limitSec) {
+  stopGameTimer();
+  gameTimeUp = false;
+  gameTimeLeft = limitSec > 0 ? limitSec : 0;
+  updateArcadeHud();
+  if (!limitSec || limitSec <= 0) return;
+  gameTimerId = setInterval(function() {
+    gameTimeLeft -= 1;
+    if (gameTimeLeft <= 0) {
+      gameTimeLeft = 0;
+      gameTimeUp = true;
+      stopGameTimer();
+      renderGame();
+      return;
+    }
+    updateArcadeHud();
+  }, 1000);
+}
+
+function registerGameResult(ok) {
+  if (ok) {
+    gameCombo += 1;
+    if (gameCombo > gameBestCombo) gameBestCombo = gameCombo;
+    if (gameCombo >= 3) showGameFx('🔥 COMBO x' + gameCombo, 'combo');
+    else showGameFx('✅ 正確！', 'good');
+  } else {
+    gameCombo = 0;
+    showGameFx('❌ 失誤，連擊重置', 'bad');
+  }
+  updateArcadeHud();
+}
+
+function buildStarsByRatio(ratio) {
+  if (ratio >= 0.85) return '★★★';
+  if (ratio >= 0.6) return '★★☆';
+  return '★☆☆';
+}
+
+function initPuzzleTiles() {
+  var arr = puzzleGoal.slice();
+  arr = [arr[1], arr[0], arr[3], arr[2], arr[5], arr[4]];
+}
+
+function initMazeLevel() {
+  var next = Math.floor(Math.random() * mazeLevels.length);
+  if (mazeLevels.length > 1 && next === mazeLevelIdx) next = (next + 1) % mazeLevels.length;
+  mazeLevelIdx = next;
+  var lv = mazeLevels[mazeLevelIdx];
+  mazeMap = lv.map.map(function(row) { return row.slice(); });
+  mazePos = { r: lv.start.r, c: lv.start.c };
+  mazeKeyCell = { r: lv.key.r, c: lv.key.c };
+  mazeGoalCell = { r: lv.goal.r, c: lv.goal.c };
+  mazeTips = Object.assign({}, lv.tips || {});
+  mazeHasKey = false;
+  mazeSteps = 0;
+  mazeTipText = '新關卡開始：先拿鑰匙，再去出口。';
+}
+
+function initUnblockLevel() {
+  var lv = unblockLevels[Math.floor(Math.random() * unblockLevels.length)];
+  unblockBlocks = lv.map(function(b) { return Object.assign({}, b); });
+  unblockMoves = 0;
+  unblockDrag = null;
+}
+
+function tryMoveMaze(dr, dc) {
+  var nr = mazePos.r + dr;
+  var nc = mazePos.c + dc;
+  if (nr < 0 || nc < 0 || nr >= mazeMap.length || nc >= mazeMap[0].length) return;
+  if (mazeMap[nr][nc] === 1) {
+    registerGameResult(false);
+    return;
+  }
+  mazePos = { r: nr, c: nc };
+  mazeSteps += 1;
+  if (!mazeHasKey && nr === mazeKeyCell.r && nc === mazeKeyCell.c) {
+    mazeHasKey = true;
+    registerGameResult(true);
+    showGameFx('🔑 拿到 AI Key！', 'good');
+  }
+  var tip = mazeTips[nr + ',' + nc];
+  if (tip) mazeTipText = tip;
+  renderGame();
+}
+
+function resetCurrentGameProgress() {
+  quizIdx = 0; quizScore = 0; tfIdx = 0; tfScore = 0;
+  decisionNode = 'start'; toolPickIdx = 0; toolPickScore = 0; pathwayPick = null; matchIdx = 0; matchScore = 0;
+  flipDeck = []; flipOpenIds = []; flipLock = false; flipMatched = 0;
+  dragScore = 0; dragPlaced = 0; dragIdx = 0;
+  initMazeLevel();
+  initUnblockLevel();
+  shooterHits = 0; shooterMiss = 0; shooterRoundIdx = 0; shooterRoundNeed = 0; shooterRoundDone = 0;
+  gameCombo = 0;
+  gameBestCombo = 0;
+  startGameTimer(modeTimeLimit[gameMode] || 0);
 }
 
 function renderGame() {
@@ -1165,8 +1462,22 @@ function renderGame() {
   var prog = document.getElementById('game-progress-label');
   var score = document.getElementById('game-score-label');
   if (!vp) return;
+  updateArcadeHud();
+
+  if (gameTimeUp && (modeTimeLimit[gameMode] || 0) > 0) {
+    setGameMeter(100);
+    if (prog) prog.textContent = '時間到';
+    vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-amber-50 border border-amber-200 text-center">' +
+      '<p class="text-2xl font-black text-amber-700">⏰ 時間到！</p>' +
+      '<p class="text-sm text-slate-700 mt-2">目前模式：' + (gameModes.find(function(m){ return m.id === gameMode; }) || { label: gameMode }).label + '</p>' +
+      '<p class="text-sm text-slate-700 mt-1">最高連擊：' + gameBestCombo + '</p>' +
+      '<button type="button" class="mt-4 w-full p-3 rounded-xl bg-amber-600 text-white font-bold" onclick="resetCurrentGameProgress();renderGame()">再挑戰一次</button>' +
+      '</div>';
+    return;
+  }
 
   if (gameMode === 'pathway') {
+    setGameMeter(pathwayPick ? 100 : 15);
     if (prog) prog.textContent = pathwayPick ? '路徑詳情' : '選擇目標';
     if (score) score.textContent = '—';
     if (!pathwayPick) {
@@ -1193,6 +1504,7 @@ function renderGame() {
   }
 
   if (gameMode === 'decision') {
+    setGameMeter(decisionNode === 'end' ? 100 : 45);
     var node = decisionTree[decisionNode] || decisionTree.end;
     if (prog) prog.textContent = '情境導覽';
     if (score) score.textContent = '—';
@@ -1229,8 +1541,11 @@ function renderGame() {
   }
 
   if (gameMode === 'toolpick') {
+    setGameMeter((toolPickIdx / toolPickRounds.length) * 100);
     if (toolPickIdx >= toolPickRounds.length) {
+      var toolRatio = toolPickRounds.length ? (toolPickScore / toolPickRounds.length) : 0;
       vp.innerHTML = '<p class="text-2xl font-black text-cyan-700">🛠 完成！' + toolPickScore + ' / ' + toolPickRounds.length + ' 題選對</p>' +
+        '<p class="star-row mt-2">星等：' + buildStarsByRatio(toolRatio) + '</p>' +
         '<button type="button" class="mt-4 w-full p-4 rounded-xl bg-cyan-600 text-white font-bold" onclick="toolPickIdx=0;toolPickScore=0;renderGame()">再玩一次</button>';
       if (prog) prog.textContent = '完成';
       return;
@@ -1247,6 +1562,7 @@ function renderGame() {
       b.onclick = function() {
         var ok = i === tr.ans;
         if (ok) toolPickScore++;
+        registerGameResult(ok);
         var fb = document.getElementById('tool-fb');
         fb.classList.remove('hidden');
         fb.className = 'mt-4 p-4 rounded-xl font-bold block ' + (ok ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-700');
@@ -1260,8 +1576,11 @@ function renderGame() {
   }
 
   if (gameMode === 'quiz') {
+    setGameMeter((quizIdx / quizBank.length) * 100);
     if (quizIdx >= quizBank.length) {
+      const quizRatio = (quizBank.length * 100) ? (quizScore / (quizBank.length * 100)) : 0;
       vp.innerHTML = `<p class="text-2xl font-black text-emerald-700">🎉 測驗完成！得分 ${quizScore} / ${quizBank.length * 100}</p>
+        <p class="star-row mt-2">星等：${buildStarsByRatio(quizRatio)}</p>
         <button type="button" onclick="quizIdx=0;quizScore=0;renderGame()" class="mt-4 w-full p-4 rounded-xl bg-emerald-600 text-white font-bold">再玩一次</button>`;
       if (prog) prog.textContent = '完成';
       if (score) score.textContent = quizScore;
@@ -1283,9 +1602,11 @@ function renderGame() {
         banner.classList.remove('hidden');
         if (i === d.ans) {
           quizScore += 100;
+          registerGameResult(true);
           banner.className = 'mt-4 p-4 rounded-xl bg-emerald-50 text-emerald-800 font-bold text-center block';
           banner.textContent = '✓ ' + d.fb;
         } else {
+          registerGameResult(false);
           banner.className = 'mt-4 p-4 rounded-xl bg-red-50 text-red-700 font-bold text-center block';
           banner.textContent = '✗ ' + d.fb;
         }
@@ -1295,8 +1616,11 @@ function renderGame() {
       box.appendChild(b);
     });
   } else if (gameMode === 'tf') {
+    setGameMeter((tfIdx / trueFalseBank.length) * 100);
     if (tfIdx >= trueFalseBank.length) {
+      const tfRatio = trueFalseBank.length ? (tfScore / trueFalseBank.length) : 0;
       vp.innerHTML = `<p class="text-2xl font-black text-cyan-700">⚡ 快問快答結束！${tfScore} / ${trueFalseBank.length} 題正確</p>
+        <p class="star-row mt-2">星等：${buildStarsByRatio(tfRatio)}</p>
         <button type="button" onclick="tfIdx=0;tfScore=0;renderGame()" class="mt-4 w-full p-4 rounded-xl bg-cyan-600 text-white font-bold">再玩一次</button>`;
       return;
     }
@@ -1313,6 +1637,7 @@ function renderGame() {
       banner.classList.remove('hidden');
       const ok = userAns === d.a;
       if (ok) tfScore++;
+      registerGameResult(ok);
       banner.className = 'mt-4 p-4 rounded-xl font-bold text-center block ' + (ok ? 'bg-emerald-50 text-emerald-800' : 'bg-red-50 text-red-700');
       banner.textContent = (ok ? '✓ ' : '✗ ') + d.fb;
       if (score) score.textContent = tfScore * 100;
@@ -1321,6 +1646,7 @@ function renderGame() {
     document.getElementById('tf-true').onclick = () => pick(true);
     document.getElementById('tf-false').onclick = () => pick(false);
   } else if (gameMode === 'match') {
+    setGameMeter((matchIdx / matchBank.length) * 100);
     if (prog) prog.textContent = (matchIdx >= matchBank.length) ? '完成' : ((matchIdx + 1) + ' / ' + matchBank.length);
     if (score) score.textContent = matchScore;
     function buildMatchOptions(currentIdx) {
@@ -1334,7 +1660,9 @@ function renderGame() {
       return opts.sort(() => Math.random() - 0.5);
     }
     if (matchIdx >= matchBank.length) {
+      var matchRatio = matchBank.length ? (matchScore / matchBank.length) : 0;
       vp.innerHTML = '<p class="text-xl font-black text-purple-700">🎯 配對練習完成！你答對 ' + matchScore + ' / ' + matchBank.length + ' 題。</p>' +
+        '<p class="star-row mt-2">星等：' + buildStarsByRatio(matchRatio) + '</p>' +
         '<button type="button" class="mt-4 w-full p-3 rounded-xl bg-purple-600 text-white font-bold" onclick="matchIdx=0;matchScore=0;renderGame()">再玩一次</button>';
       return;
     }
@@ -1356,6 +1684,7 @@ function renderGame() {
       b.onclick = function() {
         const ok = opt === m.best;
         if (ok) matchScore += 1;
+        registerGameResult(ok);
         if (score) score.textContent = matchScore;
         box.querySelectorAll('button').forEach(function(btn) { btn.disabled = true; });
         const fb = document.getElementById('match-feedback');
@@ -1368,6 +1697,278 @@ function renderGame() {
     });
     nextBtn.onclick = function() {
       matchIdx += 1;
+      renderGame();
+    };
+  } else if (gameMode === 'flip') {
+    if (!flipDeck.length) {
+      var raw = [];
+      flipPairs.forEach(function(p, idx) {
+        raw.push({ id: 't' + idx, pair: idx, text: p.term, kind: 'term' });
+        raw.push({ id: 'm' + idx, pair: idx, text: p.meaning, kind: 'meaning' });
+      });
+      flipDeck = shuffle(raw);
+    }
+    setGameMeter((flipMatched / flipPairs.length) * 100);
+    if (prog) prog.textContent = flipMatched + ' / ' + flipPairs.length + ' 組';
+    if (score) score.textContent = flipMatched * 100;
+    if (flipMatched >= flipPairs.length) {
+      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center"><p class="text-2xl font-black text-emerald-700">🎉 全部配對成功！</p><p class="star-row mt-2">星等：' + buildStarsByRatio(1) + '</p><p class="text-sm text-slate-700 mt-1">你已完成名詞與解釋的記憶闖關。</p><button type="button" class="mt-4 w-full p-3 rounded-xl bg-emerald-600 text-white font-bold" onclick="flipDeck=[];flipOpenIds=[];flipMatched=0;flipLock=false;renderGame()">再玩一次</button></div>';
+      return;
+    }
+    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">翻牌找出「名詞 ↔ 解釋」配對</h3><p class="text-sm text-slate-500 mt-1">連續答對會更快解鎖，答錯卡片會翻回去。</p><div id="flip-grid" class="flip-grid mt-4"></div>';
+    var fg = document.getElementById('flip-grid');
+    flipDeck.forEach(function(card, idx) {
+      var isOpen = flipOpenIds.indexOf(idx) >= 0;
+      var isMatched = card.matched;
+      var cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'flip-card' + (isOpen ? ' is-open' : '') + (isMatched ? ' is-matched' : '');
+      cell.innerHTML = '<div class="flip-inner"><div class="flip-face flip-front">?</div><div class="flip-face flip-back">' + card.text + '</div></div>';
+      cell.disabled = !!isMatched;
+      cell.onclick = function() {
+        if (flipLock || card.matched || flipOpenIds.indexOf(idx) >= 0) return;
+        flipOpenIds.push(idx);
+        renderGame();
+        if (flipOpenIds.length === 2) {
+          flipLock = true;
+          var a = flipDeck[flipOpenIds[0]];
+          var b = flipDeck[flipOpenIds[1]];
+          var ok = a.pair === b.pair && a.kind !== b.kind;
+          setTimeout(function() {
+            if (ok) {
+              a.matched = true;
+              b.matched = true;
+              flipMatched += 1;
+              registerGameResult(true);
+            } else {
+              registerGameResult(false);
+            }
+            flipOpenIds = [];
+            flipLock = false;
+            renderGame();
+          }, ok ? 420 : 800);
+        }
+      };
+      fg.appendChild(cell);
+    });
+  } else if (gameMode === 'drag') {
+    setGameMeter((dragIdx / dragRounds.length) * 100);
+    if (prog) prog.textContent = dragIdx + ' / ' + dragRounds.length + ' 已配對';
+    if (score) score.textContent = dragScore * 100;
+    if (dragIdx >= dragRounds.length) {
+      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-cyan-50 border border-cyan-200 text-center"><p class="text-2xl font-black text-cyan-700">🧲 拖曳任務完成！</p><p class="star-row mt-2">星等：' + buildStarsByRatio(1) + '</p><p class="text-sm text-slate-700 mt-1">你已熟悉常見任務該配哪種工具。</p><button type="button" class="mt-4 w-full p-3 rounded-xl bg-cyan-600 text-white font-bold" onclick="dragScore=0;dragPlaced=0;dragIdx=0;renderGame()">再玩一次</button></div>';
+      return;
+    }
+    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">拖曳任務到對的工具區</h3><p class="text-sm text-slate-500 mt-1">把左邊任務拖到右邊最適合的工具框。</p><div class="drag-stage mt-4"><div><p class="text-xs font-black text-slate-500 mb-2">任務卡</p><div id="drag-items" class="grid gap-2"></div></div><div><p class="text-xs font-black text-slate-500 mb-2">工具區</p><div id="drag-slots" class="grid gap-2"></div></div></div><div id="drag-feedback" class="mt-4 hidden p-3 rounded-xl font-bold text-sm"></div>';
+    var itemsWrap = document.getElementById('drag-items');
+    var slotsWrap = document.getElementById('drag-slots');
+    var feedback = document.getElementById('drag-feedback');
+    var slots = ['聊天模型（Prompt）', 'IDE Agent（Cursor/Copilot）', 'RAG / NotebookLM', '產圖工具（MJ / DALL·E）'];
+    var row = dragRounds[dragIdx];
+    var chip = document.createElement('div');
+    chip.className = 'drag-chip';
+    chip.textContent = row.item;
+    chip.draggable = true;
+    chip.dataset.slot = row.slot;
+    chip.addEventListener('dragstart', function() { chip.classList.add('dragging'); });
+    chip.addEventListener('dragend', function() { chip.classList.remove('dragging'); });
+    itemsWrap.appendChild(chip);
+    slots.forEach(function(name) {
+      var slot = document.createElement('div');
+      slot.className = 'drop-slot';
+      slot.dataset.slot = name;
+      slot.innerHTML = '<p class="text-sm font-black text-slate-800">' + name + '</p>';
+      slot.addEventListener('dragover', function(e) { e.preventDefault(); slot.classList.add('is-over'); });
+      slot.addEventListener('dragleave', function() { slot.classList.remove('is-over'); });
+      slot.addEventListener('drop', function(e) {
+        e.preventDefault();
+        slot.classList.remove('is-over');
+        var dragging = document.querySelector('.drag-chip.dragging');
+        if (!dragging) return;
+        var wanted = dragging.dataset.slot;
+        var ok = wanted === name;
+        feedback.classList.remove('hidden');
+        if (ok) {
+          slot.classList.add('is-hit', 'burst');
+          dragging.remove();
+          dragScore += 1;
+          dragPlaced += 1;
+          dragIdx += 1;
+          registerGameResult(true);
+          feedback.className = 'mt-4 p-3 rounded-xl font-bold text-sm bg-emerald-50 text-emerald-800 block';
+          feedback.textContent = '✅ 配對正確！' + dragging.textContent + ' → ' + name;
+          setTimeout(function() { renderGame(); }, 500);
+        } else {
+          registerGameResult(false);
+          feedback.className = 'mt-4 p-3 rounded-xl font-bold text-sm bg-rose-50 text-rose-700 block';
+          feedback.textContent = '❌ 這個任務更適合：' + wanted;
+        }
+      });
+      slotsWrap.appendChild(slot);
+    });
+  } else if (gameMode === 'maze') {
+    setGameMeter(mazeHasKey ? 70 : 35);
+    if (prog) prog.textContent = mazeHasKey ? '拿鑰匙後前往出口' : '先拿鑰匙';
+    if (score) score.textContent = String(Math.max(0, 500 - mazeSteps * 7));
+    var atGoal = mazePos.r === mazeGoalCell.r && mazePos.c === mazeGoalCell.c;
+    if (atGoal && mazeHasKey) {
+      registerGameResult(true);
+      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center"><p class="text-2xl font-black text-emerald-700">🏁 迷宮破關！</p><p class="star-row mt-2">星等：' + buildStarsByRatio(mazeSteps <= 20 ? 1 : mazeSteps <= 32 ? 0.72 : 0.55) + '</p><p class="text-sm text-slate-700 mt-1">步數：' + mazeSteps + '（越少越高分）</p><div class="mt-4 grid sm:grid-cols-2 gap-2"><button type="button" class="p-3 rounded-xl bg-emerald-600 text-white font-bold" onclick="initMazeLevel();renderGame()">再挑戰新關卡</button><button type="button" class="p-3 rounded-xl bg-slate-100 text-slate-800 font-bold" onclick="mazeHasKey=false;mazeSteps=0;mazePos={r:mazeLevels[mazeLevelIdx].start.r,c:mazeLevels[mazeLevelIdx].start.c};mazeTipText=\'重玩本關：先拿鑰匙，再到終點。\';renderGame()">重玩這一關</button></div></div>';
+      return;
+    }
+    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI 迷宮：先拿 🔑 再走到 🏁</h3><p class="text-sm text-slate-500">可用鍵盤方向鍵，或右側控制器。每走到提示點會解鎖一條 AI 重點。</p><div class="mt-4 grid lg:grid-cols-[1fr_220px] gap-3 items-start"><div><div id="maze-grid" class="maze-grid"></div><div class="mt-3 p-3 rounded-xl bg-indigo-50 border border-indigo-100 text-sm text-indigo-900"><strong>學習提示：</strong> ' + mazeTipText + '</div></div><div class="rounded-xl border border-slate-200 bg-slate-50 p-3"><p class="text-xs font-black text-slate-500 mb-2">移動控制</p><div class="grid grid-cols-3 gap-2"><button type="button" id="maze-up" class="p-2 rounded-lg bg-white border font-bold">⬆️</button><div></div><div></div><button type="button" id="maze-left" class="p-2 rounded-lg bg-white border font-bold">⬅️</button><button type="button" id="maze-down" class="p-2 rounded-lg bg-white border font-bold">⬇️</button><button type="button" id="maze-right" class="p-2 rounded-lg bg-white border font-bold">➡️</button></div></div></div>';
+    var mg = document.getElementById('maze-grid');
+    for (var r = 0; r < mazeMap.length; r++) {
+      for (var c = 0; c < mazeMap[r].length; c++) {
+        var cell = document.createElement('div');
+        var cls = 'maze-cell ';
+        if (mazeMap[r][c] === 1) cls += 'maze-wall';
+        else cls += 'maze-road';
+        if (r === mazeGoalCell.r && c === mazeGoalCell.c) { cls = 'maze-cell maze-goal'; cell.textContent = '🏁'; }
+        if (!mazeHasKey && r === mazeKeyCell.r && c === mazeKeyCell.c) { cls = 'maze-cell maze-key'; cell.textContent = '🔑'; }
+        if (r === mazePos.r && c === mazePos.c) { cls = 'maze-cell maze-player'; cell.textContent = '🤖'; }
+        cell.className = cls;
+        mg.appendChild(cell);
+      }
+    }
+    document.getElementById('maze-up').onclick = function() { tryMoveMaze(-1, 0); };
+    document.getElementById('maze-down').onclick = function() { tryMoveMaze(1, 0); };
+    document.getElementById('maze-left').onclick = function() { tryMoveMaze(0, -1); };
+    document.getElementById('maze-right').onclick = function() { tryMoveMaze(0, 1); };
+  } else if (gameMode === 'puzzle') {
+    if (prog) prog.textContent = 'Unblock：拖曳方塊幫 AI包 出口';
+    if (score) score.textContent = String(Math.max(0, 700 - unblockMoves * 25));
+    var goalBlock = unblockBlocks.find(function(b) { return b.goal; });
+    var unblockSolved = goalBlock && goalBlock.c + goalBlock.len >= 6;
+    setGameMeter(Math.min(100, ((goalBlock ? goalBlock.c : 0) / 4) * 100));
+    if (unblockSolved) {
+      registerGameResult(true);
+      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-violet-50 border border-violet-200 text-center"><p class="text-2xl font-black text-violet-700">🧱 解路成功！</p><p class="star-row mt-2">星等：' + buildStarsByRatio(unblockMoves <= 10 ? 1 : unblockMoves <= 16 ? 0.72 : 0.55) + '</p><p class="text-sm text-slate-700 mt-1">拖曳步數：' + unblockMoves + '</p><p class="text-sm text-violet-700 mt-1">學到：先排障礙，再讓主任務通關（像做專案一樣）。</p><button type="button" class="mt-4 w-full p-3 rounded-xl bg-violet-600 text-white font-bold" onclick="initUnblockLevel();renderGame()">下一局 Unblock</button></div>';
+      return;
+    }
+    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI Unblock：拖曳方塊幫「AI包」找出口</h3><p class="text-sm text-slate-500">滑鼠拖曳方塊，只能沿著方塊方向移動。目標：讓 AI包 往右邊出口離開。</p><div id="unblock-board" class="unblock-board mt-4"></div><p class="text-sm mt-3 text-slate-600">提示：卡住時先移「Review / Guard」等擋路方塊。</p>';
+    var board = document.getElementById('unblock-board');
+    var boardRect = board.getBoundingClientRect();
+    var cell = boardRect.width / 6;
+    unblockBlocks.forEach(function(b) {
+      var el = document.createElement('div');
+      el.className = 'absolute rounded-lg border font-black text-xs flex items-center justify-center select-none cursor-grab';
+      el.style.left = (b.c * cell + 4) + 'px';
+      el.style.top = (b.r * cell + 4) + 'px';
+      el.style.width = ((b.dir === 'h' ? b.len : 1) * cell - 8) + 'px';
+      el.style.height = ((b.dir === 'v' ? b.len : 1) * cell - 8) + 'px';
+      el.style.background = b.goal ? 'linear-gradient(135deg,#fef3c7,#fde68a)' : 'linear-gradient(135deg,#e0e7ff,#ede9fe)';
+      el.style.borderColor = b.goal ? '#f59e0b' : '#8b5cf6';
+      el.style.color = b.goal ? '#92400e' : '#4c1d95';
+      el.textContent = b.label;
+      el.onpointerdown = function(e) {
+        e.preventDefault();
+        unblockDrag = { id: b.id, sx: e.clientX, sy: e.clientY, sc: b.c, sr: b.r };
+        el.setPointerCapture(e.pointerId);
+      };
+      el.onpointermove = function(e) {
+        if (!unblockDrag || unblockDrag.id !== b.id) return;
+        var dx = e.clientX - unblockDrag.sx;
+        var dy = e.clientY - unblockDrag.sy;
+        el.style.transform = b.dir === 'h' ? ('translateX(' + dx + 'px)') : ('translateY(' + dy + 'px)');
+      };
+      el.onpointerup = function(e) {
+        if (!unblockDrag || unblockDrag.id !== b.id) return;
+        var dx = e.clientX - unblockDrag.sx;
+        var dy = e.clientY - unblockDrag.sy;
+        var step = Math.round((b.dir === 'h' ? dx : dy) / cell);
+        var nextC = unblockDrag.sc;
+        var nextR = unblockDrag.sr;
+        var sign = step >= 0 ? 1 : -1;
+        var canMove = function(testR, testC) {
+          for (var i = 0; i < unblockBlocks.length; i++) {
+            var other = unblockBlocks[i];
+            if (other.id === b.id) continue;
+            var aR0 = testR, aC0 = testC, aR1 = testR + (b.dir === 'v' ? b.len - 1 : 0), aC1 = testC + (b.dir === 'h' ? b.len - 1 : 0);
+            var oR0 = other.r, oC0 = other.c, oR1 = other.r + (other.dir === 'v' ? other.len - 1 : 0), oC1 = other.c + (other.dir === 'h' ? other.len - 1 : 0);
+            if (!(aR1 < oR0 || aR0 > oR1 || aC1 < oC0 || aC0 > oC1)) return false;
+          }
+          return true;
+        };
+        for (var m = 0; m < Math.abs(step); m++) {
+          var tc = nextC + (b.dir === 'h' ? sign : 0);
+          var tr = nextR + (b.dir === 'v' ? sign : 0);
+          if (tr < 0 || tc < 0 || tr + (b.dir === 'v' ? b.len : 1) > 6 || tc + (b.dir === 'h' ? b.len : 1) > 6) break;
+          if (!canMove(tr, tc)) break;
+          nextC = tc; nextR = tr;
+        }
+        b.c = nextC; b.r = nextR;
+        el.style.transform = '';
+        unblockDrag = null;
+        unblockMoves += 1;
+        registerGameResult(true);
+        renderGame();
+      };
+      board.appendChild(el);
+    });
+    var exit = document.createElement('div');
+    exit.className = 'absolute text-xs font-black text-amber-700';
+    exit.style.right = '2px'; exit.style.top = (2 * cell + cell / 2 - 8) + 'px';
+    exit.textContent = 'EXIT ➜';
+    board.appendChild(exit);
+  } else if (gameMode === 'shooter') {
+    setGameMeter(modeTimeLimit.shooter ? ((modeTimeLimit.shooter - Math.max(0, gameTimeLeft)) / modeTimeLimit.shooter) * 100 : 0);
+    if (score) score.textContent = String(shooterHits * 100);
+    if (shooterRoundIdx >= shooterRounds.length) {
+      var ratio = (shooterHits + shooterMiss) ? (shooterHits / (shooterHits + shooterMiss)) : 0;
+      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-cyan-50 border border-cyan-200 text-center"><p class="text-2xl font-black text-cyan-700">🎯 射擊任務完成！</p><p class="star-row mt-2">星等：' + buildStarsByRatio(ratio) + '</p><p class="text-sm text-slate-700 mt-1">命中：' + shooterHits + '｜失誤：' + shooterMiss + '</p><button type="button" class="mt-4 w-full p-3 rounded-xl bg-cyan-600 text-white font-bold" onclick="shooterRoundIdx=0;shooterHits=0;shooterMiss=0;shooterRoundDone=0;renderGame()">再玩一次</button></div>';
+      return;
+    }
+    var round = shooterRounds[shooterRoundIdx];
+    if (!shooterRoundNeed) shooterRoundNeed = round.targets.filter(function(t) { return t.good; }).length;
+    if (prog) prog.textContent = '第 ' + (shooterRoundIdx + 1) + ' 關：' + round.question;
+    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI 射擊場：' + round.question + '</h3><p class="text-sm text-slate-500">只射正確目標；射錯會扣連擊。</p><div id="shooter-arena" class="shooter-arena mt-4"></div><p class="text-sm mt-3 text-slate-600">本關進度：<strong>' + shooterRoundDone + '/' + shooterRoundNeed + '</strong> ｜ 命中：<strong>' + shooterHits + '</strong> ｜ 失誤：<strong>' + shooterMiss + '</strong></p>';
+    var arena = document.getElementById('shooter-arena');
+    var placed = [];
+    round.targets.forEach(function(t, idx) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'target-dot';
+      btn.textContent = t.label;
+      btn.style.fontSize = '0.65rem';
+      var tries = 0; var okPos = false; var tx = 0; var ty = 0;
+      while (!okPos && tries < 25) {
+        tx = 4 + Math.random() * 84; ty = 6 + Math.random() * 78; okPos = true;
+        for (var p = 0; p < placed.length; p++) {
+          if (Math.abs(placed[p].x - tx) < 12 && Math.abs(placed[p].y - ty) < 14) { okPos = false; break; }
+        }
+        tries++;
+      }
+      placed.push({ x: tx, y: ty });
+      btn.style.left = tx + '%'; btn.style.top = ty + '%';
+      btn.onclick = function(e) {
+        e.stopPropagation();
+        if (btn.disabled) return;
+        btn.disabled = true;
+        if (t.good) {
+          btn.style.opacity = '0.35';
+          shooterHits += 1;
+          shooterRoundDone += 1;
+          registerGameResult(true);
+          showGameFx('🎯 命中正確目標', 'good');
+          if (shooterRoundDone >= shooterRoundNeed) {
+            shooterRoundIdx += 1;
+            shooterRoundDone = 0;
+            shooterRoundNeed = 0;
+          }
+        } else {
+          shooterMiss += 1;
+          registerGameResult(false);
+          showGameFx('💥 射錯了，這不是目標', 'bad');
+        }
+        renderGame();
+      };
+      arena.appendChild(btn);
+    });
+    arena.onclick = function() {
+      shooterMiss += 1;
+      registerGameResult(false);
+      showGameFx('空槍，請瞄準指定目標', 'bad');
       renderGame();
     };
   }
@@ -1387,3 +1988,4 @@ function selectPromptFactor() { /* 已由 initPromptLab 取代 */ }
 window.initAiLab = initAiLab;
 window.copyPromptOutput = copyPromptOutput;
 window.renderGame = renderGame;
+window.resetCurrentGameProgress = resetCurrentGameProgress;

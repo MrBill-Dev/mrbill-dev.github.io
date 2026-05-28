@@ -32,7 +32,7 @@
         <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
           <div class="pb-8 md:pb-12 max-w-4xl">
             <h1 class="text-3xl md:text-4xl font-black">🧩 <span class="text-cyan-200">概念互動練習箱</span></h1>
-            <p class="mt-3 max-w-3xl leading-relaxed text-[15px] md:text-base text-indigo-100">以題目、解析與帶練腳本建立 AI 基礎理解，讓新手在實作前先把核心概念釐清。</p>
+            <p class="mt-3 max-w-3xl leading-relaxed text-[15px] md:text-base text-indigo-100">以題目、解析與帶練腳本建立 AI 基礎理解，讓新手在實作前先把核心概念釐清。內容採用最新主流工具與實務情境，重點放在可交付流程。</p>
           </div>
         </div>
       </div>
@@ -43,6 +43,22 @@
         <div class="ai-lab-callout ai-lab-callout-indigo">
           <p class="font-black text-indigo-900">新手操作提醒</p>
           <p class="text-slate-700 mt-1">先挑一個主題，先看「概念解析」理解名詞，再切到「實作帶練步驟」照流程走，最後看「延伸與下一步」知道課後要做什麼。</p>
+        </div>
+        <div class="rounded-2xl border border-amber-100 bg-amber-50 p-4 mb-5 text-sm">
+          <p class="font-black text-amber-900">看不懂名詞時，先用這個讀法</p>
+          <ol class="mt-2 list-decimal pl-5 text-slate-700 space-y-1">
+            <li>先抓「這個名詞在解決什麼問題」，不用先背完整定義。</li>
+            <li>看同一題的「實作帶練步驟」，把名詞轉成可做動作。</li>
+            <li>如果還是不懂，先跳到下方「新手名詞翻譯區」再回來看題目。</li>
+          </ol>
+        </div>
+        <div class="rounded-2xl border border-cyan-100 bg-cyan-50 p-4 mb-5 text-sm">
+          <p class="font-black text-cyan-900">內容重點（新手版）</p>
+          <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+            <li>納入主流 AI 協作情境：多步 Agent、RAG、推理模型與多模態工作流。</li>
+            <li>練習題改為「可交付導向」：先有結果，再做查證、審稿與迭代。</li>
+            <li>每題都可銜接到下一頁實作：Prompt 工具、小遊戲、內容/設計/前端課程。</li>
+          </ul>
         </div>
         <div id="practice-root"></div>
       </div>
@@ -58,13 +74,35 @@
             <li>Day 6：到 Prompt 工具做一份 .md 交付稿</li>
             <li>Day 7：到小遊戲跑完「下一步指引」</li>
           </ol>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <a href="ai-prompt-tool.html" class="px-3 py-2 rounded-lg bg-indigo-600 text-white text-sm font-bold no-underline">前往 Prompt 工具</a>
+            <a href="ai-game-center.html" class="px-3 py-2 rounded-lg bg-emerald-600 text-white text-sm font-bold no-underline">前往小遊戲中心</a>
+            <a href="ai-learning-map.html" class="px-3 py-2 rounded-lg bg-violet-600 text-white text-sm font-bold no-underline">看完整 AI 學程</a>
+          </div>
         </div>
         <div class="ai-lab-subcard">
           <h3 class="text-xl font-black text-slate-900">🧪 你可以直接做的實戰任務</h3>
           <div class="mt-3 space-y-3 text-sm">
-            <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-3"><p class="font-black text-indigo-800">任務 A：把理論變教學稿</p><p class="text-slate-700 mt-1">把任一題改寫成「給國中生可懂」版本，並加一個課堂活動。</p></div>
-            <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-3"><p class="font-black text-emerald-800">任務 B：雙模型比較</p><p class="text-slate-700 mt-1">同一份 Prompt 丟兩種 AI，比較差異並寫修正版。</p></div>
-            <div class="rounded-xl border border-amber-100 bg-amber-50 p-3"><p class="font-black text-amber-800">任務 C：產圖審稿</p><p class="text-slate-700 mt-1">做一張 AI 圖，列出「可用點 / 風險點 / 人工修正點」。</p></div>
+            <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-3"><p class="font-black text-indigo-800">任務 A：把理論變教學稿</p><p class="text-slate-700 mt-1">把任一題改寫成「給國中生可懂」版本，並加一個課堂活動。<span class="font-bold text-indigo-700">（新手版）</span></p></div>
+            <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-3"><p class="font-black text-emerald-800">任務 B：雙模型比較</p><p class="text-slate-700 mt-1">同一份 Prompt 丟兩種 AI，比較差異並寫修正版。<span class="font-bold text-emerald-700">（進階版）</span></p></div>
+            <div class="rounded-xl border border-amber-100 bg-amber-50 p-3"><p class="font-black text-amber-800">任務 C：產圖審稿</p><p class="text-slate-700 mt-1">做一張 AI 圖，列出「可用點 / 風險點 / 人工修正點」。<span class="font-bold text-amber-700">（實戰版）</span></p></div>
+          </div>
+        </div>
+      </div>
+      <div class="ai-lab-subcard">
+        <h3 class="text-xl font-black text-slate-900">🗺️ 這頁對應課程模組（M1-M8）</h3>
+        <div class="mt-3 grid md:grid-cols-3 gap-3 text-sm">
+          <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-3">
+            <p class="font-black text-indigo-800">先修重點</p>
+            <p class="text-slate-700 mt-1">M1 基礎原理、M2 Prompt 結構、M8 倫理安全。</p>
+          </div>
+          <div class="rounded-xl border border-cyan-100 bg-cyan-50 p-3">
+            <p class="font-black text-cyan-800">延伸重點</p>
+            <p class="text-slate-700 mt-1">M3 RAG、M4 Agent 與工具邊界、M6 多模態應用。</p>
+          </div>
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-3">
+            <p class="font-black text-emerald-800">下一步落地</p>
+            <p class="text-slate-700 mt-1">M5 開發協作、M7 內容成效（SEO/GEO/GA4）做可交付成果。</p>
           </div>
         </div>
       </div>
