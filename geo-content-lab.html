@@ -18,32 +18,175 @@
     }
   </script>
   <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
     .soft-card { border-radius: 1rem; border: 1px solid rgba(148, 163, 184, 0.25); background: rgba(255,255,255,0.88); }
     .chip { border: 1px solid #cbd5e1; background: #fff; color: #334155; border-radius: 9999px; padding: 0.35rem 0.75rem; font-size: 0.75rem; font-weight: 700; }
     .chip.active { background: #0f172a; color: #fff; border-color: #0f172a; }
+    .mode-switch-wrap { border-radius: 1rem; border: 1px solid #f0abfc; background: linear-gradient(135deg, #eef2ff 0%, #fdf2f8 42%, #ecfeff 100%); box-shadow: 0 10px 28px rgba(192, 38, 211, 0.16); }
+    .mode-btn { border: 1px solid #e9d5ff; background: #fff; color: #a21caf; border-radius: 9999px; padding: 0.5rem 0.9rem; font-size: 0.82rem; font-weight: 800; transition: all .2s ease; }
+    .mode-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(192, 38, 211, 0.2); }
+    .mode-btn-active { color: #fff; border-color: transparent; background: linear-gradient(135deg, #c026d3 0%, #7c3aed 55%, #0284c7 100%); box-shadow: 0 10px 22px rgba(147, 51, 234, 0.36); animation: modePulse 1.1s ease; }
     .pulse-ok { animation: pulseOk 0.7s ease; }
     @keyframes pulseOk { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
+    @keyframes modePulse { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col text-lg">
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full space-y-8">
-    <section class="relative overflow-hidden rounded-3xl border border-fuchsia-200 shadow-xl">
-      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80" alt="內容表達主視覺" class="w-full h-[280px] md:h-[360px] object-cover" loading="lazy" />
+  <main class="max-w-[90rem] mx-auto flex-grow w-full">
+    <section class="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80" alt="內容表達主視覺" class="w-full h-[300px] md:h-[420px] object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-r from-fuchsia-950/80 via-indigo-900/70 to-cyan-900/50"></div>
-      <div class="absolute inset-0 p-6 md:p-10 flex items-end">
-        <div class="max-w-3xl text-white">
-          <p class="text-xs md:text-sm font-black tracking-[0.2em] uppercase text-cyan-300">Content Expression Studio</p>
-          <h1 class="text-3xl md:text-5xl font-black leading-tight mt-2">內容表達學：網站文案到簡報</h1>
-          <p class="mt-3 text-sm md:text-base text-slate-200">用「情境化範本 + 對錯對照 + 互動練習」，把你腦中的想法快速轉成可讀、可講、可轉換的內容。</p>
+      <div class="absolute inset-0">
+        <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
+          <div class="pb-6 md:pb-10 max-w-3xl text-white">
+            <p class="text-xs md:text-sm font-black tracking-[0.2em] uppercase text-cyan-300">Content Expression Studio</p>
+            <h1 class="text-3xl md:text-5xl font-black leading-tight mt-2">內容表達學：網站文案到簡報</h1>
+            <p class="mt-3 text-sm md:text-base text-slate-200">用「情境化範本 + 對錯對照 + 互動練習」，把你腦中的想法快速轉成可讀、可講、可轉換的內容。</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="bg-gradient-to-r from-indigo-50 via-fuchsia-50 to-cyan-50 rounded-3xl border border-indigo-100 p-6 md:p-8 space-y-5">
-      <h2 class="text-2xl font-black text-slate-900">新手學習路徑（先學前 → 再學後）</h2>
+    <div class="px-4 lg:px-6 py-8 space-y-8">
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-5 md:p-6 space-y-4" data-mode-group="content" data-mode="all">
+      <h2 class="text-xl md:text-2xl font-black text-slate-900">導讀前言</h2>
+      <p class="text-base md:text-lg font-semibold text-slate-900 leading-relaxed">很多人以為自己不會寫，其實真正的問題，通常是同時想處理太多事情。當文案、簡報、SEO、品牌語氣與行銷目標全部混在一起時，大腦很容易失去方向。</p>
+      <p class="text-sm text-slate-700 leading-relaxed">所以在開始之前，只需要先完成一件事：選擇一種輸出形式，完成第一版內容。</p>
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <p class="text-sm font-black text-slate-900">本章節會透過</p>
+        <ul class="mt-2 list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>情境化範本</li>
+          <li>對錯案例比較</li>
+          <li>互動式練習</li>
+        </ul>
+      </div>
+      <p class="text-sm text-slate-700 leading-relaxed">幫助你把腦中的想法，轉換成更容易閱讀、表達與溝通的內容。可以先從手作寫作開始，練習內容結構與段落邏輯；也可以先使用 AI 協助產生骨架，再慢慢調整成自己的語氣。兩種方式都可以，關鍵是一次只專注一種流程。</p>
+      <p class="text-sm text-slate-700 leading-relaxed">當你先完成第一版內容之後，再回頭優化風格、說服力與轉換設計，會比一開始追求完美更有效率。</p>
+    </section>
+
+    <section class="mode-switch-wrap p-4 md:p-5 space-y-3" data-mode-group="content" data-mode="all">
+      <p class="font-black text-slate-900">切換瀏覽模式，立即改變學習路線</p>
+      <div class="flex flex-wrap gap-2 text-sm">
+        <button type="button" class="mode-btn mode-btn-active" data-mode-btn="content" data-mode-value="manual">💡 手作導向</button>
+        <button type="button" class="mode-btn" data-mode-btn="content" data-mode-value="ai">⚡ AI 協作導向</button>
+        <button type="button" class="mode-btn" data-mode-btn="content" data-mode-value="all">全部顯示</button>
+      </div>
+      <p id="content-mode-indicator" class="text-xs font-bold text-fuchsia-700">目前模式：手作導向</p>
+    </section>
+
+    <section id="en-booster-zone" class="home-band p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="ai">
+      <h2 class="text-2xl font-black text-slate-900">📝 AI 文案指令工具箱</h2>
+      <p class="text-sm text-slate-600">本區提供文案 AI 協作所需的結構化指令，可用於貼文、心得、職場報告與簡報稿。先建立框架，再進行生成，能大幅降低空泛內容。</p>
+      <div class="rounded-2xl border border-fuchsia-100 bg-fuchsia-50 p-4 text-sm">
+        <p class="font-black text-fuchsia-900">AI 文案流程</p>
+        <ol class="mt-2 list-decimal pl-5 text-slate-700 space-y-1">
+          <li>先在指令工具箱選擇框架，定義輸出規格。</li>
+          <li>用防錯區理解錯誤問法與正確問法差異。</li>
+          <li>進入一鍵生成區，產出可直接執行的內容版本。</li>
+          <li>需要簡報時接到 Gamma，完成可展示稿件。</li>
+        </ol>
+      </div>
+      <div class="rounded-2xl border border-fuchsia-100 bg-fuchsia-50 p-4 text-sm">
+        <p class="font-black text-fuchsia-900">新手白話：為什麼要用指令集？</p>
+        <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+          <li>差別不在英文難度，而在「有沒有把輸出規格講清楚」。</li>
+          <li>指令集像工作規範：語氣、格式、禁用詞、交付欄位一次講明。</li>
+          <li>有指令集的結果更穩定，也更容易重複交付。</li>
+          <li>中文也可以練 Prompt 結構；英文版常見於跨工具套用，中文版更適合先建立思考骨架。</li>
+        </ul>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="openGeoPromptModal()" class="px-3 py-2 rounded-lg bg-fuchsia-600 text-white text-sm font-bold">開啟全主題指令對照表</button>
+        <span class="text-xs text-slate-500 self-center">文案、設計、前端、SEO/GEO、影像都可用，並可搭配 Prompt 框架。</span>
+      </div>
+      <details class="rounded-2xl border border-slate-200 bg-white p-4">
+        <summary class="cursor-pointer font-black text-slate-900">展開指令範本，可點擊一鍵複製</summary>
+        <div class="mt-3 grid md:grid-cols-2 gap-3 text-sm">
+          <button type="button" data-copy-booster="Structure the output strictly using the AIDA framework: Attention, Interest, Desire, Action." class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-fuchsia-300"><p class="font-black text-slate-900">AIDA 轉換模型</p><p class="mt-1 font-mono text-xs text-slate-600">Structure the output strictly using the AIDA framework: Attention, Interest, Desire, Action.</p></button>
+          <button type="button" data-copy-booster="Apply the PAS copywriting framework: Problem, Agitation, Solution. Maintain an empathetic tone." class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-fuchsia-300"><p class="font-black text-slate-900">PAS 痛點直擊模型</p><p class="mt-1 font-mono text-xs text-slate-600">Apply the PAS copywriting framework: Problem, Agitation, Solution. Maintain an empathetic tone.</p></button>
+          <button type="button" data-copy-booster="Strictly prohibit corporate jargon, generic buzzwords, and AI cliches such as 'In today's digital landscape', 'revolutionize', 'delve', 'furthermore'." class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-fuchsia-300"><p class="font-black text-slate-900">極致去 AI 贅詞濾鏡</p><p class="mt-1 font-mono text-xs text-slate-600">Strictly prohibit corporate jargon, generic buzzwords, and AI cliches...</p></button>
+          <button type="button" data-copy-booster="Enforce semantic HTML layout. Deliver content using strictly clear H2/H3 hierarchies, concise bullet points, and an ending FAQ block." class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-fuchsia-300"><p class="font-black text-slate-900">技術文章結構限制</p><p class="mt-1 font-mono text-xs text-slate-600">Enforce semantic HTML layout. Deliver content using strictly clear H2/H3 hierarchies...</p></button>
+        </div>
+        <div class="mt-3 rounded-2xl border border-fuchsia-200 bg-fuchsia-50 p-4">
+          <p class="font-black text-fuchsia-900 mb-2">萬能中英雙層 System Prompt</p>
+          <pre id="content-en-master-prompt" class="rounded-xl bg-slate-900 p-3 text-emerald-300 text-xs whitespace-pre-wrap">You are a world-class Conversion Copywriter. Your mission is to write high-converting copy based on the user's raw intent.
+[CRITICAL EXECUTION CONSTRAINTS]
+1. TONE: Authoritative, pragmatic, and highly engaging. Do NOT fluff.
+2. NO AI CLICHES: Ban words like "delve, furthermore, ecosystem, landscape, multi-faceted, look no further".
+3. STRUCTURAL LAW: Organize with clear semantic Markdown (H2, H3), bold key insights inline, and use bullet points for scannability.
+4. LANGUAGE EXTRACTION: Write the final output in Traditional Chinese (Taiwan语境), but execute all internal structural reasoning using high-level English logic.</pre>
+          <button type="button" data-copy-target="content-en-master-prompt" class="mt-2 px-3 py-1.5 rounded-lg bg-fuchsia-600 text-white text-xs font-bold">複製完整框架</button>
+        </div>
+      </details>
+    </section>
+
+    <div id="geo-prompt-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 p-4 md:p-6">
+      <div class="max-w-5xl mx-auto h-full flex items-center">
+        <div class="w-full max-h-[88vh] overflow-y-auto rounded-2xl bg-white border border-slate-200 p-5 md:p-6">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h3 class="text-xl md:text-2xl font-black text-slate-900">全主題英文指令對照表</h3>
+              <p class="text-sm text-slate-600 mt-1">先選工作場景，再複製對應指令，最後回到本頁套進你的文案模板。</p>
+            </div>
+            <button type="button" onclick="closeGeoPromptModal()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">關閉 ✕</button>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold">
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-fuchsia-600 text-white" data-tab-group="geo-prompt" data-tab-value="all">全部</button>
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-fuchsia-200 text-fuchsia-700" data-tab-group="geo-prompt" data-tab-value="copy">文案</button>
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-fuchsia-200 text-fuchsia-700" data-tab-group="geo-prompt" data-tab-value="design">設計/影像</button>
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-fuchsia-200 text-fuchsia-700" data-tab-group="geo-prompt" data-tab-value="dev">前端</button>
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-fuchsia-200 text-fuchsia-700" data-tab-group="geo-prompt" data-tab-value="marketing">行銷</button>
+          </div>
+          <div class="mt-3 overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-[960px] w-full text-sm">
+              <thead class="bg-slate-50 text-slate-700">
+                <tr><th class="px-3 py-2 border-b text-left">場景</th><th class="px-3 py-2 border-b text-left">用途</th><th class="px-3 py-2 border-b text-left">可複製英文指令</th></tr>
+              </thead>
+              <tbody class="text-slate-700">
+                <tr data-copy-booster="Structure the output strictly using the AIDA framework: Attention, Interest, Desire, Action." data-prompt-cat="copy" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">文案</td><td class="px-3 py-2 border-b">轉換導向</td><td class="px-3 py-2 border-b font-mono text-xs">Structure the output strictly using the AIDA framework: Attention, Interest, Desire, Action.</td></tr>
+                <tr data-copy-booster="Apply the PAS copywriting framework: Problem, Agitation, Solution. Maintain an empathetic tone." data-prompt-cat="copy" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">文案</td><td class="px-3 py-2 border-b">痛點溝通</td><td class="px-3 py-2 border-b font-mono text-xs">Apply the PAS copywriting framework: Problem, Agitation, Solution. Maintain an empathetic tone.</td></tr>
+                <tr data-copy-booster="Enforce semantic HTML layout. Deliver content using strictly clear H2/H3 hierarchies, concise bullet points, and an ending FAQ block." data-prompt-cat="marketing" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">SEO/GEO</td><td class="px-3 py-2 border-b">結構化段落</td><td class="px-3 py-2 border-b font-mono text-xs">Enforce semantic HTML layout. Deliver content using strictly clear H2/H3 hierarchies...</td></tr>
+                <tr data-copy-booster="minimalist editorial composition, clear typography hierarchy, balanced whitespace grid" data-prompt-cat="design" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">設計</td><td class="px-3 py-2 border-b">版面層級</td><td class="px-3 py-2 border-b font-mono text-xs">minimalist editorial composition, clear typography hierarchy, balanced whitespace grid</td></tr>
+                <tr data-copy-booster="brand-consistent visual system, controlled color palette, reusable component style" data-prompt-cat="design" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">設計</td><td class="px-3 py-2 border-b">品牌一致</td><td class="px-3 py-2 border-b font-mono text-xs">brand-consistent visual system, controlled color palette, reusable component style</td></tr>
+                <tr data-copy-booster="Refactor this component using Tailwind CSS mobile-first approach. Ensure zero horizontal overflow on screens down to 320px width." data-prompt-cat="dev" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">前端開發</td><td class="px-3 py-2 border-b">RWD 防禦</td><td class="px-3 py-2 border-b font-mono text-xs">Refactor this component using Tailwind CSS mobile-first approach...</td></tr>
+                <tr data-copy-booster="Audit this JavaScript and database insertion layer for security vulnerabilities. Prevent SQL Injection, enforce XSS sanitization." data-prompt-cat="dev" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">前端開發</td><td class="px-3 py-2 border-b">安全稽核</td><td class="px-3 py-2 border-b font-mono text-xs">Audit this JavaScript and database insertion layer for security vulnerabilities...</td></tr>
+                <tr data-copy-booster="Create a 30-day SEO content sprint plan with weekly KPIs, topic clusters, and measurable conversion checkpoints." data-prompt-cat="marketing" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">行銷</td><td class="px-3 py-2 border-b">專案規劃</td><td class="px-3 py-2 border-b font-mono text-xs">Create a 30-day SEO content sprint plan with weekly KPIs...</td></tr>
+                <tr data-copy-booster="Generate 5 A/B test hypotheses for CTA copy and explain expected impact, risk, and evaluation metric for each." data-prompt-cat="marketing" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">行銷</td><td class="px-3 py-2 border-b">A/B 測試</td><td class="px-3 py-2 border-b font-mono text-xs">Generate 5 A/B test hypotheses for CTA copy...</td></tr>
+                <tr data-copy-booster="golden hour backlighting, warm volumetric sun rays, lens flare, cinematic mood" data-prompt-cat="design" class="cursor-pointer hover:bg-fuchsia-50/40"><td class="px-3 py-2 border-b">影像</td><td class="px-3 py-2 border-b">情境氛圍</td><td class="px-3 py-2 border-b font-mono text-xs">golden hour backlighting, warm volumetric sun rays, lens flare, cinematic mood</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="bg-white rounded-3xl border border-fuchsia-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="ai">
+      <h2 class="text-2xl font-black text-slate-900">結構化文案一鍵防錯區</h2>
+      <div class="grid lg:grid-cols-2 gap-4 text-sm">
+        <article class="soft-card p-4 border-emerald-200 bg-emerald-50/70">
+          <p class="font-black text-emerald-800">結合 AI 製作</p>
+          <p class="mt-2 text-slate-700">❌ 錯誤提問：幫我寫一篇手工皂 SEO 文章</p>
+          <p class="mt-1 text-slate-700">✅ 正確提問：角色 + 受眾 + 目標 + 逆向限制 + H2/H3 + FAQ</p>
+          <pre class="mt-2 rounded-xl bg-slate-900 p-3 text-emerald-300 text-xs whitespace-pre-wrap">你是內容編輯。請為「敏感肌上班族」寫手工皂 SEO 文章。
+目標：提升 CTA 點擊率。
+限制：禁止使用「在這個數位時代」等空話。
+格式：H2/H3，文末 FAQ 3 題，最後附社群摘要。</pre>
+          <a href="#en-booster-zone" class="inline-block mt-3 px-3 py-2 rounded-lg bg-emerald-600 text-white font-bold no-underline">走 AI 協作路線</a>
+        </article>
+        <article class="soft-card p-4 border-indigo-200 bg-indigo-50/70">
+          <p class="font-black text-indigo-800">AI 速成路線下一步</p>
+          <p class="mt-2 text-slate-700">繼續往下到一鍵生成區，直接產出貼文、心得、職場報告或 Gamma 簡報稿。</p>
+          <a href="#content-quick-start" class="inline-block mt-3 px-3 py-2 rounded-lg bg-indigo-600 text-white font-bold no-underline">前往一鍵生成區</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-indigo-50 via-fuchsia-50 to-cyan-50 rounded-3xl border border-indigo-100 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
+      <h2 class="text-2xl font-black text-slate-900">新手學習路徑，先學前再學後</h2>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
         <article class="soft-card p-4">
           <p class="font-black text-rose-700">學前：憑感覺寫</p>
@@ -60,7 +203,7 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">先補名詞：CTA 是什麼？</h2>
       <div class="grid md:grid-cols-2 gap-4 text-sm">
         <article class="soft-card p-4 border-rose-200 bg-rose-50/70">
@@ -81,7 +224,7 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">對錯示範：你寫的是「資訊」還是「可執行內容」？</h2>
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
         <article class="soft-card p-4 border-rose-200 bg-rose-50/70">
@@ -105,8 +248,8 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
-      <h2 class="text-2xl font-black text-slate-900">常用範本切換器（重點版，不講空理論）</h2>
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
+      <h2 class="text-2xl font-black text-slate-900">常用範本切換器，重點版不講空理論</h2>
       <p class="text-sm text-slate-600">直接選情境，會給你可複製的錯誤示範與優化版本。你可以拿去改成自己的產品。</p>
       <div class="flex flex-wrap gap-2" id="content-scenario-bar"></div>
       <div class="grid lg:grid-cols-2 gap-4">
@@ -121,8 +264,8 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
-      <h2 class="text-2xl font-black text-slate-900">真實長案例（前後對照）</h2>
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
+      <h2 class="text-2xl font-black text-slate-900">真實長案例，前後對照</h2>
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
         <article class="soft-card p-4 border-rose-200 bg-rose-50/70">
           <p class="font-black text-rose-700">舊版本（看起來很努力，但轉換低）</p>
@@ -137,7 +280,7 @@
       </div>
     </section>
 
-    <section class="bg-gradient-to-r from-cyan-50 via-sky-50 to-indigo-50 rounded-3xl border border-cyan-100 p-6 md:p-8 space-y-5">
+    <section class="bg-gradient-to-r from-cyan-50 via-sky-50 to-indigo-50 rounded-3xl border border-cyan-100 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">過去 vs 現在 vs 未來：內容工作怎麼變</h2>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
         <article class="soft-card p-4">
@@ -156,31 +299,48 @@
       <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1400&q=80" alt="內容改寫流程示意" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
-      <h2 class="text-2xl font-black text-slate-900">簡報教學：一頁一重點的實作順序</h2>
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
+      <h2 class="text-2xl font-black text-slate-900">簡報實作教學：從空白到可上台的 3 頁骨架</h2>
+      <p class="text-sm text-slate-700">這區不是理論，而是你可以立刻照做的流程。先做出 3 頁最小可用版本，再擴充到完整簡報。</p>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
-        <article class="soft-card p-4"><p class="font-black text-indigo-700">第 1 頁：問題</p><p class="mt-1 text-slate-700">一句話痛點 + 1 組數字，先讓人願意看第二頁。</p></article>
-        <article class="soft-card p-4"><p class="font-black text-cyan-700">第 2 頁：做法</p><p class="mt-1 text-slate-700">固定 3 步驟，每步不超過 16 字，搭配圖示。</p></article>
-        <article class="soft-card p-4"><p class="font-black text-emerald-700">第 3 頁：結果</p><p class="mt-1 text-slate-700">放前後對照與下一步決策，讓簡報有行動結論。</p></article>
+        <article class="soft-card p-4"><p class="font-black text-indigo-700">第 1 頁：問題頁</p><p class="mt-1 text-slate-700">寫一句痛點標題 + 1 組關鍵數字。目的是讓聽眾知道為什麼要繼續聽。</p></article>
+        <article class="soft-card p-4"><p class="font-black text-cyan-700">第 2 頁：做法頁</p><p class="mt-1 text-slate-700">固定 3 步驟，每步一句動作句。不要超過 16 字，先求可講清楚。</p></article>
+        <article class="soft-card p-4"><p class="font-black text-emerald-700">第 3 頁：結果頁</p><p class="mt-1 text-slate-700">放前後對照 + 下一步決策，最後一定要有「誰在什麼時間做什麼」。</p></article>
+      </div>
+      <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm">
+        <p class="font-black text-indigo-900">實作清單，照抄就能完成第一版</p>
+        <ol class="mt-2 list-decimal pl-5 text-slate-700 space-y-1">
+          <li>先開 3 張投影片，只放標題，不放段落。</li>
+          <li>每頁補 3 個重點，全部改成動詞開頭，例如「整理」「比較」「決策」。</li>
+          <li>每頁加 1 行講者提示，避免上台時只念投影片。</li>
+          <li>講一次計時，超過 3 分鐘就刪字，不加字。</li>
+        </ol>
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
-      <h2 class="text-2xl font-black text-slate-900">一鍵生成我的版本（輸入就能拿初稿）</h2>
-      <p class="text-sm text-slate-600">把你的產業、對象、商品填進去，系統會自動替換成你可直接改寫的真實文案初稿。</p>
-      <div class="grid md:grid-cols-3 gap-3 text-sm">
+    <section id="content-quick-start" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="ai">
+      <h2 class="text-2xl font-black text-slate-900">一鍵生成我的版本，輸入就能拿初稿</h2>
+      <p class="text-sm text-slate-600">新手只要做這區：先選輸出類型，再填產業、對象、商品，就能拿短版或長文版。</p>
+      <div class="grid md:grid-cols-4 gap-3 text-sm">
+        <label class="space-y-1"><span class="font-bold text-slate-700">輸出類型</span><select id="gen-format" class="w-full rounded-xl border border-slate-300 px-3 py-2 bg-white"><option value="social_long">主題貼文長版</option><option value="essay_reflection">作文 / 心得長版</option><option value="workplace_report">職場提案 / 報告</option><option value="gamma_deck">Gamma 簡報稿</option></select></label>
         <label class="space-y-1"><span class="font-bold text-slate-700">產業</span><input id="gen-industry" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：手工皂品牌" /></label>
         <label class="space-y-1"><span class="font-bold text-slate-700">對象</span><input id="gen-audience" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：敏感肌上班族" /></label>
         <label class="space-y-1"><span class="font-bold text-slate-700">商品 / 服務</span><input id="gen-product" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：低敏冷製皂" /></label>
       </div>
       <div class="flex flex-wrap gap-2">
         <button type="button" id="gen-draft-btn" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-bold text-sm">一鍵生成我的版本</button>
+        <button type="button" id="gen-draft-long-btn" class="px-4 py-2 rounded-lg bg-violet-600 text-white font-bold text-sm">生成長文版，多情境可用</button>
         <button type="button" id="gen-draft-multi-btn" class="px-4 py-2 rounded-lg bg-fuchsia-600 text-white font-bold text-sm">生成 4 種創意版本</button>
         <button type="button" id="gen-reset-btn" class="px-4 py-2 rounded-lg bg-slate-200 text-slate-700 font-bold text-sm">清空</button>
       </div>
       <div id="gen-draft-output" class="rounded-2xl bg-slate-900 text-emerald-300 p-4 text-sm leading-relaxed min-h-[140px]">輸入後點「一鍵生成我的版本」，這裡會出現你的專屬初稿。</div>
+      <div id="content-next-step" class="hidden rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm">
+        <p class="font-black text-emerald-800">下一步，只做一件事</p>
+        <p class="text-slate-700 mt-1">把這份文案帶去「視覺設計學院」，排成社群圖或簡報頁。</p>
+        <a href="design-toolkit.html" class="inline-block mt-3 px-3 py-2 rounded-lg bg-emerald-600 text-white font-bold no-underline">前往視覺設計學院 →</a>
+      </div>
       <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm">
-        <p class="font-black text-indigo-900">名詞白話解釋（新手版）</p>
+        <p class="font-black text-indigo-900">名詞白話解釋，新手版</p>
         <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
           <li><strong>CTA：</strong>你希望讀者下一步做的動作（例如下載清單、預約諮詢）。</li>
           <li><strong>轉換率：</strong>看過內容的人中，有多少人真的完成你要的動作。</li>
@@ -189,7 +349,61 @@
       </div>
     </section>
 
-    <section class="bg-gradient-to-r from-fuchsia-50 via-rose-50 to-amber-50 rounded-3xl border border-rose-100 p-6 md:p-8 space-y-5">
+    <section id="gamma-start" class="bg-gradient-to-r from-violet-50 via-indigo-50 to-cyan-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="ai">
+      <h2 class="text-2xl font-black text-slate-900">文案接到 Gamma，新手白話版</h2>
+      <p class="text-sm text-slate-700">這塊是把「你已經寫好的文案」變成「可展示的簡報」。用途是提案、報告、內部溝通，不用從空白頁重做。</p>
+      <div class="grid lg:grid-cols-2 gap-4 text-sm">
+        <article class="soft-card p-4 border-violet-200 bg-violet-50/70">
+          <p class="font-black text-violet-800">Step 1：先在本站產出結構稿</p>
+          <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+            <li>輸出類型選「Gamma 簡報稿」。</li>
+            <li>先產 6-8 頁骨架，不追求華麗詞藻。</li>
+            <li>每頁保留：標題、3 點重點、下一步。</li>
+          </ul>
+        </article>
+        <article class="soft-card p-4 border-cyan-200 bg-cyan-50/70">
+          <p class="font-black text-cyan-800">Step 2：貼入 Gamma 完成簡報</p>
+          <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+            <li>在 Gamma 新增簡報並貼上內容。</li>
+            <li>指定語氣：專業、簡潔、可決策。</li>
+            <li>最後只微調品牌色、圖像與資料來源。</li>
+          </ul>
+          <a href="https://gamma.app/" target="_blank" rel="noopener noreferrer" class="inline-block mt-3 px-3 py-2 rounded-lg bg-cyan-600 text-white font-bold no-underline">開啟 Gamma →</a>
+        </article>
+      </div>
+      <div class="rounded-2xl border border-slate-200 bg-white p-4">
+        <p class="font-black text-slate-900 mb-2">這段指令是做什麼，先看再複製</p>
+        <ul class="mb-3 list-disc pl-5 text-sm text-slate-700 space-y-1">
+          <li>告訴 Gamma：每頁要有標題、3 個重點、1 個行動結論。</li>
+          <li>避免整份簡報變成一大段文字，確保每頁都能講清楚。</li>
+          <li>讓 AI 照固定結構排版，後續你只要微調風格與圖像。</li>
+        </ul>
+        <p class="font-black text-slate-900 mb-2">Gamma 貼上指令，可一鍵複製</p>
+        <pre id="gamma-master-prompt" class="rounded-xl bg-slate-900 p-3 text-emerald-300 text-xs whitespace-pre-wrap">Convert this content into a professional slide deck for Gamma.
+Rules:
+1) Keep 6-8 slides, one key message per slide.
+2) Use concise Traditional Chinese (Taiwan context).
+3) Each slide includes: title, 3 bullet points, and one action takeaway.
+4) Storyline must be: Problem -> Approach -> Evidence -> Decision.
+5) End with an action plan slide (owner, timeline, KPI).
+Tone: executive-ready, clear, practical.</pre>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <button type="button" data-copy-target="gamma-master-prompt" class="px-3 py-1.5 rounded-lg bg-violet-600 text-white text-xs font-bold">複製 Gamma 指令</button>
+          <a href="#en-booster-zone" class="px-3 py-1.5 rounded-lg bg-slate-200 text-slate-800 text-xs font-bold no-underline">想學更多結構化 Prompt →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-fuchsia-50 via-indigo-50 to-cyan-50 rounded-3xl border border-fuchsia-100 p-6 md:p-8 space-y-4" data-mode-group="content" data-mode="ai">
+      <h2 class="text-2xl font-black text-slate-900">AI 速成流程結論</h2>
+      <p class="text-sm text-slate-700">完成一鍵生成與 Gamma 整合後，你已經有一套可交付內容。建議下一步先做一次真實投放或提案，再依回饋調整。若想學更深，回到指令工具箱學結構化 Prompt；若想補扎實基本功，再切回手作導向。</p>
+      <div class="flex flex-wrap gap-2">
+        <a href="#en-booster-zone" class="px-3 py-2 rounded-lg bg-fuchsia-600 text-white font-bold no-underline">繼續學 Prompt 結構</a>
+        <a href="design-toolkit.html#en-booster-zone" class="px-3 py-2 rounded-lg bg-violet-600 text-white font-bold no-underline">接續視覺 AI 路線</a>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-fuchsia-50 via-rose-50 to-amber-50 rounded-3xl border border-rose-100 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">練習題</h2>
       <div class="rounded-2xl border border-slate-200 bg-white p-5 text-sm space-y-4">
         <div class="h-3 rounded-full bg-slate-100 overflow-hidden">
@@ -205,7 +419,7 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">課程教學</h2>
       <p class="text-sm text-slate-600">下面是完整課綱版，不是簡介。每課都含：實務情境、常見失誤、操作步驟、交付標準與作業。</p>
       <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
@@ -222,7 +436,17 @@
       </div>
     </section>
 
+    <section class="bg-gradient-to-r from-fuchsia-50 via-indigo-50 to-cyan-50 rounded-3xl border border-fuchsia-100 p-6 md:p-8 space-y-4" data-mode-group="content" data-mode="manual">
+      <h2 class="text-2xl font-black text-slate-900">想加快產出，切到 AI 協作路線</h2>
+      <p class="text-sm text-slate-700">如果你已經完成手作初稿，下一步可用 AI 一鍵擴寫、生成多版本，並接到 Gamma 做簡報展示。</p>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="jumpContentToAi('content-quick-start')" class="px-4 py-2 rounded-lg bg-fuchsia-600 text-white font-bold text-sm">我想了解 AI 協作內容</button>
+        <button type="button" onclick="jumpContentToAi('gamma-start')" class="px-4 py-2 rounded-lg bg-white border border-fuchsia-200 text-fuchsia-700 font-bold text-sm">直接看一鍵生成</button>
+      </div>
+    </section>
+
     <div id="content-author-note"></div>
+    </div>
   </main>
 
   <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto"></footer>
@@ -407,6 +631,7 @@
         '立即領取《' + audience + '適用的' + product + '實作清單》'
       ].join('<br>');
       document.getElementById('gen-draft-output').innerHTML = html;
+      document.getElementById('content-next-step').classList.remove('hidden');
     }
     function renderGeneratedDraftMulti() {
       const industry = (document.getElementById('gen-industry').value || '').trim() || '你的產業';
@@ -450,6 +675,102 @@
         return '<div class="mb-4"><p class="font-black text-cyan-300">' + v.title + '</p><ul class="mt-1 list-disc pl-5">' +
           v.lines.map(function(line) { return '<li>' + line + '</li>'; }).join('') + '</ul></div>';
       }).join('');
+      document.getElementById('content-next-step').classList.remove('hidden');
+    }
+    function renderGeneratedLongDraft() {
+      const format = document.getElementById('gen-format').value || 'social_long';
+      const industry = (document.getElementById('gen-industry').value || '').trim() || '你的產業';
+      const audience = (document.getElementById('gen-audience').value || '').trim() || '你的目標對象';
+      const product = (document.getElementById('gen-product').value || '').trim() || '你的商品或服務';
+      const templates = {
+        social_long:
+`【主題貼文長版】
+標題：${industry}｜給${audience}的${product}完整行動指南
+
+前言
+你不是不會做內容，而是常卡在「讀者看完不知道下一步」。這份長版提供可直接套用的流程。
+
+一、先定義問題
+- 目前卡點：觸及有了，但行動偏低。
+- 受眾情境：${audience}需要在短時間判斷是否採用。
+
+二、提供做法（3 步）
+- Step 1：把主張改成一句可驗證結果。
+- Step 2：每段只講一件事，句尾加可執行動詞。
+- Step 3：文末放單一 CTA，避免分散。
+
+三、可直接執行的 CTA
+請先下載《${product}執行清單》，今天完成第一輪改寫。`,
+        essay_reflection:
+`【作文 / 心得長版】
+題目：我如何把${product}從想法變成可執行成果
+
+起：起點與困境
+剛開始做${industry}內容時，我以為寫得多就會有效，但${audience}看完仍不行動。
+
+承：我做了什麼調整
+我把抽象句改成具體步驟，並固定段落結構：問題、做法、結果、下一步。
+
+轉：結果變化
+內容可讀性提升，回饋更具體，也更容易延伸成貼文與簡報。
+
+合：反思與下一步
+真正有效的不是華麗詞藻，而是清楚結構。下一步是持續優化 CTA 與證據呈現。`,
+        workplace_report:
+`【職場提案 / 報告長版】
+提案主題：${industry}中的${product}優化方案（對象：${audience}）
+
+1. 背景與問題
+目前內容有曝光但轉換偏低，核心原因是資訊過多、決策訊號不足。
+
+2. 解法框架
+- 解法 A：重寫首屏價值主張
+- 解法 B：統一段落結構（結論先行）
+- 解法 C：建立 CTA 追蹤節點
+
+3. 預期效益
+- 提升可讀性與決策速度
+- 提高 CTA 點擊與詢單品質
+- 降低跨部門溝通成本
+
+4. 執行計畫
+本週重寫內容與版型；下週 A/B 測試；第三週回顧數據並決策擴大。`,
+        gamma_deck:
+`【Gamma 簡報稿（可直接貼）】
+Slide 1｜問題定義
+- ${audience}在${industry}場景中常遇到決策困難
+- 現況：內容多但行動低
+- 目標：讓${product}訊息可讀、可決策、可執行
+
+Slide 2｜核心洞察
+- 問題不在內容長短，而在結構與優先順序
+- 缺少明確 CTA 與行動路徑
+- 各頁訊息未形成故事線
+
+Slide 3｜解法框架
+- 結論先行（每頁一重點）
+- 固定三段：問題、做法、結果
+- 只保留單一主要 CTA
+
+Slide 4｜執行步驟
+- 盤點舊內容並重寫頁標
+- 建立模板化段落與語氣規範
+- 導入每週小迭代
+
+Slide 5｜預期成果
+- 讀者理解時間縮短
+- CTA 點擊率提升
+- 提案溝通效率提升
+
+Slide 6｜下一步與責任分工
+- Owner、時程、驗收指標
+- 兩週後回顧成效
+- 決策是否擴大實施`
+      };
+      document.getElementById('gen-draft-output').innerHTML =
+        '<div class="mb-1"><p class="font-black text-cyan-300">長文版輸出（' + document.getElementById('gen-format').selectedOptions[0].textContent + '）</p>' +
+        '<pre class="mt-2 whitespace-pre-wrap text-emerald-300 text-xs leading-relaxed">' + templates[format] + '</pre></div>';
+      document.getElementById('content-next-step').classList.remove('hidden');
     }
     function renderContentCourse(idx) {
       const total = CONTENT_COURSE.length;
@@ -548,6 +869,76 @@
         renderContentQuiz();
       }, 900);
     };
+    function copyBoosterText(text) {
+      if (!text) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text);
+        return;
+      }
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    function openGeoPromptModal() {
+      var m = document.getElementById('geo-prompt-modal');
+      if (!m) return;
+      m.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeGeoPromptModal() {
+      var m = document.getElementById('geo-prompt-modal');
+      if (!m) return;
+      m.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    function filterPromptTable(group, value) {
+      var tabs = document.querySelectorAll('[data-tab-group="' + group + '"]');
+      tabs.forEach(function(btn) {
+        var active = btn.getAttribute('data-tab-value') === value;
+        btn.classList.toggle('bg-fuchsia-600', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('bg-white', !active);
+        btn.classList.toggle('border', !active);
+        btn.classList.toggle('border-fuchsia-200', !active);
+        btn.classList.toggle('text-fuchsia-700', !active);
+      });
+      document.querySelectorAll('[data-prompt-cat]').forEach(function(row) {
+        var cat = row.getAttribute('data-prompt-cat');
+        row.classList.toggle('hidden', value !== 'all' && cat !== value);
+      });
+    }
+    function setModeView(group, value) {
+      document.querySelectorAll('[data-mode-group="' + group + '"]').forEach(function(el) {
+        var mode = el.getAttribute('data-mode') || 'all';
+        var show = value === 'all' || mode === 'all' || mode === value;
+        el.classList.toggle('hidden', !show);
+      });
+      document.querySelectorAll('[data-mode-btn="' + group + '"]').forEach(function(btn) {
+        var active = btn.getAttribute('data-mode-value') === value;
+        btn.classList.toggle('active', active);
+        btn.classList.toggle('mode-btn-active', active);
+      });
+      var indicator = document.getElementById('content-mode-indicator');
+      if (indicator) {
+        indicator.textContent = value === 'ai' ? '目前模式：AI 協作導向' : value === 'manual' ? '目前模式：手作導向' : '目前模式：全部顯示';
+      }
+    }
+    function scrollToModeTarget(targetId) {
+      var target = targetId ? document.getElementById(targetId) : null;
+      if (!target) target = document.getElementById('content-quick-start') || document.getElementById('en-booster-zone');
+      if (!target) return;
+      var top = target.getBoundingClientRect().top + window.scrollY - 112;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+    function jumpContentToAi(targetId) {
+      setModeView('content', 'ai');
+      setTimeout(function() {
+        scrollToModeTarget(targetId);
+      }, 90);
+    }
 
     window.addEventListener('DOMContentLoaded', function() {
       includeComponentSlot('global-header', 'components/header.html', 'nav-content-expression');
@@ -564,11 +955,42 @@
         if (idx === 0) renderContentScenario(key);
       });
       document.getElementById('gen-draft-btn').addEventListener('click', renderGeneratedDraft);
+      document.getElementById('gen-draft-long-btn').addEventListener('click', renderGeneratedLongDraft);
       document.getElementById('gen-draft-multi-btn').addEventListener('click', renderGeneratedDraftMulti);
       document.getElementById('gen-reset-btn').addEventListener('click', function() {
         ['gen-industry', 'gen-audience', 'gen-product'].forEach(function(id) { document.getElementById(id).value = ''; });
+        document.getElementById('gen-format').value = 'social_long';
         document.getElementById('gen-draft-output').textContent = '輸入後點「一鍵生成我的版本」，這裡會出現你的專屬初稿。';
+        document.getElementById('content-next-step').classList.add('hidden');
       });
+      document.querySelectorAll('[data-copy-booster]').forEach(function(btn) {
+        btn.addEventListener('click', function() { copyBoosterText(btn.getAttribute('data-copy-booster') || ''); });
+      });
+      document.querySelectorAll('[data-copy-target]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var id = btn.getAttribute('data-copy-target');
+          var el = id ? document.getElementById(id) : null;
+          copyBoosterText(el ? el.textContent : '');
+        });
+      });
+      var promptModal = document.getElementById('geo-prompt-modal');
+      if (promptModal) {
+        promptModal.addEventListener('click', function(e) {
+          if (e.target === promptModal) closeGeoPromptModal();
+        });
+      }
+      document.querySelectorAll('[data-tab-group="geo-prompt"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          filterPromptTable('geo-prompt', btn.getAttribute('data-tab-value') || 'all');
+        });
+      });
+      document.querySelectorAll('[data-mode-btn="content"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          setModeView('content', btn.getAttribute('data-mode-value') || 'all');
+        });
+      });
+      setModeView('content', 'manual');
+      window.jumpContentToAi = jumpContentToAi;
       renderContentQuiz();
       contentCourseProgress = CourseProgress.create({
         storageKey: 'course_progress_content_expression_v1',

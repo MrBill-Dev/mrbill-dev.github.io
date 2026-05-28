@@ -67,49 +67,228 @@ const capcutGuides = {
   import: {
     steps: [
       "開啟剪映 App → 點「開始創作」",
-      "點「加入」→ 勾選婚禮／活動影片 → 確認",
-      "長按片段可拖動順序：把迎親、儀式、敬酒排好",
-      "播放頭移到要剪掉處 → 點「分割」→ 選多餘段刪除",
-      "保留每段前後約 0.5 秒，轉場才不會突兀"
+      "點「加入」→ 勾選要用的影片與圖片",
+      "長按片段拖動順序，先排出頭、中、尾",
+      "播放頭移到要剪掉處 → 點「分割」→ 刪除多餘片段",
+      "每段前後先保留 0.5 秒，避免銜接太硬"
     ]
   },
   transition: {
     steps: [
       "點兩段影片「交界處」的白色小方塊",
-      "選「轉場」→ 建議先用「疊化」",
-      "長度設 0.2～0.3 秒（不宜過長）",
-      "快剪可配合音樂鼓點，在重拍上切鏡",
-      "全片建議只用 1～2 種轉場風格"
+      "選「轉場」→ 新手先用「疊化」",
+      "長度先設 0.2～0.3 秒",
+      "先固定一種轉場，全片看起來最穩",
+      "想升級再對齊音樂鼓點切鏡"
     ]
   },
   color: {
     steps: [
       "點選時間軸上的片段 →「調節」",
-      "色溫：偏暖＝溫馨婚禮；偏冷＝時尚",
-      "飽和度：+5～+15 即可，避免過豔",
-      "可套「濾鏡」但強度建議 ≤ 30%",
-      "調好一段後「複製調節」到同場景其他片段"
+      "先調色溫：偏暖較溫馨，偏冷較俐落",
+      "飽和度先 +5～+15，避免顏色過頭",
+      "濾鏡強度先控制在 30% 以內",
+      "調好一段後，複製到同場景片段"
     ]
   },
   export: {
     steps: [
       "點右上角「匯出」",
-      "解析度：1080P（一般上傳）；母帶可選 4K",
-      "幀率：30fps（多數平台）",
-      "碼率：選「較高」或「推薦」",
-      "匯出後用手機全螢幕預覽字幕是否被裁切"
+      "解析度先用 1080P（新手最穩）",
+      "幀率先用 30fps（通用）",
+      "碼率選「推薦」或「較高」",
+      "匯出後先用手機全螢幕檢查字幕有無被切到"
     ]
   }
 };
 
 const videoPreface = {
   title: "🎬 錄影與剪輯前言",
-  contentHtml: `<p><strong>建議順序</strong>：① 手機／相機錄影設定 → ② 構圖比例 → ③ 剪映匯入 → ④ 轉場 → ⑤ 調色 → ⑥ 匯出。</p>
-    <p>先拍穩、曝光對，再用剪映（CapCut）剪出故事；時間軸邏輯與 Premiere 相通。</p>`,
+  contentHtml: `<p><strong>為什麼先用剪映學剪輯</strong>：介面直覺、手機與電腦都能用、從匯入到字幕與匯出都在同一套流程。新手可以先把第一支片做出來，再進階學更複雜的剪輯軟體。</p>
+    <p><strong>新手先走這條路</strong>：① 先拍穩 → ② 匯入剪映 → ③ 分割刪多餘 → ④ 加字幕與音樂 → ⑤ 1080P 匯出。</p>
+    <p>先把第一支影片完成，再回來學轉場、調色與進階設定。</p>`,
   whyCapcut: [
-    "中文介面，轉場／字幕／音樂好上手",
-    "手機拍完立刻剪，回饋最快",
-    "先懂剪輯在做什麼，再進階專業軟體"
+    "操作直覺，手機就能完成第一支片",
+    "字幕、音樂、轉場都在同一套流程",
+    "先完成再升級，比一次學完更有效"
+  ]
+};
+
+const capcutDemoTutorial = {
+  title: "✅ 剪映整合教學：手機版＋電腦版",
+  intro: "先照手機版 7 步完成第一支影片，再用電腦版 2 步做效率升級。每一步先做一次就好，不用一次學太多。",
+  mobile: [
+    {
+      step: "手機版 1",
+      title: "首頁｜開始創作",
+      image: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_3d7aafab930e45c5b178990341ca7a84_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-bb2fbd71-47e6-41be-ab18-3bb8f3486c2e.png",
+      caption: "打開剪映 App，首頁點「開始創作」，先建立剪輯專案。"
+    },
+    {
+      step: "手機版 2",
+      title: "導入素材｜添加影片／圖片",
+      image: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_53e166a63c85b271eaf8bfe56a0425e7_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-21fc47b3-6e37-4888-9cc3-db60c3ec3e23.png",
+      caption: "選取本地影片或圖片後點「添加」，素材就會進入時間軸。"
+    },
+    {
+      step: "手機版 3",
+      title: "基礎剪輯｜分割片段",
+      image: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_bf07a4be563c12786e60e5f6006cbba8_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-68fba52c-c5f3-48c3-bade-c438943eca1b.png",
+      caption: "拖白色播放指針到剪點，選中片段後按「分割」，把多餘段落剪掉。"
+    },
+    {
+      step: "手機版 4",
+      title: "自動字幕｜文字轉字幕",
+      image: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_d4185662a89c0c1ecf69f39814bd3b21_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-752f5331-b741-4a2f-bc2e-fbb707a61fdd.png",
+      caption: "底部點「文本」→「自動字幕」，等待 AI 辨識人聲並生成字幕。"
+    },
+    {
+      step: "手機版 5",
+      title: "添加音樂｜音頻到音樂庫",
+      image: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_acfc68a06b804cce23f13d5edcb5c9fc_tplv-a9rns2rl98-pc_smart_face_crop-v1_440_330-86e4ec6b-e4be-4e50-b3a2-b1102ff35bd2.png",
+      caption: "點「音頻」→「音樂」，挑免費 BGM 後按「使用」加入音軌。"
+    },
+    {
+      step: "手機版 6",
+      title: "濾鏡調色｜快速統一畫面",
+      image: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_ba70eedd8872f011bb52a567d4427ff7_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-324340a6-4df8-4899-8b0d-75548fd9ad04.png",
+      caption: "選中片段後點「濾鏡」，選清新或冷調，再微調強度讓畫面更穩定。"
+    },
+    {
+      step: "手機版 7",
+      title: "導出設置｜1080P / 30fps",
+      image: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_456c661d80d7ae4350024de7a54072a7_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-3994d332-e6b7-4847-b52a-10d2d085216a.png",
+      caption: "右上角點「導出」，解析度選 1080P、幀率 30fps，確認後渲染保存。"
+    }
+  ],
+  desktop: [
+    {
+      step: "電腦版 1",
+      title: "主編輯介面",
+      image: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_f3bc7eacd1c39f61b33a35ded116f7cb_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-34b373b8-9e58-4be5-8382-dfe405c0d6f5.png",
+      caption: "認識預覽區、時間軸、工具欄、素材庫四個主要工作區。"
+    },
+    {
+      step: "電腦版 2",
+      title: "自動字幕編輯",
+      image: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_3322ac0f1225f917e650cc37eb813783_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-936fbe18-0f11-4d25-946b-be4aa4ec1210.png",
+      caption: "從文本進入智慧字幕，辨識語音後可批次生成並直接修改字幕。"
+    }
+  ]
+};
+
+const capcutAdvancedTutorial = {
+  title: "🚀 剪映進階篇：5 大核心",
+  intro: "本篇聚焦剪映最常用的進階能力：關鍵幀、蒙版、曲線變速、轉場與動畫、智能摳像。先照手機版上手，再用電腦版做精細化。",
+  modules: [
+    {
+      name: "一、關鍵幀",
+      subtitle: "◇ 菱形圖標｜讓畫面動起來",
+      purpose: "用途：推鏡、平移、縮放、文字跟隨、運鏡動畫",
+      mobileImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_8868efc8cda04524a7a98e68a1d21395_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-c0366cd3-87da-4c14-81cd-d07ab7fdfc42.png",
+      desktopImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_77672c33b37e87a764fa0cca66fcc754_tplv-a9rns2rl98-pc_smart_face_crop-v1_447_335-873d21f2-748d-410d-a2c7-f4368a4fb9ab.png",
+      mobileSteps: [
+        "打開剪映 → 開始創作 → 導入素材",
+        "選中素材（影片／文字／貼紙）→ 點菱形圖示",
+        "播放頭停起點 → 打第一個關鍵幀",
+        "播放頭移到結尾 → 移動／縮放／旋轉，系統自動生成尾關鍵幀"
+      ],
+      desktopSteps: [
+        "素材拖入時間軸後選中",
+        "右側屬性面板參數旁點菱形",
+        "起點先打關鍵幀（位置／縮放／透明度）",
+        "結尾改參數後自動生成動畫；可再用曲線調緩入緩出"
+      ],
+      tip: "手機版直覺快速；電腦版可對每個參數獨立打幀，精細度更高。"
+    },
+    {
+      name: "二、蒙版",
+      subtitle: "遮罩｜分屏、漸顯、聚焦",
+      purpose: "用途：分屏、擦除轉場、圓形聚焦、局部遮罩",
+      mobileImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_6aaa1895b8054225948bcaf8ebabf6f5_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-2016aa01-15a0-4016-9ce2-8bbff73b0db3.png",
+      desktopImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_c2b48fdcfc989ce78ecff0da91dedc8d_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-5aad30f9-1b1e-4fda-9ef9-b590a66005bb.png",
+      mobileSteps: [
+        "選素材 → 點「蒙版」",
+        "選線性／圓形／矩形",
+        "羽化先設 10~30，邊緣會更自然",
+        "搭配關鍵幀移動蒙版，可做動態擦除效果"
+      ],
+      desktopSteps: [
+        "選素材 → 右側「畫面」→ 開啟蒙版",
+        "可用線性／圓形／矩形／鋼筆自由繪製",
+        "調羽化、角度、大小，並可配合關鍵幀動態控制",
+        "上層畫中畫 + 蒙版 + 關鍵幀可做高級分屏轉場"
+      ],
+      tip: "電腦版鋼筆蒙版與多軌道疊加，適合精修。"
+    },
+    {
+      name: "三、曲線變速",
+      subtitle: "快慢節奏、卡點",
+      purpose: "用途：慢動作、子彈時間、卡點、電影節奏",
+      mobileImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_5a1bd54f3e127c0ed43511d43249a241_tplv-a9rns2rl98-pc_smart_face_crop-v1_391_293-df0a3752-1239-4b4e-87bf-799a5b31472c.png",
+      desktopImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_f93b6e80fa44f93110abbc93ddf73fcf_tplv-a9rns2rl98-pc_smart_face_crop-v1_458_344-b7362e28-3e69-4138-a074-6da57bb7beec.png",
+      mobileSteps: [
+        "選片段 → 變速 → 曲線變速",
+        "先用預設：英雄時刻／子彈時間／閃進",
+        "手動拉曲線點：拉高變快、拉低變慢",
+        "可搭配音頻自動踩點對齊節奏"
+      ],
+      desktopSteps: [
+        "選片段 → 右鍵進入曲線變速",
+        "開曲線面板，用更多控制點做分段調速",
+        "結合波形卡點更準確",
+        "慢動作可搭配補幀讓畫面更順"
+      ],
+      tip: "電腦版控制點更多，節奏精修更穩。"
+    },
+    {
+      name: "四、轉場／動畫",
+      subtitle: "片段順滑、高級感",
+      purpose: "用途：片段不生硬、淡入淡出、入場出場動畫",
+      mobileImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_fde7d0c7d47fbaeb41d85b376c1d791c_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-255b4ab4-aef6-429e-a1fb-4dce5d19833d.png",
+      desktopImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_45d165ee75e98983d5024a7d40cf72c5_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-8fbe1d4d-e501-423f-a4c4-689f80769ee1.png",
+      extraMobileImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_9cb7d1029f284affa7269957a434dd46_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-2d54452d-429a-4e70-817b-33b2ffa84225.png",
+      extraDesktopImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_b470720fc19f9d8e879b95093f90a205_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-11935f01-38a8-4b23-bb03-e4382babd978.png",
+      mobileSteps: [
+        "轉場：點兩片段中間白色方塊",
+        "常用疊化／淡入淡出／模糊，時長先抓 0.2~0.5 秒",
+        "動畫：選素材 → 動畫 → 入場／出場",
+        "常用漸顯、輕微縮放、滑入（0.3~0.8 秒）"
+      ],
+      desktopSteps: [
+        "轉場：片段間點轉場面板，拖特效到間隙",
+        "可批量套用與統一時長",
+        "動畫：右側動畫選入場／出場／循環",
+        "可細調時長與緩動曲線"
+      ],
+      tip: "特效越少越高級，淡入淡出最耐看。"
+    },
+    {
+      name: "五、智能摳像／畫中畫",
+      subtitle: "去背景、換背景、畫面疊加",
+      purpose: "用途：綠幕摳像、人物去背景、雙畫面合成",
+      mobileImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_c1df2a8375c4709a289633a3b1c61a83_tplv-a9rns2rl98-pc_smart_face_crop-v1_408_306-04261070-fea0-4f95-8b0e-a94c1d6258fd.png",
+      desktopImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_25b91ce171631a75029674332f76d54b_tplv-a9rns2rl98-pc_smart_face_crop-v1_408_306-cac67733-4ad0-4f4f-915e-e54ed6e37fac.png",
+      extraMobileImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_496be3e73a4494c50381f6379b549dbf_tplv-a9rns2rl98-pc_smart_face_crop-v1_280_210-a8971c32-ac40-4fc5-9b2c-ef4d6770f4a3.png",
+      extraDesktopImage: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_4cd1d8af91d94f708764df47f4fed9dc_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-ab839439-42e8-4eed-8715-c17d6f5c7275.png",
+      mobileSteps: [
+        "新增畫中畫 → 導入素材",
+        "選畫中畫素材 → 點摳像",
+        "人像可用智能摳像；綠幕可用色度摳圖",
+        "色度摳像強度先設 80~100，再微調位置與融合"
+      ],
+      desktopSteps: [
+        "新增畫中畫，素材放上層軌道",
+        "右側摳像可選智能／色度／自定義",
+        "可調邊緣羽化、陰影、去殘留",
+        "多軌道管理更適合複雜合成"
+      ],
+      tip: "電腦版摳像邊緣處理更乾淨，長片管理效率更高。"
+    }
+  ],
+  quickCompare: [
+    "手機：便攜、觸控、一鍵 AI、快速出片，適合短影片",
+    "電腦：多軌道、精細關鍵幀與蒙版，適合長片與精修"
   ]
 };
 
@@ -185,8 +364,9 @@ const photographyRepository = {
   photo_triangle: {
     title: "⚡ 8. 曝光三角的蹺蹺板平衡（Exposure Triangle）",
     mode: "triangle",
-    chapterRead: "本課僅顯示曝光三角圖（無背景照片）。拖動三個滑桿，看哪一角亮起，並讓回饋條顯示「平衡」。",
-    previewUrl: "",
+    chapterRead: "先看曝光三角概念圖理解三者關係，再拖動下方參數，觀察示範圖的明暗與質感變化。",
+    previewUrl: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_image-fde61029-e5b0-4f38-a6be-9e2b899edab0.png",
+    demoPreviewUrl: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80",
     easy: "【第一步】想像接水：水龍頭大小 = 光圈；開多久 = 快門；水壓放大器 = ISO。\n【第二步】要同樣一杯水（正確曝光）：龍頭縮小（光圈變小）就要開更久（快門變慢）。\n【第三步】玩沙盒：三個滑桿都試，看三角形哪個角亮起，直到回饋顯示「平衡」。",
     medium: "【實戰】婚禮常固定快門 1/125、ISO 400，只動光圈換曝光與虛化。\n【取捨】大光圈+快快門+低 ISO = 理想人像，但暗場可能做不到，必須放棄其中一項。\n【順序】先決定你要「虛化」還是「凝固」還是「乾淨」，再調另外兩個補亮度。",
     hard: "曝光值 EV 可量化三者的換算。測光表讀的是總亮度，無法替你決定景深或動態取捨——那是創作選擇。",
@@ -367,11 +547,11 @@ const photographyRepository = {
     mode: "video",
     device: "phone",
     videoSubtype: "shoot",
-    previewUrl: IMG.videoRecord,
-    easy: "錄影時雙手握穩，開啟「運動模式／超穩定」；拍婚禮進場用 4K 30fps 就夠，慢動作才需要 60fps 或 120fps。",
-    medium: "【iOS】在設定中先開 ProRes/Log（支援機型）與防手震模式；【Android】可用專業錄影模式鎖快門與 ISO。\n4K 檔案大但後期裁切空間多。60fps 適合慢動作回放；24fps 更有電影感。橫拿手機（16:9）上傳 YouTube；直拿（9:16）給 TikTok／Reels。",
-    hard: "手機自動曝光在明暗穿越時會跳變，可鎖定 AE/AF。外接麥克風與補光燈是 vlog 與婚禮紀錄的關鍵升級。\n【推薦 App】Blackmagic Camera（iOS/Android 部分機型）、FiLMiC Pro（跨平台）可做更細錄影控制。",
-    tip: "實務方向：先練 15 秒穩定鏡頭，再練 30 秒敘事鏡頭，最後做 60 秒完整短片。"
+    previewUrl: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_db0c0fe1-1039-43f3-af2f-17441f44eb60-32366fc0-72c3-4ec1-b0b9-7ed4ea250056.png",
+    easy: "先求穩定：雙手握穩、開防手震。第一支片建議用 1080P / 30fps 或 4K / 30fps。",
+    medium: "慢動作再開 60fps。YouTube 用橫式 16:9，Reels/TikTok 用直式 9:16。",
+    hard: "想再升級可鎖 AE/AF，避免亮度忽明忽暗；再加外接麥克風提升聲音品質。",
+    tip: "練習順序：15 秒穩定鏡頭 → 30 秒有開頭與結尾 → 60 秒完整短片。"
   },
 
   // ── 模組七：📷 相機拍照專區 ──
@@ -413,11 +593,11 @@ const photographyRepository = {
     mode: "video",
     device: "camera",
     videoSubtype: "shoot",
-    previewUrl: IMG.videoRecord,
-    easy: "錄影時快門大約設在 1/50 秒（拍 24fps），畫面動態最自然。太陽太大就加 ND 墨鏡片，不然快門只能調很快、動態會不順。",
-    medium: "S-Log / V-Log 拍攝保留最大調色空間，需後期還原。ND 8～64 讓你在 F2.8 下維持 1/50s。雙原生 ISO 機身低光更乾淨。",
-    hard: "180° 快門法則：快門 ≈ 1/(2×幀率)。拍 60fps 升格時快門 1/125。婚禮紀錄常用 4K 24p 電影感 + 1080p 60p 慢動作備用。",
-    tip: "剪映時間軸：練習把 24fps 主影片與 60fps 慢動作片段接在一起。"
+    previewUrl: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_db0c0fe1-1039-43f3-af2f-17441f44eb60-32366fc0-72c3-4ec1-b0b9-7ed4ea250056.png",
+    easy: "新手先記一條：24fps 配 1/50 快門，畫面最自然。太亮就加 ND 濾鏡。",
+    medium: "需要慢動作再拍 60fps；一般敘事先用 24fps 或 30fps。",
+    hard: "想保留調色空間再用 Log。先拍準曝光，再進剪映做後製。",
+    tip: "在剪映把 24fps 主畫面和 60fps 慢動作穿插，就能做出節奏。"
   },
 
   // ── 模組八：🎬 錄影與剪映剪輯 ──
@@ -426,22 +606,36 @@ const photographyRepository = {
     mode: "video",
     videoSubtype: "shoot",
     chapterRead: "錄影前先決定「發在哪裡」：YouTube 橫式 16:9；抖音／Reels 直式 9:16。拍錯比例後期裁切會切掉頭頂或字幕。",
-    previewUrl: IMG.videoRecord,
-    easy: "拍 YouTube 橫著拿，拍抖音／Reels 直著拿。不管哪種，都把主角眼睛放在上三分之一線上！",
-    medium: "橫式 16:9 適合紀錄片、婚禮長片；直式 9:16 適合社群短影音。拍攝時預留字幕安全區，避免頭頂被裁切。",
-    hard: "同一場活動可雙機：A 機橫拍全景、B 機直拍特寫。剪輯時在剪映設不同畫布比例，勿硬拉變形。",
-    tip: "時間軸拖動：想像橫式主軌 + 直式社群短剪的雙軌結構。"
+    previewUrl: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_db0c0fe1-1039-43f3-af2f-17441f44eb60-32366fc0-72c3-4ec1-b0b9-7ed4ea250056.png",
+    easy: "先決定平台：YouTube 用橫式 16:9，Reels/TikTok 用直式 9:16。",
+    medium: "拍攝時幫字幕留空間，避免後續被切到頭頂或重要文字。",
+    hard: "想做雙版本可同場拍橫＋直，剪輯時分開輸出，不要硬拉變形。",
+    tip: "先完成一個比例版本，再做第二個版本，流程最不亂。"
+  },
+  video_capcut_advanced: {
+    title: "🧠 29b. 剪映進階篇：5 大核心",
+    mode: "video",
+    capcutStep: "advanced",
+    chapterRead: "本篇把剪映最常用的 5 大核心做成一步步圖文：關鍵幀、蒙版、曲線變速、轉場與動畫、智能摳像。",
+    previewUrl: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_db0c0fe1-1039-43f3-af2f-17441f44eb60-32366fc0-72c3-4ec1-b0b9-7ed4ea250056.png",
+    easy: "先從關鍵幀與轉場開始，最容易看到畫面提升。",
+    medium: "再加蒙版、曲線變速，影片節奏和質感會明顯升級。",
+    hard: "最後做智能摳像與畫中畫，完成進階合成效果。",
+    tip: "建議每次只練一個核心，做完一支 15~30 秒短片再學下一個。",
+    hideTheoryCards: true,
+    capcutGuideKey: "advanced"
   },
   video_capcut_import: {
-    title: "✂️ 30. 剪映入門：匯入、切割與排序",
+    title: "✂️ 30. 剪映入門篇：基本功能介紹",
     mode: "video",
     capcutStep: "import",
-    chapterRead: "【剪映第一步】開啟剪映 → 開始創作 → 匯入素材 → 拖進時間軸 → 在冗長處按「分割」刪掉。完成後對照下方步驟清單。",
-    previewUrl: "",
-    easy: "打開剪映 → 開始創作 → 匯入婚禮影片 → 拖進時間軸 → 在冗長段落「分割」刪掉，把高潮片段排在前面！",
-    medium: "分割快捷：選中片段 → 分割（或播放頭暫停處切割）。長按拖動調整順序。保留 0.5～1 秒緩衝，轉場才不會突兀。",
-    hard: "代理剪輯：4K 素材可先轉 1080p 代理檔減輕手機負擔，輸出再選 4K。素材資料夾按「迎親／儀式／宴會」分類加速找片。",
+    chapterRead: "【剪映入門篇】先認識基本功能：開始創作、匯入素材、分割刪除、字幕、音樂、濾鏡與匯出。完成後照下方圖文一步步操作。",
+    previewUrl: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_db0c0fe1-1039-43f3-af2f-17441f44eb60-32366fc0-72c3-4ec1-b0b9-7ed4ea250056.png",
+    easy: "先做基本流程：匯入素材 → 排順序 → 分割刪掉多餘片段。",
+    medium: "保留每段前後 0.5 秒，畫面銜接比較順。",
+    hard: "素材太多時先分類資料夾，再剪會快很多。",
     tip: "對照下方步驟清單，在剪映完成匯入與分割。",
+    hideTheoryCards: true,
     capcutGuideKey: "import"
   },
   video_capcut_transition: {
@@ -449,10 +643,10 @@ const photographyRepository = {
     mode: "video",
     capcutStep: "transition",
     chapterRead: "【剪映第二步】在兩段影片交界點選「轉場」→ 優先用「疊化」0.3 秒。不要每個鏡頭都加特效，會眼花。",
-    previewUrl: "",
-    easy: "轉場像翻頁：兩段影片之間加「疊化」最自然；婚禮快剪可用「闪黑」配合鼓點，但不要每個鏡頭都加，會暈！",
-    medium: "轉場長度建議 0.2～0.5 秒。音樂重拍點上切鏡，比亂加特效更專業。J-cut（聲音先進）讓情緒連貫。",
-    hard: "進階：遮罩轉場、關鍵幀手動推拉。同一支片建議全片只用 1～2 種轉場風格，維持視覺統一。",
+    previewUrl: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_db0c0fe1-1039-43f3-af2f-17441f44eb60-32366fc0-72c3-4ec1-b0b9-7ed4ea250056.png",
+    easy: "新手先用「疊化」，比花式特效更自然。",
+    medium: "轉場長度先抓 0.2～0.5 秒，太長會拖節奏。",
+    hard: "整支片控制 1～2 種轉場風格，畫面會更一致。",
     tip: "時間軸步驟 2：在兩段素材間加入轉場標記。",
     capcutGuideKey: "transition"
   },
@@ -461,10 +655,10 @@ const photographyRepository = {
     mode: "video",
     capcutStep: "color",
     chapterRead: "【剪映第三步】點片段 → 調節 → 色溫／飽和度。可先回本站「白平衡」課理解色溫，再在剪映拉同一根滑桿。",
-    previewUrl: "",
-    easy: "選中片段 → 調節 → 色溫偏暖就是溫馨婚禮，偏冷就是時尚感。濾鏡強度不要超過 30%，不然膚色會假！",
-    medium: "曲線：拉高中間調讓畫面通透，壓高光保留白紗細節。HSL 可單獨調膚色橘紅、草地綠。LUT 適合批次統一風格。",
-    hard: "先校正白平衡再套風格 LUT。不同鏡頭（手機 + 單眼）需分開調再套用同一組參數複製。輸出前用手機螢幕與電腦各檢查一次。",
+    previewUrl: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_db0c0fe1-1039-43f3-af2f-17441f44eb60-32366fc0-72c3-4ec1-b0b9-7ed4ea250056.png",
+    easy: "先調色溫與亮度，再看要不要加濾鏡。",
+    medium: "濾鏡強度建議先低於 30%，膚色比較自然。",
+    hard: "多鏡頭素材先各自校正，再複製同一組風格參數。",
     tip: "搭配白平衡沙盒理解色溫，再回剪映調「色溫／色調」滑桿。",
     capcutGuideKey: "color"
   },
@@ -473,10 +667,10 @@ const photographyRepository = {
     mode: "video",
     capcutStep: "export",
     chapterRead: "【剪映第四步】匯出 → 1080P、30fps、高碼率。上傳前用手機預覽一次字幕是否被裁切。",
-    previewUrl: "",
-    easy: "匯出時選 1080P、30fps、較高碼率，上傳 YouTube 很夠用。要留檔案母帶可勾 4K。",
-    medium: "YouTube 建議 H.264、16:9；IG Reels 用 9:16、30fps。碼率越高檔案越大，婚禮全片 15～25 Mbps 常見。",
-    hard: "色彩空間 Rec.709 為一般螢幕標準。若拍 LOG 需先還原再輸出。字幕燒錄與分軌字幕（SRT）依平台需求選擇。",
+    previewUrl: "assets/c__Users_user_AppData_Roaming_Cursor_User_workspaceStorage_3981e04de2f4b56cc504b752a44be493_images_456c661d80d7ae4350024de7a54072a7_tplv-a9rns2rl98-pc_smart_face_crop-v1_512_384-3994d332-e6b7-4847-b52a-10d2d085216a.png",
+    easy: "新手先固定：1080P、30fps、推薦碼率。",
+    medium: "平台不同就換比例：YouTube 16:9，Reels 9:16。",
+    hard: "發布前先在手機全螢幕看一次，確認字幕和邊界都正常。",
     tip: "完成下方匯出步驟後，用手機全螢幕預覽一次再發布。",
     capcutGuideKey: "export"
   }

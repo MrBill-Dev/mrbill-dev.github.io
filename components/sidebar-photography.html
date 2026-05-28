@@ -57,13 +57,23 @@
 </div>
 <div>
   <div class="text-xs font-bold text-rose-600 uppercase tracking-wider px-2 mb-3">7. 🎬 錄影與剪映剪輯</div>
-  <div class="space-y-1.5">
-    <button onclick="window.loadPhotoLesson('phone_video_basic', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">📱 手機錄影：4K／穩定</button>
-    <button onclick="window.loadPhotoLesson('camera_video_manual', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">📷 相機錄影：LOG／ND</button>
-    <button onclick="window.loadPhotoLesson('video_shoot_framing', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">錄影構圖 16:9／9:16</button>
-    <button onclick="window.loadPhotoLesson('video_capcut_import', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映① 匯入與切割</button>
-    <button onclick="window.loadPhotoLesson('video_capcut_transition', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映② 轉場節奏</button>
-    <button onclick="window.loadPhotoLesson('video_capcut_color', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映③ 調色白平衡</button>
-    <button onclick="window.loadPhotoLesson('video_capcut_export', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映④ 匯出發布</button>
+  <div class="space-y-2">
+    <div class="px-2 pt-1 pb-0.5 text-[11px] font-black text-rose-500 tracking-wide">新手先做</div>
+    <button onclick="window.loadPhotoLesson('phone_video_basic', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-700 bg-rose-50 border border-rose-100 hover:bg-rose-100/70 transition-colors">手機錄影</button>
+    <button onclick="window.loadPhotoLesson('camera_video_manual', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">相機錄影</button>
+    <button onclick="window.loadPhotoLesson('video_capcut_import', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪輯入門篇</button>
+    <button onclick="window.loadPhotoLesson('video_capcut_advanced', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪輯進階篇：5 大核心</button>
+
+    <details class="group rounded-xl border border-slate-200 bg-white">
+      <summary class="cursor-pointer list-none px-3 py-2 text-sm font-black text-slate-700 flex items-center justify-between">
+        <span>進階升級（做完新手再看）</span>
+        <span class="text-slate-400 group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="px-2 pb-2 space-y-1.5">
+        <button onclick="window.loadPhotoLesson('video_shoot_framing', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">錄影構圖 16:9／9:16</button>
+        <button onclick="window.loadPhotoLesson('video_capcut_transition', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映轉場節奏</button>
+        <button onclick="window.loadPhotoLesson('video_capcut_color', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映調色白平衡</button>
+      </div>
+    </details>
   </div>
 </div>

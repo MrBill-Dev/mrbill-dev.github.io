@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 小遊戲中心 - MrBill Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/components-loader.js"></script>
+  <script src="js/ai-lab.js"></script>
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .ai-lab-stack { max-width: 72rem; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+    .ai-lab-panel { width: 100%; background: #fff; border-radius: 1.5rem; border: 1px solid #a7f3d0; padding: 1.5rem; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06); }
+    .ai-lab-callout { border-radius: 1rem; padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 0.875rem; border: 1px solid #a7f3d0; background: rgba(236, 253, 245, 0.85); }
+    .ai-lab-mode-bar { width: 100%; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+    .ai-lab-grid-3 { width: 100%; display: grid; gap: 1rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .ai-lab-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ai-lab-panel { padding: 2rem 2.5rem; } }
+    .ai-lab-card { border-radius: 1rem; border: 1px solid #e2e8f0; background: #fff; overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+    .ai-lab-card-media { width: 100%; height: 9rem; object-fit: cover; flex-shrink: 0; }
+    .ai-lab-card-icon { height: 9rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 2.25rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-bottom: 1px solid #e2e8f0; }
+    .ai-lab-card-body { padding: 1rem 1.25rem 1.25rem; flex: 1; display: flex; flex-direction: column; }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+  <main class="max-w-[90rem] mx-auto flex-grow w-full min-w-0 fade-in-up pb-12">
+    <div class="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-8 mb-10 text-white">
+      <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=2200&q=80" alt="AI 知識小遊戲中心主視覺" class="w-full h-[320px] md:h-[430px] object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/82 via-emerald-900/70 to-cyan-900/58"></div>
+      <div class="absolute inset-0">
+        <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
+          <div class="pb-8 md:pb-12 max-w-4xl">
+            <h1 class="text-3xl md:text-4xl font-black">🎮 <span class="text-emerald-200">AI 知識小遊戲中心</span></h1>
+            <p class="mt-3 max-w-3xl leading-relaxed text-[15px] md:text-base text-indigo-100">透過闖關與情境決策，把 AI 工具選型、提問策略與下一步行動轉成可執行判斷。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-lab-stack">
+      <div id="game-mode-bar" class="ai-lab-mode-bar"></div>
+      <div class="ai-lab-panel">
+        <div class="ai-lab-callout">
+          <p class="font-black text-emerald-900">第一次玩建議順序</p>
+          <p class="text-slate-700 mt-1">先從「下一步指引」做完一輪，再到「情境決策」看你卡在哪，最後用「工具選擇」決定下一步該練哪種 AI 工具。</p>
+        </div>
+        <div class="flex justify-between items-center mb-5">
+          <div class="text-sm font-bold text-slate-400">進度：<span id="game-progress-label" class="font-black text-slate-800">—</span></div>
+          <div class="text-sm font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg">得分：<span id="game-score-label">0</span></div>
+        </div>
+        <div id="game-board-viewport" class="space-y-4 min-h-[220px] w-full"></div>
+      </div>
+      <div class="ai-lab-grid-3">
+        <article class="ai-lab-card">
+          <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=800&q=80" alt="AI 任務闖關示意" class="ai-lab-card-media" loading="lazy" />
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">闖關玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">每關只給目標，不給答案，訓練你自己拆步驟。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="分組協作學習示意" class="ai-lab-card-media" loading="lazy" />
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">雙人協作玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">一人下 Prompt、一人審稿，輪替角色強化判斷。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="課後反思與記錄示意" class="ai-lab-card-media" loading="lazy" />
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">課後延伸玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">把今天結果寫成「可交付紀錄」，累積作品與履歷。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <div class="ai-lab-card-icon" aria-hidden="true">🧪</div>
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">任務挑戰玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">抽一個真實任務（寫文案/修碼/產圖），在 10 分鐘內做出可交付版本。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <div class="ai-lab-card-icon" aria-hidden="true">👥</div>
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">雙人教練玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">A 負責下 Prompt，B 負責審稿；每輪交換角色，訓練提問與查證。</p></div>
+        </article>
+        <article class="ai-lab-card">
+          <div class="ai-lab-card-icon" aria-hidden="true">📒</div>
+          <div class="ai-lab-card-body"><p class="font-black text-slate-900">課後路徑玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">依「下一步指引」完成一條路徑，繳交 Prompt + 成果截圖 + 修正紀錄。</p></div>
+        </article>
+      </div>
+    </div>
+  </main>
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto"></footer>
+  <script>
+    function switchTab(tabId) {
+      if (tabId === 'practice') window.location.href = 'ai-practice.html';
+      else if (tabId === 'tool') window.location.href = 'ai-prompt-tool.html';
+      else window.location.href = 'ai-game-center.html';
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', 'components/header.html');
+      includeComponentSlot('global-footer', 'components/footer.html');
+      if (typeof initAiLab === 'function') initAiLab();
+    });
+  </script>
+</body>
+</html>

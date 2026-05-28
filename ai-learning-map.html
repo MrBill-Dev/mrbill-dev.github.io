@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 實戰學程 - MrBill Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/components-loader.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Noto Sans TC"', 'sans-serif'] },
+          colors: { brand: { 50: '#f5f3ff', 100: '#ede9fe', 500: '#6366f1', 600: '#4f46e5' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <main class="max-w-[90rem] mx-auto flex-grow w-full min-w-0">
+    <section id="ai-home" class="space-y-10 fade-in-up pb-12">
+      <div class="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-8 mb-10 text-white">
+        <img src="https://images.unsplash.com/photo-1676299081847-824916de030a?auto=format&fit=crop&w=2200&q=80" alt="AI 實戰學程主視覺" class="w-full h-[320px] md:h-[430px] object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/82 via-indigo-950/72 to-cyan-900/58"></div>
+        <div class="absolute inset-0">
+          <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
+            <div class="pb-8 md:pb-12 max-w-4xl">
+              <h1 class="text-3xl md:text-4xl font-black">📚 <span class="text-cyan-200">AI 實戰學程</span></h1>
+              <p class="mt-3 max-w-3xl leading-relaxed text-[15px] md:text-base text-indigo-100">從日常工作情境出發，逐步建立 AI 協作能力，涵蓋 <span class="text-cyan-200 font-bold">內容整理</span>、<span class="text-violet-200 font-bold">寫作設計</span>、<span class="text-emerald-200 font-bold">開發自動化</span> 與影像生成流程。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-4 lg:px-6 space-y-10">
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-4">
+          <h2 class="text-2xl font-black text-slate-900">導讀前言</h2>
+          <p class="text-base md:text-lg font-semibold text-indigo-900 leading-relaxed">現在的 AI 工具很多，新手最容易卡住的，不是不會用，而是不知道該先學哪一個。</p>
+          <p class="text-sm text-slate-700 leading-relaxed">其實不用一開始就研究所有模型，也不用急著把全部功能學完。先選一套工具、完成一個實際成果，比同時學很多東西更重要。</p>
+          <p class="text-sm text-slate-700 leading-relaxed">這個學程會從日常最常見的工作情境開始，帶你理解不同 AI 的用途與差異，包含內容整理、寫作、設計、開發、自動化到影像生成等流程。你會慢慢知道：</p>
+          <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1 marker:text-indigo-500">
+            <li>哪種 AI 適合哪種工作</li>
+            <li>怎麼把問題問得更清楚</li>
+            <li>哪些地方需要人工判斷</li>
+            <li>怎麼把 AI 接進真實工作流程</li>
+          </ul>
+          <p class="text-sm text-violet-800 leading-relaxed">如果你是第一次接觸 AI，建議先從「AI 差異比較」與「Prompt 基礎」開始。先學會把需求說清楚，再往後學 RAG、Agent、多模態等進階應用。</p>
+          <p class="text-sm text-slate-700 leading-relaxed">不用急著一次看完整份課綱。先完成第一個可交付成果，你會更容易理解後面的內容到底在解決什麼問題。</p>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-4 md:p-5">
+          <p class="text-xs font-black uppercase tracking-wide text-slate-500">課程快速導覽</p>
+          <div class="mt-2 flex flex-wrap gap-2 text-sm">
+            <a href="#course-compare" class="px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 font-bold no-underline">AI 差異比較</a>
+            <a href="#course-ask" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 font-bold no-underline">提問防錯</a>
+            <a href="#course-m1m8" class="px-3 py-1.5 rounded-lg bg-violet-50 text-violet-700 font-bold no-underline">M1-M8 主課綱</a>
+            <a href="#course-next-step" class="px-3 py-1.5 rounded-lg bg-amber-50 text-amber-700 font-bold no-underline">學完下一步</a>
+            <button type="button" onclick="openCoursePromptModal()" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold">全主題指令表</button>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white rounded-2xl p-5 border border-indigo-100 shadow-sm text-center"><p class="text-2xl font-black text-indigo-600">8</p><p class="text-xs font-bold text-slate-600 mt-1">核心模組</p></div>
+          <div class="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm text-center"><p class="text-2xl font-black text-purple-600">.md</p><p class="text-xs font-bold text-slate-600 mt-1">結構化 Prompt</p></div>
+          <div class="bg-white rounded-2xl p-5 border border-cyan-100 shadow-sm text-center"><p class="text-2xl font-black text-cyan-600">RAG</p><p class="text-xs font-bold text-slate-600 mt-1">企業知識庫</p></div>
+          <div class="bg-white rounded-2xl p-5 border border-emerald-100 shadow-sm text-center"><p class="text-2xl font-black text-emerald-600">Agent</p><p class="text-xs font-bold text-slate-600 mt-1">自動化工作流</p></div>
+        </div>
+
+        <div id="ai-practice" class="relative -top-24"></div>
+        <div id="course-compare" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-6">
+          <h3 class="text-2xl font-black text-slate-900">🧭 新手先看：你每天在用的 AI，到底差在哪？</h3>
+          <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4 text-sm">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900">ChatGPT</p>
+              <p class="mt-1 text-slate-600">通用問答、寫作、整理資訊很快，適合日常工作與學習。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900">Claude</p>
+              <p class="mt-1 text-slate-600">長文分析與結構化整理穩定，適合讀文件、寫教案。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900">Gemini</p>
+              <p class="mt-1 text-slate-600">整合 Google 生態與搜尋優勢，適合文件、雲端流程與研究摘要。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900">通義 / 豆包 / Kimi / 文心</p>
+              <p class="mt-1 text-slate-600">中文語境與在地平台整合常較友善，適合特定地區工作流需求。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900">Midjourney / DALL·E / Flux / SD</p>
+              <p class="mt-1 text-slate-600">影像生成精準度與風格控制表現強，適合主視覺發想；商用仍需人工審稿與授權確認。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900">Cursor / Copilot 類</p>
+              <p class="mt-1 text-slate-600">IDE 協作最有感：可結合專案脈絡做改碼、重構、除錯與測試建議。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900">Whisper / ElevenLabs / Runway</p>
+              <p class="mt-1 text-slate-600">偏語音與影片工作流：字幕、配音、短片合成，適合多媒體交付。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="font-black text-slate-900">開源本機模型（Llama / Qwen 等）</p>
+              <p class="mt-1 text-slate-600">重隱私與可控性，適合內部資料；但建置與硬體門檻較高。</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+              <p class="font-black text-amber-800">💳 免費版 vs 付費版（新手必懂）</p>
+              <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+                <li>免費版：速度與配額受限、尖峰時段較不穩。</li>
+                <li>付費版：通常更快、更穩，長文與高階模型可用性較高。</li>
+                <li>精度差異常來自「模型等級 + 可用上下文長度 + 工具功能」。</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border border-cyan-200 bg-cyan-50 p-4">
+              <p class="font-black text-cyan-800">🖥️ 本機架設 vs ☁️ 雲端 AI</p>
+              <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+                <li>本機：資料可控、離線可用，但需 GPU/記憶體與部署維護能力。</li>
+                <li>雲端：上手快、模型更新快，適合大多數新手與團隊。</li>
+                <li>準確度不只看本機或雲端，還要看模型品質、資料新鮮度與提示詞設計。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-5">
+            <p class="font-black text-indigo-900">新手重點：不是「哪個 AI 最強」，而是「你會不會問」。</p>
+            <p class="text-sm text-slate-700 mt-2">你現在常用的「一句話 ask」可以先用，但接下來要學的是：如何把同一個問題，逐步重問成可交付結果。</p>
+          </div>
+
+          <div id="course-ask" class="grid lg:grid-cols-2 gap-5">
+            <div class="rounded-2xl border border-rose-200 bg-rose-50 p-5">
+              <p class="font-black text-rose-800 mb-3">❌ 錯誤示範：模糊 ask</p>
+              <pre class="rounded-xl bg-slate-900 p-3 text-emerald-300 text-xs whitespace-pre-wrap">幫我寫一篇 SEO 文章</pre>
+              <ul class="mt-3 list-disc pl-5 text-sm text-rose-700 space-y-1">
+                <li>沒有受眾：寫給誰？</li>
+                <li>沒有目標：要流量還是詢單？</li>
+                <li>沒有格式：長度與輸出形式不明。</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+              <p class="font-black text-emerald-800 mb-3">✅ 正確示範：結構化 ask</p>
+              <pre class="rounded-xl bg-slate-900 p-3 text-emerald-300 text-xs whitespace-pre-wrap">你是內容編輯。請寫一篇給「手工皂新手」的文章。
+目標：提升頁面 CTA 點擊率。
+格式：1200 字、H2/H3 架構、文末 FAQ 3 題。
+語氣：白話、可執行。
+最後附：一段社群貼文版摘要。</pre>
+              <p class="mt-3 text-sm text-emerald-700">同樣是問「寫文章」，加上角色、受眾、目標、格式，結果品質會直接提升。</p>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <p class="font-black text-slate-900 mb-3">🔁 一般 ask 大法（重問流程）</p>
+            <div class="grid md:grid-cols-4 gap-3 text-sm">
+              <div class="rounded-xl bg-white border border-slate-200 p-3"><p class="font-bold">第 1 問</p><p class="text-slate-600 mt-1">先拿草稿（不要期待完美）。</p></div>
+              <div class="rounded-xl bg-white border border-slate-200 p-3"><p class="font-bold">第 2 問</p><p class="text-slate-600 mt-1">要求改成指定格式（條列、表格、步驟）。</p></div>
+              <div class="rounded-xl bg-white border border-slate-200 p-3"><p class="font-bold">第 3 問</p><p class="text-slate-600 mt-1">補上你的情境資料（客群、商品、時間、限制）。</p></div>
+              <div class="rounded-xl bg-white border border-slate-200 p-3"><p class="font-bold">第 4 問</p><p class="text-slate-600 mt-1">要求「錯誤檢查＋可執行清單」再交付。</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-indigo-100 p-6 md:p-8">
+          <h3 class="text-xl font-black text-slate-900">🗂 AI 新手先看這段：怎麼判斷自己學到哪</h3>
+          <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+            <div class="rounded-xl bg-indigo-50 border border-indigo-100 p-4">
+              <p class="font-black text-indigo-700">入門（M1-M2）</p>
+              <p class="text-slate-700 mt-1">能解釋基本名詞，並寫出可重用的 Prompt 結構。</p>
+            </div>
+            <div class="rounded-xl bg-amber-50 border border-amber-100 p-4">
+              <p class="font-black text-amber-700">中階（M3-M6）</p>
+              <p class="text-slate-700 mt-1">會把 AI 放進真實流程，知道哪些步驟必須人工把關。</p>
+            </div>
+            <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-4">
+              <p class="font-black text-emerald-700">可交付（M7-M8）</p>
+              <p class="text-slate-700 mt-1">能完成內容/產品專題，兼顧成效、風險與合規。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+          <h3 class="text-2xl font-black text-slate-900">🧩 新手四階段：學前錯誤 → 學後能力 → 下一步</h3>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
+              <p class="font-black text-slate-900">階段 1：只會一句 ask</p>
+              <p class="mt-2 text-rose-700"><strong>學前常錯：</strong>「幫我寫一篇文章」沒有對象、目標、格式。</p>
+              <p class="mt-2 text-emerald-700"><strong>學後會：</strong>寫出角色＋受眾＋目標＋輸出格式的完整提問。</p>
+              <p class="mt-2 text-slate-600"><strong>下一步：</strong>到 <button onclick="switchTab('tool')" class="underline font-bold">Prompt 工具</button> 練 4 段式模板。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
+              <p class="font-black text-slate-900">階段 2：只看答案，不驗證</p>
+              <p class="mt-2 text-rose-700"><strong>學前常錯：</strong>AI 回什麼就直接貼上去使用。</p>
+              <p class="mt-2 text-emerald-700"><strong>學後會：</strong>用對照、查證、重問，把答案修成可交付版本。</p>
+              <p class="mt-2 text-slate-600"><strong>下一步：</strong>到 <button onclick="switchTab('practice')" class="underline font-bold">互動練習</button> 做查證題與改寫題。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
+              <p class="font-black text-slate-900">階段 3：會問，但不會落地</p>
+              <p class="mt-2 text-rose-700"><strong>學前常錯：</strong>有文字結果，但沒有對應網站/設計/行銷情境。</p>
+              <p class="mt-2 text-emerald-700"><strong>學後會：</strong>把 AI 產出落到頁面、素材、簡報或專案流程中。</p>
+              <p class="mt-2 text-slate-600"><strong>下一步：</strong>去 <a href="tutorial.html" class="underline font-bold">前端手冊</a>、<a href="design-toolkit.html" class="underline font-bold">視覺設計學院</a> 做實作。</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
+              <p class="font-black text-slate-900">階段 4：有產出，沒有成效回看</p>
+              <p class="mt-2 text-rose-700"><strong>學前常錯：</strong>作品做完就結束，沒有追蹤是否有效。</p>
+              <p class="mt-2 text-emerald-700"><strong>學後會：</strong>用 SEO/GEO/GA4 指標回看，知道該改哪一步。</p>
+              <p class="mt-2 text-slate-600"><strong>下一步：</strong>到 <a href="marketing-seo-geo.html" class="underline font-bold">SEO / GEO 實戰</a> 跑優化循環。</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="course-m1m8" class="space-y-4">
+          <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-indigo-500">
+            <h3 class="text-xl font-black text-slate-900">M1 · 大語言模型與生成式 AI 原理 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-indigo-50 text-indigo-700">進度：入門</span></h3>
+            <p class="mt-2 text-slate-600 leading-relaxed">Token、上下文視窗、Transformer、幻覺機制。能解釋「為何 AI 會自信說錯」並選對模型（對話 / 推理 / 多模態）。</p>
+            <p class="text-sm font-bold text-indigo-600 mt-3">實務：比較 GPT-4o、Claude、Gemini 適用場景 · 搭配概念練習「基礎觀念」</p>
+            <div class="mt-3 text-sm text-slate-700 space-y-1">
+              <p><strong>下一步去哪：</strong><button onclick="switchTab('practice')" class="underline font-bold">概念互動練習箱</button>（先做 LLM / Token / 幻覺）</p>
+              <p><strong>需要工具：</strong>ChatGPT 或 Claude 任一即可</p>
+              <p><strong>前置基礎：</strong>0 基礎可直接開始（不用會程式）</p>
+            </div>
+          </div>
+          <div id="ai-tool" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-purple-500">
+            <h3 class="text-xl font-black text-slate-900">M2 · Prompt 工程與 Markdown 工作流 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-purple-50 text-purple-700">進度：入門</span></h3>
+            <p class="mt-2 text-slate-600 leading-relaxed">Role / Task / Context / Constraints / Output；Chain-of-Thought、Few-shot。以 .md 撰寫可複製、可版本控管的指令模板。</p>
+            <p class="text-sm font-bold text-purple-600 mt-3">實務：本站 Prompt 矩陣 · 模擬 AI 回覆預覽</p>
+            <div class="mt-3 text-sm text-slate-700 space-y-1">
+              <p><strong>下一步去哪：</strong><button onclick="switchTab('tool')" class="underline font-bold">Prompt 工具</button>（先做教學培訓或文案情境）</p>
+              <p><strong>需要工具：</strong>Markdown 編輯器 + 任一聊天模型</p>
+              <p><strong>前置基礎：</strong>M1 名詞先懂；0 基礎可接觸</p>
+            </div>
+          </div>
+          <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-cyan-500">
+            <h3 class="text-xl font-black text-slate-900">M3 · RAG 與企業知識應用 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-cyan-50 text-cyan-700">進度：中階</span></h3>
+            <p class="mt-2 text-slate-600 leading-relaxed">文件切片、向量搜尋、引用回答。客服 FAQ、內部 SOP、法規查詢——避免把機密資料丟進公開免費版。</p>
+            <p class="text-sm font-bold text-cyan-600 mt-3">實務：NotebookLM / 自建知識庫概念 · 搭配倫理單元</p>
+            <div class="mt-3 text-sm text-slate-700 space-y-1">
+              <p><strong>下一步去哪：</strong><button onclick="switchTab('practice')" class="underline font-bold">練習箱 RAG 題</button> + NotebookLM 小實驗</p>
+              <p><strong>需要工具：</strong>NotebookLM 或企業知識庫工具、可上傳 PDF</p>
+              <p><strong>前置基礎：</strong>建議先完成 M1~M2；0 基礎可做概念版</p>
+            </div>
+          </div>
+          <div id="ai-game" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-violet-500">
+            <h3 class="text-xl font-black text-slate-900">M4 · AI Agent 與自動化 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-violet-50 text-violet-700">進度：中階</span></h3>
+            <p class="mt-2 text-slate-600 leading-relaxed">任務拆解、工具呼叫（搜尋、API、檔案）。理解 Cursor、Copilot、Zapier+AI 的邊界與風險控管。</p>
+            <p class="text-sm font-bold text-violet-600 mt-3">實務：定義「人類必須審核」的關卡清單</p>
+            <div class="mt-3 text-sm text-slate-700 space-y-1">
+              <p><strong>下一步去哪：</strong><button onclick="switchTab('game')" class="underline font-bold">小遊戲情境決策</button>（先練「哪些不能全自動」）</p>
+              <p><strong>需要工具：</strong>Cursor / Copilot / Zapier（三選一先開始）</p>
+              <p><strong>前置基礎：</strong>建議先有 M2；0 基礎先做流程圖與權限邊界</p>
+            </div>
+          </div>
+          <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-emerald-500">
+            <h3 class="text-xl font-black text-slate-900">M5 · 開發協作（Vibe Coding / Code Review） <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-emerald-50 text-emerald-700">進度：中階</span></h3>
+            <p class="mt-2 text-slate-600 leading-relaxed">AI 生成 HTML/CSS/JS、單元測試、重構建議。人類負責架構、安全、RWD、無障礙與 GA4 事件。</p>
+            <p class="text-sm font-bold text-emerald-600 mt-3">實務：<a href="tutorial.html" class="underline">前端手冊</a> + IDE 外掛</p>
+            <div class="mt-3 text-sm text-slate-700 space-y-1">
+              <p><strong>下一步去哪：</strong><a href="tutorial.html" class="underline font-bold">前端手冊</a>（每課至少跑一次沙盒）</p>
+              <p><strong>需要工具：</strong>VS Code / Cursor、瀏覽器 DevTools、Git 基本指令</p>
+              <p><strong>前置基礎：</strong>HTML/CSS/JS 基礎；0 基礎先補手冊入門課</p>
+            </div>
+          </div>
+          <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-amber-500">
+            <h3 class="text-xl font-black text-slate-900">M6 · 多模態：影像、影片、語音 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-amber-50 text-amber-700">進度：中階</span></h3>
+            <p class="mt-2 text-slate-600 leading-relaxed">Midjourney / Flux 提示詞、Runway / Kling 短片、Whisper 字幕、TTS 配音。先懂攝影曝光再生成，品質才可控。</p>
+            <p class="text-sm font-bold text-amber-600 mt-3">實務：<a href="photography.html" class="underline">攝影學堂</a></p>
+            <div class="mt-3 text-sm text-slate-700 space-y-1">
+              <p><strong>下一步去哪：</strong><a href="photography.html" class="underline font-bold">攝影學堂</a> + <button onclick="switchTab('tool')" class="underline font-bold">影像創作 Prompt</button></p>
+              <p><strong>需要工具：</strong>MJ / DALL·E / Runway 擇一，手機或相機做對照拍攝</p>
+              <p><strong>前置基礎：</strong>建議先懂曝光三角；0 基礎可先做手機路線</p>
+            </div>
+          </div>
+          <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-rose-500">
+            <h3 class="text-xl font-black text-slate-900">M7 · 行銷、SEO 與 GEO <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-rose-50 text-rose-700">進度：可交付</span></h3>
+            <p class="mt-2 text-slate-600 leading-relaxed">AI 輔助內容產出 + 人工 E-E-A-T；結構化段落利於 Google 與 AI 摘要引用；GA4 驗證轉換。</p>
+            <p class="text-sm font-bold text-rose-600 mt-3">實務：<a href="marketing-seo-geo.html" class="underline">SEO / GEO 實戰</a></p>
+            <div class="mt-3 text-sm text-slate-700 space-y-1">
+              <p><strong>下一步去哪：</strong><a href="marketing-seo-geo.html" class="underline font-bold">SEO / GEO 實戰頁</a>（跑一輪內容優化）</p>
+              <p><strong>需要工具：</strong>Search Console、GA4、內容編輯器</p>
+              <p><strong>前置基礎：</strong>M2 結構化提問必備；0 基礎可先做文案流程，不做技術 SEO</p>
+            </div>
+          </div>
+          <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 border-l-4 border-l-slate-500">
+            <h3 class="text-xl font-black text-slate-900">M8 · 治理、倫理與合規 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-slate-100 text-slate-700">進度：可交付</span></h3>
+            <p class="mt-2 text-slate-600 leading-relaxed">幻覺查證、個資法、版權、偏見、深度偽造標示。企業採用 ChatGPT Team / Azure OpenAI 的決策要點。</p>
+            <p class="text-sm font-bold text-slate-600 mt-3">實務：概念練習「倫理與安全」· 小遊戲「幻覺辨識」</p>
+            <div class="mt-3 text-sm text-slate-700 space-y-1">
+              <p><strong>下一步去哪：</strong><button onclick="switchTab('practice')" class="underline font-bold">倫理安全練習</button> + <button onclick="switchTab('game')" class="underline font-bold">幻覺辨識遊戲</button></p>
+              <p><strong>需要工具：</strong>查證來源、企業資料分級清單、法務或管理規範文件</p>
+              <p><strong>前置基礎：</strong>所有階段都應並行學；0 基礎也必學</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="course-next-step" class="bg-white rounded-3xl border border-indigo-100 p-6 md:p-8">
+          <h3 class="text-xl font-black text-slate-900">🚦 M1–M8 學完後下一步：依你的起點選路徑</h3>
+          <div class="overflow-x-auto mt-4 rounded-xl border border-slate-200">
+            <table class="min-w-[860px] w-full text-sm">
+              <thead class="bg-slate-50">
+                <tr class="text-left text-slate-700">
+                  <th class="px-3 py-2 border-b">你的起點</th>
+                  <th class="px-3 py-2 border-b">先修模組</th>
+                  <th class="px-3 py-2 border-b">下一步頁面</th>
+                  <th class="px-3 py-2 border-b">必備工具</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-700">
+                <tr><td class="px-3 py-2 border-b">0 基礎（不會程式）</td><td class="px-3 py-2 border-b">M1 → M2 → M8</td><td class="px-3 py-2 border-b"><button onclick="switchTab('practice')" class="underline font-bold">概念練習</button>、<button onclick="switchTab('tool')" class="underline font-bold">Prompt 工具</button></td><td class="px-3 py-2 border-b">ChatGPT/Claude + 筆記工具</td></tr>
+                <tr><td class="px-3 py-2 border-b">想做網站/產品</td><td class="px-3 py-2 border-b">M2 → M5 → M4</td><td class="px-3 py-2 border-b"><a href="tutorial.html" class="underline font-bold">前端手冊</a>、<button onclick="switchTab('game')" class="underline font-bold">情境決策</button></td><td class="px-3 py-2 border-b">Cursor/VS Code + Git</td></tr>
+                <tr><td class="px-3 py-2 border-b">想做影像/短片</td><td class="px-3 py-2 border-b">M1 → M6 → M8</td><td class="px-3 py-2 border-b"><a href="photography.html" class="underline font-bold">攝影學堂</a>、<button onclick="switchTab('tool')" class="underline font-bold">影像 Prompt</button></td><td class="px-3 py-2 border-b">手機/相機 + 產圖工具</td></tr>
+                <tr><td class="px-3 py-2">想做行銷成效</td><td class="px-3 py-2">M2 → M7 → M3</td><td class="px-3 py-2"><a href="marketing-seo-geo.html" class="underline font-bold">SEO/GEO 實戰</a></td><td class="px-3 py-2">GA4 + Search Console</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 text-white rounded-[2rem] p-8">
+          <h3 class="font-black text-lg mb-4">🗓 建議學習路徑（16 週）</h3>
+          <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div class="rounded-xl bg-white/10 p-4"><span class="font-bold text-cyan-300">週 1–2</span><p class="text-slate-300 mt-1">M1–M2 原理 + Prompt</p></div>
+            <div class="rounded-xl bg-white/10 p-4"><span class="font-bold text-purple-300">週 3–4</span><p class="text-slate-300 mt-1">M3 RAG + M8 倫理</p></div>
+            <div class="rounded-xl bg-white/10 p-4"><span class="font-bold text-emerald-300">週 5–8</span><p class="text-slate-300 mt-1">M4–M5 Agent + 開發</p></div>
+            <div class="rounded-xl bg-white/10 p-4"><span class="font-bold text-amber-300">週 9–16</span><p class="text-slate-300 mt-1">M6–M7 多模態 + 行銷專題</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto"></footer>
+
+  <div id="course-prompt-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 p-4 md:p-6">
+    <div class="max-w-5xl mx-auto h-full flex items-center">
+      <div class="w-full max-h-[88vh] overflow-y-auto rounded-2xl bg-white border border-slate-200 p-5 md:p-6">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <h3 class="text-xl md:text-2xl font-black text-slate-900">AI 全主題英文指令對照表</h3>
+            <p class="text-sm text-slate-600 mt-1">適用文案、設計、前端、行銷、影像。點一列即可複製。</p>
+          </div>
+          <button type="button" onclick="closeCoursePromptModal()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">關閉 ✕</button>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold">
+          <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-slate-900 text-white" data-tab-group="course-prompt" data-tab-value="all">全部</button>
+          <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700" data-tab-group="course-prompt" data-tab-value="copy">文案</button>
+          <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700" data-tab-group="course-prompt" data-tab-value="design">設計/影像</button>
+          <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700" data-tab-group="course-prompt" data-tab-value="dev">前端</button>
+          <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700" data-tab-group="course-prompt" data-tab-value="marketing">行銷</button>
+        </div>
+        <div class="mt-3 overflow-x-auto rounded-xl border border-slate-200">
+          <table class="min-w-[960px] w-full text-sm">
+            <thead class="bg-slate-50 text-slate-700">
+              <tr><th class="px-3 py-2 border-b text-left">場景</th><th class="px-3 py-2 border-b text-left">用途</th><th class="px-3 py-2 border-b text-left">可複製英文指令</th></tr>
+            </thead>
+            <tbody class="text-slate-700">
+              <tr data-copy-booster="Structure the output strictly using the AIDA framework: Attention, Interest, Desire, Action." data-prompt-cat="copy" class="cursor-pointer hover:bg-slate-50"><td class="px-3 py-2 border-b">文案</td><td class="px-3 py-2 border-b">轉換框架</td><td class="px-3 py-2 border-b font-mono text-xs">Structure the output strictly using the AIDA framework...</td></tr>
+              <tr data-copy-booster="Apply the PAS copywriting framework: Problem, Agitation, Solution. Maintain an empathetic tone." data-prompt-cat="copy" class="cursor-pointer hover:bg-slate-50"><td class="px-3 py-2 border-b">文案</td><td class="px-3 py-2 border-b">痛點說服</td><td class="px-3 py-2 border-b font-mono text-xs">Apply the PAS copywriting framework...</td></tr>
+              <tr data-copy-booster="minimalist editorial composition, clear typography hierarchy, balanced whitespace grid" data-prompt-cat="design" class="cursor-pointer hover:bg-slate-50"><td class="px-3 py-2 border-b">設計/影像</td><td class="px-3 py-2 border-b">版面層級</td><td class="px-3 py-2 border-b font-mono text-xs">minimalist editorial composition, clear typography hierarchy, balanced whitespace grid</td></tr>
+              <tr data-copy-booster="brand-consistent visual system, controlled color palette, reusable component style" data-prompt-cat="design" class="cursor-pointer hover:bg-slate-50"><td class="px-3 py-2 border-b">設計/影像</td><td class="px-3 py-2 border-b">品牌一致</td><td class="px-3 py-2 border-b font-mono text-xs">brand-consistent visual system, controlled color palette, reusable component style</td></tr>
+              <tr data-copy-booster="Refactor this component using Tailwind CSS mobile-first approach. Ensure zero horizontal overflow on screens down to 320px width." data-prompt-cat="dev" class="cursor-pointer hover:bg-slate-50"><td class="px-3 py-2 border-b">前端</td><td class="px-3 py-2 border-b">RWD 防禦</td><td class="px-3 py-2 border-b font-mono text-xs">Refactor this component using Tailwind CSS mobile-first approach...</td></tr>
+              <tr data-copy-booster="Audit this JavaScript and database insertion layer for security vulnerabilities. Prevent SQL Injection, enforce XSS sanitization." data-prompt-cat="dev" class="cursor-pointer hover:bg-slate-50"><td class="px-3 py-2 border-b">前端</td><td class="px-3 py-2 border-b">安全稽核</td><td class="px-3 py-2 border-b font-mono text-xs">Audit this JavaScript and database insertion layer for security vulnerabilities...</td></tr>
+              <tr data-copy-booster="Create a 30-day SEO content sprint plan with weekly KPIs, topic clusters, and measurable conversion checkpoints." data-prompt-cat="marketing" class="cursor-pointer hover:bg-slate-50"><td class="px-3 py-2 border-b">行銷</td><td class="px-3 py-2 border-b">專案規劃</td><td class="px-3 py-2 border-b font-mono text-xs">Create a 30-day SEO content sprint plan with weekly KPIs...</td></tr>
+              <tr data-copy-booster="Generate 5 A/B test hypotheses for CTA copy and explain expected impact, risk, and evaluation metric for each." data-prompt-cat="marketing" class="cursor-pointer hover:bg-slate-50"><td class="px-3 py-2 border-b">行銷</td><td class="px-3 py-2 border-b">A/B 測試</td><td class="px-3 py-2 border-b font-mono text-xs">Generate 5 A/B test hypotheses for CTA copy...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      if (tabId === 'practice') window.location.href = 'ai-practice.html';
+      else if (tabId === 'tool') window.location.href = 'ai-prompt-tool.html';
+      else if (tabId === 'game') window.location.href = 'ai-game-center.html';
+      else window.location.href = 'ai-learning-map.html';
+    }
+    function copyBoosterText(text) {
+      if (!text) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text);
+        return;
+      }
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    function openCoursePromptModal() {
+      var m = document.getElementById('course-prompt-modal');
+      if (!m) return;
+      m.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCoursePromptModal() {
+      var m = document.getElementById('course-prompt-modal');
+      if (!m) return;
+      m.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    function filterPromptTable(group, value) {
+      var tabs = document.querySelectorAll('[data-tab-group="' + group + '"]');
+      tabs.forEach(function(btn) {
+        var active = btn.getAttribute('data-tab-value') === value;
+        btn.classList.toggle('bg-slate-900', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('bg-white', !active);
+        btn.classList.toggle('border', !active);
+        btn.classList.toggle('border-slate-300', !active);
+        btn.classList.toggle('text-slate-700', !active);
+      });
+      document.querySelectorAll('[data-prompt-cat]').forEach(function(row) {
+        var cat = row.getAttribute('data-prompt-cat');
+        row.classList.toggle('hidden', value !== 'all' && cat !== value);
+      });
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', 'components/header.html');
+      includeComponentSlot('global-footer', 'components/footer.html');
+      var coursePromptModal = document.getElementById('course-prompt-modal');
+      if (coursePromptModal) {
+        coursePromptModal.addEventListener('click', function(e) {
+          if (e.target === coursePromptModal) closeCoursePromptModal();
+        });
+        coursePromptModal.querySelectorAll('[data-copy-booster]').forEach(function(row) {
+          row.addEventListener('click', function() {
+            copyBoosterText(row.getAttribute('data-copy-booster') || '');
+          });
+        });
+      }
+      document.querySelectorAll('[data-tab-group="course-prompt"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          filterPromptTable('course-prompt', btn.getAttribute('data-tab-value') || 'all');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

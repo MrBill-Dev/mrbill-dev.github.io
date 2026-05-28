@@ -210,3 +210,60 @@ function initSidebarKeywordSearch(containerId, options) {
 
     input.addEventListener('input', runFilter);
 }
+
+/** 全站錨點平滑捲動：統一處理 a[href*="#"] */
+function getGlobalScrollOffset() {
+    var header = document.getElementById('global-header');
+    var headerHeight = header ? header.getBoundingClientRect().height : 80;
+    return Math.max(72, Math.round(headerHeight + 12));
+}
+
+function scrollToHashTarget(hash, updateHistory) {
+    if (!hash || hash === '#') return false;
+    var id = decodeURIComponent(hash.replace(/^#/, ''));
+    if (!id) return false;
+    var target = document.getElementById(id);
+    if (!target) return false;
+    var top = target.getBoundingClientRect().top + window.scrollY - getGlobalScrollOffset();
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    if (updateHistory) history.pushState(null, '', '#' + encodeURIComponent(id));
+    return true;
+}
+
+function initGlobalAnchorSmoothScroll() {
+    if (document.body && document.body.dataset.anchorSmoothInit === '1') return;
+    if (document.body) document.body.dataset.anchorSmoothInit = '1';
+
+    document.addEventListener('click', function(e) {
+        var anchor = e.target.closest('a[href]');
+        if (!anchor) return;
+        var rawHref = anchor.getAttribute('href') || '';
+        if (!rawHref || rawHref === '#') return;
+
+        var url;
+        try {
+            url = new URL(rawHref, window.location.href);
+        } catch (_) {
+            return;
+        }
+
+        var isSamePage = url.origin === window.location.origin &&
+            url.pathname === window.location.pathname &&
+            url.search === window.location.search;
+        if (!isSamePage || !url.hash) return;
+
+        if (scrollToHashTarget(url.hash, true)) {
+            e.preventDefault();
+        }
+    });
+
+    window.addEventListener('load', function() {
+        if (!window.location.hash) return;
+        // 等組件/內容渲染完成後再滾動，避免定位偏差
+        setTimeout(function() {
+            scrollToHashTarget(window.location.hash, false);
+        }, 80);
+    });
+}
+
+initGlobalAnchorSmoothScroll();

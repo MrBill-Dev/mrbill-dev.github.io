@@ -18,31 +18,174 @@
     }
   </script>
   <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
     .academy-card { border-radius: 1rem; border: 1px solid rgba(148,163,184,0.25); background: rgba(255,255,255,0.9); }
     .chip { border: 1px solid #cbd5e1; background: #fff; color: #334155; border-radius: 9999px; padding: 0.35rem 0.75rem; font-size: 0.75rem; font-weight: 700; }
     .chip.active { background: #1e1b4b; color: #fff; border-color: #1e1b4b; }
+    .mode-switch-wrap { border-radius: 1rem; border: 1px solid #c4b5fd; background: linear-gradient(135deg, #eef2ff 0%, #faf5ff 45%, #ecfeff 100%); box-shadow: 0 10px 28px rgba(79, 70, 229, 0.14); }
+    .mode-btn { border: 1px solid #c7d2fe; background: #fff; color: #4338ca; border-radius: 9999px; padding: 0.5rem 0.9rem; font-size: 0.82rem; font-weight: 800; transition: all .2s ease; }
+    .mode-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(79, 70, 229, 0.2); }
+    .mode-btn-active { color: #fff; border-color: transparent; background: linear-gradient(135deg, #6d28d9 0%, #4f46e5 55%, #0284c7 100%); box-shadow: 0 10px 22px rgba(79, 70, 229, 0.34); animation: modePulse 1.1s ease; }
     .card-pop { animation: cardPop 0.55s ease; }
     @keyframes cardPop { 0% { transform: translateY(6px); opacity: 0.6; } 100% { transform: translateY(0); opacity: 1; } }
+    @keyframes modePulse { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col text-lg">
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full space-y-8">
-    <section class="relative overflow-hidden rounded-3xl border border-violet-200 shadow-xl">
-      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80" alt="視覺設計學院主視覺" class="w-full h-[280px] md:h-[360px] object-cover" loading="lazy" />
+  <main class="max-w-[90rem] mx-auto flex-grow w-full">
+    <section class="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80" alt="視覺設計學院主視覺" class="w-full h-[300px] md:h-[420px] object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-r from-violet-950/80 via-fuchsia-900/70 to-indigo-900/60"></div>
-      <div class="absolute inset-0 p-6 md:p-10 flex items-end">
-        <div class="max-w-3xl text-white">
-          <p class="text-xs md:text-sm font-black tracking-[0.2em] uppercase text-violet-300">Design Skills Academy</p>
-          <h1 class="text-3xl md:text-5xl font-black leading-tight mt-2">視覺設計學院</h1>
-          <p class="mt-3 text-sm md:text-base text-slate-200">不是一次學完所有工具，而是先選對工具、做到可交付，再逐步升級成多工具整合能力。</p>
+      <div class="absolute inset-0">
+        <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
+          <div class="pb-6 md:pb-10 max-w-3xl text-white">
+            <p class="text-xs md:text-sm font-black tracking-[0.2em] uppercase text-violet-300">Design Skills Academy</p>
+            <h1 class="text-3xl md:text-5xl font-black leading-tight mt-2">視覺設計學院</h1>
+            <p class="mt-3 text-sm md:text-base text-slate-200">不是一次學完所有工具，而是先選對工具、做到可交付，再逐步升級成多工具整合能力。</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="bg-gradient-to-r from-violet-50 via-fuchsia-50 to-indigo-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5">
+    <div class="px-4 lg:px-6 py-8 space-y-8">
+
+    <section class="bg-white rounded-3xl border border-slate-200 p-5 md:p-6 space-y-4" data-mode-group="design" data-mode="all">
+      <h2 class="text-xl md:text-2xl font-black text-slate-900">導讀前言</h2>
+      <p class="text-base md:text-lg font-semibold text-slate-900 leading-relaxed">很多人在學設計時，最容易卡住的問題，不是工具太難，而是一次想學太多。其實你不需要先學會所有軟體，真正重要的是先完成一個能交付的作品。</p>
+      <p class="text-sm text-slate-700 leading-relaxed">這個章節會帶你先選擇適合自己的工作方式。可以從手作設計開始，把版型、字級與視覺節奏練穩；也可以從 AI 輔助開始，快速產出主視覺與設計方向。兩條路都沒有對錯，重點是先完成第一版。</p>
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+        <p class="text-sm font-black text-slate-900">建議的學習順序</p>
+        <ol class="mt-2 list-decimal pl-5 text-sm text-slate-700 space-y-1">
+          <li>選擇一條適合自己的製作路線。</li>
+          <li>完成一張主視覺或版型。</li>
+          <li>延伸不同尺寸與應用情境。</li>
+          <li>再逐步加入進階技巧與多工具整合。</li>
+        </ol>
+      </div>
+      <p class="text-sm text-slate-700 leading-relaxed">不要急著一次看完所有內容，也不要同時修改太多細節。當你真正完成第一個作品後，後面的教學會變得更容易理解。</p>
+    </section>
+
+    <section class="mode-switch-wrap p-4 md:p-5 space-y-3" data-mode-group="design" data-mode="all">
+      <p class="font-black text-slate-900">切換瀏覽模式，立即改變學習路線</p>
+      <div class="flex flex-wrap gap-2 text-sm">
+        <button type="button" class="mode-btn mode-btn-active" data-mode-btn="design" data-mode-value="manual">💡 手作導向</button>
+        <button type="button" class="mode-btn" data-mode-btn="design" data-mode-value="ai">⚡ AI 協作導向</button>
+        <button type="button" class="mode-btn" data-mode-btn="design" data-mode-value="all">全部顯示</button>
+      </div>
+      <p id="design-mode-indicator" class="text-xs font-bold text-violet-700">目前模式：手作導向</p>
+    </section>
+
+    <section class="rounded-3xl border border-violet-200 bg-white/80 backdrop-blur p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="ai">
+      <h2 class="text-2xl font-black text-slate-900">AI 視覺設計一次到位急救包</h2>
+      <p class="text-sm text-slate-700">本區提供一個可直接套用的範例補丁，先讓第一張圖成功，再進入下方流程做主題延伸與規格化輸出。</p>
+      <div class="rounded-2xl border border-violet-100 bg-violet-50 p-4 text-sm">
+        <p class="font-black text-violet-900">AI 速成流程</p>
+        <ol class="mt-2 list-decimal pl-5 text-slate-700 space-y-1">
+          <li>先用急救補丁產生第一張可用圖。</li>
+          <li>到下方指令庫選主題並擴充風格方向。</li>
+          <li>用一鍵生成任務產出給 AI 的追問清單。</li>
+          <li>完成多尺寸輸出後，進入下一頁做內容整合。</li>
+        </ol>
+      </div>
+      <div class="grid gap-4 text-sm">
+        <article class="academy-card p-4 border-violet-200 bg-violet-50/70">
+          <p class="font-black text-violet-800">範例補丁，先求一次成功</p>
+          <p class="mt-2 text-slate-700">很多新手出圖失敗，不是因為不會英文，而是沒把版型、風格、品牌限制一次講清楚。先加這段設計補丁再送出。</p>
+          <pre class="mt-2 rounded-xl bg-slate-900 p-3 text-emerald-300 text-xs whitespace-pre-wrap">[設計主題], clean editorial layout, clear typography hierarchy, balanced whitespace, brand color system, social ad key visual, high contrast CTA focus</pre>
+          <p class="mt-2 text-slate-600">可直接貼進 Midjourney / DALL·E / Firefly / 其他視覺生成工具。</p>
+          <a href="#en-booster-zone" class="inline-block mt-3 px-3 py-1.5 rounded-lg bg-violet-600 text-white text-xs font-bold no-underline">走 AI 協作路線</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="en-booster-zone" class="home-band p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="ai">
+      <h2 class="text-2xl font-black text-slate-900">🎨 AI 視覺生成英文指令庫</h2>
+      <p class="text-sm text-slate-600">本指令庫採主題靈感優先，適用於社群貼文、廣告主視覺與提案封面。建議先選主題，再複製指令，最後補上品牌色與文案限制。</p>
+      <div class="rounded-2xl border border-violet-100 bg-violet-50 p-4 text-sm">
+        <p class="font-black text-violet-900">AI 協作教學，不講空理論，直接做</p>
+        <ol class="mt-2 list-decimal pl-5 text-slate-700 space-y-1">
+          <li>先選一個主題，例如美妝、餐飲、科技。</li>
+          <li>複製指令後，補上你的品牌名與產品名。</li>
+          <li>先出 4 張，挑 1 張再做多尺寸延伸，像是 1:1、4:5、9:16。</li>
+        </ol>
+      </div>
+      <div class="rounded-2xl border border-violet-100 bg-violet-50 p-4 text-sm">
+        <p class="font-black text-violet-900">新手提點：指令集差異在哪？</p>
+        <ul class="mt-2 list-disc pl-5 text-slate-700 space-y-1">
+          <li>中文也可以學 Prompt 結構；重點不是語言，而是是否把「版型、字級層次、品牌限制、交付尺寸」講完整。</li>
+          <li>一般一句話常只得到靈感圖；指令集會把輸出規格寫清楚，結果更穩、可重複、可交付。</li>
+        </ul>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="openDesignPromptModal()" class="px-3 py-2 rounded-lg bg-violet-600 text-white text-sm font-bold">開啟海量指令對照表</button>
+        <span class="text-xs text-slate-500 self-center">含社群貼文 / 廣告 KV / 品牌視覺 / 文案 / 前端等分類</span>
+      </div>
+      <details class="rounded-2xl border border-slate-200 bg-white p-4">
+        <summary class="cursor-pointer font-black text-slate-900">展開主題靈感指令，可點擊一鍵複製</summary>
+        <div class="mt-3 grid md:grid-cols-2 gap-3 text-sm">
+          <button type="button" data-copy-booster="Beauty skincare social campaign, soft pastel palette, clean premium typography, product-focused key visual, high-trust brand mood" class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-violet-300"><p class="font-black text-slate-900">美妝保養主題</p><p class="mt-1 font-mono text-xs text-slate-600">Beauty skincare social campaign, soft pastel palette...</p></button>
+          <button type="button" data-copy-booster="Food delivery promotion poster, appetizing color contrast, bold discount badge, clear CTA button, fast-consumption layout" class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-violet-300"><p class="font-black text-slate-900">餐飲促銷主題</p><p class="mt-1 font-mono text-xs text-slate-600">Food delivery promotion poster, appetizing color contrast...</p></button>
+          <button type="button" data-copy-booster="Tech product launch key visual, futuristic gradient background, precise grid system, sharp typography hierarchy, innovation-focused mood" class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-violet-300"><p class="font-black text-slate-900">科技新品主題</p><p class="mt-1 font-mono text-xs text-slate-600">Tech product launch key visual, futuristic gradient background...</p></button>
+          <button type="button" data-copy-booster="Education course enrollment ad, friendly visual style, clear module blocks, trust-building instructor highlight, conversion CTA" class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-violet-300"><p class="font-black text-slate-900">教育課程主題</p><p class="mt-1 font-mono text-xs text-slate-600">Education course enrollment ad, friendly visual style...</p></button>
+          <button type="button" data-copy-booster="Travel campaign social post, destination storytelling layout, vibrant holiday palette, immersive scene composition, booking CTA emphasis" class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-violet-300"><p class="font-black text-slate-900">旅遊行銷主題</p><p class="mt-1 font-mono text-xs text-slate-600">Travel campaign social post, destination storytelling layout...</p></button>
+          <button type="button" data-copy-booster="Fitness challenge campaign creative, energetic color blocking, motivational headline, progress-driven icon system, action-first CTA" class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-violet-300"><p class="font-black text-slate-900">健身活動主題</p><p class="mt-1 font-mono text-xs text-slate-600">Fitness challenge campaign creative, energetic color blocking...</p></button>
+          <button type="button" data-copy-booster="Seasonal campaign visual direction for [your topic], generate one core idea and extend consistently to 1:1, 4:5, 9:16, and 16:9 layouts with coherent branding" class="text-left rounded-xl border border-slate-200 bg-white p-4 hover:border-violet-300 md:col-span-2"><p class="font-black text-slate-900">主題延伸一鍵多尺寸</p><p class="mt-1 font-mono text-xs text-slate-600">Seasonal campaign visual direction for [your topic]...</p></button>
+        </div>
+        <div class="mt-3 rounded-2xl border border-violet-200 bg-violet-50 p-4">
+          <p class="font-black text-violet-900 mb-2">完整複製盒</p>
+          <pre id="design-en-master-prompt" class="rounded-xl bg-slate-900 p-3 text-emerald-300 text-xs whitespace-pre-wrap">/imagine prompt: A premium social ad key visual for [brand/product], clean editorial layout, clear typography hierarchy, controlled brand color palette, high-contrast CTA area, realistic material styling, production-ready composition, adapt-ready for 1:1, 4:5, 9:16, and 16:9, --style raw --v 6.0</pre>
+          <button type="button" data-copy-target="design-en-master-prompt" class="mt-2 px-3 py-1.5 rounded-lg bg-violet-600 text-white text-xs font-bold">複製完整指令</button>
+        </div>
+      </details>
+    </section>
+
+    <div id="design-prompt-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 p-4 md:p-6">
+      <div class="max-w-5xl mx-auto h-full flex items-center">
+        <div class="w-full max-h-[88vh] overflow-y-auto rounded-2xl bg-white border border-slate-200 p-5 md:p-6">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h3 class="text-xl md:text-2xl font-black text-slate-900">海量英文指令對照表（教學版）</h3>
+              <p class="text-sm text-slate-600 mt-1">先看中文用途，再複製英文指令。每列都可點擊複製。</p>
+            </div>
+            <button type="button" onclick="closeDesignPromptModal()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">關閉 ✕</button>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold">
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-violet-600 text-white" data-tab-group="design-prompt" data-tab-value="all">全部</button>
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-violet-200 text-violet-700" data-tab-group="design-prompt" data-tab-value="design">設計</button>
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-violet-200 text-violet-700" data-tab-group="design-prompt" data-tab-value="copy">文案</button>
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-violet-200 text-violet-700" data-tab-group="design-prompt" data-tab-value="dev">前端</button>
+            <button type="button" class="prompt-tab-btn px-2.5 py-1.5 rounded-lg bg-white border border-violet-200 text-violet-700" data-tab-group="design-prompt" data-tab-value="marketing">行銷</button>
+          </div>
+          <div class="mt-3 overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-[980px] w-full text-sm">
+              <thead class="bg-slate-50 text-slate-700">
+                <tr>
+                  <th class="px-3 py-2 border-b text-left">分類</th>
+                  <th class="px-3 py-2 border-b text-left">用途</th>
+                  <th class="px-3 py-2 border-b text-left">英文指令</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-700">
+                <tr data-copy-booster="minimalist editorial composition, clear typography hierarchy, balanced whitespace grid" data-prompt-cat="design" class="cursor-pointer hover:bg-violet-50/50"><td class="px-3 py-2 border-b">設計</td><td class="px-3 py-2 border-b">留白版型</td><td class="px-3 py-2 border-b font-mono text-xs">minimalist editorial composition, clear typography hierarchy, balanced whitespace grid</td></tr>
+                <tr data-copy-booster="brand-consistent visual system, controlled color palette, reusable component style" data-prompt-cat="design" class="cursor-pointer hover:bg-violet-50/50"><td class="px-3 py-2 border-b">設計</td><td class="px-3 py-2 border-b">品牌一致</td><td class="px-3 py-2 border-b font-mono text-xs">brand-consistent visual system, controlled color palette, reusable component style</td></tr>
+                <tr data-copy-booster="premium product mockup, soft directional lighting, clean composition, realistic material rendering" data-prompt-cat="design" class="cursor-pointer hover:bg-violet-50/50"><td class="px-3 py-2 border-b">設計</td><td class="px-3 py-2 border-b">商品主視覺</td><td class="px-3 py-2 border-b font-mono text-xs">premium product mockup, soft directional lighting, clean composition, realistic material rendering</td></tr>
+                <tr data-copy-booster="Create 5 headline variants with one primary CTA for an Instagram campaign in Traditional Chinese." data-prompt-cat="copy" class="cursor-pointer hover:bg-violet-50/50"><td class="px-3 py-2 border-b">文案</td><td class="px-3 py-2 border-b">社群標題</td><td class="px-3 py-2 border-b font-mono text-xs">Create 5 headline variants with one primary CTA for an Instagram campaign in Traditional Chinese.</td></tr>
+                <tr data-copy-booster="Structure the output strictly using the AIDA framework: Attention, Interest, Desire, Action." data-prompt-cat="copy" class="cursor-pointer hover:bg-violet-50/50"><td class="px-3 py-2 border-b">文案</td><td class="px-3 py-2 border-b">轉換框架</td><td class="px-3 py-2 border-b font-mono text-xs">Structure the output strictly using the AIDA framework: Attention, Interest, Desire, Action.</td></tr>
+                <tr data-copy-booster="Refactor this component using Tailwind CSS mobile-first approach. Ensure zero horizontal overflow on screens down to 320px width." data-prompt-cat="dev" class="cursor-pointer hover:bg-violet-50/50"><td class="px-3 py-2 border-b">前端</td><td class="px-3 py-2 border-b">RWD 防禦</td><td class="px-3 py-2 border-b font-mono text-xs">Refactor this component using Tailwind CSS mobile-first approach...</td></tr>
+                <tr data-copy-booster="Audit this JavaScript and database insertion layer for security vulnerabilities. Prevent SQL Injection, enforce XSS sanitization." data-prompt-cat="dev" class="cursor-pointer hover:bg-violet-50/50"><td class="px-3 py-2 border-b">前端</td><td class="px-3 py-2 border-b">安全稽核</td><td class="px-3 py-2 border-b font-mono text-xs">Audit this JavaScript and database insertion layer for security vulnerabilities...</td></tr>
+                <tr data-copy-booster="Create a 30-day SEO content sprint plan with weekly KPIs, topic clusters, and measurable conversion checkpoints." data-prompt-cat="marketing" class="cursor-pointer hover:bg-violet-50/50"><td class="px-3 py-2 border-b">行銷</td><td class="px-3 py-2 border-b">專案規劃</td><td class="px-3 py-2 border-b font-mono text-xs">Create a 30-day SEO content sprint plan with weekly KPIs...</td></tr>
+                <tr data-copy-booster="Generate 5 A/B test hypotheses for CTA copy and explain expected impact, risk, and evaluation metric for each." data-prompt-cat="marketing" class="cursor-pointer hover:bg-violet-50/50"><td class="px-3 py-2 border-b">行銷</td><td class="px-3 py-2 border-b">A/B 測試</td><td class="px-3 py-2 border-b font-mono text-xs">Generate 5 A/B test hypotheses for CTA copy...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="bg-gradient-to-r from-violet-50 via-fuchsia-50 to-indigo-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">學前 vs 學後（新手先看）</h2>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
         <article class="academy-card p-4"><p class="font-black text-rose-700">學前</p><p class="mt-1 text-slate-700">看很多作品會羨慕，但不知道該從哪個工具下手。</p></article>
@@ -51,8 +194,16 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8">
+    <section id="design-diy-path" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">工具分工地圖（情境導向）</h2>
+      <div class="mt-3 rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm">
+        <p class="font-black text-indigo-900">手作模式教學（照這個做）</p>
+        <ol class="mt-2 list-decimal pl-5 text-slate-700 space-y-1">
+          <li>Figma 先排 1 個版型（標題、圖區、CTA）。</li>
+          <li>Photoshop 修主圖，優先可讀性與主體辨識。</li>
+          <li>Canva 批量輸出社群尺寸，最後檢查字級與留白。</li>
+        </ol>
+      </div>
       <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
         <article class="rounded-2xl border border-sky-100 bg-sky-50 p-4"><p class="font-black text-sky-700">Photoshop</p><p class="mt-1 text-slate-700">修圖、去背、色調調整，讓素材品質達標。</p></article>
         <article class="rounded-2xl border border-amber-100 bg-amber-50 p-4"><p class="font-black text-amber-700">Illustrator</p><p class="mt-1 text-slate-700">Logo、icon、向量圖，解決品牌資產與輸出一致性。</p></article>
@@ -61,7 +212,7 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">對錯示範：設計不是堆特效</h2>
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
         <article class="academy-card p-5 border-rose-200 bg-rose-50/70">
@@ -85,7 +236,7 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-6">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-6" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">圖文教學：活動主視覺完整流程</h2>
       <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80" alt="視覺設計流程工作桌示意" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
       <div class="grid md:grid-cols-4 gap-3 text-sm">
@@ -96,7 +247,7 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">真實長案例：活動主視覺從亂到穩</h2>
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
         <article class="academy-card p-4 border-rose-200 bg-rose-50/70">
@@ -110,7 +261,7 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">互動工具：先選情境，再選程度</h2>
       <p class="text-sm text-slate-600">你不用全部工具都會。先選你目前情境與程度，系統會推薦最短學習路徑與可執行任務。</p>
       <div class="space-y-3">
@@ -132,22 +283,22 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
-      <h2 class="text-2xl font-black text-slate-900">一鍵生成我的設計任務單</h2>
-      <p class="text-sm text-slate-600">輸入你的產業、目標對象、輸出平台，系統會給你「工具順序 + 交付清單 + 檢查重點」。</p>
+    <section id="design-ai-task-gen" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="ai">
+      <h2 class="text-2xl font-black text-slate-900">一鍵生成給 AI 的出圖任務</h2>
+      <p class="text-sm text-slate-600">填入產業、對象、平台後，系統會直接生成可貼給 AI 的出圖指令，以及設計領域常見追問清單。</p>
       <div class="grid md:grid-cols-3 gap-3 text-sm">
         <label class="space-y-1"><span class="font-bold text-slate-700">產業</span><input id="design-industry" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：健身教練品牌" /></label>
         <label class="space-y-1"><span class="font-bold text-slate-700">對象</span><input id="design-audience" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：25-35 歲上班族" /></label>
         <label class="space-y-1"><span class="font-bold text-slate-700">輸出平台</span><input id="design-platform" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：IG + 簡報封面" /></label>
       </div>
       <div class="flex flex-wrap gap-2">
-        <button type="button" id="design-gen-btn" class="px-4 py-2 rounded-lg bg-violet-600 text-white font-bold text-sm">一鍵生成我的版本</button>
-        <button type="button" id="design-gen-multi-btn" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-bold text-sm">生成 4 種任務單</button>
+        <button type="button" id="design-gen-btn" class="px-4 py-2 rounded-lg bg-violet-600 text-white font-bold text-sm">一鍵生成 AI 出圖版本</button>
+        <button type="button" id="design-gen-multi-btn" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-bold text-sm">生成 4 種 AI 出圖方向</button>
       </div>
-      <div id="design-gen-output" class="rounded-2xl bg-slate-900 text-emerald-300 p-4 text-sm leading-relaxed min-h-[130px]">填完欄位後點按鈕，這裡會產生你的設計任務單。</div>
+      <div id="design-gen-output" class="rounded-2xl bg-slate-900 text-emerald-300 p-4 text-sm leading-relaxed min-h-[130px]">填完欄位後點按鈕，這裡會產生可直接貼給 AI 的出圖任務。</div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">🧰 免費素材去哪裡拿？（含工具相容）</h2>
       <p class="text-sm text-slate-600">建議放在「任務單生成」下方，因為學員剛拿到任務時最需要找素材與工具相容資訊。</p>
       <div class="overflow-x-auto rounded-xl border border-slate-200">
@@ -171,7 +322,7 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">互動練習：設計判斷小測（含動畫回饋）</h2>
       <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-4 text-sm">
         <div class="h-3 rounded-full bg-slate-200 overflow-hidden">
@@ -186,7 +337,7 @@
       </div>
     </section>
 
-    <section class="bg-gradient-to-r from-fuchsia-50 via-violet-50 to-indigo-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5">
+    <section class="bg-gradient-to-r from-fuchsia-50 via-violet-50 to-indigo-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">練習題</h2>
       <ul class="space-y-3 text-slate-700 text-sm">
         <li><strong>題目 1：</strong>做一張活動主視覺，輸出 1:1 / 4:5 / 16:9 三尺寸。</li>
@@ -195,7 +346,7 @@
       </ul>
     </section>
 
-    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5">
+    <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">課程教學</h2>
       <p class="text-sm text-slate-600">下面是實戰型課綱，每課都有真實專案場景、常見錯誤、交付規範與驗收清單。</p>
       <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
@@ -212,7 +363,26 @@
       </div>
     </section>
 
+    <section class="bg-gradient-to-r from-indigo-50 via-violet-50 to-cyan-50 rounded-3xl border border-indigo-100 p-6 md:p-8 space-y-4" data-mode-group="design" data-mode="manual">
+      <h2 class="text-2xl font-black text-slate-900">想加速完成，直接切到 AI 協作</h2>
+      <p class="text-sm text-slate-700">如果你已經做完一版手作稿，下一步可以用 AI 幫你做主題延伸、多尺寸版本與提案視覺方向。</p>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="jumpDesignToAi('en-booster-zone')" class="px-4 py-2 rounded-lg bg-indigo-600 text-white font-bold text-sm">我想了解 AI 協作內容</button>
+        <button type="button" onclick="jumpDesignToAi('design-ai-task-gen')" class="px-4 py-2 rounded-lg bg-white border border-indigo-200 text-indigo-700 font-bold text-sm">直接看指令庫</button>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-violet-50 via-indigo-50 to-cyan-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-4" data-mode-group="design" data-mode="ai">
+      <h2 class="text-2xl font-black text-slate-900">AI 速成流程結論</h2>
+      <p class="text-sm text-slate-700">如果你已完成一張主視覺與一組多尺寸延伸，今天的 AI 速成任務就完成了。下一步只要做兩件事：整理可重複指令，並把成果放進內容或網站頁面。</p>
+      <div class="flex flex-wrap gap-2">
+        <a href="geo-content-lab.html#content-quick-start" class="px-3 py-2 rounded-lg bg-indigo-600 text-white font-bold no-underline">接續內容表達學</a>
+        <a href="tutorial.html#en-booster-zone" class="px-3 py-2 rounded-lg bg-violet-600 text-white font-bold no-underline">學更多 Prompt 結構</a>
+      </div>
+    </section>
+
     <div id="design-author-note"></div>
+    </div>
   </main>
 
   <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto"></footer>
@@ -343,23 +513,22 @@
       const audience = (document.getElementById('design-audience').value || '').trim() || '你的目標受眾';
       const platform = (document.getElementById('design-platform').value || '').trim() || '你的平台';
       document.getElementById('design-gen-output').innerHTML = [
-        '【設計任務】',
-        '為' + industry + '製作一組給' + audience + '的視覺素材，輸出到 ' + platform + '。',
+        '【可直接貼給 AI 的出圖任務】',
+        'Create a high-converting key visual for ' + industry + ' targeting ' + audience + ', optimized for ' + platform + '. Keep clear typography hierarchy, strong CTA focus, and brand-consistent color system.',
         '',
-        '【建議工具順序】',
-        '1) Figma：先定版型與資訊層級',
-        '2) Photoshop：修圖與色調統一',
-        '3) Canva：快速產出多尺寸版本',
+        '【輸出規格】',
+        '- 必出尺寸：1:1, 4:5, 9:16',
+        '- 構圖要求：主標可讀、重點不超過 3 層、保留 CTA 區塊',
+        '- 風格要求：商業可交付，不做過度特效',
         '',
-        '【交付清單】',
-        '- 主視覺 1:1 / 4:5 / 16:9',
-        '- 一頁簡報封面版',
-        '- 可編修母版',
+        '【設計領域常見追問，直接接著問 AI】',
+        '1) 幫我再出 3 個不同風格版本，維持同一品牌色系',
+        '2) 把主標改短 30%，讓手機畫面更好讀',
+        '3) 產生一個更強 CTA 的版本，按鈕對比提高',
+        '4) 同概念延伸成廣告橫幅與限時動態封面',
         '',
-        '【驗收重點】',
-        '- 主標可讀、CTA 明確',
-        '- 手機版不破版',
-        '- 顏色與字體一致'
+        '【執行提醒】',
+        '先挑一版最接近目標的，再做局部追問優化，不要每次都重生全圖。'
       ].join('<br>');
     }
     function generateDesignDraftMulti() {
@@ -367,18 +536,16 @@
       const audience = (document.getElementById('design-audience').value || '').trim() || '你的目標受眾';
       const platform = (document.getElementById('design-platform').value || '').trim() || '你的平台';
       const versions = [
-        ['版本 A｜社群快發型', '主工具：Canva', '交付：1:1 + 4:5 + 封面', '重點：3 秒看懂主標與 CTA'],
-        ['版本 B｜品牌穩重型', '主工具：Illustrator + Photoshop', '交付：Logo 應用 + 海報 + 簡報封面', '重點：字體與色彩一致性'],
-        ['版本 C｜UI 產品型', '主工具：Figma', '交付：Landing Hero + 元件庫 + 手機版', '重點：RWD 與可讀性驗證'],
-        ['版本 D｜提案簡報型', '主工具：Figma/Canva + 圖表', '交付：6 頁提案模板', '重點：一頁一結論 + 視覺層級']
+        ['版本 A｜社群轉換型', 'Prompt 焦點：高對比 CTA + 3 秒可讀主標', '追問：再出 3 種 CTA 構圖', '交付：1:1 + 4:5 + 9:16'],
+        ['版本 B｜品牌質感型', 'Prompt 焦點：品牌一致色系 + 留白排版', '追問：降低視覺噪音並強化標題層級', '交付：主視覺 + 延伸橫幅'],
+        ['版本 C｜產品銷售型', 'Prompt 焦點：產品主體突出 + 價格訊息清楚', '追問：增加促銷版本與節慶版本', '交付：電商圖 + 廣告圖'],
+        ['版本 D｜簡報封面型', 'Prompt 焦點：一頁一結論 + 可提案風格', '追問：改成主管報告語氣並保留品牌識別', '交付：封面 + 章節過場圖']
       ];
       document.getElementById('design-gen-output').innerHTML = versions.map(function(v) {
         return '<div class="mb-4"><p class="font-black text-cyan-300">' + v[0] + '</p><ul class="list-disc pl-5 mt-1">' +
           '<li>適用：' + industry + ' / ' + audience + '</li>' +
           '<li>平台：' + platform + '</li>' +
-          '<li>' + v[1] + '</li>' +
-          '<li>' + v[2] + '</li>' +
-          '<li>' + v[3] + '</li>' +
+          '<li>' + v[1] + '</li><li>' + v[2] + '</li><li>' + v[3] + '</li>' +
           '</ul></div>';
       }).join('');
     }
@@ -405,9 +572,79 @@
         renderDesignQuiz();
       }, 900);
     };
+    function copyBoosterText(text) {
+      if (!text) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text);
+        return;
+      }
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    function openDesignPromptModal() {
+      var m = document.getElementById('design-prompt-modal');
+      if (!m) return;
+      m.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDesignPromptModal() {
+      var m = document.getElementById('design-prompt-modal');
+      if (!m) return;
+      m.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    function filterPromptTable(group, value) {
+      var tabs = document.querySelectorAll('[data-tab-group="' + group + '"]');
+      tabs.forEach(function(btn) {
+        var active = btn.getAttribute('data-tab-value') === value;
+        btn.classList.toggle('bg-violet-600', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('bg-white', !active);
+        btn.classList.toggle('border', !active);
+        btn.classList.toggle('border-violet-200', !active);
+        btn.classList.toggle('text-violet-700', !active);
+      });
+      document.querySelectorAll('[data-prompt-cat]').forEach(function(row) {
+        var cat = row.getAttribute('data-prompt-cat');
+        row.classList.toggle('hidden', value !== 'all' && cat !== value);
+      });
+    }
+    function setModeView(group, value) {
+      document.querySelectorAll('[data-mode-group="' + group + '"]').forEach(function(el) {
+        var mode = el.getAttribute('data-mode') || 'all';
+        var show = value === 'all' || mode === 'all' || mode === value;
+        el.classList.toggle('hidden', !show);
+      });
+      document.querySelectorAll('[data-mode-btn="' + group + '"]').forEach(function(btn) {
+        var active = btn.getAttribute('data-mode-value') === value;
+        btn.classList.toggle('active', active);
+        btn.classList.toggle('mode-btn-active', active);
+      });
+      var indicator = document.getElementById('design-mode-indicator');
+      if (indicator) {
+        indicator.textContent = value === 'ai' ? '目前模式：AI 協作導向' : value === 'manual' ? '目前模式：手作導向' : '目前模式：全部顯示';
+      }
+    }
+    function scrollToModeTarget(targetId) {
+      var target = targetId ? document.getElementById(targetId) : null;
+      if (!target) target = document.getElementById('en-booster-zone') || document.getElementById('design-ai-task-gen');
+      if (!target) return;
+      var top = target.getBoundingClientRect().top + window.scrollY - 112;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+    function jumpDesignToAi(targetId) {
+      setModeView('design', 'ai');
+      setTimeout(function() {
+        scrollToModeTarget(targetId);
+      }, 90);
+    }
 
     window.addEventListener('DOMContentLoaded', function() {
-      includeComponentSlot('global-header', 'components/header.html');
+      includeComponentSlot('global-header', 'components/header.html', 'nav-design-toolkit');
       includeComponentSlot('global-footer', 'components/footer.html');
       const scenarioBar = document.getElementById('design-scenario-bar');
       Object.keys(DESIGN_SCENARIOS).forEach(function(key) {
@@ -439,8 +676,36 @@
       });
       designCourseProgress.bindResetButton(document.getElementById('design-course-reset'), '確定重置「視覺設計學院」課程進度嗎？');
       designCourseProgress.init();
+      document.querySelectorAll('[data-mode-btn="design"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          setModeView('design', btn.getAttribute('data-mode-value') || 'all');
+        });
+      });
+      setModeView('design', 'manual');
+      window.jumpDesignToAi = jumpDesignToAi;
       document.getElementById('design-gen-btn').addEventListener('click', generateDesignDraft);
       document.getElementById('design-gen-multi-btn').addEventListener('click', generateDesignDraftMulti);
+      document.querySelectorAll('[data-copy-booster]').forEach(function(btn) {
+        btn.addEventListener('click', function() { copyBoosterText(btn.getAttribute('data-copy-booster') || ''); });
+      });
+      document.querySelectorAll('[data-copy-target]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var id = btn.getAttribute('data-copy-target');
+          var el = id ? document.getElementById(id) : null;
+          copyBoosterText(el ? el.textContent : '');
+        });
+      });
+      var promptModal = document.getElementById('design-prompt-modal');
+      if (promptModal) {
+        promptModal.addEventListener('click', function(e) {
+          if (e.target === promptModal) closeDesignPromptModal();
+        });
+      }
+      document.querySelectorAll('[data-tab-group="design-prompt"]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          filterPromptTable('design-prompt', btn.getAttribute('data-tab-value') || 'all');
+        });
+      });
       renderAuthorSignature('design-author-note');
     });
   </script>

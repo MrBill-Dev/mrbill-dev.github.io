@@ -19,6 +19,7 @@
     }
   </script>
   <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
     .custom-scrollbar::-webkit-scrollbar { width: 5px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
@@ -77,18 +78,22 @@
 
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full min-w-0 space-y-6 overflow-x-hidden">
-    <section class="relative overflow-hidden rounded-3xl border border-slate-200 shadow-lg">
-      <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80" alt="攝影主視覺" class="w-full h-[280px] md:h-[360px] object-cover" loading="lazy" />
-      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/40 to-transparent"></div>
-      <div class="absolute inset-0 p-6 md:p-10 flex items-end">
-        <div class="max-w-3xl text-white">
-          <p class="text-xs md:text-sm font-black tracking-[0.2em] uppercase text-amber-300">Photography Lab</p>
-          <h1 class="text-3xl md:text-5xl font-black leading-tight mt-2">攝影與光影敘事學堂</h1>
-          <p class="mt-3 text-sm md:text-base text-slate-200 md:max-w-3xl leading-relaxed">從曝光、構圖、對焦到後期與剪映，建立可重複的影像工作流，讓作品不只好看，也能穩定交付。</p>
+  <main class="max-w-[90rem] mx-auto flex-grow w-full min-w-0">
+    <section class="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+      <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1600&q=80" alt="攝影主視覺" class="w-full h-[300px] md:h-[420px] object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/72 via-indigo-950/45 to-amber-900/28"></div>
+      <div class="absolute inset-0">
+        <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
+          <div class="pb-6 md:pb-10 max-w-3xl text-white">
+            <p class="text-xs md:text-sm font-black tracking-[0.2em] uppercase text-amber-300">Photography Lab</p>
+            <h1 class="text-3xl md:text-5xl font-black leading-tight mt-2">攝影與光影敘事學堂</h1>
+            <p class="mt-3 text-sm md:text-base text-slate-200 md:max-w-3xl leading-relaxed">從曝光、構圖、對焦到後期與剪映，建立可重複的影像工作流，讓作品不只好看，也能穩定交付。</p>
+          </div>
         </div>
       </div>
     </section>
+
+    <div class="px-4 lg:px-6 py-8 space-y-6">
 
     <div id="intro-photography-block" class="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 md:p-8 rounded-2xl border border-purple-100 fade-in-up preface-split">
       <h3 id="photo-preface-title" class="preface-split-title text-xl md:text-2xl font-black text-purple-950 leading-snug"></h3>
@@ -205,6 +210,12 @@
                 <input type="range" id="slider-iso" min="0" max="5" value="0" oninput="runExposureSandbox()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
               </div>
             </div>
+            <div id="panel-triangle-demo" class="hidden mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4 space-y-3">
+              <p class="text-sm font-bold text-indigo-900">📷 參數拖動示範圖（此圖才會隨光圈／快門／ISO 變化）</p>
+              <div class="overflow-hidden rounded-xl border border-indigo-200 bg-slate-900 max-w-2xl">
+                <img id="triangle-demo-img" src="" alt="曝光三角參數示範圖" class="w-full h-56 md:h-72 object-cover transition-all duration-200" />
+              </div>
+            </div>
 
             <div id="panel-composition-mode" class="hidden grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div class="space-y-2">
@@ -273,28 +284,8 @@
 
             <div id="panel-video-mode" class="hidden grid-cols-1 gap-4">
               <p id="video-panel-intro" class="text-sm font-medium text-slate-600 bg-rose-50 border border-rose-100 rounded-xl px-4 py-3"></p>
-              <div id="timeline-ui" class="space-y-2">
-              <div class="relative h-14 bg-slate-900 rounded-xl overflow-hidden border border-slate-700">
-                <div id="timeline-track-a" class="absolute top-2 left-2 h-4 bg-indigo-500/80 rounded w-[35%] text-[10px] text-white pl-1 font-bold truncate">迎親</div>
-                <div id="timeline-track-b" class="absolute top-7 left-[38%] h-4 bg-purple-500/80 rounded w-[28%] text-[10px] text-white pl-1 font-bold truncate">儀式</div>
-                <div id="timeline-track-c" class="absolute top-2 left-[70%] h-4 bg-amber-500/80 rounded w-[25%] text-[10px] text-white pl-1 font-bold truncate">宴會</div>
-                <div id="timeline-playhead" class="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg z-10" style="left:20%"></div>
-              </div>
-              <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🎬 剪映時間軸播放頭</span><span id="label-timeline" class="text-indigo-600 font-black">0:08</span></div>
-                <input type="range" id="slider-timeline" min="0" max="10" value="2" oninput="runVideoTimelineSimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-rose-500" />
-              </div>
-              </div>
-              <div id="capcut-practice-tools" class="hidden p-4 rounded-xl border border-rose-100 bg-rose-50">
-                <p class="font-black text-rose-900 text-sm mb-3">剪映模擬練習（點擊演練）</p>
-                <div class="flex flex-wrap gap-2">
-                  <button type="button" class="px-3 py-2 rounded-lg bg-white border border-rose-200 text-sm font-bold" onclick="runCapcutDrill('cut')">分割多餘鏡頭</button>
-                  <button type="button" class="px-3 py-2 rounded-lg bg-white border border-rose-200 text-sm font-bold" onclick="runCapcutDrill('transition')">加 0.3 秒疊化</button>
-                  <button type="button" class="px-3 py-2 rounded-lg bg-white border border-rose-200 text-sm font-bold" onclick="runCapcutDrill('color')">統一色溫風格</button>
-                  <button type="button" class="px-3 py-2 rounded-lg bg-white border border-rose-200 text-sm font-bold" onclick="runCapcutDrill('export')">輸出 1080p/30fps</button>
-                </div>
-              </div>
               <div id="capcut-steps-detail" class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-700 space-y-3"></div>
+              <div id="capcut-demo-gallery" class="space-y-4"></div>
             </div>
 
             <div id="panel-device-mode" class="hidden">
@@ -334,7 +325,7 @@
             <p id="lesson-chapter-text" class="text-slate-700 text-base leading-relaxed font-medium"></p>
           </div>
 
-          <div class="space-y-6">
+          <div id="lesson-tier-cards" class="space-y-6">
             <div class="bg-emerald-50/40 p-6 rounded-3xl border border-emerald-100/60 space-y-2">
               <span class="inline-block px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-sm font-bold tracking-wide">🌱 入門 · 兒童趣味比喻</span>
               <p id="photo-easy" class="text-slate-700 text-base leading-relaxed font-medium pt-1 whitespace-pre-line"></p>
@@ -349,15 +340,20 @@
             </div>
           </div>
 
-          <div class="p-6 rounded-3xl bg-amber-50/60 border border-amber-200/70">
+          <div id="lesson-tip-card" class="p-6 rounded-3xl bg-amber-50/60 border border-amber-200/70">
             <span class="font-black block text-amber-950 text-base mb-1">💡 婚禮攝影與微電影大師口訣：</span>
             <p id="photo-ui-tip" class="font-medium text-slate-600 text-base leading-relaxed"></p>
           </div>
           <div id="photo-author-note"></div>
+          <div id="lesson-flow-nav" class="hidden p-5 rounded-2xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+            <button id="lesson-prev-btn" type="button" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 font-bold text-sm bg-white hover:bg-slate-100 text-left"></button>
+            <button id="lesson-next-btn" type="button" class="px-4 py-2 rounded-xl border border-indigo-200 text-indigo-700 font-bold text-sm bg-indigo-50 hover:bg-indigo-100 text-left"></button>
+          </div>
         </div>
 
       </div>
 
+    </div>
     </div>
   </main>
 
@@ -511,6 +507,20 @@
       const box = document.getElementById('capcut-steps-detail');
       const key = lesson.capcutGuideKey || lesson.capcutStep;
       const guide = capcutGuides[key];
+      renderCapcutDemoGallery(lesson);
+      if (key === 'advanced') {
+        box.innerHTML = `
+          <p class="font-black text-rose-900">🧠 剪映進階篇（請照圖文操作）</p>
+          <ul class="list-disc pl-5 space-y-1.5 font-medium leading-relaxed">
+            <li>關鍵幀：讓素材產生平移、縮放與運鏡動畫</li>
+            <li>蒙版：做分屏、擦除與局部聚焦</li>
+            <li>曲線變速：做卡點與快慢節奏</li>
+            <li>轉場／動畫：讓銜接更自然</li>
+            <li>智能摳像：快速去背做畫中畫合成</li>
+          </ul>
+        `;
+        return;
+      }
       if (!guide) {
         if (lesson.videoSubtype === 'shoot') {
           box.innerHTML = `<p class="font-black text-rose-900">錄影檢查表</p>
@@ -528,6 +538,100 @@
       box.innerHTML = `
         <p class="font-black text-rose-900">${titles[gKey] || '剪映操作'}（請對照 App 操作）</p>
         <ol class="list-decimal pl-5 space-y-1.5 font-medium leading-relaxed">${guide.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      `;
+    }
+
+    function renderCapcutDemoGallery(lesson) {
+      const mount = document.getElementById('capcut-demo-gallery');
+      if (!mount || typeof capcutDemoTutorial === 'undefined') return;
+      const guideKey = lesson && (lesson.capcutGuideKey || lesson.capcutStep);
+      if (guideKey === 'advanced' && typeof capcutAdvancedTutorial !== 'undefined') {
+        const t = capcutAdvancedTutorial;
+        const renderImage = (src, title) => `
+          <img src="${src}" alt="${title}" class="w-full aspect-video object-cover bg-slate-100 rounded-xl border border-slate-200" loading="lazy" />
+        `;
+        const renderModule = (m) => `
+          <article class="rounded-2xl border border-slate-200 bg-white p-4 md:p-5 space-y-4">
+            <div>
+              <p class="text-base font-black text-slate-900">${m.name}</p>
+              <p class="text-sm font-bold text-indigo-700 mt-1">${m.subtitle}</p>
+              <p class="text-sm text-slate-600 mt-1">${m.purpose}</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              <div class="space-y-2">
+                <p class="text-xs font-black text-rose-800">📱 手機版</p>
+                ${renderImage(m.mobileImage, m.name + ' 手機版')}
+                ${m.extraMobileImage ? renderImage(m.extraMobileImage, m.name + ' 手機補充') : ''}
+              </div>
+              <div class="space-y-2">
+                <p class="text-xs font-black text-slate-800">🖥️ 電腦版</p>
+                ${renderImage(m.desktopImage, m.name + ' 電腦版')}
+                ${m.extraDesktopImage ? renderImage(m.extraDesktopImage, m.name + ' 電腦補充') : ''}
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="rounded-xl bg-rose-50 border border-rose-100 p-3">
+                <p class="text-xs font-black text-rose-900 mb-1">手機步驟</p>
+                <ol class="list-decimal pl-4 text-sm text-slate-700 space-y-1">${(m.mobileSteps || []).map(s => `<li>${s}</li>`).join('')}</ol>
+              </div>
+              <div class="rounded-xl bg-slate-50 border border-slate-200 p-3">
+                <p class="text-xs font-black text-slate-900 mb-1">電腦步驟</p>
+                <ol class="list-decimal pl-4 text-sm text-slate-700 space-y-1">${(m.desktopSteps || []).map(s => `<li>${s}</li>`).join('')}</ol>
+              </div>
+            </div>
+            <p class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2">小技巧：${m.tip}</p>
+          </article>
+        `;
+        mount.innerHTML = `
+          <section class="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-4 md:p-5 space-y-4">
+            <div>
+              <p class="text-base md:text-lg font-black text-indigo-900">${t.title}</p>
+              <p class="text-sm text-slate-600 mt-1 leading-relaxed">${t.intro}</p>
+            </div>
+            <div class="space-y-4">${(t.modules || []).map(renderModule).join('')}</div>
+            <div class="rounded-xl border border-slate-200 bg-white p-3">
+              <p class="text-sm font-black text-slate-900 mb-2">✅ 手機 vs 電腦速記</p>
+              <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1">${(t.quickCompare || []).map(i => `<li>${i}</li>`).join('')}</ul>
+            </div>
+          </section>
+        `;
+        return;
+      }
+      if (guideKey !== 'import') {
+        mount.innerHTML = '';
+        return;
+      }
+      const tutorial = capcutDemoTutorial;
+      const renderCards = (items) => items.map(item => `
+        <article class="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+          <img src="${item.image}" alt="${item.title}" class="w-full aspect-video object-cover bg-slate-100" loading="lazy" />
+          <div class="p-4 space-y-1.5">
+            <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-black bg-indigo-100 text-indigo-700">${item.step}</span>
+            <p class="text-sm font-black text-slate-900">${item.title}</p>
+            <p class="text-sm text-slate-600 leading-relaxed">${item.caption}</p>
+          </div>
+        </article>
+      `).join('');
+
+      mount.innerHTML = `
+        <section class="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-4 md:p-5">
+          <p class="text-base md:text-lg font-black text-indigo-900">${tutorial.title}</p>
+          <p class="text-sm text-slate-600 mt-1 leading-relaxed">${tutorial.intro}</p>
+          <div class="mt-4 space-y-5">
+            <div>
+              <p class="text-sm font-black text-rose-900 mb-2">📱 手機版入門 DEMO</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                ${renderCards(tutorial.mobile || [])}
+              </div>
+            </div>
+            <div>
+              <p class="text-sm font-black text-slate-900 mb-2">🖥️ 電腦版 DEMO</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                ${renderCards(tutorial.desktop || [])}
+              </div>
+            </div>
+          </div>
+        </section>
       `;
     }
 
@@ -562,10 +666,50 @@
       else label.textContent = '📸 實戰 · 正宗相機控制';
     }
 
+    function updateLessonFlowNav(currentKey) {
+      const nav = document.getElementById('lesson-flow-nav');
+      const prevBtn = document.getElementById('lesson-prev-btn');
+      const nextBtn = document.getElementById('lesson-next-btn');
+      if (!nav || !prevBtn || !nextBtn) return;
+      const navButtons = Array.from(document.querySelectorAll('.photo-nav-btn'));
+      const keys = navButtons.map(btn => {
+        const onClick = btn.getAttribute('onclick') || '';
+        const m = onClick.match(/loadPhotoLesson\('([^']+)'/);
+        return m ? m[1] : '';
+      }).filter(Boolean);
+      const idx = keys.indexOf(currentKey);
+      if (idx < 0) {
+        nav.classList.add('hidden');
+        return;
+      }
+      const prevKey = idx > 0 ? keys[idx - 1] : '';
+      const nextKey = idx < keys.length - 1 ? keys[idx + 1] : '';
+      const findBtnByKey = (k) => navButtons.find(b => (b.getAttribute('onclick') || '').includes(`'${k}'`));
+      if (prevKey) {
+        const prevTarget = findBtnByKey(prevKey);
+        prevBtn.classList.remove('hidden');
+        prevBtn.textContent = '← 上一課：' + (photographyRepository[prevKey]?.title || prevKey);
+        prevBtn.onclick = function() { window.loadPhotoLesson(prevKey, prevTarget); };
+      } else {
+        prevBtn.classList.add('hidden');
+      }
+      if (nextKey) {
+        const nextTarget = findBtnByKey(nextKey);
+        nextBtn.classList.remove('hidden');
+        nextBtn.textContent = '下一課：' + (photographyRepository[nextKey]?.title || nextKey) + ' →';
+        nextBtn.onclick = function() { window.loadPhotoLesson(nextKey, nextTarget); };
+      } else {
+        nextBtn.classList.add('hidden');
+      }
+      nav.classList.toggle('hidden', !prevKey && !nextKey);
+    }
+
     window.loadPhotoLesson = function(key, btnElement, opts) {
         opts = opts || {};
         const lesson = photographyRepository[key];
         if (!lesson) return;
+        const resetBtn = document.getElementById('btn-reset-demo');
+        if (resetBtn) resetBtn.classList.toggle('hidden', lesson.mode === 'video');
         currentLessonKey = key;
         currentCapcutStep = lesson.capcutStep || 'import';
         document.getElementById('photo-title').textContent = lesson.title;
@@ -573,9 +717,16 @@
         document.getElementById('photo-medium').textContent = lesson.medium;
         document.getElementById('photo-hard').textContent = lesson.hard;
         document.getElementById('photo-ui-tip').textContent = lesson.tip;
+        const hideTheoryCards = lesson.hideTheoryCards === true;
+        const chapterReadBox = document.getElementById('lesson-chapter-read');
+        const tierCards = document.getElementById('lesson-tier-cards');
+        const tipCard = document.getElementById('lesson-tip-card');
+        if (chapterReadBox) chapterReadBox.classList.toggle('hidden', hideTheoryCards);
+        if (tierCards) tierCards.classList.toggle('hidden', hideTheoryCards);
+        if (tipCard) tipCard.classList.toggle('hidden', hideTheoryCards);
         updateMediumLabel(key, lesson);
         updatePathwayIntro(key);
-        showChapterRead(lesson);
+        if (!hideTheoryCards) showChapterRead(lesson);
 
         resetAllSandboxPanels();
         currentActiveMode = lesson.mode;
@@ -624,17 +775,24 @@
         } else if (lesson.mode === 'triangle') {
           currentActiveMode = 'triangle';
           document.getElementById('panel-exposure-mode').classList.remove('hidden');
+          document.getElementById('panel-triangle-demo').classList.remove('hidden');
           document.getElementById('triangle-diagram').classList.remove('hidden');
           document.getElementById('view-fg-layer').style.display = 'none';
           document.getElementById('view-dof-blur').style.display = 'none';
           const triBg = document.getElementById('view-bg-layer');
           triBg.removeAttribute('src');
           triBg.style.display = 'none';
+          const triDemo = document.getElementById('triangle-demo-img');
+          if (triDemo) {
+            triDemo.style.filter = 'none';
+            triDemo.style.transform = 'scale(1)';
+            triDemo.src = lesson.demoPreviewUrl || IMG.shutterFreeze;
+          }
           document.getElementById('slider-aperture').value = 2;
           document.getElementById('slider-shutter').value = 3;
           document.getElementById('slider-iso').value = 1;
           setSliderFocus('all');
-          setSandboxHint('← 僅顯示曝光三角圖：拖動三桿，看哪一角亮起，直到回饋「平衡」');
+          setSandboxHint('← 上方是固定概念圖；下方示範圖才會隨參數拖動改變明暗與質感。');
           runTriangleCompare('ap');
         } else
 
@@ -681,28 +839,20 @@
           currentActiveMode = 'video';
           document.getElementById('panel-video-mode').classList.remove('hidden');
           const sandboxStage = document.getElementById('sandbox-video-stage');
-          if (lesson.videoSubtype === 'shoot') sandboxStage.classList.add('hidden');
-          else sandboxStage.classList.remove('hidden');
+          sandboxStage.classList.add('hidden');
           document.getElementById('view-center-cross').classList.add('hidden');
-          hidePreviewImage();
           if (lesson.videoSubtype === 'shoot') {
             setPreviewSrc(document.getElementById('view-bg-layer'), lesson.previewUrl || IMG.videoRecord, IMG.videoRecord);
+          } else {
+            setPreviewSrc(document.getElementById('view-bg-layer'), lesson.previewUrl || IMG.capcutEdit, IMG.capcutEdit);
           }
           const introEl = document.getElementById('video-panel-intro');
-          const timelineUI = document.getElementById('timeline-ui');
-          const capcutDrill = document.getElementById('capcut-practice-tools');
           if (lesson.videoSubtype === 'shoot') {
-            introEl.textContent = '📹 本課為「拍攝」：先穩定畫面、選對比例與幀率。此區不顯示剪映時間軸，請專注拍攝檢查表。';
-            timelineUI.classList.add('hidden');
-            capcutDrill.classList.add('hidden');
+            introEl.textContent = '📹 本課為拍攝入門：先把畫面拍穩、比例選對，再進入剪映剪輯。';
           } else {
-            introEl.textContent = '✂️ 本課為「剪映」：請依下方步驟清單在 App 操作，並拖動時間軸播放頭熟悉節奏。';
-            timelineUI.classList.remove('hidden');
-            capcutDrill.classList.remove('hidden');
+            introEl.textContent = '✂️ 本課為剪映教學：直接照下方步驟在 App 操作即可。';
           }
           renderCapcutGuide(lesson);
-          document.getElementById('slider-timeline').value = 2;
-          if (lesson.videoSubtype !== 'shoot') runVideoTimelineSimulation();
 
         } else if (lesson.mode === 'device') {
           if (key === 'phone_photo_night' || key === 'camera_photo_fireflies') {
@@ -818,6 +968,7 @@
             b.className = "photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors";
         });
         if (btnElement) btnElement.className = "photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold bg-brand-50 text-indigo-600 transition-colors";
+        updateLessonFlowNav(key);
 
         if (opts.scroll !== false) scrollToLesson();
     };
@@ -852,6 +1003,7 @@
       document.getElementById('effect-brightness-mask').style.opacity = 0;
       hideCompareLabels();
       document.getElementById('triangle-diagram').classList.add('hidden');
+      document.getElementById('panel-triangle-demo').classList.add('hidden');
       setSandboxHint('');
       setSliderFocus('all');
     }
@@ -873,7 +1025,7 @@
       else if (currentActiveMode === 'lens') runSliderStep('slider-focal', 3, runLensSimulation);
       else if (currentActiveMode === 'wb') runSliderStep('slider-kelvin', 5, runWhiteBalanceSimulation);
       else if (currentActiveMode === 'histogram') runSliderStep('slider-hist-ev', 0, runHistogramSimulation);
-      else if (currentActiveMode === 'video') runSliderStep('slider-timeline', 2, runVideoTimelineSimulation);
+      else if (currentActiveMode === 'video') return;
       else if (currentActiveMode === 'curtain') runSliderStep('slider-curtain-shutter', 2, runCurtainLightStreakSimulation);
       else if (currentActiveMode === 'lighting') {
         runSliderStep('slider-light-angle', 4, runLightingSimulation);
@@ -970,12 +1122,22 @@
       document.getElementById('label-iso').textContent = ISO_VALS[iso];
       const lightValue = (5 - ap) + sh + iso;
       const diff = lightValue - 7;
+      const demoImg = document.getElementById('triangle-demo-img');
+      if (demoImg) {
+        const brightness = 1 + (diff * 0.08);
+        const contrast = 1 + Math.abs(diff) * 0.04;
+        const blur = Math.max(0, (ap - 2) * 0.8);
+        demoImg.style.filter = `brightness(${Math.max(0.55, brightness)}) contrast(${Math.min(1.35, contrast)}) blur(${blur}px)`;
+        demoImg.style.transform = `scale(${1 + (5 - sh) * 0.01})`;
+      }
       const mask = document.getElementById('effect-brightness-mask');
-      mask.style.opacity = Math.min(0.6, Math.abs(diff) * 0.22);
-      mask.className = diff > 0 ? "absolute inset-0 bg-white pointer-events-none z-20" : "absolute inset-0 bg-black pointer-events-none z-20";
+      if (mask) {
+        // Triangle mode keeps concept image fixed.
+        mask.style.opacity = 0;
+      }
       ['ap','sh','iso'].forEach(n => {
         const node = document.getElementById('tri-node-' + n);
-        node.setAttribute('fill', n === lastMoved ? '#6366f1' : '#64748b');
+        if (node) node.setAttribute('fill', n === lastMoved ? '#6366f1' : '#64748b');
       });
       hideCompareLabels();
       const banner = document.getElementById('simulator-feedback-banner');
@@ -1268,33 +1430,6 @@
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
         banner.textContent = "📊 理想分佈：山丘在中間，兩端未貼邊。上方為放大直方圖。";
       }
-    }
-
-    function runVideoTimelineSimulation() {
-      if (currentActiveMode !== 'video') return;
-      const lesson = photographyRepository[currentLessonKey];
-      if (lesson && lesson.videoSubtype === 'shoot') return;
-      const t = parseInt(document.getElementById('slider-timeline').value);
-      const pct = 8 + t * 8;
-      document.getElementById('timeline-playhead').style.left = pct + '%';
-      const sec = Math.round(t * 6 + 2);
-      document.getElementById('label-timeline').textContent = '0:' + (sec < 10 ? '0' : '') + sec;
-      const banner = document.getElementById('simulator-feedback-banner');
-      const labels = { import: '匯入素材', transition: '轉場銜接', color: '調色統一', export: '匯出發布' };
-      banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-rose-50 text-rose-900 border-rose-100";
-      banner.textContent = '✂️ 剪映「' + (labels[currentCapcutStep] || '剪輯') + '」：播放頭 ' + document.getElementById('label-timeline').textContent + '，檢查片段銜接。';
-    }
-
-    function runCapcutDrill(step) {
-      const banner = document.getElementById('simulator-feedback-banner');
-      const tips = {
-        cut: '✅ 模擬完成：把冗長空鏡分割刪除，保留前後 0.5 秒銜接。',
-        transition: '✅ 模擬完成：交界處加 0.2-0.3 秒疊化，避免過度特效。',
-        color: '✅ 模擬完成：先校白平衡，再複製調色參數到同場景片段。',
-        export: '✅ 模擬完成：1080p / 30fps / 高碼率，匯出後全螢幕檢查字幕。'
-      };
-      banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-800 border-emerald-100";
-      banner.textContent = tips[step] || '✅ 已完成剪映模擬步驟。';
     }
 
     // [模式 B]: 幾何水平拉直控制

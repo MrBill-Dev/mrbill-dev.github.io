@@ -1,5 +1,5 @@
 const tutorialPreface = {
-  title: "🎮 前端學習冒險地圖",
+  title: "🎮 學習冒險地圖",
   contentHtml: `<p>歡迎！這裡用<strong>遊戲闖關</strong>的方式學網頁：先懂概念 → 看正規範例 → 動手改程式 → 小測驗拿 XP。</p>
     <p class="mt-2"><strong>重要：</strong>初學者請先學 HTML「結構」，再用 CSS「外觀」——不要在 HTML 標籤上寫一堆 <code>style=""</code>，那是進階應急用法，不是起點。</p>`,
   tools: [
@@ -141,6 +141,16 @@ const tutorialRepository = {
     code: `<style>\n  label { display: block; font-weight: bold; margin-bottom: 6px; }\n  input {\n    width: 100%;\n    max-width: 280px;\n    padding: 10px 14px;\n    border: 1px solid #cbd5e1;\n    border-radius: 10px;\n    font-size: 1rem;\n  }\n  input:focus {\n    outline: 2px solid #818cf8;\n    border-color: #6366f1;\n  }\n</style>\n\n<label for="name">學員姓名</label>\n<input id="name" type="text" placeholder="輸入你的名字">`,
     tip: "focus 狀態要讓使用者知道「現在正在輸入這一格」。",
     quiz: { q: "密碼欄位 type 應設？", opts: ["password", "secret", "hidden"], ans: 0 }
+  },
+  html_float_align_bg: {
+    track: "html",
+    title: "🧷 圖文排版：float、文字對齊、背景",
+    desc: "實務上常用 float 讓圖片靠左/右，搭配 text-align 與 background 做可讀區塊。",
+    concept: "雖然新專案多用 Flex/Grid，但 float 仍常見於舊站維護與文章圖文混排。",
+    practice: "① 把 .photo 改成 float:right ② 改標題 text-align ③ 換背景色觀察可讀性",
+    code: `<style>\n  .wrap {\n    background: #f8fafc;\n    border: 1px solid #e2e8f0;\n    border-radius: 12px;\n    padding: 14px;\n  }\n  .photo {\n    width: 120px;\n    height: 80px;\n    float: left;\n    margin: 0 12px 8px 0;\n    border-radius: 10px;\n    background: linear-gradient(135deg, #4f46e5, #06b6d4);\n  }\n  h3 {\n    margin: 0 0 8px;\n    text-align: left;\n    color: #0f172a;\n  }\n  p { line-height: 1.7; color: #475569; }\n</style>\n<div class="wrap">\n  <div class="photo"></div>\n  <h3>圖文混排示範</h3>\n  <p>這段文字會繞過左側圖片。你可以改 float、text-align、background，觀察排版可讀性的變化。</p>\n  <div style="clear: both;"></div>\n</div>`,
+    tip: "使用 float 後，父層常需要 clear: both; 避免高度塌陷。",
+    quiz: { q: "讓文字繞圖常用哪個屬性？", opts: ["float", "display: inline", "z-index"], ans: 0 }
   },
   css_selectors: {
     track: "css",

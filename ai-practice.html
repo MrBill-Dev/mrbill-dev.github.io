@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>概念互動練習箱 - MrBill Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/components-loader.js"></script>
+  <script src="js/ai-lab.js"></script>
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .ai-lab-stack { max-width: 72rem; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+    .ai-lab-panel { width: 100%; background: #fff; border-radius: 1.5rem; border: 1px solid #e2e8f0; padding: 1.5rem; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06); }
+    .ai-lab-callout { border-radius: 1rem; padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 0.875rem; }
+    .ai-lab-callout-indigo { border: 1px solid #c7d2fe; background: rgba(238, 242, 255, 0.85); }
+    .ai-lab-grid-2 { width: 100%; display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+    @media (min-width: 1024px) { .ai-lab-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .ai-lab-subcard { width: 100%; border-radius: 1.5rem; border: 1px solid #e2e8f0; background: #fff; padding: 1.5rem; }
+    @media (min-width: 768px) { .ai-lab-subcard { padding: 2rem; } .ai-lab-panel { padding: 2rem 2.5rem; } }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+  <main class="max-w-[90rem] mx-auto flex-grow w-full min-w-0 fade-in-up pb-12">
+    <div class="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-8 mb-10 text-white">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=2200&q=80" alt="概念互動練習箱主視覺" class="w-full h-[320px] md:h-[430px] object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/82 via-indigo-900/70 to-cyan-900/58"></div>
+      <div class="absolute inset-0">
+        <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
+          <div class="pb-8 md:pb-12 max-w-4xl">
+            <h1 class="text-3xl md:text-4xl font-black">🧩 <span class="text-cyan-200">概念互動練習箱</span></h1>
+            <p class="mt-3 max-w-3xl leading-relaxed text-[15px] md:text-base text-indigo-100">以題目、解析與帶練腳本建立 AI 基礎理解，讓新手在實作前先把核心概念釐清。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-lab-stack">
+      <div class="ai-lab-panel">
+        <div class="ai-lab-callout ai-lab-callout-indigo">
+          <p class="font-black text-indigo-900">新手操作提醒</p>
+          <p class="text-slate-700 mt-1">先挑一個主題，先看「概念解析」理解名詞，再切到「實作帶練步驟」照流程走，最後看「延伸與下一步」知道課後要做什麼。</p>
+        </div>
+        <div id="practice-root"></div>
+      </div>
+      <div class="ai-lab-grid-2">
+        <div class="ai-lab-subcard">
+          <h3 class="text-xl font-black text-slate-900">🧭 新手上手路線（建議 7 天）</h3>
+          <ol class="mt-3 list-decimal pl-5 space-y-2 text-sm text-slate-700">
+            <li>Day 1：基礎觀念 2 題（LLM + Token）</li>
+            <li>Day 2：Prompt 工程 2 題（RTCS + Few-shot）</li>
+            <li>Day 3：職場應用 1 題（寫文案或審 Code）</li>
+            <li>Day 4：倫理安全 1 題（個資 / 幻覺）</li>
+            <li>Day 5：多模態 1 題（產圖或影片）</li>
+            <li>Day 6：到 Prompt 工具做一份 .md 交付稿</li>
+            <li>Day 7：到小遊戲跑完「下一步指引」</li>
+          </ol>
+        </div>
+        <div class="ai-lab-subcard">
+          <h3 class="text-xl font-black text-slate-900">🧪 你可以直接做的實戰任務</h3>
+          <div class="mt-3 space-y-3 text-sm">
+            <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-3"><p class="font-black text-indigo-800">任務 A：把理論變教學稿</p><p class="text-slate-700 mt-1">把任一題改寫成「給國中生可懂」版本，並加一個課堂活動。</p></div>
+            <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-3"><p class="font-black text-emerald-800">任務 B：雙模型比較</p><p class="text-slate-700 mt-1">同一份 Prompt 丟兩種 AI，比較差異並寫修正版。</p></div>
+            <div class="rounded-xl border border-amber-100 bg-amber-50 p-3"><p class="font-black text-amber-800">任務 C：產圖審稿</p><p class="text-slate-700 mt-1">做一張 AI 圖，列出「可用點 / 風險點 / 人工修正點」。</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto"></footer>
+  <script>
+    function switchTab(tabId) {
+      if (tabId === 'tool') window.location.href = 'ai-prompt-tool.html';
+      else if (tabId === 'game') window.location.href = 'ai-game-center.html';
+      else window.location.href = 'ai-practice.html';
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', 'components/header.html');
+      includeComponentSlot('global-footer', 'components/footer.html');
+      if (typeof initAiLab === 'function') initAiLab();
+    });
+  </script>
+</body>
+</html>
