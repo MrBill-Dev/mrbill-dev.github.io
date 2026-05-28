@@ -100,6 +100,57 @@
             </div>
           </div>
 
+          <div id="css-selector-panel" class="hidden p-4 md:p-5 rounded-2xl border border-orange-100 bg-orange-50/60 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-2">
+              <div>
+                <h4 class="text-lg md:text-xl font-black text-slate-900">🧭 CSS 全選取器速查 + RWD 對照</h4>
+                <p class="text-sm text-slate-600 mt-1">此區僅在 CSS 課程顯示。手機可左右滑動查看完整欄位。</p>
+              </div>
+              <span class="text-xs font-bold px-3 py-1 rounded-full bg-white border border-orange-200 text-orange-700">CSS 專屬</span>
+            </div>
+            <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+              <table class="min-w-[1180px] w-full text-sm">
+                <thead class="bg-slate-50">
+                  <tr class="text-left text-slate-700">
+                    <th class="px-3 py-2 border-b">分類</th>
+                    <th class="px-3 py-2 border-b">語法</th>
+                    <th class="px-3 py-2 border-b">何時用</th>
+                    <th class="px-3 py-2 border-b">常見坑</th>
+                    <th class="px-3 py-2 border-b">示例</th>
+                  </tr>
+                </thead>
+                <tbody class="text-slate-700">
+                  <tr data-selector-help-row="basic" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>基本</span><button type="button" data-selector-help="basic" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">.class / #id / div</td><td class="px-3 py-2 border-b">元件樣式、唯一元素、標籤統一</td><td class="px-3 py-2 border-b">過度依賴 id 造成難重用</td><td class="px-3 py-2 border-b font-mono text-xs">.btn { padding: 8px 12px; }</td></tr>
+                  <tr data-selector-help-row="group" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>群組</span><button type="button" data-selector-help="group" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">h1, h2, h3</td><td class="px-3 py-2 border-b">同一套字級或間距</td><td class="px-3 py-2 border-b">把不相關元素綁一起</td><td class="px-3 py-2 border-b font-mono text-xs">h1,h2 { line-height:1.2; }</td></tr>
+                  <tr data-selector-help-row="descendant" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>後代 / 子層</span><button type="button" data-selector-help="descendant" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">.card p / .list &gt; li</td><td class="px-3 py-2 border-b">限制只在容器內生效</td><td class="px-3 py-2 border-b">選擇器層級太深</td><td class="px-3 py-2 border-b font-mono text-xs">.menu &gt; li { list-style:none; }</td></tr>
+                  <tr data-selector-help-row="sibling" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>兄弟關係</span><button type="button" data-selector-help="sibling" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">h2 + p / h2 ~ p</td><td class="px-3 py-2 border-b">控制標題後第一段或後續段落</td><td class="px-3 py-2 border-b">把 + 和 ~ 用反</td><td class="px-3 py-2 border-b font-mono text-xs">h2 + p { margin-top:6px; }</td></tr>
+                  <tr data-selector-help-row="attr" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>屬性選取器</span><button type="button" data-selector-help="attr" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">input[type="email"]</td><td class="px-3 py-2 border-b">對特定型別精準套樣式</td><td class="px-3 py-2 border-b">選過廣導致非預期樣式</td><td class="px-3 py-2 border-b font-mono text-xs">a[target="_blank"]::after { content:"↗"; }</td></tr>
+                  <tr data-selector-help-row="nth" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>偽類（含第幾格）</span><button type="button" data-selector-help="nth" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">:nth-child() / :nth-of-type()</td><td class="px-3 py-2 border-b">選第 N 個元素或奇偶列</td><td class="px-3 py-2 border-b">數錯索引（從 1 開始，不是 0）</td><td class="px-3 py-2 border-b font-mono text-xs">td:nth-child(3){font-weight:700;}</td></tr>
+                  <tr data-selector-help-row="state" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>狀態偽類</span><button type="button" data-selector-help="state" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">:hover :focus :active</td><td class="px-3 py-2 border-b">互動狀態、鍵盤可及性</td><td class="px-3 py-2 border-b">只做 hover 不做 focus</td><td class="px-3 py-2 border-b font-mono text-xs">button:focus { outline:2px solid #4f46e5; }</td></tr>
+                  <tr data-selector-help-row="pseudoElement" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>偽元素</span><button type="button" data-selector-help="pseudoElement" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">::before / ::after</td><td class="px-3 py-2 border-b">裝飾符號、標籤、分隔線</td><td class="px-3 py-2 border-b">忘記寫 content</td><td class="px-3 py-2 border-b font-mono text-xs">.tag::before{content:"NEW";}</td></tr>
+                  <tr data-selector-help-row="vars" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>CSS 變數</span><button type="button" data-selector-help="vars" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">--brand / var(--brand)</td><td class="px-3 py-2 border-b">全站色彩、間距統一</td><td class="px-3 py-2 border-b">未設 fallback 值</td><td class="px-3 py-2 border-b font-mono text-xs">color: var(--brand, #4f46e5);</td></tr>
+                  <tr data-selector-help-row="media" class="cursor-pointer hover:bg-indigo-50/40"><td class="px-3 py-2 border-b"><div class="flex items-center gap-2"><span>RWD 斷點</span><button type="button" data-selector-help="media" class="px-2 py-1 rounded-lg text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">查看</button></div></td><td class="px-3 py-2 border-b font-mono text-xs">@media (min-width:640/768/1024px)</td><td class="px-3 py-2 border-b">手機→平板→桌機逐步增強</td><td class="px-3 py-2 border-b">只測桌機，手機爆版</td><td class="px-3 py-2 border-b font-mono text-xs">@media (min-width:768px){ .grid{grid-template-columns:repeat(2,1fr);} }</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="selector-help-modal" class="hidden fixed inset-0 z-50 bg-slate-950/55 p-4">
+              <div class="max-w-3xl mx-auto h-full flex items-center">
+                <div class="w-full rounded-2xl bg-white border border-slate-200 p-5 md:p-6 max-h-[88vh] overflow-y-auto">
+                  <div class="flex items-start justify-between gap-3 mb-3">
+                    <h5 id="selector-help-title" class="text-xl font-black text-slate-900">選取器教學</h5>
+                    <button type="button" onclick="closeSelectorHelp()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">關閉 ✕</button>
+                  </div>
+                  <p id="selector-help-desc" class="text-sm text-slate-700 leading-relaxed"></p>
+                  <div class="mt-4">
+                    <p class="text-xs font-black uppercase tracking-wider text-slate-500 mb-2">可直接貼上的範例</p>
+                    <pre id="selector-help-code" class="rounded-xl bg-slate-900 p-3 text-emerald-300 text-xs whitespace-pre-wrap"></pre>
+                  </div>
+                  <div id="selector-help-tips" class="mt-4 text-sm text-slate-700 bg-slate-50 border border-slate-200 rounded-xl p-3"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div id="lesson-playground" class="hidden p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 min-w-0 max-w-full overflow-hidden"></div>
 
           <div class="space-y-3 border-t border-b border-slate-100 py-6">
@@ -467,6 +518,87 @@
       }
     }
 
+    const selectorHelpMap = {
+      basic: {
+        title: '基本選取器：.class / #id / tag',
+        desc: '先用 .class 當預設，只有「全頁唯一」才用 #id。tag 適合做全站一致基礎樣式。',
+        code: '.card { border-radius: 12px; }\n#hero-title { font-size: 2rem; }\np { line-height: 1.7; }',
+        tips: '重點：樣式重用優先 class。不要每個元素都用 id，維護會很痛。'
+      },
+      group: {
+        title: '群組選取器：一次設定多個元素',
+        desc: '把同風格的元素一起寫，減少重複。',
+        code: 'h1, h2, h3 {\n  font-weight: 800;\n  letter-spacing: 0.02em;\n}',
+        tips: '重點：只把「真正同規格」的元素放同組，避免後續局部覆寫困難。'
+      },
+      descendant: {
+        title: '後代 / 子層：限制作用範圍',
+        desc: '.card p 會選 card 裡所有段落；.card > p 只選直屬一層段落。',
+        code: '.card p { color: #334155; }\n.menu > li { list-style: none; }',
+        tips: '重點：盡量 2~3 層內解決，避免 .a .b .c .d 這種深層連鎖。'
+      },
+      sibling: {
+        title: '兄弟選取器：+ 與 ~ 差異',
+        desc: 'A + B 只抓緊鄰下一個；A ~ B 抓後面所有同層 B。',
+        code: 'h2 + p { margin-top: 6px; }\nh2 ~ p { color: #475569; }',
+        tips: '重點：需要「只第一段」用 +，需要「後續都改」才用 ~。'
+      },
+      attr: {
+        title: '屬性選取器：按欄位型別或屬性挑選',
+        desc: '特別適合表單、外連結、資料標記元素。',
+        code: 'input[type="email"] { border-color: #0ea5e9; }\na[target="_blank"]::after { content: "↗"; margin-left: 4px; }',
+        tips: '重點：屬性值要精準，否則容易選到不該改的節點。'
+      },
+      nth: {
+        title: '第幾格選取：:nth-child() / :nth-of-type()',
+        desc: '最常用在表格第幾欄、清單奇偶列、卡片節奏。',
+        code: '/* 表格第 3 欄 */\ntd:nth-child(3), th:nth-child(3) { font-weight: 700; }\n\n/* 奇數列底色 */\ntr:nth-child(odd) { background: #f8fafc; }\n\n/* 每 3 個一組第 1 個 */\n.card:nth-child(3n+1) { border-color: #6366f1; }',
+        tips: '重點：索引從 1 開始。若有混合標籤，改用 :nth-of-type() 更穩。'
+      },
+      state: {
+        title: '狀態偽類：hover / focus / active',
+        desc: '互動元件請至少同時做 hover + focus，鍵盤操作才友善。',
+        code: '.btn:hover { transform: translateY(-1px); }\n.btn:focus { outline: 2px solid #4f46e5; outline-offset: 2px; }\n.btn:active { transform: translateY(0); }',
+        tips: '重點：不要只做滑鼠 hover，行動裝置與鍵盤都看不到效果。'
+      },
+      pseudoElement: {
+        title: '偽元素：::before / ::after',
+        desc: '拿來做裝飾或標記最實用，不要放關鍵內容。',
+        code: '.tag::before {\n  content: "NEW";\n  margin-right: 6px;\n  color: #dc2626;\n}',
+        tips: '重點：一定要寫 content；無障礙關鍵文字不要只放偽元素。'
+      },
+      vars: {
+        title: 'CSS 變數：全站主題與可維護性',
+        desc: '把顏色/間距抽到 :root，後續改一處全站同步。',
+        code: ':root {\n  --brand: #4f46e5;\n  --radius-card: 16px;\n}\n.card { border-radius: var(--radius-card); }\n.btn { background: var(--brand, #4338ca); }',
+        tips: '重點：var() 建議加 fallback，避免變數缺失時整段失效。'
+      },
+      media: {
+        title: 'RWD 媒體查詢：手機優先',
+        desc: '先寫手機版，再用 min-width 往上加功能。',
+        code: '.grid { display: grid; grid-template-columns: 1fr; gap: 12px; }\n@media (min-width: 768px) {\n  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }\n}\n@media (min-width: 1024px) {\n  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }\n}',
+        tips: '重點：每次改版型都要檢查手機 375、平板 768、桌機 1280 三段。'
+      }
+    };
+
+    function openSelectorHelp(id) {
+      var data = selectorHelpMap[id];
+      if (!data) return;
+      document.getElementById('selector-help-title').textContent = data.title;
+      document.getElementById('selector-help-desc').textContent = data.desc;
+      document.getElementById('selector-help-code').textContent = data.code;
+      document.getElementById('selector-help-tips').textContent = data.tips;
+      document.getElementById('selector-help-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSelectorHelp() {
+      var modal = document.getElementById('selector-help-modal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
     window.loadLesson = window.switchLessonEngine = function(key, btnElement, opts) {
       opts = opts || {};
       const lesson = tutorialRepository[key];
@@ -483,6 +615,8 @@
       const badge = document.getElementById('track-badge');
       badge.textContent = trackLabel(lesson.track);
       badge.className = 'text-xs font-black px-2.5 py-1 rounded-lg ' + trackClass(lesson.track);
+      const cssPanel = document.getElementById('css-selector-panel');
+      if (cssPanel) cssPanel.classList.toggle('hidden', lesson.track !== 'css');
 
       document.getElementById('complete-badge').classList.toggle('hidden', !completedSet.has(key));
 
@@ -542,6 +676,24 @@
         });
         loadLesson('intro_welcome', document.querySelector('.tuto-nav-btn'), { scroll: false });
       });
+      const selectorPanel = document.getElementById('css-selector-panel');
+      if (selectorPanel) {
+        selectorPanel.addEventListener('click', function(e) {
+          var btn = e.target.closest('[data-selector-help]');
+          if (btn) {
+            openSelectorHelp(btn.getAttribute('data-selector-help'));
+            return;
+          }
+          var row = e.target.closest('[data-selector-help-row]');
+          if (row) openSelectorHelp(row.getAttribute('data-selector-help-row'));
+        });
+      }
+      const selectorModal = document.getElementById('selector-help-modal');
+      if (selectorModal) {
+        selectorModal.addEventListener('click', function(e) {
+          if (e.target === selectorModal) closeSelectorHelp();
+        });
+      }
       renderAuthorSignature('tutorial-author-note');
       initMobileContentDock({
         anchorId: 'lesson-main',

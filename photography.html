@@ -42,6 +42,35 @@
       position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; opacity: 0; z-index: 25;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 5 0 0 0 0 0 5 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cFilter)'/%3E%3C/svg%3E");
     }
+    .fab-attention {
+      animation: fabPulse 1.8s ease-in-out infinite;
+      box-shadow: 0 10px 28px rgba(79, 70, 229, 0.35);
+    }
+    @keyframes fabPulse {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-3px) scale(1.03); }
+    }
+    .fab-tip {
+      position: fixed;
+      right: 1rem;
+      bottom: 8.2rem;
+      z-index: 48;
+    }
+    @media (min-width: 768px) {
+      .fab-tip { right: 1.1rem; bottom: 5.2rem; }
+    }
+    @media (max-width: 767px) {
+      .fab-tip { display: none; }
+    }
+    .fab-close {
+      position: fixed;
+      z-index: 51;
+      right: 0.6rem;
+      bottom: 10.95rem;
+    }
+    @media (min-width: 768px) {
+      .fab-close { right: 0.8rem; bottom: 7.8rem; }
+    }
   </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
@@ -333,6 +362,54 @@
   </main>
 
   <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
+
+  <div id="photo-glossary-tip" class="fab-tip">
+    <div class="rounded-xl border border-indigo-200 bg-white px-3 py-2 text-xs font-bold text-indigo-700 shadow-md">
+      新手可點這裡看術語
+    </div>
+  </div>
+
+  <button id="photo-glossary-fab" type="button" onclick="openPhotoGlossary()" class="fixed z-50 right-3 bottom-24 md:right-4 md:bottom-10 h-11 w-11 md:h-auto md:w-auto md:px-4 md:py-3 rounded-full bg-indigo-600 text-white text-sm font-black shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-all fab-attention flex items-center justify-center md:block">
+    <span class="md:hidden">📘</span>
+    <span class="hidden md:inline">📘 術語提醒</span>
+  </button>
+  <button id="photo-glossary-close" type="button" onclick="dismissPhotoGlossaryFab()" class="fab-close h-7 w-7 rounded-full bg-white/95 border border-slate-300 text-slate-500 text-sm font-black leading-none hover:bg-slate-100" aria-label="關閉術語提醒">
+    ×
+  </button>
+
+  <div id="photo-glossary-modal" class="hidden fixed inset-0 z-50 bg-slate-950/55 p-4 md:p-6">
+    <div class="max-w-4xl mx-auto h-full flex items-center">
+      <div class="w-full max-h-[88vh] overflow-y-auto rounded-2xl bg-white border border-slate-200 p-5 md:p-6">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <h3 class="text-xl md:text-2xl font-black text-slate-900">📘 攝影術語翻譯區（新手彈窗）</h3>
+            <p class="text-sm text-slate-600 mt-1">看不懂再打開，不占主版面。手機與電腦都可使用。</p>
+          </div>
+          <button type="button" onclick="closePhotoGlossary()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">關閉 ✕</button>
+        </div>
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3 text-sm mt-4">
+          <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-4"><p class="font-black text-indigo-700">光圈 Aperture</p><p class="mt-1 text-slate-700">像鏡頭門大小。F1.4 更亮更糊；F16 更暗更清楚。</p></div>
+          <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-4"><p class="font-black text-indigo-700">快門 Shutter</p><p class="mt-1 text-slate-700">像眼睛睜開多久。快可凝固，慢可做車軌。</p></div>
+          <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-4"><p class="font-black text-indigo-700">ISO</p><p class="mt-1 text-slate-700">亮度增益。高 ISO 會亮，但雜訊也增加。</p></div>
+          <div class="rounded-xl border border-amber-100 bg-amber-50 p-4"><p class="font-black text-amber-700">景深 DOF</p><p class="mt-1 text-slate-700">清楚範圍深淺。淺景深凸顯主體，深景深適合風景。</p></div>
+          <div class="rounded-xl border border-amber-100 bg-amber-50 p-4"><p class="font-black text-amber-700">白平衡 WB</p><p class="mt-1 text-slate-700">校正偏色，讓膚色與場景更自然。</p></div>
+          <div class="rounded-xl border border-amber-100 bg-amber-50 p-4"><p class="font-black text-amber-700">焦段 Focal Length</p><p class="mt-1 text-slate-700">24mm 廣角誇張透視；85mm 人像更自然。</p></div>
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-4"><p class="font-black text-emerald-700">構圖 Composition</p><p class="mt-1 text-slate-700">把主體放在畫面哪裡。三分法、留白、引導線都屬於構圖策略。</p></div>
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-4"><p class="font-black text-emerald-700">對焦 Focus / 焦平面</p><p class="mt-1 text-slate-700">真正清楚的那一層平面。焦點跑掉，再亮也會看起來糊。</p></div>
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-4"><p class="font-black text-emerald-700">AE/AF Lock</p><p class="mt-1 text-slate-700">先鎖曝光與對焦再重構圖，避免主體一移動就重新測光跑掉。</p></div>
+          <div class="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><p class="font-black text-cyan-700">EV 曝光補償</p><p class="mt-1 text-slate-700">+EV 讓畫面更亮，-EV 讓畫面更暗，常用於快速微調高反差場景。</p></div>
+          <div class="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><p class="font-black text-cyan-700">Fill Ratio 補光比</p><p class="mt-1 text-slate-700">主光與補光的強弱差。差越大立體感越強，也越有戲劇陰影。</p></div>
+          <div class="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><p class="font-black text-cyan-700">動態範圍 Dynamic Range</p><p class="mt-1 text-slate-700">同時保住暗部與高光細節的能力。逆光場景特別需要注意。</p></div>
+          <div class="rounded-xl border border-rose-100 bg-rose-50 p-4"><p class="font-black text-rose-700">直方圖 Histogram</p><p class="mt-1 text-slate-700">看亮度分布，避免爆白與死黑。</p></div>
+          <div class="rounded-xl border border-rose-100 bg-rose-50 p-4"><p class="font-black text-rose-700">前簾 / 後簾同步</p><p class="mt-1 text-slate-700">後簾常用於動態光軌，拖尾更自然。</p></div>
+          <div class="rounded-xl border border-rose-100 bg-rose-50 p-4"><p class="font-black text-rose-700">RAW vs JPG</p><p class="mt-1 text-slate-700">RAW 可救回更多細節；JPG 較方便但後製空間小。</p></div>
+          <div class="rounded-xl border border-violet-100 bg-violet-50 p-4"><p class="font-black text-violet-700">空間壓縮感</p><p class="mt-1 text-slate-700">長焦鏡會讓前後景看起來更靠近，是人像與舞台常見視覺效果。</p></div>
+          <div class="rounded-xl border border-violet-100 bg-violet-50 p-4"><p class="font-black text-violet-700">噪點 Noise</p><p class="mt-1 text-slate-700">暗部彩色顆粒。高 ISO、過度拉亮、壓縮都可能讓噪點更明顯。</p></div>
+          <div class="rounded-xl border border-violet-100 bg-violet-50 p-4"><p class="font-black text-violet-700">車軌 / 光軌</p><p class="mt-1 text-slate-700">慢快門把移動光源拉成線條，常用在夜景街拍與婚禮舞池。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const AP_VALS = ["F1.4", "F2.0", "F2.8", "F4.0", "F8.0", "F16"];
@@ -1327,6 +1404,30 @@
       }
     }
 
+    function openPhotoGlossary() {
+      const modal = document.getElementById('photo-glossary-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      const tip = document.getElementById('photo-glossary-tip');
+      if (tip) tip.classList.add('hidden');
+    }
+    function closePhotoGlossary() {
+      const modal = document.getElementById('photo-glossary-modal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    function dismissPhotoGlossaryFab() {
+      localStorage.setItem('mrbill_photo_glossary_hint_hidden', '1');
+      const fab = document.getElementById('photo-glossary-fab');
+      const tip = document.getElementById('photo-glossary-tip');
+      const dismiss = document.getElementById('photo-glossary-close');
+      if (fab) fab.classList.add('hidden');
+      if (tip) tip.classList.add('hidden');
+      if (dismiss) dismiss.classList.add('hidden');
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
         window.scrollTo(0, 0);
@@ -1355,6 +1456,21 @@
         });
         const resetBtn = document.getElementById('btn-reset-demo');
         if (resetBtn) resetBtn.addEventListener('click', resetCurrentModeControls);
+        const glossaryModal = document.getElementById('photo-glossary-modal');
+        if (glossaryModal) {
+          glossaryModal.addEventListener('click', function(e) {
+            if (e.target === glossaryModal) closePhotoGlossary();
+          });
+        }
+        const hideHint = localStorage.getItem('mrbill_photo_glossary_hint_hidden') === '1';
+        if (hideHint) {
+          const fab = document.getElementById('photo-glossary-fab');
+          const tip = document.getElementById('photo-glossary-tip');
+          const dismiss = document.getElementById('photo-glossary-close');
+          if (fab) fab.classList.add('hidden');
+          if (tip) tip.classList.add('hidden');
+          if (dismiss) dismiss.classList.add('hidden');
+        }
     });
   </script>
 </body>
