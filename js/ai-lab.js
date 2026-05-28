@@ -307,7 +307,7 @@ const promptCategories = {
     role: '商業攝影指導與 AI 影像 Prompt 專家',
     tasks: ['將拍攝需求轉為 Midjourney 英文 Prompt（含光線與鏡頭）', '列出婚禮晚宴拍攝 Checklist 20 項', '分析這張照片的曝光問題並給修正步驟'],
     contexts: ['現場：婚宴廳燈光偏黃，無閃燈', '器材：全片幅 + 50mm f/1.8', '後製：Lightroom，需保留膚色自然'],
-    styles: ['攝影參數用中英文對照', 'Prompt 用英文，說明用繁中', '附「常見失敗原因」'],
+    styles: ['攝影參數用中英文對照', 'Prompt 用英文，說明用繁中', '附「品質檢查與優化建議」'],
     sampleResponse: '## Midjourney Prompt\n\n```\ncommercial wedding portrait, soft window light, 50mm f/1.8, shallow depth of field, warm skin tones, elegant dress detail, photorealistic, no text --ar 2:3 --style raw\n```\n\n### 現場建議\n- 白平衡：5500K 起，依現場試拍微調\n- 快門：≥ 1/125 避免晃動\n- **避免**：正面硬閃導致油亮膚感'
   },
   data: {
@@ -357,8 +357,8 @@ const promptScenarios = {
       workflow: [{ n: 1, t: '定規格', a: '比例、背景、陰影方向', tool: '簡報' }, { n: 2, t: '寫 Prompt', a: '主體+光線+鏡頭+--ar', tool: 'Midjourney' }, { n: 3, t: '選圖', a: '4 張中選 1，檢查邊緣', tool: '人眼' }, { n: 4, t: '後製', a: '去背、色準、加 Logo', tool: 'Photoshop' }],
       pitfalls: ['文字 Logo 亂碼', '材質塑膠感', '未檢查商用授權'],
       imagePreset: 'product photography, white seamless background, soft diffused studio light, 85mm lens, sharp focus, commercial catalog style, no text, no watermark --ar 1:1 --style raw',
-      extraMd: '\n# Image Output\n請輸出：① 英文 MJ Prompt ② 中文拍攝對照建議 ③ 常見失敗原因 3 點。',
-      sampleResponse: '## Midjourney\n```\norganic handmade soap bar on white seamless background, soft diffused studio light, 85mm, catalog style, no text --ar 1:1\n```\n\n### 失敗原因\n- 標籤文字亂碼 → 加 --no text\n- 邊緣鋸齒 → 後製 pen tool' },
+      extraMd: '\n# Image Output\n請輸出：① 英文 MJ Prompt ② 中文拍攝對照建議 ③ 品質檢查與優化建議 3 點。',
+      sampleResponse: '## Midjourney\n```\norganic handmade soap bar on white seamless background, soft diffused studio light, 85mm, catalog style, no text --ar 1:1\n```\n\n### 品質檢查與優化建議\n- 標籤文字易亂碼 → 加 `--no text`\n- 邊緣鋸齒 → 後製 pen tool\n- 商用前再檢查授權與色準一致性' },
     { id: 'i-wedding', title: '婚禮人像氛圍圖（參考實拍光位）', desc: '先懂攝影再打光詞，再生成。',
       workflow: [{ n: 1, t: '分析光位', a: '窗光/逆光/閃燈?', tool: '攝影學堂' }, { n: 2, t: 'Prompt', a: '50mm f/1.8 + skin tone', tool: 'MJ' }, { n: 3, t: '對照', a: '與實拍範例比膚色', tool: 'Lightroom' }],
       pitfalls: ['手指數量錯誤', '臉部塑膠感', '禮服細節穿幫'],
@@ -371,14 +371,14 @@ const promptScenarios = {
       workflow: [{ n: 1, t: '匯出', a: '流量來源 + 著陸頁 + 事件', tool: 'GA4' }, { n: 2, t: 'Prompt', a: '貼數據要求 3 假設', tool: 'ChatGPT' }, { n: 3, t: '驗證', a: '逐項回 GA4 查', tool: '人' }],
       pitfalls: ['只信 AI 不查原始報表', '混淆相關與因果'],
       extraMd: '\n# Output\n表格：假設 | 驗證方式 | 下週行動',
-      sampleResponse: '| 假設 | 驗證 |\n| 低意圖關鍵字 | GSC 查詢詞 |\n| CTA 弱化 | 事件週比較 |' }
+      sampleResponse: '## GA4 週報診斷（範例）\n\n| 假設 | 驗證方式 |\n|------|----------|\n| 低意圖關鍵字 | GSC 查詢詞與 CTR |\n| CTA 弱化 | GA4 事件週比較 |\n| 表單故障 | 實測送出 + 即時報表 |\n\n**下週行動**：A/B 測試首屏 CTA（動詞 + 具體利益）。' }
   ],
   product: [
     { id: 'p-mvp', title: '2 週 MVP 從需求到追蹤', desc: 'PM 用 AI 寫 PRD，但驗收與 GA4 人類定稿。',
       workflow: [{ n: 1, t: '訪談', a: '整理 pain points', tool: '筆記' }, { n: 2, t: 'PRD', a: 'User Story + MoSCoW', tool: 'ChatGPT' }, { n: 3, t: '追蹤', a: 'GA4 事件規格', tool: 'GTM' }],
       pitfalls: ['Story 無驗收標準', '漏掉手機版觸控尺寸'],
       extraMd: '\n# Output\nMust/Should/Could 表 + 每 Story 驗收 checkbox',
-      sampleResponse: '**US-01** 3 步預約\n- [ ] 手機按鈕 ≥ 44px\n- [ ] generate_lead 事件' }
+      sampleResponse: '## MVP 需求摘要\n\n**US-01** 作為訪客，我想在 3 步內完成預約，以便快速鎖定時段。\n\n### 驗收標準\n- [ ] 手機按鈕高度 ≥ 44px\n- [ ] 成功預約觸發 `generate_lead` 事件\n\n| Must | Should |\n|------|--------|\n| 預約表單 | Email 確認信 |' }
   ]
 };
 
@@ -619,46 +619,216 @@ function initPromptLab() {
   loadCategory('teach');
 }
 
-function updatePromptOutputs() {
-  var md = buildMarkdownPrompt();
-  var out = document.getElementById('formedPromptOutputContainer');
-  var sim = document.getElementById('prompt-sim-response');
-  if (out) out.textContent = md;
-  if (sim) {
-    var sc = getActiveScenario();
-    var cat = promptCategories[promptState.category];
-    var sample = (sc && sc.sampleResponse) ? sc.sampleResponse : cat.sampleResponse;
-    sim.innerHTML =
-      '<p class="text-xs font-black text-slate-400 uppercase mb-3">AI 回覆草稿預覽（先看重點，再看完整）</p>' +
-      '<div class="rounded-xl border border-purple-100 bg-white p-3 text-xs text-slate-600 mb-3">' +
-      '<p><strong>閱讀順序：</strong>1) 先看標題結論 2) 再看條列步驟 3) 最後才看細節。若有看不懂術語，先回「概念互動練習箱」查名詞。</p>' +
-      '</div>' +
-      '<div class="prose prose-sm max-w-none text-slate-700">' + markdownToSimpleHtml(sample) + '</div>';
+var promptStreamCancel = null;
+
+function cancelPromptStream() {
+  if (promptStreamCancel) {
+    promptStreamCancel();
+    promptStreamCancel = null;
   }
 }
 
+function composeSimPreviewMarkdown() {
+  var sc = getActiveScenario();
+  var cat = promptCategories[promptState.category];
+  if (!cat) return buildFallbackSimPreview();
+  if (promptState.techniques.indexOf('json') >= 0) {
+    return '## 結構化輸出（JSON 模式範例）\n\n```json\n{\n  "summary": "依你的 Task 產出重點摘要",\n  "steps": ["步驟一", "步驟二", "步驟三"],\n  "risks": ["需人工查證的項目"],\n  "next_action": "建議的下一步"\n}\n```\n\n> 已勾選「JSON 輸出」技巧：實際使用時請要求模型**只**回傳合法 JSON。';
+  }
+  var base = (sc && sc.sampleResponse) ? sc.sampleResponse : cat.sampleResponse;
+  if (!base || !String(base).trim()) return buildFallbackSimPreview();
+  var roleShort = (promptState.role || cat.role).slice(0, 36);
+  var taskShort = (promptState.task || cat.tasks[0]).slice(0, 48);
+  return '## 依目前 Prompt 設定的回覆預覽\n\n> 角色：' + roleShort + (roleShort.length >= 36 ? '…' : '') +
+    '｜任務：' + taskShort + (taskShort.length >= 48 ? '…' : '') + '\n\n' + base;
+}
+
+function buildFallbackSimPreview() {
+  var cat = promptCategories[promptState.category];
+  var task = promptState.task || (cat && cat.tasks[0]) || '完成指定任務';
+  return '## 回覆預覽\n\n依你目前的 **Role / Task / Context** 組合，AI 通常會：\n\n1. 先重述需求與限制\n2. 用條列或表格整理重點\n3. 附上可執行的下一步\n\n**本次任務**：' + task + '\n\n> 請將左側 .md Prompt 貼到 ChatGPT / Claude 取得正式結果；此處為教學用模擬預覽。';
+}
+
+function splitMarkdownBlocks(md) {
+  var lines = md.split('\n');
+  var blocks = [];
+  var buf = [];
+  var inTable = false;
+  var inCode = false;
+  function flush() {
+    if (buf.length) {
+      var chunk = buf.join('\n').trim();
+      if (chunk) blocks.push(chunk);
+      buf = [];
+    }
+  }
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    if (/^```/.test(line.trim())) {
+      inCode = !inCode;
+      buf.push(line);
+      continue;
+    }
+    if (inCode) {
+      buf.push(line);
+      continue;
+    }
+    if (/^\s*\|/.test(line)) {
+      if (!inTable && buf.length) flush();
+      inTable = true;
+      buf.push(line);
+      continue;
+    }
+    if (inTable) {
+      inTable = false;
+      flush();
+    }
+    if (line.trim() === '') {
+      flush();
+      continue;
+    }
+    buf.push(line);
+  }
+  flush();
+  return blocks.length ? blocks : [md.trim()];
+}
+
+function parseMarkdownTableLines(tableLines) {
+  var rows = tableLines.map(function(line) {
+    return line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(function(c) { return c.trim(); });
+  }).filter(function(cols) { return cols.some(Boolean); });
+  if (!rows.length) return '';
+  var header = rows[0];
+  var bodyStart = 1;
+  if (rows.length > 1 && /^[-:\s|]+$/.test(rows[1].join(''))) bodyStart = 2;
+  var body = rows.slice(bodyStart);
+  if (!body.length && bodyStart === 1) return '';
+  var thead = '<thead><tr>' + header.map(function(h) {
+    return '<th class="border border-slate-200 bg-slate-50 px-2 py-1.5 text-left font-bold">' + mdEscape(h) + '</th>';
+  }).join('') + '</tr></thead>';
+  var tbody = '<tbody>' + body.map(function(cols) {
+    return '<tr>' + cols.map(function(c) {
+      return '<td class="border border-slate-200 px-2 py-1.5 align-top">' + mdEscape(c) + '</td>';
+    }).join('') + '</tr>';
+  }).join('') + '</tbody>';
+  return '<div class="overflow-x-auto my-3"><table class="min-w-full text-xs border-collapse">' + thead + tbody + '</table></div>';
+}
+
+function replaceMarkdownTables(text) {
+  var lines = text.split('\n');
+  var out = [];
+  var i = 0;
+  while (i < lines.length) {
+    if (/^\s*\|/.test(lines[i])) {
+      var tableLines = [];
+      while (i < lines.length && /^\s*\|/.test(lines[i])) {
+        tableLines.push(lines[i]);
+        i++;
+      }
+      out.push(parseMarkdownTableLines(tableLines));
+    } else {
+      out.push(lines[i]);
+      i++;
+    }
+  }
+  return out.join('\n');
+}
+
+function mdEscape(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 function markdownToSimpleHtml(md) {
-  var html = md
-    .replace(/^### (.+)$/gm, '<h4 class="font-black text-slate-900 mt-4 mb-2">$1</h4>')
-    .replace(/^## (.+)$/gm, '<h3 class="font-black text-lg text-purple-900 mt-4 mb-2">$1</h3>')
-    .replace(/^# (.+)$/gm, '<h2 class="font-black text-xl text-purple-900 mb-3">$1</h2>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/^> (.+)$/gm, '<blockquote class="border-l-4 border-purple-300 pl-3 text-slate-600 my-2">$1</blockquote>')
-    .replace(/^- (.+)$/gm, '<li class="ml-4">$1</li>')
-    .replace(/```[\s\S]*?```/g, m => '<pre class="bg-slate-900 text-emerald-300 p-3 rounded-lg text-xs whitespace-pre-wrap break-words overflow-x-hidden my-2">' + m.replace(/```\w*\n?/g, '').replace(/```/g, '') + '</pre>')
-    .replace(/\n\n/g, '<br/><br/>');
-  html = html.replace(/(?:^|\n)\|(.+)\|\n\|[-:\s|]+\|\n((?:\|.*\|\n?)*)/g, function(_, header, rows) {
-    var heads = header.split('|').map(function(h) { return h.trim(); }).filter(Boolean);
-    var bodyRows = rows.trim().split('\n').map(function(r) {
-      return r.split('|').map(function(c) { return c.trim(); }).filter(Boolean);
-    });
-    var thead = '<thead><tr>' + heads.map(function(h) { return '<th class="border border-slate-200 bg-slate-50 px-2 py-1 text-left">' + h + '</th>'; }).join('') + '</tr></thead>';
-    var tbody = '<tbody>' + bodyRows.map(function(cols) {
-      return '<tr>' + cols.map(function(c) { return '<td class="border border-slate-200 px-2 py-1">' + c + '</td>'; }).join('') + '</tr>';
-    }).join('') + '</tbody>';
-    return '<div class="overflow-x-auto my-2"><table class="min-w-full text-xs">' + thead + tbody + '</table></div>';
+  if (!md || !String(md).trim()) {
+    return '<p class="text-slate-500">請先選擇應用分類與實戰情境，此處會顯示對應的 AI 回覆範例。</p>';
+  }
+  var html = md;
+  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, function(_, lang, code) {
+    return '<pre class="bg-slate-900 text-emerald-300 p-3 rounded-lg text-xs whitespace-pre-wrap break-words overflow-x-auto my-2">' + mdEscape(code.trim()) + '</pre>';
   });
+  html = replaceMarkdownTables(html);
+  html = html
+    .replace(/^### (.+)$/gm, function(_, t) { return '<h4 class="font-black text-slate-900 mt-4 mb-2">' + mdEscape(t) + '</h4>'; })
+    .replace(/^## (.+)$/gm, function(_, t) { return '<h3 class="font-black text-lg text-purple-900 mt-4 mb-2">' + mdEscape(t) + '</h3>'; })
+    .replace(/^# (.+)$/gm, function(_, t) { return '<h2 class="font-black text-xl text-purple-900 mb-3">' + mdEscape(t) + '</h2>'; })
+    .replace(/\*\*(.+?)\*\*/g, function(_, t) { return '<strong>' + mdEscape(t) + '</strong>'; })
+    .replace(/^> (.+)$/gm, function(_, t) { return '<blockquote class="border-l-4 border-purple-300 pl-3 text-slate-600 my-2">' + mdEscape(t) + '</blockquote>'; })
+    .replace(/^\d+\. (.+)$/gm, function(_, t) { return '<li class="ml-4 list-decimal">' + mdEscape(t) + '</li>'; })
+    .replace(/^- (.+)$/gm, function(_, t) { return '<li class="ml-4 list-disc">' + mdEscape(t) + '</li>'; });
+  html = html.replace(/((?:<li class="ml-4 list-(?:disc|decimal)">[\s\S]*?<\/li>\s*)+)/g, function(m) {
+    var kind = m.indexOf('list-decimal') >= 0 ? 'ol' : 'ul';
+    var cls = kind === 'ol' ? 'list-decimal' : 'list-disc';
+    return '<' + kind + ' class="' + cls + ' pl-5 my-2 space-y-1">' + m + '</' + kind + '>';
+  });
+  html = html.replace(/\n\n+/g, '<br/><br/>').replace(/\n/g, '<br/>');
   return html;
+}
+
+function renderPromptSimShell() {
+  return '<p class="text-xs font-black text-slate-400 uppercase mb-3">AI 回覆草稿預覽（模擬）</p>' +
+    '<div class="rounded-xl border border-purple-100 bg-white p-3 text-xs text-slate-600 mb-3">' +
+    '<p><strong>閱讀順序：</strong>1) 標題結論 2) 條列或表格 3) 細節與程式碼。術語不懂可回「概念互動練習箱」。</p>' +
+    '</div>' +
+    '<div id="prompt-sim-thinking" class="flex items-center text-purple-700 text-sm font-bold mb-3" role="status" aria-live="polite">' +
+    '<span class="prompt-thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span>思考中…</div>' +
+    '<div id="prompt-sim-body" class="prose prose-sm max-w-none text-slate-700 min-h-[4rem]"></div>';
+}
+
+function streamSimResponse(previewMd) {
+  cancelPromptStream();
+  var sim = document.getElementById('prompt-sim-response');
+  if (!sim) return;
+  sim.innerHTML = renderPromptSimShell();
+  var thinkingEl = document.getElementById('prompt-sim-thinking');
+  var bodyEl = document.getElementById('prompt-sim-body');
+  if (!thinkingEl || !bodyEl) return;
+
+  var blocks = splitMarkdownBlocks(previewMd);
+  var plainLen = previewMd.replace(/\s/g, '').length;
+  var thinkMs = Math.min(2400, Math.max(900, 700 + plainLen * 3));
+  var cancelled = false;
+
+  promptStreamCancel = function() { cancelled = true; };
+
+  setTimeout(function() {
+    if (cancelled) return;
+    thinkingEl.classList.add('hidden');
+    var blockIdx = 0;
+    var charIdx = 0;
+    var currentBlock = '';
+
+    function typeNext() {
+      if (cancelled) return;
+      if (blockIdx >= blocks.length) {
+        bodyEl.classList.remove('prompt-sim-cursor');
+        bodyEl.innerHTML = markdownToSimpleHtml(previewMd);
+        promptStreamCancel = null;
+        return;
+      }
+      currentBlock = blocks[blockIdx];
+      if (charIdx <= currentBlock.length) {
+        var partial = blocks.slice(0, blockIdx).join('\n\n');
+        if (charIdx > 0) partial += (partial ? '\n\n' : '') + currentBlock.slice(0, charIdx);
+        bodyEl.innerHTML = markdownToSimpleHtml(partial);
+        bodyEl.classList.add('prompt-sim-cursor');
+        var step = currentBlock.length > 180 ? 4 : (currentBlock.length > 80 ? 3 : 2);
+        charIdx += step;
+        setTimeout(typeNext, 42);
+        return;
+      }
+      blockIdx++;
+      charIdx = 0;
+      setTimeout(typeNext, 180);
+    }
+    typeNext();
+  }, thinkMs);
+}
+
+function updatePromptOutputs() {
+  var md = buildMarkdownPrompt();
+  var out = document.getElementById('formedPromptOutputContainer');
+  if (out) out.textContent = md;
+  streamSimResponse(composeSimPreviewMarkdown());
 }
 
 function copyPromptOutput() {
