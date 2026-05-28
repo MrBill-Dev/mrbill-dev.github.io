@@ -538,12 +538,71 @@ function initPromptLab() {
     var subjects = ['產品白底', '婚禮人像', '美食側光', '風景大片', '科技主視覺'];
     var lights = ['soft window light', 'golden hour', 'studio softbox', 'neon rim light'];
     var lenses = ['50mm f/1.8', '85mm f/1.4', '24mm wide', 'macro close-up'];
+    var references = {
+      '產品白底': [
+        { img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80', note: '白底商品構圖，適合 catalog 風格' },
+        { img: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=900&q=80', note: '主體置中，陰影乾淨，適合電商主圖' },
+        { img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80', note: '單品特寫，對比清晰，利於去背' }
+      ],
+      '婚禮人像': [
+        { img: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80', note: '柔和自然光，膚色參考友善' },
+        { img: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80', note: '人物與禮服細節完整，適合婚禮氛圍' },
+        { img: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=900&q=80', note: '逆光感人像，情緒氛圍較強' }
+      ],
+      '美食側光': [
+        { img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80', note: '側光強化食材層次，適合菜單視覺' },
+        { img: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80', note: '暖色調美食，適合社群貼文' },
+        { img: 'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=900&q=80', note: '對比清楚，適合近距離細節描述' }
+      ],
+      '風景大片': [
+        { img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80', note: '廣角山景，前中後景深明確' },
+        { img: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80', note: '自然光過渡平順，適合大片感' },
+        { img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80', note: '森林氛圍，適合 cinematic 類型' }
+      ],
+      '科技主視覺': [
+        { img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80', note: '科技感高，適合產品展示頁' },
+        { img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80', note: '冷色調主視覺，適合品牌形象圖' },
+        { img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80', note: '團隊 + 螢幕場景，適合 SaaS 首屏' }
+      ]
+    };
+    var chosen = { subject: subjects[0], light: lights[0], lens: lenses[0] };
     ib.innerHTML = '<p class="text-xs font-black text-amber-800 mb-2">🖼 產圖 Prompt 組裝器</p>' +
       '<div class="flex flex-wrap gap-2 mb-2" id="img-subject-btns"></div>' +
       '<div class="flex flex-wrap gap-2 mb-2" id="img-light-btns"></div>' +
       '<div class="flex flex-wrap gap-2 mb-3" id="img-lens-btns"></div>' +
       '<textarea id="img-prompt-out" class="w-full p-3 rounded-xl border border-amber-200 text-xs font-mono h-24">' + preset + '</textarea>' +
+      '<div class="mt-3 rounded-xl border border-amber-200 bg-white p-3">' +
+      '<div class="flex items-center justify-between gap-2 mb-2">' +
+      '<p class="text-xs font-black text-slate-700">🎯 模擬產圖結果（免費參考圖）</p>' +
+      '<button type="button" id="img-refresh-ref" class="px-2 py-1 rounded-lg text-xs font-bold border border-amber-200 bg-amber-50 text-amber-800">換一組參考</button>' +
+      '</div>' +
+      '<div id="img-ref-grid" class="grid grid-cols-1 md:grid-cols-3 gap-2"></div>' +
+      '<p id="img-ref-caption" class="text-xs text-slate-600 mt-2"></p>' +
+      '</div>' +
       '<p class="text-xs text-amber-700 mt-2">提示：商用前檢查文字/手指/授權；品牌主視覺建議實拍+AI輔助。</p>';
+    function buildPrompt() {
+      return chosen.subject + ', ' + chosen.light + ', ' + chosen.lens + ', photorealistic, no text, no watermark --ar 1:1';
+    }
+    function updatePromptText() {
+      var ta = document.getElementById('img-prompt-out');
+      promptState.imagePrompt = buildPrompt();
+      if (ta) ta.value = promptState.imagePrompt;
+      updatePromptOutputs();
+    }
+    function renderRefs() {
+      var grid = document.getElementById('img-ref-grid');
+      var caption = document.getElementById('img-ref-caption');
+      if (!grid || !caption) return;
+      var list = references[chosen.subject] || references[subjects[0]];
+      var rolled = list.slice().sort(function() { return Math.random() - 0.5; });
+      grid.innerHTML = rolled.map(function(x) {
+        return '<figure class="rounded-lg overflow-hidden border border-slate-200 bg-slate-50">' +
+          '<img src="' + x.img + '" alt="' + chosen.subject + ' 參考圖" class="w-full h-24 object-cover" loading="lazy" />' +
+          '<figcaption class="p-2 text-[11px] text-slate-600 leading-relaxed">' + x.note + '</figcaption>' +
+          '</figure>';
+      }).join('');
+      caption.textContent = '目前組合：' + chosen.subject + ' / ' + chosen.light + ' / ' + chosen.lens + '。可先用參考圖校正風格，再貼左側 Prompt 到 AI 產生正式版本。';
+    }
     function bindImg(containerId, opts, prefix) {
       var c = document.getElementById(containerId);
       opts.forEach(function(opt) {
@@ -552,17 +611,22 @@ function initPromptLab() {
         b.className = 'px-2 py-1 rounded-lg text-xs font-bold bg-white border border-amber-200';
         b.textContent = opt;
         b.onclick = function() {
-          var ta = document.getElementById('img-prompt-out');
-          promptState.imagePrompt = prefix + opt + ', photorealistic, no text, no watermark --ar 1:1';
-          ta.value = promptState.imagePrompt;
-          updatePromptOutputs();
+          if (containerId === 'img-subject-btns') chosen.subject = opt;
+          if (containerId === 'img-light-btns') chosen.light = opt;
+          if (containerId === 'img-lens-btns') chosen.lens = opt;
+          updatePromptText();
+          renderRefs();
         };
         c.appendChild(b);
       });
     }
     bindImg('img-subject-btns', subjects, '');
-    bindImg('img-light-btns', lights, subjects[0] + ', ');
-    bindImg('img-lens-btns', lenses, subjects[0] + ', ' + lights[0] + ', ');
+    bindImg('img-light-btns', lights, '');
+    bindImg('img-lens-btns', lenses, '');
+    updatePromptText();
+    renderRefs();
+    var refreshBtn = document.getElementById('img-refresh-ref');
+    if (refreshBtn) refreshBtn.onclick = renderRefs;
   }
 
   function loadCategory(id) {
