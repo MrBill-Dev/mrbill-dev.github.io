@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/components-loader.js"></script>
   <script src="js/site-config.js"></script>
+  <script src="js/tutorial-tailwind-lessons.js"></script>
   <script src="js/tutorial-data.js"></script>
   <script>
     tailwind.config = {
@@ -40,6 +41,7 @@
     .track-vue { background: #dcfce7; color: #166534; }
     .track-git { background: #ede9fe; color: #5b21b6; }
     .track-deploy { background: #fee2e2; color: #9f1239; }
+    .track-tailwind { background: #cffafe; color: #0e7490; }
     #sandbox-preview-canvas { overflow-x: auto; max-width: 100%; min-width: 0; }
     #sandbox-preview-canvas .grid,
     #sandbox-preview-canvas [class*="grid"] { max-width: 100%; }
@@ -49,6 +51,122 @@
     #css-selector-panel table th,
     #css-selector-panel table td { vertical-align: top; line-height: 1.55; }
     #css-selector-panel table td:first-child { min-width: 170px; }
+    .lesson-learn-block { display: flex; flex-direction: column; gap: 1rem; }
+    .lesson-block { padding: 1rem 1.15rem; border-radius: 1rem; }
+    .lesson-block-concept { background: rgba(238, 242, 255, 0.85); border: 1px solid #e0e7ff; }
+    .lesson-block-practice { background: rgba(255, 251, 235, 0.9); border: 1px solid #fde68a; }
+    .lesson-block-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.65rem;
+    }
+    .lesson-block-concept .lesson-block-label { color: #4338ca; }
+    .lesson-block-practice .lesson-block-label { color: #b45309; }
+    #lesson-coach-grid { align-items: start; }
+    #lesson-coach-grid .lesson-coach-card:empty { display: none; }
+    #lesson-concept.tuto-prose {
+      line-height: 1.8;
+      font-size: 0.95rem;
+      color: #334155;
+      max-width: none;
+    }
+    #lesson-concept.tuto-prose .tuto-callout-project {
+      display: block;
+      background: linear-gradient(90deg, #ecfeff 0%, #f0fdfa 100%);
+      border-left: 4px solid #0e7490;
+      padding: 16px 18px;
+      margin: 0 0 1.5rem;
+      border-radius: 0 12px 12px 0;
+      color: #0f766e;
+      font-weight: 600;
+      line-height: 1.75;
+      font-size: 0.98rem;
+    }
+    #lesson-concept.tuto-prose .tuto-h3 {
+      font-size: 1.0625rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 1.6rem 0 0.6rem;
+      letter-spacing: -0.01em;
+    }
+    #lesson-concept.tuto-prose > .tuto-h3:first-child,
+    #lesson-concept.tuto-prose > .tuto-callout-project + .tuto-h3 { margin-top: 0; }
+    #lesson-concept.tuto-prose .tuto-lead {
+      font-size: 1rem;
+      color: #475569;
+      line-height: 1.85;
+      margin: 0 0 1.1rem;
+    }
+    #lesson-concept.tuto-prose .tuto-table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0 1.25rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    #lesson-concept.tuto-prose table.tuto-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+    #lesson-concept.tuto-prose table.tuto-table th,
+    #lesson-concept.tuto-prose table.tuto-table td {
+      border: 1px solid #e2e8f0;
+      padding: 10px 12px;
+      vertical-align: top;
+    }
+    #lesson-concept.tuto-prose table.tuto-table th {
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 700;
+      text-align: left;
+    }
+    #lesson-concept.tuto-prose a.tuto-ext-link {
+      color: #0891b2;
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    #lesson-concept.tuto-prose a.tuto-ext-link:hover { color: #0e7490; }
+    #lesson-concept.tuto-prose .tuto-code-block {
+      display: block;
+      background: #0f172a;
+      color: #a5f3fc;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 12px;
+      line-height: 1.65;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 12px 0;
+      font-family: ui-monospace, Consolas, monospace;
+    }
+    #lesson-concept.tuto-prose code {
+      background: #f1f5f9;
+      color: #4338ca;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.88em;
+      word-break: break-word;
+    }
+    #lesson-concept.tuto-prose .tuto-panel {
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 1.1rem 0;
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+    #lesson-concept.tuto-prose .tuto-panel-why { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    #lesson-concept.tuto-prose .tuto-panel-error { background: #fff7ed; border: 1px solid #fed7aa; }
+    #lesson-concept.tuto-prose .tuto-panel-title { font-weight: 800; margin: 0 0 8px; color: #0f172a; }
+    #lesson-concept.tuto-prose .tuto-list { margin: 0.25rem 0 1rem; padding-left: 1.35em; }
+    #lesson-concept.tuto-prose .tuto-list li { margin: 0.5rem 0; line-height: 1.75; }
+    #lesson-concept.tuto-prose p { margin: 0 0 0.85rem; }
+    #lesson-concept.tuto-prose p:last-child { margin-bottom: 0; }
+    #lesson-sandbox-wrap.is-hidden { display: none !important; }
     @media (min-width: 1024px) {
       #tutorial-sidebar { width: 16.5rem; max-width: 16.5rem; flex-shrink: 0; }
       #lesson-main { flex: 1 1 0%; min-width: 0; }
@@ -74,8 +192,8 @@
     </div>
 
     <div class="px-4 lg:px-6 py-8 space-y-6">
-    <!-- 前言 + 工具 + XP -->
-    <div class="bg-gradient-to-r from-indigo-50/80 to-cyan-50/50 p-6 md:p-8 rounded-2xl border border-indigo-100/50 fade-in-up space-y-5">
+    <!-- 前言 + XP（課程分類請用下方頁籤） -->
+    <div class="bg-gradient-to-r from-indigo-50/80 to-cyan-50/50 p-6 md:p-8 rounded-2xl border border-indigo-100/50 fade-in-up">
       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
         <div class="flex-1">
           <h3 id="preface-title" class="text-xl md:text-2xl font-black text-indigo-950 mb-2"></h3>
@@ -92,8 +210,6 @@
           <p class="text-xs text-slate-400 mt-2">完成小測驗 +50 · 點「我完成了」+30</p>
         </div>
       </div>
-      <div id="preface-tools" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
-      <div id="preface-path" class="flex flex-wrap gap-2 text-xs font-bold"></div>
     </div>
 
     <div id="tutorial-prompt-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 p-4 md:p-6">
@@ -142,13 +258,14 @@
           <div class="flex flex-wrap gap-2">
             <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-indigo-600 text-white" data-track-tab="html">HTML</button>
             <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="css">CSS</button>
+            <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="tailwind">Tailwind</button>
             <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="js">JS</button>
             <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="jquery">jQuery</button>
             <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="vue">Vue</button>
             <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="git">Git</button>
             <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-slate-100 text-slate-700" data-track-tab="deploy">上線專題</button>
           </div>
-          <p id="track-guide-text" class="text-sm text-slate-500 mt-2">學習順序已固定：HTML → CSS → JS → jQuery → Vue → Git → 上線專題。建議依序完成，每段都會接續下一課。</p>
+          <p id="track-guide-text" class="text-sm text-slate-500 mt-2">學習順序：HTML → CSS → Tailwind → JS → jQuery → Vue → Git → 上線專題。建議依序完成。</p>
         </div>
         <div class="bg-white p-4 sm:p-6 md:p-8 rounded-3xl border border-slate-100 space-y-5 fade-in-up shadow-sm min-w-0">
           <div class="flex flex-wrap items-center gap-2">
@@ -160,29 +277,29 @@
             <p id="tuto-desc" class="text-base text-slate-500 mt-2 leading-relaxed"></p>
           </div>
 
-          <div class="grid md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-100">
-              <span class="text-xs font-black text-indigo-600 uppercase tracking-wider">💡 概念是什麼？</span>
-              <p id="lesson-concept" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium"></p>
-            </div>
-            <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-100">
-              <span class="text-xs font-black text-amber-700 uppercase tracking-wider">🎯 怎麼練？</span>
-              <p id="lesson-practice" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium whitespace-pre-line"></p>
-            </div>
+          <div id="lesson-learn-block" class="lesson-learn-block">
+            <section class="lesson-block lesson-block-concept">
+              <span class="lesson-block-label">💡 概念是什麼？</span>
+              <div id="lesson-concept" class="tuto-prose text-sm text-slate-700 font-medium"></div>
+            </section>
+            <section class="lesson-block lesson-block-practice">
+              <span class="lesson-block-label">🎯 怎麼練？</span>
+              <p id="lesson-practice" class="text-sm text-slate-700 leading-relaxed font-medium whitespace-pre-line m-0"></p>
+            </section>
           </div>
 
-          <div class="grid md:grid-cols-3 gap-4">
-            <div class="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-100">
+          <div id="lesson-coach-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
+            <div id="lesson-coach-newbie-wrap" class="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-100 h-full">
               <span class="text-xs font-black text-emerald-700 uppercase tracking-wider">🧭 新手提示</span>
-              <p id="lesson-newbie-tip" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium"></p>
+              <p id="lesson-newbie-tip" class="lesson-coach-card text-sm text-slate-700 mt-2 leading-relaxed font-medium m-0"></p>
             </div>
-            <div class="p-4 rounded-2xl bg-rose-50/80 border border-rose-100">
+            <div id="lesson-coach-mistakes-wrap" class="p-4 rounded-2xl bg-rose-50/80 border border-rose-100 h-full">
               <span class="text-xs font-black text-rose-700 uppercase tracking-wider">🚫 常見錯誤</span>
-              <p id="lesson-common-mistakes" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium"></p>
+              <p id="lesson-common-mistakes" class="lesson-coach-card text-sm text-slate-700 mt-2 leading-relaxed font-medium m-0"></p>
             </div>
-            <div class="p-4 rounded-2xl bg-sky-50/80 border border-sky-100">
+            <div id="lesson-coach-submit-wrap" class="p-4 rounded-2xl bg-sky-50/80 border border-sky-100 h-full sm:col-span-2 lg:col-span-1">
               <span class="text-xs font-black text-sky-700 uppercase tracking-wider">📦 作業提交標準</span>
-              <p id="lesson-submission-standard" class="text-sm text-slate-700 mt-2 leading-relaxed font-medium whitespace-pre-line"></p>
+              <p id="lesson-submission-standard" class="lesson-coach-card text-sm text-slate-700 mt-2 leading-relaxed font-medium whitespace-pre-line m-0"></p>
             </div>
           </div>
 
@@ -223,7 +340,7 @@
 
           <div id="lesson-playground" class="hidden p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 min-w-0 max-w-full overflow-hidden"></div>
 
-          <div class="space-y-3 border-t border-b border-slate-100 py-6">
+          <div id="lesson-sandbox-wrap" class="space-y-3 border-t border-b border-slate-100 py-6">
             <div class="flex flex-wrap justify-between items-center gap-2">
               <span class="text-xs font-black text-slate-400 uppercase tracking-wider">💻 程式沙盒（改完按運行）</span>
               <button onclick="runSandboxCompiler()" class="px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl text-sm shadow-md hover:bg-indigo-700 transition-colors hover:scale-[1.02] active:scale-95">運行 ▶</button>
@@ -295,7 +412,11 @@
 
     async function ensureTutorialDataReady() {
       if (typeof tutorialRepository !== 'undefined' && tutorialRepository) return true;
+      const twCandidates = ['js/tutorial-tailwind-lessons.js', './js/tutorial-tailwind-lessons.js'];
       const candidates = ['js/tutorial-data.js', './js/tutorial-data.js', '/js/tutorial-data.js'];
+      for (const src of twCandidates) {
+        try { await loadScriptTag(src); } catch (_) { /* 選用：合併前載入 Tailwind 課程 */ }
+      }
       for (const src of candidates) {
         try {
           await loadScriptTag(src);
@@ -341,31 +462,14 @@
     function renderPreface() {
       document.getElementById('preface-title').textContent = tutorialPreface.title;
       document.getElementById('preface-body').innerHTML = tutorialPreface.contentHtml || '';
-      document.getElementById('preface-tools').innerHTML = (tutorialPreface.tools || []).map(t => `
-        <div class="bg-white/80 rounded-xl p-3 border border-indigo-100/80">
-          <span class="text-xl">${t.icon}</span>
-          <p class="font-bold text-slate-800 text-sm mt-1">${t.name}</p>
-          <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">${t.desc}</p>
-        </div>`).join('');
-      document.getElementById('preface-path').innerHTML = [
-        ['html', 'HTML'],
-        ['css', 'CSS'],
-        ['js', 'JS'],
-        ['jquery', 'jQuery'],
-        ['vue', 'Vue'],
-        ['git', 'Git'],
-        ['deploy', '上線專題']
-      ].map(function(item) {
-        return '<button type="button" onclick="setActiveTrack(\'' + item[0] + '\', true)" class="px-3 py-1.5 rounded-full bg-white border border-indigo-100 text-indigo-700">' + item[1] + '</button>';
-      }).join('');
     }
 
     function trackClass(track) {
-      return { intro: 'track-intro', html: 'track-html', css: 'track-css', js: 'track-js', advanced: 'track-advanced', master: 'track-master', jquery: 'track-jquery', vue: 'track-vue', git: 'track-git', deploy: 'track-deploy' }[track] || 'track-intro';
+      return { intro: 'track-intro', html: 'track-html', css: 'track-css', tailwind: 'track-tailwind', js: 'track-js', advanced: 'track-advanced', master: 'track-master', jquery: 'track-jquery', vue: 'track-vue', git: 'track-git', deploy: 'track-deploy' }[track] || 'track-intro';
     }
 
     function trackLabel(track) {
-      return { intro: '入門', html: 'HTML', css: 'CSS', js: 'JavaScript', advanced: '進階', master: '大師', jquery: 'jQuery', vue: 'Vue', git: 'Git', deploy: '上線專題' }[track] || '課程';
+      return { intro: '入門', html: 'HTML', css: 'CSS', tailwind: 'Tailwind', js: 'JavaScript', advanced: '進階', master: '大師', jquery: 'jQuery', vue: 'Vue', git: 'Git', deploy: '上線專題' }[track] || '課程';
     }
 
     function resolveLessonRepository() {
@@ -381,15 +485,84 @@
     }
 
     function getTrackSequence() {
-      return ['html', 'css', 'js', 'jquery', 'vue', 'git', 'deploy'];
+      return ['html', 'css', 'tailwind', 'js', 'jquery', 'vue', 'git', 'deploy'];
     }
 
     function getTrackForLesson(lesson, key) {
-      var cssAdvancedKeys = ['css_flex_advanced', 'css_media_rwd', 'css_animation', 'css_zindex'];
-      if (cssAdvancedKeys.indexOf(key) >= 0) return 'css';
-      if (key === 'work_devtools_network') return 'js';
-      var lessonTrackMap = { intro: 'html', html: 'html', css: 'css', js: 'js', advanced: 'js', master: 'deploy', jquery: 'jquery', vue: 'vue', git: 'git', deploy: 'deploy' };
+      if (!lesson) return activeTrack || 'html';
+      key = key || '';
+      if (key.indexOf('tw_') === 0) return 'tailwind';
+      if (key.indexOf('jq_') === 0) return 'jquery';
+      if (key.indexOf('vue_') === 0) return 'vue';
+      if (key.indexOf('git_') === 0 || key === 'work_git') return 'git';
+      if (key.indexOf('deploy_') === 0 || key.indexOf('master_') === 0) return 'deploy';
+      if (key.indexOf('css_') === 0) return 'css';
+      if (key === 'work_units_rem' || key === 'work_flex_center' || key === 'work_overflow' || key === 'work_responsive_img') return 'css';
+      if (key.indexOf('js_') === 0 || key === 'intro_js_whatis' || key === 'adv_ui_patterns' || key === 'js_fetch' || key === 'work_devtools_network') return 'js';
+      if (key.indexOf('html_') === 0 || key === 'intro_welcome' || key === 'html_learning_path' || key === 'html_vs_css') return 'html';
+      if (key.indexOf('intro_') === 0) return 'html';
+      var lessonTrackMap = {
+        intro: 'html', html: 'html', css: 'css', tailwind: 'tailwind', js: 'js',
+        advanced: 'css', master: 'deploy', jquery: 'jquery', vue: 'vue', git: 'git', deploy: 'deploy'
+      };
       return lessonTrackMap[lesson.track] || 'html';
+    }
+
+    var TUTO_CALLOUT_PROJECT = '<div class="tuto-callout-project">🎯 <strong>本路線定位：</strong>比 <a class="tuto-ext-link" href="https://tailwindcss.com/docs" target="_blank" rel="noopener noreferrer">Tailwind 官方文件</a> 更偏重「<strong>專案怎麼接起來</strong>」— 安裝、建置、HTML 連動、除錯、class 過長怎麼辦。查語法用官方；查流程用本手冊。</div>';
+
+    function decorateConceptHtml(html, key) {
+      if (!html) return '';
+      var out = html;
+      if (key === 'tw_00_intro' && html.indexOf('tuto-callout-project') < 0) {
+        out = TUTO_CALLOUT_PROJECT + html;
+      }
+      out = out.replace(/<a href="(https?:\/\/[^"]+)"(?![^>]*class="tuto-ext-link")/gi, '<a class="tuto-ext-link" href="$1" target="_blank" rel="noopener noreferrer"');
+      return out;
+    }
+
+    function lessonNeedsSandbox(lesson, key) {
+      if (!lesson) return false;
+      if (lesson.sandbox === false) return false;
+      if (lesson.sandbox === true) return true;
+      var code = (lesson.code || '').trim();
+      if (!code) return false;
+      if (/^<pre[\s>]/i.test(code) && !/<button|<input|<form/i.test(code)) return false;
+      if (/^<p[\s>]/i.test(code) && code.length < 280 && !/<button/i.test(code)) return false;
+      return true;
+    }
+
+    function applySandboxVisibility(lesson, key) {
+      var wrap = document.getElementById('lesson-sandbox-wrap');
+      if (!wrap) return;
+      var show = lessonNeedsSandbox(lesson, key);
+      wrap.classList.toggle('is-hidden', !show);
+      if (!show) {
+        document.getElementById('sandbox-editor').value = '';
+        document.getElementById('sandbox-preview-canvas').innerHTML = '';
+      }
+    }
+
+    function applyLessonBlockVisibility(lesson) {
+      var practiceEl = document.querySelector('.lesson-block-practice');
+      if (practiceEl) {
+        practiceEl.classList.toggle('hidden', !(lesson.practice || '').trim());
+      }
+      var coachPairs = [
+        ['lesson-newbie-tip', 'lesson-coach-newbie-wrap'],
+        ['lesson-common-mistakes', 'lesson-coach-mistakes-wrap'],
+        ['lesson-submission-standard', 'lesson-coach-submit-wrap']
+      ];
+      var visible = 0;
+      coachPairs.forEach(function (pair) {
+        var el = document.getElementById(pair[0]);
+        var wrap = document.getElementById(pair[1]);
+        if (!wrap) return;
+        var has = !!(el && el.textContent && el.textContent.trim());
+        wrap.classList.toggle('hidden', !has);
+        if (has) visible += 1;
+      });
+      var grid = document.getElementById('lesson-coach-grid');
+      if (grid) grid.classList.toggle('hidden', visible === 0);
     }
 
     function buildLessonCoach(lesson, key) {
@@ -489,7 +662,7 @@
     }
 
     function setActiveTrack(track, jumpFirst) {
-      var allow = ['html', 'css', 'js', 'jquery', 'vue', 'git', 'deploy'];
+      var allow = ['html', 'css', 'tailwind', 'js', 'jquery', 'vue', 'git', 'deploy'];
       activeTrack = allow.indexOf(track) >= 0 ? track : 'html';
       localStorage.setItem('mrbill_tuto_track', activeTrack);
 
@@ -508,6 +681,7 @@
         var map = {
           html: 'HTML 先打結構基礎，先會語意化標籤與表單，後面學 CSS/JS 才不會亂。',
           css: 'CSS 專注排版、RWD、互動樣式，建立可讀可維護的視覺規則。',
+          tailwind: '【比官方更重專案接線】CDN 體驗 → npm 建置 → watch/build → 連動 HTML → 常用類別與 class 過長解法。語法查官方，流程看本手冊。',
           js: 'JS 路線會進到 DOM、資料、API 與實戰除錯，完成前端核心能力。',
           jquery: 'jQuery 路線聚焦舊站維護與快速互動補強，適合接案或維運場景。',
           vue: 'Vue 路線聚焦元件化、資料流與工程架構，走到可交付中大型專案。',
@@ -863,20 +1037,28 @@
       currentLessonKey = key;
 
       var desiredTrack = getTrackForLesson(lesson, key);
-      if (desiredTrack && activeTrack !== desiredTrack) {
+      var orderForActive = resolveOrderByTrack(activeTrack) || [];
+      var inCurrentTrack = orderForActive.indexOf(key) >= 0;
+      if (desiredTrack && activeTrack !== desiredTrack && !inCurrentTrack) {
         setActiveTrack(desiredTrack, false);
       }
 
       document.getElementById('tuto-title').textContent = lesson.title;
       document.getElementById('tuto-desc').textContent = lesson.desc;
-      document.getElementById('lesson-concept').innerHTML = lesson.concept || '';
+      var conceptEl = document.getElementById('lesson-concept');
+      conceptEl.classList.add('tuto-prose');
+      conceptEl.innerHTML = decorateConceptHtml(lesson.concept || '', key);
       document.getElementById('lesson-practice').textContent = lesson.practice || '';
       document.getElementById('tuto-ui-tip').textContent = lesson.tip || '';
-      document.getElementById('sandbox-editor').value = lesson.code || '';
+      applySandboxVisibility(lesson, key);
+      if (lessonNeedsSandbox(lesson, key)) {
+        document.getElementById('sandbox-editor').value = lesson.code || '';
+      }
       var coach = buildLessonCoach(lesson, key);
       document.getElementById('lesson-newbie-tip').textContent = coach.newbieTip;
       document.getElementById('lesson-common-mistakes').textContent = coach.commonMistakes;
       document.getElementById('lesson-submission-standard').textContent = coach.submissionStandard;
+      applyLessonBlockVisibility(lesson);
 
       const badge = document.getElementById('track-badge');
       badge.textContent = trackLabel(lesson.track);
@@ -888,7 +1070,9 @@
 
       renderPlayground(lesson);
       renderQuiz(lesson);
-      runSandboxCompiler();
+      if (lessonNeedsSandbox(lesson, key)) {
+        runSandboxCompiler();
+      }
 
       document.querySelectorAll('.tuto-nav-btn').forEach(b => {
         b.className = 'tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors';

@@ -1,26 +1,33 @@
 const tutorialPreface = {
   title: "🎮 學習冒險地圖",
   contentHtml: `<p>歡迎！這裡用<strong>遊戲闖關</strong>的方式學網頁：先懂概念 → 看正規範例 → 動手改程式 → 小測驗拿 XP。</p>
-    <p class="mt-2"><strong>重要：</strong>初學者請先學 HTML「結構」，再用 CSS「外觀」——不要在 HTML 標籤上寫一堆 <code>style=""</code>，那是進階應急用法，不是起點。</p>`,
-  tools: [
-    { icon: "🌐", name: "瀏覽器", desc: "Chrome／Edge 預覽網頁，F12 開發者工具可檢查元素" },
-    { icon: "📝", name: "程式編輯器", desc: "VS Code 或 Cursor，負責寫 .html / .css / .js 檔案" },
-    { icon: "▶️", name: "本頁沙盒", desc: "左側改碼、按運行，右側即時看結果（免安裝）" },
-    { icon: "🎯", name: "練習方式", desc: "每課有「怎麼練」任務，完成可點「我完成了」累積 XP" }
-  ],
-  path: ["① 入門", "② HTML", "③ CSS", "④ JavaScript", "⑤ 進階實戰", "⑥ 大師之路"]
+    <p class="mt-2">請用下方<strong>頁籤</strong>切換主線：HTML → CSS → JS → jQuery → Vue → Git → 上線專題。建議依序完成，左側課程清單會跟著頁籤變化。</p>
+    <p class="mt-2 text-sm text-slate-500">需要瀏覽器預覽、編輯器或 F12 的說明，會寫在對應章節（例如 HTML 的檔案路徑、Git 的終端機環境），不在這裡重複列出。</p>`
 };
 
 const tutorialRepository = {
   intro_welcome: {
     track: "intro",
     title: "🚀 開始冒險：網頁三劍客",
-    desc: "網頁由 HTML（骨架）、CSS（衣服）、JavaScript（動作）組成。你現在看到的每個網站都是這三者合作的结果。",
+    desc: "網頁由 HTML（骨架）、CSS（衣服）、JavaScript（動作）組成。你現在看到的每個網站都是這三者合作的結果。",
     concept: "把網頁想成「紙娃娃」：HTML 畫出身體輪廓，CSS 幫它穿衣服上色，JS 讓它會動、會按按鈕。",
-    practice: "① 讀完概念 ② 按下方「運行」看範例 ③ 把標題改成你的名字 ④ 通過小測驗",
-    code: `<h1>你好，我是學員！</h1>\n<p>我正在 MrBill 前端學堂冒險。</p>\n<p><strong>下一步：</strong>去左邊選「HTML 結構」章節。</p>`,
+    practice: "① 讀完概念 ② 按下方「運行」看範例 ③ 把標題改成你的名字 ④ 通過小測驗 ⑤ 下一課看「初學者到大師路線」",
+    code: `<h1>你好，我是學員！</h1>\n<p>我正在 MrBill 前端學堂冒險。</p>\n<p><strong>下一步：</strong>左側選「初學者到大師路線」。</p>`,
     tip: "別急著一次學完！每天 1～2 課，改一點程式碼比看十遍更有用。",
     quiz: { q: "網頁的「骨架」主要靠哪種語言？", opts: ["HTML", "CSS", "Excel"], ans: 0 }
+  },
+  html_learning_path: {
+    track: "intro",
+    title: "🗺 初學者到大師：推薦撰寫路線",
+    desc: "先知道「正確順序」再動手，能少走很多彎路。本手冊主線已幫你排好，這課說明每一階段要練到什麼程度。",
+    concept: "<b>階段 1｜入門（能做出靜態頁）</b><br>HTML 語意標籤、表單、清單 → CSS 選擇器、盒模型、Flex/Grid、RWD → JS 變數、DOM、事件。<br><b>交付標準：</b>能獨立完成一頁作品集（無框架）。<br><br><b>階段 2｜實戰（能維護與除錯）</b><br>DevTools、fetch API、表單驗證、圖片優化 → 舊站 jQuery 維護或 Vue 元件化擇一深入。<br><b>交付標準：</b>能讀懂他人程式、改 bug、加小功能。<br><br><b>階段 3｜工程化（能協作與上線）</b><br>Git 分支與 PR → 靜態站部署 → 上線前檢查清單（路徑、RWD、效能、a11y）。<br><b>交付標準：</b>作品有公開網址、版本可回溯、手機可正常瀏覽。<br><br><b>撰寫習慣（全階段通用）</b><br>① 結構與樣式分離（HTML 不塞滿 style）② 檔名小寫英文 ③ 每次只改一點並按運行驗證 ④ 能用自己的話解釋「為什麼這樣寫」。",
+    practice: "① 對照你目前程度，標記自己在哪一階段 ② 寫下本週目標：例如「完成 HTML 檔案路徑課 + 一個含 nav 的頁面」③ 不要跳過 Git／上線專題，那是作品集能否被看見的關鍵",
+    code: `<style>\n  .path { font-family: system-ui, sans-serif; line-height: 1.75; max-width: 36em; }\n  .stage { border-left: 4px solid #6366f1; padding-left: 12px; margin: 16px 0; }\n  .stage h3 { margin: 0 0 6px; color: #4338ca; font-size: 1rem; }\n  .stage p { margin: 0; color: #475569; font-size: 14px; }\n</style>\n<div class="path">\n  <div class="stage"><h3>入門</h3><p>HTML 結構 → CSS 排版 → JS 互動</p></div>\n  <div class="stage"><h3>實戰</h3><p>除錯、API、框架補強（jQuery 或 Vue）</p></div>\n  <div class="stage"><h3>工程化</h3><p>Git → 部署 → 畢業專題驗收</p></div>\n</div>`,
+    tip: "大師不是一次學完所有語法，而是每個階段都有「可交付成果」。",
+    newbieTip: "若完全零基礎：先跟完 HTML 分頁前 5 課，再開 CSS 分頁，不要同時開三個分頁亂跳。",
+    commonMistakes: "常見錯誤：跳過 HTML 直接學 Vue；或只抄範例不練檔案路徑，上線後圖片/CSS 全破圖。",
+    submissionStandard: "1) 能說出三階段各一個交付標準\n2) 已選定本週要完成的 2 課\n3) 知道下一課是「檔案與路徑」",
+    quiz: { q: "正規學習順序應先穩固哪一項？", opts: ["HTML 結構", "框架進階語法", "部署設定"], ans: 0 }
   },
   html_vs_css: {
     track: "intro",
@@ -162,6 +169,19 @@ const tutorialRepository = {
     tip: "優先用 class，少用 #id（權重太高難覆寫）。",
     quiz: { q: "class 選擇器開頭符號是？", opts: [".", "#", "*"], ans: 0 }
   },
+  css_external_import: {
+    track: "css",
+    title: "📎 外部樣式：link 與 @import",
+    desc: "全站 CSS 不應全塞在 HTML。學會用獨立 .css 檔，以及 @import 載入字型/其他樣式表。",
+    concept: "<b>方式一（推薦）：&lt;link&gt;</b><br><code>&lt;link rel=\"stylesheet\" href=\"css/style.css\"&gt;</code><br>放在 &lt;head&gt;，瀏覽器並行載入，效能較好。<br><br><b>方式二：@import</b><br>寫在 CSS 檔最上方：<br><code>@import url('css/base.css');</code><br><code>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');</code><br>用途：在一份主樣式裡再拆模組、或載入 Google Fonts。<br><br><b>注意</b>：@import 必須在其他規則之前；過多 @import 會拖慢首屏。路徑規則同 HTML（./ ../）。<br><b>不建議</b>：在 HTML 用 &lt;style&gt;@import ...&lt;/style&gt; 當主要載入方式。",
+    practice: "① 讀範例註解理解 link 與 @import 差異 ② 把 Google Font 的 font-family 套到 h1 ③ 想像你的 style.css 最上方加一行 @import url('tokens.css')",
+    code: `<style>\n  /* 本沙盒模擬：若獨立 style.css 頂部會寫 @import url('...'); */\n  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@700&display=swap');\n  h1 {\n    font-family: 'Noto Sans TC', sans-serif;\n    color: #4338ca;\n  }\n  .note {\n    font-size: 14px;\n    color: #64748b;\n    line-height: 1.7;\n    max-width: 36em;\n  }\n  code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; }\n</style>\n<h1>外部樣式與字型</h1>\n<p class="note">實務 HTML 請用 <code>&lt;link rel=\"stylesheet\" href=\"css/style.css\"&gt;</code> 引入主樣式；字型可用 @import 或 &lt;link&gt; 載入 Google Fonts。</p>`,
+    tip: "一個專案通常 1 個主 link + 必要時在 CSS 內 @import 子模組。",
+    newbieTip: "先確認 css/style.css 路徑正確（回顧 HTML 的 ../ 課），再談 @import。",
+    commonMistakes: "link 的 href 寫錯導致全站無樣式；@import 寫在 CSS 中段導致後面規則失效。",
+    submissionStandard: "1) 能說出 link 與 @import 各適合什麼\n2) 主樣式用 link 引入\n3) 知道 @import 要放在檔案最上方",
+    quiz: { q: "全站主樣式表最推薦引入方式？", opts: ["<link rel=\"stylesheet\">", "只在 HTML 寫行內 style", "@import 十幾個檔不 link"], ans: 0 }
+  },
   css_colors: {
     track: "css",
     title: "🎨 色彩與漸層",
@@ -172,6 +192,16 @@ const tutorialRepository = {
     tip: "避免純 #ff0000 大紅大綠，多用帶灰的 slate、indigo 色系。",
     playground: "hue",
     quiz: { q: "背景漸層常用屬性是？", opts: ["linear-gradient", "font-gradient", "shadow-gradient"], ans: 0 }
+  },
+  css_background_image: {
+    track: "css",
+    title: "🖼 背景圖片 background-image",
+    desc: "Hero 區、卡片底圖、按鈕紋理常用背景圖。與 &lt;img&gt; 不同：背景圖不佔語意，適合裝飾。",
+    concept: "<b>基本</b><br><code>background-image: url('images/hero.jpg');</code><br><code>background-size: cover;</code> 填滿容器（可能裁切）<br><code>background-size: contain;</code> 完整顯示（可能留白）<br><code>background-position: center;</code> / <code>top right</code><br><code>background-repeat: no-repeat;</code><br><br><b>多層背景</b>：可疊加漸層 + 圖<br><code>background: linear-gradient(...), url('...') center/cover no-repeat;</code><br><br><b>與 img 差異</b>：SEO/無障礙內容用 &lt;img alt&gt;；純裝飾用 background。固定比例區塊常設 min-height + cover。",
+    practice: "① 改 background-position 為 top ② 把 cover 改成 contain 比較 ③ 換一張 Unsplash 網址",
+    code: `<style>\n  .hero {\n    min-height: 160px;\n    border-radius: 16px;\n    padding: 24px;\n    color: #fff;\n    font-weight: 800;\n    display: flex;\n    align-items: flex-end;\n    background-image:\n      linear-gradient(to top, rgba(15,23,42,.75), rgba(15,23,42,.2)),\n      url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n  }\n</style>\n<div class="hero">背景圖 + 漸層遮罩（可讀文字）</div>`,
+    tip: "行動版 Hero 注意檔案大小；可用較小 w= 參數的圖。",
+    quiz: { q: "背景圖鋪滿容器常設？", opts: ["background-size: cover", "background-repeat: repeat", "float: left"], ans: 0 }
   },
   css_typography: {
     track: "css",
@@ -278,6 +308,26 @@ const tutorialRepository = {
     tip: "條件裡用 === 比較，不要用 =（那是指派）。",
     quiz: { q: "分數大於等於 90 用？", opts: ["if (score >= 90)", "if score = 90", "when score"], ans: 0 }
   },
+  js_template_strings: {
+    track: "js",
+    title: "📝 模板字串與字串拼接",
+    desc: "用反引號 ` 與 ${} 組出可讀的多行文字，取代醜陋的 + 拼接。",
+    concept: "<code>const name = 'Bill';</code><br><code>const msg = `你好，${name}！今日 XP：${score}`;</code><br>可換行、可嵌入運算式：<code>${price * 0.9}</code><br>舊寫法 <code>'你好' + name</code> 仍有效，但模板字串更清楚。",
+    practice: "① 改 user 與 xp ② 加一行多行字串顯示課程清單 ③ 在 ${} 內做簡單運算",
+    code: `<p id="card"></p>\n<script>\n  const user = "學員";\n  const xp = 350;\n  const tags = ["HTML", "CSS", "JS"];\n  const html = \`\n    <strong>\${user}</strong> 你好！\n    <br>目前 XP：\${xp + 50}（含加成）\n    <br>進行中：\${tags.join(" · ")}\n  \`;\n  document.getElementById("card").innerHTML = html;\n<\/script>`,
+    tip: "使用者輸入插入 HTML 前要消毒，防 XSS（進階用 textContent 或 DOMPurify）。",
+    quiz: { q: "模板字串插入變數用？", opts: ["${變數}", "#{變數}", "{{變數}}"], ans: 0 }
+  },
+  js_loops_for: {
+    track: "js",
+    title: "🔁 for 迴圈與陣列遍歷",
+    desc: "for、for...of 與 forEach 都能重複處理清單；依情境選擇。",
+    concept: "<code>for (let i = 0; i < arr.length; i++)</code> 需要索引時<br><code>for (const item of arr)</code> 只讀每個值（簡潔）<br><code>arr.forEach(fn)</code> 最常見於渲染列表<br>需要「中斷」迴圈用 for + break；forEach 無法 break。",
+    practice: "① 用 for 印 1～5 ② 用 for...of 印課程名 ③ 比較 forEach 寫法",
+    code: `<ul id="list"></ul>\n<p id="sum"></p>\n<script>\n  const lessons = ["HTML", "CSS", "JS"];\n  const ul = document.getElementById("list");\n  for (const name of lessons) {\n    const li = document.createElement("li");\n    li.textContent = name;\n    ul.appendChild(li);\n  }\n  let total = 0;\n  const scores = [80, 90, 100];\n  for (let i = 0; i < scores.length; i++) {\n    total += scores[i];\n  }\n  document.getElementById("sum").textContent = "總分：" + total;\n<\/script>`,
+    tip: "渲染 DOM 時 DocumentFragment 可減少重排（進階優化）。",
+    quiz: { q: "需要索引 i 時常用？", opts: ["for (let i=0; ...)", "forEach 可 break", "while false"], ans: 0 }
+  },
   js_arrays: {
     track: "js",
     title: "🗂 陣列與迴圈",
@@ -287,6 +337,16 @@ const tutorialRepository = {
     code: `<ul id="lesson-list"></ul>\n<script>\n  const lessons = ["HTML", "CSS", "JavaScript"];\n  const ul = document.getElementById("lesson-list");\n  lessons.forEach(function(name) {\n    const li = document.createElement("li");\n    li.textContent = "📘 " + name;\n    ul.appendChild(li);\n  });\n<\/script>`,
     tip: "物件 {} 適合「一筆資料有多個欄位」，陣列適合「一串清單」。",
     quiz: { q: "有序清單資料結構？", opts: ["陣列 Array", "只有字串", "table"], ans: 0 }
+  },
+  js_array_methods: {
+    track: "js",
+    title: "🧰 陣列方法：map / filter / find",
+    desc: "現代 JS 用陣列方法轉換資料，再渲染畫面，比手寫 for 更清晰。",
+    concept: "<code>filter</code>：篩選符合條件的項目 → 新陣列<br><code>map</code>：每項轉換 → 新陣列<br><code>find</code>：找第一個符合的 → 單一項目或 undefined<br><code>includes</code>：是否包含某值 → true/false<br>流程：原始資料 → filter/map → 渲染 DOM",
+    practice: "① 篩選分數 >= 90 ② map 成「姓名：分數」字串 ③ 用 find 找第一個及格者",
+    code: `<ul id="out"></ul>\n<script>\n  const students = [\n    { name: "Amy", score: 95 },\n    { name: "Ben", score: 72 },\n    { name: "Cy", score: 88 }\n  ];\n  const passed = students\n    .filter(function(s) { return s.score >= 80; })\n    .map(function(s) { return s.name + "：" + s.score + " 分"; });\n  const ul = document.getElementById("out");\n  passed.forEach(function(text) {\n    const li = document.createElement("li");\n    li.textContent = text;\n    ul.appendChild(li);\n  });\n<\/script>`,
+    tip: "鏈式：arr.filter(...).map(...) 很常見；注意每一步都回傳新陣列。",
+    quiz: { q: "篩選陣列用？", opts: ["filter", "map", "find"], ans: 0 }
   },
   js_functions: {
     track: "js",
@@ -324,13 +384,16 @@ Object.assign(tutorialRepository, {
   },
   intro_files: {
     track: "intro",
-    title: "📁 專案檔案結構",
-    desc: "典型小站：index.html、style.css、main.js、images/ 資料夾。",
-    concept: "分檔 = 分工：結構、樣式、邏輯各管各，團隊才協作得了。",
-    practice: "① 畫出你的作品集資料夾樹 ② 用 link 引入外部 CSS（見下一課概念）",
-    code: `<!DOCTYPE html>\n<html lang="zh-Hant">\n<head>\n  <meta charset="UTF-8">\n  <title>檔案結構示範</title>\n  <link rel="stylesheet" href="style.css">\n</head>\n<body>\n  <h1>HTML 在 index.html</h1>\n  <p>樣式在 style.css，行為在 main.js</p>\n</body>\n</html>`,
-    tip: "檔名用小寫、英文、連字號：my-project.css",
-    quiz: { q: "全站樣式通常放？", opts: ["style.css", "index.html 裡全部寫", "Word"], ans: 0 }
+    title: "📁 專案檔案結構與路徑（./ ../）",
+    desc: "初學者最常敗在「檔案放哪、路徑怎麼寫」。這課一次講清資料夾慣例、如何引入 .css / .js，以及相對路徑規則。",
+    concept: "<b>推薦資料夾（小站）</b><br><code>my-site/</code><br>　├─ index.html　（首頁入口）<br>　├─ about.html<br>　├─ css/style.css<br>　├─ js/main.js<br>　└─ images/logo.png<br><br><b>在 HTML 引入外部檔（寫在 &lt;head&gt; 或 body 底）</b><br><code>&lt;link rel=\"stylesheet\" href=\"css/style.css\"&gt;</code><br><code>&lt;script src=\"js/main.js\" defer&gt;&lt;/script&gt;</code><br><code>&lt;img src=\"images/photo.jpg\" alt=\"說明\"&gt;</code><br><br><b>路徑怎麼讀（以「目前這支 HTML 檔」為基準）</b><br>• <code>style.css</code> 或 <code>./style.css</code> → 同層資料夾<br>• <code>css/style.css</code> → 進入子資料夾 css<br>• <code>../style.css</code> → 回到上一層（父資料夾）<br>• <code>../images/a.png</code> → 先上一層，再進 images<br><br><b>實例：</b>若 about.html 在根目錄，要載 css/style.css → <code>href=\"css/style.css\"</code>。若 about.html 在 pages/about.html，要載根目錄的 css → <code>href=\"../css/style.css\"</code>。<br><br><b>常見地雷：</b>Windows 反斜線 <code>\\</code> 在網頁路徑無效，請用 <code>/</code>；檔名大小寫在 Linux 主機會區分；用絕對網址 <code>https://...</code> 則不受 ./ ../ 影響。",
+    practice: "① 對照上方樹狀圖，在紙上畫出你的作品集結構 ② 把範例裡 href 故意改錯成 csss/style.css，按運行看樣式消失，再改回 ③ 想像 about.html 在子資料夾時，寫出正確的 ../ 路徑",
+    code: `<!DOCTYPE html>\n<html lang="zh-Hant">\n<head>\n  <meta charset="UTF-8">\n  <title>檔案與路徑示範</title>\n  <!-- 假設此 html 與 css/ 資料夾同層：my-site/index.html -->\n  <link rel="stylesheet" href="css/style.css">\n</head>\n<body>\n  <h1>結構在 .html</h1>\n  <p>樣式在 css/style.css，腳本在 js/main.js</p>\n  <img src="images/demo.png" alt="示範圖（若無檔案會破圖，屬正常練習）" style="max-width:120px">\n  <p><small>路徑練習：同層用 <code>css/檔名</code>；上一層用 <code>../</code></small></p>\n  <script src="js/main.js" defer></script>\n</body>\n</html>\n\n<!-- 若此檔在 pages/about.html，則應改為：\n<link rel="stylesheet" href="../css/style.css">\n<img src="../images/demo.png" alt="..."> -->`,
+    tip: "上線前用瀏覽器 F12 → Network 檢查：紅色 404 就是路徑寫錯或檔案沒上傳。",
+    newbieTip: "先在本機用 VS Code / Cursor 開資料夾，用 Live Server 或「Open with Live Server」預覽，比雙擊 html 更接近真實環境。",
+    commonMistakes: "把 css 路徑寫成 style.css 但檔案其實在 css/ 子資料夾；子頁面忘記加 ../ 導致全站樣式失效。",
+    submissionStandard: "1) 畫出你的專案樹狀圖\n2) index.html 能正確 link 外部 css\n3) 能口述 ./ 與 ../ 差異並各舉一例",
+    quiz: { q: "about.html 在 pages/ 子資料夾，要引用根目錄的 css/style.css？", opts: ["../css/style.css", "css/style.css", "./pages/css/style.css"], ans: 0 }
   },
   html_button: {
     track: "html",
@@ -361,6 +424,26 @@ Object.assign(tutorialRepository, {
     code: `<style>\n  nav ul { list-style:none; margin:0; padding:0; display:flex; gap:12px; }\n  nav a { text-decoration:none; color:#475569; font-weight:bold; padding:8px 12px; border-radius:8px; }\n  nav a:hover { background:#f1f5f9; color:#4f46e5; }\n</style>\n<nav>\n  <ul>\n    <li><a href="index.html">首頁</a></li>\n    <li><a href="tutorial.html">手冊</a></li>\n    <li><a href="photography.html">攝影</a></li>\n  </ul>\n</nav>`,
     tip: "當前頁面連結可加 aria-current=\"page\"（進階 a11y）。",
     quiz: { q: "導覽語意標籤？", opts: ["<nav>", "<div class=\"nav\">", "<table>"], ans: 0 }
+  },
+  css_borders_outline: {
+    track: "css",
+    title: "🔲 邊框、圓角與 outline",
+    desc: "border 畫框線；border-radius 圓角；outline 做聚焦外框（不影響排版）。",
+    concept: "<code>border: 1px solid #e2e8f0;</code><br>分開寫：<code>border-width</code> <code>border-style</code> <code>border-color</code><br><code>border-radius: 12px;</code> 或 <code>999px</code> 膠囊按鈕<br><code>outline: 2px solid #4f46e5;</code> + <code>outline-offset: 2px</code> 鍵盤 focus 友善<br><b>border vs outline</b>：border 佔盒子模型空間；outline 不推擠鄰居。",
+    practice: "① 把卡片 border-radius 改成 4px ② 按 Tab 聚焦按鈕看 outline ③ 試 border: 2px dashed #6366f1",
+    code: `<style>\n  .card {\n    border: 1px solid #e2e8f0;\n    border-radius: 16px;\n    padding: 16px;\n    background: #fff;\n    max-width: 280px;\n  }\n  .btn {\n    margin-top: 12px;\n    padding: 10px 18px;\n    background: #4f46e5;\n    color: #fff;\n    border: none;\n    border-radius: 10px;\n    font-weight: bold;\n    cursor: pointer;\n  }\n  .btn:focus-visible {\n    outline: 3px solid #fbbf24;\n    outline-offset: 2px;\n  }\n</style>\n<div class="card">\n  <strong>邊框與圓角</strong>\n  <p style="margin:8px 0 0;font-size:14px;color:#64748b">Tab 聚焦下方按鈕</p>\n  <button type="button" class="btn">主要按鈕</button>\n</div>`,
+    tip: "設計系統常把 --radius-sm / --radius-lg 做成 CSS 變數。",
+    quiz: { q: "鍵盤聚焦外框不推擠版面用？", opts: ["outline", "margin", "float"], ans: 0 }
+  },
+  css_width_max_overflow: {
+    track: "css",
+    title: "📐 寬高、max-width 與 overflow",
+    desc: "RWD 必學：限制最大寬、圖片不撐破、內容過長時捲動或截斷。",
+    concept: "<code>width: 100%</code> 填滿父層<br><code>max-width: 640px</code> 再寬也不超過（文章區常用）<br><code>min-height: 100vh</code> 至少一個視窗高（Hero）<br><code>overflow: hidden</code> 裁切溢出<br><code>overflow-x: auto</code> 表格橫向捲動<br>圖片防破版：<code>img { max-width: 100%; height: auto; }</code>",
+    practice: "① 改 max-width 為 320px ② 把 .scroll 內文字加長看橫向捲軸 ③ 給 img 加 max-width:100%",
+    code: `<style>\n  .wrap { max-width: 480px; margin: 0 auto; padding: 12px; }\n  .box {\n    width: 100%;\n    max-width: 360px;\n    background: #f1f5f9;\n    padding: 12px;\n    border-radius: 10px;\n    margin-bottom: 12px;\n  }\n  .scroll {\n    overflow-x: auto;\n    white-space: nowrap;\n    border: 1px dashed #cbd5e1;\n    padding: 8px;\n    font-size: 13px;\n  }\n  img { max-width: 100%; height: auto; border-radius: 8px; display: block; }\n</style>\n<div class="wrap">\n  <div class="box">max-width 限制寬度</div>\n  <div class="scroll">很長很長很長很長很長很長的表格列內容會橫向捲動</div>\n  <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600" alt="示範">\n</div>`,
+    tip: "Flex/Grid 子項加 min-width:0 可避免內容把版面撐破。",
+    quiz: { q: "文章區常限制最大寬用？", opts: ["max-width", "min-width: 9999px", "font-size"], ans: 0 }
   },
   css_box_model: {
     track: "css",
@@ -403,8 +486,28 @@ Object.assign(tutorialRepository, {
     tip: "::before 的 content 必填，否則不顯示。",
     quiz: { q: "滑鼠移入狀態？", opts: [":hover", "::hover", ":mouse"], ans: 0 }
   },
+  css_object_fit: {
+    track: "css",
+    title: "🖼 圖片 object-fit 與比例",
+    desc: "固定寬高的頭像、卡片封面、影片縮圖，用 object-fit 控制裁切方式。",
+    concept: "容器設固定 <code>width/height</code>，圖片設 <code>width:100%; height:100%; object-fit: cover;</code><br><b>cover</b>：填滿、可能裁切（最常見）<br><b>contain</b>：完整顯示、可能留白<br><b>fill</b>：拉伸變形（少用）<br><code>object-position: center top;</code> 控制裁切焦點",
+    practice: "① 改 object-fit 為 contain ② 改 object-position 為 top ③ 比較 cover 與 contain",
+    code: `<style>\n  .thumb {\n    width: 200px;\n    height: 120px;\n    border-radius: 12px;\n    overflow: hidden;\n    border: 2px solid #e2e8f0;\n  }\n  .thumb img {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    object-position: center;\n    display: block;\n  }\n  p { font-size: 13px; color: #64748b; }\n</style>\n<div class="thumb">\n  <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400" alt="相機">\n</div>\n<p>固定 200×120 的封面區 · 試改 object-fit</p>`,
+    tip: "影片 &lt;video&gt; 也可用 object-fit。",
+    quiz: { q: "固定高度封面不變形填滿？", opts: ["object-fit: cover", "height: auto only", "float: left"], ans: 0 }
+  },
+  css_specificity: {
+    track: "css",
+    title: "⚖️ 權重與覆寫（Specificity）",
+    desc: "多條 CSS 衝突時，瀏覽器用權重決定誰贏。搞懂才不會「改了沒反應」。",
+    concept: "<b>粗略優先順序</b>（後寫的也會影響）：<br>1. 行內 style（最高，少用）<br>2. #id<br>3. .class、屬性、[type]<br>4. 標籤 p、div<br><br>同權重時：<b>後面寫的覆蓋前面</b>。<br><code>!important</code> 幾乎必勝但難維護，除錯地獄，盡量避免。<br>實務：用 class 設計系統，避免到處 #header #nav a。",
+    practice: "① 看 .text 與 p 誰生效 ② 把 p 規則移到 .text 後面觀察 ③ 說明為何不建議 !important",
+    code: `<style>\n  p { color: #64748b; }\n  .text { color: #4f46e5; font-weight: bold; }\n  #special { color: #dc2626; }\n</style>\n<p>標籤選擇器灰色</p>\n<p class="text">class 覆蓋成品牌色</p>\n<p class="text" id="special">id 權重更高 → 紅色</p>`,
+    tip: "DevTools Elements 面板可看被划掉的規則（被覆蓋）。",
+    quiz: { q: "一般情況優先避免？", opts: ["到處用 !important", "用 class", "用語意標籤"], ans: 0 }
+  },
   css_media_rwd: {
-    track: "advanced",
+    track: "css",
     title: "📱 響應式 @media 怎麼用",
     desc: "@media 讓 CSS「在特定條件下才生效」。最常用：依視窗寬度切版。",
     concept: "<b>語法</b>：<code>@media (條件) { /* 裡面的規則 */ }</code><br><b>min-width</b>：視窗「至少」這麼寬才套用 → <strong>Mobile First</strong>（先寫手機 1 欄，再加寬變 3 欄）。<br><b>max-width</b>：視窗「最多」這麼寬才套用 → Desktop First（先寫桌面，再縮小覆寫）。<br><b>步驟</b>：① 寫預設（手機）② 加 @media (min-width: 600px) { ... } ③ 拖曳預覽框寬度或滑桿看切換點。<br>Tailwind 的 <code>md:</code>、<code>lg:</code> 本質也是幫你產生 @media。",
@@ -415,7 +518,7 @@ Object.assign(tutorialRepository, {
     quiz: { q: "螢幕至少 600px 寬才套用？", opts: ["min-width: 600px", "max-width: 600px", "width: 600px"], ans: 0 }
   },
   css_flex_advanced: {
-    track: "advanced",
+    track: "css",
     title: "📐 Flex 進階：gap 與 wrap",
     desc: "gap 取代 margin 排間距；flex-wrap 讓項目換行；flex-direction: column 直向。",
     concept: "卡片牆 = flex + wrap + gap，RWD 必備組合。",
@@ -425,7 +528,7 @@ Object.assign(tutorialRepository, {
     quiz: { q: "自動換行？", opts: ["flex-wrap: wrap", "wrap: flex", "break: all"], ans: 0 }
   },
   css_animation: {
-    track: "advanced",
+    track: "css",
     title: "🎬 @keyframes 動畫（多範例）",
     desc: "兩步：① @keyframes 取名定義關鍵影格 ② animation: 名稱 時間 曲線 次數;",
     concept: "<code>@keyframes 名稱 { 0% { } 50% { } 100% { } }</code><br><code>animation: 名稱 1s ease infinite;</code>（infinite = 循環）<br>常見：bounce 彈跳、spin 旋轉載入、fadeIn 淡入。<br>與 transition 差異：keyframes 可多步、可自動重播。<br>請加 <code>@media (prefers-reduced-motion: reduce)</code> 關閉動畫（無障礙）。",
@@ -436,7 +539,7 @@ Object.assign(tutorialRepository, {
     quiz: { q: "定義動畫步驟用？", opts: ["@keyframes", "@animate", "@transition"], ans: 0 }
   },
   css_zindex: {
-    track: "advanced",
+    track: "css",
     title: "📚 層疊 z-index",
     desc: "position 非 static 才能用 z-index；數字大的在上層。",
     concept: "Modal、下拉選單、固定導覽列都靠層疊控制。",
@@ -454,6 +557,16 @@ Object.assign(tutorialRepository, {
     code: `<style>.done { font-size: 1.25rem; }</style>\n<h1 id="title">原始標題</h1>\n<button type="button" id="btn">改標題 + 樣式</button>\n<script>\n  const btn = document.getElementById("btn");\n  const title = document.getElementById("title");\n  btn.addEventListener("click", function() {\n    title.textContent = "DOM 已更新！";\n    title.style.color = "#4f46e5";\n    title.classList.add("done");\n  });\n<\/script>`,
     tip: "改結構用 createElement + appendChild。",
     quiz: { q: "依 id 選元素？", opts: ["getElementById", "getElement", "findId"], ans: 0 }
+  },
+  js_classlist: {
+    track: "js",
+    title: "🏷 classList 切換狀態",
+    desc: "用 class 代表 UI 狀態（開啟/選中/錯誤），JS 只負責加減 class，樣式交給 CSS。",
+    concept: "<code>el.classList.add('active')</code><br><code>el.classList.remove('open')</code><br><code>el.classList.toggle('is-on')</code> 有則刪、無則加<br><code>el.classList.contains('active')</code> 判斷<br>優於 <code>el.style.display</code> 到處寫，維護性高。",
+    practice: "① 點按鈕切換 .active ② 在 CSS 寫 .tab.active { background: indigo } ③ 用 toggle 做開關",
+    code: `<style>\n  .tab { padding: 10px 16px; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; font-weight: bold; background: #fff; }\n  .tab.active { background: #4f46e5; color: #fff; border-color: #4f46e5; }\n</style>\n<button type="button" class="tab" id="tab-a">分頁 A</button>\n<button type="button" class="tab" id="tab-b">分頁 B</button>\n<script>\n  const tabs = document.querySelectorAll(".tab");\n  tabs.forEach(function(btn) {\n    btn.addEventListener("click", function() {\n      tabs.forEach(function(b) { b.classList.remove("active"); });\n      btn.classList.add("active");\n    });\n  });\n  document.getElementById("tab-a").classList.add("active");\n<\/script>`,
+    tip: "Modal、Tab、手機選單都是 classList 的經典場景。",
+    quiz: { q: "切換開/關狀態常用？", opts: ["classList.toggle", "classList.deleteAll", "style.toggle"], ans: 0 }
   },
   js_queryselector: {
     track: "js",
@@ -484,6 +597,56 @@ Object.assign(tutorialRepository, {
     code: `<p id="sum"></p>\n<script>\n  const add = (a, b) => a + b;\n  const nums = [1, 2, 3];\n  const doubled = nums.map(n => n * 2);\n  document.getElementById("sum").textContent =\n    "3+5=" + add(3,5) + " · 加倍:" + doubled.join(",");\n<\/script>`,
     tip: "回傳物件要加括號：() => ({ id: 1 })",
     quiz: { q: "箭頭函式符號？", opts: ["=>", "->", "==>"], ans: 0 }
+  },
+  js_async_await: {
+    track: "js",
+    title: "⏳ async / await 非同步",
+    desc: "等 API、等圖片、等計時器完成時，用 async/await 讓程式讀起來像同步，但其實不阻塞整頁。",
+    concept: "<code>async function load() { ... }</code> 函式內才能 <code>await</code><br><code>const res = await fetch(url);</code> 等待回應<br><code>const data = await res.json();</code> 等待解析 JSON<br>一定要搭配 <code>try { } catch (e) { }</code> 處理失敗。<br>await 只是「在這個 async 函式內等待」，其他 UI 仍可互動（除非你做阻塞式死迴圈）。",
+    practice: "① 按按鈕看 1 秒後文字改變（模擬延遲）② 對照下方 fetch 課 ③ 讀 try/catch 下一課",
+    code: `<p id="status">尚未載入</p>\n<button type="button" id="go">模擬載入（1 秒）</button>\n<script>\n  function wait(ms) {\n    return new Promise(function(resolve) { setTimeout(resolve, ms); });\n  }\n  document.getElementById("go").addEventListener("click", async function() {\n    const el = document.getElementById("status");\n    el.textContent = "載入中…";\n    el.style.color = "#64748b";\n    try {\n      await wait(1000);\n      el.textContent = "完成！（await 1 秒後）";\n      el.style.color = "#059669";\n    } catch (e) {\n      el.textContent = "失敗";\n      el.style.color = "#dc2626";\n    }\n  });\n<\/script>`,
+    tip: "fetch 回傳 Promise；async/await 是寫法糖，底層仍是 Promise。",
+    quiz: { q: "在 async 函式內等待 Promise？", opts: ["await", "pause", "sleep()"], ans: 0 }
+  },
+  js_try_catch: {
+    track: "js",
+    title: "🛡 try / catch 錯誤處理",
+    desc: "網路失敗、JSON 解析錯、使用者輸入不合法——程式要能優雅失敗，不要整頁卡死。",
+    concept: "<code>try { 可能出錯的程式 } catch (e) { 顯示錯誤 }</code><br><code>finally { 無論如何都執行 }</code> 常用來關 loading<br>可讀 <code>e.message</code> 記錄或顯示人話提示<br>不要空 catch 吞掉錯誤；至少 console.error 或更新 UI。",
+    practice: "① 按成功載入 ② 按「故意失敗」看 catch ③ 在 finally 關閉 loading 狀態",
+    code: `<p id="msg">—</p>\n<button type="button" id="ok">成功 fetch</button>\n<button type="button" id="bad">故意失敗</button>\n<script>\n  async function load(url) {\n    const msg = document.getElementById("msg");\n    msg.textContent = "載入中…";\n    try {\n      const res = await fetch(url);\n      if (!res.ok) throw new Error("HTTP " + res.status);\n      const data = await res.json();\n      msg.textContent = "成功：" + (data.title || data.name || "OK");\n      msg.style.color = "#059669";\n    } catch (e) {\n      msg.textContent = "錯誤：" + e.message;\n      msg.style.color = "#dc2626";\n    }\n  }\n  document.getElementById("ok").addEventListener("click", function() {\n    load("https://jsonplaceholder.typicode.com/posts/1");\n  });\n  document.getElementById("bad").addEventListener("click", function() {\n    load("https://jsonplaceholder.typicode.com/404-not-found");\n  });\n<\/script>`,
+    tip: "與 fetch 課合併練習：loading + try/catch + finally 是可交付標準。",
+    quiz: { q: "捕捉執行期錯誤用？", opts: ["try/catch", "if/else only", "console.log only"], ans: 0 }
+  },
+  js_localstorage: {
+    track: "js",
+    title: "💾 localStorage 記住狀態",
+    desc: "重新整理後仍保留：主題色、XP、草稿、上次選的 tab——瀏覽器本地儲存。",
+    concept: "<code>localStorage.setItem('key', '字串值')</code><br><code>localStorage.getItem('key')</code> 沒有則 null<br>存物件：<code>JSON.stringify(obj)</code> / <code>JSON.parse(str)</code><br>清除：<code>removeItem</code> / <code>clear</code><br>容量約 5MB；敏感密碼不要放這裡。",
+    practice: "① 按 +10 XP ② 重新整理沙盒預覽（或再按運行）③ 按清除重設",
+    code: `<p id="xp">XP：0</p>\n<button type="button" id="add">+10 XP</button>\n<button type="button" id="reset">清除紀錄</button>\n<script>\n  const KEY = "demo_xp";\n  const el = document.getElementById("xp");\n  let xp = parseInt(localStorage.getItem(KEY) || "0", 10);\n  function render() {\n    el.textContent = "XP：" + xp + "（已存 localStorage）";\n    localStorage.setItem(KEY, String(xp));\n  }\n  document.getElementById("add").addEventListener("click", function() {\n    xp += 10;\n    render();\n  });\n  document.getElementById("reset").addEventListener("click", function() {\n    xp = 0;\n    localStorage.removeItem(KEY);\n    render();\n  });\n  render();\n<\/script>`,
+    tip: "本手冊頁面的 XP 也用 localStorage；可對照原始碼。",
+    quiz: { q: "存物件到 localStorage 前需？", opts: ["JSON.stringify", "array.push", "document.write"], ans: 0 }
+  },
+  js_json: {
+    track: "js",
+    title: "📦 JSON 資料格式",
+    desc: "API 與設定檔常用 JSON。學會 stringify / parse 與 JS 物件的對應。",
+    concept: "JSON 是<strong>文字格式</strong>，鍵名必須雙引號。<br><code>JSON.stringify({ a: 1 })</code> → <code>'{\"a\":1}'</code><br><code>JSON.parse('{\"a\":1}')</code> → 物件<br>fetch 的 <code>res.json()</code> 內部就是 parse。<br>無效 JSON 會拋錯，請包在 try/catch。",
+    practice: "① 按「物件→字串」② 按「字串→物件」③ 故意 parse 錯誤字串看 catch",
+    code: `<pre id="out" style="background:#f8fafc;padding:12px;border-radius:8px;font-size:13px;line-height:1.6"></pre>\n<button type="button" id="toStr">物件 → JSON 字串</button>\n<button type="button" id="toObj">字串 → 物件</button>\n<script>\n  const out = document.getElementById("out");\n  const user = { name: "Bill", skills: ["HTML", "CSS"] };\n  document.getElementById("toStr").addEventListener("click", function() {\n    out.textContent = JSON.stringify(user, null, 2);\n  });\n  document.getElementById("toObj").addEventListener("click", function() {\n    const str = '{"name":"學員","level":3}';\n    try {\n      const obj = JSON.parse(str);\n      out.textContent = obj.name + " Lv." + obj.level;\n    } catch (e) {\n      out.textContent = "JSON 解析失敗";\n    }\n  });\n<\/script>`,
+    tip: "不要用 eval 解析 JSON，有安全風險。",
+    quiz: { q: "字串轉回物件用？", opts: ["JSON.parse", "JSON.toObject", "parseHTML"], ans: 0 }
+  },
+  js_timers: {
+    track: "js",
+    title: "⏱ setTimeout 與 setInterval",
+    desc: "延遲執行、輪播、倒數、節流防抖的基礎都靠計時器 API。",
+    concept: "<code>setTimeout(fn, 300)</code> 300ms 後執行一次<br><code>setInterval(fn, 1000)</code> 每 1 秒重複<br><code>clearTimeout(id)</code> / <code>clearInterval(id)</code> 取消<br>debounce：連續觸發時只執行最後一次（搜尋框課已示範 setTimeout 版）",
+    practice: "① 按「3 秒後提示」② 按「開始倒數」再按停止 ③ 對照事件課的 debounce",
+    code: `<p id="msg">—</p>\n<button type="button" id="delay">3 秒後變字</button>\n<button type="button" id="start">倒數</button>\n<button type="button" id="stop">停止</button>\n<script>\n  const msg = document.getElementById("msg");\n  let n = 5, timer = null;\n  document.getElementById("delay").addEventListener("click", function() {\n    msg.textContent = "等待 3 秒…";\n    setTimeout(function() { msg.textContent = "時間到！"; }, 3000);\n  });\n  document.getElementById("start").addEventListener("click", function() {\n    if (timer) return;\n    n = 5;\n    timer = setInterval(function() {\n      msg.textContent = "倒數 " + n;\n      n--;\n      if (n < 0) { clearInterval(timer); timer = null; msg.textContent = "結束"; }\n    }, 1000);\n  });\n  document.getElementById("stop").addEventListener("click", function() {\n    if (timer) { clearInterval(timer); timer = null; msg.textContent = "已停止"; }\n  });\n<\/script>`,
+    tip: "離開頁面或元件卸載時記得 clearInterval，避免記憶體洩漏。",
+    quiz: { q: "只執行一次延遲用？", opts: ["setTimeout", "setInterval", "setLoop"], ans: 0 }
   },
   js_ecosystem: {
     track: "js",
@@ -516,7 +679,7 @@ Object.assign(tutorialRepository, {
     quiz: { q: "檢查 res.ok 是在做什麼？", opts: ["確認 HTTP 是否成功", "把 JSON 轉成物件", "改變畫面字體顏色"], ans: 0 }
   },
   work_overflow: {
-    track: "advanced",
+    track: "css",
     title: "✂️ 文字溢出與省略號 …",
     desc: "後台列表、商品名、通知訊息太長時，用 ellipsis 避免撐破版面。",
     concept: "單行省略三件套：<code>overflow:hidden</code> + <code>text-overflow:ellipsis</code> + <code>white-space:nowrap</code><br>在 Flex 裡還要父/子加 <code>min-width:0</code>，否則不會截斷。<br>多行：<code>display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;</code>",
@@ -556,7 +719,7 @@ Object.assign(tutorialRepository, {
     quiz: { q: "阻止表單重整頁面？", opts: ["e.preventDefault()", "e.stopPage()", "return html"], ans: 0 }
   },
   work_responsive_img: {
-    track: "advanced",
+    track: "css",
     title: "🖼 響應式圖片 srcset / sizes",
     desc: "同一張圖提供多種寬度，手機載小檔、桌面載大檔，省流量又清晰。",
     concept: "<code>srcset=\"url 400w, url2 800w\"</code> 列出候選<br><code>sizes=\"(max-width:600px) 100vw, 400px\"</code> 告訴瀏覽器顯示多寬<br>最簡單版：Unsplash <code>?w=400</code> / <code>?w=800</code> 手動切換。<br>進階：<code>&lt;picture&gt;</code> 依媒體換不同裁切圖。",
@@ -617,13 +780,16 @@ Object.assign(tutorialRepository, {
   },
   master_deploy: {
     track: "master",
-    title: "🚀 上線：讓全世界看到",
-    desc: "靜態網站可放 GitHub Pages、Netlify、Vercel 或自家主機。",
-    concept: "index.html 為入口；路徑大小寫要一致；HTTPS 建議開啟。",
-    practice: "① 整理資料夾 ② 上傳後用手機開網址測試 ③ 檢查圖片路徑",
-    code: `<!DOCTYPE html>\n<html lang="zh-Hant">\n<head><meta charset="UTF-8"><title>我的作品集</title></head>\n<body>\n  <h1>上線成功！</h1>\n  <p>HTML + CSS + JS 可直接放靜態主機。</p>\n  <p>記得：photography.html、tutorial.html 一起上傳。</p>\n</body>\n</html>`,
-    tip: "先在本機雙擊 html 測試，再上傳。",
-    quiz: { q: "靜態網站入口檔？", opts: ["index.html", "main.exe", "style.css"], ans: 0 }
+    title: "🚀 上線總覽：部署方式怎麼選",
+    desc: "靜態網站（純 HTML/CSS/JS）有多種上線管道。這課幫你對照「免費、速度、自訂網域、適合誰」。",
+    concept: "<b>什麼算靜態站？</b> 瀏覽器直接讀檔案即可，不需自己架 Node/PHP 伺服器（本手冊作品集即屬此類）。<br><br><b>常見方案對照</b><br>• <b>GitHub Pages</b>：免費、與 Git 整合佳，適合作品集、文件站。網址通常 username.github.io/repo<br>• <b>Netlify</b>：拖曳資料夾或連 Git 自動部署，表單/重導向等附加功能多，適合快速上線<br>• <b>Vercel</b>：對前端專案體驗好，亦支援靜態；若日後有框架專案可沿用<br>• <b>傳統虛擬主機（cPanel/FTP）</b>：上傳整包檔案到 public_html，適合公司已買主機、要放多個子網域<br>• <b>雲端儲存 + CDN</b>：進階，暫不建議初學第一站<br><br><b>上線前必做</b>：入口 index.html、相對路徑在子目錄是否正確、圖片/CSS 是否都有上傳、手機寬度測試、移除 .env 等敏感檔。",
+    practice: "① 選一種平台（建議先 GitHub Pages 或 Netlify）② 對照「上線專題」分頁逐步操作 ③ 部署後用無痕視窗 + 手機各開一次",
+    code: `<style>body{font-family:system-ui;line-height:1.7;color:#334155;max-width:36em} table{width:100%;border-collapse:collapse;font-size:14px} th,td{border:1px solid #e2e8f0;padding:8px;text-align:left} th{background:#f8fafc}</style>\n<h2>靜態部署快速對照</h2>\n<table>\n  <tr><th>平台</th><th>優點</th><th>注意</th></tr>\n  <tr><td>GitHub Pages</td><td>免費、版控一体</td><td>公開 repo 才免費方案最單純</td></tr>\n  <tr><td>Netlify</td><td>部署快、預覽網址</td><td>記得設 publish 目錄</td></tr>\n  <tr><td>FTP 主機</td><td>公司既有空間</td><td>路徑常是 public_html</td></tr>\n</table>\n<p>入口檔一律：<strong>index.html</strong></p>`,
+    tip: "部署失敗 80% 是路徑或漏檔；請對照 HTML 分頁的「檔案與路徑」課。",
+    newbieTip: "第一次上線建議「整包資料夾上傳」，不要只傳 index.html 而漏 css/js/images。",
+    commonMistakes: "本機用 file:// 能開，上線後 CSS 全掛（路徑少寫 ../）；只部署 main 分支但 GitHub Pages 設錯 branch。",
+    submissionStandard: "1) 已選定部署平台並說出理由\n2) 列出上線前 5 項檢查\n3) 完成至少一個平台的成功部署（見 deploy 分頁各課）",
+    quiz: { q: "純 HTML 作品集最適合先嘗試？", opts: ["GitHub Pages 或 Netlify", "自行架資料庫", "只傳 Word 檔"], ans: 0 }
   },
   master_capstone: {
     track: "master",
@@ -638,14 +804,17 @@ Object.assign(tutorialRepository, {
 });
 
 const TUTORIAL_ORDER = [
-  "intro_welcome", "html_vs_css", "intro_devtools", "intro_files",
+  "intro_welcome", "html_learning_path", "html_vs_css", "intro_devtools", "intro_files",
   "html_skeleton", "html_headings", "html_inline", "html_media", "html_lists", "html_list_details",
   "html_description_list", "html_div_span", "html_tables", "html_containers", "html_inputs", "html_button", "html_form", "html_nav",
-  "css_selectors", "css_colors", "css_typography", "css_spacing", "css_box_model", "css_display",
+  "css_selectors", "css_external_import", "css_colors", "css_background_image", "css_typography", "css_spacing",
+  "work_units_rem", "css_box_model", "css_borders_outline", "css_width_max_overflow", "css_display",
   "css_flexbox", "css_grid", "css_position", "css_shadows", "css_transitions",
-  "css_variables", "css_pseudo", "css_flex_advanced", "css_media_rwd", "css_animation", "css_zindex",
-  "intro_js_whatis", "js_variables", "js_conditionals", "js_arrays", "js_objects", "js_functions", "js_events",
-  "js_dom", "js_queryselector", "js_arrow", "js_ecosystem", "js_fetch",
+  "css_variables", "css_pseudo", "css_object_fit", "css_flex_advanced", "css_media_rwd", "css_animation", "css_zindex",
+  "css_specificity", "work_flex_center", "work_overflow", "work_responsive_img",
+  "intro_js_whatis", "js_variables", "js_conditionals", "js_template_strings", "js_loops_for", "js_arrays", "js_array_methods",
+  "js_objects", "js_functions", "js_events", "js_dom", "js_classlist", "js_queryselector", "js_arrow",
+  "js_async_await", "js_try_catch", "js_fetch", "js_localstorage", "js_json", "js_timers", "js_ecosystem",
   "adv_ui_patterns",
   "work_overflow", "work_units_rem", "work_flex_center", "work_responsive_img",
   "js_form_submit", "work_devtools_network", "work_git",
@@ -679,23 +848,71 @@ const tutorialTrackRepository = {
   vue_11_async: { track: "vue", title: "Vue 11｜非同步資料與錯誤處理", desc: "把 API 載入流程寫完整：loading/success/error。", concept: "可交付頁面一定要有 loading 與錯誤狀態，不只成功狀態。", practice: "串接 API 並顯示三態。", code: `<div id=\"app\">\n  <button @click=\"load\">載入</button>\n  <p v-if=\"loading\">Loading...</p>\n  <p v-else-if=\"error\">{{ error }}</p>\n  <p v-else>{{ title }}</p>\n</div>\n<script src=\"https://unpkg.com/vue@3/dist/vue.global.prod.js\"></script>\n<script>\nVue.createApp({\n  data(){ return { loading:false, error:'', title:'' }; },\n  methods:{ async load(){ try{ this.loading=true; this.error=''; const r=await fetch('https://jsonplaceholder.typicode.com/posts/1'); const d=await r.json(); this.title=d.title; }catch(e){ this.error='載入失敗'; }finally{ this.loading=false; } } }\n}).mount('#app');\n<\/script>`, tip: "API 流程請固定寫 try/catch/finally。", quiz: { q: "可交付非同步流程至少要有？", opts: ["loading + error + success", "只有 success", "只有 console"], ans: 0 } },
   vue_00_preface: { track: "vue", title: "Vue 00｜前言：版本差異先釐清", desc: "開始 Vue 前，先懂 Vue2 / Vue3 差異與學習路線。", concept: "Vue2 常見於維護案；Vue3 是新案主流。<br>差異重點：<br>1) Vue3 效能更好<br>2) Composition API 可重用邏輯<br>3) 生態常見 Vite + Pinia", practice: "先判斷你的目標：舊案維護 or 新案開發，寫下你要走哪條主線。", code: `<div style=\"line-height:1.8\">\n  <h3>Vue 版本快速判讀</h3>\n  <ul>\n    <li><strong>舊專案維護：</strong>Vue 2 + Options API 常見</li>\n    <li><strong>新專案開發：</strong>Vue 3 + Composition API 建議</li>\n  </ul>\n  <p>先把 Vue 3 主線學穩，再補 Vue 2 維護差異。</p>\n</div>`, tip: "先固定版本再學，速度會快很多。", newbieTip: "不要同時混學兩個版本，先攻 Vue3 主線。", commonMistakes: "把 Vue2 與 Vue3 語法混寫，導致範例跑不起來。", submissionStandard: "1) 能說出 Vue2/3 三個差異\n2) 能判斷你的專案版本路線\n3) 已完成學習路線選擇", quiz: { q: "新專案主流建議版本？", opts: ["Vue 3", "Vue 1", "隨機都可"], ans: 0 } },
   vue_12_master_composable: { track: "vue", title: "Vue 12｜大師關：Composable 與實戰架構", desc: "把邏輯抽成可重用函式，建立中大型專案基礎。", concept: "Composable 讓邏輯重用不依賴單一元件，測試與擴充更簡單。", practice: "列出你專案可抽離的 3 個 composable。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">function useCounter(){\n  const count = Vue.ref(0)\n  const inc = () => count.value++\n  return { count, inc }\n}</pre>\n<p>下一步：把 API、表單驗證、權限檢查都抽成 composable。</p>`, tip: "會拆 composable，就進入 Vue 真正工程實戰。", quiz: { q: "Composable 的核心價值？", opts: ["邏輯可重用", "只為了縮短檔名", "取代所有元件"], ans: 0 } },
-  git_01_intro: { track: "git", title: "Git 01｜版本控制核心觀念", desc: "先搞懂 Git 在團隊協作中的角色。", concept: "Git 不是備份工具而已，而是可追蹤、可回溯、可審查的開發記錄系統。", practice: "建立 repo 並做第一次 commit。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git init\ngit add .\ngit commit -m "chore: initial commit"</pre>`, tip: "每次 commit 都要可讀、可回滾。", newbieTip: "把 commit 想成「可交付的最小里程碑」，不要一次塞太多改動。", commonMistakes: "常見錯誤是超大 commit，後續回滾與 review 都會痛苦。", submissionStandard: "1) 本地 repo 初始化成功\n2) 完成第一個可讀 commit\n3) 能解釋 commit 為何切這個粒度", quiz: { q: "Git 最核心價值是？", opts: ["可追蹤與回溯", "取代編輯器", "自動寫程式"], ans: 0 } },
+  git_00_environment: { track: "git", title: "Git 00｜在哪裡執行？環境與工具", desc: "學指令前，先裝好 Git、知道去哪裡打字下指令，以及 GUI 怎麼輔助。", concept: "<b>Git 是什麼？</b> 裝在你電腦上的版本控制程式；<b>GitHub/GitLab</b> 是放遠端備份與協作的網站，兩者不同但常一起用。<br><br><b>指令要在哪裡打？（擇一即可）</b><br>1. <b>VS Code / Cursor 內建終端機</b>：選單 Terminal → New Terminal，下方出現命令列，在專案資料夾執行 git<br>2. <b>Windows Terminal / PowerShell / 命令提示字元</b>：先 <code>cd 你的專案路徑</code> 再下 git<br>3. <b>Git Bash</b>（安裝 Git for Windows 時可選）：類 Unix 指令環境，路徑寫法與教學一致<br><br><b>安裝</b>：到 git-scm.com 下載 Git for Windows，安裝後在終端機輸入 <code>git --version</code> 應顯示版本號。<br><br><b>不想全打指令？可用 GUI 輔助</b><br>• VS Code 左側「原始檔控制」圖示：看變更、暫存、commit<br>• GitHub Desktop：圖形化 clone / commit / push，適合初學建立習慣<br>• SourceTree、Fork 等：進階視覺化分支管理<br><br>建議：<b>指令要會基礎</b>（status / add / commit / push），GUI 用來加速日常；面試與除錯仍常見終端機。",
+    practice: "① 安裝 Git 並在終端機執行 git --version ② 用 cd 進入你的作品集資料夾 ③ 開 VS Code 原始檔控制面板，對照本課概念認識按鈕 ④ 下一課開始在「專案根目錄」執行 git init",
+    code: `<style>pre{background:#0f172a;color:#a5f3fc;padding:14px;border-radius:10px;font-size:13px;line-height:1.7;overflow:auto}.cm{color:#94a3b8}.ok{color:#86efac}</style>\n<p style="font-family:system-ui;color:#475569;line-height:1.7">在終端機依序試（路徑改成你的）：</p>\n<pre><span class="cm"># 確認已安裝</span>\n<span class="ok">git --version</span>\n\n<span class="cm"># 進入專案（Windows 範例）</span>\n<span class="ok">cd C:\\Users\\你\\Documents\\my-portfolio</span>\n\n<span class="cm"># 之後課程會在這裡執行</span>\n<span class="ok">git status</span></pre>\n<p style="font-size:13px;color:#64748b">若顯示「不是內部或外部命令」，代表 Git 尚未安裝或未加入 PATH。</p>`,
+    tip: "所有 git 指令都應在「含有 .html 專案檔」的那個資料夾執行，不要在錯的目錄 init。",
+    newbieTip: "第一次請用 Terminal 在專案根目錄操作；不要在一個個子資料夾裡 git init。",
+    commonMistakes: "沒裝 Git 就照抄指令；在桌面隨便開終端機卻沒 cd 到專案；以為 GitHub 網頁上傳檔案就等於學會 Git。",
+    submissionStandard: "1) git --version 有版本號\n2) 能說出兩種執行環境（終端機 + 任一 GUI）\n3) 已 cd 到作品集資料夾並截圖或口述路徑",
+    quiz: { q: "git commit 前，終端機應在？", opts: ["專案根目錄（含你的原始碼）", "任何資料夾都可", "只能 C:\\ 根目錄"], ans: 0 } },
+  git_01_intro: { track: "git", title: "Git 01｜版本控制核心觀念", desc: "先搞懂 Git 在團隊協作中的角色，再在專案根目錄建立第一個 repo。", concept: "Git 不是備份工具而已，而是可追蹤、可回溯、可審查的開發記錄系統。每個 commit 像遊戲存檔，可隨時回到某個時間點。<br><br><b>本地 vs 遠端</b>：你電腦上的 .git 資料夾是本地倉庫；push 到 GitHub 後，團隊才能看到並開 PR。", practice: "在上一課確認的專案資料夾執行：git init → git add . → git commit。若已有 .git 可改做 git status 觀察。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px;line-height:1.7">git init\ngit status\ngit add .\ngit commit -m "chore: initial commit"</pre>`, tip: "每次 commit 都要可讀、可回滾；訊息用英文或中文皆可，但要說清楚「這次完成什麼」。", newbieTip: "把 commit 想成「可交付的最小里程碑」，不要一次塞太多改動。", commonMistakes: "常見錯誤是超大 commit，或在錯誤資料夾 init 導致追蹤到不相關檔案。", submissionStandard: "1) 本地 repo 初始化成功\n2) 完成第一個可讀 commit\n3) 能解釋 commit 為何切這個粒度", quiz: { q: "Git 最核心價值是？", opts: ["可追蹤與回溯", "取代編輯器", "自動寫程式"], ans: 0 } },
   git_02_status_add_commit: { track: "git", title: "Git 02｜status/add/commit 日常循環", desc: "掌握每天最常用的三個指令。", concept: "先看狀態，再選擇性加入，再提交，形成穩定節奏。", practice: "修改一個檔案後走完整流程。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git status\ngit add src/app.js\ngit commit -m "feat: update lesson switch flow"</pre>`, tip: "commit message 要寫 why，不只寫 what。", quiz: { q: "提交前先看什麼？", opts: ["git status", "git push", "git reset"], ans: 0 } },
   git_03_branching: { track: "git", title: "Git 03｜分支策略與命名規範", desc: "學會 feature branch 工作流。", concept: "main 保持穩定，功能在獨立分支開發，完成再合併。", practice: "建立 feature 分支並切換。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git switch -c feature/tutorial-git-tab\ngit branch</pre>`, tip: "分支名建議：feat/*、fix/*、chore/*。", quiz: { q: "新功能建議直接改 main 嗎？", opts: ["不建議", "建議", "看運氣"], ans: 0 } },
   git_04_merge_rebase: { track: "git", title: "Git 04｜merge 與 rebase 何時用", desc: "理解兩種整合歷史策略。", concept: "merge 保留分支脈絡，rebase 讓歷史更線性。", practice: "用 merge 完成一次分支整合。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git switch main\ngit merge feature/tutorial-git-tab</pre>`, tip: "團隊沒統一前，先用 merge 最安全。", quiz: { q: "保留分支脈絡常用？", opts: ["merge", "rebase -i", "cherry-pick"], ans: 0 } },
   git_05_conflict: { track: "git", title: "Git 05｜衝突處理與安全回滾", desc: "學會解衝突與回到安全版本。", concept: "衝突本質是同一區塊被不同提交改動，需人工決策。", practice: "模擬衝突後完成解決與 commit。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git status\n# 編輯衝突標記 <<<<<<< ======= >>>>>>>\ngit add .\ngit commit -m "fix: resolve merge conflict"</pre>`, tip: "先理解兩邊改動再解，不要無腦全選。", quiz: { q: "衝突解完下一步？", opts: ["git add + git commit", "直接關閉 IDE", "git init"], ans: 0 } },
   git_06_remote_pr: { track: "git", title: "Git 06｜Remote 與 Pull Request", desc: "把本地分支推上遠端並建立 PR。", concept: "PR 是協作審查核心，讓改動有討論與品質把關。", practice: "push 分支後建立 PR（可用 gh）。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git push -u origin feature/tutorial-git-tab\n# gh pr create --title \"...\" --body \"...\"</pre>`, tip: "PR 描述要寫摘要與測試方式。", quiz: { q: "PR 主要目的是？", opts: ["審查與協作", "清除歷史", "部署資料庫"], ans: 0 } },
   git_07_revert_cherry_pick: { track: "git", title: "Git 07｜revert 與 cherry-pick", desc: "精準回退或搬運單一提交。", concept: "revert 建立反向 commit；cherry-pick 把特定 commit 套到另一分支。", practice: "列出 commit 後挑一個做 cherry-pick（練習用）。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git log --oneline\ngit cherry-pick <commit>\n# 或 git revert <commit></pre>`, tip: "操作前先確認當前分支與目標分支。", quiz: { q: "想撤銷已推送 commit 較安全用？", opts: ["git revert", "git reset --hard + force", "刪 repo"], ans: 0 } },
-  git_08_master_release: { track: "git", title: "Git 08｜大師關：發布節奏與標籤", desc: "建立可交付的 release 流程。", concept: "用 tag 標記版本，搭配 changelog 形成可追蹤交付。", practice: "建立 v1.0.0 tag 並推送。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git tag v1.0.0\ngit push origin v1.0.0</pre>`, tip: "重要發布一定要有版本標籤。", newbieTip: "把 release 當「可被他人驗收」的節點，而不只是你本機完成。", commonMistakes: "沒有 tag、沒有 changelog，導致無法追查哪版修了什麼。", submissionStandard: "1) 建立並推送 tag\n2) 撰寫版本說明\n3) 能說明回滾方案", quiz: { q: "標記正式版本常用？", opts: ["git tag", "git note", "git stash"], ans: 0 } }
+  git_08_master_release: { track: "git", title: "Git 08｜大師關：發布節奏與標籤", desc: "建立可交付的 release 流程。", concept: "用 tag 標記版本，搭配 changelog 形成可追蹤交付。", practice: "建立 v1.0.0 tag 並推送。", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git tag v1.0.0\ngit push origin v1.0.0</pre>`, tip: "重要發布一定要有版本標籤。", newbieTip: "把 release 當「可被他人驗收」的節點，而不只是你本機完成。", commonMistakes: "沒有 tag、沒有 changelog，導致無法追查哪版修了什麼。", submissionStandard: "1) 建立並推送 tag\n2) 撰寫版本說明\n3) 能說明回滾方案", quiz: { q: "標記正式版本常用？", opts: ["git tag", "git note", "git stash"], ans: 0 } },
+
+  jq_00_cdn_setup: { track: "jquery", title: "jQuery 00｜如何載入與在哪執行", desc: "jQuery 在瀏覽器執行，需先載入 JS 檔再寫你的程式。", concept: "<b>CDN（最常見）</b>：<code>&lt;script src=\"https://code.jquery.com/jquery-3.7.1.min.js\"&gt;&lt;/script&gt;</code> 放在你的 script 之前。<br><b>本機檔</b>：<code>js/jquery.min.js</code> 路徑注意相對位置。<br><b>npm</b>：現代打包專案用 <code>npm install jquery</code> + import，舊站維護多見 CDN。<br>執行環境：瀏覽器 + F12 Console；$ 就是 jQuery 入口。", practice: "① 確認 script 順序 ② 在 Console 輸入 typeof $ 應為 function", code: `<p id="ok">尚未測試</p>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>\n<script>\n  if (typeof window.jQuery === "function") {\n    document.getElementById("ok").textContent = "jQuery " + jQuery.fn.jquery + " 已載入";\n  }\n<\/script>`, tip: "script 順序錯誤會出現 $ is not defined。", quiz: { q: "jQuery 在哪執行？", opts: ["瀏覽器", "MySQL", "Git"], ans: 0 } },
+  vue_13_vite_tooling: { track: "vue", title: "Vue 13｜Vite 工具鏈與單檔元件", desc: "新專案幾乎都用 Vite 建立，理解 .vue 檔與 npm run dev。", concept: "<b>建立專案</b>：<code>npm create vue@latest</code>（官方推薦）→ 選 TypeScript/ Router 等 → <code>cd 專案 && npm install && npm run dev</code><br><b>.vue 檔</b>：template + script + style 同一檔，元件化開發。<br><b>與 CDN 版差異</b>：本課前面用 CDN 是教學；正式開發用 Vite 熱更新、打包。<br>文件：<a href=\"https://vuejs.org\" target=\"_blank\" rel=\"noopener\">vuejs.org</a>", practice: "① 瀏覽器開 vuejs.org 文件 ② 規劃你是否要開 Vite 專案練習", code: `<div style="font-family:system-ui;line-height:1.7;color:#334155;max-width:34em">\n  <p><strong>教學用：</strong> CDN + createApp（本手冊前幾課）</p>\n  <p><strong>工程用：</strong> Vite + .vue + npm run dev / build</p>\n</div>`, tip: "作品集若只有靜態頁可先不強求 Vite；要徵才 Vue 職再深入。", quiz: { q: "Vue 新專案常見開發伺服器？", opts: ["npm run dev (Vite)", "雙擊 index.html 就夠", "只用 jQuery"], ans: 0 } },
+
+  deploy_01_preflight: { track: "deploy", title: "上線 01｜上線前檢查清單", desc: "部署不是按一個鈕就好——先在本機與檢查清單把品質顧好，上線才省時間。", concept: "<b>內容與結構</b>：每頁有唯一 h1、圖片有 alt、連結可點、表單有 label。<br><b>檔案與路徑</b>：css/js/images 皆已上傳；子頁面 ../ 正確；無本機絕對路徑 C:\\Users\\...<br><b>RWD</b>：375 / 768 / 1280 三種寬度無橫向捲軸爆版。<br><b>效能</b>：圖片壓縮或適當 w= 參數、loading=\"lazy\" 視情況加入。<br><b>安全</b>：.env、密碼、API key 不可進 repo（寫入 .gitignore）。<br><b>SEO 基礎</b>：&lt;title&gt;、meta description、語意標籤。",
+    practice: "① 印出或複製下方清單，逐項勾選你的作品集 ② 用 Chrome 裝置模擬器測手機 ③ 修正後再做 git commit「chore: pre-deploy checklist」",
+    code: `<style>body{font-family:system-ui;line-height:1.65;color:#334155;max-width:32em} ul{padding-left:1.2em} li{margin:6px 0}</style>\n<h3>上線前 10 項（建議全勾）</h3>\n<ul>\n  <li>index.html 為入口，首頁可開</li>\n  <li>所有 CSS/JS 在 Network 無 404</li>\n  <li>手機寬度無橫向爆版</li>\n  <li>圖片有 alt、連結有清楚文字</li>\n  <li>無 file:// 或本機絕對路徑</li>\n  <li>已移除測試用 alert / console 雜訊</li>\n  <li>.gitignore 排除 .env</li>\n  <li>分頁 title 有意義</li>\n  <li>主要 CTA 可點、可聚焦（Tab）</li>\n  <li>與導師/朋友用無痕視窗試開</li>\n</ul>`,
+    tip: "檢查清單請在「第一次部署前」就做，不要等上線後才發現全站沒樣式。",
+    newbieTip: "最不穩的是「路徑」與「漏檔」——請回顧 HTML 分頁的檔案路徑課。",
+    commonMistakes: "只在本機預覽成功就上線；手機沒測；忘記上傳 images 資料夾。",
+    submissionStandard: "1) 10 項中至少完成 8 項勾選\n2) 列出你修正的 2 個問題\n3) 已 commit 一版「上線前整理」",
+    quiz: { q: "上線前最先該確認？", opts: ["資源路徑無 404", "動畫越多越好", "只用桌機測一次"], ans: 0 } },
+  deploy_02_github_pages: { track: "deploy", title: "上線 02｜GitHub Pages 逐步部署", desc: "把靜態作品集放到 GitHub Pages，取得可分享的 https 網址。", concept: "<b>流程概覽</b><br>1. 在 GitHub 建立 repository（建議公開）<br>2. 本地 git init → add → commit → 綁定 remote → push<br>3. Repo Settings → Pages → Source 選 main 分支 / root（或 /docs）<br>4. 等 1～3 分鐘，開啟 https://&lt;user&gt;.github.io/&lt;repo&gt;/<br><br><b>子路徑注意</b>：若網址是 username.github.io/my-repo/，專案內連結可能要加前綴或改用相對路徑，避免點連結跳到錯誤根目錄。<br><br><b>自訂網域</b>（選修）：Settings → Pages → Custom domain，並在 DNS 加 CNAME。",
+    practice: "① 建立 GitHub repo ② 本地 push ③ 開啟 Pages ④ 用手機開正式網址 ⑤ 點 3 個內部連結確認沒 404",
+    code: `<pre style="background:#0f172a;color:#a5f3fc;padding:14px;border-radius:10px;font-size:13px;line-height:1.75">git remote add origin https://github.com/你的帳號/你的repo.git\ngit branch -M main\ngit push -u origin main\n\n<span style="color:#94a3b8"># 然後到 GitHub → Settings → Pages → Deploy from branch: main / root</span></pre>\n<p style="font-family:system-ui;color:#475569;font-size:14px">成功後網址會顯示在 Pages 設定頁綠色區塊。</p>`,
+    tip: "第一次 push 若要求登入，可用 GitHub Desktop 或 Personal Access Token。",
+    quiz: { q: "GitHub Pages 靜態站入口檔？", opts: ["index.html", "README.md 單獨即可", "package.json"], ans: 0 } },
+  deploy_03_netlify_vercel: { track: "deploy", title: "上線 03｜Netlify / Vercel 快速部署", desc: "不綁定 GitHub 也能拖曳上傳；連動 Git 則每次 push 自動更新。", concept: "<b>Netlify</b>：註冊 → Add new site → Deploy manually（拖資料夾）或 Import from Git。Publish directory 通常填根目錄 <code>/</code> 或 <code>dist</code>（若你有建置步驟）。<br><b>Vercel</b>：Import Git Repository → Framework Preset 選 Other / 靜態 → Build 可留空，Output 為根目錄。<br><br><b>何時選？</b> 要預覽 PR、表單、重導向規則時 Netlify 很方便；已用 GitHub 且要極簡，Pages 就夠。兩家都提供免費 HTTPS。<br><br><b>環境變數</b>：若日後有 API key，在平台後台設 Environment Variables，不要寫進前端原始碼。",
+    practice: "① 選 Netlify 或 Vercel 註冊 ② 部署同一包作品集 ③ 比較與 GitHub Pages 網址差異 ④ 記下「重新部署」要按哪裡",
+    code: `<style>body{font-family:system-ui;line-height:1.7;color:#334155;max-width:36em} .box{border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin:12px 0;background:#f8fafc;font-size:14px}</style>\n<div class="box"><strong>Netlify 手動部署</strong><br>Build command：（留空）<br>Publish directory：./</div>\n<div class="box"><strong>Vercel 靜態匯入</strong><br>Framework：Other<br>Root Directory：./</div>\n<p>部署完成後用「Preview URL」分享給老師驗收。</p>`,
+    tip: "改檔後要「重新 deploy」或 push 才會更新；瀏覽器可強制重新整理 Ctrl+F5。",
+    quiz: { q: "Netlify 手動部署時 Publish directory 常設？", opts: ["專案根目錄（含 index.html）", "只選一張圖", "node_modules"], ans: 0 } },
+  deploy_04_ftp_troubleshoot: { track: "deploy", title: "上線 04｜FTP 主機與常見故障排除", desc: "公司或學校主機常見 FTP/cPanel；學會上傳結構與排除 404、亂碼、快取。", concept: "<b>FTP 上傳</b>：用 FileZilla 等連線主機 → 本機整包拖到 public_html（或 wwwroot）→ 保持資料夾結構不變。<br><b>路徑</b>：網域根目錄對應 index.html；子目錄 about/ 要放 about/index.html 或 about.html 並注意連結。<br><br><b>故障對照</b><br>• 全站無樣式 → css 路徑錯或 css 沒上傳<br>• 中文亂碼 → 缺 &lt;meta charset=\"UTF-8\"&gt;<br>• 圖片破圖 → 大小寫不一致（Photo.jpg vs photo.jpg）<br>• 改了沒變 → CDN/瀏覽器快取，強制重新整理或清快取<br>• 404 → 檔名打錯、漏傳、或伺服器未設預設頁",
+    practice: "① 對照故障表，故意改錯一個 css 路徑再修正 ② 用 F12 Network 找第一個紅色請求 ③ 寫下你的作品集若上 FTP 要傳哪些資料夾",
+    code: `<style>body{font-family:system-ui;font-size:14px;line-height:1.65;color:#334155} table{border-collapse:collapse;width:100%} th,td{border:1px solid #e2e8f0;padding:8px} th{background:#f1f5f9;text-align:left}</style>\n<table>\n  <tr><th>現象</th><th>優先檢查</th></tr>\n  <tr><td>白屏無樣式</td><td>css href、是否上傳 css/</td></tr>\n  <tr><td>破圖</td><td>src 路徑、檔名大小寫</td></tr>\n  <tr><td>亂碼</td><td>UTF-8 meta</td></tr>\n  <tr><td>舊版內容</td><td>快取、是否傳到正確目錄</td></tr>\n</table>`,
+    tip: "上傳後第一件事：開無痕視窗 + Network 看有無 404。",
+    quiz: { q: "Linux 主機上 Photo.jpg 與 photo.jpg？", opts: ["視為不同檔案", "視為相同", "自動合併"], ans: 0 } },
+  deploy_05_post_launch: { track: "deploy", title: "上線 05｜上線後驗收與維護", desc: "上線是開始不是結束：驗收、監測、小改版與回滾策略。", concept: "<b>驗收（24 小時內）</b>：桌機/手機各測、請他人代點、檢查表單與外連。<br><b>維護節奏</b>：小改 → git commit → push → 等平台自動部署或手動 redeploy。<br><b>回滾</b>：Git 用 revert 或回到上一個 tag；Netlify/Vercel 後台可選先前 deploy 一鍵還原。<br><b>紀錄</b>：README 寫專案說明、截圖、技術棧；履歷附上正式網址。<br><b>進階（選修）</b>：Google Search Console 提交 sitemap、簡單 Analytics。",
+    practice: "① 填寫「上線驗收表」：網址、測試日期、測過裝置、已知問題 ② 規劃下週一個小改版並走 git 流程 ③ 進入畢業專題課整合品牌頁",
+    code: `<style>body{font-family:system-ui;line-height:1.8;color:#334155;max-width:34em;font-size:14px} h3{color:#4338ca;margin:0 0 8px}</style>\n<h3>上線驗收表（範本）</h3>\n<p>正式網址：________________<br>部署平台：________________<br>手機測試：□ iOS □ Android<br>桌機測試：□ Chrome □ Edge<br>已知待修：________________</p>\n<p>下個版本 v1.0.1 預計：________________</p>`,
+    tip: "把「可公開的網址」寫進履歷與作品集封面，比只交 zip 更有說服力。",
+    newbieTip: "上線後若朋友說「看不到」，先問他用的是不是你的正式網址，而不是本機路徑。",
+    commonMistakes: "上線後從不更新；或沒用 Git 記錄，改壞了無法還原。",
+    submissionStandard: "1) 填完驗收表\n2) 網址可公開開啟\n3) 規劃下一版 commit 訊息",
+    quiz: { q: "上線後小改動最安全習慣？", opts: ["Git commit 後再部署", "直接改伺服器不備份", "刪掉舊檔重傳覆蓋"], ans: 0 } }
 };
 
 const TUTORIAL_ORDER_BY_TRACK = {
-  html: ["intro_welcome","html_vs_css","intro_devtools","intro_files","html_skeleton","html_headings","html_inline","html_media","html_lists","html_list_details","html_description_list","html_div_span","html_tables","html_containers","html_inputs","html_float_align_bg","html_button","html_form","html_nav"],
-  css: ["css_selectors","css_colors","css_typography","css_spacing","css_box_model","css_display","css_flexbox","css_grid","css_position","css_shadows","css_transitions","css_variables","css_pseudo","css_flex_advanced","css_media_rwd","css_animation","css_zindex"],
-  js: ["intro_js_whatis","js_variables","js_conditionals","js_arrays","js_objects","js_functions","js_events","js_dom","js_queryselector","js_arrow","js_ecosystem","js_fetch","adv_ui_patterns","js_form_submit","work_devtools_network"],
-  jquery: ["jq_01_intro","jq_02_selectors","jq_03_events","jq_04_dom","jq_05_effects","jq_06_ajax","jq_07_form","jq_08_components","jq_09_plugin","jq_10_performance","jq_11_architecture","jq_12_master_workflow"],
-  vue: ["vue_00_preface","vue_01_intro","vue_02_template","vue_03_directives","vue_04_events","vue_05_computed_watch","vue_06_components","vue_07_props_emit","vue_08_lifecycle","vue_09_router","vue_10_state","vue_11_async","vue_12_master_composable"],
-  git: ["git_01_intro","git_02_status_add_commit","git_03_branching","git_04_merge_rebase","git_05_conflict","git_06_remote_pr","git_07_revert_cherry_pick","git_08_master_release","work_git"],
-  deploy: ["master_deploy","master_capstone"]
+  html: ["intro_welcome","html_learning_path","html_vs_css","intro_devtools","intro_files","html_skeleton","html_headings","html_inline","html_media","html_lists","html_list_details","html_description_list","html_div_span","html_tables","html_containers","html_inputs","html_float_align_bg","html_button","html_form","html_nav"],
+  css: ["css_selectors","css_external_import","css_colors","css_background_image","css_typography","css_spacing","work_units_rem","css_box_model","css_borders_outline","css_width_max_overflow","css_display","css_flexbox","css_grid","css_position","css_shadows","css_transitions","css_variables","css_pseudo","css_object_fit","css_flex_advanced","css_media_rwd","css_animation","css_zindex","css_specificity","work_flex_center","work_overflow","work_responsive_img"],
+  tailwind: ["tw_00_intro","tw_01_utility_cdn","tw_02_cdn_vs_build","tw_03_npm_setup","tw_03b_next_project","tw_04_source_entry","tw_05_postcss_config","tw_06_build_watch","tw_07_tailwind_config","tw_08_link_site","tw_09_official_workflow","tw_10_utilities_hygiene"],
+  js: ["intro_js_whatis","js_variables","js_conditionals","js_template_strings","js_loops_for","js_arrays","js_array_methods","js_objects","js_functions","js_events","js_dom","js_classlist","js_queryselector","js_arrow","js_async_await","js_try_catch","js_fetch","js_localstorage","js_json","js_timers","js_ecosystem","adv_ui_patterns","js_form_submit","work_devtools_network"],
+  jquery: ["jq_00_cdn_setup","jq_01_intro","jq_02_selectors","jq_03_events","jq_04_dom","jq_05_effects","jq_06_ajax","jq_07_form","jq_08_components","jq_09_plugin","jq_10_performance","jq_11_architecture","jq_12_master_workflow"],
+  vue: ["vue_00_preface","vue_01_intro","vue_02_template","vue_03_directives","vue_04_events","vue_05_computed_watch","vue_06_components","vue_07_props_emit","vue_08_lifecycle","vue_09_router","vue_10_state","vue_11_async","vue_12_master_composable","vue_13_vite_tooling"],
+  git: ["git_00_environment","git_01_intro","git_02_status_add_commit","git_03_branching","git_04_merge_rebase","git_05_conflict","git_06_remote_pr","git_07_revert_cherry_pick","git_08_master_release","work_git"],
+  deploy: ["deploy_01_preflight","deploy_02_github_pages","deploy_03_netlify_vercel","deploy_04_ftp_troubleshoot","deploy_05_post_launch","master_deploy","master_capstone"]
 };
+
+if (typeof TUTORIAL_TAILWIND_LESSONS !== "undefined") {
+  Object.assign(tutorialTrackRepository, TUTORIAL_TAILWIND_LESSONS);
+}
 
