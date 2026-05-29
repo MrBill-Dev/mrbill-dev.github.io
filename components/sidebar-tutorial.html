@@ -26,7 +26,8 @@
   <button onclick="loadLesson('html_description_list', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">術語清單</button>
   <button onclick="loadLesson('html_div_span', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">div/span</button>
   <button onclick="loadLesson('html_tables', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">表格</button>
-  <button onclick="loadLesson('html_containers', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">語意容器</button>
+  <button onclick="loadLesson('html_containers', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">語意布局 main/section</button>
+  <button onclick="loadLesson('html_head_seo', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">head 與 SEO meta</button>
   <button onclick="loadLesson('html_inputs', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">input 輸入</button>
   <button onclick="loadLesson('html_float_align_bg', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">float/對齊/背景</button>
   <button onclick="loadLesson('html_button', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">button 按鈕</button>
@@ -82,29 +83,30 @@
 </section>
 
 <section data-track-panel="js" class="hidden space-y-2">
-  <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">JS 路線（22 課）</p>
-  <button onclick="loadLesson('intro_js_whatis', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">JS 是什麼</button>
-  <button onclick="loadLesson('js_variables', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">變數</button>
-  <button onclick="loadLesson('js_conditionals', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">條件判斷</button>
-  <button onclick="loadLesson('js_template_strings', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">模板字串</button>
-  <button onclick="loadLesson('js_loops_for', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">for 迴圈</button>
-  <button onclick="loadLesson('js_arrays', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">陣列</button>
-  <button onclick="loadLesson('js_array_methods', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">map / filter</button>
-  <button onclick="loadLesson('js_objects', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">物件</button>
-  <button onclick="loadLesson('js_functions', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">函式</button>
-  <button onclick="loadLesson('js_events', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">事件</button>
-  <button onclick="loadLesson('js_dom', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">DOM</button>
-  <button onclick="loadLesson('js_classlist', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">classList</button>
-  <button onclick="loadLesson('js_queryselector', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">querySelector</button>
-  <button onclick="loadLesson('js_arrow', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">箭頭函式</button>
-  <button onclick="loadLesson('js_async_await', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">async / await</button>
-  <button onclick="loadLesson('js_try_catch', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">try / catch</button>
-  <button onclick="loadLesson('js_fetch', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">fetch API</button>
-  <button onclick="loadLesson('js_localstorage', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">localStorage</button>
-  <button onclick="loadLesson('js_json', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">JSON</button>
-  <button onclick="loadLesson('js_timers', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">計時器</button>
-  <button onclick="loadLesson('js_ecosystem', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">生態工具</button>
-  <button onclick="loadLesson('adv_ui_patterns', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Tab/Modal 實戰</button>
+  <p class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1">JS 路線（23 課 · 框架根基）</p>
+  <button onclick="loadLesson('intro_js_whatis', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">01 JS 是什麼（根基）</button>
+  <button onclick="loadLesson('intro_js_roadmap', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">02 路線地圖（必讀）</button>
+  <button onclick="loadLesson('js_variables', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">03 變數</button>
+  <button onclick="loadLesson('js_conditionals', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">04 條件判斷</button>
+  <button onclick="loadLesson('js_template_strings', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">05 模板字串</button>
+  <button onclick="loadLesson('js_loops_for', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">06 for 迴圈</button>
+  <button onclick="loadLesson('js_arrays', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">07 陣列</button>
+  <button onclick="loadLesson('js_array_methods', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">08 map / filter</button>
+  <button onclick="loadLesson('js_objects', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">09 物件</button>
+  <button onclick="loadLesson('js_functions', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">10 函式</button>
+  <button onclick="loadLesson('js_events', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">11 事件</button>
+  <button onclick="loadLesson('js_dom', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">12 DOM</button>
+  <button onclick="loadLesson('js_classlist', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">13 classList</button>
+  <button onclick="loadLesson('js_queryselector', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">14 querySelector</button>
+  <button onclick="loadLesson('js_arrow', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">15 箭頭函式</button>
+  <button onclick="loadLesson('js_async_await', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">16 async / await</button>
+  <button onclick="loadLesson('js_try_catch', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">17 try / catch</button>
+  <button onclick="loadLesson('js_fetch', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">18 fetch API</button>
+  <button onclick="loadLesson('js_localstorage', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">19 localStorage</button>
+  <button onclick="loadLesson('js_json', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">20 JSON</button>
+  <button onclick="loadLesson('js_timers', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">21 計時器</button>
+  <button onclick="loadLesson('js_ecosystem', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">22 生態 → jQuery/Vue</button>
+  <button onclick="loadLesson('adv_ui_patterns', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">23 Tab/Modal 實戰</button>
   <button onclick="loadLesson('js_form_submit', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">表單驗證</button>
   <button onclick="loadLesson('work_devtools_network', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">Network 除錯</button>
 </section>

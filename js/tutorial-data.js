@@ -16,7 +16,7 @@ const tutorialPreface = {
         <li class="tuto-preface-track-html"><span class="tuto-preface-node-dot">1</span><span class="tuto-preface-node-label">HTML</span></li>
         <li class="tuto-preface-track-css"><span class="tuto-preface-node-dot">2</span><span class="tuto-preface-node-label">CSS</span></li>
         <li class="tuto-preface-track-tailwind"><span class="tuto-preface-node-dot">3</span><span class="tuto-preface-node-label">Tailwind</span></li>
-        <li class="tuto-preface-track-js"><span class="tuto-preface-node-dot">4</span><span class="tuto-preface-node-label">JS</span></li>
+        <li class="tuto-preface-track-js"><span class="tuto-preface-node-dot">4</span><span class="tuto-preface-node-label">JS 根基</span></li>
         <li class="tuto-preface-track-jquery"><span class="tuto-preface-node-dot">5</span><span class="tuto-preface-node-label">jQuery</span></li>
         <li class="tuto-preface-track-vue"><span class="tuto-preface-node-dot">6</span><span class="tuto-preface-node-label">Vue</span></li>
         <li class="tuto-preface-track-git"><span class="tuto-preface-node-dot">7</span><span class="tuto-preface-node-label">Git</span></li>
@@ -24,7 +24,7 @@ const tutorialPreface = {
       </ol>
       <div class="tuto-preface-phase-bar">
         <span class="tuto-preface-phase tuto-preface-phase-1">①～③ 基礎版面</span>
-        <span class="tuto-preface-phase tuto-preface-phase-2">④～⑥ 互動與框架</span>
+        <span class="tuto-preface-phase tuto-preface-phase-2">④ JS 根基 → ⑤⑥ 框架</span>
         <span class="tuto-preface-phase tuto-preface-phase-3">⑦～⑧ 版本與部署</span>
       </div>
     </section>`
@@ -67,11 +67,14 @@ const tutorialRepository = {
   html_skeleton: {
     track: "html",
     title: "🧱 完整 HTML 文件骨架",
-    desc: "真實網頁需要 <!DOCTYPE html>、<html>、<head>、<body>。head 放設定，body 放看得見的內容。",
-    concept: "head 像信封上的地址（給瀏覽器看）；body 像信裡的正文（給使用者看）。",
-    practice: "① 運行範例 ② 在 body 加一個 <footer> 寫版權 ③ 把 <title> 改成你的作品名",
-    code: `<!DOCTYPE html>\n<html lang="zh-Hant">\n<head>\n  <meta charset="UTF-8">\n  <title>我的第一個網頁</title>\n</head>\n<body>\n  <h1>Body 裡的內容會顯示在畫面上</h1>\n  <p>head 裡的 title 會顯示在瀏覽器分頁標題。</p>\n</body>\n</html>`,
-    tip: "漏掉 charset=UTF-8 時，中文可能變成亂碼。",
+    desc: "真實網頁需要 DOCTYPE、html、head、body。head 放設定（含 SEO meta），body 放看得見的內容。",
+    concept: "<p><code>&lt;head&gt;</code> 像信封上的資訊（給瀏覽器、搜尋引擎看）；<code>&lt;body&gt;</code> 是使用者真正看到的正文。</p><h3 class=\"tuto-h3\">最小可用骨架（必備）</h3><ul class=\"tuto-list\"><li><code>&lt;!DOCTYPE html&gt;</code>：告訴瀏覽器這是 HTML5</li><li><code>&lt;html lang=\"zh-Hant\"&gt;</code>：語言（SEO／無障礙／螢幕閱讀器發音）</li><li><code>&lt;meta charset=\"UTF-8\"&gt;</code>：中文不亂碼</li><li><code>&lt;meta name=\"viewport\" …&gt;</code>：手機 RWD 必備</li><li><code>&lt;title&gt;</code>：分頁標題 + 搜尋結果標題</li></ul><p>更完整的 description、Open Graph 等 SEO meta，見本路線「<strong>head 與 SEO meta</strong>」課。</p>",
+    practice: "① 運行範例 ② 在 body 加 footer ③ 把 title 改成你的作品名 ④ 確認 head 裡有 charset 與 viewport",
+    code: `<!DOCTYPE html>\n<html lang="zh-Hant">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>我的第一個網頁｜MrBill 學堂</title>\n</head>\n<body>\n  <h1>Body 裡的內容會顯示在畫面上</h1>\n  <p>head 裡的 title 會顯示在瀏覽器分頁；charset 避免中文亂碼。</p>\n  <footer><small>© 2026 練習作品</small></footer>\n</body>\n</html>`,
+    tip: "漏 charset 中文會亂碼；漏 viewport 手機常需手動縮放。",
+    newbieTip: "每支 .html 都建議從這份骨架複製再改內容。",
+    commonMistakes: "把可見內容寫進 head；或忘記 lang=\"zh-Hant\"。",
+    submissionStandard: "1) 有 DOCTYPE + charset + viewport + title\n2) 能說明 head 與 body 各放什麼",
     quiz: { q: "使用者看得見的按鈕、圖片應寫在？", opts: ["<body>", "<head>", "<meta>"], ans: 0 }
   },
   html_headings: {
@@ -156,13 +159,31 @@ const tutorialRepository = {
   },
   html_containers: {
     track: "html",
-    title: "📂 語意化標籤 header / main / section",
-    desc: "用有意義的標籤取代滿屏 div，利於 SEO 與維護。",
-    concept: "section 是一個主題區塊；article 是一篇可獨立分享的文章。",
-    practice: "① 用 header + main + footer 組一個迷你頁面 ② 在 main 裡加兩個 section",
-    code: `<header>\n  <h1>MrBill 學堂</h1>\n</header>\n<main>\n  <section>\n    <h2>今日任務</h2>\n    <p>完成 HTML 清單練習。</p>\n  </section>\n</main>\n<footer>\n  <p>© 2026 練習作品</p>\n</footer>`,
-    tip: "一個頁面通常只有一個 main。",
-    quiz: { q: "主要內容區建議用？", opts: ["<main>", "<div id=\"main\">", "<b>"], ans: 0 }
+    sandbox: false,
+    title: "📂 語意化布局：main / section / article",
+    desc: "別整頁 div。用有語意的標籤分區，Google 與團隊都讀得懂頁面結構。",
+    concept: "<p><strong>語意化</strong> = 標籤名字就說明「這塊是什麼」。利於 SEO、無障礙、CSS 分工與維護。</p><h3 class=\"tuto-h3\">常用標籤對照</h3><div class=\"tuto-table-wrap\"><table class=\"tuto-table\"><thead><tr><th>標籤</th><th>用途</th><th>記憶</th></tr></thead><tbody><tr><td><code>header</code></td><td>頁首或文章開頭（logo、nav、標題區）</td><td>一頁可有多個（如每篇 article 內）</td></tr><tr><td><code>nav</code></td><td>主要導航連結群</td><td>通常放在 header 內</td></tr><tr><td><code>main</code></td><td>此頁<strong>唯一</strong>主要內容</td><td>全頁只應有一個</td></tr><tr><td><code>section</code></td><td>同一主題的一區塊（需有標題 h2～h6）</td><td>像章節</td></tr><tr><td><code>article</code></td><td>可獨立分享的一篇（文章、卡片、貼文）</td><td>RSS 可單獨抽出的單元</td></tr><tr><td><code>aside</code></td><td>側欄、補充說明、相關連結</td><td>非主文但相關</td></tr><tr><td><code>footer</code></td><td>頁尾或文章結尾（版權、聯絡）</td><td></td></tr><tr><td><code>figure</code> + <code>figcaption</code></td><td>圖+說明綁在一起</td><td>比單獨 img 更有語意</td></tr></tbody></table></div><h3 class=\"tuto-h3\">section 還是 article？</h3><ul class=\"tuto-list\"><li><strong>section</strong>：「關於攝影課程」整塊區域，裡面可能有多篇文章</li><li><strong>article</strong>：其中一篇「曝光三角入門」，可以單獨分享 URL</li><li>若只是排版、沒有明確語意 → 才用 <code>div</code></li></ul><h3 class=\"tuto-h3\">標準頁面結構（推薦）</h3><pre class=\"tuto-code-block\">body\n├─ header（logo + nav）\n├─ main（全頁唯一）\n│   ├─ section（例如：Hero 主視覺）\n│   │   └─ h1\n│   ├─ section（例如：課程列表）\n│   │   ├─ h2\n│   │   ├─ article（課程卡 1）\n│   │   └─ article（課程卡 2）\n│   └─ aside（可選：側欄、廣告）\n└─ footer（版權、社群連結）</pre><div class=\"tuto-panel tuto-panel-why\"><p class=\"tuto-panel-title\">✅ 結構檢查清單</p><ul class=\"tuto-list\"><li>全頁只有一個 <code>h1</code>（通常在 main 裡）</li><li>每個 <code>section</code> 內有 <code>h2</code>（或 h3）當小標題</li><li>標題層級不跳級（h1→h2→h3）</li><li><code>main</code> 不要包在 <code>article</code> 裡反過來</li></ul></div>",
+    practice: "① 對照下方完整範例 ② 在 main 裡再加一個 section + article ③ 想想你的作品集能否改成這套結構",
+    code: `<style>\n  body { font-family: system-ui, sans-serif; line-height: 1.65; color: #334155; max-width: 40em; margin: 0 auto; padding: 12px; }\n  header, footer { padding: 12px 0; border-bottom: 1px solid #e2e8f0; }\n  footer { border-bottom: none; border-top: 1px solid #e2e8f0; margin-top: 16px; font-size: 13px; color: #64748b; }\n  nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; flex-wrap: wrap; }\n  nav a { color: #4f46e5; font-weight: 700; text-decoration: none; }\n  section { margin: 20px 0; }\n  article { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; margin: 10px 0; background: #f8fafc; }\n  aside { background: #eef2ff; padding: 10px; border-radius: 8px; font-size: 14px; margin-top: 12px; }\n  h1 { font-size: 1.35rem; margin: 0 0 8px; color: #0f172a; }\n  h2 { font-size: 1.1rem; margin: 0 0 8px; color: #4338ca; }\n</style>\n<header>\n  <p><strong>MrBill 學程</strong></p>\n  <nav aria-label="主要導航">\n    <ul>\n      <li><a href="#">首頁</a></li>\n      <li><a href="#">手冊</a></li>\n      <li><a href="#">攝影</a></li>\n    </ul>\n  </nav>\n</header>\n<main>\n  <section aria-labelledby="hero-h">\n    <h1 id="hero-h">前端學習入口</h1>\n    <p>HTML 結構 → CSS 排版 → JS 互動。</p>\n  </section>\n  <section aria-labelledby="courses-h">\n    <h2 id="courses-h">推薦課程</h2>\n    <article>\n      <h3>HTML 語意化</h3>\n      <p>main、section、article 標準寫法。</p>\n    </article>\n    <article>\n      <h3>CSS RWD</h3>\n      <p>手機、平板、桌機三斷點。</p>\n    </article>\n  </section>\n  <aside>\n    <strong>補充</strong>：側欄放相關連結或廣告，勿與 main 主文混淆。\n  </aside>\n</main>\n<footer>\n  <p>© 2026 練習作品 · 聯絡：hello@example.com</p>\n</footer>`,
+    tip: "header／footer 可出現在 page 層，也可出現在 article 內（文章頭尾）。",
+    newbieTip: "先畫樹狀結構再寫 HTML，比一路 div 到底快很多。",
+    commonMistakes: "全頁多個 main；section 沒有標題；用 section 當純 CSS 盒子。",
+    submissionStandard: "1) 能畫出 header/main/footer 結構\n2) 說清 section 與 article 差別\n3) 範例含 nav + 至少 1 個 article",
+    quiz: { q: "可獨立分享的一篇貼文最適合用？", opts: ["<article>", "<div>", "<span>"], ans: 0 }
+  },
+  html_head_seo: {
+    track: "html",
+    sandbox: false,
+    title: "🔍 head 與 SEO meta（完整度）",
+    desc: "title、description、Open Graph… 以及 keywords 現在還有沒有用？一次講清。",
+    concept: "<p><code>&lt;head&gt;</code> 裡的 meta 不影響版面，但影響<strong>搜尋結果怎麼顯示</strong>、社群分享預覽、手機縮放。</p><h3 class=\"tuto-h3\">建議必備（每頁都要有）</h3><div class=\"tuto-table-wrap\"><table class=\"tuto-table\"><thead><tr><th>標籤</th><th>作用</th></tr></thead><tbody><tr><td><code>charset=UTF-8</code></td><td>中文編碼</td></tr><tr><td><code>viewport</code></td><td>手機 RWD 視口</td></tr><tr><td><code>&lt;title&gt;</code></td><td>分頁標題；Google 搜尋結果<strong>藍色標題</strong>（重要排名因素之一）</td></tr><tr><td><code>meta name=\"description\"</code></td><td>搜尋結果<strong>摘要文字</strong>（約 150～160 字內，要人話、含關鍵詞但別堆砌）</td></tr><tr><td><code>html lang</code></td><td>頁面語言</td></tr></tbody></table></div><h3 class=\"tuto-h3\">keywords 還要寫嗎？</h3><div class=\"tuto-panel tuto-panel-error\"><p class=\"tuto-panel-title\">Google 自 2009 年起已<strong>不使用</strong> <code>meta keywords</code> 排名</p><p>填了通常<strong>不會加分</strong>；競爭對手還可能看到你的關鍵詞策略。可當作內部備忘寫，但<strong>別指望 SEO 效果</strong>。Bing 權重也極低。</p><p>真正有效的是：好 title、好 description、清楚的 h1～h3、語意 HTML、有價值內文、alt、速度、手機可讀。</p></div><h3 class=\"tuto-h3\">進階／分享常用</h3><ul class=\"tuto-list\"><li><code>link rel=\"icon\"</code>：分頁小圖示 favicon</li><li><code>link rel=\"canonical\"</code>：指定正式網址（避免重複內容）</li><li><code>meta name=\"robots\" content=\"noindex\"</code>：不讓搜尋引擎索引（草稿頁）</li><li><strong>Open Graph</strong>（<code>og:title</code>、<code>og:description</code>、<code>og:image</code>）：LINE／Facebook 分享時的預覽卡</li></ul><h3 class=\"tuto-h3\">與 body 語意配合</h3><p>meta 寫「這頁講什麼」，body 用 <code>main</code> + <code>h1</code> + <code>section</code> 真的做出結構——<strong>兩者要一致</strong>，不要 title 寫 A、內文卻是 B。</p>",
+    practice: "① 複製下方 head 範本改 title/description ② 寫一段 120 字內的 description ③ 說明為何 keywords 不能取代好內文",
+    code: `<!DOCTYPE html>\n<html lang="zh-Hant">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n\n  <!-- 核心 SEO -->\n  <title>攝影視覺學堂｜曝光構圖入門｜MrBill Studio</title>\n  <meta name="description" content="從零學習光圈、快門、構圖與 RWD 網頁。含互動沙盒與實作作業，適合設計系與自學者。">\n\n  <!-- 歷史標籤：Google 不用，可不寫或僅內部參考 -->\n  <!-- <meta name="keywords" content="攝影, 曝光, 網頁設計"> -->\n\n  <!-- 社群分享預覽（Open Graph） -->\n  <meta property="og:title" content="攝影視覺學堂">\n  <meta property="og:description" content="曝光、構圖、後期與作品集實戰。">\n  <meta property="og:image" content="https://example.com/images/og-cover.jpg">\n  <meta property="og:type" content="website">\n\n  <link rel="icon" href="images/favicon.ico">\n  <link rel="stylesheet" href="css/style.css">\n</head>\n<body>\n  <main>\n    <h1>攝影視覺學堂</h1>\n    <p>內文要與 title、description 主題一致。</p>\n  </main>\n</body>\n</html>`,
+    tip: "description 要寫給「會不會點進來的人類」看，不是寫給 meta 標籤填充字數。",
+    newbieTip: "每完成一頁就在 head 補 title + description，別等全站做完才補。",
+    commonMistakes: "每頁 title 都叫「首頁」；description 空白；堆 keywords 以為會排名；og:image 用破圖連結。",
+    submissionStandard: "1) 有 title + description + viewport\n2) 能說明 keywords 為何無效\n3) 至少寫一組 og:title / og:description",
+    quiz: { q: "Google 目前主要參考的 meta 是？", opts: ["description（與 title、內文）", "keywords", "author"], ans: 0 }
   },
   html_inputs: {
     track: "html",
@@ -305,13 +326,30 @@ const tutorialRepository = {
   },
   intro_js_whatis: {
     track: "js",
-    title: "🧠 JavaScript 在做什麼？（新手必讀）",
-    desc: "HTML 蓋房子、CSS 裝潢、JS 裝電梯與開關——讓網頁「會回應你」。",
-    concept: "瀏覽器讀完 HTML/CSS 後，再執行 JS。<br>業界常見三件事：1) 操作 DOM / 互動狀態（class、文字、表單）2) 呼叫 API（fetch/axios）3) 處理非同步與錯誤（async/await + try/catch）。<br>執行順序：先載入 HTML → 遇到 &lt;script&gt; 就執行 JS（通常放 body 最後）。",
-    practice: "① 讀下方三步註解 ② 按按鈕看文字變化 ③ 打開 F12 Console 看有沒有錯誤紅字",
-    code: `<p id="explain">JS 會在載入後立刻執行第一行</p>\n<button type="button" id="go">點我改變說明</button>\n<script>\n  // 第 1 步：找到元素（像 document 是整頁的入口）\n  var msg = document.getElementById("explain");\n  var btn = document.getElementById("go");\n  // 第 2 步：註冊「點擊時要做的事」\n  btn.addEventListener("click", function() {\n    msg.textContent = "你點了按鈕！JS 正在改 DOM 文字。";\n    msg.style.color = "#4f46e5";\n  });\n<\/script>`,
-    tip: "看不懂時：先看 Console 錯誤第幾行，再對照程式碼。",
-    quiz: { q: "改變按鈕文字用哪個？", opts: ["JavaScript", "只有 HTML", "只有 CSS"], ans: 0 }
+    title: "🧠 JavaScript 在做什麼？（一切互動的根基）",
+    desc: "HTML 是骨架、CSS 是外觀——只有 JS 能讓網頁「會回應你」。這條路線學穩了，後面的 jQuery、Vue 才不會霧裡看花。",
+    concept: "<p>到目前為止，你做的網頁大多是「靜態的」：長得漂亮，但按按鈕不會變、表單不會檢查、資料不會從遠端載入。<strong>JavaScript（JS）</strong> 就是負責這些「行為」的語言。</p><div class=\"tuto-panel tuto-panel-why\"><p class=\"tuto-panel-title\">🏠 用蓋房子比喻（新手版）</p><ul class=\"tuto-list\"><li><strong>HTML</strong>：鋼筋水泥、房間隔間（結構）</li><li><strong>CSS</strong>：油漆、傢俱、配色（外觀）</li><li><strong>JS</strong>：電燈開關、門鈴、電梯（互動與邏輯）</li></ul><p>沒有 JS，網站像展示用模型屋；有了 JS，才像能住、能用的真房子。</p></div><h3 class=\"tuto-h3\">JS 在瀏覽器裡怎麼跑？</h3><ol class=\"tuto-list\"><li>瀏覽器先讀 HTML、載入 CSS，畫出靜態畫面</li><li>遇到 <code>&lt;script&gt;</code> 就執行 JS（通常放在 body 最後）</li><li>JS 透過 <strong>DOM</strong>（把 HTML 變成可操作的物件樹）改文字、加 class、送 API</li></ol><h3 class=\"tuto-h3\">為什麼說 JS 是「根基」？</h3><p>後面要學的 <strong>jQuery</strong>、<strong>Vue</strong> 都不是另一種魔法，而是「幫你更快寫 JS」的工具：</p><ul class=\"tuto-list\"><li>jQuery 的 <code>$(\"#btn\").on(\"click\", …)</code> → 本質就是原生 <code>querySelector</code> + <code>addEventListener</code></li><li>Vue 的 <code>{{ message }}</code> → 本質就是「資料變了，幫你更新 DOM 文字」</li></ul><p>若 JS 的變數、函式、事件沒學穩，框架只會變成背語法；<strong>下一課「JS 路線地圖」請必讀</strong>，會畫出整條學習順序與對照表。</p><h3 class=\"tuto-h3\">本課先記三件事</h3><p>① 找元素 → ② 綁事件 → ③ 改畫面。下方沙盒的程式碼就是這個流程的縮影。</p>",
+    practice: "① 按「點我改變說明」看文字變化 ② 打開 F12 → Console，確認沒有紅色錯誤 ③ 下一課讀「JS 路線地圖」再開始變數課",
+    code: `<p id="explain">JS 會在載入後立刻執行第一行</p>\n<button type="button" id="go">點我改變說明</button>\n<script>\n  // 第 1 步：找到元素（document = 整頁入口）\n  var msg = document.getElementById("explain");\n  var btn = document.getElementById("go");\n  // 第 2 步：註冊「點擊時要做的事」\n  btn.addEventListener("click", function() {\n    // 第 3 步：改畫面\n    msg.textContent = "你點了按鈕！JS 正在改 DOM 文字。";\n    msg.style.color = "#4f46e5";\n  });\n<\/script>`,
+    tip: "看不懂程式時：先看 Console 紅字第幾行，再對照這三步骤找元素→綁事件→改畫面。",
+    newbieTip: "不要跳過 JS 直接學 Vue。框架是加速器，不是替代品。",
+    commonMistakes: "把 JS 當成第二個 CSS；或只 copy 範例卻說不出「哪一行在改 DOM」。",
+    submissionStandard: "1) 能說出 HTML/CSS/JS 各管什麼\n2) 能解釋按鈕為何能改文字\n3) 已預約下一課「路線地圖」",
+    quiz: { q: "讓按鈕點了會變字，主要靠？", opts: ["JavaScript", "只有 HTML", "只有 CSS"], ans: 0 }
+  },
+  intro_js_roadmap: {
+    track: "js",
+    sandbox: false,
+    title: "📍 JS 路線地圖（jQuery / Vue 的前置必讀）",
+    desc: "整條 JS 分四段：語法 → DOM → 資料與 API → 實戰。先看清地圖再往下走，後面學框架才不會卡關。",
+    concept: "<p>這頁沒有複雜程式，是給新手的<strong>學習地圖</strong>。建議收藏心裡的順序：<strong>不要跳課</strong>，尤其 DOM 與事件沒穩就學 Vue，十之八九會卡住。</p><h3 class=\"tuto-h3\">本手冊 JS 路線四段</h3><div class=\"tuto-table-wrap\"><table class=\"tuto-table\"><thead><tr><th>段次</th><th>學什麼</th><th>學完能幹嘛</th></tr></thead><tbody><tr><td><strong>① 語言基礎</strong></td><td>變數、if、迴圈、函式、陣列</td><td>讀得懂程式、會改數字與條件</td></tr><tr><td><strong>② 操作畫面</strong></td><td>DOM、事件、classList、querySelector</td><td>按鈕、Tab、表單互動（最常用）</td></tr><tr><td><strong>③ 資料與非同步</strong></td><td>物件、JSON、fetch、async/await、try/catch</td><td>載入 API、存 localStorage</td></tr><tr><td><strong>④ 實戰整合</strong></td><td>Tab/Modal、表單驗證、Network 除錯、生態概覽</td><td>能交作品、知道何時用框架</td></tr></tbody></table></div><h3 class=\"tuto-h3\">同一件事，三種寫法對照</h3><p>學框架時請回頭對照——語法不同，<strong>概念相同</strong>：</p><div class=\"tuto-table-wrap\"><table class=\"tuto-table\"><thead><tr><th>要做的事</th><th>原生 JS（根基）</th><th>jQuery（舊站維護）</th><th>Vue 3（元件化）</th></tr></thead><tbody><tr><td>選按鈕</td><td><code>document.querySelector('#btn')</code></td><td><code>$('#btn')</code></td><td>模板裡 <code>@click</code></td></tr><tr><td>點擊改字</td><td><code>addEventListener('click', fn)</code></td><td><code>.on('click', fn)</code></td><td><code>@click=\"msg='新文字'\"</code></td></tr><tr><td>改畫面文字</td><td><code>el.textContent = '…'</code></td><td><code>.text('…')</code></td><td><code>{{ msg }}</code> 資料驅動</td></tr><tr><td>切換樣式</td><td><code>classList.toggle('active')</code></td><td><code>.addClass()</code></td><td><code>:class=\"{ on: isActive }\"</code></td></tr><tr><td>載入 API</td><td><code>fetch → json()</code></td><td><code>$.get / $.ajax</code></td><td><code>mounted 裡 fetch</code></td></tr></tbody></table></div><h3 class=\"tuto-h3\">什麼時候可以進 jQuery / Vue？</h3><ul class=\"tuto-list\"><li><strong>進 jQuery</strong>：至少完成 ①② 段，能自己寫 addEventListener + querySelector</li><li><strong>進 Vue</strong>：至少完成 ①②③ 段，懂物件、陣列、fetch 與 async 基本概念</li><li><strong>仍要持續練原生 JS</strong>：面試、除錯、讀別人 code、AI 產出的 script 都是原生為主</li></ul><div class=\"tuto-panel tuto-panel-error\"><p class=\"tuto-panel-title\">⚠️ 跳過 JS 常見後果</p><ul class=\"tuto-list\"><li>Vue 教學出現 <code>undefined</code>、<code>Cannot read property</code> 不知道從哪查</li><li>只會複製 <code>v-model</code>，表單驗證邏輯寫不出來</li><li>維護舊 jQuery 站時，看到 <code>$</code> 完全不敢改</li></ul></div><h3 class=\"tuto-h3\">建議每週節奏（零基礎）</h3><p>每週 3～4 課 JS + 每課都改一點沙盒程式。④ 段完成後，再切左側分頁到 jQuery 或 Vue，<strong>不要兩個框架同時開</strong>。</p>",
+    practice: "① 對照四段表，標記你目前在第幾段 ② 從對照表挑一列，用自己的話解釋「原生 vs jQuery vs Vue」差在哪 ③ 寫下：我預計哪一週開始 jQuery／Vue",
+    code: `<style>\n  .map{font-family:system-ui;line-height:1.65;color:#334155;max-width:36em;font-size:14px}\n  .seg{border-left:4px solid #6366f1;padding:8px 12px;margin:10px 0;background:#eef2ff;border-radius:0 10px 10px 0}\n  .seg b{color:#4338ca}\n  .arrow{text-align:center;color:#94a3b8;font-size:12px;margin:4px 0}\n</style>\n<div class="map">\n  <div class="seg"><b>① 語法</b> 變數 → 條件 → 迴圈 → 函式</div>\n  <div class="arrow">↓</div>\n  <div class="seg"><b>② DOM</b> 選元素 → 事件 → classList</div>\n  <div class="arrow">↓</div>\n  <div class="seg"><b>③ 資料</b> 物件 → JSON → fetch → async</div>\n  <div class="arrow">↓</div>\n  <div class="seg"><b>④ 實戰</b> Tab/Modal → 表單 → 生態 → 再學框架</div>\n  <p style="margin-top:12px;color:#64748b">jQuery / Vue 建在這四段之上，不是繞過它們的捷徑。</p>\n</div>`,
+    tip: "卡住時問自己：這是「語法」問題、「DOM」問題，還是「資料/API」問題？對回四段就能找到該複習哪課。",
+    newbieTip: "左側目錄由上往下學，比跳著找「看起來厲害」的 fetch 或 Vue 有效得多。",
+    commonMistakes: "HTML/CSS 剛會就跳 Vue；或 JS 只看不練，後面 jQuery 選擇器完全對不上。",
+    submissionStandard: "1) 說出 JS 四段各學什麼\n2) 對照表能舉一個原生→jQuery 或原生→Vue 的例子\n3) 訂出開始框架的最低門檻（完成哪幾課）",
+    quiz: { q: "學 Vue 前，至少應穩固？", opts: ["DOM + 事件 + 基本資料/API", "只會 HTML", "只背 Vue 指令"], ans: 0 }
   },
   js_variables: {
     track: "js",
@@ -443,8 +481,8 @@ Object.assign(tutorialRepository, {
   html_nav: {
     track: "html",
     title: "🧭 導覽列 nav",
-    desc: "nav 內放 ul > li > a，是網站選單的語意標準寫法。",
-    concept: "搜尋引擎與螢幕閱讀器會辨識「這是導覽區」。",
+    desc: "nav 內放 ul > li > a；通常嵌在 header 裡，是語意化布局的一環。",
+    concept: "<p><code>&lt;nav&gt;</code> 標記「這是導航連結區」，搜尋引擎與螢幕閱讀器會優先識別。</p><p>標準位置：<code>header &gt; nav &gt; ul &gt; li &gt; a</code>。若頁面有多個 nav（例如頁首主選單 + 頁尾次要連結），用 <code>aria-label</code> 區分，例如 <code>aria-label=\"主要導航\"</code>。</p><p>與「語意化布局」課配合：nav 在 header 內，主文在 <code>main</code> 內，不要混在同一層 div。</p>",
     practice: "① 做三個連結 ② 用 Flex 橫向排（複習 flex 課）",
     code: `<style>\n  nav ul { list-style:none; margin:0; padding:0; display:flex; gap:12px; }\n  nav a { text-decoration:none; color:#475569; font-weight:bold; padding:8px 12px; border-radius:8px; }\n  nav a:hover { background:#f1f5f9; color:#4f46e5; }\n</style>\n<nav>\n  <ul>\n    <li><a href="index.html">首頁</a></li>\n    <li><a href="tutorial.html">手冊</a></li>\n    <li><a href="photography.html">攝影</a></li>\n  </ul>\n</nav>`,
     tip: "當前頁面連結可加 aria-current=\"page\"（進階 a11y）。",
@@ -679,13 +717,17 @@ Object.assign(tutorialRepository, {
   },
   js_ecosystem: {
     track: "js",
-    title: "🌍 JS 生態：jQuery、Vue 與業界慣例",
-    desc: "原生 JS 是基礎；框架加速開發；了解「什麼時候用什麼」比背語法更重要。",
-    concept: "<b>Vanilla JS</b>：無框架，適合小頁、學習、嵌入現有網站。<br><b>jQuery</b>（$）：2000 年代主流，簡化 DOM；<strong>舊專案維護仍會遇到</strong>，新專案較少從零選它。<br><b>Vue / React</b>：元件化、狀態管理、大型 SPA；Vue 在台灣教材與中小團隊常見，React 國際大廠與新創多。<br><b>業界常見組合</b>：React 或 Vue + TypeScript + Vite 建置 + Tailwind CSS；後端 API 用 fetch/axios。<br><b>常見工程習慣</b>：ES Modules（import/export）+ ESLint / Prettier + 單元測試（Vitest/Jest）。<br><b>建議路徑</b>：先把本手冊 HTML/CSS/JS 練熟 → 再選 Vue 或 React 官方教學 → 需要型別再加 TypeScript。",
-    practice: "① 讀下方對照表 ② 思考你的作品集適合純 HTML 還是要上框架 ③ 用 AI 時仍要能讀懂它產生的 JS",
-    code: `<style>\n  table { width:100%; border-collapse:collapse; font-size:13px; }\n  th, td { border:1px solid #e2e8f0; padding:8px; text-align:left; }\n  th { background:#f1f5f9; }\n  .tag { display:inline-block; background:#ede9fe; color:#4f46e5; padding:2px 8px; border-radius:6px; font-size:12px; font-weight:bold; margin:2px; }\n</style>\n<h3 style="margin:0 0 8px;font-size:16px">技術選型速查</h3>\n<table>\n  <tr><th>技術</th><th>適合</th><th>備註</th></tr>\n  <tr><td>Vanilla JS</td><td>學習、靜態頁、小互動</td><td>本手冊主軸</td></tr>\n  <tr><td>jQuery</td><td>舊站維護</td><td>新專案少用</td></tr>\n  <tr><td>Vue 3</td><td>中大型前台、漸進採用</td><td>單檔元件友善</td></tr>\n  <tr><td>React</td><td>大型 SPA、求職常見</td><td>生態最大</td></tr>\n</table>\n<p style="margin-top:12px"><span class="tag">TypeScript</span><span class="tag">Vite</span><span class="tag">Tailwind</span><span class="tag">Next.js</span> 為常見加值技能</p>`,
-    tip: "面試常問：你會原生 DOM 嗎？框架只是工具，底層仍靠瀏覽器 API。",
-    quiz: { q: "新專案學大型介面常選？", opts: ["Vue 或 React", "只有 jQuery", "只有 marquee"], ans: 0 }
+    sandbox: false,
+    title: "🌍 JS 生態：從根基到 jQuery、Vue",
+    desc: "原生 JS 是共通語言；jQuery、Vue 是不同時代的「寫法加速器」。這課幫你選下一步，而不是盲目追新。",
+    concept: "<p>恭喜走到 JS 路線後段！在進 jQuery 或 Vue 分頁前，先釐清：<strong>框架沒有取代 JS，只是幫你少寫一些 DOM 程式碼</strong>。</p><h3 class=\"tuto-h3\">三種角色，一句話</h3><ul class=\"tuto-list\"><li><strong>Vanilla JS（原生）</strong>：瀏覽器內建能力，所有框架最後都跑在這上面</li><li><strong>jQuery</strong>：2000 年代讓 DOM 變短；<strong>舊站、WordPress 外掛、後台模板</strong>仍大量存在</li><li><strong>Vue / React</strong>：元件 + 資料驅動畫面，適合<strong>多頁互動、後台、中大型前台</strong></li></ul><h3 class=\"tuto-h3\">你學過的 JS → 框架怎麼接</h3><div class=\"tuto-table-wrap\"><table class=\"tuto-table\"><thead><tr><th>JS 路線已學</th><th>jQuery 對應</th><th>Vue 對應</th></tr></thead><tbody><tr><td>querySelector</td><td><code>$('.card')</code></td><td>ref / 模板綁定</td></tr><tr><td>addEventListener</td><td><code>.on('click')</code></td><td><code>@click</code></td></tr><tr><td>classList.toggle</td><td><code>.toggleClass()</code></td><td><code>:class</code></td></tr><tr><td>fetch + async</td><td><code>$.ajax</code></td><td><code>mounted</code> 裡請求</td></tr><tr><td>陣列 map/filter</td><td><code>$.map</code>（較少）</td><td><code>v-for</code></td></tr><tr><td>函式 / 模組</td><td>物件包 App.init</td><td>元件、composable</td></tr></tbody></table></div><h3 class=\"tuto-h3\">怎麼選下一步？</h3><ul class=\"tuto-list\"><li><strong>先 jQuery</strong>：要接舊案、公司現有 jQuery 模板、快速改 DOM</li><li><strong>先 Vue</strong>：新作品集要多頁狀態、表單、列表 CRUD</li><li><strong>兩者都略讀</strong>：可以，但<strong>同一週只主攻一條</strong>，避免語法混亂</li></ul><p>業界常見加值：TypeScript、Vite、Tailwind——都在 JS 根基穩了之後再加。</p>",
+    practice: "① 讀下方選型表 ② 依你的目標（接案／作品集／舊站）選 jQuery 或 Vue ③ 用一句話向朋友解釋「為什麼 JS 不能跳過」",
+    code: `<style>\n  table { width:100%; border-collapse:collapse; font-size:13px; }\n  th, td { border:1px solid #e2e8f0; padding:8px; text-align:left; }\n  th { background:#f1f5f9; }\n  .tag { display:inline-block; background:#ede9fe; color:#4f46e5; padding:2px 8px; border-radius:6px; font-size:12px; font-weight:bold; margin:2px; }\n</style>\n<h3 style="margin:0 0 8px;font-size:16px">技術選型速查</h3>\n<table>\n  <tr><th>技術</th><th>適合</th><th>與 JS 根基關係</th></tr>\n  <tr><td>Vanilla JS</td><td>學習、靜態頁、嵌入小互動</td><td>必學底層</td></tr>\n  <tr><td>jQuery</td><td>舊站維護</td><td>DOM 語法糖，需懂原生</td></tr>\n  <tr><td>Vue 3</td><td>元件化前台</td><td>資料驅動 DOM，需懂物件/事件</td></tr>\n  <tr><td>React</td><td>大型 SPA、求職</td><td>概念同 Vue，語法不同</td></tr>\n</table>\n<p style="margin-top:12px"><span class="tag">建議</span> 完成 JS 四段 → 選 jQuery 或 Vue 一條深入 → 再 Git／上線</p>`,
+    tip: "面試常問「不用框架怎麼做 Tab？」——答得出來，代表 JS 根基真的穩。",
+    newbieTip: "Vue 教學裡的錯誤訊息，90% 要回 JS 路線找答案（變數、物件、非同步）。",
+    commonMistakes: "只學框架語法，Console 報錯不會看；或以為 jQuery 與 Vue 可完全取代原生。",
+    submissionStandard: "1) 能說出 jQuery 與 Vue 各適合什麼場景\n2) 對照表舉一個已學 JS 概念在框架的對應\n3) 已選定下一分頁（jQuery 或 Vue）",
+    quiz: { q: "框架與原生 JS 的關係？", opts: ["框架建構在 JS 之上", "框架取代 JS 不用學", "jQuery 等於 Vue"], ans: 0 }
   },
   adv_ui_patterns: {
     track: "advanced",
@@ -835,13 +877,13 @@ Object.assign(tutorialRepository, {
 const TUTORIAL_ORDER = [
   "intro_welcome", "html_learning_path", "html_vs_css", "intro_devtools", "intro_files",
   "html_skeleton", "html_headings", "html_inline", "html_media", "html_lists", "html_list_details",
-  "html_description_list", "html_div_span", "html_tables", "html_containers", "html_inputs", "html_button", "html_form", "html_nav",
+  "html_description_list", "html_div_span", "html_tables", "html_containers", "html_head_seo", "html_inputs", "html_float_align_bg", "html_button", "html_form", "html_nav",
   "css_selectors", "css_external_import", "css_colors", "css_background_image", "css_typography", "css_spacing",
   "work_units_rem", "css_box_model", "css_borders_outline", "css_width_max_overflow", "css_display",
   "css_flexbox", "css_grid", "css_position", "css_shadows", "css_transitions",
   "css_variables", "css_pseudo", "css_object_fit", "css_flex_advanced", "css_media_rwd", "css_animation", "css_zindex",
   "css_specificity", "work_flex_center", "work_overflow", "work_responsive_img",
-  "intro_js_whatis", "js_variables", "js_conditionals", "js_template_strings", "js_loops_for", "js_arrays", "js_array_methods",
+  "intro_js_whatis", "intro_js_roadmap", "js_variables", "js_conditionals", "js_template_strings", "js_loops_for", "js_arrays", "js_array_methods",
   "js_objects", "js_functions", "js_events", "js_dom", "js_classlist", "js_queryselector", "js_arrow",
   "js_async_await", "js_try_catch", "js_fetch", "js_localstorage", "js_json", "js_timers", "js_ecosystem",
   "adv_ui_patterns",
@@ -851,7 +893,7 @@ const TUTORIAL_ORDER = [
 ];
 
 const tutorialTrackRepository = {
-  jq_01_intro: { track: "jquery", title: "jQuery 01｜為什麼還要學 jQuery", desc: "先理解 jQuery 在舊專案維護、快速 DOM 操作的價值。", concept: "你會在大量既有網站看到 jQuery。會讀、會改、會補功能，能立刻接案與維護。", practice: "打開範例後，改標題文字並按運行。", code: `<h2 id="title">Hello jQuery</h2>\n<button id="btn">改標題</button>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n<script>\n  $("#btn").on("click", function () {\n    $("#title").text("已成功操作 DOM");\n  });\n<\/script>`, tip: "先熟悉 `$()`、`.on()`、`.text()` 三個核心。", quiz: { q: "jQuery 最常用來做什麼？", opts: ["DOM 操作與事件", "資料庫建表", "編譯 TypeScript"], ans: 0 } },
+  jq_01_intro: { track: "jquery", title: "jQuery 01｜為什麼還要學 jQuery", desc: "jQuery 是「縮短 DOM 寫法」的工具。進這條路線前，請先穩固 JS 的 querySelector 與 addEventListener。", concept: "<p>你會在大量<strong>既有網站</strong>看到 jQuery（<code>$</code> 符號）。會讀、會改、能補功能，就能接舊案維護。</p><div class=\"tuto-panel tuto-panel-why\"><p class=\"tuto-panel-title\">🔗 與 JS 根基的對應</p><ul class=\"tuto-list\"><li><code>$('#title')</code> ≈ <code>document.querySelector('#title')</code></li><li><code>.on('click', fn)</code> ≈ <code>addEventListener('click', fn)</code></li><li><code>.text('…')</code> ≈ <code>el.textContent = '…'</code></li></ul><p>若這三個原生寫法還不熟，請先回 JS 分頁補「DOM／事件」課。</p></div><p>新專案較少從零選 jQuery，但<strong>維護價值</strong>仍然很高。</p>", practice: "打開範例後，改標題文字並按運行；對照上方三組原生/jQuery 對應。", code: `<h2 id="title">Hello jQuery</h2>\n<button id="btn">改標題</button>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n<script>\n  $("#btn").on("click", function () {\n    $("#title").text("已成功操作 DOM");\n  });\n<\/script>`, tip: "先熟悉 `$()`、`.on()`、`.text()` 三個核心。", quiz: { q: "jQuery 最常用來做什麼？", opts: ["DOM 操作與事件", "資料庫建表", "編譯 TypeScript"], ans: 0 } },
   jq_02_selectors: { track: "jquery", title: "jQuery 02｜選取器與鏈式寫法", desc: "掌握 class/id/層級選取器與鏈式呼叫。", concept: "一次選到元素後可連續呼叫方法，程式更短更直覺。", practice: "把卡片背景改色，再加上圓角。", code: `<div class="card">卡片 A</div>\n<div class="card">卡片 B</div>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n<script>\n  $(".card").css({ padding: "12px", margin: "8px 0" });\n  $(".card").eq(0).css("background", "#e0f2fe").addClass("rounded");\n<\/script>\n<style>.rounded{border-radius:12px}</style>`, tip: "優先 class，避免過度依賴 id。", quiz: { q: "鏈式寫法是指？", opts: ["連續呼叫多個方法", "一次寫很多 if", "把 JS 寫成一行"], ans: 0 } },
   jq_03_events: { track: "jquery", title: "jQuery 03｜事件監聽與事件委派", desc: "解決動態新增元素綁不到事件的問題。", concept: "事件委派把監聽綁在父層，子元素動態新增也可觸發。", practice: "新增項目後也能點擊刪除。", code: `<ul id="list"><li>任務 1 <button class="del">刪除</button></li></ul>\n<button id="add">新增</button>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n<script>\n  $("#add").on("click", function(){\n    $("#list").append('<li>新任務 <button class="del">刪除</button></li>');\n  });\n  $("#list").on("click", ".del", function(){\n    $(this).closest("li").remove();\n  });\n<\/script>`, tip: "動態列表必學 `on(parent, childSelector)`。", quiz: { q: "動態元素建議用？", opts: ["事件委派", "每次重綁所有事件", "只用 onclick"], ans: 0 } },
   jq_04_dom: { track: "jquery", title: "jQuery 04｜DOM 新增/刪除/替換", desc: "熟悉 append/prepend/remove/html/text。", concept: "CRUD 思維可直接套到畫面節點維護。", practice: "加入一張卡片、再移除第一張。", code: `<div id="cards"></div>\n<button id="add">新增卡片</button>\n<button id="remove">刪第一張</button>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n<script>\nlet i=1;\n$("#add").on("click",()=>$("#cards").append('<p class="item">卡片 '+(i++)+'</p>'));\n$("#remove").on("click",()=>$("#cards .item").first().remove());\n<\/script>`, tip: "輸入來自使用者時，盡量用 `.text()` 降低 XSS 風險。", quiz: { q: "安全插入純文字優先用？", opts: [".text()", ".html()", "innerHTML+"], ans: 0 } },
@@ -864,7 +906,7 @@ const tutorialTrackRepository = {
   jq_11_architecture: { track: "jquery", title: "jQuery 11｜模組化與命名規範", desc: "把功能分模組，避免單檔爆炸。", concept: "把事件綁定、資料處理、畫面渲染分開，維護成本大幅下降。", practice: "建立簡單 App 物件封裝 init。", code: `<button id="run">初始化</button><p id="state"></p>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n<script>\nconst App = {\n  init(){ this.bind(); $("#state").text("App ready"); },\n  bind(){ $("#run").on("click", ()=>$("#state").text("clicked")); }\n};\nApp.init();\n<\/script>`, tip: "命名要可讀，函式一眼看出用途。", quiz: { q: "模組化主要目的？", opts: ["降低維護成本", "讓檔案更長", "增加耦合"], ans: 0 } },
   jq_12_master_workflow: { track: "jquery", title: "jQuery 12｜大師關：維護舊站 + 漸進升級", desc: "在不中斷服務下改舊站，並規劃升級路線。", concept: "先補測試、再小步重構：jQuery 模組化 -> 抽共用 -> 分頁級 Vue 化。", practice: "寫下你專案的三步升級清單。", code: `<ol>\n  <li>先穩定舊功能（bug 修復）</li>\n  <li>抽離重複 jQuery 模組</li>\n  <li>新頁面改用 Vue 實作</li>\n</ol>\n<p>完成後，你已能接手多數 jQuery 維護案。</p>`, tip: "不是推翻重寫，而是可交付的漸進改造。", quiz: { q: "舊站升級最佳策略？", opts: ["漸進改造", "一次全砍重寫", "不動它"], ans: 0 } },
 
-  vue_01_intro: { track: "vue", title: "Vue 01｜Vue 核心心法", desc: "先理解宣告式 UI 與反應式資料。", concept: "你改資料，畫面自動更新；不再手動找 DOM 一個一個改。", practice: "修改 message 文字並看畫面同步更新。", code: `<div id="app">{{ message }}</div>\n<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>\n<script>\nVue.createApp({ data(){ return { message: "Hello Vue 3" }; } }).mount("#app");\n<\/script>`, tip: "Vue 先學資料流，再學語法糖。", quiz: { q: "Vue 最大特性是？", opts: ["資料驅動畫面", "手動逐一改 DOM", "只做後端"], ans: 0 } },
+  vue_01_intro: { track: "vue", title: "Vue 01｜Vue 核心心法", desc: "Vue 讓你「改資料，畫面自己更新」。進這條路線前，請先會 JS 的變數、物件、DOM 與事件。", concept: "<p>Vue 的核心：<strong>你改資料，框架幫你更新畫面</strong>，不必像原生 JS 那樣手動 <code>textContent = …</code> 逐個改。</p><div class=\"tuto-panel tuto-panel-why\"><p class=\"tuto-panel-title\">🔗 與 JS 根基的對應</p><ul class=\"tuto-list\"><li><code>data(){ return { message: '…' } }</code> → 就是 JS 物件存狀態</li><li><code>{{ message }}</code> → 把物件欄位顯示到 DOM（原生要自己改 textContent）</li><li><code>@click</code> → 就是事件監聽，只是寫在模板裡</li><li><code>v-for</code> → 就是陣列 map 渲染列表</li></ul><p>若 <code>undefined</code>、<code>Cannot read properties</code> 常出現，請回 JS 路線補「物件／陣列／async」。</p></div>", practice: "修改 message 文字並看畫面同步更新；對照上方 JS 對應表。", code: `<div id="app">{{ message }}</div>\n<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>\n<script>\nVue.createApp({ data(){ return { message: "Hello Vue 3" }; } }).mount("#app");\n<\/script>`, tip: "Vue 先學資料流，再學語法糖。", quiz: { q: "Vue 最大特性是？", opts: ["資料驅動畫面", "手動逐一改 DOM", "只做後端"], ans: 0 } },
   vue_02_template: { track: "vue", title: "Vue 02｜模板語法與插值", desc: "掌握 `{{ }}`、屬性綁定、條件渲染。", concept: "模板像 HTML++，可直接綁資料與狀態。", practice: "切換 isActive 觀察 class 變化。", code: `<div id="app">\n  <h3 :class=\"{ on: isActive }\">{{ title }}</h3>\n  <button @click=\"isActive=!isActive\">切換狀態</button>\n</div>\n<style>.on{color:#4f46e5}</style>\n<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>\n<script>\nVue.createApp({ data(){ return { title:'模板練習', isActive:false }; } }).mount('#app');\n<\/script>`, tip: "`v-bind` 可縮寫成 `:`。", quiz: { q: "屬性綁定縮寫是？", opts: [":", "@", "#"], ans: 0 } },
   vue_03_directives: { track: "vue", title: "Vue 03｜常用指令 v-if / v-for", desc: "掌握列表渲染與條件顯示。", concept: "清單用 `v-for`，顯示控制用 `v-if` 或 `v-show`。", practice: "新增一個清單項目。", code: `<div id=\"app\">\n  <button @click=\"show=!show\">切換</button>\n  <p v-if=\"show\">現在顯示中</p>\n  <ul><li v-for=\"item in items\" :key=\"item\">{{ item }}</li></ul>\n</div>\n<script src=\"https://unpkg.com/vue@3/dist/vue.global.prod.js\"></script>\n<script>\nVue.createApp({ data(){ return { show:true, items:['HTML','CSS','Vue'] }; } }).mount('#app');\n<\/script>`, tip: "`v-for` 一定加 `:key`。", quiz: { q: "渲染列表用？", opts: ["v-for", "v-loop", "forEach in html"], ans: 0 } },
   vue_04_events: { track: "vue", title: "Vue 04｜事件處理與表單綁定", desc: "學會 `@click` 與 `v-model`。", concept: "`v-model` 讓表單值與資料雙向同步，效率高。", practice: "輸入名字後即時顯示歡迎詞。", code: `<div id=\"app\">\n  <input v-model=\"name\" placeholder=\"輸入名字\">\n  <p>你好，{{ name || '學員' }}</p>\n</div>\n<script src=\"https://unpkg.com/vue@3/dist/vue.global.prod.js\"></script>\n<script>Vue.createApp({data(){return{name:''}}}).mount('#app')<\/script>`, tip: "表單頁面幾乎都會用到 `v-model`。", quiz: { q: "雙向綁定指令是？", opts: ["v-model", "v-bind", "v-set"], ans: 0 } },
@@ -944,10 +986,10 @@ const tutorialTrackRepository = {
 };
 
 const TUTORIAL_ORDER_BY_TRACK = {
-  html: ["intro_welcome","html_learning_path","html_vs_css","intro_devtools","intro_files","html_skeleton","html_headings","html_inline","html_media","html_lists","html_list_details","html_description_list","html_div_span","html_tables","html_containers","html_inputs","html_float_align_bg","html_button","html_form","html_nav"],
+  html: ["intro_welcome","html_learning_path","html_vs_css","intro_devtools","intro_files","html_skeleton","html_headings","html_inline","html_media","html_lists","html_list_details","html_description_list","html_div_span","html_tables","html_containers","html_head_seo","html_inputs","html_float_align_bg","html_button","html_form","html_nav"],
   css: ["css_selectors","css_external_import","css_colors","css_background_image","css_typography","css_spacing","work_units_rem","css_box_model","css_borders_outline","css_width_max_overflow","css_display","css_flexbox","css_grid","css_position","css_shadows","css_transitions","css_variables","css_pseudo","css_object_fit","css_flex_advanced","css_media_rwd","css_animation","css_zindex","css_specificity","work_flex_center","work_overflow","work_responsive_img"],
   tailwind: ["tw_00_intro","tw_01_utility_cdn","tw_02_cdn_vs_build","tw_03_npm_setup","tw_03b_next_project","tw_04_source_entry","tw_05_postcss_config","tw_06_build_watch","tw_07_tailwind_config","tw_08_link_site","tw_09_official_workflow","tw_10_utilities_hygiene"],
-  js: ["intro_js_whatis","js_variables","js_conditionals","js_template_strings","js_loops_for","js_arrays","js_array_methods","js_objects","js_functions","js_events","js_dom","js_classlist","js_queryselector","js_arrow","js_async_await","js_try_catch","js_fetch","js_localstorage","js_json","js_timers","js_ecosystem","adv_ui_patterns","js_form_submit","work_devtools_network"],
+  js: ["intro_js_whatis","intro_js_roadmap","js_variables","js_conditionals","js_template_strings","js_loops_for","js_arrays","js_array_methods","js_objects","js_functions","js_events","js_dom","js_classlist","js_queryselector","js_arrow","js_async_await","js_try_catch","js_fetch","js_localstorage","js_json","js_timers","js_ecosystem","adv_ui_patterns","js_form_submit","work_devtools_network"],
   jquery: ["jq_00_cdn_setup","jq_01_intro","jq_02_selectors","jq_03_events","jq_04_dom","jq_05_effects","jq_06_ajax","jq_07_form","jq_08_components","jq_09_plugin","jq_10_performance","jq_11_architecture","jq_12_master_workflow"],
   vue: ["vue_00_preface","vue_01_intro","vue_02_template","vue_03_directives","vue_04_events","vue_05_computed_watch","vue_06_components","vue_07_props_emit","vue_08_lifecycle","vue_09_router","vue_10_state","vue_11_async","vue_12_master_composable","vue_13_vite_tooling"],
   git: ["git_00_environment","git_01_intro","git_02_status_add_commit","git_03_branching","git_04_merge_rebase","git_05_conflict","git_06_remote_pr","git_07_revert_cherry_pick","git_08_master_release","git_09_mixed_team_handoff","work_git"],
