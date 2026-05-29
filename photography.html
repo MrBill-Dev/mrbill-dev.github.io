@@ -9,6 +9,7 @@
   <script src="js/site-config.js"></script>
   <script src="js/photography-data.js"></script>
   <script src="js/photography-composition-atlas.js"></script>
+  <script src="js/photography-glossary.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -702,26 +703,8 @@
           </div>
           <button type="button" onclick="closePhotoGlossary()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">關閉 ✕</button>
         </div>
-        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3 text-sm mt-4">
-          <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-4"><p class="font-black text-indigo-700">光圈 Aperture</p><p class="mt-1 text-slate-700">像鏡頭門大小。F1.4 更亮更糊；F16 更暗更清楚。</p></div>
-          <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-4"><p class="font-black text-indigo-700">快門 Shutter</p><p class="mt-1 text-slate-700">像眼睛睜開多久。快可凝固，慢可做車軌。</p></div>
-          <div class="rounded-xl border border-indigo-100 bg-indigo-50 p-4"><p class="font-black text-indigo-700">ISO</p><p class="mt-1 text-slate-700">亮度增益。高 ISO 會亮，但雜訊也增加。</p></div>
-          <div class="rounded-xl border border-amber-100 bg-amber-50 p-4"><p class="font-black text-amber-700">景深 DOF</p><p class="mt-1 text-slate-700">清楚範圍深淺。淺景深凸顯主體，深景深適合風景。</p></div>
-          <div class="rounded-xl border border-amber-100 bg-amber-50 p-4"><p class="font-black text-amber-700">白平衡 WB</p><p class="mt-1 text-slate-700">校正偏色，讓膚色與場景更自然。</p></div>
-          <div class="rounded-xl border border-amber-100 bg-amber-50 p-4"><p class="font-black text-amber-700">焦段 Focal Length</p><p class="mt-1 text-slate-700">24mm 廣角誇張透視；85mm 人像更自然。</p></div>
-          <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-4"><p class="font-black text-emerald-700">構圖 Composition</p><p class="mt-1 text-slate-700">把主體放在畫面哪裡。三分法、留白、引導線都屬於構圖策略。</p></div>
-          <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-4"><p class="font-black text-emerald-700">對焦 Focus / 焦平面</p><p class="mt-1 text-slate-700">真正清楚的那一層平面。焦點跑掉，再亮也會看起來糊。</p></div>
-          <div class="rounded-xl border border-emerald-100 bg-emerald-50 p-4"><p class="font-black text-emerald-700">AE/AF Lock</p><p class="mt-1 text-slate-700">先鎖曝光與對焦再重構圖，避免主體一移動就重新測光跑掉。</p></div>
-          <div class="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><p class="font-black text-cyan-700">EV 曝光補償</p><p class="mt-1 text-slate-700">+EV 讓畫面更亮，-EV 讓畫面更暗，常用於快速微調高反差場景。</p></div>
-          <div class="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><p class="font-black text-cyan-700">Fill Ratio 補光比</p><p class="mt-1 text-slate-700">主光與補光的強弱差。差越大立體感越強，也越有戲劇陰影。</p></div>
-          <div class="rounded-xl border border-cyan-100 bg-cyan-50 p-4"><p class="font-black text-cyan-700">動態範圍 Dynamic Range</p><p class="mt-1 text-slate-700">同時保住暗部與高光細節的能力。逆光場景特別需要注意。</p></div>
-          <div class="rounded-xl border border-rose-100 bg-rose-50 p-4"><p class="font-black text-rose-700">直方圖 Histogram</p><p class="mt-1 text-slate-700">看亮度分布，避免爆白與死黑。</p></div>
-          <div class="rounded-xl border border-rose-100 bg-rose-50 p-4"><p class="font-black text-rose-700">前簾 / 後簾同步</p><p class="mt-1 text-slate-700">後簾常用於動態光軌，拖尾更自然。</p></div>
-          <div class="rounded-xl border border-rose-100 bg-rose-50 p-4"><p class="font-black text-rose-700">RAW vs JPG</p><p class="mt-1 text-slate-700">RAW 可救回更多細節；JPG 較方便但後製空間小。</p></div>
-          <div class="rounded-xl border border-violet-100 bg-violet-50 p-4"><p class="font-black text-violet-700">空間壓縮感</p><p class="mt-1 text-slate-700">長焦鏡會讓前後景看起來更靠近，是人像與舞台常見視覺效果。</p></div>
-          <div class="rounded-xl border border-violet-100 bg-violet-50 p-4"><p class="font-black text-violet-700">噪點 Noise</p><p class="mt-1 text-slate-700">暗部彩色顆粒。高 ISO、過度拉亮、壓縮都可能讓噪點更明顯。</p></div>
-          <div class="rounded-xl border border-violet-100 bg-violet-50 p-4"><p class="font-black text-violet-700">車軌 / 光軌</p><p class="mt-1 text-slate-700">慢快門把移動光源拉成線條，常用在夜景街拍與婚禮舞池。</p></div>
-        </div>
+        <p class="text-xs text-slate-500 mt-3">共 7 類、40+ 條，含通透感、空靈感、光害等常聽詞彙。</p>
+        <div id="photo-glossary-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-3 text-sm mt-3"></div>
       </div>
     </div>
   </div>
@@ -1946,6 +1929,7 @@
         });
 
         renderPrefaces();
+        renderPhotoGlossary();
         renderAuthorSignature('photo-author-note');
         initMobileContentDock({
           anchorId: 'lesson-sandbox-anchor',
