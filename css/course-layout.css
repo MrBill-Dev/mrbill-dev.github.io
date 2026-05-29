@@ -177,3 +177,73 @@ body.page-course .tutorial-sidebar-col {
 @media (min-width: 1024px) {
   .tutorial-sidebar-toggle-bar { display: none; }
 }
+
+/* 手機／平板：捲過主視覺後，左緣直排章節鈕（主視覺區不顯示） */
+@media (max-width: 1023px) {
+  .tutorial-sidebar-toggle-bar {
+    position: fixed;
+    left: 0;
+    top: calc(var(--tuto-header-offset, 4.5rem) + 0.75rem);
+    z-index: 44;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    border: none;
+    background: transparent;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-110%);
+    transition:
+      opacity 0.22s ease,
+      transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0.22s ease;
+  }
+  .tutorial-sidebar-toggle-bar.is-fab-docked {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+  .course-chapter-fab-btn {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.38rem 0.6rem;
+    min-width: 2.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-left: none;
+    border-radius: 0 0.6rem 0.6rem 0;
+    background: linear-gradient(180deg, #4f46e5, #4338ca);
+    color: #fff;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow:
+      4px 8px 24px rgba(79, 70, 229, 0.32),
+      2px 2px 8px rgba(15, 23, 42, 0.12);
+  }
+  .course-chapter-fab-emoji {
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+  .course-chapter-fab-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+  .course-chapter-fab-btn:active {
+    transform: scale(0.97);
+  }
+  body.tutorial-nav-open .tutorial-sidebar-toggle-bar {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+  }
+}

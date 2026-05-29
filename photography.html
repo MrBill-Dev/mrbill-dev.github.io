@@ -422,8 +422,9 @@
 
       <div class="tutorial-workspace">
         <div class="tutorial-sidebar-toggle-bar lg:hidden">
-          <button type="button" id="photography-sidebar-open" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-bold shadow-sm">
-            📷 章節目錄
+          <button type="button" id="photography-sidebar-open" class="course-chapter-fab-btn" aria-controls="photography-sidebar" aria-expanded="false" aria-label="開啟章節目錄">
+            <span class="course-chapter-fab-emoji" aria-hidden="true">📷</span>
+            <span class="course-chapter-fab-label">章節目錄</span>
           </button>
         </div>
 
@@ -1335,6 +1336,7 @@
         if (btnElement) btnElement.className = "photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold bg-brand-50 text-indigo-600 transition-colors";
         updateLessonFlowNav(key);
 
+        if (window.matchMedia('(max-width: 1023px)').matches) photoCourseDock.close();
         if (opts.scroll !== false) scrollToLesson();
     };
 

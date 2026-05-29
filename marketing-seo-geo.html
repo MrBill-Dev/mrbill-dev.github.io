@@ -53,21 +53,43 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .mk-hero-full {
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
       position: relative;
+      left: 50%;
+      right: 50%;
+      width: 100vw;
+      max-width: 100%;
+      margin-left: -50vw;
+      margin-right: -50vw;
       overflow: hidden;
+      overflow-x: clip;
+      box-sizing: border-box;
       background: linear-gradient(135deg, #0c4a6e 0%, #312e81 35%, #581c87 70%, #0f172a 100%);
+    }
+    .mk-hero-inner { min-width: 0; max-width: 100%; }
+    .mk-hero-full .tutorial-hero-desc {
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
     .mk-hero-orb {
       position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; pointer-events: none;
+      max-width: none;
+    }
+    @keyframes mkFloat {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(30px,-40px) scale(1.08); }
     }
     .mk-orb-a { width: 420px; height: 420px; background: #06b6d4; top: -100px; left: 10%; animation: mkFloat 14s ease-in-out infinite; }
     .mk-orb-b { width: 360px; height: 360px; background: #6366f1; top: 0; right: 5%; animation: mkFloat 18s ease-in-out infinite reverse; }
     .mk-orb-c { width: 280px; height: 280px; background: #10b981; bottom: -60px; left: 40%; animation: mkFloat 12s ease-in-out infinite; }
-    @keyframes mkFloat {
-      0%,100% { transform: translate(0,0); }
-      50% { transform: translate(30px,-40px) scale(1.08); }
+    @media (max-width: 767px) {
+      .mk-orb-a { width: 220px; height: 220px; top: -70px; left: -20%; }
+      .mk-orb-b { width: 200px; height: 200px; top: -20px; right: -15%; }
+      .mk-orb-c { width: 160px; height: 160px; bottom: -40px; left: 25%; }
+      .mk-hero-orb { filter: blur(56px); opacity: 0.4; }
+      @keyframes mkFloat {
+        0%,100% { transform: translate(0,0); }
+        50% { transform: translate(12px,-16px) scale(1.04); }
+      }
     }
     .mk-grid-bg {
       position: absolute; inset: 0;
@@ -83,19 +105,19 @@
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
   <main class="flex-grow w-full min-w-0 max-w-full pt-0">
-    <section id="mk-intro" class="mk-hero-full tutorial-hero -mt-8 mb-10 py-16 md:py-24 px-6 md:px-12">
+    <section id="mk-intro" class="mk-hero-full tutorial-hero -mt-8 mb-10 py-12 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12">
       <div class="mk-hero-orb mk-orb-a mk-parallax" data-mk-parallax="0.12"></div>
       <div class="mk-hero-orb mk-orb-b mk-parallax" data-mk-parallax="0.2"></div>
       <div class="mk-hero-orb mk-orb-c mk-parallax" data-mk-parallax="0.08"></div>
       <div class="mk-grid-bg mk-parallax" data-mk-parallax="0.04"></div>
-      <div class="relative z-10 max-w-6xl mx-auto">
-        <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
-          <div class="space-y-6 text-white">
+      <div class="mk-hero-inner relative z-10 max-w-6xl mx-auto w-full">
+        <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 lg:gap-10 items-center min-w-0">
+          <div class="min-w-0 space-y-5 sm:space-y-6 text-white">
             <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-black bg-emerald-400/20 text-emerald-200 ring-1 ring-emerald-400/30 uppercase tracking-wider">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               Growth System · SEO + GEO + GA4
             </span>
-            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.08]">
+            <h1 class="text-[1.65rem] sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.12] break-words text-balance">
               讓內容被<span class="text-cyan-300"> Google 找到</span>、被<span class="text-violet-300"> AI 引用</span>、用<span class="text-emerald-300"> 數據證明有效</span>
             </h1>
             <p class="tutorial-hero-desc text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl">不懂寫程式也能照做：左邊選章節切換教學，每章都有情境故事、操作步驟與真實範例。</p>
@@ -105,22 +127,22 @@
               <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">📊 GA4 轉換追蹤</span>
             </div>
           </div>
-          <div class="mk-flow-card rounded-3xl p-6 md:p-8 space-y-4">
+          <div class="mk-flow-card min-w-0 w-full max-w-full rounded-3xl p-4 sm:p-6 md:p-8 space-y-4">
             <p class="text-xs font-black text-cyan-200 uppercase tracking-widest">內容成長閉環</p>
             <div class="space-y-3">
-              <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
+              <div class="flex items-center gap-3 sm:gap-4 rounded-2xl bg-white p-3 sm:p-4 shadow-lg min-w-0">
                 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white font-black">1</span>
-                <div><p class="text-xs font-bold text-indigo-600">定目標</p><p class="text-sm font-black text-slate-900">每月詢單數 + KPI 拆解</p></div>
+                <div class="min-w-0"><p class="text-xs font-bold text-indigo-600">定目標</p><p class="text-sm font-black text-slate-900 break-words">每月詢單數 + KPI 拆解</p></div>
               </div>
               <div class="flex justify-center text-cyan-400 text-xl">↓</div>
-              <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
+              <div class="flex items-center gap-3 sm:gap-4 rounded-2xl bg-white p-3 sm:p-4 shadow-lg min-w-0">
                 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-600 text-white font-black">2</span>
-                <div><p class="text-xs font-bold text-cyan-600">寫內容</p><p class="text-sm font-black text-slate-900">SEO 結構 + GEO 可引用段落</p></div>
+                <div class="min-w-0"><p class="text-xs font-bold text-cyan-600">寫內容</p><p class="text-sm font-black text-slate-900 break-words">SEO 結構 + GEO 可引用段落</p></div>
               </div>
               <div class="flex justify-center text-violet-400 text-xl">↓</div>
-              <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
+              <div class="flex items-center gap-3 sm:gap-4 rounded-2xl bg-white p-3 sm:p-4 shadow-lg min-w-0">
                 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white font-black">3</span>
-                <div><p class="text-xs font-bold text-emerald-600">驗成效</p><p class="text-sm font-black text-slate-900">GA4 事件 → 每週優化 1–2 變數</p></div>
+                <div class="min-w-0"><p class="text-xs font-bold text-emerald-600">驗成效</p><p class="text-sm font-black text-slate-900 break-words">GA4 事件 → 每週優化 1–2 變數</p></div>
               </div>
             </div>
           </div>
@@ -139,8 +161,9 @@
 
       <div class="tutorial-workspace">
         <div class="tutorial-sidebar-toggle-bar lg:hidden">
-          <button type="button" id="marketing-sidebar-open" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-bold shadow-sm">
-            📚 章節目錄
+          <button type="button" id="marketing-sidebar-open" class="course-chapter-fab-btn" aria-controls="marketing-sidebar" aria-expanded="false" aria-label="開啟章節目錄">
+            <span class="course-chapter-fab-emoji" aria-hidden="true">📚</span>
+            <span class="course-chapter-fab-label">章節目錄</span>
           </button>
         </div>
 
@@ -995,13 +1018,26 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
       renderAuthorSignature('marketing-author-note');
     });
 
-    window.addEventListener('scroll', function() {
+    var mkParallaxMq = window.matchMedia('(min-width: 768px)');
+    function applyMkParallax() {
+      if (!mkParallaxMq.matches) {
+        document.querySelectorAll('[data-mk-parallax]').forEach(function(el) {
+          el.style.transform = '';
+        });
+        return;
+      }
       var y = window.scrollY;
       document.querySelectorAll('[data-mk-parallax]').forEach(function(el) {
         var speed = parseFloat(el.getAttribute('data-mk-parallax')) || 0.15;
         el.style.transform = 'translate3d(0, ' + (y * speed) + 'px, 0)';
       });
-    }, { passive: true });
+    }
+    window.addEventListener('scroll', applyMkParallax, { passive: true });
+    if (mkParallaxMq.addEventListener) {
+      mkParallaxMq.addEventListener('change', applyMkParallax);
+    } else if (mkParallaxMq.addListener) {
+      mkParallaxMq.addListener(applyMkParallax);
+    }
   </script>
   <script>document.documentElement.classList.add('page-course-root');</script>
 </body>

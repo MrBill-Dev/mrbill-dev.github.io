@@ -12,7 +12,8 @@
       openBtnId: 'tutorial-sidebar-open',
       closeBtnId: 'tutorial-sidebar-close',
       backdropId: 'tutorial-sidebar-backdrop',
-      navOpenClass: 'tutorial-nav-open'
+      navOpenClass: 'tutorial-nav-open',
+      navCloseSelector: 'a[href^="#"], .mk-nav-link, .tuto-nav-btn, .photo-nav-btn, .tutorial-search-item'
     }, cfg || {});
 
     var dockReady = false;
@@ -106,10 +107,26 @@
       applyDock(sidebar, col, spacer, measureHeight(sidebar));
     }
 
+    function getChapterFabBar() {
+      var openBtn = el(cfg.openBtnId);
+      return openBtn ? openBtn.closest('.tutorial-sidebar-toggle-bar') : null;
+    }
+
+    function syncMobileChapterFab() {
+      var bar = getChapterFabBar();
+      if (!bar) return;
+      if (!window.matchMedia('(max-width: 1023px)').matches) {
+        bar.classList.remove('is-fab-docked');
+        return;
+      }
+      bar.classList.toggle('is-fab-docked', !isHeroInView());
+    }
+
     function syncDock() {
       var sidebar = el(cfg.sidebarId);
       if (!sidebar) return;
       syncHeaderOffset();
+      syncMobileChapterFab();
       if (!window.matchMedia('(min-width: 1024px)').matches) {
         undock();
         return;
@@ -138,21 +155,25 @@
     function openDrawer() {
       var sidebar = el(cfg.sidebarId);
       var backdrop = el(cfg.backdropId);
+      var openBtn = el(cfg.openBtnId);
       if (!sidebar) return;
       sidebar.classList.add('is-open');
       document.body.classList.add(cfg.navOpenClass);
       if (backdrop) backdrop.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+      if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
     }
 
     function closeDrawer() {
       var sidebar = el(cfg.sidebarId);
       var backdrop = el(cfg.backdropId);
+      var openBtn = el(cfg.openBtnId);
       if (!sidebar) return;
       sidebar.classList.remove('is-open');
       document.body.classList.remove(cfg.navOpenClass);
       if (backdrop) backdrop.classList.add('hidden');
       document.body.style.overflow = '';
+      if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
     }
 
     function initResizeObserver() {
@@ -170,9 +191,18 @@
       var sidebar = el(cfg.sidebarId);
       if (openBtn) openBtn.addEventListener('click', openDrawer);
       if (backdrop) backdrop.addEventListener('click', closeDrawer);
-      if (sidebar && cfg.closeBtnId) {
-        var closeBtn = sidebar.querySelector('#' + cfg.closeBtnId);
-        if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+      /* 側欄 HTML 為非同步載入，關閉鈕須用委派，不可在 init 時 querySelector */
+      if (sidebar) {
+        sidebar.addEventListener('click', function (e) {
+          if (cfg.closeBtnId && e.target.closest('#' + cfg.closeBtnId)) {
+            closeDrawer();
+            return;
+          }
+          if (!window.matchMedia('(max-width: 1023px)').matches) return;
+          if (e.target.closest('[data-sidebar-search="true"] input, [data-sidebar-search="true"] label')) return;
+          if (e.target.closest('#tutorial-global-search, #tutorial-search-results')) return;
+          if (cfg.navCloseSelector && e.target.closest(cfg.navCloseSelector)) closeDrawer();
+        });
       }
       window.addEventListener('resize', function () {
         syncHeaderOffset();
@@ -190,6 +220,7 @@
       initResizeObserver();
       initDrawer();
       syncDock();
+      syncMobileChapterFab();
     }
 
     /** 側欄 HTML 載入後再同步一次（可重複呼叫） */
