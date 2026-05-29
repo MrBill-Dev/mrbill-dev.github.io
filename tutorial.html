@@ -16,7 +16,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <link rel="stylesheet" href="css/course-layout.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <script src="js/course-sidebar-dock.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
@@ -35,7 +37,7 @@
   </script>
   <style>
     html { scroll-behavior: smooth; scroll-padding-top: 96px; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    body.page-tutorial { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
     .custom-scrollbar::-webkit-scrollbar { width: 5px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
@@ -59,9 +61,82 @@
     #sandbox-preview-canvas { overflow-x: auto; max-width: 100%; min-width: 0; }
     #sandbox-preview-canvas .grid,
     #sandbox-preview-canvas [class*="grid"] { max-width: 100%; }
-    #tutorial-layout { width: 100%; min-width: 0; }
-    #tutorial-sidebar { min-width: 0; max-width: 100%; }
+    #tutorial-sidebar { min-width: 0; }
     #lesson-main { min-width: 0; }
+    .tutorial-content-column,
+    #lesson-main {
+      min-width: 0;
+      max-width: 100%;
+      overflow-x: clip;
+    }
+    .tutorial-adventure-map {
+      width: 100%;
+      min-width: 0;
+    }
+    .tutorial-map-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #0f172a;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .tutorial-map-toggle:hover {
+      border-color: #c7d2fe;
+      background: #eef2ff;
+    }
+    .tutorial-map-toggle-chevron {
+      font-size: 0.75rem;
+      color: #6366f1;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .tutorial-adventure-map.is-collapsed .tutorial-map-toggle-chevron {
+      transform: rotate(-90deg);
+    }
+    .tutorial-map-toggle-meta {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #4338ca;
+    }
+    .tutorial-adventure-map.is-collapsed .tutorial-map-toggle-meta {
+      display: flex;
+    }
+    .tutorial-map-panel {
+      margin-top: 0.75rem;
+      overflow: hidden;
+      transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.25s ease;
+      max-height: 4000px;
+      opacity: 1;
+    }
+    .tutorial-adventure-map.is-collapsed .tutorial-map-panel {
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+      pointer-events: none;
+    }
+    .tutorial-map-toggle-title { flex: 1; min-width: 0; }
+    .tutorial-map-column .tuto-preface-wrap {
+      margin: 0;
+    }
+    .tutorial-content-column {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      overflow-x: clip;
+    }
     #css-selector-panel table th,
     #css-selector-panel table td { vertical-align: top; line-height: 1.55; }
     #css-selector-panel table td:first-child { min-width: 170px; }
@@ -562,52 +637,26 @@
     .tuto-preface-phase-2 { background: rgba(234, 179, 8, 0.1); color: #a16207; }
     .tuto-preface-phase-3 { background: rgba(244, 63, 94, 0.08); color: #be123c; }
     @media (min-width: 1024px) {
-      #tutorial-sidebar { width: 16.5rem; max-width: 16.5rem; flex-shrink: 0; }
       #lesson-main { flex: 1 1 0%; min-width: 0; }
     }
   </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
+<body class="page-tutorial page-course bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
 
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <main class="max-w-[90rem] mx-auto flex-grow w-full min-w-0 pt-0">
-    <div class="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-8 mb-10 text-white">
+  <main class="flex-grow w-full min-w-0 max-w-full pt-0">
+    <div class="tutorial-hero relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-8 mb-10 text-white">
       <img src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=2200&q=80" alt="前端與設計手冊主視覺" class="w-full h-[300px] md:h-[420px] object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-indigo-900/72 to-cyan-900/58"></div>
       <div class="absolute inset-0">
         <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
           <div class="pb-8 md:pb-12 max-w-4xl">
             <h1 class="text-3xl md:text-4xl font-black">💻 <span class="text-cyan-200">前端與設計手冊</span></h1>
-            <p class="mt-3 max-w-3xl leading-relaxed text-[15px] md:text-base text-indigo-100">HTML → CSS → Tailwind → JS → 框架 → Git → 上線；互動沙盒練到能交作品，再搭配 AI 指令集除錯與優化。</p>
+            <p class="tutorial-hero-desc mt-3 leading-relaxed text-[15px] md:text-base text-indigo-100">HTML → CSS → Tailwind → JS → 框架 → Git → 上線；互動沙盒練到能交作品，再搭配 AI 指令集除錯與優化。</p>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="px-4 lg:px-6 py-8 space-y-6">
-    <!-- 前言 + XP（課程分類請用下方頁籤） -->
-    <div class="tuto-preface-wrap fade-in-up">
-      <div class="tuto-preface-top">
-        <div class="tuto-preface-brand">
-          <div class="tuto-preface-title-row">
-            <span id="preface-title-icon" class="tuto-preface-title-icon" aria-hidden="true">🎮</span>
-            <h3 id="preface-title"></h3>
-          </div>
-          <p class="tuto-preface-tagline">闖關學前端 · 建議每天 1～2 課 · 用下方頁籤進入主線</p>
-        </div>
-        <div class="tuto-preface-xp" aria-label="冒險經驗值">
-          <div class="tuto-preface-xp-label">
-            <span>⭐ 冒險 XP</span>
-            <strong id="xp-label">0</strong>
-          </div>
-          <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden">
-            <div id="xp-bar" class="h-full bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full transition-all duration-500" style="width:0%"></div>
-          </div>
-          <p class="tuto-preface-xp-hint">小測驗 +50 · 我完成了 +30</p>
-        </div>
-      </div>
-      <div id="preface-body" class="tuto-preface-prose"></div>
     </div>
 
     <div id="tutorial-prompt-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 p-4 md:p-6">
@@ -648,10 +697,59 @@
       </div>
     </div>
 
-    <div id="tutorial-layout" class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full min-w-0">
-      <aside id="tutorial-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto overflow-y-visible overflow-x-hidden custom-scrollbar"></aside>
+    <div id="tutorial-stage" class="tutorial-stage">
+    <div id="tutorial-sidebar-backdrop" class="tutorial-sidebar-backdrop hidden" aria-hidden="true"></div>
 
-      <div id="lesson-main" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 scroll-mt-20">
+    <div id="tutorial-shell" class="tutorial-shell">
+      <div id="tutorial-sidebar-col" class="tutorial-sidebar-col">
+        <div id="tutorial-sidebar-spacer" class="tutorial-sidebar-spacer" aria-hidden="true"></div>
+        <aside id="tutorial-sidebar" class="tutorial-sidebar custom-scrollbar space-y-5" aria-label="課程目錄"></aside>
+      </div>
+
+      <div class="tutorial-workspace">
+        <div class="tutorial-sidebar-toggle-bar lg:hidden">
+          <button type="button" id="tutorial-sidebar-open" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-bold shadow-sm">
+            📚 課程目錄
+          </button>
+        </div>
+
+        <div id="tutorial-adventure-map" class="tutorial-adventure-map">
+          <button type="button" id="tutorial-map-toggle" class="tutorial-map-toggle" aria-expanded="true" aria-controls="tutorial-map-panel">
+            <span class="tutorial-map-toggle-title">🎮 學習冒險地圖</span>
+            <span class="tutorial-map-toggle-meta">
+              <span>⭐ XP <strong id="xp-label-compact">0</strong></span>
+            </span>
+            <span class="tutorial-map-toggle-chevron" aria-hidden="true">▼</span>
+          </button>
+          <div id="tutorial-map-panel" class="tutorial-map-panel" role="region" aria-label="學習冒險地圖內容">
+            <div id="tutorial-map-column" class="tutorial-map-column">
+              <div class="tuto-preface-wrap fade-in-up">
+                <div class="tuto-preface-top">
+                  <div class="tuto-preface-brand">
+                    <div class="tuto-preface-title-row">
+                      <span id="preface-title-icon" class="tuto-preface-title-icon" aria-hidden="true">🎮</span>
+                      <h3 id="preface-title"></h3>
+                    </div>
+                    <p class="tuto-preface-tagline">闖關學前端 · 建議每天 1～2 課 · 下方為當前關卡</p>
+                  </div>
+                  <div class="tuto-preface-xp" aria-label="冒險經驗值">
+                    <div class="tuto-preface-xp-label">
+                      <span>⭐ 冒險 XP</span>
+                      <strong id="xp-label">0</strong>
+                    </div>
+                    <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                      <div id="xp-bar" class="h-full bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full transition-all duration-500" style="width:0%"></div>
+                    </div>
+                    <p class="tuto-preface-xp-hint">小測驗 +50 · 我完成了 +30</p>
+                  </div>
+                </div>
+                <div id="preface-body" class="tuto-preface-prose"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="lesson-main" class="tutorial-content-column space-y-6 scroll-mt-20 min-w-0">
         <div class="bg-white rounded-2xl border border-slate-100 p-3 md:p-4">
           <div class="flex flex-wrap gap-2">
             <button type="button" class="track-tab-btn px-4 py-2 rounded-xl text-sm font-black bg-indigo-600 text-white" data-track-tab="html">HTML</button>
@@ -775,7 +873,9 @@
           </div>
           <div id="tutorial-author-note"></div>
         </div>
+        </div>
       </div>
+    </div>
     </div>
   </main>
 
@@ -888,17 +988,41 @@
       totalXp += n;
       const bar = document.getElementById('xp-bar');
       const label = document.getElementById('xp-label');
+      const compact = document.getElementById('xp-label-compact');
       bar.classList.add('xp-pop');
       setTimeout(() => bar.classList.remove('xp-pop'), 400);
       const pct = Math.min(100, (totalXp % 500) / 5);
       bar.style.width = pct + '%';
       label.textContent = totalXp;
+      if (compact) compact.textContent = totalXp;
       saveProgress();
     }
 
     function updateXpUi() {
       document.getElementById('xp-label').textContent = totalXp;
+      var compact = document.getElementById('xp-label-compact');
+      if (compact) compact.textContent = totalXp;
       document.getElementById('xp-bar').style.width = Math.min(100, (totalXp % 500) / 5) + '%';
+    }
+
+    function setTutorialMapCollapsed(collapsed, persist) {
+      var wrap = document.getElementById('tutorial-adventure-map');
+      var btn = document.getElementById('tutorial-map-toggle');
+      if (!wrap || !btn) return;
+      wrap.classList.toggle('is-collapsed', collapsed);
+      btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      if (persist !== false) localStorage.setItem('mrbill_tuto_map_collapsed', collapsed ? '1' : '0');
+    }
+
+    function initTutorialMapCollapse() {
+      var btn = document.getElementById('tutorial-map-toggle');
+      if (!btn) return;
+      var saved = localStorage.getItem('mrbill_tuto_map_collapsed') === '1';
+      setTutorialMapCollapsed(saved, false);
+      btn.addEventListener('click', function() {
+        var wrap = document.getElementById('tutorial-adventure-map');
+        setTutorialMapCollapsed(!(wrap && wrap.classList.contains('is-collapsed')));
+      });
     }
 
     function renderPreface() {
@@ -1307,6 +1431,9 @@
       } else {
         updateTrackProgress();
       }
+      requestAnimationFrame(function() {
+        if (typeof syncTutorialSidebarDock === 'function') syncTutorialSidebarDock();
+      });
     }
 
     /** 同步修改沙盒編輯器內某個 CSS 規則的屬性（互動區 → 程式碼一起更新） */
@@ -1535,6 +1662,35 @@
       setTimeout(() => canvas.classList.remove('fade-in-up'), 500);
     }
 
+    var tutorialCourseDock = initCourseSidebarDock({
+      sidebarId: 'tutorial-sidebar',
+      colId: 'tutorial-sidebar-col',
+      spacerId: 'tutorial-sidebar-spacer',
+      openBtnId: 'tutorial-sidebar-open',
+      closeBtnId: 'tutorial-sidebar-close',
+      backdropId: 'tutorial-sidebar-backdrop'
+    });
+
+    function syncTutorialHeaderOffset() {
+      tutorialCourseDock.syncHeaderOffset();
+    }
+
+    function openTutorialSidebar() {
+      tutorialCourseDock.open();
+    }
+
+    function closeTutorialSidebar() {
+      tutorialCourseDock.close();
+    }
+
+    function initTutorialSidebarDock() {
+      tutorialCourseDock.init();
+    }
+
+    window.syncTutorialSidebarDock = function() {
+      tutorialCourseDock.sync();
+    };
+
     function scrollToLesson() {
       if (typeof scrollToContentAnchor === 'function') {
         scrollToContentAnchor({ anchorId: 'lesson-main', offset: window.matchMedia('(max-width: 1023px)').matches ? 76 : 88 });
@@ -1683,6 +1839,7 @@
 
       updateTrackProgress();
 
+      if (window.matchMedia('(max-width: 1023px)').matches) closeTutorialSidebar();
       if (opts.scroll !== false) scrollToLesson();
     };
 
@@ -1762,7 +1919,9 @@
         row.classList.toggle('hidden', value !== 'all' && cat !== value);
       });
     }
-
+  </script>
+  <script>document.documentElement.classList.add('page-course-root');</script>
+  <script>
     window.addEventListener('DOMContentLoaded', async () => {
       const dataReady = await ensureTutorialDataReady();
       if (!dataReady) {
@@ -1777,6 +1936,10 @@
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       loadProgress();
       renderPreface();
+      initTutorialMapCollapse();
+      syncTutorialHeaderOffset();
+      initTutorialSidebarDock();
+      window.addEventListener('resize', syncTutorialHeaderOffset);
       activeTrack = localStorage.getItem('mrbill_tuto_track') || 'html';
       var bootOrder = resolveOrderByTrack(activeTrack);
       if (bootOrder && bootOrder.length) {
@@ -1784,10 +1947,16 @@
         currentLessonKey = bootOrder[0];
       }
       loadLesson(currentLessonKey, null, { scroll: false });
-      includeComponentSlot('global-header', 'components/header.html', 'nav-tutorial');
+      includeComponentSlot('global-header', 'components/header.html', 'nav-tutorial', syncTutorialHeaderOffset);
       includeComponentSlot('global-footer', 'components/footer.html');
       includeComponentSlot('tutorial-sidebar', 'components/sidebar-tutorial.html', null, () => {
         initTutorialGlobalSearch();
+        syncTutorialHeaderOffset();
+        initTutorialSidebarDock();
+        requestAnimationFrame(function() {
+          syncTutorialHeaderOffset();
+          syncTutorialSidebarDock();
+        });
         document.querySelectorAll('[data-track-tab]').forEach(function(btn) {
           btn.addEventListener('click', function() {
             setActiveTrack(btn.getAttribute('data-track-tab') || 'html', true);

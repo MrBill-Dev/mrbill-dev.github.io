@@ -1,4 +1,8 @@
 <div class="space-y-3">
+  <div class="flex items-center justify-between gap-2 lg:hidden">
+    <span class="text-sm font-black text-slate-800">課程目錄</span>
+    <button type="button" id="tutorial-sidebar-close" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold">關閉 ✕</button>
+  </div>
   <div class="space-y-2">
     <label for="tutorial-global-search" class="block text-xs font-bold text-slate-500">搜尋所有課程</label>
     <input id="tutorial-global-search" type="text" placeholder="輸入關鍵字（例如：z-index、API、Git）" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
@@ -29,7 +33,9 @@
   <button onclick="loadLesson('html_containers', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">語意布局 main/section</button>
   <button onclick="loadLesson('html_head_seo', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">head 與 SEO meta</button>
   <button onclick="loadLesson('html_inputs', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">input 輸入</button>
-  <button onclick="loadLesson('html_float_align_bg', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">float/對齊/背景</button>
+  <button onclick="loadLesson('html_float', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">float 圖文混排</button>
+  <button onclick="loadLesson('html_text_align', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">text-align 對齊</button>
+  <button onclick="loadLesson('html_background', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">background 背景</button>
   <button onclick="loadLesson('html_button', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">button 按鈕</button>
   <button onclick="loadLesson('html_form', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">完整表單</button>
   <button onclick="loadLesson('html_nav', this)" class="tuto-nav-btn w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold">nav 導覽列</button>

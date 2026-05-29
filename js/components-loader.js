@@ -87,7 +87,7 @@ function injectSiteRwdStyles() {
     var style = document.createElement('style');
     style.id = 'site-rwd-styles';
     style.textContent = [
-        'html, body { overflow-x: clip; }',
+        'html, body { overflow-x: hidden; }',
         '.site-prose-safe { overflow-wrap: anywhere; word-break: break-word; }',
         '.site-prose-safe pre, .site-prose-safe code { max-width: 100%; }',
         '.site-prose-safe pre { overflow-x: auto; -webkit-overflow-scrolling: touch; }',

@@ -7,6 +7,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/components-loader.js"></script>
   <script src="js/site-config.js"></script>
+  <link rel="stylesheet" href="css/course-layout.css">
+  <script src="js/course-sidebar-dock.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -76,61 +78,73 @@
     .mk-flow-card { backdrop-filter: blur(12px); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
   </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
+<body class="page-course bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
 
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <!-- 全寬主視覺 -->
-  <section id="mk-intro" class="mk-hero-full py-16 md:py-24 px-6 md:px-12">
-    <div class="mk-hero-orb mk-orb-a mk-parallax" data-mk-parallax="0.12"></div>
-    <div class="mk-hero-orb mk-orb-b mk-parallax" data-mk-parallax="0.2"></div>
-    <div class="mk-hero-orb mk-orb-c mk-parallax" data-mk-parallax="0.08"></div>
-    <div class="mk-grid-bg mk-parallax" data-mk-parallax="0.04"></div>
-    <div class="relative z-10 max-w-6xl mx-auto">
-      <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
-        <div class="space-y-6 text-white">
-          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-black bg-emerald-400/20 text-emerald-200 ring-1 ring-emerald-400/30 uppercase tracking-wider">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Growth System · SEO + GEO + GA4
-          </span>
-          <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.08]">
-            讓內容被<span class="text-cyan-300"> Google 找到</span>、被<span class="text-violet-300"> AI 引用</span>、用<span class="text-emerald-300"> 數據證明有效</span>
-          </h1>
-          <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl">不懂寫程式也能照做：左邊選章節切換教學，每章都有情境故事、操作步驟與真實範例。</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">🔍 SEO 搜尋排名</span>
-            <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">🤖 GEO AI 引用</span>
-            <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">📊 GA4 轉換追蹤</span>
+  <main class="flex-grow w-full min-w-0 max-w-full pt-0">
+    <section id="mk-intro" class="mk-hero-full tutorial-hero -mt-8 mb-10 py-16 md:py-24 px-6 md:px-12">
+      <div class="mk-hero-orb mk-orb-a mk-parallax" data-mk-parallax="0.12"></div>
+      <div class="mk-hero-orb mk-orb-b mk-parallax" data-mk-parallax="0.2"></div>
+      <div class="mk-hero-orb mk-orb-c mk-parallax" data-mk-parallax="0.08"></div>
+      <div class="mk-grid-bg mk-parallax" data-mk-parallax="0.04"></div>
+      <div class="relative z-10 max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+          <div class="space-y-6 text-white">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-black bg-emerald-400/20 text-emerald-200 ring-1 ring-emerald-400/30 uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Growth System · SEO + GEO + GA4
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.08]">
+              讓內容被<span class="text-cyan-300"> Google 找到</span>、被<span class="text-violet-300"> AI 引用</span>、用<span class="text-emerald-300"> 數據證明有效</span>
+            </h1>
+            <p class="tutorial-hero-desc text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl">不懂寫程式也能照做：左邊選章節切換教學，每章都有情境故事、操作步驟與真實範例。</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">🔍 SEO 搜尋排名</span>
+              <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">🤖 GEO AI 引用</span>
+              <span class="px-3 py-1.5 rounded-lg bg-white/10 text-sm font-bold ring-1 ring-white/15">📊 GA4 轉換追蹤</span>
+            </div>
           </div>
-        </div>
-        <div class="mk-flow-card rounded-3xl p-6 md:p-8 space-y-4">
-          <p class="text-xs font-black text-cyan-200 uppercase tracking-widest">內容成長閉環</p>
-          <div class="space-y-3">
-            <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
-              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white font-black">1</span>
-              <div><p class="text-xs font-bold text-indigo-600">定目標</p><p class="text-sm font-black text-slate-900">每月詢單數 + KPI 拆解</p></div>
-            </div>
-            <div class="flex justify-center text-cyan-400 text-xl">↓</div>
-            <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
-              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-600 text-white font-black">2</span>
-              <div><p class="text-xs font-bold text-cyan-600">寫內容</p><p class="text-sm font-black text-slate-900">SEO 結構 + GEO 可引用段落</p></div>
-            </div>
-            <div class="flex justify-center text-violet-400 text-xl">↓</div>
-            <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
-              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white font-black">3</span>
-              <div><p class="text-xs font-bold text-emerald-600">驗成效</p><p class="text-sm font-black text-slate-900">GA4 事件 → 每週優化 1–2 變數</p></div>
+          <div class="mk-flow-card rounded-3xl p-6 md:p-8 space-y-4">
+            <p class="text-xs font-black text-cyan-200 uppercase tracking-widest">內容成長閉環</p>
+            <div class="space-y-3">
+              <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white font-black">1</span>
+                <div><p class="text-xs font-bold text-indigo-600">定目標</p><p class="text-sm font-black text-slate-900">每月詢單數 + KPI 拆解</p></div>
+              </div>
+              <div class="flex justify-center text-cyan-400 text-xl">↓</div>
+              <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-600 text-white font-black">2</span>
+                <div><p class="text-xs font-bold text-cyan-600">寫內容</p><p class="text-sm font-black text-slate-900">SEO 結構 + GEO 可引用段落</p></div>
+              </div>
+              <div class="flex justify-center text-violet-400 text-xl">↓</div>
+              <div class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-lg">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white font-black">3</span>
+                <div><p class="text-xs font-bold text-emerald-600">驗成效</p><p class="text-sm font-black text-slate-900">GA4 事件 → 每週優化 1–2 變數</p></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <main class="max-w-[90rem] mx-auto px-4 lg:px-6 py-8 flex-grow w-full min-w-0 space-y-6 overflow-x-hidden">
-    <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full min-w-0">
-      <aside id="marketing-sidebar" class="order-2 lg:order-1 w-full lg:w-[16.5rem] shrink-0 min-w-0 max-w-full lg:max-w-[16.5rem] bg-white p-5 rounded-2xl border border-slate-100 lg:sticky lg:top-24 space-y-5 h-auto overflow-y-visible overflow-x-hidden custom-scrollbar"></aside>
+    <div id="marketing-stage" class="tutorial-stage">
+    <div id="marketing-sidebar-backdrop" class="tutorial-sidebar-backdrop hidden" aria-hidden="true"></div>
 
-      <article id="marketing-content-stage" class="order-1 lg:order-2 flex-1 min-w-0 w-full space-y-6 article-prose site-prose-safe scroll-mt-24">
+    <div id="marketing-shell" class="tutorial-shell">
+      <div id="marketing-sidebar-col" class="tutorial-sidebar-col">
+        <div id="marketing-sidebar-spacer" class="tutorial-sidebar-spacer" aria-hidden="true"></div>
+        <aside id="marketing-sidebar" class="tutorial-sidebar custom-scrollbar space-y-5" aria-label="章節目錄"></aside>
+      </div>
+
+      <div class="tutorial-workspace">
+        <div class="tutorial-sidebar-toggle-bar lg:hidden">
+          <button type="button" id="marketing-sidebar-open" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-bold shadow-sm">
+            📚 章節目錄
+          </button>
+        </div>
+
+      <article id="marketing-content-stage" class="flex-1 min-w-0 w-full space-y-6 article-prose site-prose-safe scroll-mt-24">
         <section id="mk-overview" class="marketing-panel bg-white p-6 md:p-8 rounded-3xl border border-indigo-100 shadow-sm space-y-5">
           <div class="flex flex-wrap items-center gap-3">
             <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600 text-white font-black">0</span>
@@ -886,6 +900,9 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
 
         <div id="marketing-author-note"></div>
       </article>
+
+      </div>
+    </div>
     </div>
   </main>
 
@@ -944,15 +961,29 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
       setActivePanel(location.hash.replace('#', '') || 'mk-overview', false);
     }
 
+    var marketingCourseDock = initCourseSidebarDock({
+      sidebarId: 'marketing-sidebar',
+      colId: 'marketing-sidebar-col',
+      spacerId: 'marketing-sidebar-spacer',
+      openBtnId: 'marketing-sidebar-open',
+      closeBtnId: 'marketing-sidebar-close',
+      backdropId: 'marketing-sidebar-backdrop'
+    });
+
     window.addEventListener('DOMContentLoaded', function() {
-      includeComponentSlot('global-header', 'components/header.html', 'nav-marketing');
+      includeComponentSlot('global-header', 'components/header.html', 'nav-marketing', function() {
+        marketingCourseDock.syncHeaderOffset();
+      });
       includeComponentSlot('global-footer', 'components/footer.html');
+      marketingCourseDock.init();
       includeComponentSlot('marketing-sidebar', 'components/sidebar-marketing.html', null, function() {
         initSidebarKeywordSearch('marketing-sidebar', {
           buttonSelector: '.mk-nav-link',
           placeholder: '搜尋 SEO / GEO / GA4...'
         });
         initMarketingSectionSwitcher('marketing-sidebar', 'marketing-content-stage');
+        marketingCourseDock.refresh();
+        requestAnimationFrame(function() { marketingCourseDock.refresh(); });
         initMobileContentDock({
           anchorId: 'marketing-content-stage',
           label: '回到章節內容',
@@ -972,5 +1003,6 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
       });
     }, { passive: true });
   </script>
+  <script>document.documentElement.classList.add('page-course-root');</script>
 </body>
 </html>

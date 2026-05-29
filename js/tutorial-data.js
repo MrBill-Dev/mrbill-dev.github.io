@@ -195,15 +195,35 @@ const tutorialRepository = {
     tip: "focus 狀態要讓使用者知道「現在正在輸入這一格」。",
     quiz: { q: "密碼欄位 type 應設？", opts: ["password", "secret", "hidden"], ans: 0 }
   },
-  html_float_align_bg: {
+  html_float: {
     track: "html",
-    title: "🧷 圖文排版：float、文字對齊、背景",
-    desc: "實務上常用 float 讓圖片靠左/右，搭配 text-align 與 background 做可讀區塊。",
-    concept: "雖然新專案多用 Flex/Grid，但 float 仍常見於舊站維護與文章圖文混排。",
-    practice: "① 把 .photo 改成 float:right ② 改標題 text-align ③ 換背景色觀察可讀性",
-    code: `<style>\n  .wrap {\n    background: #f8fafc;\n    border: 1px solid #e2e8f0;\n    border-radius: 12px;\n    padding: 14px;\n  }\n  .photo {\n    width: 120px;\n    height: 80px;\n    float: left;\n    margin: 0 12px 8px 0;\n    border-radius: 10px;\n    background: linear-gradient(135deg, #4f46e5, #06b6d4);\n  }\n  h3 {\n    margin: 0 0 8px;\n    text-align: left;\n    color: #0f172a;\n  }\n  p { line-height: 1.7; color: #475569; }\n</style>\n<div class="wrap">\n  <div class="photo"></div>\n  <h3>圖文混排示範</h3>\n  <p>這段文字會繞過左側圖片。你可以改 float、text-align、background，觀察排版可讀性的變化。</p>\n  <div style="clear: both;"></div>\n</div>`,
-    tip: "使用 float 後，父層常需要 clear: both; 避免高度塌陷。",
-    quiz: { q: "讓文字繞圖常用哪個屬性？", opts: ["float", "display: inline", "z-index"], ans: 0 }
+    title: "🧷 float 圖文混排",
+    desc: "讓圖片靠左或靠右，文字自動繞行——部落格、新聞稿很常見。",
+    concept: "<p><code>float: left</code> 或 <code>float: right</code> 會把元素「浮」到一側，後面的文字會繞過它。新專案多用 Flex/Grid，但<strong>維護舊站、文章內嵌圖</strong>仍會遇到 float。</p><p><b>記得收尾</b>：浮動元素離開文件流，父層高度可能塌陷。文末加 <code>clear: both</code> 的區塊，或對父層用 overflow 清除浮動。</p>",
+    practice: "① 把 .photo 改成 float:right ② 觀察文字繞行方向 ③ 試著拿掉 clear 區塊看父層高度",
+    code: `<style>\n  .wrap {\n    border: 1px solid #e2e8f0;\n    border-radius: 12px;\n    padding: 14px;\n  }\n  .photo {\n    width: 120px;\n    height: 80px;\n    float: left;\n    margin: 0 12px 8px 0;\n    border-radius: 10px;\n    background: linear-gradient(135deg, #4f46e5, #06b6d4);\n  }\n  p { line-height: 1.7; color: #475569; margin: 0; }\n</style>\n<div class="wrap">\n  <div class="photo" aria-hidden="true"></div>\n  <p>這段文字會繞過左側圖片。把 float 改成 right，文字就會從另一側繞行。</p>\n  <div style="clear: both;"></div>\n</div>`,
+    tip: "float 只負責「繞行」；要並排卡片請到 CSS 路線學 Flex/Grid。",
+    quiz: { q: "讓文字繞過浮動圖片常用？", opts: ["float: left / right", "text-align: center", "z-index: 1"], ans: 0 }
+  },
+  html_text_align: {
+    track: "html",
+    title: "↔ text-align 文字對齊",
+    desc: "控制標題、段落、按鈕文字在容器內靠左、置中、靠右或兩端對齊。",
+    concept: "<p><code>text-align</code> 作用在<strong>區塊內的行內內容</strong>（文字、inline 元素），不是把整個 div 推到頁面中間——那要靠 margin 或 Flex。</p><ul class=\"tuto-list\"><li><code>left</code> — 預設，靠左</li><li><code>center</code> — 置中，常見於 Hero 標語</li><li><code>right</code> — 靠右，例如日期、金額</li><li><code>justify</code> — 兩端對齊，長文段落偶爾使用</li></ul>",
+    practice: "① 把 h2 改成 text-align: center ② 把 .note 改成 right ③ 比較 justify 與 left 的閱讀感",
+    code: `<style>\n  .panel { max-width: 320px; margin: 0 auto; padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; }\n  h2 { margin: 0 0 10px; font-size: 1.25rem; color: #0f172a; text-align: left; }\n  .note { margin: 0; line-height: 1.7; color: #475569; text-align: left; }\n</style>\n<div class="panel">\n  <h2>區塊標題</h2>\n  <p class="note">改 CSS 的 text-align，標題與段落會在這個 panel 裡對齊，不會影響整頁其他區塊。</p>\n</div>`,
+    tip: "按鈕內文字要置中時，常對 button 設 text-align: center（或 padding 撐開）。",
+    quiz: { q: "Hero 主標語置中常用？", opts: ["text-align: center", "float: center", "vertical-align: middle"], ans: 0 }
+  },
+  html_background: {
+    track: "html",
+    title: "🎨 background 區塊背景",
+    desc: "用 background / background-color 替區塊鋪底色，拉出層次與可讀區域。",
+    concept: "<p><code>background-color</code> 填滿元素<strong>內容+padding</strong> 區域（不含 margin）。可搭配 <code>border-radius</code> 做卡片感。</p><p>漸層、背景圖在 CSS 路線會細講（<code>linear-gradient</code>、<code>background-image</code>）。這課先掌握「整塊上色」。</p>",
+    practice: "① 改 .card-a / .card-b 的 background-color ② 換 .wrap 底色看對比 ③ 加 padding 讓文字不要貼邊",
+    code: `<style>\n  .wrap {\n    background: #f1f5f9;\n    padding: 14px;\n    border-radius: 12px;\n  }\n  .card-a, .card-b {\n    padding: 12px 14px;\n    border-radius: 10px;\n    margin-bottom: 10px;\n    line-height: 1.6;\n    color: #334155;\n  }\n  .card-a { background: #eef2ff; }\n  .card-b { background: #ecfdf5; }\n</style>\n<div class="wrap">\n  <div class="card-a">淺紫底：提示或重點區塊</div>\n  <div class="card-b">淺綠底：成功或補充說明</div>\n</div>`,
+    tip: "深色底記得把 color 改成淺色字，對比才夠（WCAG 在 CSS 無障礙課會再談）。",
+    quiz: { q: "只改區塊底色、不換背景圖，用？", opts: ["background-color", "background-image", "float"], ans: 0 }
   },
   css_selectors: {
     track: "css",
@@ -887,7 +907,7 @@ Object.assign(tutorialRepository, {
 const TUTORIAL_ORDER = [
   "intro_welcome", "html_learning_path", "html_vs_css", "intro_devtools", "intro_files",
   "html_skeleton", "html_headings", "html_inline", "html_media", "html_lists", "html_list_details",
-  "html_description_list", "html_div_span", "html_tables", "html_containers", "html_head_seo", "html_inputs", "html_float_align_bg", "html_button", "html_form", "html_nav",
+  "html_description_list", "html_div_span", "html_tables", "html_containers", "html_head_seo", "html_inputs", "html_float", "html_text_align", "html_background", "html_button", "html_form", "html_nav",
   "css_selectors", "css_external_import", "css_colors", "css_background_image", "css_typography", "css_spacing",
   "work_units_rem", "css_box_model", "css_borders_outline", "css_width_max_overflow", "css_display",
   "css_flexbox", "css_grid", "css_position", "css_shadows", "css_transitions",
@@ -996,7 +1016,7 @@ const tutorialTrackRepository = {
 };
 
 const TUTORIAL_ORDER_BY_TRACK = {
-  html: ["intro_welcome","html_learning_path","html_vs_css","intro_devtools","intro_files","html_skeleton","html_headings","html_inline","html_media","html_lists","html_list_details","html_description_list","html_div_span","html_tables","html_containers","html_head_seo","html_inputs","html_float_align_bg","html_button","html_form","html_nav"],
+  html: ["intro_welcome","html_learning_path","html_vs_css","intro_devtools","intro_files","html_skeleton","html_headings","html_inline","html_media","html_lists","html_list_details","html_description_list","html_div_span","html_tables","html_containers","html_head_seo","html_inputs","html_float","html_text_align","html_background","html_button","html_form","html_nav"],
   css: ["css_selectors","css_external_import","css_colors","css_background_image","css_typography","css_spacing","work_units_rem","css_box_model","css_borders_outline","css_width_max_overflow","css_display","css_flexbox","css_grid","css_position","css_shadows","css_transitions","css_variables","css_pseudo","css_object_fit","css_flex_advanced","css_media_rwd","css_animation","css_zindex","css_specificity","work_flex_center","work_overflow","work_responsive_img"],
   tailwind: ["tw_00_intro","tw_01_utility_cdn","tw_02_cdn_vs_build","tw_03_npm_setup","tw_03b_next_project","tw_04_source_entry","tw_05_postcss_config","tw_06_build_watch","tw_07_tailwind_config","tw_08_link_site","tw_09_official_workflow","tw_10_utilities_hygiene"],
   js: ["intro_js_whatis","intro_js_roadmap","js_variables","js_conditionals","js_template_strings","js_loops_for","js_arrays","js_array_methods","js_objects","js_functions","js_events","js_dom","js_classlist","js_queryselector","js_arrow","js_async_await","js_try_catch","js_json","js_fetch","js_localstorage","js_timers","js_ecosystem","adv_ui_patterns","js_form_submit","work_devtools_network"],
