@@ -1205,25 +1205,92 @@ const mazeLevels = [
 ];
 const unblockLevels = [
   [
-    { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true },
-    { id: 'a', r: 0, c: 0, len: 3, dir: 'v', label: 'Prompt' },
-    { id: 'b', r: 0, c: 2, len: 2, dir: 'h', label: 'RAG' },
-    { id: 'c', r: 0, c: 4, len: 3, dir: 'v', label: 'Token' },
-    { id: 'd', r: 3, c: 1, len: 3, dir: 'h', label: 'Agent' },
-    { id: 'e', r: 4, c: 3, len: 2, dir: 'v', label: 'Review' }
+    { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'a', r: 0, c: 0, len: 3, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 2, len: 2, dir: 'h', label: 'RAG', theme: 'rag' },
+    { id: 'c', r: 0, c: 4, len: 3, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'd', r: 3, c: 1, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'e', r: 4, c: 3, len: 2, dir: 'v', label: 'Review', theme: 'review' }
   ],
   [
-    { id: 'goal', r: 2, c: 1, len: 2, dir: 'h', label: 'AI包', goal: true },
-    { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt' },
-    { id: 'b', r: 0, c: 2, len: 3, dir: 'v', label: 'RAG' },
-    { id: 'c', r: 1, c: 3, len: 2, dir: 'h', label: 'Tool' },
-    { id: 'd', r: 3, c: 0, len: 3, dir: 'h', label: 'Agent' },
-    { id: 'e', r: 4, c: 4, len: 2, dir: 'v', label: 'Guard' }
+    { id: 'goal', r: 2, c: 1, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 2, len: 3, dir: 'v', label: 'RAG', theme: 'rag' },
+    { id: 'c', r: 1, c: 3, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 3, c: 0, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'e', r: 4, c: 4, len: 2, dir: 'v', label: 'Guard', theme: 'guard' }
+  ],
+  [
+    { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'a', r: 0, c: 1, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 3, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
+    { id: 'c', r: 0, c: 5, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'd', r: 3, c: 0, len: 2, dir: 'v', label: 'Tool', theme: 'tool' },
+    { id: 'e', r: 3, c: 2, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'f', r: 4, c: 4, len: 2, dir: 'v', label: 'Review', theme: 'review' },
+    { id: 'g', r: 1, c: 0, len: 2, dir: 'h', label: 'Token', theme: 'tool' }
+  ],
+  [
+    { id: 'goal', r: 2, c: 1, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'a', r: 0, c: 0, len: 3, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 3, len: 3, dir: 'v', label: 'RAG', theme: 'rag' },
+    { id: 'c', r: 1, c: 1, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 3, c: 0, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'e', r: 4, c: 2, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'f', r: 5, c: 4, len: 2, dir: 'v', label: 'Review', theme: 'review' },
+    { id: 'g', r: 0, c: 5, len: 2, dir: 'v', label: 'Token', theme: 'tool' }
+  ],
+  [
+    { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'a', r: 0, c: 2, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 4, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
+    { id: 'c', r: 1, c: 0, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 3, c: 1, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'e', r: 3, c: 3, len: 3, dir: 'v', label: 'Agent', theme: 'agent' },
+    { id: 'f', r: 4, c: 0, len: 3, dir: 'h', label: 'Review', theme: 'review' },
+    { id: 'g', r: 0, c: 0, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'h', r: 5, c: 3, len: 2, dir: 'h', label: 'CoT', theme: 'prompt' }
+  ],
+  [
+    { id: 'goal', r: 2, c: 2, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 2, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
+    { id: 'c', r: 0, c: 4, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'd', r: 1, c: 1, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
+    { id: 'e', r: 3, c: 0, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'f', r: 4, c: 3, len: 2, dir: 'v', label: 'Review', theme: 'review' },
+    { id: 'g', r: 5, c: 1, len: 2, dir: 'h', label: 'Token', theme: 'tool' },
+    { id: 'h', r: 1, c: 4, len: 2, dir: 'h', label: 'CoT', theme: 'prompt' },
+    { id: 'i', r: 4, c: 5, len: 2, dir: 'v', label: 'API', theme: 'rag' }
+  ],
+  [
+    { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'a', r: 0, c: 1, len: 3, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 4, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
+    { id: 'c', r: 1, c: 0, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 3, c: 2, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'e', r: 3, c: 4, len: 2, dir: 'v', label: 'Agent', theme: 'agent' },
+    { id: 'f', r: 4, c: 0, len: 3, dir: 'h', label: 'Review', theme: 'review' },
+    { id: 'g', r: 0, c: 0, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'h', r: 5, c: 2, len: 2, dir: 'h', label: 'CoT', theme: 'prompt' }
+  ],
+  [
+    { id: 'goal', r: 2, c: 1, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 2, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
+    { id: 'c', r: 0, c: 4, len: 3, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'd', r: 1, c: 1, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
+    { id: 'e', r: 3, c: 0, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'f', r: 3, c: 3, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'g', r: 4, c: 2, len: 2, dir: 'v', label: 'Review', theme: 'review' },
+    { id: 'h', r: 5, c: 0, len: 2, dir: 'h', label: 'CoT', theme: 'prompt' },
+    { id: 'i', r: 1, c: 4, len: 2, dir: 'h', label: 'API', theme: 'rag' }
   ]
 ];
 const shooterRounds = [
   {
     question: '射掉「安全做法」目標（共 3 個）',
+    hint: '只射綠色正確目標，紅色是陷阱。',
     targets: [
       { label: '查證來源', good: true }, { label: '不貼個資', good: true }, { label: '人工審稿', good: true },
       { label: '全信AI', good: false }, { label: '跳過測試', good: false }, { label: '直接上線', good: false }
@@ -1231,9 +1298,36 @@ const shooterRounds = [
   },
   {
     question: '射掉「Prompt 結構」目標（共 3 個）',
+    hint: 'Role / Task / Context 是基本三要素。',
     targets: [
       { label: 'Role', good: true }, { label: 'Task', good: true }, { label: 'Context', good: true },
       { label: '亂寫一段', good: false }, { label: '無限制', good: false }, { label: '不審稿', good: false }
+    ]
+  },
+  {
+    question: '射掉「RAG 流程」目標（共 3 個）',
+    hint: '先查資料、再整理、最後回答。',
+    targets: [
+      { label: '先查資料', good: true }, { label: '整理重點', good: true }, { label: '標註來源', good: true },
+      { label: '憑空捏造', good: false }, { label: '跳過檢索', good: false }, { label: '不標來源', good: false }
+    ]
+  },
+  {
+    question: '射掉「Agent 工具鏈」目標（共 4 個）',
+    hint: '拆步驟、選工具、驗證結果。',
+    targets: [
+      { label: '拆步驟', good: true }, { label: '選對工具', good: true }, { label: '驗證輸出', good: true }, { label: '設定邊界', good: true },
+      { label: '一次全做', good: false }, { label: '無人審核', good: false }, { label: '亂改檔案', good: false }
+    ]
+  },
+  {
+    question: 'Boss 關：快速射掉 5 個「品質把關」目標',
+    hint: '金色目標移動較快，集中火力！',
+    boss: true,
+    targets: [
+      { label: '人工審稿', good: true, boss: true }, { label: '測試案例', good: true, boss: true }, { label: '風險清單', good: true, boss: true },
+      { label: '版本控管', good: true, boss: true }, { label: '回滾計畫', good: true, boss: true },
+      { label: '幻覺放行', good: false }, { label: '跳過測試', good: false }, { label: '直接上線', good: false }, { label: '無人把關', good: false }
     ]
   }
 ];
@@ -1249,7 +1343,7 @@ const modeTimeLimit = {
   drag: 75,
   maze: 0,
   puzzle: 0,
-  shooter: 45
+  shooter: 60
 };
 
 const flipPairs = [
@@ -1276,7 +1370,7 @@ const gameModes = [
   { id: 'flip', label: '🃏 翻牌記憶戰' },
   { id: 'drag', label: '🧲 拖曳配對戰' },
   { id: 'maze', label: '🧩 AI 迷宮' },
-  { id: 'puzzle', label: '🧱 Prompt 拼圖' },
+  { id: 'puzzle', label: '🧱 AI Unblock' },
   { id: 'shooter', label: '🎯 AI 射擊場' }
 ];
 
@@ -1459,6 +1553,128 @@ function initUnblockLevel() {
   unblockMoves = 0;
   unblockDrag = null;
   unblockLevel += 1;
+}
+
+function getUnblockChipTheme(block) {
+  if (block.theme) return block.theme;
+  if (block.goal) return 'goal';
+  var label = (block.label || '').toLowerCase();
+  if (/prompt|cot|token/i.test(block.label)) return 'prompt';
+  if (/rag|api/i.test(block.label)) return 'rag';
+  if (/agent/i.test(block.label)) return 'agent';
+  if (/guard/i.test(block.label)) return 'guard';
+  if (/tool/i.test(block.label)) return 'tool';
+  return 'review';
+}
+
+function shatterTarget(btn, arena, color, onDone) {
+  if (!btn || !arena) { if (onDone) onDone(); return; }
+  btn.classList.add('is-shattering', 'is-hit');
+  var rect = btn.getBoundingClientRect();
+  var arenaRect = arena.getBoundingClientRect();
+  var cx = rect.left - arenaRect.left + rect.width / 2;
+  var cy = rect.top - arenaRect.top + rect.height / 2;
+  var colors = color === 'bad'
+    ? ['#fecdd3', '#fb7185', '#f43f5e', '#fff1f2']
+    : ['#a5f3fc', '#67e8f9', '#22d3ee', '#ecfeff'];
+  for (var i = 0; i < 14; i++) {
+    var shard = document.createElement('span');
+    shard.className = 'target-shard';
+    shard.style.left = cx + 'px';
+    shard.style.top = cy + 'px';
+    shard.style.background = colors[i % colors.length];
+    var angle = (Math.PI * 2 * i) / 14 + (Math.random() * 0.4 - 0.2);
+    var dist = 28 + Math.random() * 42;
+    shard.style.setProperty('--sx', (Math.cos(angle) * dist) + 'px');
+    shard.style.setProperty('--sy', (Math.sin(angle) * dist) + 'px');
+    shard.style.setProperty('--sr', (Math.random() * 360 - 180) + 'deg');
+    arena.appendChild(shard);
+    setTimeout(function(s) { if (s.parentNode) s.parentNode.removeChild(s); }, 560, shard);
+  }
+  var flash = document.createElement('span');
+  flash.className = 'shooter-muzzle-flash';
+  flash.style.left = (cx - 9) + 'px';
+  flash.style.top = (cy - 9) + 'px';
+  arena.appendChild(flash);
+  setTimeout(function() { if (flash.parentNode) flash.parentNode.removeChild(flash); }, 260);
+  setTimeout(function() {
+    if (btn.parentNode) btn.parentNode.removeChild(btn);
+    if (onDone) onDone();
+  }, 380);
+}
+
+function showShooterFloatScore(arena, btn, text) {
+  if (!arena || !btn) return;
+  var rect = btn.getBoundingClientRect();
+  var arenaRect = arena.getBoundingClientRect();
+  var el = document.createElement('span');
+  el.className = 'shooter-float-score';
+  el.textContent = text;
+  el.style.left = (rect.left - arenaRect.left + rect.width / 2 - 16) + 'px';
+  el.style.top = (rect.top - arenaRect.top - 8) + 'px';
+  arena.appendChild(el);
+  setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 720);
+}
+
+function showShooterShotFx(arena, clientX, clientY) {
+  if (!arena) return;
+  var rect = arena.getBoundingClientRect();
+  var x = clientX - rect.left;
+  var y = clientY - rect.top;
+  var flash = document.createElement('span');
+  flash.className = 'shooter-muzzle-flash';
+  flash.style.left = (x - 9) + 'px';
+  flash.style.top = (y - 9) + 'px';
+  arena.appendChild(flash);
+  var ripple = document.createElement('span');
+  ripple.className = 'shooter-shot-ripple';
+  ripple.style.left = x + 'px';
+  ripple.style.top = y + 'px';
+  arena.appendChild(ripple);
+  setTimeout(function() {
+    if (flash.parentNode) flash.parentNode.removeChild(flash);
+    if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+  }, 480);
+}
+
+function bindShooterArena(arena, onMiss) {
+  var cursor = document.createElement('div');
+  cursor.className = 'shooter-aim-cursor';
+  cursor.innerHTML = '<span class="shooter-aim-ring"></span><span class="shooter-aim-dot"></span>';
+  arena.appendChild(cursor);
+  arena.classList.add('is-active');
+
+  function moveAim(clientX, clientY) {
+    var rect = arena.getBoundingClientRect();
+    cursor.style.left = (clientX - rect.left) + 'px';
+    cursor.style.top = (clientY - rect.top) + 'px';
+    cursor.style.opacity = '1';
+  }
+
+  arena.addEventListener('mousemove', function(e) { moveAim(e.clientX, e.clientY); });
+  arena.addEventListener('mouseleave', function() { cursor.style.opacity = '0'; });
+  arena.addEventListener('touchstart', function(e) {
+    if (e.touches[0]) moveAim(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  arena.addEventListener('touchmove', function(e) {
+    if (e.touches[0]) moveAim(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+
+  arena.addEventListener('click', function(e) {
+    if (e.target.closest('.target-dot') || e.target.closest('.target-float')) return;
+    showShooterShotFx(arena, e.clientX, e.clientY);
+    if (onMiss) onMiss();
+  });
+}
+
+function placeShooterTarget(round, idx) {
+  var speedClass = round.boss ? 'target-float--fast' : (idx % 3 === 0 ? 'target-float--slow' : (idx % 3 === 1 ? '' : 'target-float--fast'));
+  var dx = (Math.random() > 0.5 ? 1 : -1) * (8 + Math.random() * 16);
+  var dy = (Math.random() > 0.5 ? 1 : -1) * (6 + Math.random() * 12);
+  var dur = round.boss ? (1.8 + Math.random() * 0.8) : (2.4 + Math.random() * 1.6);
+  var tx = 6 + Math.random() * 72;
+  var ty = 16 + Math.random() * 68;
+  return { tx: tx, ty: ty, dx: dx, dy: dy, dur: dur, speedClass: speedClass };
 }
 
 function tryMoveMaze(dr, dc) {
@@ -1913,24 +2129,27 @@ function renderGame() {
       vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-violet-50 border border-violet-200 text-center"><p class="text-2xl font-black text-violet-700">🧱 解路成功！</p><p class="text-sm font-bold text-violet-700 mt-1">第 ' + unblockLevel + ' 關完成</p><p class="star-row mt-2">星等：' + buildStarsByRatio(unblockMoves <= 10 ? 1 : unblockMoves <= 16 ? 0.72 : 0.55) + '</p><p class="text-sm text-slate-700 mt-1">拖曳步數：' + unblockMoves + '</p><p class="text-sm text-violet-700 mt-1">學到：先排障礙，再讓主任務通關（像做專案一樣）。</p><p class="text-sm text-slate-700 mt-3 font-bold">要進行下一關嗎？</p><div class="mt-3 grid sm:grid-cols-2 gap-2"><button type="button" class="p-3 rounded-xl bg-violet-600 text-white font-bold" onclick="initUnblockLevel();renderGame()">✅ 下一關</button><button type="button" class="p-3 rounded-xl bg-slate-100 text-slate-800 font-bold" onclick="initUnblockLevel();renderGame()">🎲 換一關</button></div></div>';
       return;
     }
-    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI Unblock：拖曳方塊幫「AI包」找出口</h3><p class="text-sm text-slate-500">滑鼠拖曳方塊，只能沿著方塊方向移動。目標：讓 AI包 往右邊出口離開。</p><div id="unblock-board" class="unblock-board mt-4"></div><p class="text-sm mt-3 text-slate-600">提示：卡住時先移「Review / Guard」等擋路方塊。</p>';
+    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI Unblock：拖曳方塊幫「AI包」找出口</h3><p class="text-sm text-slate-500">滑鼠或手指拖曳方塊，只能沿著方塊方向移動。目標：讓 AI包 往右邊發光出口離開。</p><div id="unblock-board" class="unblock-board mt-4"></div><p class="text-sm mt-3 text-slate-600">第 <strong>' + unblockLevel + '</strong> 關｜方塊數 <strong>' + unblockBlocks.length + '</strong>｜提示：先移 Review / Guard 等擋路方塊。</p>';
     var board = document.getElementById('unblock-board');
+    var badge = document.createElement('div');
+    badge.className = 'unblock-level-badge';
+    badge.textContent = '第 ' + unblockLevel + ' 關';
+    board.appendChild(badge);
     var boardRect = board.getBoundingClientRect();
     var cell = boardRect.width / 6;
     unblockBlocks.forEach(function(b) {
       var el = document.createElement('div');
-      el.className = 'unblock-chip absolute rounded-lg border font-black text-xs flex items-center justify-center select-none cursor-grab';
-      el.style.left = (b.c * cell + 4) + 'px';
-      el.style.top = (b.r * cell + 4) + 'px';
-      el.style.width = ((b.dir === 'h' ? b.len : 1) * cell - 8) + 'px';
-      el.style.height = ((b.dir === 'v' ? b.len : 1) * cell - 8) + 'px';
-      el.style.background = b.goal ? 'linear-gradient(135deg,#fef3c7,#fde68a)' : 'linear-gradient(135deg,#e0e7ff,#ede9fe)';
-      el.style.borderColor = b.goal ? '#f59e0b' : '#8b5cf6';
-      el.style.color = b.goal ? '#92400e' : '#4c1d95';
+      var theme = getUnblockChipTheme(b);
+      el.className = 'unblock-chip unblock-chip--' + theme + ' absolute rounded-xl border font-black text-xs flex items-center justify-center select-none cursor-grab active:cursor-grabbing';
+      el.style.left = (b.c * cell + 6) + 'px';
+      el.style.top = (b.r * cell + 6) + 'px';
+      el.style.width = ((b.dir === 'h' ? b.len : 1) * cell - 12) + 'px';
+      el.style.height = ((b.dir === 'v' ? b.len : 1) * cell - 12) + 'px';
       el.textContent = b.label;
       el.onpointerdown = function(e) {
         e.preventDefault();
         unblockDrag = { id: b.id, sx: e.clientX, sy: e.clientY, sc: b.c, sr: b.r };
+        el.classList.add('is-dragging');
         el.setPointerCapture(e.pointerId);
       };
       el.onpointermove = function(e) {
@@ -1941,6 +2160,7 @@ function renderGame() {
       };
       el.onpointerup = function(e) {
         if (!unblockDrag || unblockDrag.id !== b.id) return;
+        el.classList.remove('is-dragging');
         var dx = e.clientX - unblockDrag.sx;
         var dy = e.clientY - unblockDrag.sy;
         var step = Math.round((b.dir === 'h' ? dx : dy) / cell);
@@ -1964,80 +2184,113 @@ function renderGame() {
           if (!canMove(tr, tc)) break;
           nextC = tc; nextR = tr;
         }
+        var moved = nextC !== unblockDrag.sc || nextR !== unblockDrag.sr;
         b.c = nextC; b.r = nextR;
         el.style.transform = '';
         unblockDrag = null;
-        unblockMoves += 1;
-        registerGameResult(true);
+        if (moved) {
+          unblockMoves += 1;
+          registerGameResult(true);
+        }
         renderGame();
       };
       board.appendChild(el);
     });
     var exit = document.createElement('div');
-    exit.className = 'absolute text-xs font-black text-amber-700';
-    exit.style.right = '2px'; exit.style.top = (2 * cell + cell / 2 - 8) + 'px';
-    exit.textContent = 'EXIT ➜';
+    exit.className = 'unblock-exit';
+    exit.style.top = (2 * cell + 6) + 'px';
+    exit.style.height = (cell - 12) + 'px';
+    exit.textContent = 'EXIT';
     board.appendChild(exit);
   } else if (gameMode === 'shooter') {
     setGameMeter(modeTimeLimit.shooter ? ((modeTimeLimit.shooter - Math.max(0, gameTimeLeft)) / modeTimeLimit.shooter) * 100 : 0);
     if (score) score.textContent = String(shooterHits * 100);
     if (shooterRoundIdx >= shooterRounds.length) {
       var ratio = (shooterHits + shooterMiss) ? (shooterHits / (shooterHits + shooterMiss)) : 0;
-      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-cyan-50 border border-cyan-200 text-center"><p class="text-2xl font-black text-cyan-700">🎯 射擊任務完成！</p><p class="star-row mt-2">星等：' + buildStarsByRatio(ratio) + '</p><p class="text-sm text-slate-700 mt-1">命中：' + shooterHits + '｜失誤：' + shooterMiss + '</p><button type="button" class="mt-4 w-full p-3 rounded-xl bg-cyan-600 text-white font-bold" onclick="shooterRoundIdx=0;shooterHits=0;shooterMiss=0;shooterRoundDone=0;renderGame()">再玩一次</button></div>';
+      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-cyan-50 border border-cyan-200 text-center"><p class="text-2xl font-black text-cyan-700">🎯 射擊任務完成！</p><p class="text-sm font-bold text-cyan-800 mt-1">5 關全破（含 Boss 關）</p><p class="star-row mt-2">星等：' + buildStarsByRatio(ratio) + '</p><p class="text-sm text-slate-700 mt-1">命中：' + shooterHits + '｜失誤：' + shooterMiss + '</p><button type="button" class="mt-4 w-full p-3 rounded-xl bg-cyan-600 text-white font-bold" onclick="shooterRoundIdx=0;shooterHits=0;shooterMiss=0;shooterRoundDone=0;shooterRoundNeed=0;renderGame()">再玩一次</button></div>';
       return;
     }
     var round = shooterRounds[shooterRoundIdx];
     if (!shooterRoundNeed) shooterRoundNeed = round.targets.filter(function(t) { return t.good; }).length;
     if (prog) prog.textContent = '第 ' + (shooterRoundIdx + 1) + ' 關：' + round.question;
-    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI 射擊場：' + round.question + '</h3><p class="text-sm text-slate-500">只射正確目標；射錯會扣連擊。</p><div id="shooter-arena" class="shooter-arena mt-4"></div><p class="text-sm mt-3 text-slate-600">本關進度：<strong>' + shooterRoundDone + '/' + shooterRoundNeed + '</strong> ｜ 命中：<strong>' + shooterHits + '</strong> ｜ 失誤：<strong>' + shooterMiss + '</strong></p>';
+    var roundTag = round.boss ? '<span class="inline-block ml-2 px-2 py-0.5 rounded-full text-xs font-black bg-amber-100 text-amber-800">BOSS</span>' : '';
+    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI 射擊場：' + round.question + roundTag + '</h3><p class="text-sm text-slate-600">' + (round.hint || '移動準星瞄準，點擊射擊正確目標。') + ' 空放會扣連擊。</p><div class="shooter-wrap mt-4"><div id="shooter-arena" class="shooter-arena" aria-label="射擊場，滑鼠移入顯示準星"><div class="shooter-hud-bar">🎯 進場內移動滑鼠瞄準｜進度 ' + shooterRoundDone + '/' + shooterRoundNeed + '</div></div></div><p class="text-sm mt-3 text-slate-600">命中：<strong>' + shooterHits + '</strong> ｜ 失誤：<strong>' + shooterMiss + '</strong></p>';
     var arena = document.getElementById('shooter-arena');
+    var shooterBusy = false;
     var placed = [];
     round.targets.forEach(function(t, idx) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'target-dot';
-      btn.textContent = t.label;
-      btn.style.fontSize = '0.65rem';
-      var tries = 0; var okPos = false; var tx = 0; var ty = 0;
-      while (!okPos && tries < 25) {
-        tx = 4 + Math.random() * 84; ty = 6 + Math.random() * 78; okPos = true;
+      var pos = placeShooterTarget(round, idx);
+      var tries = 0;
+      while (tries < 40) {
+        var overlap = false;
         for (var p = 0; p < placed.length; p++) {
-          if (Math.abs(placed[p].x - tx) < 12 && Math.abs(placed[p].y - ty) < 14) { okPos = false; break; }
+          if (Math.abs(placed[p].x - pos.tx) < 20 && Math.abs(placed[p].y - pos.ty) < 18) { overlap = true; break; }
         }
+        if (!overlap) break;
+        pos = placeShooterTarget(round, idx);
         tries++;
       }
-      placed.push({ x: tx, y: ty });
-      btn.style.left = tx + '%'; btn.style.top = ty + '%';
+      placed.push({ x: pos.tx, y: pos.ty });
+
+      var wrap = document.createElement('div');
+      wrap.className = 'target-float ' + pos.speedClass;
+      wrap.style.left = pos.tx + '%';
+      wrap.style.top = pos.ty + '%';
+      wrap.style.setProperty('--dx', pos.dx + 'px');
+      wrap.style.setProperty('--dy', pos.dy + 'px');
+      wrap.style.setProperty('--drift-dur', pos.dur + 's');
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      var cls = 'target-dot ' + (t.boss ? 'target-dot--boss' : (t.good ? 'target-dot--good' : 'target-dot--bad'));
+      btn.className = cls;
+      btn.textContent = t.label;
+      btn.setAttribute('aria-label', (t.good ? '可射目標：' : '陷阱目標：') + t.label);
+      btn.onpointerdown = function(e) { e.stopPropagation(); };
       btn.onclick = function(e) {
         e.stopPropagation();
-        if (btn.disabled) return;
+        if (btn.disabled || shooterBusy) return;
+        shooterBusy = true;
         btn.disabled = true;
+        showShooterShotFx(arena, e.clientX, e.clientY);
         if (t.good) {
-          btn.style.opacity = '0.35';
-          shooterHits += 1;
-          shooterRoundDone += 1;
-          registerGameResult(true);
-          showGameFx('🎯 命中正確目標', 'good');
-          if (shooterRoundDone >= shooterRoundNeed) {
-            shooterRoundIdx += 1;
-            shooterRoundDone = 0;
-            shooterRoundNeed = 0;
-          }
+          showShooterFloatScore(arena, btn, '+100');
+          shatterTarget(btn, arena, 'good', function() {
+            if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
+            shooterHits += 1;
+            shooterRoundDone += 1;
+            registerGameResult(true);
+            showGameFx('🎯 命中！', 'good');
+            if (score) score.textContent = String(shooterHits * 100);
+            if (shooterRoundDone >= shooterRoundNeed) {
+              shooterRoundIdx += 1;
+              shooterRoundDone = 0;
+              shooterRoundNeed = 0;
+            }
+            shooterBusy = false;
+            renderGame();
+          });
         } else {
-          shooterMiss += 1;
-          registerGameResult(false);
-          showGameFx('💥 射錯了，這不是目標', 'bad');
+          shatterTarget(btn, arena, 'bad', function() {
+            if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
+            shooterMiss += 1;
+            registerGameResult(false);
+            showGameFx('💥 射錯目標', 'bad');
+            shooterBusy = false;
+            renderGame();
+          });
         }
-        renderGame();
       };
-      arena.appendChild(btn);
+      wrap.appendChild(btn);
+      arena.appendChild(wrap);
     });
-    arena.onclick = function() {
+    bindShooterArena(arena, function() {
+      if (shooterBusy) return;
       shooterMiss += 1;
       registerGameResult(false);
-      showGameFx('空槍，請瞄準指定目標', 'bad');
+      showGameFx('空槍！瞄準再射', 'bad');
       renderGame();
-    };
+    });
   }
 }
 
