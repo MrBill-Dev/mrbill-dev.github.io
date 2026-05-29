@@ -8,6 +8,7 @@
   <script src="js/components-loader.js"></script>
   <script src="js/site-config.js"></script>
   <script src="js/photography-data.js"></script>
+  <script src="js/photography-composition-atlas.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -72,6 +73,321 @@
     @media (min-width: 768px) {
       .fab-close { right: 0.8rem; bottom: 7.8rem; }
     }
+    /* 構圖圖解圖鑑（無照片） */
+    .comp-atlas {
+      background: linear-gradient(180deg, #faf5ff 0%, #fff 100%);
+      border: 1px solid #e9d5ff;
+      border-radius: 1.25rem;
+      padding: 1.25rem 1.35rem 1.35rem;
+      box-shadow: 0 4px 20px rgba(88, 28, 135, 0.06);
+    }
+    .comp-atlas-head { margin-bottom: 1.1rem; }
+    .comp-atlas-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #4c1d95;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.35rem;
+    }
+    .comp-atlas-sub {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.65;
+      max-width: 42rem;
+    }
+    .comp-atlas-group { margin-top: 1.15rem; }
+    .comp-atlas-group-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.35rem 0.75rem;
+      margin-bottom: 0.65rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #ede9fe;
+    }
+    .comp-atlas-group-label {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #5b21b6;
+      margin: 0;
+    }
+    .comp-atlas-group-desc {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #94a3b8;
+      margin: 0;
+    }
+    .comp-atlas-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    @media (min-width: 640px) {
+      .comp-atlas-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .comp-atlas-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .comp-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.85rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .comp-diagram {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(160deg, #94a3b8 0%, #64748b 45%, #475569 100%);
+      overflow: hidden;
+    }
+    .comp-grid-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.55) 1px, transparent 1px);
+      background-size: 33.333% 33.333%;
+      opacity: 0.85;
+    }
+    .comp-diagram--center .comp-grid-lines,
+    .comp-diagram--symmetry .comp-grid-lines,
+    .comp-diagram--negative .comp-grid-lines { opacity: 0.35; }
+    .comp-subject {
+      position: absolute;
+      z-index: 2;
+      background: #f59e0b;
+      border: 2px solid #fff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    }
+    .comp-subject--dot {
+      width: 18%;
+      height: 18%;
+      min-width: 2rem;
+      min-height: 2rem;
+      border-radius: 9999px;
+    }
+    .comp-subject--rect {
+      width: 22%;
+      height: 38%;
+      border-radius: 0.35rem;
+    }
+    .comp-subject--tall {
+      width: 16%;
+      height: 52%;
+      border-radius: 0.4rem;
+      bottom: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      top: auto;
+    }
+    .comp-target-tag {
+      position: absolute;
+      z-index: 3;
+      font-size: 0.6rem;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(15, 23, 42, 0.65);
+      padding: 2px 6px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .comp-diagram--thirds-tr .comp-subject { top: 22%; right: 10%; width: 20%; height: 20%; border-radius: 9999px; }
+    .comp-diagram--thirds-tr .comp-target-tag { top: 20%; right: 8%; }
+    .comp-diagram--center .comp-subject { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 22%; height: 22%; border-radius: 9999px; }
+    .comp-diagram--center .comp-target-tag { top: 50%; left: 50%; transform: translate(-50%, -160%); }
+    .comp-diagram--symmetry::before,
+    .comp-diagram--symmetry::after {
+      content: "";
+      position: absolute;
+      top: 15%;
+      bottom: 15%;
+      width: 38%;
+      z-index: 1;
+      border-radius: 0.25rem;
+    }
+    .comp-diagram--symmetry::before { left: 8%; background: #818cf8; opacity: 0.9; }
+    .comp-diagram--symmetry::after { right: 8%; background: #818cf8; opacity: 0.9; }
+    .comp-diagram--symmetry .comp-subject { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10%; height: 70%; border-radius: 2px; background: #fff; }
+    .comp-diagram--leading::before,
+    .comp-diagram--leading::after {
+      content: "";
+      position: absolute;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.75);
+      z-index: 1;
+      border-radius: 2px;
+    }
+    .comp-diagram--leading::before { width: 75%; left: 5%; bottom: 18%; transform: rotate(-18deg); transform-origin: left bottom; }
+    .comp-diagram--leading::after { width: 55%; left: 22%; bottom: 38%; transform: rotate(-32deg); transform-origin: left bottom; }
+    .comp-diagram--leading .comp-subject { top: 12%; right: 14%; width: 22%; height: 22%; border-radius: 9999px; }
+    .comp-diagram--leading .comp-target-tag { top: 10%; right: 12%; }
+    .comp-diagram--frame::before {
+      content: "";
+      position: absolute;
+      inset: 14% 18%;
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      border-radius: 4px;
+      z-index: 1;
+      box-shadow: inset 0 0 0 999px rgba(15, 23, 42, 0.25);
+    }
+    .comp-diagram--frame .comp-subject { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 18%; height: 18%; border-radius: 9999px; }
+    .comp-diagram--negative { background: linear-gradient(180deg, #cbd5e1, #94a3b8); }
+    .comp-diagram--negative .comp-subject { bottom: 14%; left: 12%; width: 14%; height: 14%; border-radius: 9999px; }
+    .comp-diagram--negative .comp-target-tag { bottom: 12%; left: 10%; }
+    .comp-diagram--horizon-low::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 33.333%;
+      height: 2px;
+      background: #fef08a;
+      z-index: 2;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+    }
+    .comp-diagram--horizon-low .comp-subject { bottom: 8%; left: 50%; transform: translateX(-50%); width: 28%; height: 18%; border-radius: 0.35rem; background: #22c55e; }
+    .comp-diagram--horizon-high::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 66.666%;
+      height: 2px;
+      background: #fef08a;
+      z-index: 2;
+    }
+    .comp-diagram--horizon-high { background: linear-gradient(180deg, #38bdf8 0%, #38bdf8 40%, #78716c 40%); }
+    .comp-diagram--horizon-high .comp-subject { display: none; }
+    .comp-diagram--layers .comp-layer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 1;
+    }
+    .comp-diagram--layers .comp-layer--fg { bottom: 0; height: 28%; background: #166534; }
+    .comp-diagram--layers .comp-layer--mid { bottom: 28%; height: 32%; background: #4d7c0f; opacity: 0.85; }
+    .comp-diagram--layers .comp-layer--bg { top: 0; bottom: 60%; background: #64748b; }
+    .comp-diagram--layers .comp-subject { bottom: 6%; left: 18%; width: 16%; height: 16%; border-radius: 9999px; z-index: 2; }
+    .comp-diagram--s-curve::before {
+      content: "";
+      position: absolute;
+      width: 80%;
+      height: 55%;
+      left: 10%;
+      bottom: 8%;
+      border: 3px solid rgba(255, 255, 255, 0.7);
+      border-color: transparent transparent rgba(255,255,255,0.75) transparent;
+      border-radius: 0 0 50% 50%;
+      z-index: 1;
+    }
+    .comp-diagram--s-curve .comp-subject { top: 15%; right: 15%; width: 18%; height: 18%; border-radius: 9999px; }
+    .comp-diagram--triangle::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 58%, rgba(255,255,255,0.2) 58%);
+      clip-path: polygon(50% 18%, 82% 78%, 18% 78%);
+      background-color: rgba(129, 140, 248, 0.35);
+      z-index: 1;
+    }
+    .comp-diagram--triangle .comp-subject { top: 20%; left: 50%; transform: translateX(-50%); width: 14%; height: 14%; border-radius: 9999px; }
+    .comp-diagram--eyes-third .comp-subject { top: 28%; left: 50%; transform: translateX(-50%); width: 24%; height: 16%; border-radius: 9999px; }
+    .comp-diagram--headroom .comp-subject { bottom: 12%; left: 50%; transform: translateX(-50%); width: 22%; height: 28%; border-radius: 0.5rem; }
+    .comp-diagram--headroom::before {
+      content: "";
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 22%;
+      border: 2px dashed rgba(255,255,255,0.5);
+      border-radius: 0.35rem;
+    }
+    .comp-diagram--gaze-right .comp-subject { top: 35%; left: 22%; width: 20%; height: 20%; border-radius: 9999px; }
+    .comp-diagram--gaze-right::after {
+      content: "→";
+      position: absolute;
+      top: 38%;
+      right: 18%;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.85);
+      z-index: 2;
+    }
+    .comp-diagram--fullbody .comp-subject { bottom: 6%; left: 50%; transform: translateX(-50%); width: 16%; height: 55%; border-radius: 0.35rem; }
+    .comp-diagram--moment .comp-subject { top: 40%; left: 45%; width: 20%; height: 20%; border-radius: 9999px; }
+    .comp-diagram--moment::before,
+    .comp-diagram--moment::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-top: 3px solid #fde047;
+      border-right: 3px solid #fde047;
+      z-index: 2;
+    }
+    .comp-diagram--moment::before { top: 32%; left: 38%; transform: rotate(45deg); }
+    .comp-diagram--moment::after { top: 48%; left: 52%; transform: rotate(-135deg); }
+    .comp-diagram--doc-fg .comp-subject { bottom: 5%; left: 8%; width: 32%; height: 42%; border-radius: 0.35rem; background: #ea580c; }
+    .comp-diagram--doc-fg::before {
+      content: "";
+      position: absolute;
+      top: 20%;
+      right: 10%;
+      width: 22%;
+      height: 22%;
+      background: #fbbf24;
+      border-radius: 9999px;
+      z-index: 1;
+      opacity: 0.9;
+    }
+    .comp-diagram--scale .comp-subject { bottom: 20%; left: 12%; width: 10%; height: 10%; border-radius: 9999px; }
+    .comp-diagram--scale::before {
+      content: "";
+      position: absolute;
+      top: 10%;
+      right: 8%;
+      width: 45%;
+      height: 55%;
+      background: #6366f1;
+      opacity: 0.5;
+      border-radius: 0.35rem;
+      z-index: 1;
+    }
+    .comp-diagram--edges::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 2px dashed rgba(248, 113, 113, 0.85);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .comp-diagram--edges .comp-subject { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20%; height: 20%; border-radius: 9999px; }
+    .comp-card-body { padding: 0.65rem 0.75rem 0.75rem; flex: 1; }
+    .comp-card-name { margin: 0 0 0.25rem; font-size: 0.88rem; font-weight: 900; color: #0f172a; }
+    .comp-card-goal { margin: 0 0 0.35rem; font-size: 0.78rem; line-height: 1.55; color: #475569; }
+    .comp-card-goal strong { color: #7c3aed; font-weight: 800; }
+    .comp-card-tip { margin: 0; font-size: 0.72rem; color: #94a3b8; font-weight: 600; }
+    .comp-atlas--lesson {
+      margin-top: 0;
+      padding: 1rem 1.1rem;
+    }
+    .comp-atlas--lesson .comp-atlas-group { margin-top: 0.9rem; }
+    .comp-atlas--lesson .comp-atlas-group:first-child { margin-top: 0; }
+    .comp-atlas--lesson .comp-atlas-grid { gap: 0.6rem; }
+    .comp-atlas--lesson .comp-card-body { padding: 0.5rem 0.65rem 0.6rem; }
+    .comp-atlas--lesson .comp-card-caption {
+      margin: 0;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      color: #64748b;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
@@ -100,6 +416,7 @@
       <div id="photo-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
       <div id="photo-preface-steps" class="grid grid-cols-1 gap-3 text-sm lg:grid-cols-1"></div>
     </div>
+
     <div id="intro-lighting-block" class="hidden bg-gradient-to-r from-amber-50 to-yellow-50 p-6 md:p-8 rounded-2xl border border-amber-200 fade-in-up preface-split">
       <h3 id="lighting-preface-title" class="preface-split-title text-xl font-black text-amber-950"></h3>
       <div id="lighting-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
@@ -325,6 +642,8 @@
             <p id="lesson-chapter-text" class="text-slate-700 text-base leading-relaxed font-medium"></p>
           </div>
 
+          <div id="lesson-composition-atlas" class="hidden comp-atlas comp-atlas--lesson" aria-label="構圖色塊圖解"></div>
+
           <div id="lesson-tier-cards" class="space-y-6">
             <div class="bg-emerald-50/40 p-6 rounded-3xl border border-emerald-100/60 space-y-2">
               <span class="inline-block px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-sm font-bold tracking-wide">🌱 入門 · 兒童趣味比喻</span>
@@ -480,6 +799,47 @@
         w.style.opacity = active === 'all' || active === k ? '1' : '0.35';
         w.querySelector('input').disabled = active !== 'all' && active !== k;
       });
+    }
+
+    function buildCompDiagram(variant) {
+      var layersHtml = '';
+      if (variant === 'layers') {
+        layersHtml = '<span class="comp-layer comp-layer--bg"></span><span class="comp-layer comp-layer--mid"></span><span class="comp-layer comp-layer--fg"></span>';
+      }
+      return `<div class="comp-diagram comp-diagram--${variant}">
+        <span class="comp-grid-lines"></span>
+        ${layersHtml}
+        <span class="comp-subject"></span>
+        <span class="comp-target-tag">主體</span>
+      </div>`;
+    }
+
+    function renderCompositionAtlas(mountEl, lessonMode) {
+      var mount = mountEl || document.getElementById('lesson-composition-atlas');
+      if (!mount || typeof compositionAtlas === 'undefined') return;
+      var groupsHtml = (compositionAtlas.groups || []).map(function (g) {
+        var cards = (g.items || []).map(function (item) {
+          var body = lessonMode
+            ? `<h5 class="comp-card-name">${item.name}</h5><p class="comp-card-caption">${item.goal}</p>`
+            : `<h5 class="comp-card-name">${item.name}</h5>
+              <p class="comp-card-goal"><strong>目標：</strong>${item.goal}</p>
+              <p class="comp-card-tip">💡 ${item.tip}</p>`;
+          return `<article class="comp-card">${buildCompDiagram(item.variant)}<div class="comp-card-body">${body}</div></article>`;
+        }).join('');
+        var groupDesc = lessonMode ? '' : `<p class="comp-atlas-group-desc">${g.desc}</p>`;
+        return `<div class="comp-atlas-group">
+          <div class="comp-atlas-group-head">
+            <h4 class="comp-atlas-group-label">${g.label}</h4>
+            ${groupDesc}
+          </div>
+          <div class="comp-atlas-grid">${cards}</div>
+        </div>`;
+      }).join('');
+      var headHtml = lessonMode ? '' : `<div class="comp-atlas-head">
+          <h3 class="comp-atlas-title">📐 ${compositionAtlas.title}</h3>
+          <p class="comp-atlas-sub">${compositionAtlas.subtitle}</p>
+        </div>`;
+      mount.innerHTML = headHtml + groupsHtml;
     }
 
     function renderPrefaces() {
@@ -718,15 +1078,22 @@
         document.getElementById('photo-hard').textContent = lesson.hard;
         document.getElementById('photo-ui-tip').textContent = lesson.tip;
         const hideTheoryCards = lesson.hideTheoryCards === true;
+        const hideTierCards = lesson.hideTierCards === true;
         const chapterReadBox = document.getElementById('lesson-chapter-read');
         const tierCards = document.getElementById('lesson-tier-cards');
         const tipCard = document.getElementById('lesson-tip-card');
-        if (chapterReadBox) chapterReadBox.classList.toggle('hidden', hideTheoryCards);
-        if (tierCards) tierCards.classList.toggle('hidden', hideTheoryCards);
+        const lessonAtlas = document.getElementById('lesson-composition-atlas');
+        if (chapterReadBox) chapterReadBox.classList.toggle('hidden', hideTheoryCards && !lesson.chapterRead);
+        if (tierCards) tierCards.classList.toggle('hidden', hideTheoryCards || hideTierCards);
         if (tipCard) tipCard.classList.toggle('hidden', hideTheoryCards);
+        if (lessonAtlas) {
+          var showAtlas = key === 'photo_composition';
+          lessonAtlas.classList.toggle('hidden', !showAtlas);
+          if (showAtlas) renderCompositionAtlas(lessonAtlas, true);
+        }
         updateMediumLabel(key, lesson);
         updatePathwayIntro(key);
-        if (!hideTheoryCards) showChapterRead(lesson);
+        if (!hideTheoryCards || lesson.chapterRead) showChapterRead(lesson);
 
         resetAllSandboxPanels();
         currentActiveMode = lesson.mode;
