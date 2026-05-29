@@ -1667,14 +1667,64 @@ function bindShooterArena(arena, onMiss) {
   });
 }
 
-function placeShooterTarget(round, idx) {
+function getShooterLayout(arena) {
+  var vp = document.getElementById('game-board-viewport');
+  var w = arena.offsetWidth || arena.getBoundingClientRect().width || (vp ? vp.clientWidth : 0) || Math.min(window.innerWidth - 40, 360);
+  var h = arena.offsetHeight || arena.getBoundingClientRect().height || 320;
+  var mobile = w < 640;
+  var targetW = mobile ? 76 : 104;
+  var targetH = mobile ? 42 : 54;
+  return {
+    mobile: mobile,
+    w: w,
+    h: h,
+    targetW: targetW,
+    targetH: targetH,
+    padX: mobile ? 4 : 10,
+    padTop: mobile ? 40 : 44,
+    padBottom: mobile ? 6 : 10,
+    driftMax: mobile ? 4 : 11
+  };
+}
+
+function clampShooterDrift(tx, ty, dx, dy, layout) {
+  var minX = layout.padX;
+  var maxX = Math.max(minX, layout.w - layout.targetW - layout.padX);
+  var minY = layout.padTop;
+  var maxY = Math.max(minY, layout.h - layout.targetH - layout.padBottom);
+  tx = Math.max(minX, Math.min(maxX, tx));
+  ty = Math.max(minY, Math.min(maxY, ty));
+  var dxLo = minX - tx;
+  var dxHi = maxX - tx;
+  var dyLo = minY - ty;
+  var dyHi = maxY - ty;
+  dx = Math.max(dxLo, Math.min(dxHi, dx));
+  dy = Math.max(dyLo, Math.min(dyHi, dy));
+  return { tx: tx, ty: ty, dx: dx, dy: dy };
+}
+
+function placeShooterTarget(round, idx, layout) {
   var speedClass = round.boss ? 'target-float--fast' : (idx % 3 === 0 ? 'target-float--slow' : (idx % 3 === 1 ? '' : 'target-float--fast'));
-  var dx = (Math.random() > 0.5 ? 1 : -1) * (8 + Math.random() * 16);
-  var dy = (Math.random() > 0.5 ? 1 : -1) * (6 + Math.random() * 12);
-  var dur = round.boss ? (1.8 + Math.random() * 0.8) : (2.4 + Math.random() * 1.6);
-  var tx = 6 + Math.random() * 72;
-  var ty = 16 + Math.random() * 68;
-  return { tx: tx, ty: ty, dx: dx, dy: dy, dur: dur, speedClass: speedClass };
+  var driftMax = layout.driftMax * (round.boss ? 1.15 : 1);
+  var minX = layout.padX;
+  var maxX = Math.max(minX, layout.w - layout.targetW - layout.padX);
+  var minY = layout.padTop;
+  var maxY = Math.max(minY, layout.h - layout.targetH - layout.padBottom);
+  var tx = minX + Math.random() * Math.max(1, maxX - minX);
+  var ty = minY + Math.random() * Math.max(1, maxY - minY);
+  var dx = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * driftMax);
+  var dy = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * driftMax);
+  var clamped = clampShooterDrift(tx, ty, dx, dy, layout);
+  var dur = round.boss ? (2 + Math.random() * 0.6) : (2.6 + Math.random() * 1.4);
+  if (layout.mobile) dur += 0.4;
+  return {
+    tx: clamped.tx,
+    ty: clamped.ty,
+    dx: clamped.dx,
+    dy: clamped.dy,
+    dur: dur,
+    speedClass: speedClass
+  };
 }
 
 function tryMoveMaze(dr, dc) {
@@ -2217,25 +2267,34 @@ function renderGame() {
     vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI 射擊場：' + round.question + roundTag + '</h3><p class="text-sm text-slate-600">' + (round.hint || '移動準星瞄準，點擊射擊正確目標。') + ' 空放會扣連擊。</p><div class="shooter-wrap mt-4"><div id="shooter-arena" class="shooter-arena" aria-label="射擊場，滑鼠移入顯示準星"><div class="shooter-hud-bar">🎯 進場內移動滑鼠瞄準｜進度 ' + shooterRoundDone + '/' + shooterRoundNeed + '</div></div></div><p class="text-sm mt-3 text-slate-600">命中：<strong>' + shooterHits + '</strong> ｜ 失誤：<strong>' + shooterMiss + '</strong></p>';
     var arena = document.getElementById('shooter-arena');
     var shooterBusy = false;
+    var shooterLayout = getShooterLayout(arena);
+    var hudText = shooterLayout.mobile
+      ? '🎯 手指移動瞄準｜' + shooterRoundDone + '/' + shooterRoundNeed
+      : '🎯 進場內移動滑鼠瞄準｜進度 ' + shooterRoundDone + '/' + shooterRoundNeed;
+    arena.querySelector('.shooter-hud-bar').textContent = hudText;
     var placed = [];
     round.targets.forEach(function(t, idx) {
-      var pos = placeShooterTarget(round, idx);
+      var pos = placeShooterTarget(round, idx, shooterLayout);
       var tries = 0;
-      while (tries < 40) {
+      while (tries < 50) {
         var overlap = false;
         for (var p = 0; p < placed.length; p++) {
-          if (Math.abs(placed[p].x - pos.tx) < 20 && Math.abs(placed[p].y - pos.ty) < 18) { overlap = true; break; }
+          if (Math.abs(placed[p].x - pos.tx) < shooterLayout.targetW * 0.88 &&
+              Math.abs(placed[p].y - pos.ty) < shooterLayout.targetH * 0.92) {
+            overlap = true;
+            break;
+          }
         }
         if (!overlap) break;
-        pos = placeShooterTarget(round, idx);
+        pos = placeShooterTarget(round, idx, shooterLayout);
         tries++;
       }
       placed.push({ x: pos.tx, y: pos.ty });
 
       var wrap = document.createElement('div');
       wrap.className = 'target-float ' + pos.speedClass;
-      wrap.style.left = pos.tx + '%';
-      wrap.style.top = pos.ty + '%';
+      wrap.style.left = pos.tx + 'px';
+      wrap.style.top = pos.ty + 'px';
       wrap.style.setProperty('--dx', pos.dx + 'px');
       wrap.style.setProperty('--dy', pos.dy + 'px');
       wrap.style.setProperty('--drift-dur', pos.dur + 's');

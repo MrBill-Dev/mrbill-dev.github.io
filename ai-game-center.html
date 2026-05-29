@@ -320,6 +320,35 @@
       0% { opacity: 1; transform: translate(-50%, -50%) scale(0.35); }
       100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); }
     }
+    @media (max-width: 639px) {
+      .shooter-arena {
+        height: clamp(320px, 88vw, 420px);
+        min-height: 320px;
+      }
+      .shooter-hud-bar {
+        font-size: 0.65rem;
+        padding: 0.4rem 0.55rem;
+        line-height: 1.35;
+      }
+      .target-dot {
+        min-width: 68px;
+        max-width: 88px;
+        min-height: 40px;
+        padding: 0.3rem 0.4rem;
+        font-size: 0.72rem;
+        border-width: 2px;
+      }
+      .target-dot--boss {
+        min-width: 76px;
+        max-width: 92px;
+        min-height: 42px;
+        font-size: 0.74rem;
+      }
+      .shooter-aim-cursor {
+        width: 34px;
+        height: 34px;
+      }
+    }
     .target-shard {
       position: absolute;
       width: 7px;
