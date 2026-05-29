@@ -9,6 +9,20 @@
   <script src="js/site-config.js"></script>
   <script src="js/tutorial-tailwind-lessons.js"></script>
   <script src="js/tutorial-data.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -132,17 +146,33 @@
     #lesson-concept.tuto-prose a.tuto-ext-link:hover { color: #0e7490; }
     #lesson-concept.tuto-prose .tuto-code-block {
       display: block;
-      background: #0f172a;
-      color: #a5f3fc;
-      padding: 14px 16px;
+      background: #1d1e22;
+      color: #d4d4d4;
+      padding: 0;
       border-radius: 12px;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 1.65;
       overflow-x: auto;
+      margin: 12px 0;
+      font-family: "Source Code Pro", Consolas, "Courier New", monospace;
+      border: 1px solid #2d2f3a;
+    }
+    #lesson-concept.tuto-prose .tuto-code-block code[class*="language-"] {
+      display: block;
+      padding: 14px 16px;
+      background: transparent !important;
+      text-shadow: none;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
       white-space: pre-wrap;
       word-break: break-word;
-      margin: 12px 0;
-      font-family: ui-monospace, Consolas, monospace;
+    }
+    #lesson-concept.tuto-prose pre.tuto-code-plain,
+    #lesson-concept.tuto-prose pre.tuto-code-plain code {
+      padding: 14px 16px;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
     #lesson-concept.tuto-prose code {
       background: #f1f5f9;
@@ -169,6 +199,71 @@
     #lesson-sandbox-wrap.is-hidden { display: none !important; }
     #lesson-concept.tuto-prose .tuto-static-code { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; }
     #lesson-concept.tuto-prose .tuto-static-code pre { margin: 0.5rem 0; }
+    .tuto-static-preview {
+      margin-top: 0.75rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #fff;
+    }
+    .tuto-static-preview-label {
+      display: block;
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #64748b;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .tuto-static-preview iframe {
+      display: block;
+      width: 100%;
+      min-height: 280px;
+      border: 0;
+      background: #fff;
+    }
+    #sandbox-js-focus-wrap {
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+    }
+    #sandbox-js-focus {
+      margin: 0;
+      max-height: 14rem;
+      overflow: auto;
+      background: #1d1e22;
+      border: 1px solid #2d2f3a;
+      color: #d4d4d4;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: "Source Code Pro", Consolas, monospace;
+    }
+    #sandbox-editor-wrap {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid #2d2f3a;
+    }
+    #sandbox-editor-wrap .CodeMirror {
+      height: 15rem;
+      font-size: 14px;
+      line-height: 1.55;
+      font-family: "Source Code Pro", Consolas, "Courier New", monospace;
+    }
+    #sandbox-editor-wrap .CodeMirror-gutters {
+      background: #232630;
+      border-right: 1px solid #2d2f3a;
+    }
+    #sandbox-editor-wrap .CodeMirror-linenumber { color: #636775; }
+    #sandbox-editor {
+      display: none;
+    }
     .tuto-preface-wrap {
       position: relative;
       overflow: hidden;
@@ -648,7 +743,14 @@
               <span class="text-xs font-black text-slate-400 uppercase tracking-wider">💻 程式沙盒（改完按運行）</span>
               <button onclick="runSandboxCompiler()" class="px-5 py-2.5 bg-indigo-600 text-white font-bold rounded-xl text-sm shadow-md hover:bg-indigo-700 transition-colors hover:scale-[1.02] active:scale-95">運行 ▶</button>
             </div>
-            <textarea id="sandbox-editor" class="w-full max-w-full h-52 p-5 bg-slate-900 text-emerald-400 font-mono text-sm rounded-2xl outline-none leading-relaxed box-border" spellcheck="false"></textarea>
+            <div id="sandbox-js-focus-wrap" class="hidden space-y-2">
+              <span class="text-xs font-black text-indigo-600 uppercase tracking-wider">🎯 本課 JS 重點（上方 HTML 略過，只看這段邏輯）</span>
+              <pre id="sandbox-js-focus"></pre>
+            </div>
+            <p class="text-xs font-black text-slate-400 uppercase tracking-wider">📝 完整程式（HTML + JS，可修改後按運行）</p>
+            <div id="sandbox-editor-wrap">
+              <textarea id="sandbox-editor" spellcheck="false"></textarea>
+            </div>
             <div class="space-y-2">
               <span class="text-xs font-black text-slate-400 uppercase tracking-wider">✨ 即時預覽</span>
               <div id="sandbox-preview-canvas" class="w-full p-6 bg-slate-50 rounded-2xl border border-slate-200 min-h-[160px] overflow-auto transition-all"></div>
@@ -702,6 +804,43 @@
     let activeTrack = 'html';
     let totalXp = 0;
     let completedSet = new Set();
+    let sandboxCodeMirror = null;
+
+    function getSandboxCode() {
+      if (sandboxCodeMirror) return sandboxCodeMirror.getValue();
+      var el = document.getElementById('sandbox-editor');
+      return el ? el.value : '';
+    }
+
+    function setSandboxCodeValue(code) {
+      if (sandboxCodeMirror) sandboxCodeMirror.setValue(code || '');
+      else {
+        var el = document.getElementById('sandbox-editor');
+        if (el) el.value = code || '';
+      }
+    }
+
+    function initSandboxCodeEditor() {
+      if (sandboxCodeMirror || typeof CodeMirror === 'undefined') return;
+      var ta = document.getElementById('sandbox-editor');
+      if (!ta) return;
+      sandboxCodeMirror = CodeMirror.fromTextArea(ta, {
+        mode: 'htmlmixed',
+        theme: 'material-darker',
+        lineNumbers: true,
+        lineWrapping: true,
+        indentUnit: 2,
+        tabSize: 2,
+        indentWithTabs: false,
+        extraKeys: { Tab: function (cm) { cm.replaceSelection('  ', 'end'); } }
+      });
+    }
+
+    function refreshSandboxCodeEditor() {
+      if (sandboxCodeMirror) {
+        sandboxCodeMirror.refresh();
+      }
+    }
 
     function loadScriptTag(src) {
       return new Promise((resolve, reject) => {
@@ -825,6 +964,142 @@
       return out;
     }
 
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    var SANDBOX_IFRAME_SANDBOX = 'allow-scripts allow-same-origin allow-forms';
+
+    function buildSandboxSrcdoc(code) {
+      var baseCss = [
+        '*,*::before,*::after{box-sizing:border-box;}',
+        'body{font-family:-apple-system,"Noto Sans TC",sans-serif;padding:12px;margin:0;line-height:1.6;max-width:100%;overflow-x:auto;color:#334155;font-size:15px;}',
+        'img,video{max-width:100%;height:auto;}',
+        'a{color:#4f46e5;}',
+        'button,input,textarea,select{font:inherit;}',
+        'button{cursor:pointer;}',
+        'input,textarea,select{padding:8px;border:1px solid #cbd5e1;border-radius:8px;}',
+        'form{max-width:100%;}'
+      ].join('');
+      var body = (code || '');
+      if (/addEventListener\s*\(\s*['"]submit['"]|\.on\s*\(\s*['"]submit['"]/i.test(body)) {
+        body = body.replace(/<form\b(?![^>]*\bnovalidate\b)/gi, '<form novalidate');
+      }
+      body = body.replace(/<script(\s+src="https:\/\/code\.jquery\.com[^"]*")(\s*><\/script>)/gi,
+        '<script$1 onerror="this.onerror=null;this.src=\'https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js\'"$2');
+      if (/<!DOCTYPE/i.test(body)) return body;
+      if (/^<html[\s>]/i.test(body.trim())) return body;
+      return '<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>' + baseCss + '</style></head><body>' + body + '</body></html>';
+    }
+
+    function fitPreviewIframe(iframe, minH, maxH) {
+      minH = minH || 160;
+      maxH = maxH || 560;
+      iframe.onload = function () {
+        function measure() {
+          try {
+            var doc = iframe.contentDocument;
+            if (!doc) return;
+            var h = Math.max(
+              doc.documentElement ? doc.documentElement.scrollHeight : 0,
+              doc.body ? doc.body.scrollHeight : 0
+            );
+            iframe.style.height = Math.min(Math.max(h + 20, minH), maxH) + 'px';
+          } catch (_) { /* 跨域時無法量測 */ }
+        }
+        measure();
+        setTimeout(measure, 400);
+        setTimeout(measure, 1200);
+      };
+    }
+
+    function mountStaticLessonPreview(mountEl, code) {
+      if (!mountEl || !code) return;
+      mountEl.innerHTML = '';
+      var wrap = document.createElement('div');
+      wrap.className = 'tuto-static-preview';
+      var label = document.createElement('span');
+      label.className = 'tuto-static-preview-label';
+      label.textContent = '📄 版面範例預覽';
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute('title', '課程靜態範例');
+      iframe.setAttribute('sandbox', SANDBOX_IFRAME_SANDBOX);
+      iframe.srcdoc = buildSandboxSrcdoc(code);
+      fitPreviewIframe(iframe, 280, 640);
+      wrap.appendChild(label);
+      wrap.appendChild(iframe);
+      mountEl.appendChild(wrap);
+    }
+
+    function guessPrismLang(text, pre) {
+      var lang = pre && pre.dataset && pre.dataset.lang;
+      if (lang) return lang;
+      var t = (text || '').trim();
+      if (/^npm |^npx |^cd |^yarn |^pnpm |^curl /.test(t)) return 'bash';
+      if (/^\/\*[\s\S]*\*\/|^@tailwind|^@layer|^@apply|^@media|^\s*[\w-]+\s*\{/.test(t)) return 'css';
+      if (/^\s*\{[\s\S]*"[\w-]+"\s*:/.test(t) || /^"[\w-]+"\s*:/.test(t)) return 'json';
+      if (/\b(function|const|let|var|module\.exports|export default|import )\b/.test(t)) return 'javascript';
+      return 'markup';
+    }
+
+    function extractLessonScriptSnippet(code) {
+      if (!code) return '';
+      var parts = [];
+      var re = /<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi;
+      var m;
+      while ((m = re.exec(code)) !== null) {
+        var body = (m[1] || '').trim();
+        if (body && !/^https?:\/\//i.test(body)) parts.push(body);
+      }
+      if (parts.length) return parts.join('\n\n// ── 下一段 script ──\n\n');
+      if (/<style[\s>]/i.test(code) && !/<script[\s>]/i.test(code)) return '';
+      return code.trim();
+    }
+
+    function shouldShowJsFocusPanel(code, lesson) {
+      if (lesson && (lesson.focusCode || lesson.jsFocus === false)) return false;
+      var full = (code || '').trim();
+      if (!full) return false;
+      var snippet = extractLessonScriptSnippet(full);
+      if (!snippet || snippet.length < 8) return false;
+      var withoutScripts = full.replace(/<script[\s\S]*?<\/script>/gi, '').trim();
+      if (withoutScripts.length < 24) return false;
+      return /<(style|button|form|ul|table|div|section|input|select|textarea|h[1-6])\b/i.test(withoutScripts);
+    }
+
+    function updateSandboxJsFocus(code, lesson) {
+      var wrap = document.getElementById('sandbox-js-focus-wrap');
+      var pre = document.getElementById('sandbox-js-focus');
+      if (!wrap || !pre) return;
+      if (!shouldShowJsFocusPanel(code, lesson)) {
+        wrap.classList.add('hidden');
+        pre.textContent = '';
+        return;
+      }
+      var snippet = extractLessonScriptSnippet(code || '');
+      wrap.classList.remove('hidden');
+      pre.textContent = snippet;
+    }
+
+    function decorateConceptCodeBlocks(root) {
+      if (!root || !window.Prism) return;
+      root.querySelectorAll('pre.tuto-code-block:not([data-hl-done])').forEach(function (pre) {
+        pre.dataset.hlDone = '1';
+        if (pre.classList.contains('tuto-code-plain')) return;
+        var raw = pre.textContent || '';
+        var code = document.createElement('code');
+        code.className = 'language-' + guessPrismLang(raw, pre);
+        code.textContent = raw;
+        pre.textContent = '';
+        pre.appendChild(code);
+        Prism.highlightElement(code);
+      });
+    }
+
     function lessonNeedsSandbox(lesson, key) {
       if (!lesson) return false;
       if (lesson.sandbox === false) return false;
@@ -837,13 +1112,27 @@
       return true;
     }
 
+    /** 僅版面／結構示範課才嵌入 iframe，閱讀型課程不強塞預覽 */
+    function lessonNeedsStaticPreview(lesson, key) {
+      if (!lesson || lessonNeedsSandbox(lesson, key)) return false;
+      if (lesson.staticPreview === false) return false;
+      if (lesson.staticPreview === true) return true;
+      var code = (lesson.code || '').trim();
+      if (!code) return false;
+      if (/<!DOCTYPE/i.test(code)) return true;
+      if (/<(main|header|footer)\b/i.test(code)) return true;
+      if (/<style[\s>]/i.test(code) && /<(table|section|article|div|nav)\b/i.test(code)) return true;
+      return false;
+    }
+
     function buildLessonConceptHtml(lesson, key) {
       var html = lesson.concept || '';
-      if (!lessonNeedsSandbox(lesson, key)) {
-        var code = (lesson.code || '').trim();
-        if (code) {
-          html += '<div class="tuto-static-code">' + code + '</div>';
-        }
+      if (lesson.focusCode) {
+        html += '<p class="text-xs font-bold text-indigo-700 uppercase tracking-wider mt-4 mb-1">🎯 本課語法重點</p>';
+        html += '<pre class="tuto-code-block tuto-code-plain">' + escapeHtml(lesson.focusCode.trim()) + '</pre>';
+      }
+      if (lessonNeedsStaticPreview(lesson, key)) {
+        html += '<div class="tuto-static-code"><div id="lesson-static-preview-mount"></div></div>';
       }
       return decorateConceptHtml(html, key);
     }
@@ -854,8 +1143,10 @@
       var show = lessonNeedsSandbox(lesson, key);
       wrap.classList.toggle('is-hidden', !show);
       if (!show) {
-        document.getElementById('sandbox-editor').value = '';
+        setSandboxCodeValue('');
         document.getElementById('sandbox-preview-canvas').innerHTML = '';
+      } else {
+        setTimeout(refreshSandboxCodeEditor, 0);
       }
     }
 
@@ -1020,8 +1311,7 @@
 
     /** 同步修改沙盒編輯器內某個 CSS 規則的屬性（互動區 → 程式碼一起更新） */
     function patchEditorCss(ruleClass, property, value) {
-      const editor = document.getElementById('sandbox-editor');
-      let code = editor.value;
+      let code = getSandboxCode();
       const rule = ruleClass.replace(/^\./, '');
       const propRe = new RegExp(
         '(\\.' + rule + '\\s*\\{[^}]*?' + property.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*:\\s*)[^;]+',
@@ -1033,30 +1323,29 @@
         const openRe = new RegExp('(\\.' + rule + '\\s*\\{)', 'i');
         code = code.replace(openRe, '$1\n    ' + property + ': ' + value + ';');
       }
-      editor.value = code;
+      setSandboxCodeValue(code);
       runSandboxCompiler();
     }
 
     function patchRootVar(varName, value) {
-      const editor = document.getElementById('sandbox-editor');
-      let code = editor.value;
+      let code = getSandboxCode();
       const re = new RegExp('(--' + varName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*:\\s*)[^;]+', 'i');
       if (re.test(code)) code = code.replace(re, '$1' + value);
-      editor.value = code;
+      setSandboxCodeValue(code);
       runSandboxCompiler();
     }
 
     function patchMediaMinWidth(px) {
-      const editor = document.getElementById('sandbox-editor');
-      editor.value = editor.value.replace(
+      let code = getSandboxCode().replace(
         /@media\s*\(\s*min-width\s*:\s*\d+px\s*\)/gi,
         '@media (min-width: ' + px + 'px)'
       );
+      setSandboxCodeValue(code);
       runSandboxCompiler();
     }
 
     function setSandboxCode(code) {
-      document.getElementById('sandbox-editor').value = code;
+      setSandboxCodeValue(code);
       runSandboxCompiler();
     }
 
@@ -1232,28 +1521,15 @@
 
     /** 一律用 iframe 預覽，避免沙盒內 body/:root/header 樣式污染整頁字體與導覽 */
     function runSandboxCompiler() {
-      const code = document.getElementById('sandbox-editor').value;
+      const code = getSandboxCode();
       const canvas = document.getElementById('sandbox-preview-canvas');
       canvas.innerHTML = '';
       const iframe = document.createElement('iframe');
-      iframe.className = 'w-full min-h-[200px] border-0 rounded-xl bg-white';
-      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+      iframe.className = 'w-full min-h-[160px] border-0 rounded-xl bg-white';
+      iframe.setAttribute('sandbox', SANDBOX_IFRAME_SANDBOX);
       iframe.setAttribute('title', '課程預覽');
-      const baseCss = [
-        '*,*::before,*::after{box-sizing:border-box;}',
-        'body{font-family:-apple-system,"Noto Sans TC",sans-serif;padding:12px;margin:0;line-height:1.6;max-width:100%;overflow-x:auto;color:#334155;font-size:15px;}',
-        'img,video{max-width:100%;height:auto;}',
-        'a{color:#4f46e5;}'
-      ].join('');
-      let srcdoc;
-      if (/<!DOCTYPE/i.test(code)) {
-        srcdoc = code;
-      } else if (/^<html[\s>]/i.test(code.trim())) {
-        srcdoc = code;
-      } else {
-        srcdoc = `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${baseCss}</style></head><body>${code}</body></html>`;
-      }
-      iframe.srcdoc = srcdoc;
+      iframe.srcdoc = buildSandboxSrcdoc(code);
+      fitPreviewIframe(iframe, 160, 560);
       canvas.appendChild(iframe);
       canvas.classList.add('fade-in-up');
       setTimeout(() => canvas.classList.remove('fade-in-up'), 500);
@@ -1365,11 +1641,20 @@
       var conceptEl = document.getElementById('lesson-concept');
       conceptEl.classList.add('tuto-prose');
       conceptEl.innerHTML = buildLessonConceptHtml(lesson, key);
+      decorateConceptCodeBlocks(conceptEl);
+      if (lessonNeedsStaticPreview(lesson, key)) {
+        mountStaticLessonPreview(document.getElementById('lesson-static-preview-mount'), lesson.code);
+      }
       document.getElementById('lesson-practice').textContent = lesson.practice || '';
       document.getElementById('tuto-ui-tip').textContent = lesson.tip || '';
       applySandboxVisibility(lesson, key);
       if (lessonNeedsSandbox(lesson, key)) {
-        document.getElementById('sandbox-editor').value = lesson.code || '';
+        initSandboxCodeEditor();
+        setSandboxCodeValue(lesson.code || '');
+        setTimeout(refreshSandboxCodeEditor, 0);
+        updateSandboxJsFocus(lesson.code || '', lesson);
+      } else {
+        updateSandboxJsFocus('', null);
       }
       var coach = buildLessonCoach(lesson, key);
       document.getElementById('lesson-newbie-tip').textContent = coach.newbieTip;
@@ -1488,6 +1773,7 @@
         return;
       }
       LESSON_ORDER = typeof TUTORIAL_ORDER !== 'undefined' ? TUTORIAL_ORDER : Object.keys(tutorialRepository);
+      initSandboxCodeEditor();
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       loadProgress();
       renderPreface();
