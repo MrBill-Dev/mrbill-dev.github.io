@@ -167,6 +167,8 @@
     #lesson-concept.tuto-prose p { margin: 0 0 0.85rem; }
     #lesson-concept.tuto-prose p:last-child { margin-bottom: 0; }
     #lesson-sandbox-wrap.is-hidden { display: none !important; }
+    #lesson-concept.tuto-prose .tuto-static-code { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; }
+    #lesson-concept.tuto-prose .tuto-static-code pre { margin: 0.5rem 0; }
     .tuto-preface-wrap {
       position: relative;
       overflow: hidden;
@@ -827,11 +829,23 @@
       if (!lesson) return false;
       if (lesson.sandbox === false) return false;
       if (lesson.sandbox === true) return true;
+      if (lesson.track === 'git' || (key && (key.indexOf('git_') === 0 || key === 'work_git'))) return false;
       var code = (lesson.code || '').trim();
       if (!code) return false;
       if (/^<pre[\s>]/i.test(code) && !/<button|<input|<form/i.test(code)) return false;
       if (/^<p[\s>]/i.test(code) && code.length < 280 && !/<button/i.test(code)) return false;
       return true;
+    }
+
+    function buildLessonConceptHtml(lesson, key) {
+      var html = lesson.concept || '';
+      if (!lessonNeedsSandbox(lesson, key)) {
+        var code = (lesson.code || '').trim();
+        if (code) {
+          html += '<div class="tuto-static-code">' + code + '</div>';
+        }
+      }
+      return decorateConceptHtml(html, key);
     }
 
     function applySandboxVisibility(lesson, key) {
@@ -1350,7 +1364,7 @@
       document.getElementById('tuto-desc').textContent = lesson.desc;
       var conceptEl = document.getElementById('lesson-concept');
       conceptEl.classList.add('tuto-prose');
-      conceptEl.innerHTML = decorateConceptHtml(lesson.concept || '', key);
+      conceptEl.innerHTML = buildLessonConceptHtml(lesson, key);
       document.getElementById('lesson-practice').textContent = lesson.practice || '';
       document.getElementById('tuto-ui-tip').textContent = lesson.tip || '';
       applySandboxVisibility(lesson, key);
