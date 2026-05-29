@@ -1,8 +1,33 @@
 const tutorialPreface = {
-  title: "🎮 學習冒險地圖",
-  contentHtml: `<p>歡迎！這裡用<strong>遊戲闖關</strong>的方式學網頁：先懂概念 → 看正規範例 → 動手改程式 → 小測驗拿 XP。</p>
-    <p class="mt-2">請用下方<strong>頁籤</strong>切換主線：HTML → CSS → JS → jQuery → Vue → Git → 上線專題。建議依序完成，左側課程清單會跟著頁籤變化。</p>
-    <p class="mt-2 text-sm text-slate-500">需要瀏覽器預覽、編輯器或 F12 的說明，會寫在對應章節（例如 HTML 的檔案路徑、Git 的終端機環境），不在這裡重複列出。</p>`
+  title: "學習冒險地圖",
+  titleIcon: "🎮",
+  contentHtml: `<ul class="tuto-preface-flow-row" aria-label="每課闖關流程">
+      <li class="tuto-preface-flow-item"><span class="tuto-preface-flow-ico">💡</span>懂概念</li>
+      <li class="tuto-preface-flow-item"><span class="tuto-preface-flow-ico">👀</span>看範例</li>
+      <li class="tuto-preface-flow-item"><span class="tuto-preface-flow-ico">⌨️</span>改程式</li>
+      <li class="tuto-preface-flow-item"><span class="tuto-preface-flow-ico">⭐</span>拿 XP</li>
+    </ul>
+    <section class="tuto-preface-route" aria-label="建議學習路線">
+      <div class="tuto-preface-route-head">
+        <h4 class="tuto-preface-route-title">建議學習路線</h4>
+        <p class="tuto-preface-route-hint">由左至右依序 · 不可跳過基礎</p>
+      </div>
+      <ol class="tuto-preface-timeline">
+        <li class="tuto-preface-track-html"><span class="tuto-preface-node-dot">1</span><span class="tuto-preface-node-label">HTML</span></li>
+        <li class="tuto-preface-track-css"><span class="tuto-preface-node-dot">2</span><span class="tuto-preface-node-label">CSS</span></li>
+        <li class="tuto-preface-track-tailwind"><span class="tuto-preface-node-dot">3</span><span class="tuto-preface-node-label">Tailwind</span></li>
+        <li class="tuto-preface-track-js"><span class="tuto-preface-node-dot">4</span><span class="tuto-preface-node-label">JS</span></li>
+        <li class="tuto-preface-track-jquery"><span class="tuto-preface-node-dot">5</span><span class="tuto-preface-node-label">jQuery</span></li>
+        <li class="tuto-preface-track-vue"><span class="tuto-preface-node-dot">6</span><span class="tuto-preface-node-label">Vue</span></li>
+        <li class="tuto-preface-track-git"><span class="tuto-preface-node-dot">7</span><span class="tuto-preface-node-label">Git</span></li>
+        <li class="tuto-preface-track-deploy"><span class="tuto-preface-node-dot">8</span><span class="tuto-preface-node-label">上線</span></li>
+      </ol>
+      <div class="tuto-preface-phase-bar">
+        <span class="tuto-preface-phase tuto-preface-phase-1">①～③ 基礎版面</span>
+        <span class="tuto-preface-phase tuto-preface-phase-2">④～⑥ 互動與框架</span>
+        <span class="tuto-preface-phase tuto-preface-phase-3">⑦～⑧ 版本與部署</span>
+      </div>
+    </section>`
 };
 
 const tutorialRepository = {
@@ -508,14 +533,18 @@ Object.assign(tutorialRepository, {
   },
   css_media_rwd: {
     track: "css",
-    title: "📱 響應式 @media 怎麼用",
-    desc: "@media 讓 CSS「在特定條件下才生效」。最常用：依視窗寬度切版。",
-    concept: "<b>語法</b>：<code>@media (條件) { /* 裡面的規則 */ }</code><br><b>min-width</b>：視窗「至少」這麼寬才套用 → <strong>Mobile First</strong>（先寫手機 1 欄，再加寬變 3 欄）。<br><b>max-width</b>：視窗「最多」這麼寬才套用 → Desktop First（先寫桌面，再縮小覆寫）。<br><b>步驟</b>：① 寫預設（手機）② 加 @media (min-width: 600px) { ... } ③ 拖曳預覽框寬度或滑桿看切換點。<br>Tailwind 的 <code>md:</code>、<code>lg:</code> 本質也是幫你產生 @media。",
-    practice: "① 拖「斷點 px」滑桿改 min-width ② 預覽區拉窄看何時變 3 欄 ③ 把 min-width 改成 max-width 理解差異",
-    code: `<style>\n  .note { font-size: 13px; color: #64748b; margin-bottom: 10px; }\n  .cols {\n    display: grid;\n    grid-template-columns: 1fr;\n    gap: 10px;\n    width: 100%;\n    max-width: 100%;\n  }\n  .cols div {\n    background: #ede9fe;\n    color: #4f46e5;\n    padding: 14px 8px;\n    border-radius: 10px;\n    text-align: center;\n    font-weight: bold;\n    font-size: 14px;\n    min-width: 0;\n  }\n  /* 視窗寬度 ≥ 600px 時變 3 欄 */\n  @media (min-width: 600px) {\n    .cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }\n  }\n</style>\n<p class="note">預設 1 欄（手機）· 寬度 ≥ 600px 變 3 欄</p>\n<div class="cols"><div>欄 1</div><div>欄 2</div><div>欄 3</div></div>`,
-    tip: "斷點沒有標準答案，常見 640 / 768 / 1024px，依設計稿決定。",
+    sandbox: false,
+    title: "📱 響應式 RWD：手機／平板／電腦斷點",
+    desc: "@media 依螢幕寬度切版；學會主流裝置寬度與推薦斷點，作品集才不容易爆版。",
+    concept: "<p><b>語法</b>：<code>@media (條件) { /* 規則 */ }</code></p><p><b>min-width</b>（推薦）：視窗<strong>至少</strong>這麼寬才套用 → <strong>Mobile First</strong>，先寫手機版，再逐步加寬。<br><b>max-width</b>：視窗<strong>最多</strong>這麼寬才套用 → Desktop First，維護舊站時較常見。</p><h3 class=\"tuto-h3\">三種裝置，實務上怎麼想</h3><div class=\"tuto-table-wrap\"><table class=\"tuto-table\"><thead><tr><th>裝置</th><th>常見寬度（參考）</th><th>版面習慣</th></tr></thead><tbody><tr><td><strong>手機</strong></td><td>約 320～430px（直向）<br>驗收常抓 <strong>375px</strong>（iPhone 級）</td><td>單欄、字級夠大、按鈕好點、少橫向捲軸</td></tr><tr><td><strong>平板</strong></td><td>約 601～1023px<br>驗收常抓 <strong>768px</strong>（iPad 直向）</td><td>可 2 欄、導覽可改橫排、圖片別過寬</td></tr><tr><td><strong>電腦</strong></td><td>約 1024px 以上<br>驗收常抓 <strong>1280px</strong>（筆電／桌機）</td><td>多欄、最大寬度 <code>max-width</code> 置中、留白</td></tr></tbody></table></div><h3 class=\"tuto-h3\">本手冊推薦斷點（純 CSS）</h3><p>沒有全球唯一標準，但下列組合<strong>最好記、也最常用</strong>，夠完成多數作品集：</p><pre class=\"tuto-code-block\">/* ① 預設 = 手機（不用寫 media） */\n.container { padding: 16px; }\n.grid { display: grid; grid-template-columns: 1fr; gap: 16px; }\n\n/* ② 平板起：≥ 768px */\n@media (min-width: 768px) {\n  .grid { grid-template-columns: repeat(2, 1fr); }\n}\n\n/* ③ 電腦起：≥ 1024px */\n@media (min-width: 1024px) {\n  .container { max-width: 1100px; margin: 0 auto; }\n  .grid { grid-template-columns: repeat(3, 1fr); }\n}</pre><p><b>想再多一階（選用）</b>：大手機／小平板可用 <code>640px</code>（與 Tailwind 的 <code>sm:</code> 接近）。</p><h3 class=\"tuto-h3\">與 Tailwind 對照（之後學 Tailwind 會用到）</h3><div class=\"tuto-table-wrap\"><table class=\"tuto-table\"><thead><tr><th>Tailwind 前綴</th><th>min-width</th><th>大致對應</th></tr></thead><tbody><tr><td>（無前綴）</td><td>0 起</td><td>手機預設</td></tr><tr><td><code>sm:</code></td><td>640px</td><td>大手機</td></tr><tr><td><code>md:</code></td><td>768px</td><td>平板</td></tr><tr><td><code>lg:</code></td><td>1024px</td><td>筆電／小桌機</td></tr><tr><td><code>xl:</code></td><td>1280px</td><td>大桌機</td></tr></tbody></table></div><h3 class=\"tuto-h3\">Bootstrap 常見斷點（讀舊專案時對照）</h3><p><code>sm 576</code> · <code>md 768</code> · <code>lg 992</code> · <code>xl 1200</code> · <code>xxl 1400</code> — 數字不同，觀念一樣：愈寬愈多欄。</p><h3 class=\"tuto-h3\">驗收時請實測這三種寬度</h3><ul class=\"tuto-list\"><li><strong>375px</strong> — 手機直向有沒有橫向爆版</li><li><strong>768px</strong> — 平板直向導覽／欄數是否合理</li><li><strong>1280px</strong> — 桌機是否置中、不會過寬難讀</li></ul><p>Chrome F12 → 切換裝置工具列 → 選上述寬度或自訂。</p><div class=\"tuto-panel tuto-panel-why\"><p class=\"tuto-panel-title\">❓ 為什麼推薦 Mobile First</p><p>先保證小螢幕能讀，再「加料」給大螢幕；比先做華麗桌機版再硬縮到手機省事，也比較符合多數訪客用手機逛作品的現實。</p></div>",
+    practice: "① 用 F12 分別設 375 / 768 / 1280 看沙盒下方範例（若無沙盒請在本機檔案試）② 寫出你專案要用的兩個 min-width ③ 說明 min-width 與 max-width 差異",
+    code: `<style>\n  .note { font-size: 13px; color: #64748b; margin-bottom: 10px; line-height: 1.6; }\n  .cols {\n    display: grid;\n    grid-template-columns: 1fr;\n    gap: 10px;\n    width: 100%;\n    max-width: 100%;\n  }\n  .cols div {\n    background: #ede9fe;\n    color: #4f46e5;\n    padding: 14px 8px;\n    border-radius: 10px;\n    text-align: center;\n    font-weight: bold;\n    font-size: 14px;\n    min-width: 0;\n  }\n  @media (min-width: 768px) {\n    .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }\n  }\n  @media (min-width: 1024px) {\n    .cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }\n  }\n</style>\n<p class="note">預設 1 欄（手機）· ≥768px 兩欄（平板）· ≥1024px 三欄（電腦）</p>\n<div class="cols"><div>欄 1</div><div>欄 2</div><div>欄 3</div></div>`,
+    tip: "斷點要配合設計稿；若老師指定 600px 就以作業為準，但上線前仍建議用 375／768／1280 複查。",
     playground: "media",
-    quiz: { q: "螢幕至少 600px 寬才套用？", opts: ["min-width: 600px", "max-width: 600px", "width: 600px"], ans: 0 }
+    newbieTip: "先寫「沒有 @media 的手機版」，通過 375px 再加平板與桌機 media。",
+    commonMistakes: "只做桌機版；或斷點設太多（5～6 個）難維護。一般 2～3 個 min-width 就夠。",
+    submissionStandard: "1) 能說出手機／平板／電腦各用哪個 px 驗收\n2) 專案至少 2 個 min-width 斷點\n3) 375px 無橫向捲軸爆版",
+    quiz: { q: "作品集最建議優先通過哪個寬度？", opts: ["375px 手機", "只測 1920 桌機", "不用測"], ans: 0 }
   },
   css_flex_advanced: {
     track: "css",

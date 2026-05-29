@@ -167,6 +167,303 @@
     #lesson-concept.tuto-prose p { margin: 0 0 0.85rem; }
     #lesson-concept.tuto-prose p:last-child { margin-bottom: 0; }
     #lesson-sandbox-wrap.is-hidden { display: none !important; }
+    .tuto-preface-wrap {
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 24px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+    .tuto-preface-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: linear-gradient(90deg, #6366f1, #22d3ee, #10b981);
+    }
+    .tuto-preface-top {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1.25rem 1.25rem 1rem;
+      background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+      border-bottom: 1px solid #f1f5f9;
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-top {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        padding: 1.35rem 1.5rem 1.15rem;
+      }
+    }
+    .tuto-preface-brand { min-width: 0; }
+    .tuto-preface-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .tuto-preface-title-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      font-size: 1.45rem;
+      background: linear-gradient(145deg, #eef2ff, #e0e7ff);
+      border: 1px solid #c7d2fe;
+      border-radius: 0.85rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      flex-shrink: 0;
+    }
+    #preface-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.03em;
+      margin: 0;
+      line-height: 1.2;
+    }
+    @media (min-width: 768px) {
+      #preface-title { font-size: 1.4rem; }
+    }
+    .tuto-preface-tagline {
+      margin: 0.35rem 0 0 3.5rem;
+      font-size: 0.8125rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    @media (max-width: 767px) {
+      .tuto-preface-tagline { margin-left: 0; margin-top: 0.5rem; }
+    }
+    .tuto-preface-xp {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.9rem;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.06);
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-xp { width: 12.5rem; }
+    }
+    .tuto-preface-xp-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+    .tuto-preface-xp-label strong { color: #4338ca; font-size: 1.1rem; }
+    .tuto-preface-xp-hint {
+      margin: 0.4rem 0 0;
+      font-size: 0.68rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+    .tuto-preface-prose { padding: 0 1.25rem 1.25rem; }
+    @media (min-width: 768px) {
+      .tuto-preface-prose { padding: 0 1.5rem 1.35rem; }
+    }
+    .tuto-preface-flow-row {
+      list-style: none;
+      margin: 0 0 1rem;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+    @media (min-width: 640px) {
+      .tuto-preface-flow-row { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-flow-row { margin-bottom: 1.15rem; gap: 0.6rem; }
+    }
+    .tuto-preface-flow-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.65rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #334155;
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-flow-item { padding: 0.6rem 0.8rem; font-size: 0.84rem; }
+      .tuto-preface-flow-ico { font-size: 1.1rem; }
+    }
+    .tuto-preface-flow-ico {
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .tuto-preface-route {
+      background: linear-gradient(180deg, #fafbff 0%, #f8fafc 100%);
+      border: 1px solid #e8ecf4;
+      border-radius: 0.9rem;
+      padding: 0.85rem 0.9rem 0.75rem;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-route { padding: 1rem 1.15rem 0.9rem; border-radius: 1rem; }
+    }
+    .tuto-preface-route-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.25rem 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .tuto-preface-route-title {
+      margin: 0;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #4338ca;
+    }
+    .tuto-preface-route-hint {
+      margin: 0;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+    .tuto-preface-timeline {
+      position: relative;
+      list-style: none;
+      margin: 0;
+      padding: 0.35rem 0 0.15rem;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-gutter: stable;
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-timeline {
+        overflow: visible;
+        padding-bottom: 0;
+      }
+    }
+    .tuto-preface-timeline::-webkit-scrollbar { height: 6px; }
+    .tuto-preface-timeline::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-timeline::-webkit-scrollbar { display: none; }
+    }
+    .tuto-preface-timeline::before {
+      content: "";
+      position: absolute;
+      left: 1.25rem;
+      right: 1.25rem;
+      top: 1.05rem;
+      height: 2px;
+      background: linear-gradient(90deg, #c7d2fe, #a5f3fc, #fde047, #86efac, #c4b5fd);
+      border-radius: 1px;
+      z-index: 0;
+    }
+    @media (max-width: 639px) {
+      .tuto-preface-timeline::before { display: none; }
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-timeline::before {
+        left: 1.5rem;
+        right: 1.5rem;
+        top: 1.4rem;
+        height: 3px;
+      }
+    }
+    .tuto-preface-timeline li {
+      position: relative;
+      z-index: 1;
+      flex: 1 0 4.25rem;
+      min-width: 4.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0 0.15rem;
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-timeline li { flex: 1 1 0; min-width: 0; gap: 0.45rem; }
+    }
+    .tuto-preface-node-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.65rem;
+      height: 1.65rem;
+      border-radius: 9999px;
+      font-size: 0.65rem;
+      font-weight: 900;
+      color: #fff;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-node-dot {
+        width: 2.1rem;
+        height: 2.1rem;
+        font-size: 0.78rem;
+        border-width: 3px;
+      }
+    }
+    .tuto-preface-node-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.25;
+      color: #334155;
+      white-space: nowrap;
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-node-label { font-size: 0.8125rem; }
+      .tuto-preface-route-title { font-size: 0.8rem; }
+      .tuto-preface-route-hint { font-size: 0.75rem; }
+      .tuto-preface-route-head { margin-bottom: 0.9rem; }
+    }
+    .tuto-preface-track-html .tuto-preface-node-dot { background: linear-gradient(145deg, #6366f1, #4f46e5); }
+    .tuto-preface-track-css .tuto-preface-node-dot { background: linear-gradient(145deg, #f97316, #ea580c); }
+    .tuto-preface-track-tailwind .tuto-preface-node-dot { background: linear-gradient(145deg, #06b6d4, #0891b2); }
+    .tuto-preface-track-js .tuto-preface-node-dot { background: linear-gradient(145deg, #eab308, #ca8a04); }
+    .tuto-preface-track-jquery .tuto-preface-node-dot { background: linear-gradient(145deg, #84cc16, #65a30d); }
+    .tuto-preface-track-vue .tuto-preface-node-dot { background: linear-gradient(145deg, #10b981, #059669); }
+    .tuto-preface-track-git .tuto-preface-node-dot { background: linear-gradient(145deg, #a855f7, #7c3aed); }
+    .tuto-preface-track-deploy .tuto-preface-node-dot { background: linear-gradient(145deg, #f43f5e, #e11d48); }
+    .tuto-preface-phase-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-phase-bar { gap: 0.5rem; margin-top: 0.9rem; }
+    }
+    .tuto-preface-phase {
+      text-align: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      line-height: 1.35;
+      padding: 0.35rem 0.25rem;
+      border-radius: 0.45rem;
+      color: #475569;
+    }
+    @media (min-width: 768px) {
+      .tuto-preface-phase { font-size: 0.75rem; padding: 0.45rem 0.35rem; border-radius: 0.5rem; }
+    }
+    .tuto-preface-phase-1 { background: rgba(99, 102, 241, 0.08); color: #4338ca; }
+    .tuto-preface-phase-2 { background: rgba(234, 179, 8, 0.1); color: #a16207; }
+    .tuto-preface-phase-3 { background: rgba(244, 63, 94, 0.08); color: #be123c; }
     @media (min-width: 1024px) {
       #tutorial-sidebar { width: 16.5rem; max-width: 16.5rem; flex-shrink: 0; }
       #lesson-main { flex: 1 1 0%; min-width: 0; }
@@ -185,7 +482,7 @@
         <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
           <div class="pb-8 md:pb-12 max-w-4xl">
             <h1 class="text-3xl md:text-4xl font-black">💻 <span class="text-cyan-200">前端與設計手冊</span></h1>
-            <p class="mt-3 max-w-3xl leading-relaxed text-[15px] md:text-base text-indigo-100">用互動沙盒把 HTML、CSS、JS 練成可交付能力，再搭配 AI 指令集完成除錯與優化。</p>
+            <p class="mt-3 max-w-3xl leading-relaxed text-[15px] md:text-base text-indigo-100">HTML → CSS → Tailwind → JS → 框架 → Git → 上線；互動沙盒練到能交作品，再搭配 AI 指令集除錯與優化。</p>
           </div>
         </div>
       </div>
@@ -193,23 +490,27 @@
 
     <div class="px-4 lg:px-6 py-8 space-y-6">
     <!-- 前言 + XP（課程分類請用下方頁籤） -->
-    <div class="bg-gradient-to-r from-indigo-50/80 to-cyan-50/50 p-6 md:p-8 rounded-2xl border border-indigo-100/50 fade-in-up">
-      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-        <div class="flex-1">
-          <h3 id="preface-title" class="text-xl md:text-2xl font-black text-indigo-950 mb-2"></h3>
-          <div id="preface-body" class="text-base text-slate-600 leading-relaxed font-medium"></div>
-        </div>
-        <div class="shrink-0 bg-white rounded-2xl border border-indigo-100 p-4 min-w-[200px] shadow-sm">
-          <div class="flex justify-between text-sm font-bold text-slate-500 mb-2">
-            <span>⭐ 冒險 XP</span>
-            <span id="xp-label">0</span>
+    <div class="tuto-preface-wrap fade-in-up">
+      <div class="tuto-preface-top">
+        <div class="tuto-preface-brand">
+          <div class="tuto-preface-title-row">
+            <span id="preface-title-icon" class="tuto-preface-title-icon" aria-hidden="true">🎮</span>
+            <h3 id="preface-title"></h3>
           </div>
-          <div class="h-3 bg-slate-100 rounded-full overflow-hidden">
+          <p class="tuto-preface-tagline">闖關學前端 · 建議每天 1～2 課 · 用下方頁籤進入主線</p>
+        </div>
+        <div class="tuto-preface-xp" aria-label="冒險經驗值">
+          <div class="tuto-preface-xp-label">
+            <span>⭐ 冒險 XP</span>
+            <strong id="xp-label">0</strong>
+          </div>
+          <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden">
             <div id="xp-bar" class="h-full bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full transition-all duration-500" style="width:0%"></div>
           </div>
-          <p class="text-xs text-slate-400 mt-2">完成小測驗 +50 · 點「我完成了」+30</p>
+          <p class="tuto-preface-xp-hint">小測驗 +50 · 我完成了 +30</p>
         </div>
       </div>
+      <div id="preface-body" class="tuto-preface-prose"></div>
     </div>
 
     <div id="tutorial-prompt-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 p-4 md:p-6">
@@ -460,7 +761,9 @@
     }
 
     function renderPreface() {
-      document.getElementById('preface-title').textContent = tutorialPreface.title;
+      var iconEl = document.getElementById('preface-title-icon');
+      if (iconEl) iconEl.textContent = tutorialPreface.titleIcon || '🎮';
+      document.getElementById('preface-title').textContent = tutorialPreface.title || '學習冒險地圖';
       document.getElementById('preface-body').innerHTML = tutorialPreface.contentHtml || '';
     }
 
