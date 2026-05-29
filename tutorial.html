@@ -219,10 +219,11 @@
       text-underline-offset: 3px;
     }
     #lesson-concept.tuto-prose a.tuto-ext-link:hover { color: #0e7490; }
-    #lesson-concept.tuto-prose .tuto-code-block {
+    #lesson-concept.tuto-prose .tuto-code-block,
+    #lesson-concept.tuto-prose pre.tuto-code-block {
       display: block;
-      background: #1d1e22;
-      color: #d4d4d4;
+      background: #1e293b;
+      color: #e2e8f0;
       padding: 0;
       border-radius: 12px;
       font-size: 13px;
@@ -230,32 +231,93 @@
       overflow-x: auto;
       margin: 12px 0;
       font-family: "Source Code Pro", Consolas, "Courier New", monospace;
-      border: 1px solid #2d2f3a;
+      border: 1px solid #334155;
     }
-    #lesson-concept.tuto-prose .tuto-code-block code[class*="language-"] {
+    #lesson-concept.tuto-prose .tuto-code-block code,
+    #lesson-concept.tuto-prose pre.tuto-code-block code {
       display: block;
       padding: 14px 16px;
       background: transparent !important;
+      color: #e2e8f0 !important;
       text-shadow: none;
       font-family: inherit;
       font-size: inherit;
       line-height: inherit;
       white-space: pre-wrap;
       word-break: break-word;
+      border-radius: 0;
+      box-shadow: none;
     }
-    #lesson-concept.tuto-prose pre.tuto-code-plain,
-    #lesson-concept.tuto-prose pre.tuto-code-plain code {
+    #lesson-concept.tuto-prose pre.tuto-code-plain {
       padding: 14px 16px;
       white-space: pre-wrap;
       word-break: break-word;
+      color: #e2e8f0;
     }
-    #lesson-concept.tuto-prose code {
+    /* 行內 code（淺底紫字）；不影響程式碼區塊 */
+    #lesson-concept.tuto-prose :not(pre) > code,
+    #lesson-concept.tuto-prose p code,
+    #lesson-concept.tuto-prose li code,
+    #lesson-concept.tuto-prose td code,
+    #lesson-concept.tuto-prose .tuto-panel code {
       background: #f1f5f9;
       color: #4338ca;
       padding: 2px 6px;
       border-radius: 6px;
       font-size: 0.88em;
       word-break: break-word;
+    }
+    /* Prism 語法色（深色底、高對比） */
+    #lesson-concept.tuto-prose .tuto-code-block .token.comment,
+    #lesson-concept.tuto-prose .tuto-code-block .token.prolog,
+    #lesson-concept.tuto-prose .tuto-code-block .token.doctype,
+    #lesson-concept.tuto-prose .tuto-code-block .token.cdata {
+      color: #94a3b8;
+    }
+    #lesson-concept.tuto-prose .tuto-code-block .token.punctuation {
+      color: #cbd5e1;
+    }
+    #lesson-concept.tuto-prose .tuto-code-block .token.property,
+    #lesson-concept.tuto-prose .tuto-code-block .token.tag,
+    #lesson-concept.tuto-prose .tuto-code-block .token.boolean,
+    #lesson-concept.tuto-prose .tuto-code-block .token.number,
+    #lesson-concept.tuto-prose .tuto-code-block .token.constant,
+    #lesson-concept.tuto-prose .tuto-code-block .token.symbol,
+    #lesson-concept.tuto-prose .tuto-code-block .token.deleted {
+      color: #7dd3fc;
+    }
+    #lesson-concept.tuto-prose .tuto-code-block .token.selector,
+    #lesson-concept.tuto-prose .tuto-code-block .token.attr-name,
+    #lesson-concept.tuto-prose .tuto-code-block .token.string,
+    #lesson-concept.tuto-prose .tuto-code-block .token.char,
+    #lesson-concept.tuto-prose .tuto-code-block .token.builtin,
+    #lesson-concept.tuto-prose .tuto-code-block .token.inserted {
+      color: #86efac;
+    }
+    #lesson-concept.tuto-prose .tuto-code-block .token.operator,
+    #lesson-concept.tuto-prose .tuto-code-block .token.entity,
+    #lesson-concept.tuto-prose .tuto-code-block .token.url,
+    #lesson-concept.tuto-prose .tuto-code-block .language-css .token.string,
+    #lesson-concept.tuto-prose .tuto-code-block .style .token.string {
+      color: #67e8f9;
+    }
+    #lesson-concept.tuto-prose .tuto-code-block .token.atrule,
+    #lesson-concept.tuto-prose .tuto-code-block .token.attr-value,
+    #lesson-concept.tuto-prose .tuto-code-block .token.keyword {
+      color: #c4b5fd;
+    }
+    #lesson-concept.tuto-prose .tuto-code-block .token.function,
+    #lesson-concept.tuto-prose .tuto-code-block .token.class-name {
+      color: #fcd34d;
+    }
+    #lesson-concept.tuto-prose .tuto-code-block .token.regex,
+    #lesson-concept.tuto-prose .tuto-code-block .token.important,
+    #lesson-concept.tuto-prose .tuto-code-block .token.variable {
+      color: #fda4af;
+    }
+    /* Git 等課程內嵌的 pre（無 tuto-code-block class） */
+    #lesson-concept.tuto-prose pre[style*="background"] {
+      color: #e2e8f0 !important;
     }
     #lesson-concept.tuto-prose .tuto-panel {
       border-radius: 12px;

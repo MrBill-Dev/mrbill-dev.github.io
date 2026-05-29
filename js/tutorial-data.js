@@ -270,6 +270,17 @@ const tutorialRepository = {
     tip: "深色底記得把 color 改成淺色字，對比才夠（WCAG 在 CSS 無障礙課會再談）。",
     quiz: { q: "只改區塊底色、不換背景圖，用？", opts: ["background-color", "background-image", "float"], ans: 0 }
   },
+  css_learning_path: {
+    track: "css",
+    sandbox: false,
+    title: "📍 CSS 路線地圖（由淺入深）",
+    desc: "HTML 骨架完成後，用這張地圖安排 CSS 學習順序：基礎 → 版面 → RWD → 維護。",
+    concept: "<p>CSS 不是「背屬性」，而是<strong>先選到元素 → 再改外觀 → 再做版面 → 最後 RWD 與維護</strong>。</p><h3 class=\"tuto-h3\">本手冊 CSS 四段</h3><div class=\"tuto-table-wrap\"><table class=\"tuto-table\"><thead><tr><th>段次</th><th>學什麼</th><th>學完能幹嘛</th></tr></thead><tbody><tr><td><strong>① 基礎</strong></td><td>選擇器、色彩、字體、間距、盒模型</td><td>單頁排版、按鈕卡片長得像樣</td></tr><tr><td><strong>② 版面</strong></td><td>Flex、Grid、Position</td><td>導覽列、卡片牆、置中</td></tr><tr><td><strong>③ 進階視覺</strong></td><td>變數、偽類、動畫、陰影</td><td>互動回饋、品牌色一致</td></tr><tr><td><strong>④ RWD 與維護</strong></td><td>@media、容器查詢、權重、BEM、@layer</td><td>手機不爆版、團隊好改</td></tr></tbody></table></div><p>學完 CSS ④ 再進 <strong>Tailwind</strong>（用 class 堆出同樣概念）或直接用原生 CSS 交作品集。</p><div class=\"tuto-panel tuto-panel-why\"><p class=\"tuto-panel-title\">❓ 與 Tailwind 的關係</p><p>Tailwind 是「把 CSS 規則變成 class 名稱」；原生 CSS 仍要會讀 DevTools、會除錯權重與 RWD。兩條路線互補，不是二選一。</p></div>",
+    practice: "① 標記你目前在四段哪一段 ② 列出作品集還缺哪兩項（例如 RWD、Flex 置中）③ 從側欄「0·入門」第一課選擇器開始",
+    code: `<div style="font-family:system-ui;line-height:1.7;color:#334155;font-size:14px;max-width:36em">\n  <p><strong>建議順序：</strong>選擇器 → 盒模型 → Flex/Grid → RWD → 權重 → 實戰</p>\n  <p>每週至少完成 3 課 + 改一次自己的作品集 CSS。</p>\n</div>`,
+    tip: "卡住時問：是「選不到元素」還是「選到了但被覆蓋」？",
+    quiz: { q: "CSS 學習建議先？", opts: ["選擇器與盒模型", "直接 animation", "只學 Tailwind 不看 CSS"], ans: 0 }
+  },
   css_selectors: {
     track: "css",
     title: "🎯 CSS 選擇器與 class",
@@ -610,13 +621,13 @@ Object.assign(tutorialRepository, {
   },
   css_pseudo: {
     track: "css",
-    title: "✨ 偽類 :hover :focus",
-    desc: "偽類描述元素狀態；偽元素 ::before ::after 可插入裝飾。",
-    concept: ":hover 滑鼠移入；:focus-visible 鍵盤 Tab 聚焦（無障礙）。",
-    practice: "① 連結加 :hover ② 用 ::before 在 li 前加 ✓",
-    code: `<style>\n  a { color:#4f46e5; font-weight:bold; text-decoration:none; }\n  a:hover { text-decoration:underline; }\n  .list li::before { content:"✓ "; color:#10b981; font-weight:bold; }\n</style>\n<p><a href="#">懸停我</a></p>\n<ul class="list"><li>項目一</li><li>項目二</li></ul>`,
-    tip: "::before 的 content 必填，否則不顯示。",
-    quiz: { q: "滑鼠移入狀態？", opts: [":hover", "::hover", ":mouse"], ans: 0 }
+    title: "✨ 互動狀態：:hover / :active / :focus（中階）",
+    desc: "按鈕與連結的「滑鼠移入、按下、鍵盤聚焦」怎麼寫；另介紹 ::before 裝飾。",
+    concept: "<p><strong>偽類（單冒號）</strong>描述元素<strong>狀態</strong>，不是真的多一個 HTML 標籤。</p><div class=\"tuto-table-wrap\"><table class=\"tuto-table\"><thead><tr><th>偽類</th><th>何時觸發</th><th>常見用途</th></tr></thead><tbody><tr><td><code>:hover</code></td><td>滑鼠移入元素上</td><td>按鈕變色、連結底線、卡片浮起</td></tr><tr><td><code>:active</code></td><td>滑鼠按住未放開</td><td>按下瞬間變深，像真的被按下去</td></tr><tr><td><code>:focus</code></td><td>元素取得焦點（點擊或 Tab）</td><td>表單輸入框外框；按鈕常改寫成 :focus-visible</td></tr><tr><td><code>:focus-visible</code></td><td>鍵盤 Tab 聚焦時</td><td>無障礙：給鍵盤使用者看得見的焦點環</td></tr><tr><td><code>:disabled</code></td><td>表單 disabled</td><td>變灰、不可點</td></tr></tbody></table></div><p><strong>偽元素（雙冒號）</strong>：<code>::before</code>、<code>::after</code> 在元素<strong>前後插入裝飾</strong>（必填 <code>content</code>）。</p><p>搭配下一課 <code>transition</code>，hover 變色才會平滑，不會「瞬間跳色」。</p>",
+    practice: "① 滑鼠移入按鈕看 :hover ② 按住看 :active ③ 按 Tab 看 :focus-visible 黃框 ④ 連結懸停加底線",
+    code: `<style>\n  .hint { font-size: 13px; color: #64748b; margin: 0 0 10px; line-height: 1.6; }\n  .btn {\n    padding: 10px 18px;\n    background: #4f46e5;\n    color: #fff;\n    border: none;\n    border-radius: 10px;\n    font-weight: bold;\n    cursor: pointer;\n    transition: background 0.2s ease, transform 0.15s ease;\n  }\n  .btn:hover { background: #4338ca; transform: translateY(-1px); }\n  .btn:active { background: #3730a3; transform: translateY(0); }\n  .btn:focus { outline: none; }\n  .btn:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }\n  a { color: #4f46e5; font-weight: bold; text-decoration: none; margin-right: 12px; }\n  a:hover { text-decoration: underline; color: #3730a3; }\n  .list { margin: 12px 0 0; padding-left: 0; list-style: none; }\n  .list li::before { content: "✓ "; color: #10b981; font-weight: bold; }\n</style>\n<p class="hint">滑鼠移入／按住按鈕 · 或按 Tab 鍵看黃色焦點環</p>\n<button type="button" class="btn">互動按鈕（hover / active / focus）</button>\n<p style="margin-top:14px"><a href="#">連結 hover 底線</a></p>\n<ul class="list"><li>偽元素 ::before 清單勾選</li></ul>`,
+    tip: "按鈕記得加 cursor: pointer；disabled 用 :disabled { opacity: 0.5; pointer-events: none; }",
+    quiz: { q: "滑鼠移入變色用？", opts: [":hover", ":focus-visible", "::before"], ans: 0 }
   },
   css_object_fit: {
     track: "css",
@@ -780,6 +791,56 @@ Object.assign(tutorialRepository, {
     submissionStandard: "1) 說出 JSON 與 JS 物件的三個差異\n2) 能手寫一段合法 JSON（含陣列）\n3) 成功 stringify 再 parse 回來",
     quiz: { q: "合法 JSON 的鍵名必須？", opts: ["雙引號包住", "單引號即可", "不用引號"], ans: 0 }
   },
+  js_destructuring: {
+    track: "js",
+    title: "📦 解構、展開與其餘參數（中階）",
+    desc: "從物件/陣列快速取值；合併設定用 spread，函式參數用 rest。",
+    concept: "<pre class=\"tuto-code-block\">const { name, level } = user;\nconst [first, ...rest] = items;\nconst cfg = { ...defaults, theme: 'dark' };\nfunction log(tag, ...args) { console.log(tag, ...args); }</pre><p>API 回傳、Vue props、React 設定都常見這些語法。</p>",
+    practice: "① 從 user 物件解構 name ② 合併兩個設定物件 ③ 寫一個接受不定參數的 sum(...nums)",
+    code: `<p id="out"></p>\n<script>\n  const user = { name: "Bill", level: 3, city: "TW" };\n  const { name, level } = user;\n  const defaults = { theme: "light", lang: "zh" };\n  const prefs = { ...defaults, theme: "dark" };\n  document.getElementById("out").textContent =\n    name + " Lv." + level + " · theme=" + prefs.theme;\n<\/script>`,
+    tip: "解構時可給預設值：const { role = 'guest' } = user;",
+    quiz: { q: "合併物件常用？", opts: ["{ ...a, ...b }", "a + b", "Object.merge only"], ans: 0 }
+  },
+  js_scope_closure: {
+    track: "js",
+    title: "🔒 作用域與閉包（高階）",
+    desc: "搞懂函式讀得到哪些變數，以及為何計數器範例常寫成閉包。",
+    concept: "<p><b>作用域</b>：變數在宣告它的區塊內有效（let/const 區塊作用域）。</p><p><b>閉包</b>：函式「記住」建立當下的外層變數，即使外層已執行完。</p><p>用途：私有狀態、工廠函式、模組模式（現代多用 ES module 取代）。</p>",
+    practice: "① 跑下方計數器 ② 說明為何 count 不會被外面直接改 ③ 對照全域變數版的問題",
+    code: `<p id="n">0</p>\n<button type="button" id="inc">+1</button>\n<script>\n  function createCounter() {\n    let count = 0;\n    return function() {\n      count++;\n      return count;\n    };\n  }\n  const next = createCounter();\n  document.getElementById("inc").addEventListener("click", function() {\n    document.getElementById("n").textContent = next();\n  });\n<\/script>`,
+    tip: "面試常問閉包；作品集中階 JS 理解即可。",
+    quiz: { q: "閉包讓內層函式能？", opts: ["存取外層變數", "取代 DOM", "自動變 CSS"], ans: 0 }
+  },
+  js_promises: {
+    track: "js",
+    title: "🔗 Promise 與鏈式 then（中階）",
+    desc: "async/await 底層仍是 Promise；讀懂 then/catch 維護舊碼更容易。",
+    concept: "<p><code>fetch()</code> 回傳 Promise。流程：<code>.then(res => res.json())</code> → <code>.then(data => …)</code> → <code>.catch(err => …)</code></p><p>async/await 是語法糖，錯誤用 try/catch。兩種寫法請都會讀。</p>",
+    practice: "① 用 then 鏈載入 API ② 改寫成 async/await 對照 ③ 故意錯 URL 走 catch",
+    code: `<button id="go">載入</button><p id="msg">—</p>\n<script>\n  document.getElementById("go").addEventListener("click", function() {\n    const msg = document.getElementById("msg");\n    msg.textContent = "載入中…";\n    fetch("https://jsonplaceholder.typicode.com/posts/1")\n      .then(function(r) { return r.json(); })\n      .then(function(d) { msg.textContent = d.title; })\n      .catch(function() { msg.textContent = "失敗"; });\n  });\n<\/script>`,
+    tip: "記得 return r.json()，否則下一個 then 拿不到資料。",
+    quiz: { q: "Promise 失敗處理用？", opts: [".catch()", ".failonly()", "alert"], ans: 0 }
+  },
+  js_debounce_throttle: {
+    track: "js",
+    title: "⏳ debounce 與 throttle（中階）",
+    desc: "搜尋框輸入、視窗 resize 等高頻事件必學優化。",
+    concept: "<p><b>debounce</b>：連續觸發時，等停下來一段時間才執行（搜尋建議）。</p><p><b>throttle</b>：固定間隔最多執行一次（scroll 追蹤）。</p><p>與 jQuery 課的 resize 節流呼應；Vue 裡也可包在 composable。</p>",
+    practice: "① 快速輸入看 debounce 只觸發一次 ② 說明與 setTimeout 差異",
+    code: `<input id="q" placeholder="快速打字試試" style="width:100%;max-width:280px;padding:8px;border:1px solid #cbd5e1;border-radius:8px">\n<p id="log" style="font-size:13px;color:#64748b;margin-top:8px"></p>\n<script>\n  function debounce(fn, ms) {\n    let t;\n    return function() {\n      clearTimeout(t);\n      t = setTimeout(() => fn.apply(this, arguments), ms);\n    };\n  }\n  const log = document.getElementById("log");\n  document.getElementById("q").addEventListener("input", debounce(function(e) {\n    log.textContent = "搜尋：" + e.target.value;\n  }, 400));\n<\/script>`,
+    tip: "400ms 是常見起點，依產品調整。",
+    quiz: { q: "搜尋框輸入適合？", opts: ["debounce", "throttle", "不用優化"], ans: 0 }
+  },
+  js_regex: {
+    track: "js",
+    title: "🔤 正則表達式入門（中階）",
+    desc: "驗證 email、取代格式、從字串擷取——表單與資料清理常用。",
+    concept: "<p><code>/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/</code> 驗證簡易 email</p><p><code>str.replace(/\\s+/g, '-')</code> 空白改連字號</p><p><code>match</code>、<code>test</code> 兩種常用 API。複雜規則可請 AI 產生，但你要會測試與讀懂。</p>",
+    practice: "① 驗證輸入 email ② 把 'hello world' 改成 hello-world ③ 在 regex101.com 測試",
+    code: `<input id="em" placeholder="email" style="padding:8px;border:1px solid #cbd5e1;border-radius:8px;width:100%;max-width:260px">\n<p id="r" style="font-size:13px;margin-top:8px"></p>\n<script>\n  const re = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n  document.getElementById("em").addEventListener("input", function(e) {\n    document.getElementById("r").textContent =\n      re.test(e.target.value.trim()) ? "✓ 格式 OK" : "格式不符";\n  });\n<\/script>`,
+    tip: "正則太複雜時拆成多步驟驗證，可讀性更好。",
+    quiz: { q: "測試字串是否符合規則？", opts: ["re.test(str)", "str.regex()", "if regex"], ans: 0 }
+  },
   js_timers: {
     track: "js",
     title: "⏱ setTimeout 與 setInterval",
@@ -875,6 +936,69 @@ Object.assign(tutorialRepository, {
     tip: "攝影作品集必學；搭配 loading=\"lazy\"。",
     quiz: { q: "列出多種寬度候選用？", opts: ["srcset", "hrefset", "imglist"], ans: 0 }
   },
+  css_cascade: {
+    track: "css",
+    title: "🌊 層疊、繼承與 origin（中階）",
+    desc: "為什麼子元素會繼承 color、font，但 width 不會；層疊順序怎麼決定。",
+    concept: "<p><b>繼承</b>：部分屬性（color、font-family）子元素會沿用父層，除非自己覆寫。</p><p><b>層疊順序</b>（簡化）：重要性（!important）→ 來源（作者/使用者）→ 權重 → 順序。</p><p>這課接在「權重 specificity」前後讀皆可，能解釋「我寫了 p {} 為何沒用」。</p>",
+    practice: "① 父層設 color，子層不設看繼承 ② 子層設 color 覆寫 ③ 對照 DevTools Computed 面板",
+    code: `<style>\n  .parent { color: #4f46e5; font-weight: bold; padding: 12px; border: 1px solid #e2e8f0; border-radius: 10px; }\n  .child { margin-top: 8px; }\n</style>\n<div class="parent">父層紫色字\n  <p class="child">子層繼承 color（沒寫 color 時）</p>\n</div>`,
+    tip: "margin 不會繼承；這是常見考點。",
+    quiz: { q: "子元素通常會繼承？", opts: ["color", "width", "margin"], ans: 0 }
+  },
+  css_container_queries: {
+    track: "css",
+    sandbox: false,
+    title: "📦 Container Queries 容器查詢（中階）",
+    desc: "依「元件容器」寬度切版，不必只看整個視窗。",
+    concept: "<p>傳統 <code>@media (min-width:768px)</code> 看的是<strong>視窗</strong>。卡片在側欄變窄時，可能仍需要單欄——這時用 <strong>container query</strong>。</p><pre class=\"tuto-code-block\">.card-wrap { container-type: inline-size; }\n@container (min-width: 400px) {\n  .card-inner { display: flex; gap: 12px; }\n}</pre><p>瀏覽器支援已相當普遍；作品集進階加分項。</p>",
+    practice: "① 查 caniuse container queries ② 在本機卡片元件試 container ③ 說明與 @media 差異",
+    code: "",
+    tip: "先讓外層有 container-type，內層才寫 @container。",
+    quiz: { q: "@container 主要看？", opts: ["父容器寬度", "整個螢幕高度", "圖片檔名"], ans: 0 }
+  },
+  css_filters: {
+    track: "css",
+    title: "✨ filter 與 backdrop-filter（中階）",
+    desc: "模糊、亮度、對比——做毛玻璃導覽與圖片 hover 效果。",
+    concept: "<p><code>filter: blur(4px) brightness(1.1);</code> 套在元素本身。</p><p><code>backdrop-filter: blur(12px);</code> 套在<strong>半透明背景</strong>上，常見毛玻璃 nav。</p><p>效能：大面積 blur 可能吃 GPU，手機注意測試。</p>",
+    practice: "① 圖片 hover 加 brightness ② 做半透明 bar + backdrop-filter ③ 加 prefers-reduced-motion 關閉",
+    code: `<style>\n  .glass {\n    background: rgba(255,255,255,.7);\n    backdrop-filter: blur(10px);\n    padding: 12px 16px;\n    border-radius: 12px;\n    border: 1px solid rgba(255,255,255,.5);\n    font-weight: bold;\n    color: #334155;\n  }\n  img { max-width: 200px; border-radius: 12px; transition: filter .2s; }\n  img:hover { filter: brightness(1.15); }\n</style>\n<div class="glass">毛玻璃示範列</div>\n<p style="margin-top:12px"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=300&q=80" alt="相機"></p>`,
+    tip: "backdrop-filter 需要半透明底才看得出效果。",
+    quiz: { q: "毛玻璃常用？", opts: ["backdrop-filter", "float:left", "z-index:0"], ans: 0 }
+  },
+  css_layer: {
+    track: "css",
+    sandbox: false,
+    title: "🧱 @layer 與樣式分層（高階）",
+    desc: "把 reset、元件、工具類分層，降低權重戰爭。",
+    concept: "<pre class=\"tuto-code-block\">@layer reset, components, utilities;\n@layer reset { * { box-sizing: border-box; } }\n@layer components { .btn { padding: 8px 16px; } }</pre><p>後宣告的 layer 優先級較高（在同權重下）。Tailwind v4 也大量使用 layer 思維。</p>",
+    practice: "① 把現有 style.css 拆成 reset + components 兩層 ② 說明為何比到處 !important 好",
+    code: "",
+    tip: "小專案不必硬上；多人協作、設計系統才特別值得。",
+    quiz: { q: "@layer 主要解決？", opts: ["樣式優先順序可預期", "取代 HTML", "自動壓縮圖片"], ans: 0 }
+  },
+  css_bem: {
+    track: "css",
+    sandbox: false,
+    title: "🏷 BEM 命名與 CSS 架構（高階）",
+    desc: "Block__element--modifier，讓 class 名可讀、可維護。",
+    concept: "<p><b>Block</b>：<code>.card</code> 獨立元件</p><p><b>Element</b>：<code>.card__title</code> 元件的一部分</p><p><b>Modifier</b>：<code>.card--featured</code> 狀態或變體</p><p>避免 <code>.card .title</code> 深層選擇器，降低權重與誤傷。</p>",
+    practice: "① 把一張卡片改成 BEM 命名 ② 全專案搜尋是否同名 class 衝突",
+    code: `<style>\n  .card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; }\n  .card__title { font-weight: bold; color: #4338ca; margin: 0 0 8px; }\n  .card--featured { border-color: #818cf8; background: #eef2ff; }\n</style>\n<article class="card card--featured">\n  <h3 class="card__title">BEM 標題</h3>\n  <p>修飾符 --featured 表示精選卡片</p>\n</article>`,
+    tip: "不必宗教式 BEM；但命名一致比隨意 .box1 .box2 好維護。",
+    quiz: { q: "card 上的精選狀態 modifier？", opts: [".card--featured", ".card.featured .on", "#card2"], ans: 0 }
+  },
+  css_a11y_motion: {
+    track: "css",
+    title: "♿ 無障礙：focus 與減少動態（中階）",
+    desc: ":focus-visible、對比、prefers-reduced-motion，專業站必備。",
+    concept: "<p><code>:focus-visible</code> 只在<strong>鍵盤 Tab</strong> 聚焦時顯示外框；用滑鼠點擊時通常不會出現醜一圈（仍保留 :hover 回饋）。</p><p>這和上一課 <code>:hover</code> 不衝突：<strong>滑鼠</strong>看 hover／active，<strong>鍵盤</strong>看 focus-visible。</p><p><code>@media (prefers-reduced-motion: reduce)</code> 關閉動畫，照顧暈動症使用者。</p>",
+    practice: "① 滑鼠移入按鈕（應變深紫）② 再按 Tab 鍵（應出現黃色外框）③ 兩者都試過才算完成",
+    code: `<style>\n  .hint { font-size: 13px; color: #64748b; margin: 0 0 10px; line-height: 1.65; max-width: 28em; }\n  .btn {\n    padding: 10px 18px;\n    background: #4f46e5;\n    color: #fff;\n    border: none;\n    border-radius: 10px;\n    font-weight: bold;\n    cursor: pointer;\n    transition: background 0.2s ease;\n  }\n  .btn:hover { background: #4338ca; }\n  .btn:focus { outline: none; }\n  .btn:focus-visible {\n    outline: 3px solid #fbbf24;\n    outline-offset: 2px;\n    background: #4338ca;\n  }\n  @media (prefers-reduced-motion: reduce) {\n    * { animation: none !important; transition: none !important; }\n  }\n</style>\n<p class="hint">🖱 滑鼠移入 → 顏色變深 · ⌨ 按 Tab → 黃色焦點環（即時預覽要親自操作才看得到）</p>\n<button type="button" class="btn">用 Tab 聚焦我</button>`,
+    tip: "截圖只會是預設紫按鈕；變化請在預覽區用滑鼠或 Tab 測試。",
+    quiz: { q: "鍵盤使用者聚焦樣式？", opts: [":focus-visible", ":hover only", "outline:0 無替代"], ans: 0 }
+  },
   work_git: {
     track: "git",
     title: "🔀 Git 工作流程（團隊必備）",
@@ -894,6 +1018,28 @@ Object.assign(tutorialRepository, {
     code: `<p id="net-status" style="font-size:14px">按按鈕測試 fetch（請開 F12 → Network）</p>\n<button type="button" id="net-btn" style="padding:8px 14px;background:#0f172a;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer">載入測試 API</button>\n<script>\n  document.getElementById("net-btn").addEventListener("click", function() {\n    const el = document.getElementById("net-status");\n    el.textContent = "請求中…";\n    fetch("https://jsonplaceholder.typicode.com/posts/1")\n      .then(function(r) { return r.json(); })\n      .then(function(d) { el.textContent = "成功：「" + d.title + "」"; })\n      .catch(function() { el.textContent = "失敗：看 Network 紅字與 Console"; });\n  });\n<\/script>`,
     tip: "Disable cache 勾選後，可確認使用者是否載到最新 CSS。",
     quiz: { q: "API 404 表示？", opts: ["找不到資源", "一定中毒", "瀏覽器壞了"], ans: 0 }
+  },
+  js_modules_esm: {
+    track: "js",
+    sandbox: false,
+    title: "📁 ES Modules：import / export（高階）",
+    desc: "把 JS 拆檔、避免全域變數污染；Vite/Vue 專案標準寫法。",
+    concept: "<p><code>export function init() {}</code> 在 utils.js</p><p><code>import { init } from './utils.js'</code> 在 main.js</p><p>瀏覽器需 <code>&lt;script type=\"module\"&gt;</code>；路徑通常要含 <code>.js</code> 副檔名。</p><p>與舊式 IIFE、全域 App 物件相比，模組化是現代預設。</p>",
+    practice: "① 建立 utils.js 匯出一個函式 ② main 用 module script 引入 ③ 對照 Vue 專案 import 寫法",
+    code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px;font-size:13px">// utils.js\nexport function greet(name) {\n  return "Hi, " + name;\n}\n\n// index.html\n&lt;script type="module"&gt;\n  import { greet } from "./utils.js";\n  console.log(greet("Bill"));\n&lt;/script&gt;</pre>`,
+    tip: "本地開檔若 CORS 錯誤，請用 Live Server 或 Vite dev。",
+    quiz: { q: "瀏覽器用 import 需？", opts: ["script type=module", "script async only", "jquery first"], ans: 0 }
+  },
+  js_debugging: {
+    track: "js",
+    sandbox: false,
+    title: "🐛 JS 除錯策略（高階）",
+    desc: "Console、breakpoint、常見錯誤訊息解讀，縮短卡住時間。",
+    concept: "<ul class=\"tuto-list\"><li><code>console.log</code> 快速看變數；複雜流程用 <code>console.table</code></li><li>Sources 面板設<strong>中斷點</strong>，逐步執行</li><li><code>Cannot read properties of undefined</code> → 某物件是 undefined，往前找賦值</li><li><code>Unexpected token</code> → 語法錯，看行號與括號</li><li>Network 看 fetch 是否 200、回應是否 JSON</li></ul>",
+    practice: "① 故意寫錯選擇器看 null 錯誤 ② 設 breakpoint 走一次事件 ③ 列出你最近遇過的一個錯誤訊息",
+    code: `<p>打開 F12 → Sources → 左側選檔案 → 點行號設斷點 → 再觸發按鈕。</p>`,
+    tip: "先讀錯誤「第一行」與行號，不要從最後一條 trace 開始猜。",
+    quiz: { q: "逐步執行程式用？", opts: ["breakpoint", "console.clear", "刪除 script"], ans: 0 }
   },
   master_semantic: {
     track: "master",
@@ -957,17 +1103,17 @@ const TUTORIAL_ORDER = [
   "html_tables", "html_containers", "html_nav",
   "html_inputs", "html_button", "html_textarea_select", "html_form",
   "html_float", "html_text_align", "html_background",
-  "css_selectors", "css_external_import", "css_colors", "css_background_image", "css_typography", "css_spacing",
+  "css_learning_path", "css_selectors", "css_external_import", "css_colors", "css_background_image", "css_typography", "css_spacing",
   "work_units_rem", "css_box_model", "css_borders_outline", "css_width_max_overflow", "css_display",
-  "css_flexbox", "css_grid", "css_position", "css_shadows", "css_transitions",
-  "css_variables", "css_pseudo", "css_object_fit", "css_flex_advanced", "css_media_rwd", "css_animation", "css_zindex",
-  "css_specificity", "work_flex_center", "work_overflow", "work_responsive_img",
+  "css_flexbox", "css_grid", "css_position", "work_flex_center", "css_shadows", "css_transitions",
+  "css_pseudo", "css_object_fit", "css_variables", "css_flex_advanced", "css_media_rwd", "css_container_queries",
+  "work_responsive_img", "work_overflow", "css_animation", "css_zindex", "css_cascade", "css_specificity",
+  "css_filters", "css_layer", "css_bem", "css_a11y_motion",
   "intro_js_whatis", "intro_js_roadmap", "js_variables", "js_conditionals", "js_template_strings", "js_loops_for", "js_arrays", "js_array_methods",
-  "js_objects", "js_functions", "js_events", "js_dom", "js_classlist", "js_queryselector", "js_arrow",
-  "js_async_await", "js_try_catch", "js_json", "js_fetch", "js_localstorage", "js_timers", "js_ecosystem",
-  "adv_ui_patterns",
-  "work_overflow", "work_units_rem", "work_flex_center", "work_responsive_img",
-  "js_form_submit", "work_devtools_network", "work_git",
+  "js_destructuring", "js_objects", "js_functions", "js_arrow", "js_scope_closure", "js_events", "js_dom", "js_classlist", "js_queryselector",
+  "js_async_await", "js_promises", "js_try_catch", "js_json", "js_fetch", "js_localstorage", "js_timers", "js_debounce_throttle", "js_regex",
+  "js_form_submit", "adv_ui_patterns", "js_ecosystem", "work_devtools_network", "js_modules_esm", "js_debugging",
+  "work_git",
   "master_semantic", "master_a11y", "master_performance", "master_deploy", "master_capstone"
 ];
 
@@ -984,6 +1130,11 @@ const tutorialTrackRepository = {
   jq_10_performance: { track: "jquery", title: "jQuery 10｜效能與可維護性", desc: "減少重複查找 DOM、節流高頻事件。", concept: "效能核心：少查 DOM、少重排、少無效重繪。", practice: "把重複 selector 存變數。", code: `<div id="box">滾動觀察</div>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n<script>\nconst $box = $("#box");\nlet timer;\n$(window).on("resize", function(){\n  clearTimeout(timer);\n  timer = setTimeout(function(){ $box.text("resize: " + window.innerWidth); }, 120);\n});\n<\/script>`, tip: "高頻事件（scroll/resize）必做節流或防抖。", quiz: { q: "優化高頻事件常用？", opts: ["debounce/throttle", "更多 console", "每次都查 DOM"], ans: 0 } },
   jq_11_architecture: { track: "jquery", title: "jQuery 11｜模組化與命名規範", desc: "把功能分模組，避免單檔爆炸。", concept: "把事件綁定、資料處理、畫面渲染分開，維護成本大幅下降。", practice: "建立簡單 App 物件封裝 init。", code: `<button id="run">初始化</button><p id="state"></p>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n<script>\nconst App = {\n  init(){ this.bind(); $("#state").text("App ready"); },\n  bind(){ $("#run").on("click", ()=>$("#state").text("clicked")); }\n};\nApp.init();\n<\/script>`, tip: "命名要可讀，函式一眼看出用途。", quiz: { q: "模組化主要目的？", opts: ["降低維護成本", "讓檔案更長", "增加耦合"], ans: 0 } },
   jq_12_master_workflow: { track: "jquery", sandbox: false, staticPreview: false, title: "jQuery 12｜大師關：維護舊站 + 漸進升級", desc: "在不中斷服務下改舊站，並規劃升級路線。", concept: "<p>這課是<strong>流程規劃</strong>，不是寫程式。舊站維護的核心：先穩定、再模組化、最後分頁級升級。</p><h3 class=\"tuto-h3\">建議三步驟</h3><ol class=\"tuto-list\"><li><strong>先穩定</strong>：修 bug、補最小測試，不要一開始就重寫</li><li><strong>再模組化</strong>：把重複的 <code>$('.tab')</code> 邏輯抽成 <code>App.tabs.init()</code></li><li><strong>漸進升級</strong>：新頁面用 Vue，舊頁保留 jQuery，不要一次全砍</li></ol><p>下方清單可直接當你專案的升級 checklist。</p>", practice: "寫下你專案的三步升級清單（穩定→模組化→新頁 Vue 化）。", code: `<ol>\n  <li>先穩定舊功能（bug 修復）</li>\n  <li>抽離重複 jQuery 模組</li>\n  <li>新頁面改用 Vue 實作</li>\n</ol>\n<p>完成後，你已能接手多數 jQuery 維護案。</p>`, tip: "不是推翻重寫，而是可交付的漸進改造。", quiz: { q: "舊站升級最佳策略？", opts: ["漸進改造", "一次全砍重寫", "不動它"], ans: 0 } },
+  jq_13_traversing: { track: "jquery", title: "jQuery 13｜遍歷 DOM：parent / find / siblings（中階）", desc: "在舊站結構裡精準找到要改的節點，不靠亂猜 selector。", concept: "<p>維護案常遇到「點這顆按鈕，要改隔壁卡片」——用<strong>相對遍歷</strong>比寫超長 selector 穩。</p><ul class=\"tuto-list\"><li><code>.parent()</code>、<code>.parents('.card')</code> — 往上找</li><li><code>.children()</code>、<code>.find('.title')</code> — 往下找</li><li><code>.siblings()</code>、<code>.next()</code>、<code>.prev()</code> — 同層鄰居</li><li><code>.closest('.item')</code> — 往上找最近符合的祖先（很常用）</li></ul><p>對應原生：<code>el.closest()</code>、<code>querySelector</code> 在子樹內查找。</p>", practice: "點刪除時用 closest 找到 li 再 remove；點標題時 highlight 同層其他卡片。", code: `<ul id="list">\n  <li class="item">任務 A <button class="del">刪</button></li>\n  <li class="item">任務 B <button class="del">刪</button></li>\n</ul>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>\n<script>\n$("#list").on("click", ".del", function(){\n  $(this).closest(".item").fadeOut(200, function(){ $(this).remove(); });\n});\n<\/script>`, focusCode: `$(this).closest(".item").remove();\n// 從按鈕往上找最近的 .item`, tip: "事件委派 + closest 是舊站清單維護的黃金組合。", quiz: { q: "從按鈕往上找最近的 .card 用？", opts: [".closest('.card')", ".parent().parent() 猜層數", "$('body')"], ans: 0 } },
+  jq_14_class_data: { track: "jquery", title: "jQuery 14｜Class 與 Data 操作（中階）", desc: "addClass/toggleClass、.data() 與 HTML5 data-* 屬性。", concept: "<p><code>.addClass()</code> / <code>.removeClass()</code> / <code>.toggleClass()</code> 比直接改 style 更好維護（樣式留在 CSS）。</p><p><code>.data('id')</code> 讀取 <code>data-id</code>；適合把「這列資料的 id」放在按鈕上，AJAX 時帶出去。</p><p>注意：<code>.data()</code> 與 <code>.attr('data-x')</code> 在部分情境不同步；維護案以 attr 讀寫較直覺。</p>", practice: "① 按鈕 toggle active class ② 用 data-id 顯示要刪除的編號", code: `<style>.active{outline:2px solid #4f46e5;background:#eef2ff}</style>\n<div class="card" data-id="101">卡片</div>\n<button id="tog">切換 active</button>\n<p id="out"></p>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>\n<script>\n$("#tog").on("click", function(){\n  $(".card").toggleClass("active");\n  $("#out").text("data-id: " + $(".card").data("id"));\n});\n<\/script>`, tip: "狀態 class 命名固定（is-active、is-open），全站一致。", quiz: { q: "讀取 data-user-id 屬性常用？", opts: ["$(el).data('userId') 或 attr", "$(el).html()", "$.ajax"], ans: 0 } },
+  jq_15_ajax_post: { track: "jquery", title: "jQuery 15｜POST、JSON 與錯誤處理（中階）", desc: "$.ajax 送表單與 JSON API，補齊 GET 以外的實務。", concept: "<p>舊後台常見 POST + JSON。用 <code>$.ajax</code> 可統一設定 method、contentType、dataType。</p><pre class=\"tuto-code-block\">$.ajax({\n  url: '/api/save',\n  method: 'POST',\n  contentType: 'application/json',\n  data: JSON.stringify({ name: 'Bill' }),\n  success: function(res) { /* ... */ },\n  error: function(xhr) { /* 顯示人話錯誤 */ }\n});</pre><p>現代專案更常 fetch；維護 jQuery 案時要會讀懂上述結構。</p>", practice: "① 對 jsonplaceholder POST 一筆 ② 故意錯網址看 error ③ 對照 JS 課 fetch 寫法", code: `<button id="save">POST 測試</button><p id="msg"></p>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>\n<script>\n$("#save").on("click", function(){\n  $.ajax({\n    url: "https://jsonplaceholder.typicode.com/posts",\n    method: "POST",\n    contentType: "application/json",\n    data: JSON.stringify({ title: "test", body: "hi", userId: 1 }),\n    success: function(d){ $("#msg").text("成功 id=" + d.id); },\n    error: function(){ $("#msg").text("失敗"); }\n  });\n});\n<\/script>`, tip: "永遠處理 error；loading 狀態要 disable 按鈕防重送。", quiz: { q: "送 JSON body 常設？", opts: ["contentType: application/json", "dataType: html", "method: GET"], ans: 0 } },
+  jq_16_namespaced: { track: "jquery", title: "jQuery 16｜命名空間事件與解綁（高階）", desc: "避免重複綁定、外掛卸載時乾淨移除監聽。", concept: "<p><code>.on('click.myNs', fn)</code> 可用 <code>.off('click.myNs')</code> 只移除該命名空間的 handler，不影響其他 click。</p><p>SPA 或 Tab 切換若重複 <code>.on('click')</code> 會觸發多次——維護時先 <code>.off()</code> 再綁，或用命名空間。</p><p>元件 destroy 時記得 off，否則 memory leak。</p>", practice: "① 連續綁兩次 click 觀察觸發次數 ② 用 .off('click.demo') 修正 ③ 說明為何外掛文件常寫 .off().on()", code: `<button id="btn">點我</button><p id="c">0</p>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>\n<script>\nfunction bindDemo(){\n  $("#btn").off("click.demo").on("click.demo", function(){\n    $("#c").text(+$("#c").text() + 1);\n  });\n}\nbindDemo(); bindDemo();\n<\/script>`, tip: "命名空間格式：事件名.自訂名稱，例如 resize.layout。", quiz: { q: "只移除特定 handler 可用？", opts: [".off('click.myNs')", ".off() 刪光所有", "location.reload"], ans: 0 } },
+  jq_17_no_conflict: { track: "jquery", title: "jQuery 17｜noConflict 與除錯遷移（高階）", desc: "$ 被佔用、多版本共存、從 jQuery 遷到原生/Vue 的檢查清單。", concept: "<p><b>$ is not a function</b>：可能沒載入 jQuery、或 script 順序錯、或 WordPress/其他庫佔用 <code>$</code>。</p><p><code>jQuery.noConflict()</code> 釋放 $，改用 <code>jQuery('#id')</code> 或傳入別名 <code>var jq = jQuery.noConflict(true)</code>。</p><h3 class=\"tuto-h3\">遷移檢查</h3><ol class=\"tuto-list\"><li>列出全站 <code>$.</code> 用法（搜尋專案）</li><li>新功能用 Vue 元件，舊區塊保留</li><li>把 <code>$('#x').text()</code> 對照為 querySelector + textContent</li><li>移除未使用的外掛與重複 CDN</li></ol>", practice: "① Console 輸入 typeof jQuery ② 寫一個原生版「刪除列表項」取代 jQuery ③ 列出你專案若遷移的 3 個風險", code: `<p>在 Console 檢查：</p>\n<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:8px;font-size:13px">typeof jQuery\ntypeof $\n// 若 $ 不是 function 但 jQuery 是，考慮 noConflict</pre>`, sandbox: false, tip: "別在同頁載入兩個 jQuery 版本；幾乎一定出怪問題。", quiz: { q: "$ 被佔用時較安全？", opts: ["jQuery.noConflict()", "再載入一次 jQuery", "刪除所有 script"], ans: 0 } },
 
   vue_01_intro: { track: "vue", title: "Vue 01｜Vue 核心心法", desc: "Vue 讓你「改資料，畫面自己更新」。進這條路線前，請先會 JS 的變數、物件、DOM 與事件。", concept: "<p>Vue 的核心：<strong>你改資料，框架幫你更新畫面</strong>，不必像原生 JS 那樣手動 <code>textContent = …</code> 逐個改。</p><div class=\"tuto-panel tuto-panel-why\"><p class=\"tuto-panel-title\">🔗 與 JS 根基的對應</p><ul class=\"tuto-list\"><li><code>data(){ return { message: '…' } }</code> → 就是 JS 物件存狀態</li><li><code>{{ message }}</code> → 把物件欄位顯示到 DOM（原生要自己改 textContent）</li><li><code>@click</code> → 就是事件監聽，只是寫在模板裡</li><li><code>v-for</code> → 就是陣列 map 渲染列表</li></ul><p>若 <code>undefined</code>、<code>Cannot read properties</code> 常出現，請回 JS 路線補「物件／陣列／async」。</p></div>", practice: "修改 message 文字並看畫面同步更新；對照上方 JS 對應表。", code: `<div id="app">{{ message }}</div>\n<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>\n<script>\n  // ★ data 回傳物件 = 畫面狀態；{{ message }} 自動同步\n  Vue.createApp({\n    data() { return { message: "Hello Vue 3" }; }\n  }).mount("#app");\n<\/script>`, focusCode: `Vue.createApp({\n  data() { return { message: "Hello Vue 3" }; }\n}).mount("#app");\n\n// 模板：{{ message }}  ← 資料變，畫面自動更新`, tip: "Vue 先學資料流，再學語法糖。", quiz: { q: "Vue 最大特性是？", opts: ["資料驅動畫面", "手動逐一改 DOM", "只做後端"], ans: 0 } },
   vue_02_template: { track: "vue", title: "Vue 02｜模板語法與插值", desc: "掌握 `{{ }}`、屬性綁定、條件渲染。", concept: "模板像 HTML++，可直接綁資料與狀態。", practice: "切換 isActive 觀察 class 變化。", code: `<div id="app">\n  <h3 :class=\"{ on: isActive }\">{{ title }}</h3>\n  <button @click=\"isActive=!isActive\">切換狀態</button>\n</div>\n<style>.on{color:#4f46e5;font-weight:bold}</style>\n<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>\n<script>\n  Vue.createApp({\n    data() { return { title: "模板練習", isActive: false }; }\n  }).mount("#app");\n<\/script>`, focusCode: `{{ title }}           // 插值顯示\n:class="{ on: isActive }"  // 屬性綁定（v-bind 縮寫 :）\n@click="isActive=!isActive"  // 事件（v-on 縮寫 @）`, tip: "`v-bind` 可縮寫成 `:`。", quiz: { q: "屬性綁定縮寫是？", opts: [":", "@", "#"], ans: 0 } },
@@ -1027,9 +1178,21 @@ const tutorialTrackRepository = {
     submissionStandard: "1) 能區分 A/B 並寫出對應交接訊息\n2) 有 v1 tag + intake 分支 + 第二次 commit\n3) 套版案能說出 HTML 收回要檢查哪 3 項",
     quiz: { q: "設計師要把 Figma 套成 5 頁 HTML，屬於？", opts: ["情境 B 套版（可動 HTML）", "情境 A 只改 CSS", "不用備份"], ans: 0 }
   },
+  git_10_gitignore: { track: "git", title: "Git 10｜.gitignore 與敏感檔（中階）", desc: "排除 node_modules、.env、系統垃圾檔，避免誤 commit 密鑰。", concept: "<p><code>.gitignore</code> 告訴 Git 哪些檔「不要追蹤」。常見：</p><pre class=\"tuto-code-block\">node_modules/\n.env\n.DS_Store\n*.log\ndist/</pre><p>若已誤 add 敏感檔：<code>git rm --cached .env</code> 再 commit，並<strong>旋即更換已外洩的密鑰</strong>。</p><p>可用 <a href=\"https://www.toptal.com/developers/gitignore\">gitignore.io</a> 產生範本（Node、macOS、Windows）。</p>", practice: "① 為作品集加 .gitignore ② git status 確認 node_modules 未出現 ③ 說明 .env 為何不能 push", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px"># 建立後\ngit add .gitignore\ngit commit -m "chore: add gitignore"</pre>`, tip: "密鑰只放平台環境變數或本機 .env（被 ignore）。", quiz: { q: "node_modules 應？", opts: ["寫入 .gitignore", "每次 commit 進 repo", "用 email 傳"], ans: 0 } },
+  git_11_stash: { track: "git", title: "Git 11｜stash 暫存與 WIP（中階）", desc: "改到一半要切分支？先 stash 起來，做完再 pop。", concept: "<p><code>git stash push -m \"wip: 表單一半\"</code> 把工作區變更暫存，讓 working tree 乾淨。</p><p><code>git stash list</code> 查看；<code>git stash pop</code> 取回（可能需解衝突）。</p><p>適用：緊急修 bug 要先切 main；不適用：長期囤積十幾個 stash 不清理。</p>", practice: "① 故意改一檔不 commit → stash → status 乾淨 → pop ② 寫什麼時候該 commit 而非 stash", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git stash push -m "wip: hero section"\ngit switch main\n# ...修 bug...\ngit switch feature/xxx\ngit stash pop</pre>`, tip: "stash 不是備份雲端；重要里程碑請正常 commit。", quiz: { q: "改到一半要切分支，可先？", opts: ["git stash", "git push", "刪 .git"], ans: 0 } },
+  git_12_log_bisect: { track: "git", title: "Git 12｜log 追查與 bisect（高階）", desc: "用 git log/blame 找誰改了什麼；bisect 找「哪一 commit 弄壞」。", concept: "<p><code>git log --oneline --graph</code> — 看歷史樹</p><p><code>git blame 檔名</code> — 每一行最後誰改的</p><p><code>git bisect start</code> → 標記 good/bad commit → Git 二分搜尋出問題版本</p><p>日常先用 log + diff；bisect 適合「上週還好、今天壞掉」且 commit 很多時。</p>", practice: "① log --oneline -5 ② blame 一行 CSS ③ 閱讀 bisect 文件並口述流程", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px">git log --oneline -10\ngit blame index.html\ngit show &lt;commit&gt; --stat</pre>`, tip: "commit 訊息寫清楚，未來的你会感謝現在的你。", quiz: { q: "找某行誰改的用？", opts: ["git blame", "git stash", "git tag"], ans: 0 } },
+  git_13_gitflow: { track: "git", title: "Git 13｜GitFlow 與發布分支（高階）", desc: "main/develop/release/hotfix 分工，適合週期性上線團隊。", concept: "<p><b>簡化 GitFlow</b>：</p><ul class=\"tuto-list\"><li><code>main</code> — 永遠可部署的正式版</li><li><code>develop</code> — 整合中的下一版</li><li><code>release/*</code> — 上線前修小 bug、調版本號</li><li><code>hotfix/*</code> — 正式站緊急修，合回 main + develop</li></ul><p>小團隊／個人作品集：<strong>main + feature 分支</strong> 通常就夠，不必硬套全套。</p>", practice: "① 畫出你專案適合的分支模型 ② 說明 hotfix 與一般 feature 差異 ③ 對照 git_03 命名規範", code: `<div style="font-family:system-ui;font-size:14px;line-height:1.7;color:#334155">\n  <p>個人作品集推薦：<code>main</code> + <code>feat/xxx</code>，上線打 tag v1.0.0。</p>\n  <p>有固定發版日再考慮 develop/release 分支。</p>\n</div>`, sandbox: false, tip: "流程要團隊一致；一個人用 GitFlow、另一個人直推 main 會亂。", quiz: { q: "緊急修正式站常開？", opts: ["hotfix 分支", "刪 main", "新 repo"], ans: 0 } },
+  git_14_github_actions: { track: "git", title: "Git 14｜GitHub Actions CI 入門（高階）", desc: "push 後自動跑 lint/test/build，減少「我電腦可以」問題。", concept: "<p>在 repo 建立 <code>.github/workflows/ci.yml</code>：</p><pre class=\"tuto-code-block\">name: CI\non: [push, pull_request]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with: { node-version: '20' }\n      - run: npm ci\n      - run: npm run build</pre><p>靜態 HTML 專案可改為檢查連結、HTML validate（選修）。Vue 專案常跑 build + test。</p>", practice: "① 為專案加最小 ci.yml ② push 後到 Actions 分頁看結果 ③ 故意讓 build 失敗再修正", code: "", sandbox: false, tip: "先讓 CI 只做一件事（例如 npm run build），穩了再加 lint。", quiz: { q: "GitHub Actions 設定檔放？", opts: [".github/workflows/", "根目錄 index.html", "node_modules/"], ans: 0 } },
+  git_15_hooks: { track: "git", title: "Git 15｜Hooks 與提交前檢查（高階）", desc: "pre-commit 跑格式化/lint，減少低級錯誤進 repo。", concept: "<p><b>Git hooks</b>：在 commit/push 前後自動執行腳本。本機 hook 在 <code>.git/hooks/</code>（不會被 commit）。</p><p>團隊常用 <b>husky</b> + <b>lint-staged</b>：只檢查「這次 staged 的檔案」，速度快。</p><p>注意：hook 可被 <code>--no-verify</code> 跳過；文化上仍應遵守。</p>", practice: "① 了解 pre-commit 用途 ② 規劃若專案加 husky 要檢查什麼（format? eslint?）③ 對照 CI 課分工", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px"># 概念：commit 前\nnpm run lint\n# 失敗則阻止 commit，迫使你先修</pre>`, sandbox: false, tip: "個人小專案可先靠 IDE format on save；人數變多再加 hook。", quiz: { q: "pre-commit 常用来？", opts: ["提交前自動檢查", "部署到 FTP", "刪除分支"], ans: 0 } },
 
   jq_00_cdn_setup: { track: "jquery", title: "jQuery 00｜如何載入與在哪執行", desc: "jQuery 在瀏覽器執行，需先載入 JS 檔再寫你的程式。", concept: "<b>CDN（最常見）</b>：<code>&lt;script src=\"https://code.jquery.com/jquery-3.7.1.min.js\"&gt;&lt;/script&gt;</code> 放在你的 script 之前。<br><b>本機檔</b>：<code>js/jquery.min.js</code> 路徑注意相對位置。<br><b>npm</b>：現代打包專案用 <code>npm install jquery</code> + import，舊站維護多見 CDN。<br>執行環境：瀏覽器 + F12 Console；$ 就是 jQuery 入口。", practice: "① 確認 script 順序 ② 在 Console 輸入 typeof $ 應為 function", code: `<p id="ok">尚未測試</p>\n<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>\n<script>\n  if (typeof window.jQuery === "function") {\n    document.getElementById("ok").textContent = "jQuery " + jQuery.fn.jquery + " 已載入";\n  }\n<\/script>`, tip: "script 順序錯誤會出現 $ is not defined。", quiz: { q: "jQuery 在哪執行？", opts: ["瀏覽器", "MySQL", "Git"], ans: 0 } },
   vue_13_vite_tooling: { track: "vue", title: "Vue 13｜Vite 工具鏈與單檔元件", desc: "新專案幾乎都用 Vite 建立，理解 .vue 檔與 npm run dev。", concept: "<b>建立專案</b>：<code>npm create vue@latest</code>（官方推薦）→ 選 TypeScript/ Router 等 → <code>cd 專案 && npm install && npm run dev</code><br><b>.vue 檔</b>：template + script + style 同一檔，元件化開發。<br><b>與 CDN 版差異</b>：本課前面用 CDN 是教學；正式開發用 Vite 熱更新、打包。<br>文件：<a href=\"https://vuejs.org\" target=\"_blank\" rel=\"noopener\">vuejs.org</a>", practice: "① 瀏覽器開 vuejs.org 文件 ② 規劃你是否要開 Vite 專案練習", code: `<div style="font-family:system-ui;line-height:1.7;color:#334155;max-width:34em">\n  <p><strong>教學用：</strong> CDN + createApp（本手冊前幾課）</p>\n  <p><strong>工程用：</strong> Vite + .vue + npm run dev / build</p>\n</div>`, tip: "作品集若只有靜態頁可先不強求 Vite；要徵才 Vue 職再深入。", quiz: { q: "Vue 新專案常見開發伺服器？", opts: ["npm run dev (Vite)", "雙擊 index.html 就夠", "只用 jQuery"], ans: 0 } },
+  vue_14_slots: { track: "vue", title: "Vue 14｜Slots 插槽與版面客製（中階）", desc: "讓元件保留外殼、內容由父層決定，像可換芯的卡片。", concept: "<p><code>&lt;slot&gt;&lt;/slot&gt;</code> 是元件預留的「洞」，父層寫在標籤內的內容會填進去。</p><p><b>具名插槽</b>：<code>&lt;slot name=\"footer\"&gt;&lt;/slot&gt;</code> + 父層 <code>v-slot:footer</code>（或 <code>#footer</code>）。</p><p>用途：共用 Card、Modal、Layout，避免 props 傳一大串 HTML 字串。</p>", practice: "① 做 card 元件，slot 放內文 ② 加 #footer 插槽放按鈕", code: `<div id="app">\n  <ui-card>\n    <p>這段由父層傳入 slot</p>\n    <template #footer><button @click="n++">點了 {{n}} 次</button></template>\n  </ui-card>\n</div>\n<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"><\/script>\n<script>\nconst app = Vue.createApp({ data(){ return { n:0 }; } });\napp.component('ui-card', {\n  template: '<div style="border:1px solid #cbd5e1;border-radius:12px;padding:12px"><slot/><div style="margin-top:8px"><slot name="footer"/></div></div>'\n});\napp.mount('#app');\n<\/script>`, tip: "Layout 元件（側欄+主內容）幾乎都靠 slot。", quiz: { q: "父層內容填進元件預留區用？", opts: ["slot", "props 傳 HTML 字串", "v-html 亂用"], ans: 0 } },
+  vue_15_composition_setup: { track: "vue", title: "Vue 15｜Composition API 與 script setup（中階）", desc: "用 ref/reactive 組織邏輯，新專案主流寫法入門。", concept: "<p><code>setup()</code> 或 <code>&lt;script setup&gt;</code> 讓邏輯可依「功能」分組，而不是塞在 data/methods 各處。</p><ul class=\"tuto-list\"><li><code>ref(0)</code> — 基本型別，讀寫用 <code>.value</code></li><li><code>reactive({})</code> — 物件狀態</li><li><code>computed(() => ...)</code> — 同 Options API 概念</li></ul><p>CDN 教學可用 <code>Vue.ref</code>；Vite 專案則自動 import。</p>", practice: "① 用 ref 做計數器 ② 對照 Options API 的 data/methods 寫法差異", code: `<div id="app"><p>{{ count }}</p><button @click="inc">+1</button></div>\n<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"><\/script>\n<script>\nconst { createApp, ref } = Vue;\ncreateApp({\n  setup() {\n    const count = ref(0);\n    const inc = () => count.value++;\n    return { count, inc };\n  }\n}).mount('#app');\n<\/script>`, focusCode: `const count = ref(0);\ncount.value++;  // script 內要 .value\n// 模板裡直接用 {{ count }}`, tip: "先會 ref/reactive，再讀官方 script setup 文件。", quiz: { q: "script 內改 ref 值要？", opts: ["count.value++", "count++", "this.count++"], ans: 0 } },
+  vue_16_pinia: { track: "vue", title: "Vue 16｜Pinia 狀態管理（中階）", desc: "中大型 Vue 專案共用的 store：user、cart、設定。", concept: "<p>當多個頁面／元件都要讀寫同一份資料，<code>reactive store</code> 手寫會散亂 → 用 <b>Pinia</b> 集中。</p><p>概念：<code>defineStore('cart', { state, actions, getters })</code>；元件內 <code>const cart = useCartStore()</code>。</p><p>本課先建立觀念；實作請在 Vite 專案 <code>npm install pinia</code> 後跟官方 Quick Start。</p>", practice: "① 畫出你的 App 有哪些「全域狀態」② 對照 vue_10 手寫 store ③ 閱讀 pinia.vuejs.org 安裝步驟", code: `<div style="font-family:system-ui;line-height:1.7;color:#334155;max-width:36em">\n  <p><strong>何時需要 Pinia？</strong></p>\n  <ul><li>登入使用者資訊跨頁共用</li><li>購物車、多步驟表單暫存</li><li>全站主題／語系設定</li></ul>\n  <p>小頁面用 props/emit 或 provide/inject 即可，不必急上 Pinia。</p>\n</div>`, sandbox: false, tip: "Pinia 是 Vue 官方推薦的 Vuex 繼任者。", quiz: { q: "多頁共用 cart 狀態適合？", opts: ["Pinia store", "window.cart 全域", "每頁各一份 ref"], ans: 0 } },
+  vue_17_forms_validation: { track: "vue", title: "Vue 17｜表單驗證與可交付 UX（中階）", desc: "前端驗證、錯誤訊息、送出中狀態，避免只會 v-model。", concept: "<p>可交付表單至少包含：</p><ul class=\"tuto-list\"><li>欄位級錯誤（email 格式、必填）</li><li>送出中 <code>submitting</code> → 按鈕 disabled</li><li>成功／失敗訊息</li></ul><p>可選套件：VeeValidate、Vuelidate；小專案也可手寫 computed 驗證。</p>", practice: "① email 空白顯示錯誤 ② 送出時 disable 按鈕 ③ 模擬 API 失敗", code: `<div id="app">\n  <form @submit.prevent="submit">\n    <input v-model="email" placeholder="email">\n    <p v-if="err" style="color:#dc2626;font-size:13px">{{ err }}</p>\n    <button :disabled="submitting">{{ submitting ? '送出中…' : '送出' }}</button>\n  </form>\n  <p v-if="ok" style="color:#16a34a">成功</p>\n</div>\n<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"><\/script>\n<script>\nVue.createApp({\n  data(){ return { email:'', err:'', ok:false, submitting:false }; },\n  methods:{\n    async submit(){\n      this.err = '';\n      if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(this.email)){ this.err='Email 格式錯誤'; return; }\n      this.submitting = true;\n      await new Promise(r=>setTimeout(r,600));\n      this.submitting = false;\n      this.ok = true;\n    }\n  }\n}).mount('#app');\n<\/script>`, tip: "後端仍要做最終驗證；前端是體驗與擋明顯錯誤。", quiz: { q: "送出 API 時按鈕應？", opts: ["disabled 防重送", "可連點十次", "隱藏表單"], ans: 0 } },
+  vue_18_devtools: { track: "vue", title: "Vue 18｜DevTools 除錯（高階）", desc: "用 Vue DevTools 看元件樹、pinia、事件，縮短除錯時間。", concept: "<p>安裝瀏覽器擴充：<b>Vue.js devtools</b>（Chrome/Edge/Firefox）。</p><ul class=\"tuto-list\"><li><b>Components</b> — 看 props、data、哪個元件渲染</li><li><b>Timeline</b> — 事件與效能（進階）</li><li><b>Pinia</b> — 看 store 狀態變化</li></ul><p>常見問題：畫面不更新 → 查是否改到 reactive 物件、是否忘記 .value（Composition）。</p>", practice: "① 安裝 DevTools ② 開啟前幾課範例，點選元件看 props ③ 故意改錯資料路徑並從 DevTools 找線索", code: `<div style="font-family:system-ui;line-height:1.7;color:#334155">\n  <p>開發時按 F12 → Vue 分頁 → 選取畫面元素對應元件。</p>\n  <p>正式站若關閉 devtools 偵測，擴充可能受限；請在 localhost 開發環境練習。</p>\n</div>`, sandbox: false, tip: "搭配 Console 的 warn/error，比 console.log 亂槍打鳥快。", quiz: { q: "Vue DevTools 主要看？", opts: ["元件樹與狀態", "MySQL 資料表", "FTP 連線"], ans: 0 } },
+  vue_19_build_deploy: { track: "vue", title: "Vue 19｜build 與部署（高階）", desc: "npm run build 產出 dist、環境變數、靜態托管注意事項。", concept: "<p><code>npm run build</code> → 產生 <code>dist/</code> 資料夾（純靜態檔），上傳到 Netlify/Vercel/GitHub Pages。</p><ul class=\"tuto-list\"><li><code>import.meta.env.VITE_XXX</code> — 環境變數（勿把密鑰寫進前端）</li><li>Router history 模式需伺服器 fallback 到 index.html</li><li>base path：GitHub Project Pages 可能要設 <code>base: '/repo-name/'</code></li></ul><p>部署前用 <code>npm run preview</code> 本地預覽 dist。</p>", practice: "① 若有 Vite 專案跑一次 build + preview ② 列出 dist 內有哪些檔 ③ 對照「上線」分頁 deploy 課", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px;font-size:13px">npm run build\nnpm run preview\n# 將 dist 部署到平台，或連動 Git 自動部署</pre>`, sandbox: false, tip: "API 金鑰放後端或平台環境變數，不要 commit .env。", quiz: { q: "Vite 正式輸出目錄通常是？", opts: ["dist", "node_modules", "src"], ans: 0 } },
 
   deploy_01_preflight: { track: "deploy", title: "上線 01｜上線前檢查清單", desc: "部署不是按一個鈕就好——先在本機與檢查清單把品質顧好，上線才省時間。", concept: "<b>內容與結構</b>：每頁有唯一 h1、圖片有 alt、連結可點、表單有 label。<br><b>檔案與路徑</b>：css/js/images 皆已上傳；子頁面 ../ 正確；無本機絕對路徑 C:\\Users\\...<br><b>RWD</b>：375 / 768 / 1280 三種寬度無橫向捲軸爆版。<br><b>效能</b>：圖片壓縮或適當 w= 參數、loading=\"lazy\" 視情況加入。<br><b>安全</b>：.env、密碼、API key 不可進 repo（寫入 .gitignore）。<br><b>SEO 基礎</b>：&lt;title&gt;、meta description、語意標籤。",
     practice: "① 印出或複製下方清單，逐項勾選你的作品集 ② 用 Chrome 裝置模擬器測手機 ③ 修正後再做 git commit「chore: pre-deploy checklist」",
@@ -1061,18 +1224,23 @@ const tutorialTrackRepository = {
     newbieTip: "上線後若朋友說「看不到」，先問他用的是不是你的正式網址，而不是本機路徑。",
     commonMistakes: "上線後從不更新；或沒用 Git 記錄，改壞了無法還原。",
     submissionStandard: "1) 填完驗收表\n2) 網址可公開開啟\n3) 規劃下一版 commit 訊息",
-    quiz: { q: "上線後小改動最安全習慣？", opts: ["Git commit 後再部署", "直接改伺服器不備份", "刪掉舊檔重傳覆蓋"], ans: 0 } }
+    quiz: { q: "上線後小改動最安全習慣？", opts: ["Git commit 後再部署", "直接改伺服器不備份", "刪掉舊檔重傳覆蓋"], ans: 0 } },
+  deploy_06_lighthouse: { track: "deploy", title: "上線 06｜Lighthouse 效能檢測（中階）", desc: "用 Chrome Lighthouse 量測效能、無障礙、SEO、最佳實踐。", concept: "<p>F12 → <b>Lighthouse</b> → 選 Mobile/Desktop → Analyze。</p><ul class=\"tuto-list\"><li><b>Performance</b> — 圖片大小、阻擋渲染的 CSS/JS、快取</li><li><b>Accessibility</b> — 對比、alt、可聚焦元素</li><li><b>SEO</b> — title、meta、可索引性</li></ul><p>分數是參考，重點看報告裡「具體建議」並挑 2～3 項改善。</p>", practice: "① 對正式網址跑 Lighthouse ② 記下最低分類與一項建議 ③ 改一項（例如壓縮最大圖）再測", code: `<div style="font-family:system-ui;line-height:1.7;color:#334155;font-size:14px">\n  <p>建議目標（學習階段）：</p>\n  <ul><li>Performance ≥ 70（靜態作品集）</li><li>Accessibility ≥ 85</li><li>SEO ≥ 80</li></ul>\n  <p>不必追求 100；先修「最大圖片」與「缺少 alt」通常最划算。</p>\n</div>`, sandbox: false, tip: "在無痕視窗測，避免擴充套件干擾分數。", quiz: { q: "Lighthouse 在 Chrome 哪裡？", opts: ["DevTools 分頁", "設定 → 印表機", "Network 右鍵"], ans: 0 } },
+  deploy_07_seo_sitemap: { track: "deploy", title: "上線 07｜SEO、sitemap 與 robots（中階）", desc: "讓搜尋引擎找得到你的頁面：meta、結構化資料、sitemap.xml。", concept: "<p>每頁至少：<code>&lt;title&gt;</code> 唯一、<code>meta name=\"description\"</code>、一個 <code>h1</code>。</p><p><code>sitemap.xml</code> 列出網址；<code>robots.txt</code> 指示爬蟲（可允許全部）。</p><p>部署後用 <b>Google Search Console</b> 提交 sitemap（選修）。</p><pre class=\"tuto-code-block\">&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;\n&lt;urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"&gt;\n  &lt;url&gt;&lt;loc&gt;https://example.com/&lt;/loc&gt;&lt;/url&gt;\n&lt;/urlset&gt;</pre>", practice: "① 檢查三頁 title/description ② 產生 sitemap.xml 放根目錄 ③ 用搜尋「site:你的網域」看是否收錄（需時間）", code: "", sandbox: false, tip: "OG 標籤（og:title、og:image）影響社群分享預覽，也算廣義 SEO。", quiz: { q: "sitemap 主要用途？", opts: ["幫搜尋引擎發現網址", "加速 CSS 載入", "取代 Git"], ans: 0 } },
+  deploy_08_env_secrets: { track: "deploy", title: "上線 08｜環境變數與密鑰（高階）", desc: "區分公開設定與秘密；前端幾乎不能藏 API key。", concept: "<p><b>原則</b>：瀏覽器下載的 JS 使用者都能看 → 不要放「可濫用的秘密 key」。</p><ul class=\"tuto-list\"><li>靜態站：多半無伺服器，表單用 Formspree 等服務或後端代理</li><li>Vue/Vite：<code>VITE_</code> 開頭會被打進前端 bundle，僅放公開設定</li><li>Netlify/Vercel：後台 Environment Variables 給 build 或 serverless 用</li></ul><p>誤 commit .env → 撤銷 + 輪替密鑰 + git filter（進階）。</p>", practice: "① 檢查 repo 有無 API key 字串 ② 把敏感值移到平台環境變數 ③ 確認 .gitignore 含 .env", code: `<pre style="background:#0f172a;color:#a5f3fc;padding:12px;border-radius:10px;font-size:13px"># .env.example（可 commit，不含真值）\nVITE_SITE_NAME=My Portfolio\n# 秘密放平台後台，不要寫進 .env 再 push</pre>`, sandbox: false, tip: "GitHub 提供 secret scanning；公開 repo 更要小心。", quiz: { q: "可濫用的 API secret 應？", opts: ["放後端或平台密鑰區", "寫在 index.html", "放在圖片 alt"], ans: 0 } },
+  deploy_09_cdn_cache: { track: "deploy", title: "上線 09｜CDN 快取與更新（高階）", desc: "為什麼改了沒變、Cache-Control、檔名 hash 策略。", concept: "<p><b>CDN</b> 把靜態檔快取到離使用者近的節點 → 快，但可能看到舊檔。</p><ul class=\"tuto-list\"><li>HTML：快取短或 no-cache，方便更新內容</li><li>CSS/JS（帶 hash 檔名）：可長期快取</li><li>更新後：平台 Purge Cache、或 Ctrl+F5</li></ul><p>Vite build 會產生 <code>assets/index-a1b2c3.js</code> 這類檔名，正是為了安全快取。</p>", practice: "① 上線後改 CSS，觀察是否快取 ② 查你的托管平台如何 Purge ③ 說明為何 build 工具要 hash 檔名", code: `<div style="font-family:system-ui;font-size:14px;line-height:1.65;color:#334155">\n  <p><strong>使用者看到舊版？</strong></p>\n  <ol><li>確認 deploy 成功</li><li>無痕視窗測</li><li>清 CDN / 瀏覽器快取</li></ol>\n</div>`, sandbox: false, tip: "不要對還在頻繁修改的 index.html 設一年快取。", quiz: { q: "JS 檔名加 hash 主因？", opts: ["可長期快取且不破壞更新", "讓檔名更難讀", "取代 Git"], ans: 0 } },
+  deploy_10_incident: { track: "deploy", title: "上線 10｜事故處理與回滾演練（高階）", desc: "正式站壞了怎麼辦：止血、回滾、公告、事後檢討。", concept: "<h3 class=\"tuto-h3\">五步驟</h3><ol class=\"tuto-list\"><li><b>確認</b> — 無痕、不同網路、他人代測，排除本機快取</li><li><b>止血</b> — 平台回滾上一版 deploy；或 Git revert + 再部署</li><li><b>溝通</b> — 告知利害關係人預計恢復時間</li><li><b>修復</b> — 在分支修，走 PR/CI，勿直接改 production</li><li><b>檢討</b> — 寫簡短 postmortem：原因、預防、誰負責哪條檢查</li></ol><p>上線前先有「回滾按鈕在哪」比出事後找文件重要。</p>", practice: "① 寫你的平台回滾步驟（3 行）② 模擬 revert 一個 commit ③ 填寫簡易事故紀錄表", code: `<style>body{font-family:system-ui;font-size:14px;line-height:1.7;color:#334155} table{border-collapse:collapse;width:100%} td,th{border:1px solid #e2e8f0;padding:8px}</style>\n<table><tr><th>時間</th><th>現象</th><th>動作</th><th>結果</th></tr>\n<tr><td>14:00</td><td>全站 404</td><td>回滾 deploy #42</td><td>14:05 恢復</td></tr></table>`, sandbox: false, tip: "保留 deploy 歷史與 tag，回滾才快。", quiz: { q: "正式站壞掉第一優先？", opts: ["先止血恢復服務", "先重寫架構", "等週一再说"], ans: 0 } }
 };
 
 const TUTORIAL_ORDER_BY_TRACK = {
   html: ["intro_welcome","html_learning_path","intro_files","intro_devtools","html_vs_css","html_skeleton","html_head_seo","html_headings","html_text_semantic","html_inline","html_media","html_embed_media","html_lists","html_list_details","html_description_list","html_div_span","html_attributes","html_tables","html_containers","html_nav","html_inputs","html_button","html_textarea_select","html_form","html_float","html_text_align","html_background"],
-  css: ["css_selectors","css_external_import","css_colors","css_background_image","css_typography","css_spacing","work_units_rem","css_box_model","css_borders_outline","css_width_max_overflow","css_display","css_flexbox","css_grid","css_position","css_shadows","css_transitions","css_variables","css_pseudo","css_object_fit","css_flex_advanced","css_media_rwd","css_animation","css_zindex","css_specificity","work_flex_center","work_overflow","work_responsive_img"],
-  tailwind: ["tw_00_intro","tw_01_utility_cdn","tw_02_cdn_vs_build","tw_03_npm_setup","tw_03b_next_project","tw_04_source_entry","tw_05_postcss_config","tw_06_build_watch","tw_07_tailwind_config","tw_08_link_site","tw_09_official_workflow","tw_10_utilities_hygiene"],
-  js: ["intro_js_whatis","intro_js_roadmap","js_variables","js_conditionals","js_template_strings","js_loops_for","js_arrays","js_array_methods","js_objects","js_functions","js_events","js_dom","js_classlist","js_queryselector","js_arrow","js_async_await","js_try_catch","js_json","js_fetch","js_localstorage","js_timers","js_ecosystem","adv_ui_patterns","js_form_submit","work_devtools_network"],
-  jquery: ["jq_00_cdn_setup","jq_01_intro","jq_02_selectors","jq_03_events","jq_04_dom","jq_05_effects","jq_06_ajax","jq_07_form","jq_08_components","jq_09_plugin","jq_10_performance","jq_11_architecture","jq_12_master_workflow"],
-  vue: ["vue_00_preface","vue_01_intro","vue_02_template","vue_03_directives","vue_04_events","vue_05_computed_watch","vue_06_components","vue_07_props_emit","vue_08_lifecycle","vue_09_router","vue_10_state","vue_11_async","vue_12_master_composable","vue_13_vite_tooling"],
-  git: ["git_00_environment","git_01_intro","git_02_status_add_commit","git_03_branching","git_04_merge_rebase","git_05_conflict","git_06_remote_pr","git_07_revert_cherry_pick","git_08_master_release","git_09_mixed_team_handoff","work_git"],
-  deploy: ["deploy_01_preflight","deploy_02_github_pages","deploy_03_netlify_vercel","deploy_04_ftp_troubleshoot","deploy_05_post_launch","master_deploy","master_capstone"]
+  css: ["css_learning_path","css_selectors","css_external_import","css_colors","css_background_image","css_typography","css_spacing","work_units_rem","css_box_model","css_borders_outline","css_width_max_overflow","css_display","css_flexbox","css_grid","css_position","work_flex_center","css_shadows","css_transitions","css_pseudo","css_object_fit","css_variables","css_flex_advanced","css_media_rwd","css_container_queries","work_responsive_img","work_overflow","css_animation","css_zindex","css_cascade","css_specificity","css_filters","css_layer","css_bem","css_a11y_motion"],
+  tailwind: ["tw_00_intro","tw_01_utility_cdn","tw_02_cdn_vs_build","tw_03_npm_setup","tw_03b_next_project","tw_04_source_entry","tw_05_postcss_config","tw_06_build_watch","tw_07_tailwind_config","tw_08_link_site","tw_09_official_workflow","tw_10_utilities_hygiene","tw_11_responsive","tw_12_dark_mode","tw_13_plugins","tw_14_design_tokens","tw_15_production","tw_16_vue_integration"],
+  js: ["intro_js_whatis","intro_js_roadmap","js_variables","js_conditionals","js_template_strings","js_loops_for","js_arrays","js_array_methods","js_destructuring","js_objects","js_functions","js_arrow","js_scope_closure","js_events","js_dom","js_classlist","js_queryselector","js_async_await","js_promises","js_try_catch","js_json","js_fetch","js_localstorage","js_timers","js_debounce_throttle","js_regex","js_form_submit","adv_ui_patterns","js_ecosystem","work_devtools_network","js_modules_esm","js_debugging"],
+  jquery: ["jq_00_cdn_setup","jq_01_intro","jq_02_selectors","jq_03_events","jq_04_dom","jq_05_effects","jq_06_ajax","jq_07_form","jq_08_components","jq_09_plugin","jq_10_performance","jq_11_architecture","jq_12_master_workflow","jq_13_traversing","jq_14_class_data","jq_15_ajax_post","jq_16_namespaced","jq_17_no_conflict"],
+  vue: ["vue_00_preface","vue_01_intro","vue_02_template","vue_03_directives","vue_04_events","vue_05_computed_watch","vue_06_components","vue_07_props_emit","vue_14_slots","vue_08_lifecycle","vue_09_router","vue_10_state","vue_16_pinia","vue_11_async","vue_15_composition_setup","vue_12_master_composable","vue_17_forms_validation","vue_13_vite_tooling","vue_18_devtools","vue_19_build_deploy"],
+  git: ["git_00_environment","git_01_intro","git_02_status_add_commit","git_03_branching","git_04_merge_rebase","git_05_conflict","git_06_remote_pr","git_07_revert_cherry_pick","git_08_master_release","git_09_mixed_team_handoff","git_10_gitignore","git_11_stash","git_12_log_bisect","git_13_gitflow","git_14_github_actions","git_15_hooks","work_git"],
+  deploy: ["deploy_01_preflight","deploy_02_github_pages","deploy_03_netlify_vercel","deploy_04_ftp_troubleshoot","deploy_05_post_launch","deploy_06_lighthouse","deploy_07_seo_sitemap","deploy_08_env_secrets","deploy_09_cdn_cache","deploy_10_incident","master_deploy","master_capstone"]
 };
 
 if (typeof TUTORIAL_TAILWIND_LESSONS !== "undefined") {

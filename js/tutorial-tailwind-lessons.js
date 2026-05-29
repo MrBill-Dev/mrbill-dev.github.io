@@ -135,5 +135,71 @@ const TUTORIAL_TAILWIND_LESSONS = {
     code: `<script src="https://cdn.tailwindcss.com"><\/script>\n<div class="max-w-md mx-auto p-6 space-y-4">\n  <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">\n    <h2 class="text-lg font-bold text-slate-800">卡片標題</h2>\n    <p class="mt-2 text-sm text-slate-600 leading-relaxed">這裡模擬「card」組合；正式專案請在 style.css 用 @apply 抽成 .card 再 build。</p>\n    <button type="button" class="mt-4 inline-flex items-center px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700">主要按鈕</button>\n  </div>\n</div>`,
     tip: "重複三次以上的相同 class 組合，才值得抽 @layer components。",
     quiz: { q: "class 太長時較好的做法？", opts: ["重複區塊用 @layer + @apply 或元件", "全部寫進一個 style 屬性", "放棄 Tailwind"], ans: 0 }
+  },
+  tw_11_responsive: {
+    track: "tailwind",
+    sandbox: true,
+    title: "Tailwind 11｜RWD 斷點與容器（中階）",
+    desc: "掌握 mobile-first、sm/md/lg 前綴與 max-w 容器排版。",
+    concept: "<p><b>Mobile-first</b>：無前綴的 class 套用在所有寬度；<code>md:</code> 表示「視窗 ≥ md 斷點」才套用。預設斷點（v3）：sm 640px、md 768px、lg 1024px、xl 1280px。</p><ul class=\"tuto-list\"><li><code>flex flex-col md:flex-row</code> — 手機直排、平板以上橫排</li><li><code>grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3</code> — 欄數隨寬度增加</li><li><code>hidden md:block</code> — 手機隱藏、桌機顯示</li><li><code>max-w-6xl mx-auto px-4</code> — 內容區置中 + 左右留白</li></ul><div class=\"tuto-panel tuto-panel-error\"><p class=\"tuto-panel-title\">🚨 常見錯誤</p><ul class=\"tuto-list\"><li>只在大螢幕測，手機爆版才發現</li><li>寫成 <code>lg:md:flex</code> 這類無意義堆疊</li><li>忘記在 tailwind.config 自訂斷點後，class 前綴要對應新名稱</li></ul></div>",
+    practice: "① 縮小視窗看欄位從 1 變 2 ② 把標題改成 md:text-4xl ③ 加 hidden lg:inline 做「桌機才顯示」文字",
+    code: `<script src="https://cdn.tailwindcss.com"><\/script>\n<div class="max-w-4xl mx-auto p-6">\n  <h1 class="text-2xl md:text-4xl font-black text-slate-800">RWD 示範</h1>\n  <p class="mt-2 text-sm text-slate-500"><span class="inline md:hidden">📱 目前：窄螢幕</span><span class="hidden md:inline">🖥 目前：md 以上</span></p>\n  <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">\n    <div class="rounded-xl bg-indigo-50 p-4 font-bold text-indigo-800">卡片 A</div>\n    <div class="rounded-xl bg-violet-50 p-4 font-bold text-violet-800">卡片 B</div>\n  </div>\n</div>`,
+    tip: "開發時用瀏覽器裝置工具列，至少測 375px 與 1280px。",
+    quiz: { q: "md:flex 代表？", opts: ["寬度 ≥ md 時才 flex", "只在手機 flex", "永遠不 flex"], ans: 0 }
+  },
+  tw_12_dark_mode: {
+    track: "tailwind",
+    sandbox: true,
+    title: "Tailwind 12｜Dark Mode 與狀態變體（中階）",
+    desc: "dark: 前綴、hover/focus/disabled 與 config 的 darkMode 設定。",
+    concept: "<p><b>狀態前綴</b>：<code>hover:bg-indigo-700</code>、<code>focus:ring-2</code>、<code>disabled:opacity-50</code> — 互動與無障礙必備。</p><p><b>深色模式</b>：HTML 加 <code>class=\"dark\"</code> 或在 config 設 <code>darkMode: 'class'</code>，再用 <code>dark:bg-slate-900 dark:text-white</code>。</p><p>CDN 教學可在 script 後加：<code>tailwind.config = { darkMode: 'class' }</code>（Play CDN 支援）。正式專案寫在 tailwind.config.js。</p>",
+    practice: "① 按切換鈕加/移除 html 的 dark class ② 按鈕加 focus:ring ③ 模擬 disabled 狀態",
+    code: `<script src="https://cdn.tailwindcss.com"><\/script>\n<script>tailwind.config = { darkMode: 'class' }<\/script>\n<div class="min-h-[200px] p-6 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 transition-colors">\n  <p class="font-bold">切換深色模式</p>\n  <button type="button" id="tog" class="mt-3 px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 disabled:opacity-50">Toggle dark</button>\n</div>\n<script>\ndocument.getElementById('tog').onclick = () => document.documentElement.classList.toggle('dark');\n<\/script>`,
+    tip: "表單元件記得加 focus 樣式，鍵盤使用者才看得到焦點。",
+    quiz: { q: "dark:bg-black 在何時生效？", opts: ["根元素有 dark class（class 模式）", "永遠生效", "只有 hover"], ans: 0 }
+  },
+  tw_13_plugins: {
+    track: "tailwind",
+    sandbox: false,
+    title: "Tailwind 13｜官方插件與 @tailwindcss/forms（中階）",
+    desc: "forms、typography、aspect-ratio 等插件怎麼裝、何時用。",
+    concept: "<p><b>插件</b>：在 tailwind.config.js 的 <code>plugins: []</code> 引入，擴充一組現成 utility。</p><ul class=\"tuto-list\"><li><code>@tailwindcss/forms</code> — 統一 input/select 預設樣式，表單頁省時間</li><li><code>@tailwindcss/typography</code> — 文章區用 <code>prose</code> 排版</li><li><code>@tailwindcss/aspect-ratio</code> — 影音比例（v3.3+ 部分已內建 aspect-video）</li></ul><pre class=\"tuto-code-block\">npm install -D @tailwindcss/forms\n// tailwind.config.js\nplugins: [require('@tailwindcss/forms')]</pre><p>不要為了插件而插件；原生 utility 能搞定就不必加依賴。</p>",
+    practice: "① 在專案安裝 forms 插件 ② 表單加上 class=\"…\" 觀察預設美化 ③ 查官方 typography 的 prose 範例",
+    code: "",
+    tip: "插件也要被 content 掃到才會進最終 CSS；改 config 後要重新 build。",
+    quiz: { q: "@tailwindcss/forms 主要幫？", opts: ["表單元素預設樣式一致", "自動寫 JavaScript", "取代 Vue"], ans: 0 }
+  },
+  tw_14_design_tokens: {
+    track: "tailwind",
+    sandbox: false,
+    title: "Tailwind 14｜Design Tokens 與 theme 擴充（高階）",
+    desc: "在 config 自訂色票、字體、間距，讓全站品牌一致。",
+    concept: "<p>品牌色不應散落各處 magic number，應進 <code>theme.extend</code>：</p><pre class=\"tuto-code-block\">// tailwind.config.js\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: { brand: { DEFAULT: '#4f46e5', dark: '#4338ca' } },\n      fontFamily: { sans: ['\"Noto Sans TC\"', 'system-ui', 'sans-serif'] },\n      spacing: { '18': '4.5rem' }\n    }\n  }\n}</pre><p>之後用 <code>bg-brand</code>、<code>text-brand-dark</code>，改一處 config 全站同步。</p><p><b>與 @apply 搭配</b>：設計 token 定義「值」，@layer components 定義「組合」。</p>",
+    practice: "① 為作品集定義 1 個 brand 色與 1 組 fontFamily ② 把首頁主色改成 bg-brand ③ 寫進 README 設計規範",
+    code: "",
+    tip: "extend 是擴充而非覆蓋預設 palette；要完全替換才用 theme.colors 直接賦值。",
+    quiz: { q: "自訂品牌色建議放？", opts: ["theme.extend.colors", "HTML style 屬性到處寫", "只改 grid.css 手寫"], ans: 0 }
+  },
+  tw_15_production: {
+    track: "tailwind",
+    sandbox: false,
+    title: "Tailwind 15｜正式環境體積與 Purge 除錯（高階）",
+    desc: "content 掃描、動態 class、正式站效能檢查。",
+    concept: "<p><b>Purge / content</b>：build 只保留 HTML/JS 裡出現過的 class。若 class 由字串拼接產生，可能被裁掉 → 畫面缺樣式。</p><ul class=\"tuto-list\"><li>✅ <code>class=\"bg-{{ color }}-500\"</code> 在 template 寫死完整 class 較安全</li><li>✅ 或用 safelist: <code>['bg-red-500','bg-blue-500']</code></li><li>❌ 後端回傳未知 class 名卻沒列入 content/safelist</li></ul><p><b>檢查</b>：build 後看 grid.css 大小；Chrome Lighthouse 看 FCP；Network 確認只載入一份 CSS。</p>",
+    practice: "① 檢查 tailwind.config content 是否含所有 html/js 路徑 ② build 前後比對 grid.css 檔案大小 ③ 故意用動態 class 觀察被 purge 的現象（再修正）",
+    code: "",
+    tip: "monorepo 或多資料夾專案最容易漏掃路徑，content 用 glob 寫完整。",
+    quiz: { q: "build 後某 class 消失，最先查？", opts: ["content 路徑與動態 class", "刪除 node_modules 十次", "改 HTML 為 table 布局"], ans: 0 }
+  },
+  tw_16_vue_integration: {
+    track: "tailwind",
+    sandbox: false,
+    title: "Tailwind 16｜與 Vue / Vite 整合（高階）",
+    desc: "Vue 專案接 Tailwind 的標準步驟與 class 綁定注意事項。",
+    concept: "<p><b>Vite + Vue 典型步驟</b>：</p><ol class=\"tuto-list\"><li><code>npm create vue@latest</code></li><li><code>npm install -D tailwindcss postcss autoprefixer</code> → <code>npx tailwindcss init -p</code></li><li>在 <code>src/style.css</code> 寫 @tailwind 三行，main.js import</li><li>content 含 <code>./index.html</code>、<code>./src/**/*.{vue,js}</code></li></ol><p>模板裡用 <code>:class</code> 綁定時，盡量讓完整 class 字串出現在 .vue 檔，方便 purge 掃描。</p><p>元件庫（Headless UI、DaisyUI）選修；先掌握原生 utility 再評估。</p>",
+    practice: "① 規劃若把作品集改 Vue，Tailwind 要改哪些路徑 ② 在 .vue 寫一個 :class 切換 active 的按鈕 ③ 對照本手冊 Tailwind 03～08 課",
+    code: "",
+    tip: "Vue 單檔元件的 scoped style 與 Tailwind utility 可並存；重複區塊仍建議 @layer components。",
+    quiz: { q: "Vue 專案 content 至少要掃？", opts: ["*.vue 與入口 html", "只有 README", "只有 package.json"], ans: 0 }
   }
 };
