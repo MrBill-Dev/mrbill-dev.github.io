@@ -81,31 +81,55 @@ const tutorialRepository = {
     track: "html",
     title: "📝 標題 h1～h6 與段落 p",
     desc: "h1 通常全頁只有一個（主標題），h2、h3 是章節。 p 是段落。順序不要跳級（h1 下一個應是 h2 不是 h4）。",
-    concept: "標題是「大綱」，搜尋引擎與螢幕閱讀器都靠它理解文章結構。",
-    practice: "① 加一個 h2 小節 ② 在 p 裡用 <strong> 強調一個詞（仍不寫 style）",
-    code: `<h1>攝影視覺學堂</h1>\n<h2>第一章：光與構圖</h2>\n<p>光是攝影的靈魂。<strong>順光</strong>拍風景，<strong>側光</strong>拍人像。</p>\n<h2>第二章：曝光</h2>\n<p>光圈、快門、ISO 三要素要平衡。</p>`,
+    concept: "標題是「大綱」，搜尋引擎與螢幕閱讀器都靠它理解文章結構。<br><br><b>層級口訣</b>：h1 頁面主題 → h2 大章 → h3 小節。<br><code>&lt;p&gt;</code> 用於一般段落；需要換行用 <code>&lt;br&gt;</code>，不要為了空一行連寫多個空 p。<br><code>&lt;hr&gt;</code> 表示主題分隔（像書籍的橫線）。",
+    practice: "① 加一個 h2 小節 ② 在 p 裡用 strong 強調一個詞 ③ 在兩段之間加 hr ④ 檢查標題沒有從 h1 跳到 h4",
+    code: `<h1>攝影視覺學堂</h1>\n<h2>第一章：光與構圖</h2>\n<p>光是攝影的靈魂。<strong>順光</strong>拍風景，<strong>側光</strong>拍人像。</p>\n<hr>\n<h2>第二章：曝光</h2>\n<p>光圈、快門、ISO 三要素要平衡。</p>`,
     tip: "視覺大小交給 CSS 的 font-size，語意層級用 h1～h6。",
+    newbieTip: "頁面只有一個 h1，通常就是主視覺那行大字。",
+    commonMistakes: "用 h3 當裝飾字體大小；全頁多個 h1。",
     quiz: { q: "一個頁面通常只有幾個 h1？", opts: ["1 個", "越多越好", "0 個"], ans: 0 }
+  },
+  html_text_semantic: {
+    track: "html",
+    title: "✍️ 語意文字：strong / em / code / blockquote",
+    desc: "除了標題與段落，還有一組「說明文字角色」的標籤，比到處 span 更清楚。",
+    concept: "<ul class=\"tuto-list\"><li><code>&lt;strong&gt;</code>：重要（語意加粗，螢幕閱讀器會強調）</li><li><code>&lt;em&gt;</code>：語氣重音（emphasis）</li><li><code>&lt;mark&gt;</code>：標記重點（像螢光筆）</li><li><code>&lt;code&gt;</code>：行內程式或檔名</li><li><code>&lt;pre&gt;</code>：保留空白與換行的程式區塊</li><li><code>&lt;blockquote&gt;</code>：引用他人文字</li><li><code>&lt;small&gt;</code>：附註、版權、次要說明</li></ul><p>需要「只是變粗變色」交給 CSS；需要「這段話有語意角色」才用對應標籤。</p>",
+    practice: "① 把一句話改成 blockquote ② 用 code 包住檔名 index.html ③ 用 mark 標記關鍵字 SEO",
+    code: `<style>\n  body { font-family: system-ui; line-height: 1.7; color: #334155; max-width: 36em; padding: 12px; }\n  blockquote { margin: 12px 0; padding: 10px 14px; border-left: 4px solid #6366f1; background: #eef2ff; color: #3730a3; }\n  pre { background: #0f172a; color: #a5f3fc; padding: 12px; border-radius: 10px; font-size: 13px; overflow-x: auto; }\n  mark { background: #fef08a; padding: 0 4px; border-radius: 4px; }\n</style>\n<p>本週重點是 <mark>SEO</mark> 與語意 HTML。</p>\n<blockquote>結構清楚的文章，搜尋引擎與 AI 都比較好理解。</blockquote>\n<p>入口檔請命名為 <code>index.html</code>。</p>\n<pre>&lt;strong&gt;重要&lt;/strong&gt; 與 &lt;em&gt;重音&lt;/em&gt; 不要只用 span 模擬。</pre>`,
+    tip: "文章引用、學員心得、法條摘錄適合用 blockquote。",
+    quiz: { q: "標記「引用段落」最適合用？", opts: ["blockquote", "div", "img"], ans: 0 }
   },
   html_inline: {
     track: "html",
     title: "🔗 超連結 a 標籤",
-    desc: "href 指定網址；target=\"_blank\" 可開新分頁。連結文字要清楚（避免只寫「點這裡」）。",
-    concept: "a 是 Anchor（錨點），把使用者带到另一個資源。",
-    practice: "① 加一個連到 photography.html 的文字連結（本機路徑）② 用 CSS 區塊把連結改成品牌色",
-    code: `<style>\n  a {\n    color: #4f46e5;\n    font-weight: bold;\n    text-decoration: none;\n  }\n  a:hover {\n    text-decoration: underline;\n  }\n</style>\n\n<p>學完 HTML 後，前往 <a href="photography.html">攝影視覺學堂</a> 練曝光！</p>`,
-    tip: "hover 是滑鼠移上去時的狀態，屬於 CSS 偽類。",
-    quiz: { q: "新分頁開啟連結的屬性是？", opts: ["target=\"_blank\"", "color=\"blue\"", "href=\"new\""], ans: 0 }
+    desc: "href 指定網址；可連外站、本機檔案、頁內錨點、Email 與電話。連結文字要清楚（避免只寫「點這裡」）。",
+    concept: "<b>常用 href</b><br>• 外部：<code>https://...</code><br>• 站內檔案：<code>about.html</code>、<code>../css/style.css</code><br>• 頁內錨點：<code>#pricing</code>（對應 <code>id=\"pricing\"</code>）<br>• Email：<code>mailto:you@example.com</code><br>• 電話：<code>tel:+886912345678</code><br><br><b>安全</b>：開新分頁建議 <code>target=\"_blank\" rel=\"noopener noreferrer\"</code>，避免安全與效能問題。<br><b>下載</b>：<code>download</code> 屬性可提示瀏覽器下載檔案（同源較可靠）。",
+    practice: "① 加站內連結 photography.html ② 加 #top 回到頁首錨點 ③ 新分頁連結補 rel ④ 用 CSS 設 hover 樣式",
+    code: `<style>\n  a { color: #4f46e5; font-weight: bold; text-decoration: none; }\n  a:hover { text-decoration: underline; }\n  #top { scroll-margin-top: 80px; }\n</style>\n<p id="top">頁首錨點</p>\n<p>前往 <a href="photography.html">攝影視覺學堂</a> 練曝光。</p>\n<p>跳到 <a href="#pricing">方案區塊</a> · <a href="https://developer.mozilla.org/zh-TW/docs/Web/HTML" target="_blank" rel="noopener noreferrer">MDN HTML 文件（新分頁）</a></p>\n<p id="pricing" style="margin-top:120px;padding:12px;background:#f1f5f9;border-radius:8px">方案區塊（錨點示範）</p>\n<p><a href="mailto:hello@example.com">Email 聯絡</a></p>`,
+    tip: "錨點連結適合長頁 FAQ、一頁式官網目錄。",
+    commonMistakes: "href 空白或只有 #；連結文字寫「點這裡」；外連忘記 rel=\"noopener\"。",
+    quiz: { q: "跳到同頁 #pricing 區塊，href 應寫？", opts: ["#pricing", "pricing.html", "javascript:void"], ans: 0 }
   },
   html_media: {
     track: "html",
     title: "🖼 圖片 img 標籤",
-    desc: "img 是自闭合標籤：src 路徑、alt 替代文字（SEO 與無障礙必寫）。",
-    concept: "alt 在圖片載入失敗或視障朗讀時描述圖片內容。",
-    practice: "① 換一張圖的 src（可用 Unsplash 網址）② 寫清楚的 alt 中文描述",
-    code: `<style>\n  .photo {\n    max-width: 100%;\n    border-radius: 12px;\n  }\n</style>\n\n<img class="photo"\n  src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400"\n  alt="單眼相機特寫">\n<p>圓角由 CSS 的 border-radius 控制，不是寫在 img 上。</p>`,
+    desc: "img 是自闭合標籤：src 路徑、alt 替代文字、width/height 可預留空間避免版面跳動。",
+    concept: "<b>必備</b>：<code>src</code>、<code>alt</code>（SEO 與無障礙）。<br><b>建議</b>：<code>loading=\"lazy\"</code> 延遲載入視窗外圖片；<code>width</code> / <code>height</code> 或 CSS <code>max-width:100%</code> 防破版。<br><b>figure</b>：圖與說明綁一起時用 <code>&lt;figure&gt;</code> + <code>&lt;figcaption&gt;</code>（詳見「Video &amp; Embed」課的 figure 範例）。<br>裝飾用圖可設 <code>alt=\"\"</code> 讓螢幕閱讀器略過。",
+    practice: "① 換一張 Unsplash 圖 ② 寫清楚 alt ③ 加 loading=\"lazy\" ④ 用 CSS 做 max-width:100%",
+    code: `<style>\n  .photo { max-width: 100%; height: auto; border-radius: 12px; display: block; }\n  figcaption { font-size: 13px; color: #64748b; margin-top: 6px; }\n</style>\n<figure>\n  <img class="photo"\n    src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600"\n    alt="單眼相機與鏡頭特寫"\n    width="600" height="400"\n    loading="lazy">\n  <figcaption>圖 1：器材示意（figcaption 是圖說）</figcaption>\n</figure>`,
     tip: "永遠寫 alt。破圖時使用者至少知道這裡原本要呈現什麼。",
+    commonMistakes: "alt 寫「圖片」；超大原圖未壓縮；忘記 RWD 導致手機橫向捲動。",
     quiz: { q: "圖片載入失敗時，幫助說明靠的是？", opts: ["alt", "src", "href"], ans: 0 }
+  },
+  html_embed_media: {
+    track: "html",
+    title: "🎬 影音與嵌入：video / iframe",
+    desc: "除了圖片，頁面也常嵌入影片、地圖或第三方播放器。",
+    concept: "<b>video</b>：<code>&lt;video src=\"...\" controls&gt;</code>，可加 <code>poster</code> 封面圖。<br><b>audio</b>：<code>&lt;audio src=\"...\" controls&gt;</code> 播客、語音導覽。<br><b>iframe</b>：嵌入 YouTube、Google Maps 等（用廠商提供的 embed 程式碼，注意寬高 RWD）。<br><b>figure</b>：圖、表、影片都可包在 figure 裡統一圖說。<br><b>注意</b>：自動播放影片需謹慎（影響體驗與流量）；優先讓使用者按播放。",
+    practice: "① 播放下方 video ② 把 iframe width 改成 100% 並用 CSS 包一層 ③ 為 figure 寫 figcaption",
+    code: `<style>\n  body { font-family: system-ui; line-height: 1.65; color: #334155; max-width: 40em; padding: 12px; }\n  video { max-width: 100%; border-radius: 12px; background: #000; }\n  .embed { position: relative; width: 100%; max-width: 560px; aspect-ratio: 16/9; }\n  .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; border-radius: 12px; }\n  figcaption { font-size: 13px; color: #64748b; margin-top: 8px; }\n</style>\n<figure>\n  <video controls poster="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400" width="400">\n    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">\n    您的瀏覽器不支援 video 標籤。\n  </video>\n  <figcaption>HTML5 video 範例（含 controls）</figcaption>\n</figure>\n<p style="margin-top:16px">嵌入地圖／YouTube 常用 iframe（示範比例容器）：</p>\n<div class="embed">\n  <iframe title="示範嵌入框" src="about:blank" loading="lazy"></iframe>\n</div>\n<p><small>實務請貼廠商提供的 embed URL，並在 CSS 用 aspect-ratio 維持 16:9。</small></p>`,
+    tip: "嵌入第三方內容要確認是否允許在你的網域使用（版權與服務條款）。",
+    quiz: { q: "頁內播放影片常用標籤？", opts: ["video", "img", "link"], ans: 0 }
   },
   html_lists: {
     track: "html",
@@ -147,6 +171,16 @@ const tutorialRepository = {
     tip: "新手常把所有東西都寫成 div；記得先想有沒有語意標籤可用。",
     quiz: { q: "行內強調一小段文字通常用？", opts: ["span", "div", "section"], ans: 0 }
   },
+  html_attributes: {
+    track: "html",
+    title: "🏷 全域屬性：id / class / data-* / title",
+    desc: "幾乎所有標籤都能帶的「額外資訊」，是 CSS、JS 與無障礙的掛鉤。",
+    concept: "<ul class=\"tuto-list\"><li><code>id</code>：全頁唯一識別（錨點、JS 單一元素）。勿濫用多個相同 id。</li><li><code>class</code>：可重複的樣式／行為分類，CSS 用 <code>.classname</code> 選取。</li><li><code>data-*</code>：自訂資料，給 JS 讀（例 <code>data-price=\"199\"</code>）。</li><li><code>title</code>：滑鼠懸停提示（不能取代 label）。</li><li><code>hidden</code>：隱藏元素（仍可能在 DOM，螢幕閱讀器行為需留意）。</li><li><code>lang</code>：片段語言（中英混排時有用）。</li></ul><p>HTML5 也支援 <code>aria-*</code> 無障礙屬性（進階 a11y 課會再談）。</p>",
+    practice: "① 給卡片 id=\"card-1\" ② 加 data-level=\"beginner\" ③ 用 CSS #card-1 改邊框色 ④ 在 Console 用 document.querySelector 讀 data-level",
+    code: `<style>\n  .course { border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin: 8px 0; }\n  #featured { border-color: #6366f1; background: #eef2ff; }\n  .tag { font-size: 12px; color: #64748b; }\n</style>\n<div class="course" id="featured" data-level="beginner" title="精選課程">\n  <h3>HTML 入門</h3>\n  <p class="tag">data-level 可供 JS 篩選課程</p>\n</div>\n<div class="course" data-level="advanced">\n  <h3>Vue 實戰</h3>\n</div>`,
+    tip: "class 命名建議語意化：.card、.btn-primary，避免 .redText2。",
+    quiz: { q: "全頁唯一、可做 #錨點 的屬性？", opts: ["id", "class", "src"], ans: 0 }
+  },
   html_tables: {
     track: "html",
     title: "📊 table 表格",
@@ -187,13 +221,24 @@ const tutorialRepository = {
   },
   html_inputs: {
     track: "html",
-    title: "📝 表單 input",
-    desc: "type 可為 text、email、password、number 等。label 要對應 input 提升可用性。",
-    concept: "表單是使用者「把資料交給網站」的通道。",
-    practice: "① 加 label ② 用 CSS 統一 input 圓角與 padding",
-    code: `<style>\n  label { display: block; font-weight: bold; margin-bottom: 6px; }\n  input {\n    width: 100%;\n    max-width: 280px;\n    padding: 10px 14px;\n    border: 1px solid #cbd5e1;\n    border-radius: 10px;\n    font-size: 1rem;\n  }\n  input:focus {\n    outline: 2px solid #818cf8;\n    border-color: #6366f1;\n  }\n</style>\n\n<label for="name">學員姓名</label>\n<input id="name" type="text" placeholder="輸入你的名字">`,
-    tip: "focus 狀態要讓使用者知道「現在正在輸入這一格」。",
+    title: "📝 表單 input 類型大全",
+    desc: "type 決定鍵盤與驗證行為；label、name、required 是實務必備。",
+    concept: "<b>常用 type</b><br><code>text</code> 一般文字 · <code>email</code> · <code>password</code> · <code>number</code> · <code>tel</code> · <code>url</code> · <code>date</code> · <code>checkbox</code> · <code>radio</code> · <code>file</code> · <code>search</code><br><br><b>屬性</b><br><code>name</code>：送出表單時的欄位名（後端／JS 讀）<br><code>placeholder</code>：提示文字（不能取代 label）<br><code>required</code>、<code>minlength</code>、<code>pattern</code>：前端基本驗證<br><code>disabled</code>、<code>readonly</code>：不可改或僅讀",
+    practice: "① 每個 input 都配 label for/id ② 加 email + required ③ 試 checkbox 與 radio ④ 用 CSS 統一 focus 樣式",
+    code: `<style>\n  label { display: block; font-weight: bold; margin: 12px 0 6px; font-size: 14px; }\n  input[type="text"], input[type="email"], input[type="password"] {\n    width: 100%; max-width: 300px; padding: 10px 12px;\n    border: 1px solid #cbd5e1; border-radius: 10px; box-sizing: border-box;\n  }\n  input:focus { outline: 2px solid #818cf8; border-color: #6366f1; }\n  .row { display: flex; gap: 12px; align-items: center; margin: 8px 0; font-size: 14px; }\n</style>\n<label for="name">姓名</label>\n<input id="name" name="name" type="text" required placeholder="必填">\n<label for="email">Email</label>\n<input id="email" name="email" type="email" required>\n<div class="row"><input id="agree" type="checkbox" name="agree"> <label for="agree" style="margin:0;font-weight:600">同意條款</label></div>\n<p style="font-size:13px;color:#64748b">radio 群組需相同 name，見下一課表單整合。</p>`,
+    tip: "手機上 type=\"email\" 會出現 @ 鍵；type=\"tel\" 會出數字鍵盤。",
+    commonMistakes: "只有 placeholder 沒 label；checkbox 沒包 label 導致難點擊。",
     quiz: { q: "密碼欄位 type 應設？", opts: ["password", "secret", "hidden"], ans: 0 }
+  },
+  html_textarea_select: {
+    track: "html",
+    title: "📄 textarea / select / fieldset",
+    desc: "多行文字、下拉選單、群組標題，讓表單結構完整。",
+    concept: "<code>&lt;textarea&gt;</code>：多行留言、文章草稿；用 rows/cols 或 CSS 控制高度。<br><code>&lt;select&gt;</code> + <code>&lt;option&gt;</code>：下拉選單；<code>selected</code> 預選。<br><code>&lt;optgroup label=\"…\"&gt;</code>：選項分組。<br><code>&lt;fieldset&gt;</code> + <code>&lt;legend&gt;</code>：把相關欄位框在一起（例如「付款方式」）。",
+    practice: "① 加 textarea 留言 ② select 選課程 ③ 用 fieldset 包住一組 radio ④ 為 legend 寫清楚標題",
+    code: `<style>\n  label, legend { font-weight: bold; font-size: 14px; }\n  textarea, select {\n    width: 100%; max-width: 320px; padding: 10px;\n    border: 1px solid #cbd5e1; border-radius: 10px; box-sizing: border-box;\n    font-family: inherit;\n  }\n  fieldset { border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; margin-top: 12px; }\n  .row { margin: 6px 0; font-size: 14px; }\n</style>\n<label for="msg">留言</label>\n<textarea id="msg" name="message" rows="4" placeholder="多行文字…"></textarea>\n<label for="course">課程</label>\n<select id="course" name="course">\n  <option value="">請選擇</option>\n  <option value="html">HTML</option>\n  <option value="css">CSS</option>\n</select>\n<fieldset>\n  <legend>聯絡方式</legend>\n  <div class="row"><input type="radio" name="contact" id="c1" value="line"> <label for="c1">LINE</label></div>\n  <div class="row"><input type="radio" name="contact" id="c2" value="email"> <label for="c2">Email</label></div>\n</fieldset>`,
+    tip: "select 選項很多時，可考慮改用原生 datalist 或 JS 元件（進階）。",
+    quiz: { q: "多行文字輸入用？", opts: ["textarea", "input type=\"text\"", "p"], ans: 0 }
   },
   html_float: {
     track: "html",
@@ -494,11 +539,12 @@ Object.assign(tutorialRepository, {
   html_form: {
     track: "html",
     title: "📋 完整表單 form",
-    desc: "form 包 input、label、textarea、select、button。",
-    concept: "label 的 for 對應 input 的 id，點文字也能聚焦輸入框。",
-    practice: "① 加 textarea 留言 ② 加 select 下拉選課程",
-    code: `<style>\n  form { max-width:320px; }\n  label { display:block; font-weight:bold; margin:12px 0 6px; }\n  input, select, textarea { width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:8px; box-sizing:border-box; }\n</style>\n<form>\n  <label for="email">Email</label>\n  <input id="email" type="email" placeholder="you@example.com">\n  <label for="course">課程</label>\n  <select id="course"><option>HTML</option><option>CSS</option></select>\n  <button type="submit" style="margin-top:12px;width:100%;padding:12px;background:#4f46e5;color:#fff;border:none;border-radius:10px;font-weight:bold;">送出</button>\n</form>`,
-    tip: "前端驗證用 required、pattern；後端仍要再驗證。",
+    desc: "form 整合 action、method、欄位 name，是前後端交接的關鍵結構。",
+    concept: "<code>&lt;form action=\"/api/contact\" method=\"post\"&gt;</code><br><b>method</b>：<code>get</code>（參數在網址，搜尋用）· <code>post</code>（常見送出資料）<br><b>欄位</b>：每個可送出項目要有 <code>name</code>，否則後端收不到。<br><b>按鈕</b>：<code>type=\"submit\"</code> 觸發送出；<code>type=\"reset\"</code> 清空（少用）。<br><b>安全</b>：敏感資料必須 HTTPS；密碼與個資後端仍要驗證。靜態教學可用 <code>action=\"#\"</code> 或交給 JS 的 preventDefault。",
+    practice: "① 為每欄補 name ② 加 required ③ 用 fieldset 分組 ④ 想像後端收到的 key-value 長相",
+    code: `<style>\n  form { max-width: 340px; font-family: system-ui; }\n  label, legend { display: block; font-weight: bold; margin: 12px 0 6px; font-size: 14px; }\n  input, select, textarea {\n    width: 100%; padding: 10px; border: 1px solid #cbd5e1;\n    border-radius: 8px; box-sizing: border-box;\n  }\n  fieldset { border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; }\n  button[type="submit"] {\n    margin-top: 14px; width: 100%; padding: 12px;\n    background: #4f46e5; color: #fff; border: none;\n    border-radius: 10px; font-weight: bold; cursor: pointer;\n  }\n</style>\n<form action="#" method="post">\n  <label for="email">Email</label>\n  <input id="email" name="email" type="email" required>\n  <label for="course">課程</label>\n  <select id="course" name="course" required>\n    <option value="">請選擇</option>\n    <option value="html">HTML</option>\n    <option value="css">CSS</option>\n  </select>\n  <label for="msg">需求</label>\n  <textarea id="msg" name="message" rows="3"></textarea>\n  <button type="submit">送出諮詢</button>\n</form>`,
+    tip: "前端 required 可被繞過；正式站後端必須再驗證。",
+    commonMistakes: "input 沒 name；submit 放在 form 外；把 GET 表單拿來送密碼。",
     quiz: { q: "label for 對應？", opts: ["input 的 id", "body", "CSS class"], ans: 0 }
   },
   html_nav: {
@@ -905,9 +951,12 @@ Object.assign(tutorialRepository, {
 });
 
 const TUTORIAL_ORDER = [
-  "intro_welcome", "html_learning_path", "html_vs_css", "intro_devtools", "intro_files",
-  "html_skeleton", "html_headings", "html_inline", "html_media", "html_lists", "html_list_details",
-  "html_description_list", "html_div_span", "html_tables", "html_containers", "html_head_seo", "html_inputs", "html_float", "html_text_align", "html_background", "html_button", "html_form", "html_nav",
+  "intro_welcome", "html_learning_path", "intro_files", "intro_devtools", "html_vs_css",
+  "html_skeleton", "html_head_seo", "html_headings", "html_text_semantic", "html_inline", "html_media", "html_embed_media",
+  "html_lists", "html_list_details", "html_description_list", "html_div_span", "html_attributes",
+  "html_tables", "html_containers", "html_nav",
+  "html_inputs", "html_button", "html_textarea_select", "html_form",
+  "html_float", "html_text_align", "html_background",
   "css_selectors", "css_external_import", "css_colors", "css_background_image", "css_typography", "css_spacing",
   "work_units_rem", "css_box_model", "css_borders_outline", "css_width_max_overflow", "css_display",
   "css_flexbox", "css_grid", "css_position", "css_shadows", "css_transitions",
@@ -1016,7 +1065,7 @@ const tutorialTrackRepository = {
 };
 
 const TUTORIAL_ORDER_BY_TRACK = {
-  html: ["intro_welcome","html_learning_path","html_vs_css","intro_devtools","intro_files","html_skeleton","html_headings","html_inline","html_media","html_lists","html_list_details","html_description_list","html_div_span","html_tables","html_containers","html_head_seo","html_inputs","html_float","html_text_align","html_background","html_button","html_form","html_nav"],
+  html: ["intro_welcome","html_learning_path","intro_files","intro_devtools","html_vs_css","html_skeleton","html_head_seo","html_headings","html_text_semantic","html_inline","html_media","html_embed_media","html_lists","html_list_details","html_description_list","html_div_span","html_attributes","html_tables","html_containers","html_nav","html_inputs","html_button","html_textarea_select","html_form","html_float","html_text_align","html_background"],
   css: ["css_selectors","css_external_import","css_colors","css_background_image","css_typography","css_spacing","work_units_rem","css_box_model","css_borders_outline","css_width_max_overflow","css_display","css_flexbox","css_grid","css_position","css_shadows","css_transitions","css_variables","css_pseudo","css_object_fit","css_flex_advanced","css_media_rwd","css_animation","css_zindex","css_specificity","work_flex_center","work_overflow","work_responsive_img"],
   tailwind: ["tw_00_intro","tw_01_utility_cdn","tw_02_cdn_vs_build","tw_03_npm_setup","tw_03b_next_project","tw_04_source_entry","tw_05_postcss_config","tw_06_build_watch","tw_07_tailwind_config","tw_08_link_site","tw_09_official_workflow","tw_10_utilities_hygiene"],
   js: ["intro_js_whatis","intro_js_roadmap","js_variables","js_conditionals","js_template_strings","js_loops_for","js_arrays","js_array_methods","js_objects","js_functions","js_events","js_dom","js_classlist","js_queryselector","js_arrow","js_async_await","js_try_catch","js_json","js_fetch","js_localstorage","js_timers","js_ecosystem","adv_ui_patterns","js_form_submit","work_devtools_network"],

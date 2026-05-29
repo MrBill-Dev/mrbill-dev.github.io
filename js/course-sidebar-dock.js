@@ -85,7 +85,8 @@
       sidebar.style.position = 'fixed';
       sidebar.style.top = top + 'px';
       sidebar.style.left = left + 'px';
-      sidebar.style.width = '17rem';
+      var sidebarW = getComputedStyle(document.documentElement).getPropertyValue('--course-sidebar-width').trim() || '22rem';
+      sidebar.style.width = sidebarW;
       sidebar.style.zIndex = '20';
       sidebar.style.maxHeight = 'calc(100dvh - ' + top + 'px)';
       sidebar.style.overflowY = 'auto';
