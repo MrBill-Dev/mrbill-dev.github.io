@@ -1206,72 +1206,69 @@ const mazeLevels = [
 const unblockLevels = [
   [
     { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
-    { id: 'a', r: 0, c: 0, len: 3, dir: 'v', label: 'Prompt', theme: 'prompt' },
-    { id: 'b', r: 0, c: 2, len: 2, dir: 'h', label: 'RAG', theme: 'rag' },
-    { id: 'c', r: 0, c: 4, len: 3, dir: 'v', label: 'Token', theme: 'tool' },
-    { id: 'd', r: 3, c: 1, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
-    { id: 'e', r: 4, c: 3, len: 2, dir: 'v', label: 'Review', theme: 'review' }
-  ],
-  [
-    { id: 'goal', r: 2, c: 1, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'wall', r: 2, c: 2, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'wall2', r: 1, c: 4, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
     { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
-    { id: 'b', r: 0, c: 2, len: 3, dir: 'v', label: 'RAG', theme: 'rag' },
-    { id: 'c', r: 1, c: 3, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
-    { id: 'd', r: 3, c: 0, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
-    { id: 'e', r: 4, c: 4, len: 2, dir: 'v', label: 'Guard', theme: 'guard' }
+    { id: 'b', r: 0, c: 3, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'c', r: 3, c: 0, len: 2, dir: 'v', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 4, c: 3, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'e', r: 0, c: 5, len: 2, dir: 'v', label: 'CoT', theme: 'prompt' },
+    { id: 'f', r: 5, c: 1, len: 2, dir: 'h', label: 'API', theme: 'rag' }
   ],
   [
     { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
-    { id: 'a', r: 0, c: 1, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
-    { id: 'b', r: 0, c: 3, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
-    { id: 'c', r: 0, c: 5, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
-    { id: 'd', r: 3, c: 0, len: 2, dir: 'v', label: 'Tool', theme: 'tool' },
-    { id: 'e', r: 3, c: 2, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
-    { id: 'f', r: 4, c: 4, len: 2, dir: 'v', label: 'Review', theme: 'review' },
-    { id: 'g', r: 1, c: 0, len: 2, dir: 'h', label: 'Token', theme: 'tool' }
-  ],
-  [
-    { id: 'goal', r: 2, c: 1, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
-    { id: 'a', r: 0, c: 0, len: 3, dir: 'v', label: 'Prompt', theme: 'prompt' },
-    { id: 'b', r: 0, c: 3, len: 3, dir: 'v', label: 'RAG', theme: 'rag' },
-    { id: 'c', r: 1, c: 1, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
-    { id: 'd', r: 3, c: 0, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
-    { id: 'e', r: 4, c: 2, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
-    { id: 'f', r: 5, c: 4, len: 2, dir: 'v', label: 'Review', theme: 'review' },
-    { id: 'g', r: 0, c: 5, len: 2, dir: 'v', label: 'Token', theme: 'tool' }
+    { id: 'wall', r: 2, c: 2, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'wall2', r: 2, c: 4, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
+    { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 3, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'c', r: 3, c: 0, len: 2, dir: 'v', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 4, c: 3, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'e', r: 0, c: 5, len: 2, dir: 'v', label: 'CoT', theme: 'prompt' },
+    { id: 'f', r: 5, c: 1, len: 2, dir: 'h', label: 'API', theme: 'rag' }
   ],
   [
     { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'wall', r: 1, c: 2, len: 3, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'wall2', r: 1, c: 4, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
     { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
-    { id: 'b', r: 0, c: 2, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
-    { id: 'c', r: 0, c: 4, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
-    { id: 'd', r: 3, c: 1, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
-    { id: 'e', r: 4, c: 4, len: 2, dir: 'v', label: 'Review', theme: 'review' },
-    { id: 'f', r: 3, c: 0, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
-    { id: 'g', r: 5, c: 2, len: 2, dir: 'h', label: 'Tool', theme: 'tool' }
+    { id: 'b', r: 0, c: 3, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'c', r: 3, c: 0, len: 2, dir: 'v', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 4, c: 3, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'e', r: 0, c: 5, len: 2, dir: 'v', label: 'CoT', theme: 'prompt' },
+    { id: 'f', r: 5, c: 1, len: 2, dir: 'h', label: 'API', theme: 'rag' }
   ],
   [
-    { id: 'goal', r: 2, c: 2, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'wall', r: 1, c: 2, len: 3, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'wall2', r: 2, c: 4, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
     { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
-    { id: 'b', r: 0, c: 2, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
-    { id: 'c', r: 0, c: 4, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
-    { id: 'd', r: 3, c: 0, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
-    { id: 'e', r: 4, c: 3, len: 2, dir: 'v', label: 'Review', theme: 'review' },
-    { id: 'f', r: 5, c: 1, len: 2, dir: 'h', label: 'Token', theme: 'tool' },
-    { id: 'g', r: 4, c: 0, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
-    { id: 'h', r: 3, c: 4, len: 2, dir: 'v', label: 'CoT', theme: 'prompt' }
+    { id: 'b', r: 0, c: 3, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'c', r: 3, c: 0, len: 2, dir: 'v', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 4, c: 3, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'e', r: 0, c: 5, len: 2, dir: 'v', label: 'CoT', theme: 'prompt' },
+    { id: 'f', r: 5, c: 1, len: 2, dir: 'h', label: 'API', theme: 'rag' }
   ],
   [
-    { id: 'goal', r: 2, c: 1, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'wall', r: 2, c: 2, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'wall2', r: 0, c: 4, len: 3, dir: 'v', label: 'RAG', theme: 'rag' },
     { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
-    { id: 'b', r: 0, c: 2, len: 2, dir: 'v', label: 'RAG', theme: 'rag' },
-    { id: 'c', r: 0, c: 4, len: 3, dir: 'v', label: 'Guard', theme: 'guard' },
-    { id: 'd', r: 3, c: 0, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
-    { id: 'e', r: 3, c: 3, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
-    { id: 'f', r: 4, c: 2, len: 2, dir: 'v', label: 'Review', theme: 'review' },
-    { id: 'g', r: 5, c: 0, len: 2, dir: 'h', label: 'CoT', theme: 'prompt' },
-    { id: 'h', r: 4, c: 4, len: 2, dir: 'h', label: 'Tool', theme: 'tool' },
-    { id: 'i', r: 5, c: 3, len: 2, dir: 'h', label: 'API', theme: 'rag' }
+    { id: 'b', r: 0, c: 3, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'c', r: 3, c: 0, len: 2, dir: 'v', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 4, c: 3, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'e', r: 0, c: 5, len: 2, dir: 'v', label: 'CoT', theme: 'prompt' },
+    { id: 'f', r: 5, c: 1, len: 2, dir: 'h', label: 'API', theme: 'rag' }
+  ],
+  [
+    { id: 'goal', r: 2, c: 0, len: 2, dir: 'h', label: 'AI包', goal: true, theme: 'goal' },
+    { id: 'wall', r: 2, c: 2, len: 2, dir: 'v', label: 'Guard', theme: 'guard' },
+    { id: 'wall2', r: 0, c: 4, len: 3, dir: 'v', label: 'RAG', theme: 'rag' },
+    { id: 'a', r: 0, c: 0, len: 2, dir: 'v', label: 'Prompt', theme: 'prompt' },
+    { id: 'b', r: 0, c: 3, len: 2, dir: 'v', label: 'Token', theme: 'tool' },
+    { id: 'c', r: 3, c: 1, len: 2, dir: 'v', label: 'Tool', theme: 'tool' },
+    { id: 'd', r: 4, c: 3, len: 3, dir: 'h', label: 'Agent', theme: 'agent' },
+    { id: 'e', r: 0, c: 5, len: 2, dir: 'v', label: 'CoT', theme: 'prompt' },
+    { id: 'f', r: 5, c: 1, len: 2, dir: 'h', label: 'API', theme: 'rag' }
   ]
 ];
 const shooterRounds = [
@@ -1534,20 +1531,27 @@ function initMazeLevel() {
   mazeTipText = '新關卡開始：先拿鑰匙，再去出口。';
 }
 
-function initUnblockLevel() {
+function initUnblockLevel(pickRandom) {
   var lv = null;
-  for (var t = 0; t < 40; t++) {
-    var candidate = unblockLevels[Math.floor(Math.random() * unblockLevels.length)];
-    if (isUnblockLevelValid(candidate)) {
-      lv = candidate;
-      break;
+  if (pickRandom) {
+    for (var t = 0; t < 40; t++) {
+      var candidate = unblockLevels[Math.floor(Math.random() * unblockLevels.length)];
+      if (isUnblockLevelValid(candidate) && isUnblockLevelSolvable(candidate)) {
+        lv = candidate;
+        break;
+      }
     }
+    if (!lv) lv = unblockLevels[0];
+    unblockLevel += 1;
+  } else {
+    unblockLevel += 1;
+    var idx = Math.min(unblockLevel - 1, unblockLevels.length - 1);
+    lv = unblockLevels[idx];
+    if (!isUnblockLevelValid(lv) || !isUnblockLevelSolvable(lv)) lv = unblockLevels[0];
   }
-  if (!lv) lv = unblockLevels[0];
   unblockBlocks = lv.map(function(b) { return Object.assign({}, b); });
   unblockMoves = 0;
   unblockDrag = null;
-  unblockLevel += 1;
 }
 
 function unblockOccupiedCells(block) {
@@ -1574,6 +1578,79 @@ function isUnblockLevelValid(blocks) {
       occupied[key] = true;
     }
   }
+  return true;
+}
+
+function serializeUnblockState(blocks) {
+  return blocks.map(function(b) { return b.id + ':' + b.r + ',' + b.c; }).sort().join('|');
+}
+
+function unblockCanPlace(blocks, id, r, c, b) {
+  if (r < 0 || c < 0) return false;
+  if (b.dir === 'h' && (c + b.len > 6 || r >= 6)) return false;
+  if (b.dir === 'v' && (r + b.len > 6 || c >= 6)) return false;
+  var i, other, cells, k, aR0, aC0, aR1, aC1, oR0, oC0, oR1, oC1;
+  for (i = 0; i < blocks.length; i++) {
+    other = blocks[i];
+    if (other.id === id) continue;
+    aR0 = r; aC0 = c;
+    aR1 = r + (b.dir === 'v' ? b.len - 1 : 0);
+    aC1 = c + (b.dir === 'h' ? b.len - 1 : 0);
+    oR0 = other.r; oC0 = other.c;
+    oR1 = other.r + (other.dir === 'v' ? other.len - 1 : 0);
+    oC1 = other.c + (other.dir === 'h' ? other.len - 1 : 0);
+    if (!(aR1 < oR0 || aR0 > oR1 || aC1 < oC0 || aC0 > oC1)) return false;
+  }
+  return true;
+}
+
+function unblockSolveDepth(blocks, onlyMoveId, maxStates) {
+  if (!isUnblockLevelValid(blocks)) return -1;
+  maxStates = maxStates || 60000;
+  var q = [blocks.map(function(b) { return Object.assign({}, b); })];
+  var seen = {};
+  seen[serializeUnblockState(q[0])] = true;
+  var depth = 0;
+  while (q.length) {
+    var levelSize = q.length;
+    var li, state, bi, b, deltas, di, dr, dc, nr, nc, nb, t, key, g;
+    for (li = 0; li < levelSize; li++) {
+      state = q.shift();
+      g = state.find(function(x) { return x.goal; });
+      if (g && g.c + g.len >= 6) return depth;
+      if (Object.keys(seen).length > maxStates) return -1;
+      for (bi = 0; bi < state.length; bi++) {
+        b = state[bi];
+        if (onlyMoveId && b.id !== onlyMoveId) continue;
+        deltas = b.dir === 'h' ? [[0, -1], [0, 1]] : [[-1, 0], [1, 0]];
+        for (di = 0; di < deltas.length; di++) {
+          dr = deltas[di][0]; dc = deltas[di][1];
+          nr = b.r + dr; nc = b.c + dc;
+          if (!unblockCanPlace(state, b.id, nr, nc, b)) continue;
+          nb = state.map(function(x) { return Object.assign({}, x); });
+          t = nb.find(function(x) { return x.id === b.id; });
+          t.r = nr; t.c = nc;
+          key = serializeUnblockState(nb);
+          if (seen[key]) continue;
+          seen[key] = true;
+          q.push(nb);
+        }
+      }
+    }
+    depth++;
+  }
+  return -1;
+}
+
+function isUnblockLevelSolvable(blocks, minMoves) {
+  minMoves = minMoves || 6;
+  if (!isUnblockLevelValid(blocks)) return false;
+  var goal = blocks.find(function(b) { return b.goal; });
+  if (!goal) return false;
+  var fullDepth = unblockSolveDepth(blocks, null, 80000);
+  if (fullDepth < minMoves) return false;
+  var goalOnlyDepth = unblockSolveDepth(blocks, goal.id, 80000);
+  if (goalOnlyDepth >= 0) return false;
   return true;
 }
 
@@ -2198,10 +2275,10 @@ function renderGame() {
     setGameMeter(Math.min(100, ((goalBlock ? goalBlock.c : 0) / 4) * 100));
     if (unblockSolved) {
       registerGameResult(true);
-      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-violet-50 border border-violet-200 text-center"><p class="text-2xl font-black text-violet-700">🧱 解路成功！</p><p class="text-sm font-bold text-violet-700 mt-1">第 ' + unblockLevel + ' 關完成</p><p class="star-row mt-2">星等：' + buildStarsByRatio(unblockMoves <= 10 ? 1 : unblockMoves <= 16 ? 0.72 : 0.55) + '</p><p class="text-sm text-slate-700 mt-1">拖曳步數：' + unblockMoves + '</p><p class="text-sm text-violet-700 mt-1">學到：先排障礙，再讓主任務通關（像做專案一樣）。</p><p class="text-sm text-slate-700 mt-3 font-bold">要進行下一關嗎？</p><div class="mt-3 grid sm:grid-cols-2 gap-2"><button type="button" class="p-3 rounded-xl bg-violet-600 text-white font-bold" onclick="initUnblockLevel();renderGame()">✅ 下一關</button><button type="button" class="p-3 rounded-xl bg-slate-100 text-slate-800 font-bold" onclick="initUnblockLevel();renderGame()">🎲 換一關</button></div></div>';
+      vp.innerHTML = '<div class="burst p-5 rounded-2xl bg-violet-50 border border-violet-200 text-center"><p class="text-2xl font-black text-violet-700">🧱 解路成功！</p><p class="text-sm font-bold text-violet-700 mt-1">第 ' + unblockLevel + ' 關完成</p><p class="star-row mt-2">星等：' + buildStarsByRatio(unblockMoves <= 12 ? 1 : unblockMoves <= 20 ? 0.72 : 0.55) + '</p><p class="text-sm text-slate-700 mt-1">拖曳步數：' + unblockMoves + '</p><p class="text-sm text-violet-700 mt-1">學到：先排障礙，再讓主任務通關（像做專案一樣）。</p><p class="text-sm text-slate-700 mt-3 font-bold">要進行下一關嗎？</p><div class="mt-3 grid sm:grid-cols-2 gap-2"><button type="button" class="p-3 rounded-xl bg-violet-600 text-white font-bold" onclick="initUnblockLevel(false);renderGame()">✅ 下一關</button><button type="button" class="p-3 rounded-xl bg-slate-100 text-slate-800 font-bold" onclick="initUnblockLevel(true);renderGame()">🎲 換一關</button></div></div>';
       return;
     }
-    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI Unblock：拖曳方塊幫「AI包」找出口</h3><p class="text-sm text-slate-500">滑鼠或手指拖曳方塊，只能沿著方塊方向移動。目標：讓 AI包 往右邊發光出口離開。</p><p class="unblock-level-badge mt-3">第 ' + unblockLevel + ' 關</p><div id="unblock-board" class="unblock-board mt-2"></div><p class="text-sm mt-3 text-slate-600">方塊數 <strong>' + unblockBlocks.length + '</strong>｜提示：先移 Review / Guard 等擋路方塊。</p>';
+    vp.innerHTML = '<h3 class="text-lg font-black text-slate-900">AI Unblock：拖曳方塊幫「AI包」找出口</h3><p class="text-sm text-slate-500">滑鼠或手指拖曳方塊，只能沿著方塊方向移動。出口在右側中間：需先移開擋路的 Guard / RAG，再讓 AI包 離開。</p><p class="unblock-level-badge mt-3">第 ' + unblockLevel + ' 關</p><div id="unblock-board" class="unblock-board mt-2"></div><p class="text-sm mt-3 text-slate-600">方塊數 <strong>' + unblockBlocks.length + '</strong>｜提示：先動紅色 Guard、藍色 RAG，不要一開始就只推 AI包。</p>';
     var board = document.getElementById('unblock-board');
     var boardRect = board.getBoundingClientRect();
     var cell = boardRect.width / 6;
