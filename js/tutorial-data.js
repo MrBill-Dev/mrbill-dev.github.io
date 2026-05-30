@@ -1109,10 +1109,10 @@ const TUTORIAL_ORDER = [
   "css_pseudo", "css_object_fit", "css_variables", "css_flex_advanced", "css_media_rwd", "css_container_queries",
   "work_responsive_img", "work_overflow", "css_animation", "css_zindex", "css_cascade", "css_specificity",
   "css_filters", "css_layer", "css_bem", "css_a11y_motion",
-  "intro_js_whatis", "intro_js_roadmap", "js_variables", "js_conditionals", "js_template_strings", "js_loops_for", "js_arrays", "js_array_methods",
-  "js_destructuring", "js_objects", "js_functions", "js_arrow", "js_scope_closure", "js_events", "js_dom", "js_classlist", "js_queryselector",
+  "intro_js_whatis", "intro_js_roadmap", "js_reference_map", "js_variables", "js_operators_types", "js_conditionals", "js_switch_while", "js_template_strings", "js_strings", "js_loops_for", "js_arrays", "js_array_methods",
+  "js_destructuring", "js_objects", "js_functions", "js_arrow", "js_classes", "js_scope_closure", "js_events", "js_dom", "js_dom_create", "js_classlist", "js_queryselector",
   "js_async_await", "js_promises", "js_try_catch", "js_json", "js_fetch", "js_localstorage", "js_timers", "js_debounce_throttle", "js_regex",
-  "js_form_submit", "adv_ui_patterns", "js_ecosystem", "work_devtools_network", "js_modules_esm", "js_debugging",
+  "js_form_submit", "adv_ui_patterns", "js_modern_syntax", "js_ecosystem", "work_devtools_network", "js_modules_esm", "js_debugging",
   "work_git",
   "master_semantic", "master_a11y", "master_performance", "master_deploy", "master_capstone"
 ];
