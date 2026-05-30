@@ -30,6 +30,12 @@
     .pulse-ok { animation: pulseOk 0.7s ease; }
     @keyframes pulseOk { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
     @keyframes modePulse { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
+    .section-media { width: 100%; height: 11rem; object-fit: cover; border-radius: 1rem; border: 1px solid rgba(148,163,184,0.3); }
+    .card-media { width: 100%; height: 8.5rem; object-fit: cover; border-radius: 0.625rem; margin-bottom: 0.75rem; border: 1px solid rgba(148,163,184,0.2); }
+    @media (min-width: 768px) {
+      .section-media { height: 14rem; }
+      .card-media { height: 9.5rem; }
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col text-lg">
@@ -54,6 +60,7 @@
 
     <section class="bg-white rounded-3xl border border-slate-200 p-5 md:p-6 space-y-4" data-mode-group="content" data-mode="all">
       <h2 class="text-xl md:text-2xl font-black text-slate-900">導讀前言</h2>
+      <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=80" alt="文案寫作與內容構思筆記" class="section-media" loading="lazy" />
       <p class="text-base md:text-lg font-semibold text-slate-900 leading-relaxed">很多人以為自己不會寫，其實真正的問題，通常是同時想處理太多事情。當文案、簡報、SEO、品牌語氣與行銷目標全部混在一起時，大腦很容易失去方向。</p>
       <p class="text-sm text-slate-700 leading-relaxed">所以在開始之前，只需要先完成一件事：選擇一種輸出形式，完成第一版內容。</p>
       <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
@@ -80,6 +87,7 @@
 
     <section id="en-booster-zone" class="home-band p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="ai">
       <h2 class="text-2xl font-black text-slate-900">📝 AI 文案指令工具箱</h2>
+      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" alt="AI 文案生成與結構化指令" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-600">本區提供文案 AI 協作所需的結構化指令，可用於貼文、心得、職場報告與簡報稿。先建立框架，再進行生成，能大幅降低空泛內容。</p>
       <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm">
         <p class="font-black text-indigo-900">想用中文做結構化？</p>
@@ -171,6 +179,7 @@
 
     <section class="bg-white rounded-3xl border border-fuchsia-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="ai">
       <h2 class="text-2xl font-black text-slate-900">結構化文案一鍵防錯區</h2>
+      <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80" alt="結構化文案編輯與防錯檢查" class="section-media" loading="lazy" />
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
         <article class="soft-card p-4 border-emerald-200 bg-emerald-50/70">
           <p class="font-black text-emerald-800">結合 AI 製作</p>
@@ -193,15 +202,18 @@
     <section class="bg-gradient-to-r from-indigo-50 via-fuchsia-50 to-cyan-50 rounded-3xl border border-indigo-100 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">新手學習路徑，先學前再學後</h2>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
-        <article class="soft-card p-4">
+        <article class="soft-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="憑感覺寫作、重點不明" class="card-media" loading="lazy" />
           <p class="font-black text-rose-700">學前：憑感覺寫</p>
           <p class="mt-2 text-slate-700">句子很長、重點不明、沒有行動指令，讀者看完不知道要做什麼。</p>
         </article>
-        <article class="soft-card p-4">
+        <article class="soft-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="套用範本改寫內容" class="card-media" loading="lazy" />
           <p class="font-black text-amber-700">學中：套用範本改寫</p>
           <p class="mt-2 text-slate-700">同一主題可拆成網站文案、社群貼文、簡報頁三種版本。</p>
         </article>
-        <article class="soft-card p-4">
+        <article class="soft-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="可追蹤指標與轉換數據" class="card-media" loading="lazy" />
           <p class="font-black text-emerald-700">學後：可交付 + 可追蹤</p>
           <p class="mt-2 text-slate-700">有明確 CTA、可衡量指標、可迭代流程，不再只靠靈感。</p>
         </article>
@@ -210,6 +222,7 @@
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">先補名詞：CTA 是什麼？</h2>
+      <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80" alt="行動呼籲 CTA 按鈕與使用者介面" class="section-media" loading="lazy" />
       <div class="grid md:grid-cols-2 gap-4 text-sm">
         <article class="soft-card p-4 border-rose-200 bg-rose-50/70">
           <p class="font-black text-rose-700">❌ 不清楚 CTA 的常見結果</p>
@@ -232,7 +245,8 @@
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">對錯示範：你寫的是「資訊」還是「可執行內容」？</h2>
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
-        <article class="soft-card p-4 border-rose-200 bg-rose-50/70">
+        <article class="soft-card p-4 border-rose-200 bg-rose-50/70 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="空泛文案、缺少行動指引" class="card-media" loading="lazy" />
           <p class="font-black text-rose-700">❌ 錯誤版本（看起來有內容，其實不能用）</p>
           <p class="mt-2 text-slate-700">「我們服務很好，很多客戶都很滿意，歡迎聯絡。」</p>
           <ul class="mt-3 list-disc pl-5 text-rose-700 space-y-1">
@@ -241,7 +255,8 @@
             <li>沒有步驟：讀者不知道下一步</li>
           </ul>
         </article>
-        <article class="soft-card p-4 border-emerald-200 bg-emerald-50/70">
+        <article class="soft-card p-4 border-emerald-200 bg-emerald-50/70 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="有對象、步驟與數據的可執行文案" class="card-media" loading="lazy" />
           <p class="font-black text-emerald-700">✅ 正確版本（可讀、可做、可追）</p>
           <p class="mt-2 text-slate-700">「給第一次做手工皂電商的人：先檢查 CTA 文字、表單步驟、FAQ。若 CTA 點擊率低於 3%，先把按鈕改成『領敏感肌選皂清單』，一週後再看 click_cta 變化。」</p>
           <ul class="mt-3 list-disc pl-5 text-emerald-700 space-y-1">
@@ -255,6 +270,7 @@
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">常用範本切換器，重點版不講空理論</h2>
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="依情境選擇文案範本" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-600">直接選情境，會給你可複製的錯誤示範與優化版本。你可以拿去改成自己的產品。</p>
       <div class="flex flex-wrap gap-2" id="content-scenario-bar"></div>
       <div class="grid lg:grid-cols-2 gap-4">
@@ -272,12 +288,14 @@
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">真實長案例，前後對照</h2>
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
-        <article class="soft-card p-4 border-rose-200 bg-rose-50/70">
+        <article class="soft-card p-4 border-rose-200 bg-rose-50/70 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=800&q=80" alt="品牌介紹空泛、缺少行動引導的舊版文案" class="card-media" loading="lazy" />
           <p class="font-black text-rose-700">舊版本（看起來很努力，但轉換低）</p>
           <p class="mt-2 text-slate-700">「我們是台南在地手工皂品牌，致力於提供天然與安全的清潔方案。很多顧客都說使用後很舒服，歡迎大家參考我們的產品，若有問題可以與我們聯絡。我們堅持選材與製程，期待讓更多人認識手工皂的美好。」</p>
           <p class="mt-3 text-rose-700">問題：看完後讀者不知道「我現在該做什麼」。</p>
         </article>
-        <article class="soft-card p-4 border-emerald-200 bg-emerald-50/70">
+        <article class="soft-card p-4 border-emerald-200 bg-emerald-50/70 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80" alt="痛點步驟與 CTA 清楚的新版文案" class="card-media" loading="lazy" />
           <p class="font-black text-emerald-700">新版本（可讀、可做、可追蹤）</p>
           <p class="mt-2 text-slate-700">「你是敏感肌，洗完常緊繃或泛紅嗎？先不要急著換一堆保養品。先做 3 件事：① 選 pH 8-9 冷製皂 ② 避開香精與 SLS ③ 先做 24 小時局部測試。你可以先領《敏感肌選皂清單》，照表挑選，3 分鐘內就能縮小到 2-3 款適合你的皂。若需要，我們再提供一對一選皂建議。」</p>
           <p class="mt-3 text-emerald-700">改善：痛點、條件、步驟、CTA 全都有，且可追蹤「清單下載率」。</p>
@@ -287,30 +305,40 @@
 
     <section class="bg-gradient-to-r from-cyan-50 via-sky-50 to-indigo-50 rounded-3xl border border-cyan-100 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">過去 vs 現在 vs 未來：內容工作怎麼變</h2>
+      <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1400&q=80" alt="內容改寫與多版本工作流程" class="section-media" loading="lazy" />
       <div class="grid md:grid-cols-3 gap-4 text-sm">
-        <article class="soft-card p-4">
+        <article class="soft-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=600&q=80" alt="過去單篇寫完就結束" class="card-media" loading="lazy" />
           <p class="font-black text-slate-900">過去（單篇思維）</p>
           <p class="mt-1 text-slate-700">寫一篇文就結束，沒有拆成多平台版本，數據回看也不足。</p>
         </article>
-        <article class="soft-card p-4">
+        <article class="soft-card p-4 overflow-hidden">
+          <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=600&h=380&fit=crop" alt="現在同主題拆成多平台版本" class="card-media" loading="lazy" />
           <p class="font-black text-slate-900">現在（多版本思維）</p>
           <p class="mt-1 text-slate-700">同主題拆成網站文案、社群貼文、簡報敘事，形成內容鏈。</p>
         </article>
-        <article class="soft-card p-4">
+        <article class="soft-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="未來以數據驅動內容迭代" class="card-media" loading="lazy" />
           <p class="font-black text-slate-900">未來（系統化思維）</p>
           <p class="mt-1 text-slate-700">先定義指標再產內容，持續 A/B 測試與版本迭代。</p>
         </article>
       </div>
-      <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1400&q=80" alt="內容改寫流程示意" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
     </section>
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">簡報實作教學：從空白到可上台的 3 頁骨架</h2>
+      <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80" alt="簡報製作與上台提案" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-700">這區不是理論，而是你可以立刻照做的流程。先做出 3 頁最小可用版本，再擴充到完整簡報。</p>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
-        <article class="soft-card p-4"><p class="font-black text-indigo-700">第 1 頁：問題頁</p><p class="mt-1 text-slate-700">寫一句痛點標題 + 1 組關鍵數字。目的是讓聽眾知道為什麼要繼續聽。</p></article>
-        <article class="soft-card p-4"><p class="font-black text-cyan-700">第 2 頁：做法頁</p><p class="mt-1 text-slate-700">固定 3 步驟，每步一句動作句。不要超過 16 字，先求可講清楚。</p></article>
-        <article class="soft-card p-4"><p class="font-black text-emerald-700">第 3 頁：結果頁</p><p class="mt-1 text-slate-700">放前後對照 + 下一步決策，最後一定要有「誰在什麼時間做什麼」。</p></article>
+        <article class="soft-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=500&q=80" alt="簡報第 1 頁問題定義" class="card-media" loading="lazy" />
+          <p class="font-black text-indigo-700">第 1 頁：問題頁</p><p class="mt-1 text-slate-700">寫一句痛點標題 + 1 組關鍵數字。目的是讓聽眾知道為什麼要繼續聽。</p></article>
+        <article class="soft-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="簡報第 2 頁三步驟做法" class="card-media" loading="lazy" />
+          <p class="font-black text-cyan-700">第 2 頁：做法頁</p><p class="mt-1 text-slate-700">固定 3 步驟，每步一句動作句。不要超過 16 字，先求可講清楚。</p></article>
+        <article class="soft-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="簡報第 3 頁結果與決策" class="card-media" loading="lazy" />
+          <p class="font-black text-emerald-700">第 3 頁：結果頁</p><p class="mt-1 text-slate-700">放前後對照 + 下一步決策，最後一定要有「誰在什麼時間做什麼」。</p></article>
       </div>
       <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm">
         <p class="font-black text-indigo-900">實作清單，照抄就能完成第一版</p>
@@ -325,6 +353,7 @@
 
     <section id="content-quick-start" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="ai">
       <h2 class="text-2xl font-black text-slate-900">一鍵生成我的版本，輸入就能拿初稿</h2>
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="一鍵生成文案初稿與協作改寫" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-600">新手只要做這區：先選輸出類型，再填產業、對象、商品，就能拿短版或長文版。</p>
       <div class="grid md:grid-cols-4 gap-3 text-sm">
         <label class="space-y-1"><span class="font-bold text-slate-700">輸出類型</span><select id="gen-format" class="w-full rounded-xl border border-slate-300 px-3 py-2 bg-white"><option value="social_long">主題貼文長版</option><option value="essay_reflection">作文 / 心得長版</option><option value="workplace_report">職場提案 / 報告</option><option value="gamma_deck">Gamma 簡報稿</option></select></label>
@@ -356,6 +385,7 @@
 
     <section id="gamma-start" class="bg-gradient-to-r from-violet-50 via-indigo-50 to-cyan-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="ai">
       <h2 class="text-2xl font-black text-slate-900">文案接到 Gamma，新手白話版</h2>
+      <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=1200&q=80" alt="Gamma 簡報生成與展示" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-700">這塊是把「你已經寫好的文案」變成「可展示的簡報」。用途是提案、報告、內部溝通，不用從空白頁重做。</p>
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
         <article class="soft-card p-4 border-violet-200 bg-violet-50/70">
@@ -410,6 +440,7 @@ Tone: executive-ready, clear, practical.</pre>
 
     <section class="bg-gradient-to-r from-fuchsia-50 via-rose-50 to-amber-50 rounded-3xl border border-rose-100 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">練習題</h2>
+      <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80" alt="CTA 判斷互動練習" class="section-media" loading="lazy" />
       <div class="rounded-2xl border border-slate-200 bg-white p-5 text-sm space-y-4">
         <div class="h-3 rounded-full bg-slate-100 overflow-hidden">
           <div id="content-quiz-bar" class="h-full bg-gradient-to-r from-fuchsia-500 to-cyan-500 transition-all duration-500" style="width:0%"></div>
@@ -426,6 +457,7 @@ Tone: executive-ready, clear, practical.</pre>
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="content" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">課程教學</h2>
+      <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80" alt="內容表達課程與實戰文案" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-600">下面是完整課綱版，不是簡介。每課都含：實務情境、常見失誤、操作步驟、交付標準與作業。</p>
       <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
         <span id="content-course-count" class="px-2 py-1 rounded-full bg-indigo-50 text-indigo-700">0/0 課完成</span>

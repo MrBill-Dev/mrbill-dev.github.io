@@ -30,6 +30,12 @@
     .card-pop { animation: cardPop 0.55s ease; }
     @keyframes cardPop { 0% { transform: translateY(6px); opacity: 0.6; } 100% { transform: translateY(0); opacity: 1; } }
     @keyframes modePulse { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
+    .section-media { width: 100%; height: 11rem; object-fit: cover; border-radius: 1rem; border: 1px solid rgba(148,163,184,0.3); }
+    .card-media { width: 100%; height: 8.5rem; object-fit: cover; border-radius: 0.625rem; margin-bottom: 0.75rem; border: 1px solid rgba(148,163,184,0.2); }
+    @media (min-width: 768px) {
+      .section-media { height: 14rem; }
+      .card-media { height: 9.5rem; }
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col text-lg">
@@ -54,6 +60,7 @@
 
     <section class="bg-white rounded-3xl border border-slate-200 p-5 md:p-6 space-y-4" data-mode-group="design" data-mode="all">
       <h2 class="text-xl md:text-2xl font-black text-slate-900">導讀前言</h2>
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="設計學習與協作討論示意" class="section-media" loading="lazy" />
       <p class="text-base md:text-lg font-semibold text-slate-900 leading-relaxed">很多人在學設計時，最容易卡住的問題，不是工具太難，而是一次想學太多。其實你不需要先學會所有軟體，真正重要的是先完成一個能交付的作品。</p>
       <p class="text-sm text-slate-700 leading-relaxed">這個章節會帶你先選擇適合自己的工作方式。可以從手作設計開始，把版型、字級與視覺節奏練穩；也可以從 AI 輔助開始，快速產出主視覺與設計方向。兩條路都沒有對錯，重點是先完成第一版。</p>
       <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
@@ -80,6 +87,7 @@
 
     <section class="rounded-3xl border border-violet-200 bg-white/80 backdrop-blur p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="ai">
       <h2 class="text-2xl font-black text-slate-900">AI 視覺設計一次到位急救包</h2>
+      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" alt="AI 視覺生成與創意輔助示意" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-700">本區提供一個可直接套用的範例補丁，先讓第一張圖成功，再進入下方流程做主題延伸與規格化輸出。</p>
       <div class="rounded-2xl border border-violet-100 bg-violet-50 p-4 text-sm">
         <p class="font-black text-violet-900">AI 速成流程</p>
@@ -103,6 +111,7 @@
 
     <section id="en-booster-zone" class="home-band p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="ai">
       <h2 class="text-2xl font-black text-slate-900">🎨 AI 視覺生成英文指令庫</h2>
+      <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1200&q=80" alt="視覺設計靈感與配色構圖示意" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-600">本指令庫採主題靈感優先，適用於社群貼文、廣告主視覺與提案封面。建議先選主題，再複製指令，最後補上品牌色與文案限制。</p>
       <div class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm">
         <p class="font-black text-indigo-900">想用中文結構化提示詞？</p>
@@ -193,14 +202,21 @@
     <section class="bg-gradient-to-r from-violet-50 via-fuchsia-50 to-indigo-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">學前 vs 學後（新手先看）</h2>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
-        <article class="academy-card p-4"><p class="font-black text-rose-700">學前</p><p class="mt-1 text-slate-700">看很多作品會羨慕，但不知道該從哪個工具下手。</p></article>
-        <article class="academy-card p-4"><p class="font-black text-amber-700">學中</p><p class="mt-1 text-slate-700">先專精一個主工具，完成一個可交付任務。</p></article>
-        <article class="academy-card p-4"><p class="font-black text-emerald-700">學後</p><p class="mt-1 text-slate-700">能依情境選工具，不盲目「全都會」，而是「會做對」。</p></article>
+        <article class="academy-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="面對眾多設計工具不知從何下手" class="card-media" loading="lazy" />
+          <p class="font-black text-rose-700">學前</p><p class="mt-1 text-slate-700">看很多作品會羨慕，但不知道該從哪個工具下手。</p></article>
+        <article class="academy-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=600&q=80" alt="專注練習單一設計工具" class="card-media" loading="lazy" />
+          <p class="font-black text-amber-700">學中</p><p class="mt-1 text-slate-700">先專精一個主工具，完成一個可交付任務。</p></article>
+        <article class="academy-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="依情境選對工具完成設計交付" class="card-media" loading="lazy" />
+          <p class="font-black text-emerald-700">學後</p><p class="mt-1 text-slate-700">能依情境選工具，不盲目「全都會」，而是「會做對」。</p></article>
       </div>
     </section>
 
     <section id="design-diy-path" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">工具分工地圖（情境導向）</h2>
+      <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80" alt="設計工具協作與多軟體工作流程" class="section-media mt-3" loading="lazy" />
       <div class="mt-3 rounded-2xl border border-indigo-100 bg-indigo-50 p-4 text-sm">
         <p class="font-black text-indigo-900">手作模式教學（照這個做）</p>
         <ol class="mt-2 list-decimal pl-5 text-slate-700 space-y-1">
@@ -210,17 +226,26 @@
         </ol>
       </div>
       <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-        <article class="rounded-2xl border border-sky-100 bg-sky-50 p-4"><p class="font-black text-sky-700">Photoshop</p><p class="mt-1 text-slate-700">修圖、去背、色調調整，讓素材品質達標。</p></article>
-        <article class="rounded-2xl border border-amber-100 bg-amber-50 p-4"><p class="font-black text-amber-700">Illustrator</p><p class="mt-1 text-slate-700">Logo、icon、向量圖，解決品牌資產與輸出一致性。</p></article>
-        <article class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4"><p class="font-black text-indigo-700">Figma</p><p class="mt-1 text-slate-700">UI 版型、設計系統、可協作原型，適合產品與網站。</p></article>
-        <article class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4"><p class="font-black text-emerald-700">Canva</p><p class="mt-1 text-slate-700">快速產圖、簡報、社群素材，效率最高的日常工具。</p></article>
+        <article class="rounded-2xl border border-sky-100 bg-sky-50 p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=600&q=80" alt="Photoshop 修圖與色調調整" class="card-media" loading="lazy" />
+          <p class="font-black text-sky-700">Photoshop</p><p class="mt-1 text-slate-700">修圖、去背、色調調整，讓素材品質達標。</p></article>
+        <article class="rounded-2xl border border-amber-100 bg-amber-50 p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=600&q=80" alt="Illustrator 向量 Logo 與 icon 設計" class="card-media" loading="lazy" />
+          <p class="font-black text-amber-700">Illustrator</p><p class="mt-1 text-slate-700">Logo、icon、向量圖，解決品牌資產與輸出一致性。</p></article>
+        <article class="rounded-2xl border border-indigo-100 bg-indigo-50 p-4 overflow-hidden">
+          <img src="https://images.pexels.com/photos/4348404/pexels-photo-4348404.jpeg?auto=compress&cs=tinysrgb&w=600&h=380&fit=crop" alt="Figma UI 版型與設計系統" class="card-media" loading="lazy" />
+          <p class="font-black text-indigo-700">Figma</p><p class="mt-1 text-slate-700">UI 版型、設計系統、可協作原型，適合產品與網站。</p></article>
+        <article class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 overflow-hidden">
+          <img src="https://images.pexels.com/photos/6476590/pexels-photo-6476590.jpeg?auto=compress&cs=tinysrgb&w=600&h=380&fit=crop" alt="Canva 平板編輯社群素材與視覺排版" class="card-media" loading="lazy" />
+          <p class="font-black text-emerald-700">Canva</p><p class="mt-1 text-slate-700">快速產圖、簡報、社群素材，效率最高的日常工具。</p></article>
       </div>
     </section>
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">對錯示範：設計不是堆特效</h2>
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
-        <article class="academy-card p-5 border-rose-200 bg-rose-50/70">
+        <article class="academy-card p-5 border-rose-200 bg-rose-50/70 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=800&q=80" alt="字體過多、色彩雜亂的錯誤排版示意" class="card-media" loading="lazy" />
           <p class="font-black text-rose-700">❌ 錯誤示範</p>
           <ul class="mt-3 list-disc pl-5 text-rose-700 space-y-1">
             <li>同一畫面用 5 種字體、顏色無規則</li>
@@ -229,7 +254,8 @@
             <li>只輸出單一尺寸，手機版直接破版</li>
           </ul>
         </article>
-        <article class="academy-card p-5 border-emerald-200 bg-emerald-50/70">
+        <article class="academy-card p-5 border-emerald-200 bg-emerald-50/70 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80" alt="留白清楚、層級分明的正確排版示意" class="card-media" loading="lazy" />
           <p class="font-black text-emerald-700">✅ 正確示範</p>
           <ul class="mt-3 list-disc pl-5 text-emerald-700 space-y-1">
             <li>固定 2 種字體、3 種字重與主色系</li>
@@ -245,21 +271,31 @@
       <h2 class="text-2xl font-black text-slate-900">圖文教學：活動主視覺完整流程</h2>
       <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80" alt="視覺設計流程工作桌示意" class="w-full rounded-2xl border border-slate-200" loading="lazy" />
       <div class="grid md:grid-cols-4 gap-3 text-sm">
-        <div class="academy-card p-4"><p class="font-black text-indigo-700">Step 1</p><p class="mt-1 text-slate-700">Figma 先做版型草圖：標題、圖區、CTA 的位置先定。</p></div>
-        <div class="academy-card p-4"><p class="font-black text-sky-700">Step 2</p><p class="mt-1 text-slate-700">Photoshop 修圖：去背、調光、降噪，主體可讀性優先。</p></div>
-        <div class="academy-card p-4"><p class="font-black text-amber-700">Step 3</p><p class="mt-1 text-slate-700">Illustrator 補 icon 與向量圖形，確保放大不失真。</p></div>
-        <div class="academy-card p-4"><p class="font-black text-emerald-700">Step 4</p><p class="mt-1 text-slate-700">Canva 批量套版，輸出社群尺寸與簡報封面。</p></div>
+        <div class="academy-card p-4 overflow-hidden">
+          <img src="https://images.pexels.com/photos/4348404/pexels-photo-4348404.jpeg?auto=compress&cs=tinysrgb&w=500&h=380&fit=crop" alt="Step 1 Figma 版型草圖" class="card-media" loading="lazy" />
+          <p class="font-black text-indigo-700">Step 1</p><p class="mt-1 text-slate-700">Figma 先做版型草圖：標題、圖區、CTA 的位置先定。</p></div>
+        <div class="academy-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=500&q=80" alt="Step 2 Photoshop 修圖去背" class="card-media" loading="lazy" />
+          <p class="font-black text-sky-700">Step 2</p><p class="mt-1 text-slate-700">Photoshop 修圖：去背、調光、降噪，主體可讀性優先。</p></div>
+        <div class="academy-card p-4 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=500&q=80" alt="Step 3 Illustrator 向量 icon" class="card-media" loading="lazy" />
+          <p class="font-black text-amber-700">Step 3</p><p class="mt-1 text-slate-700">Illustrator 補 icon 與向量圖形，確保放大不失真。</p></div>
+        <div class="academy-card p-4 overflow-hidden">
+          <img src="https://images.pexels.com/photos/6476595/pexels-photo-6476595.jpeg?auto=compress&cs=tinysrgb&w=500&h=380&fit=crop" alt="Step 4 Canva 批量輸出社群尺寸" class="card-media" loading="lazy" />
+          <p class="font-black text-emerald-700">Step 4</p><p class="mt-1 text-slate-700">Canva 批量套版，輸出社群尺寸與簡報封面。</p></div>
       </div>
     </section>
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">真實長案例：活動主視覺從亂到穩</h2>
       <div class="grid lg:grid-cols-2 gap-4 text-sm">
-        <article class="academy-card p-4 border-rose-200 bg-rose-50/70">
+        <article class="academy-card p-4 border-rose-200 bg-rose-50/70 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" alt="資訊堆疊過多、層級不清的舊版海報" class="card-media" loading="lazy" />
           <p class="font-black text-rose-700">舊版本（失敗）</p>
           <p class="mt-2 text-slate-700">海報上同時放了活動名稱、三段描述、四個優惠、三個按鈕。因為沒有資訊層級，手機版縮小後主標只剩 20% 可讀。雖然很花，但重點不清楚，CTA 點擊率只有 0.8%。</p>
         </article>
-        <article class="academy-card p-4 border-emerald-200 bg-emerald-50/70">
+        <article class="academy-card p-4 border-emerald-200 bg-emerald-50/70 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80" alt="主訊息清楚、CTA 醒目的新版主視覺" class="card-media" loading="lazy" />
           <p class="font-black text-emerald-700">新版本（成功）</p>
           <p class="mt-2 text-slate-700">先固定一個主訊息：「限時工作坊報名」。副標只保留「日期＋地點」，CTA 改成「立即預約席次」。同時做 1:1、4:5、16:9 三版，確保任何平台都不破版。調整後 CTA 點擊率提升到 2.9%。</p>
         </article>
@@ -268,6 +304,7 @@
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">互動工具：先選情境，再選程度</h2>
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="依情境規劃設計學習路徑" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-600">你不用全部工具都會。先選你目前情境與程度，系統會推薦最短學習路徑與可執行任務。</p>
       <div class="space-y-3">
         <div class="text-xs font-black text-slate-500 uppercase tracking-wider">情境</div>
@@ -290,6 +327,7 @@
 
     <section id="design-ai-task-gen" class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="ai">
       <h2 class="text-2xl font-black text-slate-900">一鍵生成給 AI 的出圖任務</h2>
+      <img src="https://images.unsplash.com/photo-1676299081847-824916de030a?auto=format&fit=crop&w=1200&q=80" alt="AI 出圖任務與視覺生成流程" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-600">填入產業、對象、平台後，系統會直接生成可貼給 AI 的出圖指令，以及設計領域常見追問清單。</p>
       <div class="grid md:grid-cols-3 gap-3 text-sm">
         <label class="space-y-1"><span class="font-bold text-slate-700">產業</span><input id="design-industry" class="w-full rounded-xl border border-slate-300 px-3 py-2" placeholder="例：健身教練品牌" /></label>
@@ -305,6 +343,7 @@
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">🧰 免費素材去哪裡拿？（含工具相容）</h2>
+      <img src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?auto=format&fit=crop&w=1200&q=80" alt="免費圖庫照片與設計素材來源" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-600">建議放在「任務單生成」下方，因為學員剛拿到任務時最需要找素材與工具相容資訊。</p>
       <div class="overflow-x-auto rounded-xl border border-slate-200">
         <table class="min-w-[920px] w-full text-sm">
@@ -329,6 +368,7 @@
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">互動練習：設計判斷小測（含動畫回饋）</h2>
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="設計判斷練習與自我檢核" class="section-media" loading="lazy" />
       <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 space-y-4 text-sm">
         <div class="h-3 rounded-full bg-slate-200 overflow-hidden">
           <div id="design-quiz-bar" class="h-full bg-gradient-to-r from-violet-500 to-cyan-500 transition-all duration-500" style="width:0%"></div>
@@ -344,6 +384,7 @@
 
     <section class="bg-gradient-to-r from-fuchsia-50 via-violet-50 to-indigo-50 rounded-3xl border border-violet-100 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">練習題</h2>
+      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80" alt="設計實作練習與多尺寸輸出" class="section-media" loading="lazy" />
       <ul class="space-y-3 text-slate-700 text-sm">
         <li><strong>題目 1：</strong>做一張活動主視覺，輸出 1:1 / 4:5 / 16:9 三尺寸。</li>
         <li><strong>題目 2：</strong>做一頁產品簡報，限制 3 色、2 字體、1 個 CTA。</li>
@@ -353,6 +394,7 @@
 
     <section class="bg-white rounded-3xl border border-slate-200 p-6 md:p-8 space-y-5" data-mode-group="design" data-mode="manual">
       <h2 class="text-2xl font-black text-slate-900">課程教學</h2>
+      <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80" alt="視覺設計課程教學與實戰專案" class="section-media" loading="lazy" />
       <p class="text-sm text-slate-600">下面是實戰型課綱，每課都有真實專案場景、常見錯誤、交付規範與驗收清單。</p>
       <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
         <span id="design-course-count" class="px-2 py-1 rounded-full bg-violet-50 text-violet-700">0/0 課完成</span>
