@@ -440,6 +440,10 @@
       <h3 id="lighting-preface-title" class="preface-split-title text-xl font-black text-amber-950"></h3>
       <div id="lighting-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
     </div>
+    <div id="intro-speedlight-block" class="hidden bg-gradient-to-r from-sky-50 to-cyan-50 p-6 md:p-8 rounded-2xl border border-sky-200 fade-in-up preface-split">
+      <h3 id="speedlight-preface-title" class="preface-split-title text-xl font-black text-sky-950"></h3>
+      <div id="speedlight-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
+    </div>
     <div id="intro-video-block" class="hidden bg-gradient-to-r from-rose-50 to-orange-50 p-6 md:p-8 rounded-2xl border border-rose-100 fade-in-up preface-split">
       <h3 id="video-preface-title" class="preface-split-title text-xl md:text-2xl font-black text-rose-950 leading-snug"></h3>
       <div id="video-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
@@ -649,6 +653,7 @@
         </div>
         
         <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6">
+          <span id="lesson-flash-stage" class="hidden inline-flex px-3 py-1 rounded-full text-xs font-black tracking-wide bg-sky-100 text-sky-800 border border-sky-200"></span>
           <h3 id="photo-title" class="text-3xl font-black text-slate-900 tracking-tight">手冊加載中...</h3>
           <div class="w-full h-0.5 bg-slate-100 rounded-full"></div>
 
@@ -657,11 +662,21 @@
             <p id="lesson-chapter-text" class="text-slate-700 text-base leading-relaxed font-medium"></p>
           </div>
 
+          <figure id="lesson-lighting-diagram" class="hidden mx-auto w-full flex flex-col items-center overflow-hidden rounded-2xl border bg-white shadow-sm">
+            <img id="lesson-lighting-diagram-img" src="" alt="" class="w-auto object-contain bg-slate-50 p-3" loading="lazy" />
+            <figcaption id="lesson-lighting-diagram-caption" class="w-full px-4 py-3 text-sm font-bold border-t text-center">燈位示意圖</figcaption>
+          </figure>
+
+          <div id="lesson-data-card" class="hidden p-5 rounded-2xl border border-slate-200 bg-slate-50/90 space-y-2">
+            <span class="text-xs font-black uppercase tracking-wider text-slate-600">📋 詳細參數卡</span>
+            <div id="lesson-data-card-body" class="preface-prose text-sm text-slate-700 font-medium"></div>
+          </div>
+
           <div id="lesson-composition-atlas" class="hidden comp-atlas comp-atlas--lesson" aria-label="構圖色塊圖解"></div>
 
           <div id="lesson-tier-cards" class="space-y-6">
             <div class="bg-emerald-50/40 p-6 rounded-3xl border border-emerald-100/60 space-y-2">
-              <span class="inline-block px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-sm font-bold tracking-wide">🌱 入門 · 兒童趣味比喻</span>
+              <span id="photo-easy-label" class="inline-block px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-sm font-bold tracking-wide">🌱 入門 · 兒童趣味比喻</span>
               <p id="photo-easy" class="text-slate-700 text-base leading-relaxed font-medium pt-1 whitespace-pre-line"></p>
             </div>
             <div class="bg-blue-50/40 p-6 rounded-3xl border border-blue-100/60 space-y-2">
@@ -669,13 +684,13 @@
               <p id="photo-medium" class="text-slate-700 text-base leading-relaxed font-medium pt-1 whitespace-pre-line"></p>
             </div>
             <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-2">
-              <span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold tracking-wide">🔬 進階 · 數位光學科學</span>
+              <span id="photo-hard-label" class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold tracking-wide">🔬 進階 · 數位光學科學</span>
               <p id="photo-hard" class="text-slate-700 text-base leading-relaxed font-medium pt-1"></p>
             </div>
           </div>
 
           <div id="lesson-tip-card" class="p-6 rounded-3xl bg-amber-50/60 border border-amber-200/70">
-            <span class="font-black block text-amber-950 text-base mb-1">💡 婚禮攝影與微電影大師口訣：</span>
+            <span id="lesson-tip-label" class="font-black block text-amber-950 text-base mb-1">💡 婚禮攝影與微電影大師口訣：</span>
             <p id="photo-ui-tip" class="font-medium text-slate-600 text-base leading-relaxed"></p>
           </div>
           <div id="photo-author-note"></div>
@@ -761,12 +776,13 @@
     }
 
     function scrollToLesson() {
-      if (typeof scrollToContentAnchor === 'function') {
-        scrollToContentAnchor({
-          anchorId: 'lesson-sandbox-anchor',
-          offset: window.matchMedia('(max-width: 1023px)').matches ? 76 : 96
-        });
-      }
+      if (typeof scrollToContentAnchor !== 'function') return;
+      const sandbox = document.getElementById('lesson-sandbox-anchor');
+      const anchorId = sandbox && sandbox.classList.contains('hidden') ? 'lesson-main-column' : 'lesson-sandbox-anchor';
+      scrollToContentAnchor({
+        anchorId: anchorId,
+        offset: window.matchMedia('(max-width: 1023px)').matches ? 76 : 96
+      });
     }
 
     function showCompareLabels(leftText, rightText) {
@@ -849,6 +865,8 @@
       ).join('');
       document.getElementById('lighting-preface-title').textContent = lightingPreface.title;
       document.getElementById('lighting-preface-body').innerHTML = lightingPreface.contentHtml || '';
+      document.getElementById('speedlight-preface-title').textContent = speedlightPreface.title;
+      document.getElementById('speedlight-preface-body').innerHTML = speedlightPreface.contentHtml || '';
       document.getElementById('video-preface-title').textContent = videoPreface.title;
       document.getElementById('video-preface-body').innerHTML = videoPreface.contentHtml || '';
       document.getElementById('video-preface-why').innerHTML = videoPreface.whyCapcut.map(w => `<li>${w}</li>`).join('');
@@ -857,9 +875,11 @@
     function updatePathwayIntro(key) {
       const isVideo = key.startsWith('video_') || key.startsWith('phone_video') || key.startsWith('camera_video');
       const isLighting = key.startsWith('photo_light_');
+      const isSpeedlight = key.startsWith('photo_flash_');
       document.getElementById('intro-video-block').classList.toggle('hidden', !isVideo);
       document.getElementById('intro-lighting-block').classList.toggle('hidden', !isLighting);
-      document.getElementById('intro-photography-block').classList.toggle('hidden', isVideo || isLighting);
+      document.getElementById('intro-speedlight-block').classList.toggle('hidden', !isSpeedlight);
+      document.getElementById('intro-photography-block').classList.toggle('hidden', isVideo || isLighting || isSpeedlight);
     }
 
     function renderCapcutGuide(lesson) {
@@ -1019,10 +1039,74 @@
 
     function updateMediumLabel(key, lesson) {
       const label = document.getElementById('photo-medium-label');
-      if (key.startsWith('phone_')) label.textContent = '📱 實戰 · 手機操作步驟';
+      if (key.startsWith('photo_flash_')) label.textContent = '📐 實戰 · 燈位與物理';
+      else if (key.startsWith('photo_light_s')) label.textContent = '💡 實戰 · 燈位圖對照';
+      else if (key.startsWith('phone_')) label.textContent = '📱 實戰 · 手機操作步驟';
       else if (key.startsWith('camera_')) label.textContent = '📷 實戰 · 相機操作步驟';
       else if (key.startsWith('video_')) label.textContent = '🎬 實戰 · 錄影與剪映剪輯';
       else label.textContent = '📸 實戰 · 正宗相機控制';
+    }
+
+    function updateFlashLessonChrome(key, lesson) {
+      const stageEl = document.getElementById('lesson-flash-stage');
+      const easyLabel = document.getElementById('photo-easy-label');
+      const hardLabel = document.getElementById('photo-hard-label');
+      const tipLabel = document.getElementById('lesson-tip-label');
+      const isFlash = key.startsWith('photo_flash_');
+      if (stageEl) {
+        if (isFlash && lesson.flashStage) {
+          stageEl.textContent = lesson.flashStage;
+          stageEl.classList.remove('hidden');
+        } else {
+          stageEl.classList.add('hidden');
+        }
+      }
+      if (easyLabel) easyLabel.textContent = isFlash ? '🌱 入門 · 概念快懂' : '🌱 入門 · 兒童趣味比喻';
+      if (hardLabel) hardLabel.textContent = isFlash ? '🔬 進階 · 參數與結果' : '🔬 進階 · 數位光學科學';
+      if (tipLabel) tipLabel.textContent = isFlash ? '💡 機頂閃燈實戰口訣：' : '💡 婚禮攝影與微電影大師口訣：';
+    }
+
+    function updateDataCard(lesson) {
+      const box = document.getElementById('lesson-data-card');
+      const body = document.getElementById('lesson-data-card-body');
+      if (!box || !body) return;
+      if (lesson.dataCardHtml) {
+        box.classList.remove('hidden');
+        body.innerHTML = lesson.dataCardHtml;
+      } else {
+        box.classList.add('hidden');
+        body.innerHTML = '';
+      }
+    }
+
+    function updateLightingDiagram(lesson, key) {
+      const box = document.getElementById('lesson-lighting-diagram');
+      const img = document.getElementById('lesson-lighting-diagram-img');
+      const caption = document.getElementById('lesson-lighting-diagram-caption');
+      if (!box || !img) return;
+      const isFlash = (key || '').startsWith('photo_flash_');
+      const theme = isFlash ? 'sky' : 'amber';
+      box.className = 'hidden mx-auto w-full flex flex-col items-center overflow-hidden rounded-2xl border bg-white shadow-sm ' +
+        (theme === 'sky' ? 'max-w-2xl border-sky-200' : 'max-w-lg border-amber-200');
+      if (caption) {
+        caption.className = 'w-full px-4 py-3 text-sm font-bold border-t text-center ' +
+          (theme === 'sky' ? 'text-sky-900 bg-sky-50/80 border-sky-100' : 'text-amber-900 bg-amber-50/80 border-amber-100');
+      }
+      if (lesson.diagramUrl) {
+        box.classList.remove('hidden');
+        img.src = lesson.diagramUrl;
+        img.alt = lesson.diagramAlt || lesson.title || '燈位示意圖';
+        img.className = 'w-auto object-contain bg-slate-50 p-3 ' +
+          (lesson.diagramSize === 'wide'
+            ? 'max-w-[min(100%,36rem)] max-h-[28rem]'
+            : lesson.diagramSize === 'portrait'
+              ? 'max-w-[min(100%,20rem)] max-h-[32rem]'
+              : 'max-w-[min(100%,28rem)] max-h-72');
+        if (caption) caption.textContent = lesson.diagramCaption || (isFlash ? '機頂閃燈燈位示意圖' : '燈位示意圖 · 對照下方互動練習');
+      } else {
+        box.classList.add('hidden');
+        img.removeAttribute('src');
+      }
     }
 
     function updateLessonFlowNav(currentKey) {
@@ -1068,7 +1152,7 @@
         const lesson = photographyRepository[key];
         if (!lesson) return;
         const resetBtn = document.getElementById('btn-reset-demo');
-        if (resetBtn) resetBtn.classList.toggle('hidden', lesson.mode === 'video');
+        if (resetBtn) resetBtn.classList.toggle('hidden', lesson.mode === 'video' || lesson.mode === 'flash');
         currentLessonKey = key;
         currentCapcutStep = lesson.capcutStep || 'import';
         document.getElementById('photo-title').textContent = lesson.title;
@@ -1083,15 +1167,20 @@
         const tipCard = document.getElementById('lesson-tip-card');
         const lessonAtlas = document.getElementById('lesson-composition-atlas');
         if (chapterReadBox) chapterReadBox.classList.toggle('hidden', hideTheoryCards && !lesson.chapterRead);
-        if (tierCards) tierCards.classList.toggle('hidden', hideTheoryCards || hideTierCards);
-        if (tipCard) tipCard.classList.toggle('hidden', hideTheoryCards);
         if (lessonAtlas) {
           var showAtlas = key === 'photo_composition';
           lessonAtlas.classList.toggle('hidden', !showAtlas);
           if (showAtlas) renderCompositionAtlas(lessonAtlas, true);
         }
+        if (tipCard) tipCard.classList.toggle('hidden', hideTheoryCards || lesson.comingSoon === true);
+        if (tierCards) tierCards.classList.toggle('hidden', hideTheoryCards || hideTierCards || lesson.comingSoon === true);
+        const sandboxAnchor = document.getElementById('lesson-sandbox-anchor');
+        if (sandboxAnchor) sandboxAnchor.classList.toggle('hidden', lesson.mode === 'flash');
         updateMediumLabel(key, lesson);
+        updateFlashLessonChrome(key, lesson);
         updatePathwayIntro(key);
+        updateLightingDiagram(lesson, key);
+        updateDataCard(lesson);
         if (!hideTheoryCards || lesson.chapterRead) showChapterRead(lesson);
 
         resetAllSandboxPanels();
@@ -1289,14 +1378,12 @@
           const lightFb = lesson.previewFallback || IMG.splitLightAlt || IMG.aperturePortrait;
           setPreviewSrc(document.getElementById('view-bg-layer'), currentTargetImageSrc, lightFb, IMG.aperturePortrait);
           applyLightingPresetDefaults(lesson.lightingPreset);
-          if (key === 'photo_light_rim') {
-            setSandboxHint('← 人像逆光示範：先拉「補光強度」— 低＝剪影；提高＝臉部細節＋髮絲輪廓光');
-          } else if (key === 'photo_light_split') {
-            setSandboxHint('← 分割光：主光推到 90° 側邊，並降低補光');
-          } else {
-            setSandboxHint('← 拖動三個滑桿，觀察臉部明暗與輪廓分離');
-          }
+          setSandboxHint(lesson.tip || '← 拖動三個滑桿，觀察臉部明暗與輪廓分離');
           runLightingSimulation();
+
+        } else if (lesson.mode === 'flash') {
+          currentActiveMode = 'flash';
+          setSandboxHint('');
 
         } else {
           document.getElementById('panel-exposure-mode').classList.remove('hidden');
@@ -1641,6 +1728,12 @@
       const fill = document.getElementById('slider-fill');
       const soft = document.getElementById('slider-softness');
       const presets = {
+        s1_map:    { angle: 5, fill: 5, soft: 6 },
+        s2_single: { angle: 8, fill: 2, soft: 6 },
+        s3_two:    { angle: 4, fill: 5, soft: 6 },
+        s4_sep:    { angle: 4, fill: 5, soft: 6 },
+        s5_studio: { angle: 4, fill: 5, soft: 7 },
+        s6_three:  { angle: 4, fill: 5, soft: 6 },
         three_point: { angle: 4, fill: 5, soft: 6 },
         rembrandt:   { angle: 4, fill: 2, soft: 5 },
         butterfly:   { angle: 8, fill: 6, soft: 7 },
@@ -1648,7 +1741,7 @@
         soft_hard:   { angle: 5, fill: 5, soft: 8 },
         split:       { angle: 0, fill: 0, soft: 3 }
       };
-      const p = presets[preset] || presets.three_point;
+      const p = presets[preset] || presets.s3_two;
       angle.value = p.angle;
       fill.value = p.fill;
       soft.value = p.soft;
@@ -1675,58 +1768,35 @@
       const lightX = 15 + angleVal * 7;
       const shadowStr = Math.max(0.15, 0.65 - fillVal * 0.045);
       const blurSpread = 8 + softVal * 4;
-      const rimBoost = currentLessonKey === 'photo_light_rim' ? 0.22 + fillVal * 0.012 : 0;
-      const splitEdge = 46 + angleVal * 3;
-      const rimSilhouette = currentLessonKey === 'photo_light_rim' && fillVal <= 3;
+      const rimBoost = currentLessonKey === 'photo_light_s6' ? 0.18 + fillVal * 0.01 : 0;
 
       mask.style.opacity = 0.88;
-      if (currentLessonKey === 'photo_light_split') {
-        mask.style.background = `linear-gradient(90deg, rgba(255,230,200,0.15) 0%, transparent ${splitEdge}%, rgba(0,0,0,${0.5 + (10 - fillVal) * 0.04}) ${splitEdge + 1}%, rgba(0,0,0,0.88) 100%)`;
-      } else if (currentLessonKey === 'photo_light_rim') {
-        const faceDark = rimSilhouette ? 0.82 : Math.max(0.25, 0.72 - fillVal * 0.05);
-        const rimGlow = 0.12 + fillVal * 0.02 + (10 - angleVal) * 0.008;
-        mask.style.background = `
-          radial-gradient(ellipse 55% 70% at 50% 18%, rgba(255,210,140,${rimGlow}) 0%, transparent 55%),
-          radial-gradient(ellipse ${blurSpread}% ${blurSpread * 1.1}% at ${Math.min(85, lightX + 35)}% 28%, transparent 0%, rgba(0,0,0,${faceDark}) 72%),
-          linear-gradient(180deg, rgba(255,200,120,${rimGlow * 0.6}) 0%, transparent 40%, rgba(0,0,0,${faceDark * 0.5}) 100%)
-        `;
-      } else {
-        mask.style.background = `
+      mask.style.background = `
           radial-gradient(ellipse ${blurSpread}% ${blurSpread * 1.2}% at ${lightX}% 35%, transparent 0%, rgba(0,0,0,${shadowStr - rimBoost}) 70%),
           linear-gradient(${angleDeg + 90}deg, rgba(0,0,0,${0.5 - fillVal * 0.03}) 0%, transparent 55%, rgba(255,220,180,${0.08 + rimBoost}) 100%)
         `;
-      }
-      bg.style.filter = currentLessonKey === 'photo_light_rim'
-        ? `contrast(${1.05 + (10 - softVal) * 0.02}) brightness(${rimSilhouette ? 0.72 : 0.88 + fillVal * 0.025})`
-        : `contrast(${1 + (10 - softVal) * 0.02}) brightness(${0.92 + fillVal * 0.008})`;
+      bg.style.filter = `contrast(${1 + (10 - softVal) * 0.02}) brightness(${0.92 + fillVal * 0.008})`;
 
       let msg = '💡 調整主光角度與補光，觀察臉部明暗比例與輪廓分離。';
-      if (currentLessonKey === 'photo_light_rim') {
-        if (rimSilhouette) {
-          msg = '🌑 補光偏低：臉部接近剪影，注意頭髮與肩線的亮邊（輪廓光）。';
-        } else if (fillVal >= 7) {
-          msg = '✨ 補光提高：臉部細節回來了，同時保留髮絲邊緣光暈。';
-        } else {
-          msg = '💡 輪廓光示範：觀察臉部明暗與髮際亮邊，避免臉部整片過曝。';
-        }
+      let success = false;
+      if (currentLessonKey === 'photo_light_s1') {
+        msg = '🗺️ 先認識燈位圖中的組件，再試著拖滑桿感受光的方向。';
+      } else if (currentLessonKey === 'photo_light_s2' && angleVal >= 7 && fillVal <= 4) {
+        msg = '💡 單燈直射：正前方主光 + 低補光，臉部均勻、立體感較弱。';
+        success = true;
+      } else if (currentLessonKey === 'photo_light_s3' && angleVal >= 3 && angleVal <= 5 && fillVal >= 4 && fillVal <= 7) {
+        msg = '✨ 雙燈佈光成立！45° 主光 + 適度補光，臉部應有明顯明暗過渡。';
+        success = true;
+      } else if (currentLessonKey === 'photo_light_s4') {
+        msg = '📏 想像主體已離牆 >1.5M：維持雙燈，背景影子應比貼牆時更乾淨。';
+      } else if (currentLessonKey === 'photo_light_s5' && softVal >= 6) {
+        msg = '🏛️ 棚拍分離感：柔光 + 雙燈平衡，背景應乾淨、主體立體。';
+        success = true;
+      } else if (currentLessonKey === 'photo_light_s6' && angleVal >= 3 && angleVal <= 5 && fillVal >= 4) {
+        msg = '🎬 三燈佈光：主光 + 補光平衡，對照燈位圖想像後方 Rim 勾邊。';
+        success = true;
       }
-      if (currentLessonKey === 'photo_light_rembrandt' && angleVal >= 3 && angleVal <= 5 && fillVal <= 4) {
-        msg = '🎭 林布蘭光成立！45° 主光 + 低補光，頰部應出現倒三角亮區。';
-        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
-      } else if (currentLessonKey === 'photo_light_butterfly' && angleVal >= 7) {
-        msg = '🦋 蝴蝶光：高位正面主光，鼻下應有對稱蝶形陰影。';
-        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
-      } else if (currentLessonKey === 'photo_light_split' && angleVal <= 1 && fillVal <= 2) {
-        msg = '🌓 分割光達成！半臉明暗切割，戲劇張力極強。';
-        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
-      } else if (currentLessonKey === 'photo_light_soft_hard' && softVal >= 7) {
-        msg = '☁️ 柔光：陰影邊緣羽化，適合婚禮美肌與新娘特寫。';
-        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
-      } else if (currentLessonKey === 'photo_light_rim' && fillVal <= 2) {
-        msg = '🌑 剪影模式：主體變暗、背景亮，髮絲與肩線輪廓光最明顯。';
-        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
-      } else if (currentLessonKey === 'photo_light_rim' && fillVal >= 7) {
-        msg = '✨ 輪廓光＋臉部細節：補光足夠時，臉不再全黑，髮際仍保留亮邊。';
+      if (success) {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
       } else {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-amber-50 text-amber-900 border-amber-100";

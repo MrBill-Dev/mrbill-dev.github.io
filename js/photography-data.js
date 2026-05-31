@@ -45,22 +45,52 @@ const photographyPreface = {
   ]
 };
 
+const LIGHT_DIAG = {
+  s1: "assets/light-s1.png",
+  s2: "assets/light-s2.png",
+  s3: "assets/light-s3.png",
+  s4: "assets/light-s4.png",
+  s5: "assets/light-s5.png",
+  s6: "assets/light-s6.png"
+};
+
 const lightingPreface = {
-  title: "💡 打燈前言：先看懂光，再買燈",
-  contentHtml: `<h4>推薦入門燈具（由簡到繁）</h4>
-    <ul>
-      <li><strong>反光板</strong>（銀／白／金）——最便宜，戶外人像必備。</li>
-      <li><strong>LED 平板燈／棒燈</strong>——可調亮度色溫，適合 vlog、訪談。</li>
-      <li><strong>機頂閃＋柔光罩</strong>——婚禮、活動快拍。</li>
-      <li><strong>離機閃＋引閃</strong>——進階，可打側光、輪廓光。</li>
-    </ul>
-    <h4>怎麼「看」燈？</h4>
-    <p>先找<strong>主光源方向</strong>：順光（平）、側光（立體）、逆光（剪影／輪廓）。再看<strong>硬或柔</strong>：影子邊緣銳＝硬光；柔和＝柔光。</p>
-    <h4>室內 vs 室外</h4>
-    <ul>
-      <li><strong>室外</strong>：太陽是主光；陰天＝天然柔光箱；黃金時刻（日出日落）最討喜。</li>
-      <li><strong>室內</strong>：窗邊光最好拍；頂燈、霓虹常偏色，要調白平衡。</li>
-    </ul>`
+  title: "💡 打燈布光：六階段由淺入深",
+  contentHtml: `<p>本單元用<strong>上帝視角燈位圖</strong>，從認識器材開始，依序練到三燈佈光。每一課配一張示意圖，下方互動區可拖滑桿感受主光角度、補光強度與光質軟硬。</p>
+    <ol>
+      <li><strong>理解基本組件</strong>——被攝者、燈架、柔光傘、相機、牆壁。</li>
+      <li><strong>單燈直射</strong>——最乾淨、但最缺乏立體感。</li>
+      <li><strong>雙燈佈光</strong>——主燈＋補光，建立層次。</li>
+      <li><strong>與背景分離</strong>——人向前移，消除雜亂牆影。</li>
+      <li><strong>專業背景分離</strong>——乾淨、立體的棚拍感。</li>
+      <li><strong>三燈佈光</strong>——加入髮燈／勾邊光，勾出輪廓。</li>
+    </ol>
+    <p>建議按順序閱讀；每課先看燈位圖，再用下方沙盒對照臉部明暗變化。</p>`
+};
+
+const FLASH_DIAG = {
+  u1: "assets/flash-u1.png",
+  u3: "assets/flash-u3.png",
+  u4: "assets/flash-u4.png",
+  u6: "assets/flash-u6.png",
+  u8: "assets/flash-u8.png",
+  u9: "assets/flash-u9.png",
+  u10: "assets/flash-u10.png",
+  u11: "assets/flash-u11.png"
+};
+
+const speedlightPreface = {
+  title: "⚡ 機頂閃燈實戰：從反打修正到婚禮佈光",
+  contentHtml: `<p>接續<strong>打燈布光六階段</strong>的離機邏輯，本單元聚焦<strong>機頂閃燈 (Speedlight)</strong>——更輕、更快，適合活動、戶外與婚禮快拍。</p>
+    <p><strong>五階段路線圖</strong></p>
+    <ol>
+      <li><strong>機頂燈基礎</strong>——單燈反打牆壁，修正硬光交叉影子。</li>
+      <li><strong>多機頂配置</strong>——雙燈對稱 → 三點佈光，逐步加層次。</li>
+      <li><strong>柔光道具</strong>——透光傘、反光傘、柔光箱、蜂巢格柵的取捨。</li>
+      <li><strong>實戰主題</strong>——戶外 HSS 補光、婚禮純白背景雙燈。</li>
+      <li><strong>經典打燈法</strong>——環形光、林布蘭光、分割光、劇場夾光。</li>
+    </ol>
+    <p><strong>Universal 常數</strong>：不論幾盞燈、用什麼道具，人與背景牆請拉開 <strong>&gt;1.5M</strong>。</p>`
 };
 
 const capcutGuides = {
@@ -434,71 +464,293 @@ const photographyRepository = {
     tip: "實驗任務：請在下方切換『前簾同步』與『大師級後簾同步』，並拉動快門滑桿，親眼比對新郎新娘在舞池進場時，拉出的流光殘影究竟是在身前還是身後！"
   },
 
-  // ── 模組五：打燈布光教學（遠端免費範本） ──
-  photo_light_3point: {
-    title: "💡 15. 三點布光：主光、補光、輪廓光",
+  // ── 模組五：打燈布光教學（六階段燈位圖） ──
+  photo_light_s1: {
+    title: "🗺️ 15. 理解基本組件 (The Map)",
     mode: "lighting",
-    lightingPreset: "three_point",
+    lightingPreset: "s1_map",
+    diagramUrl: LIGHT_DIAG.s1,
+    previewUrl: IMG.bridePortrait,
+    chapterRead: "在開始打燈之前，我們先釐清場景中的基本元素。這是一張簡化的上帝視角示意圖——還沒有複雜的光線路徑，只有組件的位置關係。",
+    easy: "拍照棚裡有幾樣東西要先認識：中間坐著的是被攝者；兩邊高高的燈架頂著柔光傘；前面地上是相機；後面那面是牆壁。就像玩積木前先認識每一塊積木叫什麼名字！",
+    medium: "圖中標註了五個基本組件：被攝者 (Girl)、燈架 (Light Stand)、柔光傘 (Softbox Umbrella) ×2、相機 (Camera)、牆壁 (White Wall)。這張「地圖」移除了複雜的品牌標誌，只用高角度立體視角展示各器材的相對位置。",
+    hard: "重點：此階段尚未引入光線路徑，請先建立空間感——誰在中心、燈在兩側、相機在前方、背景在後方。後續每一課都會從這張地圖出發，逐步加入光源與距離觀念。",
+    tip: "先看上方燈位圖認組件，再拖下方滑桿預覽「光從不同方向來」時臉部明暗如何改變。"
+  },
+  photo_light_s2: {
+    title: "💡 16. 單燈直射 (Single Direct Light)",
+    mode: "lighting",
+    lightingPreset: "s2_single",
+    diagramUrl: LIGHT_DIAG.s2,
+    previewUrl: IMG.bridePortrait,
+    chapterRead: "最基礎的開始：從地圖出發，只保留一盞燈。這盞單燈放在小女孩正前方（稍微偏高，在相機正上方），是唯一的光源。",
+    easy: "想像只有一盞手電筒，從你拍照的正前方、稍微舉高一點照過來。臉會亮亮的、平平的，影子被丟到後面，背景很簡單。",
+    medium: "單燈直射：燈位在相機正上方、略高於視線。左側第二盞燈在圖中以淡色表示「未使用」。這是最乾淨、均勻的曝光方式——臉部受光一致，影子直接拋向後方並被身體遮擋。",
+    hard: "結果 (Result)：背景簡單且不與主體衝突，但立體感最弱。這是打燈的零起點——接下來每一課都是在這個基礎上「加一點什麼」來創造層次。",
+    tip: "沙盒：把主光角度推到正前方（約 72° 以上），並降低補光，感受「順光」的平坦均勻感。"
+  },
+  photo_light_s3: {
+    title: "✨ 17. 雙燈佈光：建立立體感 (Dimensional Layering)",
+    mode: "lighting",
+    lightingPreset: "s3_two",
+    diagramUrl: LIGHT_DIAG.s3,
     previewUrl: PEX.threePoint,
-    easy: "拍人像就像舞台劇：最亮的那盞燈叫『主光』，負責讓臉有立體感；另一盞比較暗的『補光』把陰影填亮一點，不要黑到看不見；最後在後方打一束『輪廓光』，讓頭髮邊緣發亮，人物才能從背景跳出來！",
-    medium: "三點布光是棚拍與婚禮人像的標準配置。主光（Key）通常放在 45° 側前方；補光（Fill）在對側、亮度約主光的 1/2～1/4；輪廓光（Rim/Back）從後方 45° 打向髮際與肩線，製造分離感。",
-    hard: "在商業人像與微電影中，三點布光可精準控制光比（Lighting Ratio）。主光決定敘事情緒，補光控制暗部細節保留，輪廓光則在複雜背景中建立 Z 軸深度。進階時可將補光換成反光板以保留更自然的陰影過渡。",
-    tip: "沙盒任務：拖動『主光角度』與『補光強度』，觀察鼻影與髮絲輪廓如何變化，直到三光平衡。"
+    chapterRead: "從單燈出發，引入第二盞燈創造層次。圖中清晰標註主燈與補光的角色、角度（45°）與出力比（1/4 與 1/16）。",
+    easy: "一盞亮燈從斜邊照（主燈），另一盞暗一點的燈從另一邊補（補光）。亮的那邊臉有高光，暗的那邊陰影被柔化，人像就變立體了！",
+    medium: "主燈 (Key Light，強)：放在主體側 45°、位置較高，定義光線主要方向與立體感（圖中標 1/4 出力）。補光 (Fill Light，弱)：放在相反對側、同樣偏高，但出力較弱（如 1/16），柔化陰影而不完全填平。",
+    hard: "結果 (Result)：主燈側有明顯高光，補光側陰影被柔化，形成具有深度與立體感的肖像。圖中展示兩條不同的光線路徑——這是婚禮與棚拍最常用的進階基礎。",
+    tip: "沙盒：主光角度停在 36°～45°，補光約 50%，觀察臉部明暗過渡是否自然。"
   },
-  photo_light_rembrandt: {
-    title: "🎭 16. 林布蘭光：45° 經典三角光影",
+  photo_light_s4: {
+    title: "📏 18. 與背景分離：消除雜亂影子 (Eliminating Messy Shadows)",
     mode: "lighting",
-    lightingPreset: "rembrandt",
-    previewUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
-    easy: "把燈放在臉的斜前方（約 45 度），如果鼻影旁邊的臉頰上出現一個小小的倒三角形亮光，恭喜你，你拍出了跟大畫家林布蘭一樣的經典光影！",
-    medium: "林布蘭光（Rembrandt Lighting）將主光置於被攝者前方 45°、略高於視線。暗側臉頰會出現標誌性的倒三角光斑，兼具立體感與戲劇張力，是黑白肖像與電影海報的常用布光。",
-    hard: "此布光依賴明確的單主光與較低的補光比（約 4:1 或 8:1）。補光過強會抹平倒三角，失去林布蘭特徵；主光過平則退化成順光。婚禮肖像可用離機閃燈＋柔光罩在宴會角落快速複製此效果。",
-    tip: "實驗：將主光角度停在 45° 附近，並降低補光，觀察頰部是否出現倒三角亮區。"
+    lightingPreset: "s4_sep",
+    diagramUrl: LIGHT_DIAG.s4,
+    previewUrl: PEX.threePoint,
+    chapterRead: "關鍵教學點：主體與背景牆過於接近，會在牆上留下雜亂影子。解法是把人向前移（>1.5M），並讓問題物品退到遠處角落。",
+    easy: "如果你站得離牆太近，燈一打，牆上會出現你的大影子，還有後面椅子的影子。往前站遠一點，影子就弱到幾乎看不見了！",
+    medium: "保留雙燈佈光設定，但標註「人向前移 (>1.5M)」——被攝者遠離牆壁。雜亂物品（如椅子）重新出現，但標註「問題物品遠離」，放在極遠的背景角落。主燈散光因距離過遠而擴散變弱。",
+    hard: "結果 (Result)：主燈與補光仍照亮主體，但光線擴散後無法在 distant 牆上投射清晰雜影，背景變乾淨。這是佈光中最重要的觀念之一——分離 (Separation) 往往靠距離，不只是靠燈。",
+    tip: "沙盒：維持 45° 雙燈設定，想像主體已離牆 1.5M 以上——觀察臉部立體感是否保留、背景是否不再搶戲。"
   },
-  photo_light_butterfly: {
-    title: "🦋 17. 蝴蝶光：高位正面美肌布光",
+  photo_light_s5: {
+    title: "🏛️ 19. 專業背景分離：乾淨且立體 (Studio Separation)",
     mode: "lighting",
-    lightingPreset: "butterfly",
-    previewUrl: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80",
-    easy: "把燈舉高，從正前方往下照，鼻子下面會出現像蝴蝶翅膀一樣的小影子，這種光可以讓臉看起來更立體、皮膚更光滑，很多雜誌封面都愛用！",
-    medium: "蝴蝶光（Paramount / Butterfly Lighting）主光置於正前方、高於視線 30～60cm，在鼻下形成對稱蝶形陰影。適合女性肖像與婚紗特寫，能強調顴骨與唇形，並適度修飾皮膚紋理。",
-    hard: "此布光對五官對稱性要求高，且需控制主光高度——過高會加深眼窩陰影，過低則蝶影消失。商業美妝常搭配下方反光板（Clamshell）作為補光，保留眼神光並柔化下巴陰影。",
-    tip: "沙盒：拉高『主光高度』，觀察鼻下蝶形陰影；搭配少量補光填平眼窩。"
+    lightingPreset: "s5_studio",
+    diagramUrl: LIGHT_DIAG.s5,
+    previewUrl: PEX.threePoint,
+    chapterRead: "從「分離背景」再進一步：展示專業棚拍風格的乾淨背景。人仍向前移，牆壁渲染為均勻、較暗的中性色，雜物全部移除。",
+    easy: "專業攝影棚的照片，背景常常又乾淨又暗暗的，人卻亮亮的、很有立體感。秘密就是：人離背景很遠，燈只照在人身上，不會「砸」到牆上！",
+    medium: "同樣標註「人向前移」，Key 與 Fill 仍聚焦主體。遠處牆壁均勻乾淨、色調中性偏暗；所有雜亂物品已移除。光線路徑標註「散光遠離」，強調光線不砸在牆上。",
+    hard: "結果 (Result)：雖是雙燈，但因背景乾淨且遠離，肖像呈現專業、立體、乾淨的分離感。這是邁向進階打燈的重要基礎——先搞定背景，再加第三盞燈。",
+    tip: "沙盒：提高光質柔度，搭配中等補光，感受「乾淨背景＋立體人像」的棚拍質感。"
   },
-  photo_light_rim: {
-    title: "✨ 18. 輪廓光與逆光：髮絲光與剪影",
+  photo_light_s6: {
+    title: "🎬 20. 三燈佈光：增加層次與勾邊 (Three-Point Lighting)",
     mode: "lighting",
-    lightingPreset: "rim",
-    previewUrl: IMG.rimBacklitPortrait,
-    previewFallback: IMG.rimBacklitAlt,
-    easy: "背對太陽站著，你的頭髮邊緣會有一圈金色的光，像天使的光環一樣！這就是輪廓光。如果把人拍得黑黑的只有亮邊，那就是剪影，也很有故事感。",
-    medium: "輪廓光（Rim / Edge Light）從主體後方或側後方打入，勾勒髮絲、肩線與輪廓。逆光剪影則讓環境曝光正常、主體欠曝，適合婚禮進場、夕陽與煙火等戲劇性時刻。",
-    hard: "拍攝輪廓光時需使用點測光或手動曝光，避免臉部過曝成一片白。婚禮紀錄常結合 RAW 與高光抑制，保留逆光氛圍同時拉回暗部層次。多燈佈置時，輪廓光強度應高於主光 1～2 級才能從雜亂背景分離主體。",
-    tip: "實驗：提高『輪廓光強度』，觀察髮絲光環；再切換逆光預設，感受剪影與輪廓的差異。"
-  },
-  photo_light_soft_hard: {
-    title: "☁️ 19. 柔光 vs 硬光：光質與陰影邊緣",
-    mode: "lighting",
-    lightingPreset: "soft_hard",
-    previewUrl: "https://images.unsplash.com/photo-1554151228-14d9def656e4?auto=format&fit=crop&w=800&q=80",
-    easy: "太陽正中午時影子邊緣很硬、很黑，叫『硬光』；陰天或透過白布、雨傘擋住的光，影子邊緣柔柔的，叫『柔光』。拍人像時，柔光通常比較討喜！",
-    medium: "光質由光源相對大小決定：光源越大、越近，陰影過渡越柔。柔光箱、反光傘、雲層漫射都屬柔光；直射閃光、聚光筒、正午陽光則為硬光。硬光適合戲劇、時尚；柔光適合婚禮、美妝。",
-    hard: "在光學上，柔硬取決於光源相對於被攝物的角徑（Angular Size）。同樣功率的閃燈，加上大尺寸柔光罩後有效發光面積變大，半影區（Penumbra）加寬，皮膚瑕疵的對比被平均化。進階可用硬光做主、柔光填補，創造層次。",
-    tip: "沙盒：拖動『光質軟硬』滑桿，觀察臉部陰影邊緣從刀刻般銳利變成羽毛般柔和。"
-  },
-  photo_light_split: {
-    title: "🌓 20. 分割光：半臉明暗的戲劇張力",
-    mode: "lighting",
-    lightingPreset: "split",
-    previewUrl: IMG.splitLight,
-    previewFallback: IMG.splitLightAlt,
-    easy: "把燈放在人的正側邊，臉會一半很亮、一半很黑，像月亮的陰晴圓缺，看起來很有電影壞人的感覺！",
-    medium: "分割光（Split Lighting）主光位於 90° 正側，臉部明暗各占約一半。光比高、情緒強烈，常用於男性肖像、音樂人形象與黑色電影風格（Film Noir）。",
-    hard: "分割光幾乎不使用補光，以維持 8:1 以上的高對比。需注意暗側眼神是否完全消失——可微調主光高度或使用極弱補光保留眼神光。婚禮創作中可用於新郎單人特寫，營造沉穩權威感。",
-    tip: "實驗：將主光角度推到 90°，關閉補光，觀察半臉明暗切割線。"
+    lightingPreset: "s6_three",
+    diagramUrl: LIGHT_DIAG.s6,
+    previewUrl: PEX.threePoint,
+    chapterRead: "最進階的打燈：從專業分離設定出發，引入第三盞裸燈作為髮燈／勾邊光 (Hair/Rim Light)，指向頭髮與肩膀後方。",
+    easy: "除了前面兩盞燈，後面再加一小盞燈照頭髮和肩膀邊緣，像給人描了一圈亮邊，人就從暗暗的背景「跳」出來了！",
+    medium: "三條光線路徑：主燈 (Key) 45° 側前方（1/4）；補光 (Fill) 對側（1/16）；髮燈／勾邊光 (Rim) 在後方角落、裸燈不加傘（1/16），指向髮際與肩線。背景保持均勻且暗。",
+    hard: "結果 (Result)：髮燈在頭髮與肩膀炸出清晰明亮的邊緣勾邊，將主體從較暗背景中完美「勾」出來。這是具有豐富層次與高級感的肖像打燈——婚禮、商業人像的標準終點。",
+    tip: "沙盒：主光 45°、補光約 50%、光質偏柔；對照燈位圖想像後方 Rim 光，觀察臉部層次與輪廓分離。"
   },
 
-  // ── 模組六：📱 手機拍照專區 ──
+  // ── 模組六：機頂閃燈實戰（Speedlight） ──
+  photo_flash_u1: {
+    title: "⚡ 單元 1 · 修正硬光陰影——單燈反打牆壁",
+    mode: "flash",
+    flashStage: "第 1 階段 · 機頂燈基礎與物理原理",
+    diagramUrl: FLASH_DIAG.u1,
+    diagramSize: "wide",
+    diagramCaption: "閃光燈佈光修正指南：單燈反打（含燈位、物理、前後對比、參數）",
+    chapterRead: "為消除原始圖中的高低交叉硬影，本課只用一盞機頂閃燈：人離牆 >1.5M，閃燈抬頭並向後旋轉 180° 反打牆壁，讓小光源變大、硬光變柔。",
+    easy: "機頂閃燈不要直打臉！把燈頭轉向後方牆壁，光彈回來照臉——就像對牆壁打手電筒，光變柔、影子只剩一個方向。記得讓模特兒離牆遠一點（>1.5 公尺）。",
+    medium: "【上帝視角】相機在前，女孩坐藍凳；單機頂裸燈抬頭＋反打角度，指向後方白牆。\n【物理】裸燈光束打牆再彈回 → 牆面成為大面積反射源，硬光變柔光。\n【對比】左：交叉重影、影子砸糊；右：Bounce 後陰影單向且柔化，背景乾淨。",
+    hard: "反打需較高出力補償光損；先前課的雙燈主／補光設定在此改為「單燈」，其餘燈具移除。重點不是功率數字，而是：距離 + 反打 + 單一光向。",
+    dataCardHtml: `<ul class="list-disc pl-5 space-y-1">
+      <li><strong>牆距</strong>：人與背景 &gt;1.5M（Universal 常數）</li>
+      <li><strong>燈具</strong>：單機頂裸燈，抬頭 + 向後旋轉 180° 反打牆面</li>
+      <li><strong>出力</strong>：1/4（反打光損大，需較高功率）</li>
+      <li><strong>曝光</strong>：f/5.6 · 1/160s · ISO 200</li>
+      <li><strong>角度</strong>：高角度反打（High-angle bounce）</li>
+    </ul>`,
+    tip: "實戰口訣：先拉牆距，再轉燈頭反打——兩步做對，比加第二盞燈更有效。"
+  },
+  photo_flash_u2: {
+    title: "⚡ 單元 2 · 雙機頂燈對稱佈光（標準人像）",
+    mode: "flash",
+    flashStage: "第 2 階段 · 多機頂燈配置",
+    chapterRead: "在單燈反打基礎上，改用兩盞機頂閃燈（裸燈）對稱置於主體兩側 45° 前方，高角度向下；下方可加反光板填充。人與牆距維持 1.5M 以上。",
+    easy: "兩盞小閃燈像兩隻手電筒，從左前、右前一起照過來，臉上光很均勻；腳下再放一塊反光板，下巴陰影也會亮一點。",
+    medium: "【上帝視角】兩裸燈對稱 45°、高角度下傾；標註「下方反光板填充」。\n【距離】拉遠人與牆至 1.5M，避免雙燈散光在牆上疊出重影。\n【結果】膚色均勻、陰影極少，背景因距離拉開而呈現乾淨白。",
+    hard: "對稱佈光適合證件照、電商標準人像，但立體感不如 45° 主補光比。進階時可故意降低一側出力，製造微側光層次。",
+    tip: "燈位圖待補；可先對照上一單元「雙燈佈光」概念，把離機燈換成機頂裸燈想像。"
+  },
+  photo_flash_u3: {
+    title: "⚡ 單元 3 · 進階三點佈光（立體肖像）",
+    mode: "flash",
+    flashStage: "第 2 階段 · 多機頂燈配置",
+    diagramUrl: FLASH_DIAG.u3,
+    diagramCaption: "三機頂閃燈佈光：主光、補光、後方髮燈／勾邊光",
+    chapterRead: "引入第三盞裸燈放在後方角落，指向頭髮與肩膀（髮燈／勾邊光）。人與牆距 >1.5M，背景保持均勻偏暗。",
+    easy: "前面兩盞燈照臉，後面第三盞只照頭髮和肩膀邊緣，像給人勾了一圈亮線，人就從暗暗的背景跳出來！",
+    medium: "【上帝視角】左前主光、右前補光、後方髮燈（裸燈、無傘）；三條光路各負其責。\n【結果 crop】立體分層明顯，髮絲與肩線有亮邊，與較暗乾淨背景完全分離。",
+    hard: "出力比示例：主燈 1/8、補光 1/32、髮燈 1/16（裸燈）。髮燈過強會出現 halo，過弱則分離感不足——以肩線「看得見但不搶戲」為準。",
+    dataCardHtml: `<ul class="list-disc pl-5 space-y-1">
+      <li><strong>牆距</strong>：&gt;1.5M（Universal 常數）</li>
+      <li><strong>主燈</strong>：1/8 · 45° 側前方</li>
+      <li><strong>補光</strong>：1/32 · 對側</li>
+      <li><strong>髮燈／勾邊</strong>：1/16 · 後方裸燈，指向髮際與肩線</li>
+      <li><strong>曝光</strong>：依環境微調，優先保留髮絲勾邊</li>
+    </ul>`,
+    tip: "對照燈位圖：三盞都是機頂閃形態，但角色與出力完全不同——先定主光，再疊補光，最後才加 Rim。"
+  },
+  photo_flash_u4: {
+    title: "⚡ 單元 4 · 柔光傘：透光 vs 反光",
+    mode: "flash",
+    flashStage: "第 3 階段 · 柔光道具的運用 (The Modifiers)",
+    diagramUrl: FLASH_DIAG.u4,
+    diagramSize: "wide",
+    diagramCaption: "第 3 階段總覽：單元 4 柔光傘（透光 vs 反光）— 請對照圖上半部",
+    chapterRead: "本階段接續機頂閃燈基礎，用不同道具柔化並管理光線。單元 4 聚焦柔光傘：透光（Shoot-through）與反光（Reflective）的物理差異與成品效果。",
+    easy: "透光傘像一層白布，燈從後面打進去，光穿過傘包住整張臉，超級柔和；反光傘像一面內側亮亮的傘，燈打進傘裡再彈回來，光比較有方向，臉會更有立體感。",
+    medium: "【透光傘 Shoot-through】裸燈射入傘內，光路穿過傘面包圍主體；人與牆 &gt;1.5M。成品：極致柔和 (Surrounding Soft)。\n【反光傘 Reflective】裸燈射向傘內，光彈回主體；指向性較強。成品：柔和且立體 (Dimensional Soft)。\n【物理對比】包圍散射 (Surrounding) vs 指向性 (Directional)。",
+    hard: "透光傘出力 1/8 往往夠用；反光傘因反射光損需 1/4 補償。共通曝光：ISO 200 · f/5.6 · 1/160s。選傘的口訣：要「美肌包光」用透光；要「保留鼻影與輪廓」用反光。",
+    dataCardHtml: `<div class="grid sm:grid-cols-2 gap-4">
+      <div><strong>🔴 透光傘</strong><ul class="list-disc pl-5 mt-1 space-y-0.5">
+        <li>出力 1/8 · ISO 200 · f/5.6 · 1/160s</li>
+        <li>牆距 &gt;1.5M · 光路：穿過傘、包圍散射</li>
+      </ul></div>
+      <div><strong>🟢 反光傘</strong><ul class="list-disc pl-5 mt-1 space-y-0.5">
+        <li>出力 1/4（加大補償）· ISO 200 · f/5.6 · 1/160s</li>
+        <li>指向性強 · 光路：彈回主體</li>
+      </ul></div>
+    </div>`,
+    tip: "同一張傘也可以換用法，但透光與反光是兩種物理——先決定要「包光」還是「立體」，再選傘型。"
+  },
+  photo_flash_u5: {
+    title: "⚡ 單元 5 · 柔光箱：指向性與軟硬度",
+    mode: "flash",
+    flashStage: "第 3 階段 · 柔光道具的運用 (The Modifiers)",
+    diagramUrl: FLASH_DIAG.u4,
+    diagramSize: "wide",
+    diagramCaption: "第 3 階段總覽：單元 5 柔光箱與蜂巢格柵 — 請對照圖下半部",
+    chapterRead: "柔光箱比傘更可控：標準箱均勻散光、加蜂巢格柵則收窄光束。對照上方傘式柔光，理解「散射 → 均勻 → 指向」的光質光譜。",
+    easy: "柔光箱像一個有深度的軟盒子，光從裡面均勻灑出來，臉很滑很立體；如果加蜂巢格柵（一格一格的片），光會變成一束，只照半邊臉，像電影海報！",
+    medium: "【標準柔光箱】例：60cm 八角；高度對齊眼平 (Eye Level)；均勻散光 Path。成品：均勻立體感 (Even Dimensional)。出力 1/4。\n【蜂巢格柵箱】加 Grid，光路收窄、指向性強。成品：收窄指向、立體戲劇化 (Narrow Dimensional)。出力 1/2（格柵吸光）。",
+    hard: "關鍵比較：傘＝散射最廣；柔光箱＝均勻且可控；蜂巢格柵＝指向最強。尺寸越大（30 / 60 / 120cm）背景光斑越大、過渡越柔——圖中難度比較可見 120cm 幾乎填滿背景。",
+    dataCardHtml: `<div class="grid sm:grid-cols-2 gap-4">
+      <div><strong>柔光箱 (Softbox)</strong><ul class="list-disc pl-5 mt-1 space-y-0.5">
+        <li>60cm 八角 · 對齊眼平</li>
+        <li>出力 1/4 · ISO 200 · f/5.6 · 1/160s</li>
+      </ul></div>
+      <div><strong>蜂巢格柵箱 (Grid)</strong><ul class="list-disc pl-5 mt-1 space-y-0.5">
+        <li>加 Grid · 收窄光束</li>
+        <li>出力 1/2（格柵吸光）· ISO 200 · f/5.6 · 1/160s</li>
+      </ul></div>
+    </div>
+    <p class="mt-2 text-xs text-slate-500">共通：牆距 &gt;1.5M · 裸燈離機閃＋修飾器</p>`,
+    tip: "婚禮棚拍常用柔光箱；要戲劇側光或背景不溢光時，才加蜂巢格柵。"
+  },
+  photo_flash_u6: {
+    title: "⚡ 單元 6 · 戶外：強光補光與太陽光比",
+    mode: "flash",
+    flashStage: "第 4 階段 · 實戰主題運用 (Practical Subjects)",
+    diagramUrl: FLASH_DIAG.u6,
+    diagramSize: "wide",
+    diagramCaption: "第 4 階段總覽：單元 6 戶外 HSS 補光 — 請對照圖左半部",
+    chapterRead: "晴天太陽是強硬主光 (Ambient, Harsh)。用離機閃燈作 Fill、並開啟 HSS，才能在 1/1600s 下平衡光比，消除深影、保留立體層次。",
+    easy: "大太陽下拍照，臉上影子很深？加一盞小閃燈從側邊補光，並把相機調快（HSS 高速同步），影子就會變淺，臉看起來自然又立體。",
+    medium: "【無閃燈】光失衡、影子深、對比高。\n【加閃燈 + HSS】補光燈 (Fill) 側高位，光路均衡主體；標註 HSS 物理邏輯——快門可超過同步速度，仍能用閃燈填光。\n【成品】光比均衡、立體肖像 (Balanced Ratio, Dimensional Portrait)。",
+    hard: "戶外 Fill 要管理「空間」：人離背景 &gt;1.5M，避免閃燈在牆上製造第二道影子。光比建議 1:2～1:4（太陽 : 閃燈）。參考統一數據卡：f/11 · 1/160s · ISO 160 為棚拍基準；戶外 HSS 則用 f/8 · 1/1600s · ISO 100。",
+    dataCardHtml: `<ul class="list-disc pl-5 space-y-1">
+      <li><strong>HSS 參數</strong>：f/8 · 1/1600s · ISO 100</li>
+      <li><strong>閃燈出力</strong>：1/2（戶外補光需較高）</li>
+      <li><strong>角色</strong>：太陽＝主光 · 閃燈＝Fill（側高位）</li>
+      <li><strong>牆距</strong>：&gt;1.5M · 光比 1:2～1:4</li>
+    </ul>`,
+    tip: "戶外先測環境光，再決定閃燈出力；HSS 開啟後閃燈有效距離變短，燈架要靠近一些。"
+  },
+  photo_flash_u7: {
+    title: "⚡ 單元 7 · 婚禮：純白背景＋新人曝光",
+    mode: "flash",
+    flashStage: "第 4 階段 · 實戰主題運用 (Practical Subjects)",
+    diagramUrl: FLASH_DIAG.u6,
+    diagramSize: "wide",
+    diagramCaption: "第 4 階段總覽：單元 7 婚禮純白背景雙燈 — 請對照圖右半部",
+    chapterRead: "棚拍婚禮肖像：主燈柔光箱照亮穿婚紗的新人，背景燈裸閃指向純白牆，讓背景比主體亮約 +2 stops 以「拉爆」成無縫白。人與牆 &gt;1.5M，移除雜亂傢俱。",
+    easy: "拍婚紗照想要背景全白、人又亮又立體？前面一大盞柔光箱照新人，後面另一盞小閃燈只照白牆，把牆打比人更亮，照片就像攝影棚海報一樣乾淨！",
+    medium: "【技術圖】兒童蕾絲婚紗、純白背景牆；主燈 Key＝大柔光箱高位偏側；背景燈＝裸燈指向牆（拉純白）。兩燈獨立管理曝光。\n【對比】左：原始——人物曝光不足、背景灰 (Subject Under, Background Grey)。右：成品——人物準確、完美純白背景 (Perfect White Background)。",
+    hard: "背景燈通常比主燈亮 1～2 stops 才會 truly blown out；主燈過弱則臉暗，背景燈過強則主體邊緣溢光。Key 用柔光箱保留婚紗細節與立體，Background 用裸燈效率最高。",
+    dataCardHtml: `<ul class="list-disc pl-5 space-y-1">
+      <li><strong>主燈 Key</strong>：柔光箱 1/8 出力 · 高位偏側</li>
+      <li><strong>背景燈</strong>：裸燈 1/4 出力（拉純白 · 約 +2 stops）</li>
+      <li><strong>曝光</strong>：ISO 160 · f/11 · 1/120s</li>
+      <li><strong>牆距</strong>：&gt;1.5M · 純白背景牆 · 無雜物</li>
+    </ul>`,
+    tip: "婚禮白背景口訣：先定 Key 曝光準確，再獨立加 Background 直到直方圖右側「剛好貼牆」但不過曝主體邊緣。"
+  },
+
+  photo_flash_u8: {
+    title: "⚡ 單元 8 · 環形光 (Loop Lighting)",
+    mode: "flash",
+    flashStage: "第 5 階段 · 知名經典打燈法專題",
+    diagramUrl: FLASH_DIAG.u8,
+    diagramSize: "portrait",
+    diagramCaption: "成品示範：環形光 — 鼻子陰影形成向下小環，不與嘴唇相連",
+    chapterRead: "環形光是最受歡迎的大眾肖像打燈法，比林布蘭光更柔和，適合絕大多數臉型。主燈置於前方偏側 30°～45°、略高於眼神平視。",
+    easy: "把燈放在臉的斜前方、稍微舉高一點，鼻子旁邊會有一小圈影子往下彎，像英文字母 C，但不會連到嘴唇——這就是環形光，幾乎誰拍都好看！",
+    medium: "【主燈 Key】前方偏側 30°～45°，高度略高於眼神平視，燈頭下打。\n【物理特徵】鼻子陰影落在另一側臉頰，形成向下的小環形 (Loop) 陰影；陰影絕不與嘴唇連接。\n【安全距離】主體與背景牆 &gt;1.5M。",
+    hard: "環形光是林布蘭光與順光之間的「安全選擇」：比順光有立體感，比林布蘭光更討喜、陰影更短。判斷標準：鼻影若碰到唇線，主光角度過側或過低，需微調。",
+    dataCardHtml: `<ul class="list-disc pl-5 space-y-1">
+      <li><strong>主燈 Key</strong>：30°～45° 偏側 · 高於眼神平視</li>
+      <li><strong>牆距</strong>：&gt;1.5M</li>
+      <li><strong>特色</strong>：Loop 鼻影 · 不連接嘴唇</li>
+    </ul>`,
+    tip: "不確定用哪種經典光？先試環形光——失敗率最低的大眾肖像起手式。"
+  },
+  photo_flash_u9: {
+    title: "⚡ 單元 9 · 進階林布蘭光（反光板補光版）",
+    mode: "flash",
+    flashStage: "第 5 階段 · 知名經典打燈法專題",
+    diagramUrl: FLASH_DIAG.u9,
+    diagramSize: "portrait",
+    diagramCaption: "成品示範：林布蘭光 — 暗側臉頰倒三角亮區 + 反光板柔化陰影",
+    chapterRead: "古典、戲劇感強烈的林布蘭光，本課加入白色反光板作 Fill，在保留倒三角標誌的同時，暗部不再死黑，更具商業肖像質感。",
+    easy: "主燈從臉的斜邊、高高的照下來，暗的那邊臉頰會出現一個倒三角形亮光；對面放一塊白色反光板，把餘光彈回來，陰影就不會黑到看不見！",
+    medium: "【主燈 Key】極端側 45°、高角度下打。\n【補光 Fill】主燈正對側 45° 放置白色反光板，彈回餘光、隱約照亮暗部。\n【物理特徵】陰影側臉頰有完美倒三角亮區；反光板有效淡化原本死黑陰影。",
+    hard: "純林布蘭（無反光板）光比可達 8:1，適合黑白戲劇；加反光板後光比約 4:1，保留倒三角又兼顧暗部細節——婚禮新郎、商業男性肖像常用此版。",
+    dataCardHtml: `<ul class="list-disc pl-5 space-y-1">
+      <li><strong>主燈 Key</strong>：45° 極端側 · 高角度下打</li>
+      <li><strong>補光 Fill</strong>：白色反光板 · 對側 45°</li>
+      <li><strong>牆距</strong>：&gt;1.5M</li>
+      <li><strong>判斷</strong>：暗側頰部倒三角亮區清晰</li>
+    </ul>`,
+    tip: "反光板比第二盞閃燈更自然——想保留林布蘭味道，Fill 用板不用燈。"
+  },
+  photo_flash_u10: {
+    title: "⚡ 單元 10 · 分割光 (Split Lighting)",
+    mode: "flash",
+    flashStage: "第 5 階段 · 知名經典打燈法專題",
+    diagramUrl: FLASH_DIAG.u10,
+    diagramSize: "portrait",
+    diagramCaption: "成品示範：分割光 — 臉部垂直一分為二，一半光一半影",
+    chapterRead: "分割光從臉部側面 90° 射入，將臉垂直分成光影分明的兩半。一半展現皮膚紋理與細節，另一半深嵌陰影，戲劇性與對比感極強。",
+    easy: "把燈放在人的正側邊（90 度），臉會像月亮一樣一半亮、一半黑，超有電影感，適合拍帥氣的男生或很有個性的角色！",
+    medium: "【燈位】單盞離機閃燈（可加柔光道具）置於極端側前方 90°，高角度下打。\n【物理特徵】鼻子陰影與臉頰陰影連接，臉部垂直分割成光影兩部分。\n【用途】展現強烈性格或戲劇性角色。",
+    hard: "分割光幾乎不用 Fill，維持高對比。注意暗側眼神是否完全消失——可極微調主光高度，或保留一點環境反射。男性肖像、音樂人、Film Noir 風格最常用。",
+    dataCardHtml: `<ul class="list-disc pl-5 space-y-1">
+      <li><strong>出力</strong>：1/8</li>
+      <li><strong>曝光</strong>：ISO 200 · f/5.6 · 1/160s</li>
+      <li><strong>角度</strong>：90° 側光 · 高角度下打</li>
+      <li><strong>牆距</strong>：&gt;1.5M</li>
+    </ul>`,
+    tip: "分割光的切割線應落在鼻樑正中——燈位偏前會退化成環形光，偏後會變背光。"
+  },
+  photo_flash_u11: {
+    title: "⚡ 單元 11 · 劇場夾光 (Rim Light)",
+    mode: "flash",
+    flashStage: "第 5 階段 · 知名經典打燈法專題",
+    diagramUrl: FLASH_DIAG.u11,
+    diagramSize: "portrait",
+    diagramCaption: "成品示範：劇場夾光 — 髮絲與肩線勾邊，主體從暗背景分離",
+    chapterRead: "兩盞裸燈從後方兩側角落打入，在頭髮與肩膀勾勒立體光圈（勾邊光）；正面以低出力主燈（可加蜂巢聚光）柔和補光，保留面部細節。",
+    easy: "後面左右各一盞小燈照頭髮和肩膀，會有一圈亮亮的邊；前面再用很弱的一盞燈照臉，人就從暗暗的背景跳出來，像舞台明星！",
+    medium: "【勾邊燈 Rim】兩盞離機裸燈，主體後方兩側後角落，指向髮際與肩線。\n【主燈 Key】正面側高位，低出力（可加蜂巢聚光），柔和保留面部細節。\n【控光邏輯】勾邊燈比主燈亮，創造分離光、勾勒立體輪廓。",
+    hard: "Rim 過強會在髮絲外圍產生 halo 溢光；主燈過強則勾邊被吃掉。背景宜偏暗中性，才能看見亮邊。與三點佈光的 Rim 概念相同，但劇場版強調雙側勾邊、對比更戲劇。",
+    dataCardHtml: `<ul class="list-disc pl-5 space-y-1">
+      <li><strong>勾邊燈 Rim</strong>：1/4 出力 · 後方兩側裸燈</li>
+      <li><strong>主燈 Key</strong>：1/8～1/16 · 正面側高位（可加蜂巢）</li>
+      <li><strong>曝光</strong>：ISO 160 · f/11 · 1/120s</li>
+      <li><strong>牆距</strong>：&gt;1.5M</li>
+    </ul>`,
+    tip: "先開勾邊燈定輪廓，再加主燈——順序反了容易整張臉過曝、邊緣光消失。"
+  },
+
+  // ── 模組七：📱 手機拍照專區 ──
   phone_photo_pro: {
     title: "📱 21. 手機專業模式：手動曝光三要素",
     mode: "device",
