@@ -1,8 +1,17 @@
-function resolveActiveNavId(explicitId) {
-    if (explicitId) return explicitId;
+function isBlogSectionPath() {
     var p = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
-    if (/\/blog(\/|$)/.test(p) || p.endsWith('/blog')) return 'nav-articles';
-    return null;
+    return /\/blog(\/|$)/.test(p) || p.endsWith('/blog');
+}
+
+/** 文章分享高亮僅在 /blog/ 底下；其他頁面的 explicitId 不會誤亮 nav-articles */
+function resolveActiveNavId(explicitId) {
+    if (isBlogSectionPath()) {
+        return 'nav-articles';
+    }
+    if (!explicitId || explicitId === 'nav-articles') {
+        return null;
+    }
+    return explicitId;
 }
 
 /** 主選單目前頁面高亮（桌機 nav-btn、手機 data-nav-articles） */
@@ -23,8 +32,15 @@ function applyGlobalNavActive(explicitId) {
 
     if (!navId) return;
 
-    var targets = [document.getElementById(navId)];
-    document.querySelectorAll('[data-nav-articles]').forEach(function (el) { targets.push(el); });
+    var targets = [];
+    if (navId === 'nav-articles') {
+        document.querySelectorAll('#nav-articles, [data-nav-articles]').forEach(function (el) {
+            targets.push(el);
+        });
+    } else {
+        var main = document.getElementById(navId);
+        if (main) targets.push(main);
+    }
 
     targets.forEach(function (el) {
         if (!el) return;

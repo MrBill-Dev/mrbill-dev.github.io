@@ -68,10 +68,7 @@
       });
     }
     window.addEventListener("DOMContentLoaded", function () {
-      includeComponentSlot("global-header", "../components/header.html", "nav-articles", function () {
-        fixNavPathsFromSubdir();
-        if (typeof applyGlobalNavActive === "function") applyGlobalNavActive("nav-articles");
-      });
+      includeComponentSlot("global-header", "../components/header.html", null, fixNavPathsFromSubdir);
       includeComponentSlot("global-footer", "../components/footer.html", null, fixNavPathsFromSubdir);
       renderBlogArticleList("blog-article-list");
     });
