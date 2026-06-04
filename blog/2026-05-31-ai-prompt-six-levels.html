@@ -63,7 +63,7 @@
           </nav>
           <div class="blog-hero__tags">
             <span class="blog-hero__tag">AI學習地圖</span>
-            <span class="blog-hero__tag">教學文章</span>
+            <span class="blog-hero__tag">文章分享</span>
           </div>
           <h1 class="blog-hero__title">99% 的人都在錯用 AI Prompt</h1>
           <p class="blog-hero__subtitle">從一句話輸入，到企業級 AI 系統設計，建立你的真正 AI 思維架構</p>
@@ -243,7 +243,7 @@ NOW WRITE:
           <div class="blog-rail-card space-y-4">
             <div>
               <p class="blog-rail-title">文章資訊</p>
-              <p class="text-sm font-bold text-slate-800">AI 學習地圖 · 教學文章</p>
+              <p class="text-sm font-bold text-slate-800">AI 學習地圖 · 文章分享</p>
               <p class="text-xs text-slate-500 mt-1">2026-05-31</p>
             </div>
             <div>
@@ -274,7 +274,10 @@ NOW WRITE:
       });
     }
     window.addEventListener('DOMContentLoaded', function() {
-      includeComponentSlot('global-header', '../components/header.html', null, fixNavPathsFromSubdir);
+      includeComponentSlot('global-header', '../components/header.html', 'nav-articles', function () {
+        fixNavPathsFromSubdir();
+        if (typeof applyGlobalNavActive === 'function') applyGlobalNavActive('nav-articles');
+      });
       includeComponentSlot('global-footer', '../components/footer.html', null, fixNavPathsFromSubdir);
     });
   </script>

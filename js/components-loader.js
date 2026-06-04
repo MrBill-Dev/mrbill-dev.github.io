@@ -1,3 +1,42 @@
+function resolveActiveNavId(explicitId) {
+    if (explicitId) return explicitId;
+    var p = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+    if (/\/blog(\/|$)/.test(p) || p.endsWith('/blog')) return 'nav-articles';
+    return null;
+}
+
+/** 主選單目前頁面高亮（桌機 nav-btn、手機 data-nav-articles） */
+function applyGlobalNavActive(explicitId) {
+    var navId = resolveActiveNavId(explicitId);
+    var activeClasses = ['bg-gradient-to-r', 'from-indigo-600', 'to-cyan-500', 'text-white', 'font-black', 'shadow-lg', 'shadow-indigo-200/50'];
+    var idleClasses = ['text-slate-600', 'hover:bg-slate-50', 'hover:bg-white', 'hover:text-indigo-600', 'hover:shadow-md', 'hover:-translate-y-0.5'];
+
+    document.querySelectorAll('#global-header .nav-btn, #global-header [data-nav-articles]').forEach(function (el) {
+        idleClasses.forEach(function (c) { el.classList.remove(c); });
+        activeClasses.forEach(function (c) { el.classList.remove(c); });
+        if (!el.classList.contains('nav-btn') && el.tagName === 'A') {
+            el.classList.add('text-slate-600');
+        } else {
+            idleClasses.forEach(function (c) { el.classList.add(c); });
+        }
+    });
+
+    if (!navId) return;
+
+    var targets = [document.getElementById(navId)];
+    document.querySelectorAll('[data-nav-articles]').forEach(function (el) { targets.push(el); });
+
+    targets.forEach(function (el) {
+        if (!el) return;
+        idleClasses.forEach(function (c) { el.classList.remove(c); });
+        activeClasses.forEach(function (c) { el.classList.add(c); });
+        if (el.tagName === 'BUTTON' && navId === 'nav-course') {
+            el.classList.add('text-white');
+        }
+    });
+}
+window.applyGlobalNavActive = applyGlobalNavActive;
+
 async function includeComponentSlot(elementId, filePath, activeNavId, callback) {
     const container = document.getElementById(elementId);
     if (!container) return;
@@ -5,12 +44,8 @@ async function includeComponentSlot(elementId, filePath, activeNavId, callback) 
         const response = await fetch(filePath);
         if (!response.ok) throw new Error(`組件遺失: ${filePath}`);
         container.innerHTML = await response.text();
-        if (activeNavId) {
-            const activeLink = document.getElementById(activeNavId);
-            if (activeLink) {
-                activeLink.classList.remove('text-slate-600', 'hover:bg-slate-50', 'hover:bg-white', 'hover:text-indigo-600', 'hover:shadow-md', 'hover:-translate-y-0.5');
-                activeLink.classList.add('bg-gradient-to-r', 'from-indigo-600', 'to-cyan-500', 'text-white', 'font-black', 'shadow-lg', 'shadow-indigo-200/50');
-            }
+        if (elementId === 'global-header') {
+            applyGlobalNavActive(activeNavId);
         }
         initNavMegaMenus();
         if (callback) callback();
@@ -95,7 +130,8 @@ function injectSiteRwdStyles() {
         '.site-prose-safe img, .site-prose-safe video { max-width: 100%; height: auto; }',
         '#mobile-content-dock { transition: opacity 0.22s ease, transform 0.22s ease; }',
         '#mobile-content-dock.is-hidden { opacity: 0; pointer-events: none; transform: translateY(10px); }',
-        '@media (max-width: 1023px) { body.has-mobile-dock { padding-bottom: 5.5rem; } }'
+        '@media (max-width: 1023px) { body.has-mobile-dock { padding-bottom: 5.5rem; } }',
+        '.nav-mega-grid .nav-mega-card { min-height: 5.25rem; display: flex; flex-direction: column; justify-content: center; }'
     ].join('\n');
     document.head.appendChild(style);
 }

@@ -186,7 +186,7 @@
   }
 }
 
-/* 教學文章版型：寬螢幕側欄 + 中欄內文（grid-column 固定欄位，避免 display:none 跑版） */
+/* 專題文章版型：寬螢幕側欄 + 中欄內文（grid-column 固定欄位，避免 display:none 跑版） */
 
 .blog-shell {
   max-width: 80rem;

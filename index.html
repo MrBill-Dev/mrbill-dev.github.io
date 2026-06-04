@@ -945,7 +945,8 @@
       </div>
     </section>
 
-    <section id="sect-showcase" class="tab-content hidden space-y-8 fade-in-up pb-12">
+    <!-- 作品展示暫時關閉；導覽改「文章分享」→ ai-learning-map.html#course-articles -->
+    <section id="sect-showcase" class="tab-content hidden space-y-8 fade-in-up pb-12" hidden aria-hidden="true">
       <div class="border-b border-slate-100 pb-4">
         <h2 class="text-3xl font-black text-slate-900">🎨 多媒體與 AI 創意藝廊</h2>
         <p class="text-slate-500 mt-2 text-base">展示「技術 + 美學」的整合方向。實作練習請進入攝影學堂與前端手冊。</p>
@@ -1340,7 +1341,12 @@
     }
     function parseUrlRoute() {
       const urlParams = new URLSearchParams(window.location.search);
-      switchTab(urlParams.get('tab') || 'home');
+      var tab = urlParams.get('tab') || 'home';
+      if (tab === 'showcase') {
+        window.location.replace('blog/index.html');
+        return;
+      }
+      switchTab(tab);
     }
     function initParallax() {
       var ticking = false;
