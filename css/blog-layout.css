@@ -1,3 +1,187 @@
+/* —— 文章 Hero —— */
+/* 手機：短圖 + 深色文字區；桌機：全幅圖疊字 */
+
+.blog-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-hero__media {
+  position: relative;
+  height: 7.5rem;
+  overflow: hidden;
+}
+
+.blog-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.blog-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 20%, #0f172a 100%);
+}
+
+.blog-hero__panel {
+  position: relative;
+  background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 55%, #312e81 100%);
+  padding: 1.25rem 0 1.5rem;
+}
+
+.blog-hero__inner {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.blog-hero__back {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #a5b4fc;
+  text-decoration: none;
+  margin-bottom: 0.875rem;
+}
+
+.blog-hero__back:hover {
+  color: #fff;
+}
+
+.blog-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-hero__tag {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #67e8f9;
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.blog-hero__title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.blog-hero__subtitle {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #c7d2fe;
+}
+
+.blog-hero__meta {
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+@media (min-width: 768px) {
+  .blog-hero {
+    min-height: 22.5rem;
+  }
+
+  .blog-hero__media {
+    position: absolute;
+    inset: 0;
+    height: auto;
+    z-index: 0;
+  }
+
+  .blog-hero__media::after {
+    display: none;
+  }
+
+  .blog-hero__img {
+    height: 100%;
+    min-height: 22.5rem;
+    object-position: center;
+  }
+
+  .blog-hero__panel {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 0 2.5rem;
+    background: linear-gradient(
+      to right,
+      rgba(2, 6, 23, 0.92) 0%,
+      rgba(30, 27, 75, 0.82) 45%,
+      rgba(49, 46, 129, 0.55) 100%
+    );
+  }
+
+  .blog-hero__inner {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .blog-hero__title {
+    font-size: 2.25rem;
+    max-width: 42rem;
+  }
+
+  .blog-hero__subtitle {
+    font-size: 1.125rem;
+    max-width: 36rem;
+  }
+
+  .blog-hero__breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    color: rgba(199, 210, 254, 0.9);
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+  }
+
+  .blog-hero__breadcrumb a {
+    color: #c7d2fe;
+    text-decoration: none;
+  }
+
+  .blog-hero__breadcrumb a:hover {
+    color: #fff;
+  }
+}
+
+@media (min-width: 1024px) {
+  .blog-hero {
+    min-height: 22.5rem;
+  }
+
+  .blog-hero__inner {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .blog-hero__title {
+    font-size: 2.5rem;
+  }
+}
+
 /* 教學文章版型：寬螢幕側欄 + 中欄內文（grid-column 固定欄位，避免 display:none 跑版） */
 
 .blog-shell {
