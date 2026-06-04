@@ -92,6 +92,10 @@
   color: #94a3b8;
 }
 
+.blog-hero__views {
+  white-space: nowrap;
+}
+
 @media (min-width: 768px) {
   .blog-hero {
     min-height: 22.5rem;
