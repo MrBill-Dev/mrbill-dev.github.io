@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>99% 的人都在錯用 AI Prompt｜MrBill AI Studio</title>
+  <meta name="description" content="從一句話輸入到企業級 AI 系統設計，用 6 個層級建立 Prompt 與輸出行為控制思維。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../js/components-loader.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Noto Sans TC"', 'sans-serif'] },
+          colors: { brand: { 50: '#f5f3ff', 100: '#ede9fe', 500: '#6366f1', 600: '#4f46e5' } }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/blog-layout.css" />
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .blog-pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-base overflow-x-hidden">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <main class="flex-grow w-full min-w-0">
+    <!-- Hero -->
+    <section class="relative overflow-hidden w-full text-white">
+      <img src="https://images.unsplash.com/photo-1676299081847-824916de030a?auto=format&fit=crop&w=2200&q=80" alt="" class="w-full h-[280px] md:h-[360px] object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/88 via-indigo-950/78 to-violet-900/65"></div>
+      <div class="absolute inset-0">
+        <div class="blog-shell px-4 lg:px-8 h-full flex flex-col justify-end pb-8 md:pb-10">
+          <nav class="text-sm text-indigo-200/90 mb-4" aria-label="麵包屑">
+            <ol class="flex flex-wrap items-center gap-1.5">
+              <li><a href="../index.html" class="hover:text-white no-underline text-indigo-200">首頁</a></li>
+              <li aria-hidden="true" class="text-indigo-300/60">/</li>
+              <li><a href="../ai-learning-map.html" class="hover:text-white no-underline text-indigo-200">AI 學習地圖</a></li>
+              <li aria-hidden="true" class="text-indigo-300/60">/</li>
+              <li class="text-white font-medium">99% 的人都在錯用 AI Prompt</li>
+            </ol>
+          </nav>
+          <p class="text-xs font-black uppercase tracking-wider text-cyan-300 mb-2">AI學習地圖 · 教學文章</p>
+          <h1 class="text-3xl md:text-4xl font-black leading-tight">99% 的人都在錯用 AI Prompt</h1>
+          <p class="mt-3 text-base md:text-lg text-indigo-100 max-w-2xl leading-relaxed">從一句話輸入，到企業級 AI 系統設計，建立你的真正 AI 思維架構</p>
+          <p class="mt-4 text-sm text-slate-300">👨‍🏫 Mr.Bill · 2026-05-31 · 約 12 分鐘閱讀</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="blog-shell px-4 lg:px-8 py-10 md:py-14 fade-in-up">
+      <div class="blog-layout">
+        <aside class="blog-rail blog-rail--left" aria-label="章節目錄">
+          <div class="blog-rail-card">
+            <p class="blog-rail-title">本章目錄</p>
+            <nav class="blog-toc space-y-0.5">
+              <a href="#blog-intro">前言</a>
+              <a href="#blog-levels">六層級</a>
+              <a href="#level-1">Level 1 語意輸入</a>
+              <a href="#level-2">Level 2 約束注入</a>
+              <a href="#level-3">Level 3 角色建模</a>
+              <a href="#level-4">Level 4 業界標準</a>
+              <a href="#level-5">Level 5 示例對齊</a>
+              <a href="#level-6">Level 6 系統設計</a>
+              <a href="#blog-summary">總結</a>
+            </nav>
+          </div>
+        </aside>
+
+        <article class="blog-main space-y-8">
+      <!-- Intro -->
+      <section id="blog-intro" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-4">
+        <p class="text-sm font-bold text-indigo-600">👨‍🏫 Mr.Bill｜AI 系統思維筆記</p>
+        <h2 class="text-2xl font-black text-slate-900">在開始之前，我想先讓你換一個看 AI 的方式</h2>
+        <p class="text-slate-700 leading-relaxed">
+          很多人學 AI Prompt，會卡在一個錯誤認知：<span class="font-bold text-slate-900">「我只要問得好，AI 就會答得好。」</span>
+        </p>
+        <p class="text-slate-700 leading-relaxed">
+          但在真正的應用裡，Prompt 不是問題，而是：<span class="font-bold text-indigo-900">輸出行為控制系統（Output Control System）</span>
+        </p>
+        <div class="rounded-2xl bg-indigo-50 border border-indigo-100 p-5">
+          <p class="font-bold text-indigo-900">👉 AI 的本質：一個受約束的生成函數</p>
+          <p class="text-sm text-slate-600 mt-2 font-mono">Output = f(Context, Role, Constraints, Examples, Evaluation)</p>
+        </div>
+        <p class="text-slate-700 leading-relaxed">當你開始用這個角度思考，你做的就不是「問 AI」，而是「設計輸出行為」。</p>
+      </section>
+
+      <!-- Transition -->
+      <section id="blog-levels" class="scroll-mt-28 text-center py-1">
+        <p class="text-lg font-bold text-slate-900">接下來，用 6 個層級看懂 Prompt 的進化</p>
+        <p class="text-slate-500 mt-2 text-sm">每一層代表你對 AI 控制能力的不同階段</p>
+      </section>
+
+      <!-- Levels -->
+      <section class="space-y-6">
+        <!-- Level 1 -->
+        <div id="level-1" class="scroll-mt-28 blog-level-card--split bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+          <div class="blog-level-body space-y-4">
+          <h3 class="text-xl font-black text-slate-900">Level 1｜語意輸入（Unstructured Intent）</h3>
+          <pre class="blog-pre rounded-xl bg-slate-100 border border-slate-200 p-4 text-sm text-slate-800">幫我寫一個婚禮攝影文案</pre>
+          <p class="text-slate-600 leading-relaxed">本質是未約束生成（high entropy state），輸出完全依賴模型自由補全，因此不可控。</p>
+          </div>
+          <div class="blog-level-media">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="團隊協作示意" class="w-full rounded-2xl object-cover max-h-64 md:max-h-none" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Level 2 -->
+        <div id="level-2" class="scroll-mt-28 blog-level-card--split bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+          <div class="blog-level-body space-y-4">
+          <h3 class="text-xl font-black text-slate-900">Level 2｜約束注入（Constraint Injection）</h3>
+          <pre class="blog-pre rounded-xl bg-slate-100 border border-slate-200 p-4 text-sm text-slate-800">溫暖風格
+200字內
+新人導向</pre>
+          <p class="text-slate-600 leading-relaxed">開始收斂 solution space，但尚未建立結構模型，因此穩定性仍有限。</p>
+          </div>
+          <div class="blog-level-media">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80" alt="討論與規劃示意" class="w-full rounded-2xl object-cover max-h-64 md:max-h-none" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Level 3 -->
+        <div id="level-3" class="scroll-mt-28 blog-level-card--split bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+          <div class="blog-level-body space-y-4">
+          <h3 class="text-xl font-black text-slate-900">Level 3｜角色建模（Role Conditioning）</h3>
+          <pre class="blog-pre rounded-xl bg-slate-100 border border-slate-200 p-4 text-sm text-slate-800"># Role
+婚禮文案專家</pre>
+          <p class="text-slate-600 leading-relaxed">Role 不是角色扮演，而是調整模型的語言分佈與推理路徑（behavioral shaping）。</p>
+          </div>
+          <div class="blog-level-media">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80" alt="程式與介面示意" class="w-full rounded-2xl object-cover max-h-64 md:max-h-none" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Level 4 -->
+        <div id="level-4" class="scroll-mt-28 blog-level-card--split bg-slate-900 text-white rounded-3xl border border-slate-700 shadow-sm p-6 md:p-8">
+          <div class="blog-level-body space-y-4">
+          <h3 class="text-xl font-black">Level 4｜業界標準（Reproducible Prompt）</h3>
+          <pre class="blog-pre rounded-xl bg-slate-800 border border-slate-600 p-4 text-sm text-emerald-300">## ROLE
+資深行銷策略師
+
+## OBJECTIVE
+提升轉換率文案
+
+## CONSTRAINTS
+- 不誇張
+- 不AI語氣
+- 300字內
+
+## OUTPUT
+標題 + 內文 + CTA</pre>
+          <p class="text-slate-300 leading-relaxed">核心不在格式，而在可重現性（reproducibility）與協作標準化。</p>
+          </div>
+          <div class="blog-level-media">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="數據與儀表板示意" class="w-full rounded-2xl object-cover max-h-64 md:max-h-none opacity-90" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Level 5 -->
+        <div id="level-5" class="scroll-mt-28 blog-level-card--split bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+          <div class="blog-level-body space-y-4">
+          <h3 class="text-xl font-black text-slate-900">Level 5｜示例對齊（Few-shot Alignment）</h3>
+          <pre class="blog-pre rounded-xl bg-slate-100 border border-slate-200 p-4 text-sm text-slate-800">「我們不是拍婚禮，是記錄情緒」
+
+NOW WRITE:
+同風格延伸</pre>
+          <p class="text-slate-600 leading-relaxed">本質是 distribution alignment（分佈對齊），透過樣本影響生成空間。</p>
+          </div>
+          <div class="blog-level-media">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80" alt="協作討論示意" class="w-full rounded-2xl object-cover max-h-64 md:max-h-none" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Level 6 -->
+        <div id="level-6" class="scroll-mt-28 blog-level-card--split bg-slate-900 text-white rounded-3xl border border-slate-700 shadow-sm p-6 md:p-8">
+          <div class="blog-level-body space-y-4">
+          <h3 class="text-xl font-black">Level 6｜AI 系統設計（Agent Workflow）</h3>
+          <pre class="blog-pre rounded-xl bg-slate-800 border border-slate-600 p-4 text-sm text-emerald-300 overflow-x-auto">分析 → 拆解 → 生成 → 檢查 → JSON輸出</pre>
+          <p class="text-slate-300 leading-relaxed">Prompt 已不再是輸入，而是 workflow pipeline 中的一個節點。</p>
+          </div>
+          <div class="blog-level-media">
+          <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1200&q=80" alt="程式碼與自動化示意" class="w-full rounded-2xl object-cover max-h-64 md:max-h-none opacity-90" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Summary -->
+      <section id="blog-summary" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-4">
+        <h2 class="text-2xl font-black text-slate-900 text-center">Mr.Bill 的總結</h2>
+        <p class="text-slate-700">如果只記一句話：</p>
+        <blockquote class="border-l-4 border-indigo-600 pl-5 text-lg font-bold text-slate-900 leading-relaxed">
+          Prompt 的本質，是對生成系統進行行為邊界設計，而不是語言輸入技巧
+        </blockquote>
+        <p class="text-slate-700 leading-relaxed">當你從語言操作進化到系統設計，你操作的已經不是 AI，而是「輸出機制本身」。</p>
+        <p class="text-sm text-slate-500">—— Mr.Bill AI 教學筆記</p>
+      </section>
+
+      <!-- CTA -->
+      <section class="rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-violet-900 text-white text-center p-8 md:p-10 space-y-4">
+        <h2 class="text-2xl font-black">想升級你的 AI 工作流？</h2>
+        <p class="text-indigo-200 max-w-lg mx-auto">下一步不是學更多 Prompt 模板，而是回到 AI 學習地圖，把結構化提問練成習慣。</p>
+        <div class="flex flex-wrap justify-center gap-3 pt-2">
+          <a href="../ai-learning-map.html" class="inline-flex px-6 py-3 rounded-full bg-white text-slate-900 font-bold no-underline hover:bg-indigo-50 transition-colors">回到 AI 學習地圖</a>
+          <a href="../ai-practice.html" class="inline-flex px-6 py-3 rounded-full bg-white/10 border border-white/30 text-white font-bold no-underline hover:bg-white/20 transition-colors">互動練習</a>
+        </div>
+      </section>
+
+      <p class="text-center">
+        <a href="../ai-learning-map.html" class="text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800">← 返回 AI 學習地圖</a>
+      </p>
+        </article>
+
+        <aside class="blog-rail blog-rail--right" aria-label="文章資訊">
+          <div class="blog-rail-card space-y-4">
+            <div>
+              <p class="blog-rail-title">文章資訊</p>
+              <p class="text-sm font-bold text-slate-800">AI 學習地圖 · 教學文章</p>
+              <p class="text-xs text-slate-500 mt-1">2026-05-31</p>
+            </div>
+            <div>
+              <p class="blog-rail-title">延伸</p>
+              <a href="../ai-learning-map.html" class="block text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800 py-1">AI 學習地圖</a>
+              <a href="../ai-practice.html" class="block text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800 py-1">互動練習</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
+
+  <script>
+    function fixNavPathsFromSubdir() {
+      var header = document.getElementById('global-header');
+      var footer = document.getElementById('global-footer');
+      [header, footer].forEach(function(root) {
+        if (!root) return;
+        root.querySelectorAll('a[href]').forEach(function(a) {
+          var h = a.getAttribute('href');
+          if (!h || /^https?:\/\//.test(h) || h.startsWith('#') || h.startsWith('../') || h.startsWith('/')) return;
+          if (h.startsWith('./')) a.setAttribute('href', '..' + h.slice(1));
+          else a.setAttribute('href', '../' + h);
+        });
+      });
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', '../components/header.html', null, fixNavPathsFromSubdir);
+      includeComponentSlot('global-footer', '../components/footer.html', null, fixNavPathsFromSubdir);
+    });
+  </script>
+</body>
+</html>

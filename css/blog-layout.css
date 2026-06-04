@@ -1,0 +1,133 @@
+/* 教學文章版型：寬螢幕側欄 + 中欄內文（grid-column 固定欄位，避免 display:none 跑版） */
+
+.blog-shell {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.blog-layout {
+  display: grid;
+  gap: 1.75rem 2rem;
+  align-items: start;
+  width: 100%;
+}
+
+/* 手機／平板：單欄，側欄隱藏 */
+.blog-rail {
+  display: none;
+}
+
+.blog-main {
+  grid-column: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+}
+
+/* lg：內文 + 右欄 */
+@media (min-width: 1024px) {
+  .blog-layout {
+    grid-template-columns: minmax(0, 1fr) 13.5rem;
+  }
+
+  .blog-main {
+    grid-column: 1;
+  }
+
+  .blog-rail--right {
+    display: block;
+    grid-column: 2;
+    position: sticky;
+    top: 6rem;
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+  }
+}
+
+/* xl：左目錄 + 內文 + 右欄（三欄都必須指定 grid-column） */
+@media (min-width: 1280px) {
+  .blog-layout {
+    grid-template-columns: 11.5rem minmax(0, 1fr) 12.5rem;
+  }
+
+  .blog-rail--left {
+    display: block;
+    grid-column: 1;
+    position: sticky;
+    top: 6rem;
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+  }
+
+  .blog-main {
+    grid-column: 2;
+  }
+
+  .blog-rail--right {
+    grid-column: 3;
+  }
+}
+
+.blog-rail-card {
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  padding: 1rem 1.125rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.blog-rail-title {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.blog-toc a {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  padding: 0.35rem 0;
+  line-height: 1.4;
+  border-left: 2px solid transparent;
+  padding-left: 0.5rem;
+  margin-left: -0.5rem;
+}
+
+.blog-toc a:hover {
+  color: #4f46e5;
+  border-left-color: #c7d2fe;
+}
+
+.blog-level-card--split {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .blog-level-card--split {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 36%);
+    align-items: start;
+  }
+
+  .blog-level-card--split .blog-level-media {
+    order: 2;
+  }
+
+  .blog-level-card--split .blog-level-body {
+    order: 1;
+  }
+
+  .blog-level-media img {
+    max-height: none;
+    min-height: 12rem;
+    height: 100%;
+    object-fit: cover;
+  }
+}
