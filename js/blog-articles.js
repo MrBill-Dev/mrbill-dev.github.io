@@ -1,6 +1,7 @@
 /**
  * 教學文章索引（blog/ 目錄）
  * - 檔名：blog/{YYYY-MM-DD}-{主題}.html（例：2026-05-31-ai-prompt-six-levels.html），title 用中文
+ * - cover：顯圖路徑 assets/xxx.jpg（1200×630），需同步寫入文章 og:image 絕對網址
  * - 列表只維護此陣列；新增文章複製 blog/article.template.html
  */
 const BLOG_ARTICLES = [
@@ -13,6 +14,7 @@ const BLOG_ARTICLES = [
     author: "Mr.Bill",
     date: "2026-05-31",
     readMins: 12,
-    tags: ["Prompt", "AI 思維", "工作流"]
+    tags: ["Prompt", "AI 思維", "工作流"],
+    cover: "assets/blog-2026-05-31-ai-prompt-og.jpg"
   }
 ];
