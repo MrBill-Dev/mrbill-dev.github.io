@@ -14,41 +14,63 @@ function resolveActiveNavId(explicitId) {
     return explicitId;
 }
 
-/** 主選單目前頁面高亮（桌機 nav-btn、手機 data-nav-articles） */
+var NAV_DESKTOP_ACTIVE = ['bg-gradient-to-r', 'from-indigo-600', 'to-cyan-500', 'text-white', 'font-black', 'shadow-lg', 'shadow-indigo-200/50'];
+var NAV_DESKTOP_IDLE = ['text-slate-600', 'hover:bg-slate-50', 'hover:bg-white', 'hover:text-indigo-600', 'hover:shadow-md', 'hover:-translate-y-0.5'];
+var NAV_MOBILE_ACTIVE = ['bg-indigo-50', 'text-indigo-800', 'font-black', 'ring-1', 'ring-indigo-200'];
+var NAV_MOBILE_IDLE = ['text-slate-600', 'hover:bg-slate-50'];
+
+function clearNavClasses(el) {
+    NAV_DESKTOP_ACTIVE.concat(NAV_DESKTOP_IDLE, NAV_MOBILE_ACTIVE, NAV_MOBILE_IDLE).forEach(function (c) {
+        el.classList.remove(c);
+    });
+}
+
+function setNavIdle(el) {
+    if (el.classList.contains('mobile-nav-top') || el.classList.contains('mobile-nav-sub')) {
+        NAV_MOBILE_IDLE.forEach(function (c) { el.classList.add(c); });
+    } else if (el.classList.contains('nav-btn')) {
+        NAV_DESKTOP_IDLE.forEach(function (c) { el.classList.add(c); });
+    }
+}
+
+function setNavActive(el) {
+    if (el.classList.contains('mobile-nav-top') || el.classList.contains('mobile-nav-sub')) {
+        NAV_MOBILE_ACTIVE.forEach(function (c) { el.classList.add(c); });
+    } else {
+        NAV_DESKTOP_ACTIVE.forEach(function (c) { el.classList.add(c); });
+        if (el.tagName === 'BUTTON') {
+            el.classList.add('text-white');
+        }
+    }
+}
+
+/** 主選單目前頁面高亮：桌機漸層、手機淺底；文章分享僅在 /blog/ */
 function applyGlobalNavActive(explicitId) {
     var navId = resolveActiveNavId(explicitId);
-    var activeClasses = ['bg-gradient-to-r', 'from-indigo-600', 'to-cyan-500', 'text-white', 'font-black', 'shadow-lg', 'shadow-indigo-200/50'];
-    var idleClasses = ['text-slate-600', 'hover:bg-slate-50', 'hover:bg-white', 'hover:text-indigo-600', 'hover:shadow-md', 'hover:-translate-y-0.5'];
 
-    document.querySelectorAll('#global-header .nav-btn, #global-header [data-nav-articles]').forEach(function (el) {
-        idleClasses.forEach(function (c) { el.classList.remove(c); });
-        activeClasses.forEach(function (c) { el.classList.remove(c); });
-        if (!el.classList.contains('nav-btn') && el.tagName === 'A') {
-            el.classList.add('text-slate-600');
-        } else {
-            idleClasses.forEach(function (c) { el.classList.add(c); });
-        }
+    document.querySelectorAll('#global-header .nav-btn, #global-header .mobile-nav-top, #global-header .mobile-nav-sub, #global-header [data-nav-articles]').forEach(function (el) {
+        clearNavClasses(el);
+        setNavIdle(el);
     });
 
     if (!navId) return;
 
-    var targets = [];
     if (navId === 'nav-articles') {
         document.querySelectorAll('#nav-articles, [data-nav-articles]').forEach(function (el) {
-            targets.push(el);
+            clearNavClasses(el);
+            setNavActive(el);
         });
-    } else {
-        var main = document.getElementById(navId);
-        if (main) targets.push(main);
+        return;
     }
 
-    targets.forEach(function (el) {
-        if (!el) return;
-        idleClasses.forEach(function (c) { el.classList.remove(c); });
-        activeClasses.forEach(function (c) { el.classList.add(c); });
-        if (el.tagName === 'BUTTON' && navId === 'nav-course') {
-            el.classList.add('text-white');
-        }
+    var main = document.getElementById(navId);
+    if (main) {
+        clearNavClasses(main);
+        setNavActive(main);
+    }
+    document.querySelectorAll('[data-nav-match="' + navId + '"]').forEach(function (el) {
+        clearNavClasses(el);
+        setNavActive(el);
     });
 }
 window.applyGlobalNavActive = applyGlobalNavActive;
