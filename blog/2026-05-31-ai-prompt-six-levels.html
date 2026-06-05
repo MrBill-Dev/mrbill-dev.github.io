@@ -38,7 +38,6 @@
   <style>
     html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
-    .blog-pre { white-space: pre-wrap; word-break: break-word; }
   </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-base overflow-x-hidden">
@@ -64,7 +63,7 @@
         </div>
         <div class="rounded-2xl bg-indigo-50 border border-indigo-100 p-5">
           <p class="font-bold text-indigo-900">👉 AI 的本質：一個受約束的生成函數</p>
-          <p class="text-sm text-slate-600 mt-2 font-mono">Output = f(Context, Role, Constraints, Examples, Evaluation)</p>
+          <p class="blog-formula-line text-sm text-slate-600 mt-2">Output = f(Context, Role, Constraints, Examples, Evaluation)</p>
         </div>
         <p class="text-slate-700 leading-relaxed">當你開始用這個角度思考，你做的就不是「問 AI」，而是「設計輸出行為」。</p>
       </section>
@@ -159,7 +158,7 @@ NOW WRITE:
         <div id="level-6" class="scroll-mt-28 blog-level-card--split bg-slate-900 text-white rounded-3xl border border-slate-700 shadow-sm p-6 md:p-8">
           <div class="blog-level-body space-y-4">
           <h3 class="text-xl font-black">Level 6｜AI 系統設計（Agent Workflow）</h3>
-          <pre class="blog-pre rounded-xl bg-slate-800 border border-slate-600 p-4 text-sm text-emerald-300 overflow-x-auto">分析 → 拆解 → 生成 → 檢查 → JSON輸出</pre>
+          <pre class="blog-pre rounded-xl bg-slate-800 border border-slate-600 p-4 text-sm text-emerald-300">分析 → 拆解 → 生成 → 檢查 → JSON輸出</pre>
           <p class="text-slate-300 leading-relaxed">Prompt 已不再是輸入，而是 workflow pipeline 中的一個節點。</p>
           </div>
           <div class="blog-level-media">
