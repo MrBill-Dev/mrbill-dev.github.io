@@ -43,35 +43,7 @@
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
   <main class="flex-grow w-full min-w-0">
-    <!-- Hero：手機上圖下字；桌機維持全幅疊字 -->
-    <section class="blog-hero w-full text-white">
-      <div class="blog-hero__media" aria-hidden="true">
-        <img id="blog-hero-cover" src="" alt="" class="blog-hero__img" width="1200" height="630" loading="eager" fetchpriority="high" />
-      </div>
-      <div class="blog-hero__panel">
-        <div class="blog-shell blog-hero__inner">
-          <a href="index.html" class="blog-hero__back md:hidden">← 文章分享</a>
-          <nav class="blog-hero__breadcrumb hidden md:block" aria-label="麵包屑">
-            <ol>
-              <li><a href="../index.html">首頁</a></li>
-              <li aria-hidden="true">/</li>
-              <li><a href="index.html">文章分享</a></li>
-              <li aria-hidden="true">/</li>
-              <li><span class="text-white font-medium" id="blog-hero-breadcrumb-title"></span></li>
-            </ol>
-          </nav>
-          <div class="blog-hero__tags" id="blog-hero-tags"></div>
-          <h1 class="blog-hero__title" id="blog-hero-title"></h1>
-          <p class="blog-hero__subtitle" id="blog-hero-subtitle"></p>
-          <p class="blog-hero__meta">
-            <span id="blog-hero-author-date"></span> · <span id="blog-hero-read-time"></span>
-            <span class="blog-hero__views" id="busuanzi_container_page_pv" aria-label="全站累計，每次瀏覽都計入">
-              · 瀏覽 <span id="busuanzi_value_page_pv">…</span> 次
-            </span>
-          </p>
-        </div>
-      </div>
-    </section>
+    <div id="blog-article-hero-slot"></div>
 
     <div class="blog-shell px-4 lg:px-8 py-8 md:py-10 lg:py-12">
       <div class="blog-layout">
@@ -218,9 +190,7 @@ NOW WRITE:
       </p>
         </article>
 
-        <aside class="blog-rail blog-rail--right" aria-label="文章資訊">
-          <div id="blog-article-rail"></div>
-        </aside>
+        <div id="blog-article-rail-slot"></div>
       </div>
     </div>
   </main>

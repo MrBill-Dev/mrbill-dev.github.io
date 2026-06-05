@@ -1,46 +1,86 @@
 <!DOCTYPE html>
 <!--
-  新文章步驟（靜態站、每篇一檔）：
-  1. 在 js/blog-articles.js 的 BLOG_ARTICLES 加一筆（slug、title、subtitle、excerpt、category、cover…）
-  2. 複製 2026-05-31-ai-prompt-six-levels.html 為 blog/{slug}.html，只改內文區塊
-  3. Hero／列表／meta 由 initBlogArticlePage() 從 BLOG_ARTICLES 連動，不必重複填標題與圖
+  維護說明：見同目錄 README.md
 
-  文章很多（約 30+）再考慮：blog-layout--with-nav 左側文章選單，或 content/{slug}.json 渲染。
+  新增文章：
+  1. js/blog-articles.js → BLOG_ARTICLES 加一筆
+  2. 複製本檔為 blog/{slug}.html，只改 <article> 內文
 -->
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>文章標題｜MrBill AI Studio</title>
-  <meta name="description" content="摘要" />
-  <link rel="canonical" href="https://mrbill-dev.github.io/blog/SLUG.html" />
+  <title>文章｜MrBill AI Studio</title>
+  <meta name="description" content="" />
+  <link rel="canonical" href="" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="MrBill AI Studio" />
-  <meta property="og:title" content="文章標題" />
-  <meta property="og:description" content="摘要" />
-  <meta property="og:url" content="https://mrbill-dev.github.io/blog/SLUG.html" />
-  <meta property="og:image" content="https://mrbill-dev.github.io/assets/OG檔名.jpg" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://mrbill-dev.github.io/assets/OG檔名.jpg" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../js/components-loader.js"></script>
-  <!-- Hero meta：busuanzi 區塊（#busuanzi_container_page_pv / #busuanzi_value_page_pv）；文末 blog-stats.js -->
+  <script src="../js/blog-articles.js"></script>
   <link rel="stylesheet" href="../css/blog-layout.css" />
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .blog-pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col">
-  <header id="global-header"></header>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-base overflow-x-hidden">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
   <main class="flex-grow w-full min-w-0">
-    <!-- Hero 用 .blog-hero（見 blog-layout.css）；內文區見 2026-05-31-ai-prompt-six-levels.html -->
+    <div id="blog-article-hero-slot"></div>
+
+    <div class="blog-shell px-4 lg:px-8 py-8 md:py-10 lg:py-12">
+      <div class="blog-layout">
+        <article class="blog-main blog-prose space-y-6 lg:space-y-7">
+          <!-- ↓↓↓ 只改這裡：文章內文 ↓↓↓ -->
+          <section class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-4">
+            <p class="text-sm font-bold text-indigo-600">段落標籤（選填）</p>
+            <h2 class="text-2xl font-black text-slate-900">章節標題</h2>
+            <p class="text-slate-700 leading-relaxed">正文…</p>
+          </section>
+          <!-- ↑↑↑ 內文結束 ↑↑↑ -->
+        </article>
+
+        <div id="blog-article-rail-slot"></div>
+      </div>
+    </div>
   </main>
-  <footer id="global-footer"></footer>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
+
   <script>
-    function fixNavPathsFromSubdir() { /* 同 2026-05-31-ai-prompt-six-levels.html */ }
-    window.addEventListener('DOMContentLoaded', function() {
-      includeComponentSlot('global-header', '../components/header.html', null, fixNavPathsFromSubdir);
-      includeComponentSlot('global-footer', '../components/footer.html', null, fixNavPathsFromSubdir);
+    function fixNavPathsFromSubdir() {
+      var header = document.getElementById("global-header");
+      var footer = document.getElementById("global-footer");
+      [header, footer].forEach(function (root) {
+        if (!root) return;
+        root.querySelectorAll("a[href]").forEach(function (a) {
+          var h = a.getAttribute("href");
+          if (!h || /^https?:\/\//.test(h) || h.startsWith("#") || h.startsWith("../") || h.startsWith("/")) return;
+          if (h.startsWith("./")) a.setAttribute("href", ".." + h.slice(1));
+          else a.setAttribute("href", "../" + h);
+        });
+      });
+    }
+    window.addEventListener("DOMContentLoaded", function () {
+      includeComponentSlot("global-header", "../components/header.html", null, fixNavPathsFromSubdir);
+      includeComponentSlot("global-footer", "../components/footer.html", null, fixNavPathsFromSubdir);
+      initBlogArticlePage();
     });
   </script>
+  <script src="/js/blog-stats.js"></script>
 </body>
 </html>

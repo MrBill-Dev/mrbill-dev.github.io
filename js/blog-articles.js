@@ -1,11 +1,6 @@
 /**
  * 文章分享索引（blog/ 目錄）— 全站文章資料的單一來源
- *
- * 新增文章：只改 BLOG_ARTICLES 一筆 + 建立 blog/{slug}.html（內文）
- * 標題、摘要、圖、分類、日期、閱讀時間等「相同字」由此檔連動至：
- *   - blog/index.html 列表
- *   - ai-learning-map.html 列表
- *   - 各文章頁 Hero / head meta / 右欄
+ * 維護說明：blog/README.md
  */
 const BLOG_SITE_ORIGIN = "https://mrbill-dev.github.io";
 const BLOG_SITE_NAME = "MrBill AI Studio";
@@ -230,10 +225,45 @@ function escapeBlogHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
+function loadBlogArticleShell(done) {
+  var heroSlot = document.getElementById("blog-article-hero-slot");
+  var railSlot = document.getElementById("blog-article-rail-slot");
+  if (!heroSlot && !railSlot) {
+    if (done) done();
+    return;
+  }
+  var pending = 0;
+  function tick() {
+    pending--;
+    if (pending <= 0 && done) done();
+  }
+  if (heroSlot) {
+    pending++;
+    includeComponentSlot(
+      "blog-article-hero-slot",
+      "../components/blog-article-hero.html",
+      null,
+      tick
+    );
+  }
+  if (railSlot) {
+    pending++;
+    includeComponentSlot(
+      "blog-article-rail-slot",
+      "../components/blog-article-rail.html",
+      null,
+      tick
+    );
+  }
+  if (pending === 0 && done) done();
+}
+
 function initBlogArticlePage(slug) {
   slug = slug || getCurrentBlogSlug();
-  renderBlogArticleHero(slug);
-  renderBlogArticleRail("blog-article-rail", slug);
+  loadBlogArticleShell(function () {
+    renderBlogArticleHero(slug);
+    renderBlogArticleRail("blog-article-rail", slug);
+  });
 }
 
 function initBlogIndexPage(listOptions) {
