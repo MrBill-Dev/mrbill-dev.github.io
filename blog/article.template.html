@@ -30,6 +30,7 @@
   <script src="../js/components-loader.js"></script>
   <script src="../js/blog-articles.js"></script>
   <script src="../js/blog-stats.js"></script>
+  <script src="../js/blog-article-ui.js"></script>
   <link rel="stylesheet" href="../css/blog-layout.css" />
   <style>
     html { scroll-behavior: smooth; scroll-padding-top: 96px; }
@@ -52,7 +53,8 @@
             <h2 class="text-2xl font-black text-slate-900">章節標題</h2>
             <p class="text-slate-700 leading-relaxed">正文…</p>
           </section>
-          <!-- ↑↑↑ 內文結束 ↑↑↑ -->
+          <div id="blog-article-author-slot"></div>
+          <!-- ↑↑↑ 內文結束（作者區塊上方） ↑↑↑ -->
         </article>
 
         <div id="blog-article-rail-slot"></div>

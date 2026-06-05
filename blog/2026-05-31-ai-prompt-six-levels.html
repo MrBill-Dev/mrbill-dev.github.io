@@ -23,6 +23,7 @@
   <script src="../js/components-loader.js"></script>
   <script src="../js/blog-articles.js"></script>
   <script src="../js/blog-stats.js"></script>
+  <script src="../js/blog-article-ui.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -53,12 +54,14 @@
       <section id="blog-intro" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-4">
         <p class="text-sm font-bold text-indigo-600">👨‍🏫 Mr.Bill｜AI 系統思維筆記</p>
         <h2 class="text-2xl font-black text-slate-900">在開始之前，我想先讓你換一個看 AI 的方式</h2>
-        <p class="text-slate-700 leading-relaxed">
-          很多人學 AI Prompt，會卡在一個錯誤認知：<span class="font-bold text-slate-900">「我只要問得好，AI 就會答得好。」</span>
-        </p>
-        <p class="text-slate-700 leading-relaxed">
-          但在真正的應用裡，Prompt 不是問題，而是：<span class="font-bold text-indigo-900">輸出行為控制系統（Output Control System）</span>
-        </p>
+        <div class="blog-text-chunks">
+          <p class="text-slate-700 leading-relaxed">
+            很多人學 AI Prompt，會卡在一個錯誤認知：<span class="font-bold text-slate-900">「我只要問得好，AI 就會答得好。」</span>
+          </p>
+          <p class="text-slate-700 leading-relaxed">
+            但在真正的應用裡，Prompt 不是問題，而是：<span class="font-bold text-indigo-900">輸出行為控制系統（Output Control System）</span>
+          </p>
+        </div>
         <div class="rounded-2xl bg-indigo-50 border border-indigo-100 p-5">
           <p class="font-bold text-indigo-900">👉 AI 的本質：一個受約束的生成函數</p>
           <p class="text-sm text-slate-600 mt-2 font-mono">Output = f(Context, Role, Constraints, Examples, Evaluation)</p>
@@ -175,6 +178,8 @@ NOW WRITE:
         <p class="text-slate-700 leading-relaxed">當你從語言操作進化到系統設計，你操作的已經不是 AI，而是「輸出機制本身」。</p>
         <p class="text-sm text-slate-500">—— Mr.Bill AI 教學筆記</p>
       </section>
+
+      <div id="blog-article-author-slot"></div>
 
       <!-- CTA -->
       <section class="rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-violet-900 text-white text-center p-8 md:p-10 space-y-4">

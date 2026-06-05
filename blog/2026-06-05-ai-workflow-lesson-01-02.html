@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>文章｜MrBill AI Studio</title>
+  <meta name="description" content="" />
+  <link rel="canonical" href="" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="MrBill AI Studio" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../js/components-loader.js"></script>
+  <script src="../js/blog-articles.js"></script>
+  <script src="../js/blog-stats.js"></script>
+  <script src="../js/blog-article-ui.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Noto Sans TC"', 'sans-serif'] },
+          colors: { brand: { 50: '#f5f3ff', 100: '#ede9fe', 500: '#6366f1', 600: '#4f46e5' } }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/blog-layout.css" />
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .blog-pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-base overflow-x-hidden">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <main class="flex-grow w-full min-w-0">
+    <div id="blog-article-hero-slot"></div>
+
+    <div class="blog-shell px-4 lg:px-8 py-8 md:py-10 lg:py-12">
+      <div class="blog-layout">
+        <article class="blog-main blog-prose space-y-6 lg:space-y-7">
+
+      <!-- Intro -->
+      <section id="blog-intro" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-5">
+        <p class="text-sm font-bold text-indigo-600">👨‍🏫 AI 工作流實戰課｜跨領域通用版</p>
+        <h2 class="text-2xl font-black text-slate-900">先講清楚：這門課到底要解決什麼問題？</h2>
+        <div class="blog-text-chunks">
+          <p class="text-slate-700 leading-relaxed">很多人學 AI 的方式，是一直找更好的工具、更多 Prompt、更多範本。這當然有幫助，但只會停在「會使用工具」。</p>
+          <p class="text-slate-700 leading-relaxed">真正能提升工作效率的人，通常不是因為他會某一句神奇 Prompt，而是因為他知道自己的工作怎麼拆、怎麼判斷、怎麼檢查。</p>
+          <p class="text-slate-700 leading-relaxed">舉例來說，請 AI 做一張海報、整理一份教案、規劃一個網頁、挑一組照片，看起來是不同工作，但底層其實都一樣，請特別記住這四個關鍵詞：</p>
+        </div>
+
+        <div class="blog-pillar-grid pt-2">
+          <article class="blog-pillar-card">
+            <span class="blog-icon blog-icon--indigo blog-icon--num" aria-hidden="true">1</span>
+            <div class="blog-pillar-card__body">
+              <h3 class="blog-pillar-card__title">背景</h3>
+              <p class="blog-pillar-card__desc">AI 要先知道這件事的情境。</p>
+            </div>
+          </article>
+          <article class="blog-pillar-card">
+            <span class="blog-icon blog-icon--violet blog-icon--num" aria-hidden="true">2</span>
+            <div class="blog-pillar-card__body">
+              <h3 class="blog-pillar-card__title">規則</h3>
+              <p class="blog-pillar-card__desc">AI 要知道什麼可以做，什麼不能做。</p>
+            </div>
+          </article>
+          <article class="blog-pillar-card">
+            <span class="blog-icon blog-icon--cyan blog-icon--num" aria-hidden="true">3</span>
+            <div class="blog-pillar-card__body">
+              <h3 class="blog-pillar-card__title">流程</h3>
+              <p class="blog-pillar-card__desc">AI 要知道先做什麼、後做什麼。</p>
+            </div>
+          </article>
+          <article class="blog-pillar-card">
+            <span class="blog-icon blog-icon--amber blog-icon--num" aria-hidden="true">4</span>
+            <div class="blog-pillar-card__body">
+              <h3 class="blog-pillar-card__title">檢查</h3>
+              <p class="blog-pillar-card__desc">最後要知道怎樣才算完成。</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="font-bold text-slate-900 leading-relaxed">這門課的重點，就是把這四件事練熟，讓 AI 從「偶爾幫上忙」變成「能穩定加入工作流程」。</p>
+        <p class="text-slate-700 leading-relaxed">這份課程不是教你背 Prompt，而是教你把任何專業工作拆成：<span class="blog-note-key">背景</span>、<span class="blog-note-key">規則</span>、<span class="blog-note-key">流程</span>、<span class="blog-note-key">檢查</span>。只要懂這四件事，網站、攝影、設計、教學、行銷、管理都能套用。</p>
+      </section>
+
+      <!-- Prompt Example -->
+      <section id="prompt-example" class="scroll-mt-28 blog-dark-panel space-y-5">
+        <p class="blog-section-label" style="color:#7dd3fc">Prompt Example</p>
+        <h3>同樣是問 AI，差別不在句子長，而在資訊有沒有分層</h3>
+        <p>學生很容易以為 Prompt 是「寫得越長越厲害」。其實更重要的是把資訊放對位置。下面這組對照可以當成筆記範例。</p>
+        <div class="blog-compare-stack">
+          <div>
+            <p class="blog-compare-stack__label blog-compare-stack__label--weak">❌ 太模糊的問法</p>
+            <div class="blog-code-block">幫我做一份 AI 教學內容，讓學生看得懂。</div>
+          </div>
+          <p class="blog-compare-divider" aria-hidden="true">↓ 補上分層資訊之後</p>
+          <div>
+            <p class="blog-compare-stack__label blog-compare-stack__label--strong">✅ 有 Context 的問法</p>
+            <div class="blog-code-block blog-pre"># 任務
+請設計一段給初學者看的 AI 工作流教學。
+
+# 對象
+國小高年級到成人初學者，都能理解。
+
+# 目標
+讓學生知道 AI 不是只靠 Prompt，而是需要背景、規則、流程與檢查。
+
+# 限制
+不要用太多術語。
+每個觀念都要有生活案例。
+最後要有一個練習任務。
+
+# 輸出
+請用「觀念 → 案例 → 小結 → 練習」格式。</div>
+          </div>
+        </div>
+        <div class="blog-student-note" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);color:#e2e8f0">
+          <p class="font-bold text-sky-200 mb-2">學生筆記：</p>
+          <p>Prompt 不是咒語。好的 Prompt 是把 <span class="blog-note-key">任務</span>、<span class="blog-note-key">對象</span>、<span class="blog-note-key">目標</span>、<span class="blog-note-key">限制</span>、<span class="blog-note-key">輸出格式</span> 說清楚。</p>
+        </div>
+      </section>
+
+      <!-- Course Map -->
+      <section id="course-map" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-5">
+        <p class="blog-section-label">Course Map</p>
+        <h2 class="text-2xl font-black text-slate-900">課程結構：從會問 AI，到會設計 AI 工作流</h2>
+        <div class="blog-stack-block">
+          <article class="blog-phase-card">
+            <h3>第一階段：理解工作本質</h3>
+            <p class="text-slate-700 leading-relaxed mb-0">先釐清 AI 能幫什麼、不能幫什麼。重點不是工具，而是你怎麼定義工作。</p>
+          </article>
+          <article class="blog-phase-card">
+            <h3>第二階段：整理專業規則</h3>
+            <p class="text-slate-700 leading-relaxed mb-0">把你平常靠經驗做的判斷寫下來，變成 AI 可以遵守的規則。</p>
+          </article>
+          <article class="blog-phase-card">
+            <h3>第三階段：建立工作流程</h3>
+            <p class="text-slate-700 leading-relaxed mb-0">把任務拆成輸入、判斷、執行、檢查，讓 AI 參與其中一段或多段。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="lesson-1" class="blog-bridge scroll-mt-28">
+        <p class="blog-bridge__title">Lesson 01｜理解工作本質</p>
+        <p class="blog-bridge__desc">為什麼同樣用 AI，有人變快，有人只是多一個聊天視窗？</p>
+      </section>
+
+      <!-- Lesson 1 -->
+      <section class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="blog-lesson-band blog-lesson-band--slate">
+          <p class="blog-lesson-band__label">Lesson 01</p>
+          <h2>為什麼同樣用 AI，有人變快，有人只是多一個聊天視窗？</h2>
+          <p class="blog-lesson-band__lead">因為 AI 不是自動讓人變專業。它會放大你原本的判斷力、整理能力與流程能力。</p>
+        </div>
+
+        <h3 class="blog-subheading">1. AI 降低的是「執行門檻」，不是「判斷門檻」</h3>
+        <div class="blog-text-chunks">
+          <p class="text-slate-700 leading-relaxed">以前要完成一件事，很多時間花在執行。例如排版、寫初稿、整理表格、剪素材、做頁面。AI 出現後，這些事情可以變快。</p>
+          <p class="text-slate-700 leading-relaxed">但變快不代表變好。它可能很快寫出一篇文章，卻不一定知道這篇文章要給誰看；它可能很快產出一個網頁架構，卻不一定知道轉換邏輯；它可能很快幫你列出課程內容，卻不一定知道學生真正學不會的地方。</p>
+          <p class="text-slate-700 leading-relaxed">所以真正重要的是：你能不能判斷 AI 做出來的東西對不對。這就是為什麼專業人士用 AI 往往更快，因為他們知道哪裡要改、哪裡不能接受、哪裡只是看起來完整。</p>
+        </div>
+
+        <div class="blog-quote-band">
+          <h4>一句話記住</h4>
+          <p class="text-slate-700 leading-relaxed mb-0">AI 可以幫你加速，但方向感仍然來自人。沒有方向，速度越快，錯得也越快。</p>
+        </div>
+
+        <h3 class="blog-subheading">2. 用四個領域看懂這件事</h3>
+        <div class="blog-stack-block">
+          <section class="blog-domain-card">
+            <h4>網站企劃</h4>
+            <p class="text-slate-700 leading-relaxed">新手可能會叫 AI：「幫我做一個活動頁。」AI 會給出標題、特色、CTA，看起來完整。但有經驗的人會先判斷：這頁的目標是報名、導購、留名單，還是 SEO？文案是否已定稿？首屏要傳達什麼？CTA 要出現幾次？手機版閱讀順序是否合理？</p>
+            <p class="text-slate-700 leading-relaxed mb-0">差別不在會不會用 AI，而在於是否知道頁面背後的商業目的與使用者行為。</p>
+          </section>
+          <section class="blog-domain-card">
+            <h4>攝影與修圖</h4>
+            <p class="text-slate-700 leading-relaxed">AI 可以協助篩照片、整理風格、建立修圖方向。但如果你沒有告訴它什麼照片要保留，它可能只會挑清楚、明亮、構圖正常的照片。</p>
+            <p class="text-slate-700 leading-relaxed mb-0">可是專業攝影師知道，有些照片雖然不是最完美，但情緒最重要。例如父母掉淚、新人回頭笑、孩子自然奔跑。這些判斷不是工具能自動理解的。</p>
+          </section>
+          <section class="blog-domain-card">
+            <h4>教學</h4>
+            <p class="text-slate-700 leading-relaxed">AI 可以快速產生講義，但好的教學不是把資料列完。老師要判斷學生在哪裡會卡住、先用生活例子還是先講概念、練習題要簡單還是有挑戰。</p>
+            <p class="text-slate-700 leading-relaxed mb-0">如果沒有教學判斷，AI 產出的教材可能很完整，卻不好學。</p>
+          </section>
+          <section class="blog-domain-card">
+            <h4>企業管理</h4>
+            <p class="text-slate-700 leading-relaxed">AI 可以幫忙整理會議、寫 SOP、分析客服問題。但管理者仍然要判斷哪些問題值得自動化、哪些問題需要人處理、哪些流程其實不應該被加速。</p>
+            <p class="text-slate-700 leading-relaxed mb-0">沒有管理判斷的 AI 導入，很容易變成多一堆工具，卻沒有真正改善流程。</p>
+          </section>
+        </div>
+
+        <h3 class="blog-subheading">3. 第一堂課要建立的觀念</h3>
+        <p class="text-slate-700 leading-relaxed">從今天開始，不要只問：「我要怎麼下 Prompt？」請改問：「這件工作真正需要哪些判斷？哪些可以交給 AI？哪些必須由我決定？」</p>
+        <p class="text-slate-700 leading-relaxed">這個問題會讓你從 AI 使用者，慢慢變成 AI 工作流設計者。</p>
+
+        <div class="blog-callout space-y-4">
+          <h4 class="text-lg font-black text-slate-900">把這個觀念轉成 Prompt 詞：先問「角色分工」</h4>
+          <p class="text-slate-700 leading-relaxed mb-0">這裡不是要學生背模板，而是學會把工作拆清楚。以下是一個跨領域都能用的問法：</p>
+          <div class="blog-code-block blog-pre">請先不要直接執行。
+
+請幫我拆解這項任務：
+【在這裡填入你的工作，例如：設計一堂課、整理活動頁、規劃攝影挑片流程】
+
+請分成三欄：
+1. AI 可以協助加速的部分
+2. 必須由人類判斷的部分
+3. 最後需要人工檢查的部分
+
+請用表格呈現，並說明原因。</div>
+          <div class="blog-student-note">
+            <p class="font-bold mb-2">學生筆記：</p>
+            <p class="mb-0">真正的 AI 工作流，不是把整件事丟給 AI，而是先分清楚 <span class="blog-note-key">AI 做什麼</span>、<span class="blog-note-key">人判斷什麼</span>、<span class="blog-note-key">最後檢查什麼</span>。</p>
+          </div>
+        </div>
+
+        <div class="blog-exercise">
+          <h4>課後練習</h4>
+          <p class="text-slate-700 leading-relaxed">選一件你熟悉的工作，寫下三欄：</p>
+          <ul class="blog-rule-list">
+            <li>AI 可以幫我加速的部分</li>
+            <li>我必須自己判斷的部分</li>
+            <li>AI 做完後我會檢查的部分</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="lesson-2" class="blog-bridge scroll-mt-28">
+        <p class="blog-bridge__title">Lesson 02｜Context Engineering</p>
+        <p class="blog-bridge__desc">不是多給資料，而是給對資料。</p>
+      </section>
+
+      <!-- Lesson 2 -->
+      <section class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="blog-lesson-band blog-lesson-band--sky">
+          <p class="blog-lesson-band__label">Lesson 02</p>
+          <h2>Context Engineering：不是多給資料，而是給對資料</h2>
+          <p class="blog-lesson-band__lead">AI 做不好，常常不是能力不足，而是它不知道工作背景、限制、範例與判斷標準。</p>
+        </div>
+
+        <h3 class="blog-subheading">1. 什麼是 Context？</h3>
+        <div class="blog-text-chunks">
+          <p class="text-slate-700 leading-relaxed">Context 可以簡單理解成：AI 在開始工作前，需要知道的背景。但真正要用得好，不能只把資料全部丟給 AI，而是要整理成有層次的資訊。</p>
+          <p class="text-slate-700 leading-relaxed">就像你帶新人做事，不會只丟一堆檔案給他，然後說「你自己看」。你會告訴他：這次目標是什麼、客戶是誰、哪些地方不能改、以前怎麼做、完成後怎麼檢查。AI 也是一樣。</p>
+        </div>
+
+        <h3 class="blog-subheading">2. 五層 Context 模型</h3>
+        <div class="blog-stack-block">
+          <div class="blog-layer-card">
+            <h4>第一層：任務</h4>
+            <p class="text-slate-700 leading-relaxed">你要 AI 做什麼？例如寫文案、整理資料、產網頁、做教案、挑照片。</p>
+            <p>任務要清楚，但只給任務通常不夠。</p>
+          </div>
+          <div class="blog-layer-card">
+            <h4>第二層：情境</h4>
+            <p class="text-slate-700 leading-relaxed">這件事發生在什麼領域？對象是誰？目的是什麼？</p>
+            <p>同樣是「寫文案」，招生、電商、公益、企業內訓，寫法完全不同。</p>
+          </div>
+          <div class="blog-layer-card">
+            <h4>第三層：限制</h4>
+            <p class="text-slate-700 leading-relaxed">哪些不能改？哪些格式要遵守？哪些風格不能出現？</p>
+            <p>例如文案不能變更、品牌色不能亂用、學生程度不能超標、客服不能承諾未確認事項。</p>
+          </div>
+          <div class="blog-layer-card">
+            <h4>第四層：範例</h4>
+            <p class="text-slate-700 leading-relaxed">什麼是你認為好的結果？給 AI 好範例，比抽象形容更有效。</p>
+            <p>不要只說「自然一點」，而是提供你認為自然的文字或作品。</p>
+          </div>
+          <div class="blog-layer-card">
+            <h4>第五層：判斷標準</h4>
+            <p class="text-slate-700 leading-relaxed">完成後你會怎麼判斷好不好？這一層最重要，也最常被忽略。</p>
+            <p>如果沒有判斷標準，AI 只會產出「看起來完成」的東西。</p>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-indigo-50 border border-indigo-100 p-5 md:p-6 space-y-4">
+          <h4 class="text-lg font-black text-slate-900">Context Prompt 詞範例：讓 AI 先幫你補缺口</h4>
+          <p class="text-slate-700 leading-relaxed mb-0">當你不知道該給 AI 什麼背景時，可以先用這段問法。它的目的不是產出成品，而是幫你找出缺少的 Context。</p>
+          <div class="blog-code-block blog-pre">我準備讓 AI 協助完成以下任務：
+【填入任務】
+
+請先幫我檢查：
+1. 你還需要知道哪些背景資訊？
+2. 哪些限制條件必須先確認？
+3. 需要我提供哪些範例？
+4. 完成後應該用哪些標準檢查？
+5. 如果資料不足，最容易出錯的地方是什麼？
+
+請先提問，不要直接執行。</div>
+          <div class="blog-student-note">
+            <p class="font-bold mb-2">學生筆記：</p>
+            <p class="mb-0">當任務複雜時，不要急著叫 AI 做。先讓 AI 幫你盤點 <span class="blog-note-key">缺少的背景</span>、<span class="blog-note-key">限制條件</span>、<span class="blog-note-key">檢查標準</span>。</p>
+          </div>
+        </div>
+
+        <h3 class="blog-subheading">3. 同一套模型，如何用在不同領域？</h3>
+        <div class="blog-table-wrap">
+          <table class="blog-data-table">
+            <thead>
+              <tr>
+                <th>領域</th>
+                <th>任務</th>
+                <th>情境</th>
+                <th>限制</th>
+                <th>判斷標準</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-bold">網站</td>
+                <td>做活動頁</td>
+                <td>招生、轉換、SEO</td>
+                <td>文案不可改、RWD、既有版型</td>
+                <td>是否清楚、可讀、可轉換</td>
+              </tr>
+              <tr>
+                <td class="font-bold">攝影</td>
+                <td>挑照片</td>
+                <td>婚禮、親子、活動</td>
+                <td>交付張數、風格、淘汰條件</td>
+                <td>情緒、完整性、代表性</td>
+              </tr>
+              <tr>
+                <td class="font-bold">教學</td>
+                <td>設計課程</td>
+                <td>年齡、程度、時間</td>
+                <td>不能超出程度、需有練習</td>
+                <td>學生是否能理解與輸出</td>
+              </tr>
+              <tr>
+                <td class="font-bold">行銷</td>
+                <td>寫廣告素材</td>
+                <td>受眾、產品、投放平台</td>
+                <td>不能誇大、不能違規</td>
+                <td>是否吸引正確的人行動</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="blog-exercise">
+          <h4>課後練習</h4>
+          <p class="text-slate-700 leading-relaxed">請選一件工作，填寫五層 Context：</p>
+          <ol class="blog-ordered-list">
+            <li>任務：我要 AI 做什麼？</li>
+            <li>情境：這件事的對象、目的、場景是什麼？</li>
+            <li>限制：哪些不能改？哪些必須遵守？</li>
+            <li>範例：有沒有好的參考？</li>
+            <li>判斷標準：怎樣才算做得好？</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="lesson-3" class="blog-bridge scroll-mt-28">
+        <p class="blog-bridge__title">Lesson 03｜Rules Design</p>
+        <p class="blog-bridge__desc">把經驗變成規則，AI 才能學會你的工作方式。</p>
+      </section>
+
+      <!-- Lesson 3 -->
+      <section class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="blog-lesson-band blog-lesson-band--slate">
+          <p class="blog-lesson-band__label">Lesson 03</p>
+          <h2>把經驗變成規則：AI 才能學會你的工作方式</h2>
+          <p class="blog-lesson-band__lead">專業最值錢的地方，通常不是操作，而是判斷。要讓 AI 幫你工作，就要先把判斷寫出來。</p>
+        </div>
+
+        <h3 class="blog-subheading">1. 什麼是規則？</h3>
+        <p class="text-slate-700 leading-relaxed">規則不是長篇 SOP，也不是空泛原則。規則是你做決策時會用到的判斷句。</p>
+        <p class="text-slate-700 leading-relaxed">例如：「如果文案已經核定，就不能改文字，只能調整呈現方式。」這就是規則。它清楚、可執行、能避免 AI 亂做。</p>
+
+        <h3 class="blog-subheading">2. 規則要寫到什麼程度？</h3>
+        <div class="blog-compare-stack">
+          <div class="rounded-2xl bg-red-50 border border-red-100 p-5 md:p-6">
+            <h4 class="text-lg font-black text-slate-900 mb-3">不好的寫法</h4>
+            <ul class="blog-rule-list">
+              <li>做得專業一點</li>
+              <li>不要太 AI</li>
+              <li>版面要好看</li>
+              <li>教得清楚一點</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl bg-emerald-50 border border-emerald-100 p-5 md:p-6">
+            <h4 class="text-lg font-black text-slate-900 mb-3">比較好的寫法</h4>
+            <ul class="blog-rule-list">
+              <li>主標必須在 3 秒內讓人知道主題</li>
+              <li>已核定文案不可改字，只能調整區塊順序</li>
+              <li>每個新概念要先有生活例子，再進入抽象說明</li>
+              <li>同一場景照片只保留表情與情緒最完整的一張</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="blog-subheading">3. 四種挖規則的方法</h3>
+        <div class="blog-stack-block">
+          <section class="blog-domain-card">
+            <h4>方法一：回頭看自己做過的作品</h4>
+            <p class="text-slate-700 leading-relaxed mb-0">選一個你覺得做得好的成果，問自己：我當時做了哪些判斷？為什麼這樣排？為什麼這樣挑？為什麼這樣教？</p>
+          </section>
+          <section class="blog-domain-card">
+            <h4>方法二：分析你覺得不好的作品</h4>
+            <p class="text-slate-700 leading-relaxed mb-0">壞案例很好用。你覺得哪裡怪，就把原因寫出來。這些原因通常就是規則。</p>
+          </section>
+          <section class="blog-domain-card">
+            <h4>方法三：比較兩個版本</h4>
+            <p class="text-slate-700 leading-relaxed mb-0">把 A 版和 B 版放在一起，問自己：為什麼 A 比 B 好？差異在哪裡？是順序、語氣、畫面、資訊層級，還是行動誘因？</p>
+          </section>
+          <section class="blog-domain-card">
+            <h4>方法四：假裝你要教新人</h4>
+            <p class="text-slate-700 leading-relaxed mb-0">你會提醒新人什麼？那些提醒就是你的規則。例如不要亂改核定文案、不要一開始就做視覺、先確認目標再動手。</p>
+          </section>
+        </div>
+
+        <h3 class="blog-subheading">4. 建立第一份 Rule Library</h3>
+        <p class="text-slate-700 leading-relaxed">規則庫可以先分成五類，不需要一次完美。</p>
+        <div class="blog-rule-lib-grid">
+          <div class="blog-rule-lib-item">
+            <h4>核心原則</h4>
+            <p>這件工作最重要的價值是什麼？</p>
+          </div>
+          <div class="blog-rule-lib-item">
+            <h4>執行規範</h4>
+            <p>格式、命名、結構、流程怎麼做？</p>
+          </div>
+          <div class="blog-rule-lib-item">
+            <h4>禁止事項</h4>
+            <p>AI 絕對不能做什麼？</p>
+          </div>
+          <div class="blog-rule-lib-item">
+            <h4>判斷條件</h4>
+            <p>遇到什麼情況，要做什麼選擇？</p>
+          </div>
+          <div class="blog-rule-lib-item">
+            <h4>檢查標準</h4>
+            <p>完成後如何檢查是否合格？</p>
+          </div>
+        </div>
+
+        <div class="blog-callout space-y-4">
+          <h4 class="text-lg font-black text-slate-900">Rule Mining Prompt 詞：把經驗挖成規則</h4>
+          <p class="text-slate-700 leading-relaxed mb-0">如果學生不知道怎麼寫規則，可以先用這段 Prompt 讓 AI 反問自己，幫助把直覺拆出來。</p>
+          <div class="blog-code-block blog-pre">我想把自己的專業經驗整理成規則庫。
+
+我的領域是：
+【例如：設計、教學、攝影、網站企劃、行銷、管理】
+
+請用訪談方式問我 10 個問題，幫我挖出：
+1. 我平常一定會做的判斷
+2. 我會避免的錯誤
+3. 我判斷好壞的標準
+4. 我會提醒新人的注意事項
+5. 遇到不同情境時的取捨邏輯
+
+請一次只問一題，等我回答後再問下一題。</div>
+          <div class="blog-student-note">
+            <p class="font-bold mb-2">學生筆記：</p>
+            <p class="mb-0">規則不是一次寫完的，而是透過 <span class="blog-note-key">回顧作品</span>、<span class="blog-note-key">分析錯誤</span>、<span class="blog-note-key">比較版本</span>、<span class="blog-note-key">教新人</span> 慢慢挖出來。</p>
+          </div>
+        </div>
+
+        <div class="blog-exercise">
+          <h4>課後練習</h4>
+          <p class="text-slate-700 leading-relaxed">請建立一份 30 條規則的小型規則庫：</p>
+          <ul class="blog-rule-list">
+            <li>10 條一定要做的規則</li>
+            <li>10 條絕對不能做的規則</li>
+            <li>5 條遇到某情況時的判斷規則</li>
+            <li>5 條完成後的檢查規則</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Summary -->
+      <section id="blog-summary" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-5">
+        <h2 class="text-2xl font-black text-slate-900">本頁學生必抄重點</h2>
+        <div class="blog-summary-stack">
+          <div class="blog-point-card">
+            <p class="font-black text-lg mb-2">重點 1</p>
+            <p class="text-slate-700 leading-relaxed mb-0">AI 不是自動取代專業，而是放大使用者原本的判斷力。</p>
+          </div>
+          <div class="blog-point-card">
+            <p class="font-black text-lg mb-2">重點 2</p>
+            <p class="text-slate-700 leading-relaxed mb-0">好的 Prompt 不是長，而是把任務、情境、限制、範例、判斷標準說清楚。</p>
+          </div>
+          <div class="blog-point-card">
+            <p class="font-black text-lg mb-2">重點 3</p>
+            <p class="text-slate-700 leading-relaxed mb-0">複雜任務不要急著執行，先請 AI 反問你缺少哪些 Context。</p>
+          </div>
+          <div class="blog-point-card">
+            <p class="font-black text-lg mb-2">重點 4</p>
+            <p class="text-slate-700 leading-relaxed mb-0">規則庫是把經驗變成系統的第一步，也是未來自動化與 Agent 化的基礎。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Next -->
+      <section id="next-lesson" class="scroll-mt-28 blog-next-band space-y-4">
+        <p class="blog-lesson-band__label">Next</p>
+        <h2>下一步：把 Context 與 Rules 變成 Workflow</h2>
+        <p class="text-slate-300 leading-relaxed">下一階段會把你整理好的背景與規則，轉換成真正的工作流程：輸入 → 判斷 → 執行 → 檢查 → 修正。</p>
+        <div class="rounded-2xl bg-white/10 border border-white/10 p-5 mt-2">
+          <h3 class="text-lg font-black text-white mb-3">你會開始學到</h3>
+          <ul class="blog-next-list">
+            <li>如何判斷哪些工作適合 AI</li>
+            <li>如何把任務拆成可執行步驟</li>
+            <li>如何讓 AI 只負責該負責的部分</li>
+            <li>如何設計檢查表避免 AI 亂做</li>
+          </ul>
+        </div>
+      </section>
+
+      <div id="blog-article-author-slot"></div>
+
+      <section class="rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-violet-900 text-white text-center p-8 md:p-10 space-y-4">
+        <h2 class="text-2xl font-black">想繼續學 AI 工作流？</h2>
+        <p class="text-indigo-200 max-w-lg mx-auto leading-relaxed">回到文章列表看更多內容，或到 AI 學習地圖系統化練習。</p>
+        <div class="flex flex-wrap justify-center gap-3 pt-2">
+          <a href="index.html" class="inline-flex px-6 py-3 rounded-full bg-white text-slate-900 font-bold no-underline hover:bg-indigo-50 transition-colors">更多文章</a>
+          <a href="../ai-learning-map.html" class="inline-flex px-6 py-3 rounded-full bg-white/10 border border-white/30 text-white font-bold no-underline hover:bg-white/20 transition-colors">AI 學習地圖</a>
+        </div>
+      </section>
+
+      <p class="text-center">
+        <a href="index.html" class="text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800">← 返回文章分享</a>
+      </p>
+        </article>
+
+        <div id="blog-article-rail-slot"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
+
+  <script>
+    function fixNavPathsFromSubdir() {
+      var header = document.getElementById('global-header');
+      var footer = document.getElementById('global-footer');
+      [header, footer].forEach(function(root) {
+        if (!root) return;
+        root.querySelectorAll('a[href]').forEach(function(a) {
+          var h = a.getAttribute('href');
+          if (!h || /^https?:\/\//.test(h) || h.startsWith('#') || h.startsWith('../') || h.startsWith('/')) return;
+          if (h.startsWith('./')) a.setAttribute('href', '..' + h.slice(1));
+          else a.setAttribute('href', '../' + h);
+        });
+      });
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      includeComponentSlot('global-header', '../components/header.html', null, fixNavPathsFromSubdir);
+      includeComponentSlot('global-footer', '../components/footer.html', null, fixNavPathsFromSubdir);
+      initBlogArticlePage();
+    });
+  </script>
+</body>
+</html>

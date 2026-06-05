@@ -16,6 +16,20 @@ const BLOG_INDEX = {
 
 const BLOG_ARTICLES = [
   {
+    slug: "2026-06-05-ai-workflow-lesson-01-02",
+    title: "AI 工作流實戰課｜跨領域通用版",
+    subtitle: "AI 不是拿來聊天，是拿來重整工作方式。",
+    excerpt:
+      "用跨領域方式學會 Context、Rules、Workflow，建立可以實際工作的 AI 系統。",
+    category: "AI學習地圖",
+    author: "Mr.Bill",
+    date: "2026-06-05",
+    readMins: 38,
+    tags: ["AI 工作流", "Context", "Rules", "Workflow"],
+    cover: "assets/blog-2026-06-05-ai-workflow-og.jpg",
+    relatedSlugs: ["2026-05-31-ai-prompt-six-levels"]
+  },
+  {
     slug: "2026-05-31-ai-prompt-six-levels",
     title: "99% 的人都在錯用 AI Prompt",
     subtitle: "從一句話輸入，到企業級 AI 系統設計，建立你的真正 AI 思維架構",
@@ -26,7 +40,7 @@ const BLOG_ARTICLES = [
     readMins: 4,
     tags: ["Prompt", "AI 思維", "工作流"],
     cover: "assets/blog-2026-05-31-ai-prompt-og.jpg",
-    relatedSlugs: []
+    relatedSlugs: ["2026-06-05-ai-workflow-lesson-01-02"]
   }
 ];
 
@@ -265,6 +279,9 @@ function initBlogArticlePage(slug) {
     renderBlogArticleRail("blog-article-rail", slug);
     if (typeof window.initBlogStats === "function") {
       window.initBlogStats();
+    }
+    if (typeof window.initBlogArticleUI === "function") {
+      window.initBlogArticleUI();
     }
   });
 }
