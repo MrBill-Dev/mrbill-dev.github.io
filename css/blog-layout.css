@@ -380,7 +380,9 @@
 
 .blog-level-card--split {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem;
+  width: 100%;
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
@@ -399,9 +401,62 @@
   height: auto;
 }
 
-.blog-level-body h3 {
+.blog-level-list {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.blog-level-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  text-wrap: wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.blog-level-heading__zh {
+  display: block;
+  max-width: 100%;
+}
+
+.blog-level-heading__en {
+  display: block;
+  max-width: 100%;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #64748b;
+}
+
+.blog-level-heading__en::before {
+  content: "（";
+}
+
+.blog-level-heading__en::after {
+  content: "）";
+}
+
+.blog-level-card--split.bg-slate-900 .blog-level-heading__en {
+  color: #94a3b8;
+}
+
+.blog-level-body h3,
+.blog-level-heading {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-wrap: wrap;
+}
+
+.blog-level-body p {
   overflow-wrap: break-word;
   word-break: break-word;
+  max-width: 100%;
 }
 
 .blog-main.blog-prose pre,
@@ -409,12 +464,12 @@
   display: block;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   word-break: break-word;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: clip;
 }
 
 .blog-main.blog-prose .font-mono,
@@ -1682,13 +1737,21 @@
     line-height: 1.85;
   }
 
+  .blog-main.blog-prose > section.blog-level-list {
+    padding: 0;
+  }
+
   .blog-level-card--split {
     padding: 1.125rem 1rem !important;
   }
 
-  .blog-level-body h3 {
+  .blog-level-heading {
     font-size: 1.0625rem;
     line-height: 1.45;
+  }
+
+  .blog-level-heading__en {
+    font-size: 0.75rem;
   }
 
   .blog-main.blog-prose blockquote {
@@ -1698,9 +1761,21 @@
     word-break: break-word;
   }
 
-  .blog-main.blog-prose > section.space-y-6 {
-    min-width: 0;
-    max-width: 100%;
+  .blog-level-list {
+    overflow-x: clip;
+  }
+}
+
+@media (min-width: 768px) {
+  .blog-level-heading {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0;
+  }
+
+  .blog-level-heading__en {
+    font-size: 0.875rem;
   }
 }
 
