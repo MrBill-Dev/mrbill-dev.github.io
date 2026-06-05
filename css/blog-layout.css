@@ -234,7 +234,7 @@
 /* lg：加寬中欄 + 右欄資訊 */
 @media (min-width: 1024px) {
   .blog-layout {
-    grid-template-columns: minmax(0, 1fr) 13.5rem;
+    grid-template-columns: minmax(0, 1fr) 15.5rem;
   }
 
   .blog-main {
@@ -290,6 +290,16 @@
   text-transform: uppercase;
   color: #64748b;
   margin-bottom: 0.75rem;
+}
+
+.blog-rail-meta {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: #64748b;
+}
+
+.blog-rail-meta__line {
+  display: block;
 }
 
 .blog-toc a {

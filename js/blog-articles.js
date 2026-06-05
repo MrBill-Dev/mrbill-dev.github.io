@@ -494,10 +494,13 @@ function renderBlogArticleRail(mountId, slug) {
     '<p class="text-sm font-bold text-slate-800">' +
     article.category +
     "</p>" +
-    '<p class="text-xs text-slate-500 mt-1">' +
+    '<p class="blog-rail-meta mt-1">' +
+    '<span class="blog-rail-meta__line">' +
     article.date +
-    " · " +
+    "</span>" +
+    '<span class="blog-rail-meta__line">' +
     formatReadDuration(article.readMins) +
+    "</span>" +
     "</p>" +
     (article.tags && article.tags.length
       ? '<div class="mt-2 flex flex-wrap gap-1">' +
