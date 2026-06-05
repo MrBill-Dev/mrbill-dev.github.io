@@ -206,6 +206,7 @@
   margin-left: auto;
   margin-right: auto;
   width: 100%;
+  min-width: 0;
 }
 
 .blog-layout {
@@ -213,6 +214,8 @@
   gap: 1.75rem 2rem;
   align-items: start;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* 手機／平板：單欄，右側欄隱藏 */
@@ -590,9 +593,15 @@
   padding-bottom: 0;
 }
 
+.blog-pillar-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .blog-pillar-card__body {
   min-width: 0;
   flex: 1;
+  max-width: 100%;
 }
 
 .blog-pillar-card__label {
@@ -672,6 +681,10 @@
 }
 
 .blog-code-block {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   border-radius: 0.875rem;
   padding: 1rem 1.125rem;
   font-size: 0.875rem;
@@ -679,6 +692,9 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   background: #020617;
   color: #e2e8f0;
+  overflow-x: auto;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .blog-checklist {
@@ -940,6 +956,17 @@
   word-break: keep-all;
   overflow-wrap: break-word;
   text-wrap: pretty;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+.blog-main.blog-prose > section,
+.blog-main.blog-prose > .blog-dark-panel,
+.blog-main.blog-prose > #blog-article-author-slot {
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .blog-main.blog-prose h2,
@@ -1066,10 +1093,15 @@
 }
 
 .blog-dark-panel {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   border-radius: 1.5rem;
   padding: 1.5rem 1.625rem;
   background: #0f172a;
   color: #e2e8f0;
+  overflow-x: clip;
 }
 
 .blog-dark-panel h3 {
@@ -1135,6 +1167,9 @@
 }
 
 .blog-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   border-radius: 1.25rem;
@@ -1431,7 +1466,115 @@
 @media (max-width: 767px) {
   .blog-main.blog-prose > section:not(.blog-bridge),
   .blog-main.blog-prose > .blog-dark-panel {
-    padding: 1.25rem 1.125rem;
+    padding: 1.125rem 1rem;
+  }
+
+  .blog-main.blog-prose h2 {
+    font-size: 1.375rem;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+  }
+
+  .blog-note-key {
+    white-space: normal;
+  }
+
+  .blog-dark-panel {
+    padding: 1.125rem 1rem;
+    border-radius: 1.25rem;
+  }
+
+  .blog-dark-panel h3 {
+    font-size: 1.125rem;
+    line-height: 1.45;
+  }
+
+  .blog-code-block {
+    padding: 0.875rem 0.9375rem;
+    font-size: 0.8125rem;
+  }
+
+  .blog-pillar-card {
+    gap: 0.75rem;
+    padding: 0.875rem 0;
+  }
+
+  .blog-compare-card,
+  .blog-domain-card,
+  .blog-layer-card,
+  .blog-callout,
+  .blog-student-note,
+  .blog-quote-band,
+  .blog-exercise,
+  .blog-lesson-band,
+  .blog-next-band,
+  .blog-point-card {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .blog-table-wrap {
+    overflow-x: visible;
+    border: none;
+    margin: 1rem 0;
+    padding: 0;
+  }
+
+  .blog-data-table {
+    min-width: 0;
+    display: block;
+  }
+
+  .blog-data-table thead {
+    display: none;
+  }
+
+  .blog-data-table tbody {
+    display: block;
+  }
+
+  .blog-data-table tr {
+    display: block;
+    margin-bottom: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .blog-data-table tbody tr:nth-child(even) {
+    background: #fff;
+  }
+
+  .blog-data-table td {
+    display: block;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    white-space: normal;
+  }
+
+  .blog-data-table td:last-child {
+    border-bottom: none;
+    padding-bottom: 0.75rem;
+  }
+
+  .blog-data-table td:first-child {
+    background: #0f172a;
+    color: #fff;
+    font-weight: 800;
+    padding: 0.75rem 1rem;
+    border-bottom: none;
+  }
+
+  .blog-data-table td:not(:first-child)::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    margin-bottom: 0.25rem;
   }
 
   .blog-main.blog-prose {
