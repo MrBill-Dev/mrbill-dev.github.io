@@ -263,6 +263,9 @@ function initBlogArticlePage(slug) {
   loadBlogArticleShell(function () {
     renderBlogArticleHero(slug);
     renderBlogArticleRail("blog-article-rail", slug);
+    if (typeof window.initBlogStats === "function") {
+      window.initBlogStats();
+    }
   });
 }
 
