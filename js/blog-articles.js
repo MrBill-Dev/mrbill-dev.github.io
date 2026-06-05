@@ -104,8 +104,21 @@ function setDocumentMeta(name, content, attr) {
   if (!el.parentNode) document.head.appendChild(el);
 }
 
+function preloadBlogArticleCover(article) {
+  if (!article || !article.cover) return;
+  var href = blogAssetHref(article.cover);
+  if (!href || document.querySelector("link[data-blog-cover-preload]")) return;
+  var link = document.createElement("link");
+  link.rel = "preload";
+  link.as = "image";
+  link.href = href;
+  link.setAttribute("data-blog-cover-preload", "1");
+  document.head.appendChild(link);
+}
+
 function applyBlogArticleHead(article) {
   if (!article) return;
+  preloadBlogArticleCover(article);
   document.title = article.title + "｜" + BLOG_SITE_NAME;
   setDocumentMeta("description", article.excerpt);
   setDocumentMeta("og:type", "article", "property");
