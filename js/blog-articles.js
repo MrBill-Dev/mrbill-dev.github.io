@@ -471,6 +471,16 @@ function renderBlogArticleList(mountId, options) {
     .join("");
 }
 
+function blogRailLinkHtml(href, label) {
+  return (
+    '<a href="' +
+    href +
+    '" class="blog-rail-link">' +
+    escapeBlogHtml(label) +
+    "</a>"
+  );
+}
+
 function renderBlogArticleRail(mountId, slug) {
   var mount = document.getElementById(mountId || "blog-article-rail");
   if (!mount) return;
@@ -482,16 +492,11 @@ function renderBlogArticleRail(mountId, slug) {
     mount.innerHTML =
       '<div class="blog-rail-card space-y-4">' +
       '<div><p class="blog-rail-title">延伸</p>' +
+      '<div class="blog-rail-links">' +
       BLOG_SITE_LINKS.map(function (link) {
-        return (
-          '<a href="' +
-          blogPageHref(link.href) +
-          '" class="block text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800 py-1">' +
-          link.label +
-          "</a>"
-        );
+        return blogRailLinkHtml(blogPageHref(link.href), link.label);
       }).join("") +
-      "</div></div>";
+      "</div></div></div>";
     return;
   }
 
@@ -499,18 +504,14 @@ function renderBlogArticleRail(mountId, slug) {
   var related = getRelatedArticles(slug, 4);
 
   var relatedHtml = related.length
-    ? related
+    ? '<div class="blog-rail-links">' +
+      related
         .map(function (a) {
-          return (
-            '<a href="' +
-            blogArticleHref(a) +
-            '" class="block text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800 py-1 leading-snug">' +
-            a.title +
-            "</a>"
-          );
+          return blogRailLinkHtml(blogArticleHref(a), a.title);
         })
-        .join("")
-    : '<p class="text-xs text-slate-500">同系列文章陸續更新中。</p>';
+        .join("") +
+      "</div>"
+    : '<p class="blog-rail-empty">同系列文章陸續更新中。</p>';
 
   var siteLinks = BLOG_SITE_LINKS.slice();
   if (categoryLink) {
@@ -552,18 +553,13 @@ function renderBlogArticleRail(mountId, slug) {
     "</div>" +
     '<div>' +
     '<p class="blog-rail-title">延伸</p>' +
+    '<div class="blog-rail-links">' +
     siteLinks
       .map(function (link) {
-        return (
-          '<a href="' +
-          blogPageHref(link.href) +
-          '" class="block text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800 py-1">' +
-          link.label +
-          "</a>"
-        );
+        return blogRailLinkHtml(blogPageHref(link.href), link.label);
       })
       .join("") +
-    "</div>" +
+    "</div></div>" +
     "</div>";
 }
 

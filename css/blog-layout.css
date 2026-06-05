@@ -234,7 +234,7 @@
 /* lg：加寬中欄 + 右欄資訊 */
 @media (min-width: 1024px) {
   .blog-layout {
-    grid-template-columns: minmax(0, 1fr) 15.5rem;
+    grid-template-columns: minmax(0, 1fr) 16.75rem;
   }
 
   .blog-main {
@@ -300,6 +300,61 @@
 
 .blog-rail-meta__line {
   display: block;
+}
+
+/* 右欄連結：窄欄中文減少單字孤行 */
+.blog-rail-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.blog-rail-link {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.55;
+  color: #4f46e5;
+  text-decoration: none;
+  padding: 0.3rem 0;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+  hanging-punctuation: allow-end;
+}
+
+.blog-rail-link:hover {
+  color: #3730a3;
+}
+
+@supports (text-wrap: balance) {
+  .blog-rail-link {
+    text-wrap: balance;
+    max-width: 16.75rem;
+  }
+}
+
+.blog-rail-empty {
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: #64748b;
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+
+.blog-rail-card .blog-rail-links + .blog-rail-links {
+  margin-top: 0;
+}
+
+.blog-rail-card .mt-2.flex.flex-wrap.gap-1 span {
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+.blog-rail-card > div > .text-sm.font-bold.text-slate-800 {
+  word-break: keep-all;
+  text-wrap: pretty;
+  line-height: 1.5;
 }
 
 .blog-toc a {
