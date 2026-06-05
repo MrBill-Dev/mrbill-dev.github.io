@@ -12,14 +12,12 @@
   <style>
     html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
-    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-base overflow-x-hidden">
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <main class="flex-grow w-full min-w-0 fade-in-up">
+  <main class="flex-grow w-full min-w-0">
     <section class="blog-hero w-full text-white">
       <div class="blog-hero__media" aria-hidden="true">
         <img id="blog-index-hero-cover" src="" alt="" class="blog-hero__img" loading="lazy" />

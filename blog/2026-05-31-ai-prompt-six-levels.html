@@ -36,8 +36,6 @@
   <style>
     html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
-    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     .blog-pre { white-space: pre-wrap; word-break: break-word; }
   </style>
 </head>
@@ -75,9 +73,9 @@
       </div>
     </section>
 
-    <div class="blog-shell px-4 lg:px-8 py-10 md:py-14 fade-in-up">
+    <div class="blog-shell px-4 lg:px-8 py-8 md:py-10 lg:py-12">
       <div class="blog-layout">
-        <article class="blog-main space-y-8">
+        <article class="blog-main blog-prose space-y-6 lg:space-y-7">
       <!-- Intro -->
       <section id="blog-intro" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-4">
         <p class="text-sm font-bold text-indigo-600">👨‍🏫 Mr.Bill｜AI 系統思維筆記</p>
@@ -96,9 +94,9 @@
       </section>
 
       <!-- Transition -->
-      <section id="blog-levels" class="scroll-mt-28 text-center py-1">
-        <p class="text-lg font-bold text-slate-900">接下來，用 6 個層級看懂 Prompt 的進化</p>
-        <p class="text-slate-500 mt-2 text-sm">每一層代表你對 AI 控制能力的不同階段</p>
+      <section id="blog-levels" class="blog-bridge scroll-mt-28">
+        <p class="blog-bridge__title">接下來，用 6 個層級看懂 Prompt 的進化</p>
+        <p class="blog-bridge__desc">每一層代表你對 AI 控制能力的不同階段</p>
       </section>
 
       <!-- Levels -->

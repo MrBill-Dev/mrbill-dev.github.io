@@ -211,14 +211,12 @@ function renderBlogIndexHero() {
   if (tag) tag.textContent = BLOG_INDEX.tag;
 
   var coverEl = document.getElementById("blog-index-hero-cover");
-  if (!coverEl) return;
-
   var coverPath = BLOG_INDEX.heroCover;
   if (!coverPath) {
     var latest = getLatestBlogArticle();
     coverPath = latest ? latest.cover : "";
   }
-  if (coverPath) {
+  if (coverEl && coverPath) {
     coverEl.src = blogAssetHref(coverPath);
     coverEl.alt = BLOG_INDEX.title;
   }
