@@ -438,7 +438,7 @@
     window.addEventListener('DOMContentLoaded', function() {
       includeComponentSlot('global-header', 'components/header.html');
       includeComponentSlot('global-footer', 'components/footer.html');
-      renderBlogArticleList();
+      renderBlogArticleList("blog-article-list", { category: "AI學習地圖", limit: 6 });
       var coursePromptModal = document.getElementById('course-prompt-modal');
       if (coursePromptModal) {
         coursePromptModal.addEventListener('click', function(e) {

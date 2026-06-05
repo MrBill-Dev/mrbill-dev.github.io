@@ -21,6 +21,7 @@
   <meta name="twitter:image" content="https://mrbill-dev.github.io/assets/blog-2026-05-31-ai-prompt-og.jpg" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../js/components-loader.js"></script>
+  <script src="../js/blog-articles.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -67,7 +68,7 @@
           <h1 class="blog-hero__title">99% 的人都在錯用 AI Prompt</h1>
           <p class="blog-hero__subtitle">從一句話輸入，到企業級 AI 系統設計，建立你的真正 AI 思維架構</p>
           <p class="blog-hero__meta">
-            Mr.Bill · 2026-05-31 · 約 12 分鐘
+            Mr.Bill · 2026-05-31 · <span id="blog-hero-read-time">預估閱讀 4 分鐘</span>
             <span class="blog-hero__views" id="busuanzi_container_page_pv" aria-label="全站累計，每次瀏覽都計入">
               · 瀏覽 <span id="busuanzi_value_page_pv">…</span> 次
             </span>
@@ -78,23 +79,6 @@
 
     <div class="blog-shell px-4 lg:px-8 py-10 md:py-14 fade-in-up">
       <div class="blog-layout">
-        <aside class="blog-rail blog-rail--left" aria-label="章節目錄">
-          <div class="blog-rail-card">
-            <p class="blog-rail-title">本章目錄</p>
-            <nav class="blog-toc space-y-0.5">
-              <a href="#blog-intro">前言</a>
-              <a href="#blog-levels">六層級</a>
-              <a href="#level-1">Level 1 語意輸入</a>
-              <a href="#level-2">Level 2 約束注入</a>
-              <a href="#level-3">Level 3 角色建模</a>
-              <a href="#level-4">Level 4 業界標準</a>
-              <a href="#level-5">Level 5 示例對齊</a>
-              <a href="#level-6">Level 6 系統設計</a>
-              <a href="#blog-summary">總結</a>
-            </nav>
-          </div>
-        </aside>
-
         <article class="blog-main space-y-8">
       <!-- Intro -->
       <section id="blog-intro" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-4">
@@ -239,19 +223,7 @@ NOW WRITE:
         </article>
 
         <aside class="blog-rail blog-rail--right" aria-label="文章資訊">
-          <div class="blog-rail-card space-y-4">
-            <div>
-              <p class="blog-rail-title">文章資訊</p>
-              <p class="text-sm font-bold text-slate-800">文章分享</p>
-              <p class="text-xs text-slate-500 mt-1">2026-05-31 · AI學習地圖</p>
-            </div>
-            <div>
-              <p class="blog-rail-title">延伸</p>
-              <a href="index.html" class="block text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800 py-1">文章列表</a>
-              <a href="../ai-learning-map.html" class="block text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800 py-1">AI 學習地圖</a>
-              <a href="../ai-practice.html" class="block text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800 py-1">互動練習</a>
-            </div>
-          </div>
+          <div id="blog-article-rail"></div>
         </aside>
       </div>
     </div>
@@ -276,6 +248,8 @@ NOW WRITE:
     window.addEventListener('DOMContentLoaded', function() {
       includeComponentSlot('global-header', '../components/header.html', null, fixNavPathsFromSubdir);
       includeComponentSlot('global-footer', '../components/footer.html', null, fixNavPathsFromSubdir);
+      renderBlogHeroReadTime('blog-hero-read-time');
+      renderBlogArticleRail('blog-article-rail');
     });
   </script>
   <script src="/js/blog-stats.js"></script>

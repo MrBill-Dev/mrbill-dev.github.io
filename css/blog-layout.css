@@ -186,7 +186,7 @@
   }
 }
 
-/* 專題文章版型：寬螢幕側欄 + 中欄內文（grid-column 固定欄位，避免 display:none 跑版） */
+/* 專題文章版型：中欄內文 + 右側資訊（左側章節目錄／文章選單日後另開 .blog-layout--with-nav） */
 
 .blog-shell {
   max-width: 80rem;
@@ -202,8 +202,12 @@
   width: 100%;
 }
 
-/* 手機／平板：單欄，側欄隱藏 */
+/* 手機／平板：單欄，右側欄隱藏 */
 .blog-rail {
+  display: none;
+}
+
+.blog-rail--left {
   display: none;
 }
 
@@ -214,7 +218,7 @@
   max-width: none;
 }
 
-/* lg：內文 + 右欄 */
+/* lg：加寬中欄 + 右欄資訊 */
 @media (min-width: 1024px) {
   .blog-layout {
     grid-template-columns: minmax(0, 1fr) 13.5rem;
@@ -234,13 +238,13 @@
   }
 }
 
-/* xl：左目錄 + 內文 + 右欄（三欄都必須指定 grid-column） */
+/* 日後文章多時：固定左側文章選單 + 中欄 + 右欄（目前未啟用） */
 @media (min-width: 1280px) {
-  .blog-layout {
+  .blog-layout--with-nav {
     grid-template-columns: 11.5rem minmax(0, 1fr) 12.5rem;
   }
 
-  .blog-rail--left {
+  .blog-layout--with-nav .blog-rail--left {
     display: block;
     grid-column: 1;
     position: sticky;
@@ -249,11 +253,11 @@
     overflow-y: auto;
   }
 
-  .blog-main {
+  .blog-layout--with-nav .blog-main {
     grid-column: 2;
   }
 
-  .blog-rail--right {
+  .blog-layout--with-nav .blog-rail--right {
     grid-column: 3;
   }
 }
