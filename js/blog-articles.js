@@ -1,27 +1,36 @@
 /**
  * 文章分享索引（blog/ 目錄）— 全站文章資料的單一來源
  *
- * 新增文章：在此陣列加一筆 + 建立 blog/{slug}.html
- * 共用渲染：
- *   - blog/index.html          → 全部列表
- *   - ai-learning-map.html     → 依 category 篩選
- *   - 各文章頁右欄             → 文章資訊 + 相關文章（同分類／標籤）
- *
- * 相關文章邏輯：relatedSlugs 手動指定 > 同 category > 共用 tags 加分 > 日期新到舊
+ * 新增文章：只改 BLOG_ARTICLES 一筆 + 建立 blog/{slug}.html（內文）
+ * 標題、摘要、圖、分類、日期、閱讀時間等「相同字」由此檔連動至：
+ *   - blog/index.html 列表
+ *   - ai-learning-map.html 列表
+ *   - 各文章頁 Hero / head meta / 右欄
  */
+const BLOG_SITE_ORIGIN = "https://mrbill-dev.github.io";
+const BLOG_SITE_NAME = "MrBill AI Studio";
+
+/** 文章列表頁（blog/index.html）專區文案；hero 圖預設取最新文章 cover */
+const BLOG_INDEX = {
+  title: "文章分享",
+  subtitle: "一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。",
+  tag: "文章分享",
+  description: "一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。",
+  heroCover: null
+};
+
 const BLOG_ARTICLES = [
   {
     slug: "2026-05-31-ai-prompt-six-levels",
-    href: "blog/2026-05-31-ai-prompt-six-levels.html",
     title: "99% 的人都在錯用 AI Prompt",
+    subtitle: "從一句話輸入，到企業級 AI 系統設計，建立你的真正 AI 思維架構",
     excerpt: "從一句話輸入到企業級 AI 系統設計，用 6 個層級建立輸出行為控制思維。",
     category: "AI學習地圖",
     author: "Mr.Bill",
     date: "2026-05-31",
-    readMins: 4, // 預估閱讀時間（分鐘），依內文字數估算
+    readMins: 4,
     tags: ["Prompt", "AI 思維", "工作流"],
     cover: "assets/blog-2026-05-31-ai-prompt-og.jpg",
-    pagePath: "/blog/2026-05-31-ai-prompt-six-levels.html",
     relatedSlugs: []
   }
 ];
@@ -45,7 +54,17 @@ function isBlogSectionPath() {
 
 function getCurrentBlogSlug() {
   var m = (location.pathname || "").replace(/\\/g, "/").match(/\/blog\/([^/]+)\.html$/i);
-  return m ? decodeURIComponent(m[1]) : null;
+  if (!m) return null;
+  var slug = decodeURIComponent(m[1]);
+  if (slug.toLowerCase() === "index") return null;
+  return slug;
+}
+
+function isBlogIndexPath() {
+  var p = (location.pathname || "").replace(/\\/g, "/").toLowerCase();
+  if (/\/blog\/index\.html$/.test(p)) return true;
+  if (/\/blog\/?$/.test(p)) return true;
+  return false;
 }
 
 function getBlogArticleBySlug(slug) {
@@ -55,11 +74,67 @@ function getBlogArticleBySlug(slug) {
   }) || null;
 }
 
+function getLatestBlogArticle() {
+  return filterBlogArticles()[0] || null;
+}
+
+function blogCoverAbsoluteUrl(cover) {
+  if (!cover) return "";
+  if (/^https?:\/\//.test(cover)) return cover;
+  return BLOG_SITE_ORIGIN + "/" + cover.replace(/^\//, "");
+}
+
+function setDocumentMeta(name, content, attr) {
+  if (!content) return;
+  attr = attr || "name";
+  var el =
+    document.querySelector('meta[' + attr + '="' + name + '"]') ||
+    document.createElement("meta");
+  el.setAttribute(attr, name);
+  el.setAttribute("content", content);
+  if (!el.parentNode) document.head.appendChild(el);
+}
+
+function applyBlogArticleHead(article) {
+  if (!article) return;
+  document.title = article.title + "｜" + BLOG_SITE_NAME;
+  setDocumentMeta("description", article.excerpt);
+  setDocumentMeta("og:type", "article", "property");
+  setDocumentMeta("og:site_name", BLOG_SITE_NAME, "property");
+  setDocumentMeta("og:locale", "zh_TW", "property");
+  setDocumentMeta("og:title", article.title, "property");
+  setDocumentMeta("og:description", article.excerpt, "property");
+  setDocumentMeta(
+    "og:url",
+    BLOG_SITE_ORIGIN + "/blog/" + article.slug + ".html",
+    "property"
+  );
+  setDocumentMeta("og:image", blogCoverAbsoluteUrl(article.cover), "property");
+  setDocumentMeta("og:image:width", "1200", "property");
+  setDocumentMeta("og:image:height", "630", "property");
+  setDocumentMeta("twitter:card", "summary_large_image");
+  setDocumentMeta("twitter:title", article.title);
+  setDocumentMeta("twitter:description", article.excerpt);
+  setDocumentMeta("twitter:image", blogCoverAbsoluteUrl(article.cover));
+  var canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) {
+    canonical.setAttribute(
+      "href",
+      BLOG_SITE_ORIGIN + "/blog/" + article.slug + ".html"
+    );
+  }
+}
+
+function applyBlogIndexHead() {
+  document.title = BLOG_INDEX.title + "｜" + BLOG_SITE_NAME;
+  setDocumentMeta("description", BLOG_INDEX.description);
+}
+
 function blogArticleHref(article) {
   if (isBlogSectionPath()) {
     return article.slug + ".html";
   }
-  return article.href;
+  return "blog/" + article.slug + ".html";
 }
 
 function blogAssetHref(path) {
@@ -83,6 +158,91 @@ function renderBlogHeroReadTime(mountId, slug) {
   if (!article || !article.readMins) return;
   el.textContent = formatReadDuration(article.readMins);
   el.setAttribute("title", "依字數估算的一般閱讀時間，實際長短因人而異");
+}
+
+function renderBlogArticleHero(slug) {
+  var article = getBlogArticleBySlug(slug || getCurrentBlogSlug());
+  if (!article) return;
+
+  var cover = document.getElementById("blog-hero-cover");
+  if (cover && article.cover) {
+    cover.src = blogAssetHref(article.cover);
+    cover.alt = article.title;
+  }
+
+  var tags = document.getElementById("blog-hero-tags");
+  if (tags) {
+    tags.innerHTML =
+      '<span class="blog-hero__tag">' + escapeBlogHtml(article.category) + "</span>";
+  }
+
+  var title = document.getElementById("blog-hero-title");
+  if (title) title.textContent = article.title;
+
+  var subtitle = document.getElementById("blog-hero-subtitle");
+  if (subtitle) {
+    subtitle.textContent = article.subtitle || article.excerpt || "";
+  }
+
+  var authorDate = document.getElementById("blog-hero-author-date");
+  if (authorDate) {
+    authorDate.textContent =
+      (article.author || "Mr.Bill") + " · " + (article.date || "");
+  }
+
+  renderBlogHeroReadTime("blog-hero-read-time", article.slug);
+
+  var crumb = document.getElementById("blog-hero-breadcrumb-title");
+  if (crumb) crumb.textContent = article.title;
+
+  applyBlogArticleHead(article);
+}
+
+function renderBlogIndexHero() {
+  applyBlogIndexHead();
+
+  var title = document.getElementById("blog-index-hero-title");
+  if (title) title.textContent = BLOG_INDEX.title;
+
+  var subtitle = document.getElementById("blog-index-hero-subtitle");
+  if (subtitle) subtitle.textContent = BLOG_INDEX.subtitle;
+
+  var tag = document.getElementById("blog-index-hero-tag");
+  if (tag) tag.textContent = BLOG_INDEX.tag;
+
+  var coverEl = document.getElementById("blog-index-hero-cover");
+  if (!coverEl) return;
+
+  var coverPath = BLOG_INDEX.heroCover;
+  if (!coverPath) {
+    var latest = getLatestBlogArticle();
+    coverPath = latest ? latest.cover : "";
+  }
+  if (coverPath) {
+    coverEl.src = blogAssetHref(coverPath);
+    coverEl.alt = BLOG_INDEX.title;
+  }
+}
+
+function escapeBlogHtml(str) {
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function initBlogArticlePage(slug) {
+  slug = slug || getCurrentBlogSlug();
+  renderBlogArticleHero(slug);
+  renderBlogArticleRail("blog-article-rail", slug);
+}
+
+function initBlogIndexPage(listOptions) {
+  renderBlogIndexHero();
+  var crumb = document.getElementById("blog-index-breadcrumb-title");
+  if (crumb) crumb.textContent = BLOG_INDEX.title;
+  renderBlogArticleList("blog-article-list", listOptions);
 }
 
 function blogPageHref(href) {
@@ -212,7 +372,9 @@ function renderBlogArticleList(mountId, options) {
         ? '<div class="sm:w-44 md:w-52 shrink-0 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">' +
           '<img src="' +
           blogAssetHref(a.cover) +
-          '" alt="" class="w-full h-28 sm:h-full sm:min-h-[7.5rem] object-cover" loading="lazy" width="1200" height="630" />' +
+          '" alt="' +
+          escapeBlogHtml(a.title) +
+          '" class="w-full h-28 sm:h-full sm:min-h-[7.5rem] object-cover" loading="lazy" width="1200" height="630" />' +
           "</div>"
         : "";
       return (
@@ -340,3 +502,14 @@ function renderBlogArticleRail(mountId, slug) {
     "</div>" +
     "</div>";
 }
+
+(function syncBlogHeadEarly() {
+  if (typeof document === "undefined") return;
+  var slug = getCurrentBlogSlug();
+  if (slug) {
+    var article = getBlogArticleBySlug(slug);
+    if (article) applyBlogArticleHead(article);
+    return;
+  }
+  if (isBlogIndexPath()) applyBlogIndexHead();
+})();

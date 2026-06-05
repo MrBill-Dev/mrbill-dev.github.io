@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <!--
   新文章步驟（靜態站、每篇一檔）：
-  1. 複製本檔為 blog/{YYYY-MM-DD}-{主題}.html
-  2. 在 js/blog-articles.js 的 BLOG_ARTICLES 加一筆（slug、title、category、tags…）
-  3. 右欄：<aside class="blog-rail blog-rail--right"><div id="blog-article-rail"></div></aside>
-     並載入 blog-articles.js，DOMContentLoaded 呼叫 renderBlogArticleRail('blog-article-rail')
-  4. 列表／學程頁共用 BLOG_ARTICLES，無需重複維護連結
+  1. 在 js/blog-articles.js 的 BLOG_ARTICLES 加一筆（slug、title、subtitle、excerpt、category、cover…）
+  2. 複製 2026-05-31-ai-prompt-six-levels.html 為 blog/{slug}.html，只改內文區塊
+  3. Hero／列表／meta 由 initBlogArticlePage() 從 BLOG_ARTICLES 連動，不必重複填標題與圖
 
   文章很多（約 30+）再考慮：blog-layout--with-nav 左側文章選單，或 content/{slug}.json 渲染。
 -->

@@ -22,7 +22,7 @@
   <main class="flex-grow w-full min-w-0 fade-in-up">
     <section class="blog-hero w-full text-white">
       <div class="blog-hero__media" aria-hidden="true">
-        <img src="../assets/blog-2026-05-31-ai-prompt-og.jpg" alt="" class="blog-hero__img" loading="lazy" />
+        <img id="blog-index-hero-cover" src="" alt="" class="blog-hero__img" loading="lazy" />
       </div>
       <div class="blog-hero__panel">
         <div class="blog-shell blog-hero__inner">
@@ -31,14 +31,14 @@
             <ol>
               <li><a href="../index.html">首頁</a></li>
               <li aria-hidden="true">/</li>
-              <li><span class="text-white font-medium">文章分享</span></li>
+              <li><span class="text-white font-medium" id="blog-index-breadcrumb-title">文章分享</span></li>
             </ol>
           </nav>
           <div class="blog-hero__tags">
-            <span class="blog-hero__tag">文章分享</span>
+            <span class="blog-hero__tag" id="blog-index-hero-tag">文章分享</span>
           </div>
-          <h1 class="blog-hero__title">文章分享</h1>
-          <p class="blog-hero__subtitle">一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。</p>
+          <h1 class="blog-hero__title" id="blog-index-hero-title">文章分享</h1>
+          <p class="blog-hero__subtitle" id="blog-index-hero-subtitle">一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。</p>
         </div>
       </div>
     </section>
@@ -70,7 +70,7 @@
     window.addEventListener("DOMContentLoaded", function () {
       includeComponentSlot("global-header", "../components/header.html", null, fixNavPathsFromSubdir);
       includeComponentSlot("global-footer", "../components/footer.html", null, fixNavPathsFromSubdir);
-      renderBlogArticleList("blog-article-list");
+      initBlogIndexPage();
     });
   </script>
 </body>
