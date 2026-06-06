@@ -1,17 +1,34 @@
 /**
  * 專題文章：喜歡人數（不蒜子 page_pv，本頁累計總人次）
- * 呈現為「♥ 已有 X 位讀者喜歡」；含作者與所有讀者，每次成功載入頁面 +1。
- * Hero 若由 component 非同步載入，須在載入後呼叫 initBlogStats()（見 initBlogArticlePage）
+ * 呈現為「♥ 已有 X 位讀者喜歡」。數字僅來自不蒜子伺服器，各裝置顯示相同累計。
+ * 開頁 +1；按「我也喜歡」再透過隱藏 iframe 回報 +1（同一裝置每篇僅一次）。
  */
 var BLOG_BUSUANZI_SRC = [
   "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",
   "https://busuanzi.icodeq.com/busuanzi.pure.mini.js"
 ];
 
-function initBlogStats() {
-  var el =
+function getBlogLikeCountEl() {
+  return (
     document.getElementById("busuanzi_value_page_pv") ||
-    document.getElementById("blog-view-count");
+    document.getElementById("blog-view-count")
+  );
+}
+
+function isBlogStatsPlaceholder(text) {
+  var val = String(text || "").trim();
+  return !val || val === "…" || val === "..." || val === "—";
+}
+
+function setBlogLikeCountDisplay(value) {
+  var el = getBlogLikeCountEl();
+  if (!el || isBlogStatsPlaceholder(value)) return false;
+  el.textContent = String(value).trim();
+  return true;
+}
+
+function initBlogStats() {
+  var el = getBlogLikeCountEl();
   if (!el) return false;
 
   el.id = "busuanzi_value_page_pv";
@@ -22,7 +39,10 @@ function initBlogStats() {
     el.closest(".blog-hero__views");
   if (wrap) wrap.id = "busuanzi_container_page_pv";
 
-  if (document.querySelector("script[data-busuanzi]")) return true;
+  if (document.querySelector("script[data-busuanzi]")) {
+    watchBlogStatsLoaded();
+    return true;
+  }
 
   function loadScript(index) {
     if (index >= BLOG_BUSUANZI_SRC.length) {
@@ -37,11 +57,69 @@ function initBlogStats() {
       s.remove();
       loadScript(index + 1);
     };
+    s.onload = function () {
+      watchBlogStatsLoaded();
+    };
     document.body.appendChild(s);
   }
 
   loadScript(0);
   return true;
+}
+
+/** 不蒜子較慢或手機阻擋時，重試載入並等待伺服器回傳數字 */
+function watchBlogStatsLoaded() {
+  var el = getBlogLikeCountEl();
+  if (!el || el.getAttribute("data-busuanzi-watch") === "1") return;
+  el.setAttribute("data-busuanzi-watch", "1");
+
+  var tries = 0;
+  var timer = window.setInterval(function () {
+    tries += 1;
+    if (!isBlogStatsPlaceholder(el.textContent)) {
+      window.clearInterval(timer);
+      el.removeAttribute("data-busuanzi-watch");
+      return;
+    }
+    if (tries === 8) {
+      var script = document.querySelector("script[data-busuanzi]");
+      if (script) {
+        script.remove();
+        el.removeAttribute("data-busuanzi-watch");
+        initBlogStats();
+      }
+    }
+    if (tries >= 16) {
+      window.clearInterval(timer);
+      el.removeAttribute("data-busuanzi-watch");
+    }
+  }, 500);
+}
+
+/** 從同源 iframe 複製不蒜子回傳的累計（不在本機手動 +1） */
+function syncBlogCountFromIframe(iframe, attempt, onDone) {
+  attempt = attempt || 0;
+  if (!iframe) {
+    if (onDone) onDone(false);
+    return;
+  }
+  if (attempt > 14) {
+    if (onDone) onDone(false);
+    return;
+  }
+
+  try {
+    var doc = iframe.contentDocument || iframe.contentWindow.document;
+    var src = doc && doc.getElementById("busuanzi_value_page_pv");
+    if (src && setBlogLikeCountDisplay(src.textContent)) {
+      if (onDone) onDone(true);
+      return;
+    }
+  } catch (e) {}
+
+  window.setTimeout(function () {
+    syncBlogCountFromIframe(iframe, attempt + 1, onDone);
+  }, 500);
 }
 
 function getBlogLikeStorageKey(slug) {
@@ -64,24 +142,8 @@ function setBlogLiked(slug) {
   } catch (e) {}
 }
 
-function getBlogLikeCountEl() {
-  return (
-    document.getElementById("busuanzi_value_page_pv") ||
-    document.getElementById("blog-view-count")
-  );
-}
-
-function bumpBlogLikeDisplay(delta) {
-  var el = getBlogLikeCountEl();
-  if (!el) return;
-  var n = parseInt(String(el.textContent).replace(/\D/g, ""), 10);
-  if (isNaN(n)) return;
-  el.textContent = String(n + delta);
-}
-
 /**
- * 按「喜歡」時向不蒜子回報一次（隱藏 iframe 載入同頁），並更新 Hero 數字。
- * 同一裝置同一篇文章僅計入一次。
+ * 按「我也喜歡」：隱藏 iframe 載入同頁讓不蒜子 +1，再從 iframe 讀回伺服器累計寫入 Hero。
  */
 function registerBlogLike(slug) {
   slug =
@@ -105,14 +167,15 @@ function registerBlogLike(slug) {
       settled = true;
       window.setTimeout(function () {
         iframe.remove();
-      }, 3000);
+      }, 4000);
       resolve(!!ok);
     }
 
     iframe.onload = function () {
       setBlogLiked(slug);
-      bumpBlogLikeDisplay(1);
-      finish(true);
+      syncBlogCountFromIframe(iframe, 0, function () {
+        finish(true);
+      });
     };
 
     iframe.onerror = function () {
@@ -121,7 +184,7 @@ function registerBlogLike(slug) {
 
     window.setTimeout(function () {
       finish(false);
-    }, 15000);
+    }, 18000);
 
     document.body.appendChild(iframe);
   });
@@ -130,9 +193,7 @@ function registerBlogLike(slug) {
 window.initBlogStats = initBlogStats;
 window.hasBlogLiked = hasBlogLiked;
 window.registerBlogLike = registerBlogLike;
-window.bumpBlogLikeDisplay = bumpBlogLikeDisplay;
 
-/* Hero 已寫在 HTML 時（無 async slot）仍可自動啟動 */
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("blog-article-hero-slot")) return;
