@@ -408,6 +408,7 @@ function initBlogArticlePage(slug) {
   loadBlogArticleShell(function () {
     renderBlogArticleHero(slug);
     renderBlogArticleRail("blog-article-rail", slug);
+    renderBlogArticleNav(slug);
     if (typeof window.initBlogStats === "function") {
       window.initBlogStats(slug);
     }
@@ -758,6 +759,142 @@ function blogRailLinkHtml(href, label) {
     escapeBlogHtml(label) +
     "</a>"
   );
+}
+
+/** 同分類依發布日排序，推算上一篇／下一篇（可於文章資料覆寫 prevSlug / nextSlug） */
+function getBlogArticleNeighbors(slug) {
+  var current = getBlogArticleBySlug(slug);
+  if (!current) return { prev: null, next: null };
+
+  if (current.prevSlug || current.nextSlug) {
+    return {
+      prev: current.prevSlug ? getBlogArticleBySlug(current.prevSlug) : null,
+      next: current.nextSlug ? getBlogArticleBySlug(current.nextSlug) : null
+    };
+  }
+
+  var series = filterBlogArticles({ category: current.category })
+    .slice()
+    .sort(function (a, b) {
+      return (a.date || "").localeCompare(b.date || "");
+    });
+
+  var idx = -1;
+  for (var i = 0; i < series.length; i++) {
+    if (series[i].slug === slug) {
+      idx = i;
+      break;
+    }
+  }
+  if (idx < 0) return { prev: null, next: null };
+
+  return {
+    prev: idx > 0 ? series[idx - 1] : null,
+    next: idx < series.length - 1 ? series[idx + 1] : null
+  };
+}
+
+function blogArticleNavCardHtml(article, direction) {
+  if (!article) {
+    return '<div class="blog-article-nav__placeholder" aria-hidden="true"></div>';
+  }
+  var isPrev = direction === "prev";
+  var label = isPrev ? "上一篇" : "下一篇";
+  var arrow = isPrev ? "←" : "→";
+  return (
+    '<a href="' +
+    blogArticleHref(article) +
+    '" class="blog-article-nav__card blog-article-nav__card--' +
+    direction +
+    '">' +
+    '<span class="blog-article-nav__dir">' +
+    arrow +
+    " " +
+    label +
+    "</span>" +
+    '<span class="blog-article-nav__title">' +
+    escapeBlogHtml(article.title) +
+    "</span>" +
+    '<span class="blog-article-nav__meta">' +
+    escapeBlogHtml(formatReadDuration(article.readMins)) +
+    "</span>" +
+    "</a>"
+  );
+}
+
+/** 手機／平板文末：上下篇 + 相關文章（桌機由右欄 blog-rail 負責） */
+function renderBlogArticleNav(slug) {
+  slug = slug || getCurrentBlogSlug();
+  var main = document.querySelector(".blog-main.blog-prose");
+  if (!main) return;
+
+  var mount = document.getElementById("blog-article-nav-slot");
+  if (!mount) {
+    mount = document.createElement("div");
+    mount.id = "blog-article-nav-slot";
+    var authorSlot = document.getElementById("blog-article-author-slot");
+    if (authorSlot) {
+      main.insertBefore(mount, authorSlot);
+    } else {
+      main.appendChild(mount);
+    }
+  }
+
+  var article = getBlogArticleBySlug(slug);
+  if (!article) {
+    mount.innerHTML = "";
+    return;
+  }
+
+  var neighbors = getBlogArticleNeighbors(slug);
+  var skipSlugs = [slug];
+  if (neighbors.prev) skipSlugs.push(neighbors.prev.slug);
+  if (neighbors.next) skipSlugs.push(neighbors.next.slug);
+
+  var related = getRelatedArticles(slug, 4).filter(function (a) {
+    return skipSlugs.indexOf(a.slug) < 0;
+  }).slice(0, 3);
+
+  var hasNeighbors = !!(neighbors.prev || neighbors.next);
+  if (!hasNeighbors && !related.length) {
+    mount.innerHTML = "";
+    return;
+  }
+
+  var parts = [
+    '<nav class="blog-article-nav blog-reveal is-visible" aria-label="文章導覽">'
+  ];
+
+  if (hasNeighbors) {
+    var gridClass = "blog-article-nav__grid";
+    if (neighbors.prev && neighbors.next) {
+      gridClass += " blog-article-nav__grid--duo";
+    }
+    parts.push('<p class="blog-article-nav__label">繼續閱讀</p>');
+    parts.push('<div class="' + gridClass + '">');
+    parts.push(blogArticleNavCardHtml(neighbors.prev, "prev"));
+    parts.push(blogArticleNavCardHtml(neighbors.next, "next"));
+    parts.push("</div>");
+  }
+
+  if (related.length) {
+    parts.push('<div class="blog-article-nav__related">');
+    parts.push('<p class="blog-article-nav__related-title">相關文章</p>');
+    parts.push('<div class="blog-article-nav__related-links">');
+    related.forEach(function (a) {
+      parts.push(
+        '<a href="' +
+          blogArticleHref(a) +
+          '" class="blog-article-nav__related-link">' +
+          escapeBlogHtml(a.title) +
+          "</a>"
+      );
+    });
+    parts.push("</div></div>");
+  }
+
+  parts.push("</nav>");
+  mount.innerHTML = parts.join("");
 }
 
 function renderBlogArticleRail(mountId, slug) {

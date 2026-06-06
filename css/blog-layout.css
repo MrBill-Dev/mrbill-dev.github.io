@@ -1510,6 +1510,133 @@
   border-color: #fde68a;
 }
 
+/* 手機／平板文末：上下篇與相關文章（資料來源同右欄 blog-rail） */
+.blog-article-nav {
+  display: block;
+  padding: 1.125rem 1rem 1.2rem;
+  border-radius: 1.25rem;
+  border: 1px solid #e2e8f0;
+  background: linear-gradient(165deg, #f8fafc 0%, #fff 100%);
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.blog-article-nav__label,
+.blog-article-nav__related-title {
+  margin: 0 0 0.65rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.blog-article-nav__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+}
+
+.blog-article-nav__grid--duo {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.blog-article-nav__placeholder {
+  display: none;
+}
+
+.blog-article-nav__grid--duo .blog-article-nav__placeholder {
+  display: block;
+  min-height: 0;
+}
+
+.blog-article-nav__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  padding: 0.85rem 0.9rem;
+  border-radius: 0.875rem;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.blog-article-nav__card:hover {
+  border-color: #a5b4fc;
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.1);
+  transform: translateY(-1px);
+}
+
+.blog-article-nav__dir {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #6366f1;
+}
+
+.blog-article-nav__title {
+  font-size: 0.875rem;
+  font-weight: 900;
+  line-height: 1.45;
+  color: #0f172a;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.blog-article-nav__meta {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.blog-article-nav__related {
+  margin-top: 1rem;
+  padding-top: 0.95rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.blog-article-nav__related-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.blog-article-nav__related-link {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #4f46e5;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.blog-article-nav__related-link:hover {
+  color: #3730a3;
+  text-decoration: underline;
+}
+
+@media (min-width: 1024px) {
+  .blog-article-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 399px) {
+  .blog-article-nav__grid--duo {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-article-nav__grid--duo .blog-article-nav__placeholder {
+    display: none;
+  }
+}
+
 .blog-next-band {
   border-radius: 1.5rem;
   padding: 1.5rem 1.625rem;
