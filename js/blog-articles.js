@@ -291,7 +291,7 @@ function initBlogArticlePage(slug) {
     renderBlogArticleHero(slug);
     renderBlogArticleRail("blog-article-rail", slug);
     if (typeof window.initBlogStats === "function") {
-      window.initBlogStats();
+      window.initBlogStats(slug);
     }
     if (typeof window.initBlogArticleUI === "function") {
       window.initBlogArticleUI(slug);
