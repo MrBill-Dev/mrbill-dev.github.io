@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 工作流實戰課｜拆・分・驗落地篇｜MrBill AI Studio</title>
+  <meta name="description" content="拆・分・驗落地篇：任務拆解、人機協作、成果驗收。以案例與 Prompt 建立可落地的 AI 工作流。" />
+  <link rel="canonical" href="https://mrbill-dev.github.io/blog/2026-06-12-ai-workflow-lesson-04-06.html" />
+  <link rel="preload" as="image" href="../assets/blog-2026-06-12-ai-workflow-lesson-04-06-og.jpg" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="MrBill AI Studio" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:title" content="AI 工作流實戰課｜拆・分・驗落地篇" />
+  <meta property="og:description" content="任務拆解、人機協作、成果驗收——從模糊需求到可交付作品。" />
+  <meta property="og:url" content="https://mrbill-dev.github.io/blog/2026-06-12-ai-workflow-lesson-04-06.html" />
+  <meta property="og:image" content="https://mrbill-dev.github.io/assets/blog-2026-06-12-ai-workflow-lesson-04-06-og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI 工作流實戰課｜拆・分・驗落地篇" />
+  <meta name="twitter:description" content="任務拆解、人機協作、成果驗收——從模糊需求到可交付作品。" />
+  <meta name="twitter:image" content="https://mrbill-dev.github.io/assets/blog-2026-06-12-ai-workflow-lesson-04-06-og.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../js/components-loader.js"></script>
+  <script src="../js/blog-articles.js"></script>
+  <script src="../js/blog-stats.js?v=20260606"></script>
+  <script src="../js/blog-article-ui.js"></script>
+  <link rel="stylesheet" href="../css/blog-layout.css" />
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .blog-pre { white-space: pre-wrap; word-break: break-word; }
+    .blog-flow-tab { padding: 0.6rem 1.1rem; border-radius: 9999px; font-weight: 800; font-size: 0.875rem; background: #f1f5f9; color: #475569; border: none; cursor: pointer; transition: background .2s, color .2s; }
+    .blog-flow-tab.active { background: #0f172a; color: #fff; }
+    .blog-flow-node { border: 2px solid #e2e8f0; background: #f8fafc; border-radius: 1rem; padding: 0.75rem 0.9rem; font-weight: 800; font-size: 0.875rem; transition: border-color .25s, background .25s, transform .25s, box-shadow .25s; }
+    .blog-flow-node.is-on { border-color: #38bdf8; background: #e0f2fe; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(14,165,233,.18); }
+    .wf-motion-panel { border-radius: 1.5rem; padding: 1.25rem 1.5rem; background: linear-gradient(135deg, #0f172a, #082f49); color: #e2e8f0; overflow: hidden; }
+    .wf-motion-track { position: relative; overflow: hidden; border-radius: 1rem; background: rgba(255,255,255,.08); height: 3.25rem; margin-bottom: 1rem; }
+    .wf-motion-track::before { content: ""; position: absolute; left: -30%; top: 50%; width: 28%; height: 3px; transform: translateY(-50%); background: linear-gradient(90deg, transparent, #38bdf8, transparent); animation: wfFlowLine 2.6s linear infinite; }
+    .wf-motion-chip { position: absolute; top: 50%; left: 0; transform: translateY(-50%); padding: 0.35rem 0.85rem; border-radius: 9999px; background: #0ea5e9; color: #fff; font-size: 0.8125rem; font-weight: 800; animation: wfChipMove 4.2s ease-in-out infinite; white-space: nowrap; }
+    .wf-pipe-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .wf-pipe-step { flex: 1 1 4.5rem; min-width: 4.5rem; text-align: center; padding: 0.5rem 0.35rem; border-radius: 0.75rem; border: 1px solid rgba(255,255,255,.2); font-size: 0.75rem; font-weight: 800; opacity: .45; transition: opacity .35s, background .35s, border-color .35s; }
+    .wf-pipe-step.is-now { opacity: 1; background: rgba(56,189,248,.22); border-color: #38bdf8; }
+    .wf-step-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.25rem; padding: 0.75rem 1rem; border-radius: 1rem; background: #f8fafc; border: 1px solid #e2e8f0; }
+    .wf-step-pill { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.65rem; border-radius: 9999px; font-size: 0.8125rem; font-weight: 800; color: #475569; background: #fff; border: 1px solid #e2e8f0; transition: all .35s ease; }
+    .wf-step-pill.is-now { color: #0c4a6e; background: #e0f2fe; border-color: #38bdf8; box-shadow: 0 4px 14px rgba(14,165,233,.2); }
+    .wf-step-pill__n { font-size: 0.6875rem; color: #0ea5e9; }
+    .wf-step-join { color: #94a3b8; font-weight: 900; font-size: 0.75rem; }
+    .wf-handoff-lane { position: relative; min-height: 11rem; border-radius: 1.25rem; background: linear-gradient(135deg, #f8fafc, #e0f2fe); border: 1px solid #bae6fd; overflow: hidden; padding: 1.25rem 1rem; }
+    .wf-handoff-route { position: absolute; left: 12%; right: 12%; top: 50%; height: 6px; border-radius: 9999px; background: linear-gradient(90deg, rgba(14,165,233,.2), rgba(14,165,233,.55), rgba(15,23,42,.65)); transform: translateY(-50%); }
+    .wf-handoff-route::after { content: ""; position: absolute; left: 0; top: 0; width: 22%; height: 100%; border-radius: 9999px; background: linear-gradient(90deg, transparent, #38bdf8, transparent); animation: wfHandoffLight 3s linear infinite; }
+    .wf-handoff-card { position: absolute; top: 50%; width: 38%; max-width: 10.5rem; padding: 0.85rem; border-radius: 1rem; text-align: center; transform: translateY(-50%); z-index: 2; font-weight: 800; }
+    .wf-handoff-human { left: 6%; background: #fff; border: 1px solid #e2e8f0; box-shadow: 0 10px 24px rgba(15,23,42,.08); color: #0f172a; }
+    .wf-handoff-ai { right: 6%; background: #0f172a; color: #fff; box-shadow: 0 10px 24px rgba(2,132,199,.2); }
+    .wf-handoff-ai p { color: #cbd5e1; font-size: 0.75rem; font-weight: 700; }
+    .wf-handoff-chip { position: absolute; top: 50%; left: 22%; z-index: 3; padding: 0.5rem 0.9rem; border-radius: 9999px; background: #0ea5e9; color: #fff; font-size: 0.8125rem; font-weight: 900; animation: wfHandoffChip 4.5s ease-in-out infinite; box-shadow: 0 8px 20px rgba(14,165,233,.35); white-space: nowrap; }
+    .wf-scan-line { position: relative; overflow: hidden; border-radius: 1rem; background: #0f172a; color: #e2e8f0; padding: 1rem 1.15rem; }
+    .wf-scan-line::after { content: ""; position: absolute; left: 0; top: 0; width: 22%; height: 100%; background: linear-gradient(90deg, transparent, rgba(56,189,248,.35), transparent); animation: wfScan 2.4s linear infinite; }
+    .wf-crash-word { animation: wfCrashFlash 1.1s infinite; border-radius: 0.35rem; padding: 0 0.25rem; }
+    .wf-read-context { container-type: inline-size; }
+    .wf-focus-blocks { display: flex; flex-direction: column; gap: 1.125rem; }
+    .wf-focus-block {
+      display: flex; flex-direction: column; gap: 0.85rem;
+      padding: 1.15rem 1.2rem 1.25rem 1.35rem;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      box-shadow: 0 1px 2px rgba(15,23,42,.04);
+      position: relative;
+    }
+    .wf-focus-block::before {
+      content: ""; position: absolute; left: 0; top: 0.85rem; bottom: 0.85rem;
+      width: 3px; border-radius: 0 4px 4px 0; background: #94a3b8;
+    }
+    .wf-lesson-flow--sky .wf-focus-block::before { background: linear-gradient(180deg, #0284c7, #38bdf8); }
+    .wf-lesson-flow--violet .wf-focus-block::before { background: linear-gradient(180deg, #6d28d9, #a78bfa); }
+    .wf-lesson-flow--emerald .wf-focus-block::before { background: linear-gradient(180deg, #047857, #34d399); }
+    .wf-focus-block--warn { border-color: #fecaca; background: #fff5f5; }
+    .wf-focus-block--warn::before { background: #ef4444 !important; }
+    .wf-focus-block--prompt { border-color: transparent; background: transparent; padding: 0; box-shadow: none; }
+    .wf-focus-block--prompt::before { display: none; }
+    .wf-focus-block--neutral::before { background: linear-gradient(180deg, #4f46e5, #818cf8); }
+    .wf-focus-block--neutral .wf-focus-block__tag { color: #4f46e5; }
+    .wf-focus-block__tag {
+      display: inline-block; font-size: 0.6875rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #64748b;
+      padding-left: 0.35rem; margin-bottom: -0.15rem;
+    }
+    .wf-lesson-flow--sky .wf-focus-block__tag { color: #0369a1; }
+    .wf-lesson-flow--violet .wf-focus-block__tag { color: #6d28d9; }
+    .wf-lesson-flow--emerald .wf-focus-block__tag { color: #047857; }
+    .wf-focus-block .blog-subheading { margin: 0; font-size: 1.2rem; line-height: 1.45; padding-left: 0.35rem; }
+    .wf-focus-block > p.text-slate-700 { padding-left: 0.35rem; margin-bottom: 0; }
+    .wf-focus-block > p.text-sm { padding-left: 0.35rem; }
+    .wf-maturity-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+    @container (min-width: 34rem) { .wf-maturity-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @container (min-width: 52rem) { .wf-maturity-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+    .wf-duo-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+    @container (min-width: 46rem) { .wf-duo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
+    .wf-trio-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @container (min-width: 32rem) { .wf-trio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @container (min-width: 52rem) { .wf-trio-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .wf-text-visual { display: grid; grid-template-columns: 1fr; gap: 1.25rem; align-items: start; }
+    .wf-text-visual__media { justify-self: center; width: 100%; max-width: 11rem; }
+    @container (min-width: 46rem) {
+      .wf-text-visual { grid-template-columns: minmax(0, 1fr) minmax(8.5rem, 10.5rem); align-items: center; gap: 2rem; }
+      .wf-text-visual__media { justify-self: end; max-width: 10.5rem; }
+    }
+    .wf-media-center { max-width: 10rem; margin-left: auto; margin-right: auto; }
+    .wf-stack-flow { display: flex; flex-direction: column; gap: 1.15rem; }
+    .wf-flow-nodes { display: grid; gap: 0.5rem; grid-template-columns: 1fr; }
+    @container (min-width: 22rem) { .wf-flow-nodes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @container (min-width: 34rem) { .wf-flow-nodes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @container (min-width: 52rem) { .wf-flow-nodes { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+    .wf-maturity-item { padding: 0.7rem 0.55rem; border-radius: 0.875rem; border: 1px solid #e2e8f0; background: #f8fafc; text-align: center; transition: transform .25s ease, box-shadow .25s ease; }
+    .wf-maturity-item:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(99,102,241,.1); }
+    .wf-maturity-item--sky { border-color: #7dd3fc; background: linear-gradient(180deg, #f0f9ff 0%, #fff 100%); }
+    .wf-maturity-item--indigo { border-color: #a5b4fc; background: linear-gradient(180deg, #eef2ff 0%, #fff 100%); }
+    .wf-maturity-item__lvl { display: block; font-size: 1rem; font-weight: 900; color: #0f172a; line-height: 1.2; }
+    .wf-maturity-item--sky .wf-maturity-item__lvl { color: #0369a1; }
+    .wf-maturity-item--indigo .wf-maturity-item__lvl { color: #4338ca; }
+    .wf-maturity-item__name { display: block; font-size: 0.8125rem; font-weight: 800; color: #334155; margin: 0.2rem 0 0.15rem; }
+    .wf-maturity-item__desc { display: block; font-size: 0.6875rem; line-height: 1.4; color: #64748b; margin: 0; }
+    .wf-maturity-item__tag { display: inline-block; margin-top: 0.35rem; font-size: 0.625rem; font-weight: 800; color: #6366f1; background: #eef2ff; padding: 0.1rem 0.4rem; border-radius: 9999px; }
+    .wf-review-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.2rem; padding: 0.65rem 0.85rem; border-radius: 0.875rem; background: #f8fafc; border: 1px solid #e2e8f0; }
+    .wf-review-pill { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.55rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 800; color: #475569; background: #fff; border: 1px solid #e2e8f0; transition: all .35s ease; }
+    .wf-review-pill.is-now { color: #065f46; background: #d1fae5; border-color: #6ee7b7; box-shadow: 0 3px 10px rgba(16,185,129,.18); }
+    .wf-review-pill__n { font-size: 0.625rem; color: #10b981; font-weight: 900; }
+    .wf-review-join { color: #94a3b8; font-size: 0.6875rem; font-weight: 900; }
+    .wf-orbit-panel { position: relative; min-height: 10rem; border-radius: 1.25rem; padding: 1.1rem 1.25rem; background: linear-gradient(135deg, #0f172a, #1e1b4b 55%, #0f172a); color: #e2e8f0; overflow: hidden; }
+    .wf-data-pill { position: absolute; left: -12rem; padding: 0.45rem 0.75rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 800; white-space: nowrap; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18); color: #fff; animation: wfDataFly 9s linear infinite; }
+    .wf-data-pill:nth-child(1) { top: 18%; animation-delay: 0s; }
+    .wf-data-pill:nth-child(2) { top: 36%; animation-delay: 1.5s; }
+    .wf-data-pill:nth-child(3) { top: 54%; animation-delay: 3s; }
+    .wf-data-pill:nth-child(4) { top: 72%; animation-delay: 4.5s; }
+    @keyframes wfDataFly { 0% { left: -12rem; opacity: 0; } 8% { opacity: 1; } 72% { opacity: 1; } 100% { left: 105%; opacity: 0; } }
+    .wf-chat { border-radius: 1.125rem; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 8px 24px rgba(15,23,42,.06); }
+    .wf-chat-head { display: flex; align-items: center; gap: 0.4rem; padding: 0.55rem 0.85rem; background: #0f172a; color: #fff; font-size: 0.8125rem; font-weight: 800; }
+    .wf-chat-dot { width: 0.5rem; height: 0.5rem; border-radius: 9999px; background: #f87171; }
+    .wf-chat-dot:nth-child(2) { background: #fbbf24; }
+    .wf-chat-dot:nth-child(3) { background: #34d399; }
+    .wf-chat-body { padding: 0.85rem 1rem; }
+    .wf-msg { max-width: 92%; padding: 0.65rem 0.85rem; border-radius: 0.875rem; margin: 0.45rem 0; font-size: 0.875rem; line-height: 1.65; }
+    .wf-msg-user { margin-left: auto; background: #e0f2fe; color: #0f172a; }
+    .wf-msg-ai { background: #f1f5f9; color: #334155; }
+    .wf-typewriter { display: inline-block; overflow: hidden; white-space: nowrap; border-right: 2px solid #38bdf8; animation: wfTyping 4.5s steps(36,end) infinite, wfCaret .7s step-end infinite; max-width: 100%; }
+    @keyframes wfTyping { 0% { width: 0; } 55% { width: 100%; } 80% { width: 100%; } 100% { width: 0; } }
+    @keyframes wfCaret { 50% { border-color: transparent; } }
+    .wf-mega-row { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0.5rem; }
+    @container (min-width: 28rem) { .wf-mega-row { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @container (min-width: 44rem) { .wf-mega-row { grid-template-columns: repeat(5, minmax(0,1fr)); } }
+    .wf-mega-step { text-align: center; padding: 0.65rem 0.4rem; border-radius: 0.875rem; border: 1px solid #e2e8f0; background: #fff; font-size: 0.75rem; font-weight: 800; opacity: .45; transition: opacity .35s, transform .35s, border-color .35s, background .35s; }
+    .wf-mega-step.is-now { opacity: 1; transform: scale(1.03); border-color: #38bdf8; background: #e0f2fe; box-shadow: 0 8px 18px rgba(14,165,233,.15); }
+    .wf-mega-step__icon { display: block; font-size: 1.25rem; margin-bottom: 0.2rem; }
+    .wf-target { position: relative; width: 9rem; height: 9rem; margin: 0 auto; }
+    .wf-target-ring { position: absolute; inset: 0; border-radius: 9999px; border: 2px solid rgba(14,165,233,.28); animation: wfTargetPulse 2.6s ease-in-out infinite; }
+    .wf-target-ring:nth-child(2) { inset: 1.4rem; animation-delay: .2s; }
+    .wf-target-ring:nth-child(3) { inset: 2.8rem; animation-delay: .4s; }
+    .wf-target-core { position: absolute; inset: 3.9rem; border-radius: 9999px; background: #0ea5e9; box-shadow: 0 0 20px rgba(14,165,233,.5); }
+    .wf-target-arrow { position: absolute; left: -4.5rem; top: 50%; width: 7rem; height: 0.35rem; background: #fbbf24; border-radius: 999px; transform: translateY(-50%); animation: wfArrowHit 3.2s ease-in-out infinite; box-shadow: 0 0 16px rgba(251,191,36,.45); }
+    .wf-target-arrow::after { content: ""; position: absolute; right: -0.6rem; top: -0.35rem; border-left: 0.75rem solid #fbbf24; border-top: 0.45rem solid transparent; border-bottom: 0.45rem solid transparent; }
+    @keyframes wfTargetPulse { 0%,100% { transform: scale(1); opacity: .75; } 50% { transform: scale(1.06); opacity: 1; } }
+    @keyframes wfArrowHit { 0% { transform: translateY(-50%) translateX(0); opacity: 0; } 25% { opacity: 1; } 65% { transform: translateY(-50%) translateX(7.5rem); } 85%,100% { transform: translateY(-50%) translateX(7.5rem); opacity: 0; } }
+    .wf-orbit-wrap { position: absolute; right: 0.75rem; top: 0.75rem; width: 6.5rem; height: 6.5rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); animation: wfOrbitRotate 18s linear infinite; opacity: .75; pointer-events: none; }
+    .wf-orbit-wrap::before, .wf-orbit-wrap::after { content: ""; position: absolute; border-radius: 999px; border: 1px solid rgba(56,189,248,.18); }
+    .wf-orbit-wrap::before { inset: 1.1rem; } .wf-orbit-wrap::after { inset: 2.2rem; }
+    .wf-orbit-dot { position: absolute; width: 0.55rem; height: 0.55rem; border-radius: 999px; background: #38bdf8; box-shadow: 0 0 12px #38bdf8; }
+    .wf-orbit-dot--a { left: 50%; top: -0.2rem; } .wf-orbit-dot--b { right: 0.6rem; bottom: 1rem; background: #fbbf24; box-shadow: 0 0 12px #fbbf24; } .wf-orbit-dot--c { left: 0.5rem; bottom: 1.4rem; background: #a78bfa; box-shadow: 0 0 12px #a78bfa; }
+    @keyframes wfOrbitRotate { to { transform: rotate(360deg); } }
+    .wf-radar { position: relative; width: 9.5rem; height: 9.5rem; margin: 0 auto; border-radius: 9999px; background: radial-gradient(circle, #ecfeff 0%, #e0f2fe 45%, #bae6fd 100%); border: 1px solid #7dd3fc; overflow: hidden; }
+    .wf-radar-sweep { position: absolute; left: 50%; top: 50%; width: 50%; height: 50%; transform-origin: left top; background: linear-gradient(45deg, rgba(14,165,233,.5), transparent 70%); animation: wfRadar 2.8s linear infinite; }
+    .wf-radar-dot { position: absolute; width: 0.5rem; height: 0.5rem; border-radius: 9999px; background: #0ea5e9; box-shadow: 0 0 10px #0ea5e9; animation: wfRadarBlink 1.5s infinite; }
+    .wf-radar-dot--1 { left: 35%; top: 28%; }
+    .wf-radar-dot--2 { left: 62%; top: 46%; animation-delay: .3s; }
+    .wf-radar-dot--3 { left: 44%; top: 68%; animation-delay: .6s; }
+    @keyframes wfRadar { to { transform: rotate(360deg); } }
+    @keyframes wfRadarBlink { 50% { transform: scale(1.5); opacity: .35; } }
+    .wf-progress { height: 0.5rem; border-radius: 9999px; background: #e2e8f0; overflow: hidden; }
+    .wf-progress-fill { height: 100%; width: 0; border-radius: 9999px; background: linear-gradient(90deg, #0ea5e9, #6366f1); animation: wfProgress 4s ease-in-out infinite; }
+    @keyframes wfProgress { 0% { width: 0; } 45% { width: 72%; } 70% { width: 100%; } 100% { width: 0; } }
+    .wf-bad-good { transition: transform .3s ease, box-shadow .3s ease; }
+    .wf-bad-good:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(15,23,42,.08); }
+    @keyframes wfFlowLine { from { left: -30%; } to { left: 100%; } }
+    @keyframes wfChipMove { 0%,100% { left: 4%; opacity: .7; } 45% { left: 62%; opacity: 1; } 70% { left: 78%; opacity: .95; } }
+    @keyframes wfHandoffLight { from { left: 0; } to { left: 78%; } }
+    @keyframes wfHandoffChip { 0%,100% { transform: translate(0,-50%); } 48%,62% { transform: translate(calc(56vw - 12rem),-50%); } }
+    @keyframes wfScan { from { left: -25%; } to { left: 105%; } }
+    @keyframes wfCrashFlash { 50% { background: #fee2e2; color: #b91c1c; } }
+    @media (max-width: 640px) {
+      .wf-orbit-panel { min-height: 11.5rem; padding-top: 2.25rem; }
+      .wf-orbit-wrap { width: 4.25rem; height: 4.25rem; right: 0.5rem; top: 0.5rem; }
+      .wf-handoff-lane {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+        padding: 1rem;
+        overflow: visible;
+      }
+      .wf-handoff-route { display: none; }
+      .wf-handoff-card {
+        position: static;
+        width: 100%;
+        max-width: none;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        padding: 0.9rem 1rem;
+      }
+      .wf-handoff-chip {
+        position: static;
+        align-self: center;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        animation: wfHandoffChipMobPulse 2.4s ease-in-out infinite;
+        margin: 0.15rem 0;
+      }
+      .wf-handoff-chip::before,
+      .wf-handoff-chip::after {
+        display: block;
+        text-align: center;
+        font-size: 0.75rem;
+        font-weight: 900;
+        color: #64748b;
+        line-height: 1;
+      }
+      .wf-handoff-chip::before { content: "↓"; margin-bottom: 0.35rem; }
+      .wf-handoff-chip::after { content: "↓"; margin-top: 0.35rem; }
+      @keyframes wfHandoffChipMobPulse {
+        0%, 100% { box-shadow: 0 6px 16px rgba(14,165,233,.28); }
+        50% { box-shadow: 0 10px 24px rgba(14,165,233,.45); transform: scale(1.03); }
+      }
+    }
+    @media (min-width: 768px) {
+      .wf-focus-blocks { gap: 1.25rem; }
+      .wf-focus-block { padding: 1.25rem 1.35rem 1.35rem 1.5rem; }
+      .wf-handoff-lane { margin: 0; }
+      .wf-chat,
+      .wf-mega-row,
+      .wf-review-strip,
+      .wf-target,
+      .wf-radar { margin-top: 0.35rem; margin-bottom: 0.35rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .wf-motion-track::before, .wf-motion-chip, .wf-handoff-route::after, .wf-handoff-chip, .wf-scan-line::after, .wf-crash-word, .wf-data-pill, .wf-typewriter, .wf-target-ring, .wf-target-arrow, .wf-orbit-wrap, .wf-radar-sweep, .wf-radar-dot, .wf-progress-fill, .wf-mega-step { animation: none !important; }
+      .wf-handoff-chip::before, .wf-handoff-chip::after { content: none !important; }
+      .blog-flow-node.is-on { transform: none; }
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-base overflow-x-hidden">
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <main class="flex-grow w-full min-w-0">
+    <div id="blog-article-hero-slot"></div>
+
+    <div class="blog-shell px-4 lg:px-8 py-8 md:py-10 lg:py-12">
+      <div class="blog-layout">
+        <article class="blog-main blog-prose space-y-6 lg:space-y-7">
+
+      <section id="blog-intro" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-5">
+        <p class="text-sm font-bold text-indigo-600">👨‍🏫 拆・分・驗落地篇｜接續 Context、Rules 篇</p>
+        <h2 class="text-2xl font-black text-slate-900">從一個任務開始，建立完整 AI 工作流</h2>
+        <div class="blog-text-chunks">
+          <p class="text-slate-700 leading-relaxed">前三課建立觀念：AI 需要背景、規則、流程與檢查。本篇「<strong>拆・分・驗</strong>」三部曲則回答工作現場的三個問題——<strong>怎麼拆？誰來做？怎麼驗收？</strong></p>
+          <p class="text-slate-700 leading-relaxed">這不是多學幾個 Prompt，而是學會 <span class="blog-note-key">任務拆解</span>、<span class="blog-note-key">人機協作</span>、<span class="blog-note-key">品質驗收</span>，讓成果真的能交付。</p>
+        </div>
+        <div class="blog-pillar-grid pt-1">
+          <article class="blog-pillar-card">
+            <span class="blog-icon blog-icon--cyan blog-icon--num" aria-hidden="true">4</span>
+            <div class="blog-pillar-card__body">
+              <h3 class="blog-pillar-card__title">工作拆解</h3>
+              <p class="blog-pillar-card__desc">目標、資料、流程、輸出、驗收。</p>
+            </div>
+          </article>
+          <article class="blog-pillar-card">
+            <span class="blog-icon blog-icon--violet blog-icon--num" aria-hidden="true">5</span>
+            <div class="blog-pillar-card__body">
+              <h3 class="blog-pillar-card__title">人機分工</h3>
+              <p class="blog-pillar-card__desc">AI 加速，人類判斷與負責。</p>
+            </div>
+          </article>
+          <article class="blog-pillar-card">
+            <span class="blog-icon blog-icon--amber blog-icon--num" aria-hidden="true">6</span>
+            <div class="blog-pillar-card__body">
+              <h3 class="blog-pillar-card__title">成果驗收</h3>
+              <p class="blog-pillar-card__desc">避免「看起來完成卻不能用」。</p>
+            </div>
+          </article>
+        </div>
+        <p class="text-sm text-slate-500 mb-0">建議先讀 <a href="2026-06-05-ai-workflow-lesson-01-02.html" class="font-bold text-indigo-600 no-underline hover:text-indigo-800">第 1～2 課（Context、Rules）</a>，再進入本篇。</p>
+      </section>
+
+      <section class="wf-read-context scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="wf-focus-blocks">
+        <div class="wf-focus-block wf-focus-block--neutral">
+          <span class="wf-focus-block__tag">Course Storyline</span>
+          <h2 class="text-2xl font-black text-slate-900 mb-0">這三課其實是一個完整 SOP</h2>
+          <div class="blog-text-chunks">
+            <p class="text-slate-700 leading-relaxed">為了讓讀起來不會像三篇分散文章，先建立一條主線：<span class="blog-note-key">第 4 課先拆任務</span>、<span class="blog-note-key">第 5 課再分配人與 AI 的角色</span>、<span class="blog-note-key">第 6 課最後驗收成果</span>。</p>
+            <p class="text-slate-700 leading-relaxed">學完後，你應該能拿任何一件工作來問自己：這件事的目標是什麼？AI 可以先幫我做哪一步？我必須判斷什麼？成果要通過哪些檢查才可以交出去？</p>
+          </div>
+        </div>
+        <div class="wf-focus-block wf-focus-block--neutral">
+          <span class="wf-focus-block__tag">學習結果</span>
+          <p class="text-slate-700 leading-relaxed mb-0">不只是知道 AI 可以幫忙，而是能把一件工作拆成「AI 可以做」、「人必須做」、「AI 做完人要檢查」三個層次——從 AI 使用者進入 AI 工作流設計者的關鍵。</p>
+        </div>
+        </div>
+      </section>
+
+      <section id="flow-compare" class="wf-read-context scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="wf-focus-blocks">
+        <div class="wf-focus-block wf-focus-block--neutral">
+          <span class="wf-focus-block__tag">流程對照</span>
+          <h2 class="text-2xl font-black text-slate-900 mb-0">新手 vs 專業：流程差在哪？</h2>
+          <p class="text-slate-700 leading-relaxed mb-0">點選切換，對照「直接丟給 AI」與「先拆再分工再驗收」的差異。</p>
+        <div class="flex flex-wrap gap-2 mt-1">
+          <button type="button" class="blog-flow-tab active" data-flow="novice">新手流程</button>
+          <button type="button" class="blog-flow-tab" data-flow="pro">專業流程</button>
+        </div>
+        <p id="flow-desc" class="text-slate-700 leading-relaxed rounded-2xl bg-slate-50 border border-slate-100 p-4 mb-0">新手常見：收到需求後直接問 AI，產出看似完整，卻不符合實際標準，最後一直修。</p>
+        <div class="wf-orbit-panel">
+          <div class="wf-orbit-wrap" aria-hidden="true"><span class="wf-orbit-dot wf-orbit-dot--a"></span><span class="wf-orbit-dot wf-orbit-dot--b"></span><span class="wf-orbit-dot wf-orbit-dot--c"></span></div>
+          <span class="wf-data-pill">📋 需求輸入</span>
+          <span class="wf-data-pill">🔧 任務拆解</span>
+          <span class="wf-data-pill">🤖 AI 協助</span>
+          <span class="wf-data-pill">✅ 驗收交付</span>
+          <p class="text-xs font-black uppercase tracking-wider text-sky-300 mb-3 relative z-10">流程動態預覽</p>
+          <div class="wf-motion-track relative z-10"><span class="wf-motion-chip">AI 協助中</span></div>
+          <div class="wf-pipe-row relative z-10" id="wf-pipe-row">
+            <span class="wf-pipe-step is-now">需求</span>
+            <span class="wf-pipe-step">拆解</span>
+            <span class="wf-pipe-step">AI</span>
+            <span class="wf-pipe-step">人工</span>
+            <span class="wf-pipe-step">驗收</span>
+          </div>
+        </div>
+        <div id="flow-nodes" class="wf-flow-nodes">
+          <div class="blog-flow-node is-on">收到需求</div>
+          <div class="blog-flow-node">直接丟給 AI</div>
+          <div class="blog-flow-node">產出看似完整</div>
+          <div class="blog-flow-node">人工大量修正</div>
+          <div class="blog-flow-node">時間沒省下來</div>
+        </div>
+        </div>
+        </div>
+      </section>
+
+      <section class="wf-read-context scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="wf-focus-block wf-focus-block--neutral">
+          <span class="wf-focus-block__tag">學習路徑</span>
+          <h2 class="text-2xl font-black text-slate-900 mb-0">AI 工作流成熟度（L1～L6）</h2>
+          <p class="text-slate-700 leading-relaxed">1～3 課讓你從 L1、L2 往 L3 移動；本篇目標是把讀者帶進 <strong>L4</strong>——開始設計可重複的 AI 工作流。</p>
+          <div class="wf-maturity-grid" role="list">
+          <div class="wf-maturity-item" role="listitem">
+            <span class="wf-maturity-item__lvl">L1</span>
+            <span class="wf-maturity-item__name">聊天</span>
+            <span class="wf-maturity-item__desc">把 AI 當問答工具</span>
+          </div>
+          <div class="wf-maturity-item" role="listitem">
+            <span class="wf-maturity-item__lvl">L2</span>
+            <span class="wf-maturity-item__name">Prompt</span>
+            <span class="wf-maturity-item__desc">角色・目標・格式</span>
+          </div>
+          <div class="wf-maturity-item wf-maturity-item--sky" role="listitem">
+            <span class="wf-maturity-item__lvl">L3</span>
+            <span class="wf-maturity-item__name">拆解</span>
+            <span class="wf-maturity-item__desc">目標・輸入・流程・驗收</span>
+            <span class="wf-maturity-item__tag">拆・分・驗｜拆</span>
+          </div>
+          <div class="wf-maturity-item wf-maturity-item--indigo" role="listitem">
+            <span class="wf-maturity-item__lvl">L4</span>
+            <span class="wf-maturity-item__name">工作流</span>
+            <span class="wf-maturity-item__desc">交接・檢查・迭代</span>
+            <span class="wf-maturity-item__tag">拆・分・驗｜分・驗</span>
+          </div>
+          <div class="wf-maturity-item" role="listitem">
+            <span class="wf-maturity-item__lvl">L5</span>
+            <span class="wf-maturity-item__name">Agent</span>
+            <span class="wf-maturity-item__desc">流程持續執行</span>
+          </div>
+          <div class="wf-maturity-item" role="listitem">
+            <span class="wf-maturity-item__lvl">L6</span>
+            <span class="wf-maturity-item__name">企業流程</span>
+            <span class="wf-maturity-item__desc">納入 SOP 與品管</span>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <section id="lesson-4" class="blog-bridge scroll-mt-28">
+        <p class="blog-bridge__title">Lesson 04｜任務拆解術</p>
+        <p class="blog-bridge__desc">把模糊需求變成可執行流程。</p>
+      </section>
+
+      <section class="wf-lesson-flow wf-lesson-flow--sky wf-read-context scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="blog-lesson-band blog-lesson-band--sky">
+          <p class="blog-lesson-band__label">Lesson 04</p>
+          <h2>任務拆解：不要整包丟給 AI</h2>
+          <p class="blog-lesson-band__lead">先拆目標、輸入、步驟、分工與驗收，AI 才知道要協助哪一段。</p>
+        </div>
+
+        <div class="wf-focus-blocks mt-6 md:mt-7">
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">互動示範</span>
+          <h3 class="blog-subheading">AI 對話模擬：錯誤問法 vs 工作流問法</h3>
+          <p class="text-slate-700 leading-relaxed">同樣是問 AI，差別不是「句子有沒有變長」，而是有沒有把工作條件說清楚。錯誤問法會讓 AI 猜測；工作流問法會先拆目標、輸入、流程、分工與驗收。</p>
+          <div class="wf-duo-grid">
+          <div class="wf-chat">
+            <div class="wf-chat-head"><span class="wf-chat-dot"></span><span class="wf-chat-dot"></span><span class="wf-chat-dot"></span><span>錯誤問法</span></div>
+            <div class="wf-chat-body">
+              <div class="wf-msg wf-msg-user">幫我做一個活動頁。</div>
+              <div class="wf-msg wf-msg-ai">好的，我幫你產出標題、特色、CTA 與 FAQ。</div>
+              <div class="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm">
+                <p class="font-black text-rose-800 mb-1">問題</p>
+                <p class="text-slate-700 mb-0">AI 不知道目標、文案是否可改、品牌限制、版型規範與驗收標準，只能猜。</p>
+              </div>
+            </div>
+          </div>
+          <div class="wf-chat">
+            <div class="wf-chat-head"><span class="wf-chat-dot"></span><span class="wf-chat-dot"></span><span class="wf-chat-dot"></span><span>工作流問法</span></div>
+            <div class="wf-chat-body">
+              <div class="wf-msg wf-msg-user">請先不要執行。請先幫我拆解目標、輸入資料、流程步驟、AI 可做、人類判斷與驗收標準。</div>
+              <div class="wf-msg wf-msg-ai"><span class="wf-typewriter">我會先建立工作流表格，再進入執行。</span></div>
+              <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm">
+                <p class="font-black text-emerald-800 mb-1">改善</p>
+                <p class="text-slate-700 mb-0">AI 先變成分析助理，後續每一步都能被檢查，也比較容易交給下一個人接手。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">核心觀念</span>
+          <h3 class="blog-subheading">目標體：先射中目標，再談 AI 執行</h3>
+          <div class="wf-text-visual">
+          <div>
+            <p class="text-slate-700 leading-relaxed">每個工作都要先有一個靶心：這件事到底要增加轉換、降低錯誤、節省時間、提升品質，還是幫助學習？沒有靶心，AI 只會產出看似完整但方向不一定正確的內容。</p>
+            <div class="blog-student-note mt-4">
+              <p class="font-bold mb-2">學生筆記</p>
+              <p class="mb-0">先定義 <span class="blog-note-key">成功標準</span>，再請 AI 協助。不要反過來。</p>
+            </div>
+          </div>
+          <div class="wf-text-visual__media">
+            <div class="wf-target" aria-hidden="true">
+              <div class="wf-target-ring"></div>
+              <div class="wf-target-ring"></div>
+              <div class="wf-target-ring"></div>
+              <div class="wf-target-core"></div>
+              <div class="wf-target-arrow"></div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block wf-focus-block--warn">
+          <span class="wf-focus-block__tag">常見錯誤</span>
+          <h3 class="blog-subheading text-rose-900">新手最常見的錯誤：直接叫 AI 做整包任務</h3>
+          <p class="text-slate-700 leading-relaxed mb-0">例如主管說：「幫我做一頁活動頁。」新手會直接把文案丟給 AI，要求產出完整頁面。AI 很快會產出看似完整的結果，但常常不能用——重點順序不對、文案被改、CTA 不清楚、手機版不好讀、版型不符合品牌。這些不是單靠換 Prompt 就能解決，而是工作一開始沒有拆清楚。</p>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">拆解流程</span>
+          <h3 class="blog-subheading">大流程動畫：一件工作如何被拆開</h3>
+          <div class="wf-mega-row" id="wf-mega-steps" aria-label="工作大流程">
+          <div class="wf-mega-step is-now"><span class="wf-mega-step__icon">🎯</span>定義目標</div>
+          <div class="wf-mega-step"><span class="wf-mega-step__icon">📥</span>整理輸入</div>
+          <div class="wf-mega-step"><span class="wf-mega-step__icon">🤖</span>AI 協助</div>
+          <div class="wf-mega-step"><span class="wf-mega-step__icon">👤</span>人工判斷</div>
+          <div class="wf-mega-step"><span class="wf-mega-step__icon">✅</span>驗收交付</div>
+        </div>
+          <h3 class="blog-subheading mt-2">工作拆解七步驟</h3>
+          <div class="wf-step-strip" id="wf-seven-steps" aria-label="工作拆解七步驟">
+          <span class="wf-step-pill is-now"><span class="wf-step-pill__n">1</span>目標</span><span class="wf-step-join" aria-hidden="true">→</span>
+          <span class="wf-step-pill"><span class="wf-step-pill__n">2</span>輸入</span><span class="wf-step-join" aria-hidden="true">→</span>
+          <span class="wf-step-pill"><span class="wf-step-pill__n">3</span>拆解</span><span class="wf-step-join" aria-hidden="true">→</span>
+          <span class="wf-step-pill"><span class="wf-step-pill__n">4</span>分工</span><span class="wf-step-join" aria-hidden="true">→</span>
+          <span class="wf-step-pill"><span class="wf-step-pill__n">5</span>輸出</span><span class="wf-step-join" aria-hidden="true">→</span>
+          <span class="wf-step-pill"><span class="wf-step-pill__n">6</span>驗收</span><span class="wf-step-join" aria-hidden="true">→</span>
+          <span class="wf-step-pill"><span class="wf-step-pill__n">7</span>迭代</span>
+        </div>
+          <p class="text-sm text-slate-500 mb-0">步驟會依序亮起，提醒：先拆清楚，再交給 AI。</p>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">能力地圖</span>
+          <h3 class="blog-subheading">AI 能力地圖：不是只有寫文案</h3>
+          <p class="text-slate-700 leading-relaxed">在工作流裡，AI 可以扮演資料整理員、初稿產生器、檢查助理、流程記錄員、版本比較器——不只是幫忙寫文字。</p>
+          <div class="wf-trio-grid">
+          <div class="wf-bad-good rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+            <h4 class="font-black mb-2">整理資料</h4>
+            <p class="text-slate-700 leading-relaxed mb-0">評論、會議紀錄、長文案、客戶回饋、照片清單，都能先交給 AI 分類與摘要。</p>
+          </div>
+          <div class="wf-bad-good rounded-2xl border border-sky-200 bg-sky-50 p-5">
+            <h4 class="font-black mb-2">產生初稿</h4>
+            <p class="text-slate-700 leading-relaxed mb-0">文案、教案、FAQ、HTML 黑白稿、社群貼文、SOP 草稿，可以讓 AI 先產版本。</p>
+          </div>
+          <div class="wf-bad-good rounded-2xl border border-amber-200 bg-amber-50 p-5">
+            <h4 class="font-black mb-2">協助檢查</h4>
+            <p class="text-slate-700 leading-relaxed mb-0">AI 可以檢查遺漏、格式、重複、連結、欄位，但最後仍需人類驗收。</p>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">案例 01</span>
+          <h3 class="blog-subheading">完整案例 1：餐飲業老闆如何用 AI 拆解生意問題</h3>
+          <p class="text-slate-700 leading-relaxed">一間飲料店開了三年，最近生意下滑。如果直接問 AI「請幫我改善生意」，只能得到很普通的建議。專業做法是先把問題拆成資料型任務：收集 Google 評論、外送評論、銷售品項、客訴紀錄與競品菜單，請 AI 先分類問題，而不是直接決定策略。</p>
+          <ol class="blog-rule-list list-decimal ml-5 space-y-2 mb-0">
+          <li>匯出最近 1000 則評論。</li>
+          <li>請 AI 分類：價格、服務、環境、餐點、等待時間、外送問題。</li>
+          <li>請 AI 統計每類問題比例與代表性評論。</li>
+          <li>請 AI 找出高頻關鍵字，例如「太甜」、「等太久」、「店員態度」。</li>
+          <li>老闆判斷哪些問題真的要改善，哪些只是少數意見。</li>
+          <li>制定改善方案，例如調整出餐流程、修改菜單說明、增加尖峰人力。</li>
+          <li>兩週後再次整理評論，檢查是否改善。</li>
+        </ol>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">案例 02</span>
+          <h3 class="blog-subheading">完整案例 2：教學者如何拆解一堂 AI 課</h3>
+          <p class="text-slate-700 leading-relaxed">如果老師直接叫 AI「幫我做一堂 AI 課」，AI 可能產出工具介紹與 Prompt 範例，但不一定適合學生——因為沒有考慮年齡、理解能力、先備知識、課程時間與練習設計。</p>
+          <ul class="blog-rule-list space-y-2 mb-0">
+          <li><strong>目標：</strong>學生要理解 AI 可以協助學習與創作，但不能盲目相信。</li>
+          <li><strong>輸入：</strong>學生年齡、程度、課程時長、設備限制。</li>
+          <li><strong>流程：</strong>生活例子 → AI 基本概念 → 範例操作 → 小組練習 → 反思。</li>
+          <li><strong>AI 協助：</strong>產生活動題目、分級練習、舉例、教案草稿。</li>
+          <li><strong>人類判斷：</strong>哪些例子適合學生、難度是否太高、互動是否足夠。</li>
+          <li><strong>驗收：</strong>學生能不能用自己的話說出 AI 能做與不能做的事。</li>
+        </ul>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">案例 03</span>
+          <h3 class="blog-subheading">完整案例 3：平面設計師如何拆解一張招生海報</h3>
+          <p class="text-slate-700 leading-relaxed">設計需要先拆資訊層級：主標、賣點、對象、優惠、時間、地點、CTA。AI 可以協助整理文字、提出版型方向、建議視覺風格，但品牌判斷與視覺取捨仍要靠設計師。</p>
+          <div class="wf-duo-grid">
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+            <h4 class="font-black mb-2">AI 可以做</h4>
+            <ul class="blog-rule-list space-y-1 mb-0">
+              <li>整理文案重點</li>
+              <li>提出三種版型方向</li>
+              <li>產生視覺關鍵字</li>
+              <li>整理 CTA 文字版本</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-rose-200 bg-rose-50 p-5">
+            <h4 class="font-black mb-2">人必須做</h4>
+            <ul class="blog-rule-list space-y-1 mb-0">
+              <li>判斷品牌是否一致</li>
+              <li>決定視覺主軸</li>
+              <li>控制資訊層級</li>
+              <li>確認是否符合廣告目的</li>
+            </ul>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block wf-focus-block--prompt mt-1">
+        <div class="blog-dark-panel space-y-4">
+          <p class="blog-section-label" style="color:#7dd3fc">Prompt｜第 4 課</p>
+          <h3>把任務拆成工作流表格</h3>
+          <div class="blog-code-block blog-pre">請先不要直接執行。
+
+我有一個工作：
+【填入工作內容】
+
+請幫我拆解成完整工作流，包含：
+1. 最終目標是什麼？
+2. 需要哪些輸入資料？
+3. 可以拆成哪些步驟？
+4. 哪些步驟適合 AI 協助？
+5. 哪些步驟必須由人判斷？
+6. 每一步的輸出成果是什麼？
+7. 最後要怎麼驗收？
+8. 可能有哪些風險？
+
+請用表格呈現。</div>
+        </div>
+        </div>
+        </div>
+      </section>
+
+      <section class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <p class="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-2">Bridge to Lesson 05</p>
+        <h2 class="text-xl font-black text-slate-900 mb-2">拆完任務後，下一步不是執行，而是分工</h2>
+        <p class="text-slate-700 leading-relaxed mb-0">第 4 課把任務拆開後，你會得到很多步驟。但不是每一步都應該交給 AI，也不是每一步都要人類自己慢慢做。第 5 課的重點，就是判斷哪裡讓 AI 加速、哪裡必須由人類負責。</p>
+      </section>
+
+      <section id="lesson-5" class="blog-bridge scroll-mt-28">
+        <p class="blog-bridge__title">Lesson 05｜人機協作術</p>
+        <p class="blog-bridge__desc">拆完任務後，先分工再執行。</p>
+      </section>
+
+      <section class="wf-lesson-flow wf-lesson-flow--violet wf-read-context scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="blog-lesson-band blog-lesson-band--violet">
+          <p class="blog-lesson-band__label">Lesson 05</p>
+          <h2>人機協作：AI 是助理，不是主管</h2>
+          <p class="blog-lesson-band__lead">AI 像一位速度很快、耐心很好、但需要明確規則的助理——擅長整理、初稿與格式轉換；方向、判斷與責任仍在人類。</p>
+        </div>
+
+        <div class="wf-focus-blocks mt-6 md:mt-7">
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">動態示範</span>
+          <h3 class="blog-subheading">人機交接：任務如何在流程中移動</h3>
+        <div class="wf-handoff-lane" aria-label="人機交接動態示意">
+          <div class="wf-handoff-route" aria-hidden="true"></div>
+          <div class="wf-handoff-card wf-handoff-human">
+            <p class="text-xl mb-1" aria-hidden="true">👤</p>
+            <p class="text-sm mb-0">人類</p>
+            <p class="text-xs font-bold text-slate-500 mt-1 mb-0">目標／判斷</p>
+          </div>
+          <span class="wf-handoff-chip">任務包</span>
+          <div class="wf-handoff-card wf-handoff-ai">
+            <p class="text-xl mb-1" aria-hidden="true">🤖</p>
+            <p class="text-sm mb-0">AI</p>
+            <p class="mb-0 mt-1">整理／初稿</p>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">分工模型</span>
+          <h3 class="blog-subheading">三層分工模型</h3>
+          <div class="wf-trio-grid">
+          <div class="blog-point-card"><h4 class="font-black mb-2">AI 可獨立做</h4><p class="mb-0 text-slate-700 leading-relaxed">整理、分類、摘要、格式轉換、清單與初稿。</p></div>
+          <div class="blog-point-card"><h4 class="font-black mb-2">AI 先做，人檢查</h4><p class="mb-0 text-slate-700 leading-relaxed">文案、教案、SEO 架構、報表解讀、網頁黑白稿。</p></div>
+          <div class="rounded-2xl border border-rose-200 bg-rose-50 p-5"><h4 class="font-black mb-2">人類主導</h4><p class="mb-0 text-slate-700 leading-relaxed">策略、品牌、法律、金額、正式承諾、敏感內容、最終上線。</p></div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">對照學習</span>
+          <h3 class="blog-subheading">錯誤分工 vs 正確分工</h3>
+          <div class="wf-duo-grid">
+          <div class="wf-bad-good rounded-2xl border border-rose-200 bg-rose-50 p-5">
+            <p class="text-2xl mb-2" aria-hidden="true">❌</p>
+            <h4 class="font-black mb-2">錯誤：把 AI 當主管</h4>
+            <p class="text-slate-700 leading-relaxed">直接叫 AI 決定策略、承諾客戶、修改核定內容、判斷敏感問題——看似省時間，實際風險最高。</p>
+            <ul class="blog-rule-list space-y-1 mt-3 mb-0">
+              <li>容易產生不實承諾</li>
+              <li>容易忽略品牌限制</li>
+              <li>出了問題責任仍在人</li>
+            </ul>
+          </div>
+          <div class="wf-bad-good rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+            <p class="text-2xl mb-2" aria-hidden="true">✅</p>
+            <h4 class="font-black mb-2">正確：把 AI 當加速助理</h4>
+            <p class="text-slate-700 leading-relaxed">讓 AI 做整理、草稿、分類與檢查，人類負責方向、判斷、驗收與承擔責任。</p>
+            <ul class="blog-rule-list space-y-1 mt-3 mb-0">
+              <li>效率提升但風險可控</li>
+              <li>人保留關鍵決策權</li>
+              <li>流程可以重複與優化</li>
+            </ul>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">案例 01</span>
+          <h3 class="blog-subheading">案例：房仲業務的人機分工</h3>
+          <p class="text-slate-700 leading-relaxed">房仲可以讓 AI 整理物件特色、周邊機能、社區資料、社群貼文草稿。但帶看時的信任建立、議價策略、客戶真實需求判斷，仍然必須由人完成。</p>
+          <ol class="blog-rule-list list-decimal ml-5 space-y-1 mb-0">
+          <li>AI 整理物件基本資料與周邊機能。</li>
+          <li>AI 產出三種客群版本的介紹文案。</li>
+          <li>業務判斷客戶在意的是學區、交通、價格還是空間。</li>
+          <li>AI 協助整理帶看後追蹤訊息。</li>
+          <li>業務決定何時追蹤、如何談判、是否降價。</li>
+        </ol>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">案例 02</span>
+          <h3 class="blog-subheading">案例：保險顧問的人機分工</h3>
+          <p class="text-slate-700 leading-relaxed">保險顧問可以用 AI 整理客戶問題、建立 FAQ、準備初步需求訪談表。但保單建議、風險責任、法規說明不能交給 AI 自行判斷。</p>
+          <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+            <h4 class="font-black mb-2">翻車案例</h4>
+            <p class="text-slate-700 leading-relaxed mb-0">AI 為了讓說明更有吸引力，自行寫出「一定理賠」、「保證划算」之類語句。這類內容在金融與保險領域非常危險，因為涉及正式承諾與法規責任。</p>
+          </div>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">案例 03</span>
+          <h3 class="blog-subheading">案例：行政與主管的人機分工</h3>
+          <p class="text-slate-700 leading-relaxed mb-0">AI 可以整理會議逐字稿、待辦事項與追蹤表，但不能自行判定哪些是正式決議。主管或行政人員需要確認責任人、期限、優先順序與跨部門協調。</p>
+        </div>
+
+        <div class="wf-focus-block wf-focus-block--prompt">
+        <div class="blog-dark-panel space-y-4">
+          <p class="blog-section-label" style="color:#7dd3fc">Prompt｜第 5 課</p>
+          <h3>建立分工表</h3>
+          <div class="blog-code-block blog-pre">請分析以下工作：
+【填入工作】
+
+請分成四類：
+1. AI 可以獨立完成
+2. AI 可以先做，人類需要檢查
+3. 必須由人類完成
+4. 高風險，不應交給 AI
+
+並補充：每一類的原因、可能風險、驗收方式。請用表格輸出。</div>
+        </div>
+        </div>
+        </div>
+      </section>
+
+      <section class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <p class="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-2">Bridge to Lesson 06</p>
+        <h2 class="text-xl font-black text-slate-900 mb-2">AI 做完，不代表工作完成</h2>
+        <p class="text-slate-700 leading-relaxed mb-0">第 5 課完成分工後，AI 可能已經產出初稿、表格、摘要、流程圖或 HTML。但專業工作不能只看「有沒有產出」，而是要看這份成果是否能交給客戶、學生、主管、設計師或使用者——所以第 6 課要建立最後一道關卡：驗收。</p>
+      </section>
+
+      <section id="lesson-6" class="blog-bridge scroll-mt-28">
+        <p class="blog-bridge__title">Lesson 06｜成果驗收術</p>
+        <p class="blog-bridge__desc">AI 做完，不代表工作完成。</p>
+      </section>
+
+      <section class="wf-lesson-flow wf-lesson-flow--emerald wf-read-context scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="blog-lesson-band blog-lesson-band--emerald">
+          <p class="blog-lesson-band__label">Lesson 06</p>
+          <h2>成果驗收：完整 ≠ 可用</h2>
+          <p class="blog-lesson-band__lead">專業工作要檢查：能否上線、交付、教學、成交、決策，或交給下一位同事繼續處理。</p>
+        </div>
+
+        <div class="wf-focus-blocks mt-6 md:mt-7">
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">核心觀念</span>
+          <p class="text-slate-700 leading-relaxed mb-0">AI 產出的內容通常很完整，因為它擅長模仿格式。但完整不代表正確——文章可能有錯誤資料，網頁可能文案被改，教案可能難度不對，會議紀錄可能把討論誤判為決議。</p>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">動態示範</span>
+        <div class="wf-stack-flow">
+          <div>
+            <h3 class="blog-subheading">動態示意：AI 產出後，必須被掃描檢查</h3>
+            <p class="text-slate-700 leading-relaxed mb-0">驗收不是「看一下」而已，而是逐層掃描：功能、內容、目標、體驗、風險。AI 產出只是半成品，通過驗收才算可交付。</p>
+          </div>
+          <div class="space-y-3 max-w-xl">
+            <div class="wf-scan-line text-sm">
+              <p class="font-black text-white mb-0">AI 產出：活動頁初稿 / 教案 / 文案 / 報表</p>
+            </div>
+            <div class="flex justify-between text-sm font-bold text-slate-600"><span>驗收進度</span><span>Review</span></div>
+            <div class="wf-progress"><div class="wf-progress-fill"></div></div>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block wf-focus-block--warn">
+          <span class="wf-focus-block__tag">翻車模擬</span>
+          <h3 class="blog-subheading">AI 翻車模擬：為什麼一定要驗收？</h3>
+        <div class="wf-stack-flow">
+          <p class="text-slate-700 leading-relaxed mb-0">這個情境很常見：AI 為了讓文案更有吸引力，會自己補強語氣。但在教育、金融、醫療、法律、招生、廣告領域，這可能會變成風險。</p>
+          <div class="wf-chat">
+            <div class="wf-chat-head"><span class="wf-chat-dot"></span><span class="wf-chat-dot"></span><span class="wf-chat-dot"></span><span>AI Output Review</span></div>
+            <div class="wf-chat-body">
+              <div class="rounded-xl bg-slate-50 p-3 text-sm">
+                <p class="font-bold text-slate-500 mb-1">原始文案</p>
+                <p class="mb-0">本課程協助學生提升考試準備效率。</p>
+              </div>
+              <div class="rounded-xl bg-rose-50 p-3 text-sm">
+                <p class="font-bold text-rose-600 mb-1">AI 修改後</p>
+                <p class="mb-0">本課程讓學生<span class="wf-crash-word font-black">保證錄取</span>，快速取得好成績。</p>
+              </div>
+              <div class="rounded-xl bg-emerald-50 p-3 text-sm">
+                <p class="font-bold text-emerald-700 mb-1">驗收修正</p>
+                <p class="mb-0">改回可證明、可負責、不誇大的表述。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">驗收系統</span>
+          <h3 class="blog-subheading">五層驗收系統</h3>
+          <div class="wf-review-strip" id="wf-review-strip" aria-label="五層驗收">
+          <span class="wf-review-pill is-now"><span class="wf-review-pill__n">1</span>功能</span><span class="wf-review-join" aria-hidden="true">→</span>
+          <span class="wf-review-pill"><span class="wf-review-pill__n">2</span>內容</span><span class="wf-review-join" aria-hidden="true">→</span>
+          <span class="wf-review-pill"><span class="wf-review-pill__n">3</span>目標</span><span class="wf-review-join" aria-hidden="true">→</span>
+          <span class="wf-review-pill"><span class="wf-review-pill__n">4</span>體驗</span><span class="wf-review-join" aria-hidden="true">→</span>
+          <span class="wf-review-pill"><span class="wf-review-pill__n">5</span>風險</span>
+        </div>
+          <p class="text-sm text-slate-500 mb-0">功能（連結・表單）→ 內容（改錯・漏掉）→ 目標（轉換・交付）→ 體驗（閱讀・操作）→ 風險（法規・承諾）</p>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">風險掃描</span>
+        <div class="wf-stack-flow">
+          <div>
+            <h3 class="blog-subheading">驗收雷達：掃描 AI 成果的五種風險</h3>
+            <p class="text-slate-700 leading-relaxed mb-0">驗收不能只問「有沒有做完」，而是要掃描功能、內容、目標、體驗與風險——每次交付前都要掃過一次。</p>
+          </div>
+          <div class="wf-text-visual__media wf-media-center">
+            <div class="wf-radar" aria-hidden="true">
+              <div class="wf-radar-sweep"></div>
+              <span class="wf-radar-dot wf-radar-dot--1"></span>
+              <span class="wf-radar-dot wf-radar-dot--2"></span>
+              <span class="wf-radar-dot wf-radar-dot--3"></span>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">檢查表</span>
+          <h3 class="blog-subheading">驗收檢查表（流程的一部分）</h3>
+          <div class="rounded-2xl border border-slate-200 bg-white p-4 md:p-5">
+          <div class="grid sm:grid-cols-2 gap-2 text-sm">
+            <label class="flex items-center gap-2 p-3 bg-white rounded-xl border border-slate-200"><input type="checkbox" class="accent-sky-600"> 功能是否正常？</label>
+            <label class="flex items-center gap-2 p-3 bg-white rounded-xl border border-slate-200"><input type="checkbox" class="accent-sky-600"> 內容是否被改錯？</label>
+            <label class="flex items-center gap-2 p-3 bg-white rounded-xl border border-slate-200"><input type="checkbox" class="accent-sky-600"> 是否符合原本目標？</label>
+            <label class="flex items-center gap-2 p-3 bg-white rounded-xl border border-slate-200"><input type="checkbox" class="accent-sky-600"> 是否有風險或誇大？</label>
+          </div>
+        </div>
+        </div>
+
+        <div class="wf-focus-block">
+          <span class="wf-focus-block__tag">跨產業</span>
+          <h3 class="blog-subheading">跨產業驗收重點</h3>
+          <div class="blog-table-wrap">
+          <table class="blog-data-table">
+            <thead>
+              <tr><th>領域</th><th>AI 成果</th><th>驗收重點</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>網站</td><td>HTML / Layout</td><td>文案未改、RWD、CTA、維護性</td></tr>
+              <tr><td>教學</td><td>講義 / 題目</td><td>難度、順序、例子、練習</td></tr>
+              <tr><td>攝影</td><td>挑片清單</td><td>情感、重要人物、事件完整</td></tr>
+              <tr><td>行銷</td><td>文案</td><td>不誇大、受眾清楚、CTA 自然</td></tr>
+              <tr><td>行政</td><td>會議摘要</td><td>決議、負責人、期限正確</td></tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+
+        <div class="wf-focus-block wf-focus-block--prompt">
+        <div class="blog-dark-panel space-y-4">
+          <p class="blog-section-label" style="color:#7dd3fc">Prompt｜第 6 課</p>
+          <h3>AI 自我驗收</h3>
+          <div class="blog-code-block blog-pre">請根據以下標準檢查你的產出：
+
+任務目標：
+【填入目標】
+
+請檢查：
+1. 功能是否正確？
+2. 內容是否有錯誤、遺漏或自行新增？
+3. 是否符合原本目標？
+4. 使用體驗是否順暢？
+5. 是否有風險或需要人工確認？
+
+請用「通過 / 需修改 / 風險提醒」三欄表格回覆。
+不要直接修改，先列出問題。</div>
+        </div>
+        </div>
+        </div>
+      </section>
+
+      <section class="wf-read-context scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="wf-focus-block wf-focus-block--neutral">
+          <span class="wf-focus-block__tag">Real Workday</span>
+          <h2 class="text-2xl font-black text-slate-900 mb-0">真實職業的一天：AI 如何進入不同工作</h2>
+          <p class="text-slate-700 leading-relaxed">AI 不是只有工程師能用，而是任何有流程的工作都能用。重點是找到 AI 參與的位置，而不是強迫 AI 做完整件事。</p>
+          <div class="wf-trio-grid">
+          <div class="blog-point-card">
+            <h3 class="font-black mb-3">網站企劃的一天</h3>
+            <ol class="blog-rule-list list-decimal ml-4 space-y-1 text-sm mb-0">
+              <li>收到文案與上線期限。</li>
+              <li>AI 協助拆區塊與 FAQ。</li>
+              <li>人類判斷資訊順序與 CTA。</li>
+              <li>AI 產 HTML 黑白稿。</li>
+              <li>人工驗收後交設計或上線。</li>
+            </ol>
+          </div>
+          <div class="blog-point-card">
+            <h3 class="font-black mb-3">攝影師的一天</h3>
+            <ol class="blog-rule-list list-decimal ml-4 space-y-1 text-sm mb-0">
+              <li>完成拍攝匯入照片。</li>
+              <li>AI 協助分類與標記模糊。</li>
+              <li>人類挑情緒與故事線。</li>
+              <li>AI 輔助建立交件清單。</li>
+              <li>人工確認重要畫面完整。</li>
+            </ol>
+          </div>
+          <div class="blog-point-card">
+            <h3 class="font-black mb-3">老師的一天</h3>
+            <ol class="blog-rule-list list-decimal ml-4 space-y-1 text-sm mb-0">
+              <li>設定課程目標與學生程度。</li>
+              <li>AI 產生例子與練習題。</li>
+              <li>老師調整順序與難度。</li>
+              <li>上課觀察學生反應。</li>
+              <li>用回饋再優化教材。</li>
+            </ol>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <section class="wf-read-context scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="wf-focus-block wf-focus-block--neutral">
+          <span class="wf-focus-block__tag">Reading Check</span>
+          <h2 class="text-2xl font-black text-slate-900 mb-0">閱讀到這裡，你應該已經懂三件事</h2>
+          <div class="wf-trio-grid">
+          <div class="rounded-2xl border border-sky-200 bg-sky-50 p-5">
+            <h3 class="font-black mb-2">1. 不要直接丟整包</h3>
+            <p class="text-slate-700 leading-relaxed mb-0">模糊任務要先拆成可執行步驟，AI 才能準確協助。</p>
+          </div>
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+            <h3 class="font-black mb-2">2. 不要把責任丟給 AI</h3>
+            <p class="text-slate-700 leading-relaxed mb-0">AI 負責加速與整理，人類負責方向、判斷與承擔結果。</p>
+          </div>
+          <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+            <h3 class="font-black mb-2">3. 不驗收就不算完成</h3>
+            <p class="text-slate-700 leading-relaxed mb-0">AI 成果要通過功能、內容、目標、體驗與風險檢查。</p>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <section id="blog-summary" class="scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-5">
+        <h2 class="text-2xl font-black text-slate-900">拆・分・驗必抄重點</h2>
+        <ul class="blog-rule-list space-y-2 text-slate-700 leading-relaxed">
+          <li>AI 工作流第一步不是直接寫 Prompt，而是先拆解工作。</li>
+          <li>AI 適合整理、分類、草稿與格式轉換。</li>
+          <li>人類負責策略、判斷、責任與驗收。</li>
+          <li>看起來完成，不等於真正可用。</li>
+        </ul>
+        <div class="blog-summary-stack">
+          <div class="blog-point-card"><p class="font-black mb-2">1. 先拆解，再執行</p><p class="mb-0 text-slate-700 leading-relaxed">模糊任務拆成目標、資料、流程、輸出、驗收，AI 才能準確協助。</p></div>
+          <div class="blog-point-card"><p class="font-black mb-2">2. 分工清楚</p><p class="mb-0 text-slate-700 leading-relaxed">AI 適合整理與初稿；人類負責策略、判斷、責任與驗收。</p></div>
+          <div class="blog-point-card"><p class="font-black mb-2">3. 不驗收就不算完成</p><p class="mb-0 text-slate-700 leading-relaxed">看起來完成 ≠ 可用。功能、內容、目標、體驗、風險都要掃過。</p></div>
+        </div>
+        <p class="font-bold text-slate-900 mb-0">專業 AI 工作流 = 工作拆解 + 人機分工 + 成果驗收。</p>
+      </section>
+
+      <section id="next-lesson" class="scroll-mt-28 blog-next-band space-y-4">
+        <p class="blog-lesson-band__label">Series</p>
+        <h2>工作流系列文章</h2>
+        <p class="text-slate-300 leading-relaxed">本篇為「拆・分・驗落地篇」。若還沒讀過 Context 與 Rules，建議從跨領域通用版補起。</p>
+        <div class="flex flex-wrap gap-3 pt-1">
+          <a href="2026-06-05-ai-workflow-lesson-01-02.html" class="inline-flex px-5 py-2.5 rounded-full bg-white text-slate-900 font-bold text-sm no-underline hover:bg-indigo-50">← Context、Rules 篇</a>
+          <a href="2026-05-31-ai-prompt-six-levels.html" class="inline-flex px-5 py-2.5 rounded-full bg-white/10 border border-white/30 text-white font-bold text-sm no-underline hover:bg-white/20">Prompt 六層級</a>
+        </div>
+      </section>
+
+      <div id="blog-article-author-slot"></div>
+
+      <section class="rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-violet-900 text-white text-center p-8 md:p-10 space-y-4">
+        <h2 class="text-2xl font-black">想繼續練 AI 工作流？</h2>
+        <p class="text-indigo-200 max-w-lg mx-auto leading-relaxed">回到文章列表，或到 AI 學習地圖系統化練習。</p>
+        <div class="flex flex-wrap justify-center gap-3 pt-2">
+          <a href="index.html" class="inline-flex px-6 py-3 rounded-full bg-white text-slate-900 font-bold no-underline hover:bg-indigo-50 transition-colors">更多文章</a>
+          <a href="../ai-learning-map.html" class="inline-flex px-6 py-3 rounded-full bg-white/10 border border-white/30 text-white font-bold no-underline hover:bg-white/20 transition-colors">AI 學習地圖</a>
+        </div>
+      </section>
+
+      <p class="text-center">
+        <a href="index.html" class="text-sm font-bold text-indigo-600 no-underline hover:text-indigo-800">← 返回文章分享</a>
+      </p>
+        </article>
+
+        <div id="blog-article-rail-slot"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
+
+  <script>
+    (function () {
+      var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var flowSets = {
+        novice: {
+          desc: "新手常見：收到需求後直接問 AI，產出看似完整，卻不符合實際標準，最後一直修。",
+          nodes: ["收到需求", "直接丟給 AI", "產出看似完整", "人工大量修正", "時間沒省下來"]
+        },
+        pro: {
+          desc: "專業流程：先拆目標、資料、流程、輸出與驗收，再把適合的步驟交給 AI。速度快，品質也穩。",
+          nodes: ["收到需求", "拆解目標與輸入", "AI 協助整理與初稿", "人類判斷與修正", "依驗收表交付"]
+        }
+      };
+      var tabs = document.querySelectorAll(".blog-flow-tab");
+      var desc = document.getElementById("flow-desc");
+      var nodes = document.querySelectorAll("#flow-nodes .blog-flow-node");
+
+      function pulseNodes(nodeList) {
+        if (reduced || !nodeList.length) return;
+        nodeList.forEach(function (n, i) {
+          n.classList.remove("is-on");
+          setTimeout(function () {
+            n.classList.add("is-on");
+            setTimeout(function () { n.classList.remove("is-on"); }, 520);
+          }, i * 130);
+        });
+      }
+
+      tabs.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          tabs.forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+          var set = flowSets[btn.getAttribute("data-flow")];
+          if (!set) return;
+          desc.textContent = set.desc;
+          nodes.forEach(function (n, i) {
+            n.textContent = set.nodes[i] || "";
+            n.classList.remove("is-on");
+          });
+          pulseNodes(nodes);
+        });
+      });
+      pulseNodes(nodes);
+
+      function cycleHighlight(items, interval) {
+        if (reduced || !items.length) return;
+        var idx = 0;
+        setInterval(function () {
+          items.forEach(function (el) { el.classList.remove("is-now"); });
+          items[idx % items.length].classList.add("is-now");
+          idx++;
+        }, interval);
+      }
+
+      cycleHighlight(document.querySelectorAll("#wf-pipe-row .wf-pipe-step"), 750);
+      cycleHighlight(document.querySelectorAll("#wf-seven-steps .wf-step-pill"), 900);
+      cycleHighlight(document.querySelectorAll("#wf-mega-steps .wf-mega-step"), 1100);
+      cycleHighlight(document.querySelectorAll("#wf-review-strip .wf-review-pill"), 950);
+    })();
+
+    function fixNavPathsFromSubdir() {
+      var header = document.getElementById("global-header");
+      var footer = document.getElementById("global-footer");
+      [header, footer].forEach(function (root) {
+        if (!root) return;
+        root.querySelectorAll("a[href]").forEach(function (a) {
+          var h = a.getAttribute("href");
+          if (!h || /^https?:\/\//.test(h) || h.startsWith("#") || h.startsWith("../") || h.startsWith("/")) return;
+          if (h.startsWith("./")) a.setAttribute("href", ".." + h.slice(1));
+          else a.setAttribute("href", "../" + h);
+        });
+      });
+    }
+    window.addEventListener("DOMContentLoaded", function () {
+      includeComponentSlot("global-header", "../components/header.html", null, fixNavPathsFromSubdir);
+      includeComponentSlot("global-footer", "../components/footer.html", null, fixNavPathsFromSubdir);
+      initBlogArticlePage();
+    });
+  </script>
+</body>
+</html>

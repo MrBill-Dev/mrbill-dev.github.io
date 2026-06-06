@@ -1236,7 +1236,7 @@
 
 .blog-lesson-band {
   border-radius: 1.5rem;
-  padding: 1.75rem 1.875rem;
+  padding: 1.25rem 1.375rem;
   color: #fff;
   margin-bottom: 1.5rem;
 }
@@ -1247,6 +1247,22 @@
 
 .blog-lesson-band--sky {
   background: linear-gradient(160deg, #082f49 0%, #0c4a6e 100%);
+}
+
+.blog-lesson-band--violet {
+  background: linear-gradient(160deg, #4c1d95 0%, #5b21b6 100%);
+}
+
+.blog-lesson-band--violet .blog-lesson-band__label {
+  color: #ddd6fe;
+}
+
+.blog-lesson-band--emerald {
+  background: linear-gradient(160deg, #064e3b 0%, #0f766e 55%, #115e59 100%);
+}
+
+.blog-lesson-band--emerald .blog-lesson-band__label {
+  color: #99f6e4;
 }
 
 .blog-lesson-band__label {
@@ -1403,6 +1419,15 @@
 
 .blog-compare-stack__label--strong {
   color: #6ee7b7;
+}
+
+/* 淺色對照卡：標籤改深色，避免白底看不清 */
+.blog-compare-card .blog-compare-stack__label--weak {
+  color: #b91c1c;
+}
+
+.blog-compare-card .blog-compare-stack__label--strong {
+  color: #047857;
 }
 
 .blog-table-wrap {
