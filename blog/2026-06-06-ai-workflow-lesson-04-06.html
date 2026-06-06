@@ -92,7 +92,29 @@
     .wf-lesson-flow--sky .wf-focus-block__tag { color: #0369a1; }
     .wf-lesson-flow--violet .wf-focus-block__tag { color: #6d28d9; }
     .wf-lesson-flow--emerald .wf-focus-block__tag { color: #047857; }
-    .wf-focus-block .blog-subheading { margin: 0; font-size: 1.2rem; line-height: 1.45; padding-left: 0.35rem; overflow-wrap: anywhere; word-break: break-word; }
+    .wf-focus-block .blog-subheading {
+      margin: 0;
+      font-size: 1.2rem;
+      line-height: 1.45;
+      padding-left: 0.35rem;
+      max-width: 100%;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      text-wrap: wrap;
+    }
+    .wf-focus-block .blog-student-note,
+    .wf-focus-block .blog-student-note p {
+      min-width: 0;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .wf-focus-block .blog-note-key {
+      white-space: normal;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
     .wf-focus-block h2.text-2xl { margin: 0; overflow-wrap: anywhere; word-break: break-word; line-height: 1.45; }
     .wf-focus-block > p.text-slate-700 { padding-left: 0.35rem; margin-bottom: 0; }
     .wf-focus-block > p.text-sm { padding-left: 0.35rem; }
@@ -299,7 +321,21 @@
       .wf-trio-chip { font-size: 0.625rem; padding: 0.22rem 0.45rem; }
       .wf-trio-step { font-size: 0.75rem; }
     }
-    .wf-text-visual { display: grid; grid-template-columns: 1fr; gap: 1.25rem; align-items: start; min-width: 0; }
+    .wf-text-visual {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      align-items: start;
+      min-width: 0;
+      max-width: 100%;
+      overflow-x: clip;
+    }
+    .wf-text-visual > * {
+      min-width: 0;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
     .wf-text-visual__media { justify-self: center; width: 100%; max-width: 11rem; overflow: hidden; }
     @container (min-width: 46rem) {
       .wf-text-visual { grid-template-columns: minmax(0, 1fr) minmax(8.5rem, 10.5rem); align-items: center; gap: 2rem; }
@@ -394,7 +430,16 @@
       .wf-focus-block > p.text-sm { padding-left: 0; }
       .wf-trio-grid,
       .wf-duo-grid,
-      .wf-text-visual { grid-template-columns: 1fr !important; }
+      .wf-text-visual { grid-template-columns: 1fr !important; overflow-x: clip; }
+      .wf-text-visual > * { min-width: 0 !important; max-width: 100%; }
+      .wf-text-visual p,
+      .wf-focus-block .blog-subheading,
+      .wf-focus-block .blog-student-note p {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        text-wrap: wrap;
+      }
+      .wf-focus-block .blog-note-key { white-space: normal; display: inline; }
       .wf-text-visual__media { max-width: 100%; justify-self: stretch; }
       .wf-target { width: 7rem; height: 7rem; }
       .wf-target-ring:nth-child(2) { inset: 1.1rem; }
