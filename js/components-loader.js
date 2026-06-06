@@ -75,6 +75,36 @@ function applyGlobalNavActive(explicitId) {
 }
 window.applyGlobalNavActive = applyGlobalNavActive;
 
+/** 將 HTML 片段內的 <script> 注入 head（innerHTML 不會執行 script） */
+function injectHtmlScripts(html, target) {
+    var mount = target || document.head;
+    var tpl = document.createElement('div');
+    tpl.innerHTML = html;
+    tpl.querySelectorAll('script').forEach(function (oldScript) {
+        var s = document.createElement('script');
+        if (oldScript.src) {
+            s.async = oldScript.async;
+            s.src = oldScript.src;
+        } else {
+            s.textContent = oldScript.textContent;
+        }
+        mount.appendChild(s);
+    });
+}
+
+/** 載入 components/site-analytics.html（GA4）；由 footer 載入時觸發，全站共用 */
+async function loadSiteAnalyticsScripts(footerFilePath) {
+    if (window.__siteAnalyticsLoaded) return;
+    window.__siteAnalyticsLoaded = true;
+    var base = footerFilePath.replace(/[^/]+$/, '');
+    try {
+        var response = await fetch(base + 'site-analytics.html');
+        if (!response.ok) return;
+        injectHtmlScripts(await response.text(), document.head);
+    } catch (_) {}
+}
+window.loadSiteAnalyticsScripts = loadSiteAnalyticsScripts;
+
 async function includeComponentSlot(elementId, filePath, activeNavId, callback) {
     const container = document.getElementById(elementId);
     if (!container) return;
@@ -84,6 +114,9 @@ async function includeComponentSlot(elementId, filePath, activeNavId, callback) 
         container.innerHTML = await response.text();
         if (elementId === 'global-header') {
             applyGlobalNavActive(activeNavId);
+        }
+        if (elementId === 'global-footer') {
+            loadSiteAnalyticsScripts(filePath);
         }
         initNavMegaMenus();
         if (callback) callback();
