@@ -1932,3 +1932,131 @@
     transform: none;
   }
 }
+
+/* —— 文章列表（全站共用：index / 內嵌區） —— */
+
+.blog-list-mount {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.blog-list-block--featured {
+  display: grid;
+  gap: 1rem;
+}
+
+.blog-list-block--compact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 0.75rem;
+}
+
+.blog-list-block--featured + .blog-list-block--compact {
+  margin-top: 0.25rem;
+}
+
+.blog-list-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.625rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 0.2rem 0.45rem;
+  border-radius: 9999px;
+  margin-left: 0.125rem;
+}
+
+.blog-list-badge--new {
+  color: #fff;
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
+  box-shadow: 0 1px 4px rgba(225, 29, 72, 0.35);
+}
+
+.blog-list-badge--latest {
+  color: #0e7490;
+  background: #cffafe;
+  border: 1px solid #a5f3fc;
+}
+
+.blog-list-card--compact {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.blog-list-card--compact:hover {
+  border-color: #67e8f9;
+  background: #f0fdfa;
+}
+
+.blog-list-card--compact__main {
+  min-width: 0;
+  flex: 1;
+}
+
+.blog-list-card--compact__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.blog-list-card--compact__cat {
+  color: #0e7490;
+}
+
+.blog-list-card--compact__title {
+  margin-top: 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #0f172a;
+  transition: color 0.15s ease;
+}
+
+.blog-list-card--compact:hover .blog-list-card--compact__title {
+  color: #4338ca;
+}
+
+.blog-list-card--compact__arrow {
+  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #818cf8;
+  transition: transform 0.15s ease;
+}
+
+.blog-list-card--compact:hover .blog-list-card--compact__arrow {
+  transform: translateX(2px);
+}
+
+.blog-list-viewall {
+  margin: 0.25rem 0 0;
+  text-align: center;
+}
+
+.blog-list-viewall__link {
+  display: inline-flex;
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #0891b2;
+  text-decoration: none;
+}
+
+.blog-list-viewall__link:hover {
+  color: #0e7490;
+  text-decoration: underline;
+}

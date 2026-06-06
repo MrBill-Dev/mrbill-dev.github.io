@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI 實戰學程 - MrBill Studio</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/blog-layout.css" />
   <script src="js/components-loader.js"></script>
   <script>
     tailwind.config = {
@@ -84,7 +85,7 @@
               <p class="text-sm text-slate-600 mt-2">長文、心得與案例分享；<a href="blog/index.html" class="font-bold text-cyan-700 no-underline hover:text-cyan-900">前往文章列表 →</a></p>
             </div>
           </div>
-          <div id="blog-article-list" class="grid gap-4"></div>
+          <div id="blog-article-list" class="blog-list-mount"></div>
         </div>
 
         <div id="ai-practice" class="relative -top-24"></div>
@@ -438,7 +439,7 @@
     window.addEventListener('DOMContentLoaded', function() {
       includeComponentSlot('global-header', 'components/header.html');
       includeComponentSlot('global-footer', 'components/footer.html');
-      renderBlogArticleList("blog-article-list", { category: "AI學習地圖", limit: 6 });
+      initBlogEmbedList("blog-article-list", { category: "AI學習地圖" });
       var coursePromptModal = document.getElementById('course-prompt-modal');
       if (coursePromptModal) {
         coursePromptModal.addEventListener('click', function(e) {

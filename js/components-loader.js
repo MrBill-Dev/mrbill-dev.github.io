@@ -105,6 +105,49 @@ async function loadSiteAnalyticsScripts(footerFilePath) {
 }
 window.loadSiteAnalyticsScripts = loadSiteAnalyticsScripts;
 
+function getSiteJsHref(fileName) {
+    if (isBlogSectionPath()) return '../js/' + fileName;
+    return 'js/' + fileName;
+}
+
+function loadSiteScriptOnce(fileName) {
+    var href = getSiteJsHref(fileName);
+    return new Promise(function (resolve, reject) {
+        if (typeof syncBlogNavNewIndicator === 'function') {
+            resolve();
+            return;
+        }
+        var existing = document.querySelector('script[data-site-script="' + fileName + '"]');
+        if (existing) {
+            existing.addEventListener('load', function () { resolve(); });
+            existing.addEventListener('error', reject);
+            return;
+        }
+        var s = document.createElement('script');
+        s.src = href;
+        s.async = true;
+        s.dataset.siteScript = fileName;
+        s.onload = function () { resolve(); };
+        s.onerror = reject;
+        document.head.appendChild(s);
+    });
+}
+
+/** 載入 blog-articles.js 後同步導覽紅點（依個人未讀狀態） */
+function initBlogNavNewIndicator() {
+    if (typeof syncBlogNavNewIndicator === 'function') {
+        syncBlogNavNewIndicator();
+        return;
+    }
+    loadSiteScriptOnce('blog-articles.js')
+        .then(function () {
+            if (typeof syncBlogNavNewIndicator === 'function') {
+                syncBlogNavNewIndicator();
+            }
+        })
+        .catch(function () {});
+}
+
 async function includeComponentSlot(elementId, filePath, activeNavId, callback) {
     const container = document.getElementById(elementId);
     if (!container) return;
@@ -114,6 +157,7 @@ async function includeComponentSlot(elementId, filePath, activeNavId, callback) 
         container.innerHTML = await response.text();
         if (elementId === 'global-header') {
             applyGlobalNavActive(activeNavId);
+            initBlogNavNewIndicator();
         }
         if (elementId === 'global-footer') {
             loadSiteAnalyticsScripts(filePath);
@@ -202,7 +246,12 @@ function injectSiteRwdStyles() {
         '#mobile-content-dock { transition: opacity 0.22s ease, transform 0.22s ease; }',
         '#mobile-content-dock.is-hidden { opacity: 0; pointer-events: none; transform: translateY(10px); }',
         '@media (max-width: 1023px) { body.has-mobile-dock { padding-bottom: 5.5rem; } }',
-        '.nav-mega-grid .nav-mega-card { min-height: 5.25rem; display: flex; flex-direction: column; justify-content: center; }'
+        '.nav-mega-grid .nav-mega-card { min-height: 5.25rem; display: flex; flex-direction: column; justify-content: center; }',
+        '[data-nav-articles].nav-articles--has-new { position: relative; }',
+        '.nav-articles-new-badge { position: absolute; display: inline-flex; align-items: center; justify-content: center; min-width: 1.125rem; height: 1.125rem; padding: 0 0.3rem; border-radius: 9999px; background: #f43f5e; color: #fff; font-size: 0.625rem; font-weight: 900; line-height: 1; letter-spacing: -0.02em; box-shadow: 0 0 0 2px rgba(255,255,255,0.95); pointer-events: none; top: 0.1rem; right: -0.2rem; }',
+        '.mobile-nav-top.nav-articles--has-new .nav-articles-new-badge { top: 50%; right: 0.75rem; transform: translateY(-50%); }',
+        '@media (prefers-reduced-motion: no-preference) { .nav-articles-new-badge { animation: nav-articles-new-pulse 2.4s ease-in-out infinite; } }',
+        '@keyframes nav-articles-new-pulse { 0%, 100% { box-shadow: 0 0 0 2px rgba(255,255,255,0.95); } 50% { box-shadow: 0 0 0 2px rgba(255,255,255,0.95), 0 0 0 4px rgba(244,63,94,0.28); } }'
     ].join('\n');
     document.head.appendChild(style);
 }

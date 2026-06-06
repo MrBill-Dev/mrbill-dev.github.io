@@ -3,9 +3,10 @@
   維護說明：見同目錄 README.md
 
   新增文章：
-  1. js/blog-articles.js → BLOG_ARTICLES 加一筆
+  1. js/blog-articles.js → BLOG_ARTICLES 加一筆（列表／內嵌區自動更新）
   2. 複製本檔為 blog/{slug}.html，改 <head> meta（參考 2026-06-05 工作流文）與 <article> 內文
   3. 根目錄 sitemap.xml 加一筆 <url>
+  內嵌列表：initBlogEmbedList(mountId, { category: "…" })；門檻見 BLOG_LIST_CONFIG
 -->
 <html lang="zh-Hant">
 <head>
