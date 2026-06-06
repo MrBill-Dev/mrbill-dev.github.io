@@ -102,10 +102,203 @@
     .wf-duo-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; min-width: 0; }
     .wf-duo-grid > * { min-width: 0; }
     @container (min-width: 46rem) { .wf-duo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
-    .wf-trio-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; min-width: 0; }
+    .wf-trio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.875rem;
+      min-width: 0;
+    }
     .wf-trio-grid > * { min-width: 0; max-width: 100%; }
-    @container (min-width: 40rem) { .wf-trio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @container (min-width: 56rem) { .wf-trio-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .wf-trio-card {
+      --trio-accent: #475569;
+      --trio-bg: #f8fafc;
+      --trio-border: #e2e8f0;
+      --trio-chip-bg: #fff;
+      --trio-chip-border: #e2e8f0;
+      --trio-chip-text: #475569;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      padding: 1rem 1.05rem 1.1rem;
+      border-radius: 1rem;
+      border: 1px solid var(--trio-border);
+      background: linear-gradient(165deg, var(--trio-bg) 0%, #fff 72%);
+      box-shadow: 0 1px 2px rgba(15,23,42,.04);
+      position: relative;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .wf-trio-card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--trio-accent);
+      border-radius: 0 3px 3px 0;
+    }
+    .wf-trio-card--emerald { --trio-accent: #059669; --trio-bg: #ecfdf5; --trio-border: #a7f3d0; --trio-chip-border: #bbf7d0; --trio-chip-text: #047857; }
+    .wf-trio-card--sky { --trio-accent: #0284c7; --trio-bg: #f0f9ff; --trio-border: #bae6fd; --trio-chip-border: #bae6fd; --trio-chip-text: #0369a1; }
+    .wf-trio-card--amber { --trio-accent: #d97706; --trio-bg: #fffbeb; --trio-border: #fde68a; --trio-chip-border: #fde68a; --trio-chip-text: #b45309; }
+    .wf-trio-card--rose { --trio-accent: #e11d48; --trio-bg: #fff1f2; --trio-border: #fecdd3; --trio-chip-border: #fecdd3; --trio-chip-text: #be123c; }
+    .wf-trio-card--violet { --trio-accent: #7c3aed; --trio-bg: #f5f3ff; --trio-border: #ddd6fe; --trio-chip-border: #ddd6fe; --trio-chip-text: #6d28d9; }
+    .wf-trio-card--indigo { --trio-accent: #4f46e5; --trio-bg: #eef2ff; --trio-border: #c7d2fe; --trio-chip-border: #c7d2fe; --trio-chip-text: #4338ca; }
+    .wf-trio-card__top {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding-left: 0.15rem;
+    }
+    .wf-trio-card__num,
+    .wf-trio-card__badge {
+      flex-shrink: 0;
+      min-width: 1.75rem;
+      height: 1.75rem;
+      padding: 0 0.35rem;
+      border-radius: 0.5rem;
+      display: grid;
+      place-items: center;
+      font-size: 0.6875rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      color: var(--trio-accent);
+      background: #fff;
+      border: 1px solid var(--trio-border);
+    }
+    .wf-trio-card__icon {
+      flex-shrink: 0;
+      font-size: 1.125rem;
+      line-height: 1;
+    }
+    .wf-trio-card__title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 900;
+      line-height: 1.35;
+      color: #0f172a;
+    }
+    .wf-trio-card__lead,
+    .wf-trio-card__insight {
+      margin: 0;
+      padding-left: 0.15rem;
+      font-size: 0.8125rem;
+      line-height: 1.55;
+      color: #64748b;
+    }
+    .wf-trio-card__insight {
+      color: #475569;
+      border-left: 2px solid var(--trio-border);
+      padding-left: 0.65rem;
+      margin-left: 0.15rem;
+    }
+    .wf-trio-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin: 0;
+      padding: 0 0 0 0.15rem;
+      list-style: none;
+    }
+    .wf-trio-chip {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      line-height: 1.35;
+      padding: 0.28rem 0.55rem;
+      border-radius: 9999px;
+      color: var(--trio-chip-text);
+      background: var(--trio-chip-bg);
+      border: 1px solid var(--trio-chip-border);
+    }
+    .wf-trio-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin: 0;
+      padding: 0 0 0 0.15rem;
+      list-style: none;
+    }
+    .wf-trio-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      font-size: 0.8125rem;
+      line-height: 1.45;
+      color: #475569;
+    }
+    .wf-trio-step__n {
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 9999px;
+      display: grid;
+      place-items: center;
+      font-size: 0.625rem;
+      font-weight: 900;
+      color: var(--trio-accent);
+      background: #fff;
+      border: 1px solid var(--trio-border);
+    }
+    .wf-trio-step__tag {
+      display: inline-block;
+      margin-right: 0.3rem;
+      vertical-align: baseline;
+      font-size: 0.625rem;
+      font-weight: 800;
+      padding: 0.12rem 0.4rem;
+      border-radius: 9999px;
+      color: var(--trio-chip-text);
+      background: var(--trio-chip-bg);
+      border: 1px solid var(--trio-chip-border);
+    }
+    @media (hover: hover) and (min-width: 641px) {
+      .wf-trio-card { transition: box-shadow .25s ease, transform .25s ease; }
+      .wf-trio-card:hover { box-shadow: 0 8px 22px rgba(15,23,42,.07); transform: translateY(-2px); }
+    }
+    @container (min-width: 30rem) and (max-width: 49.99rem) {
+      .wf-trio-card:not(.wf-trio-card--steps) {
+        display: grid;
+        grid-template-columns: minmax(7.5rem, 9rem) minmax(0, 1fr);
+        gap: 0.45rem 0.85rem;
+        align-items: start;
+      }
+      .wf-trio-card:not(.wf-trio-card--steps) .wf-trio-card__top {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+      }
+      .wf-trio-card:not(.wf-trio-card--steps) .wf-trio-card__lead,
+      .wf-trio-card:not(.wf-trio-card--steps) .wf-trio-card__insight,
+      .wf-trio-card:not(.wf-trio-card--steps) .wf-trio-chip-list {
+        grid-column: 2;
+      }
+      .wf-trio-card--steps {
+        display: grid;
+        grid-template-columns: minmax(7.5rem, 9rem) minmax(0, 1fr);
+        gap: 0.5rem 0.85rem;
+        align-items: start;
+      }
+      .wf-trio-card--steps .wf-trio-card__top {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .wf-trio-card--steps .wf-trio-steps { grid-column: 2; }
+    }
+    @container (min-width: 50rem) {
+      .wf-trio-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.875rem;
+        align-items: stretch;
+      }
+      .wf-trio-card { height: 100%; padding: 0.95rem 0.9rem 1rem; gap: 0.55rem; }
+      .wf-trio-card__title { font-size: 0.9375rem; }
+      .wf-trio-card__lead,
+      .wf-trio-card__insight { font-size: 0.75rem; }
+      .wf-trio-chip { font-size: 0.625rem; padding: 0.22rem 0.45rem; }
+      .wf-trio-step { font-size: 0.75rem; }
+    }
     .wf-text-visual { display: grid; grid-template-columns: 1fr; gap: 1.25rem; align-items: start; min-width: 0; }
     .wf-text-visual__media { justify-self: center; width: 100%; max-width: 11rem; overflow: hidden; }
     @container (min-width: 46rem) {
@@ -210,9 +403,14 @@
       .wf-target-arrow { width: 4rem; }
       @keyframes wfArrowHit { 0% { transform: translateY(-50%) translateX(0); opacity: 0; } 25% { opacity: 1; } 65% { transform: translateY(-50%) translateX(3.25rem); } 85%,100% { transform: translateY(-50%) translateX(3.25rem); opacity: 0; } }
       .wf-bad-good,
-      .wf-trio-grid .rounded-2xl,
-      .wf-trio-grid .blog-point-card,
-      .wf-duo-grid .wf-bad-good { padding: 1rem !important; }
+      .wf-trio-card,
+      .wf-duo-grid .wf-bad-good { padding: 0.9rem 0.85rem !important; }
+      .wf-trio-card:not(.wf-trio-card--steps) {
+        display: flex !important;
+        flex-direction: column;
+      }
+      .wf-trio-card--steps { display: flex !important; flex-direction: column; }
+      .wf-trio-card__top { flex-direction: row; align-items: center; }
       .wf-orbit-panel { min-height: 11.5rem; padding-top: 2.25rem; }
       .wf-orbit-wrap { width: 4.25rem; height: 4.25rem; right: 0.5rem; top: 0.5rem; }
       .wf-handoff-lane {
@@ -518,18 +716,52 @@
           <h3 class="blog-subheading">AI 能力地圖：不是只有寫文案</h3>
           <p class="text-slate-700 leading-relaxed">在工作流裡，AI 可以扮演資料整理員、初稿產生器、檢查助理、流程記錄員、版本比較器——不只是幫忙寫文字。</p>
           <div class="wf-trio-grid">
-          <div class="wf-bad-good rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-            <h4 class="font-black mb-2">整理資料</h4>
-            <p class="text-slate-700 leading-relaxed mb-0">評論、會議紀錄、長文案、客戶回饋、照片清單，都能先交給 AI 分類與摘要。</p>
-          </div>
-          <div class="wf-bad-good rounded-2xl border border-sky-200 bg-sky-50 p-5">
-            <h4 class="font-black mb-2">產生初稿</h4>
-            <p class="text-slate-700 leading-relaxed mb-0">文案、教案、FAQ、HTML 黑白稿、社群貼文、SOP 草稿，可以讓 AI 先產版本。</p>
-          </div>
-          <div class="wf-bad-good rounded-2xl border border-amber-200 bg-amber-50 p-5">
-            <h4 class="font-black mb-2">協助檢查</h4>
-            <p class="text-slate-700 leading-relaxed mb-0">AI 可以檢查遺漏、格式、重複、連結、欄位，但最後仍需人類驗收。</p>
-          </div>
+          <article class="wf-trio-card wf-trio-card--emerald">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__num" aria-hidden="true">01</span>
+              <span class="wf-trio-card__icon" aria-hidden="true">📂</span>
+              <h4 class="wf-trio-card__title">整理資料</h4>
+            </div>
+            <p class="wf-trio-card__lead">先分類與摘要，再進入判斷。</p>
+            <ul class="wf-trio-chip-list" aria-label="整理資料適用項目">
+              <li class="wf-trio-chip">評論</li>
+              <li class="wf-trio-chip">會議紀錄</li>
+              <li class="wf-trio-chip">長文案</li>
+              <li class="wf-trio-chip">客戶回饋</li>
+              <li class="wf-trio-chip">照片清單</li>
+            </ul>
+          </article>
+          <article class="wf-trio-card wf-trio-card--sky">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__num" aria-hidden="true">02</span>
+              <span class="wf-trio-card__icon" aria-hidden="true">✍️</span>
+              <h4 class="wf-trio-card__title">產生初稿</h4>
+            </div>
+            <p class="wf-trio-card__lead">AI 先產版本，人類再調整方向。</p>
+            <ul class="wf-trio-chip-list" aria-label="產生初稿適用項目">
+              <li class="wf-trio-chip">文案</li>
+              <li class="wf-trio-chip">教案</li>
+              <li class="wf-trio-chip">FAQ</li>
+              <li class="wf-trio-chip">HTML 黑白稿</li>
+              <li class="wf-trio-chip">社群貼文</li>
+              <li class="wf-trio-chip">SOP 草稿</li>
+            </ul>
+          </article>
+          <article class="wf-trio-card wf-trio-card--amber">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__num" aria-hidden="true">03</span>
+              <span class="wf-trio-card__icon" aria-hidden="true">🔍</span>
+              <h4 class="wf-trio-card__title">協助檢查</h4>
+            </div>
+            <p class="wf-trio-card__lead">AI 找問題，人類做最終驗收。</p>
+            <ul class="wf-trio-chip-list" aria-label="協助檢查項目">
+              <li class="wf-trio-chip">遺漏</li>
+              <li class="wf-trio-chip">格式</li>
+              <li class="wf-trio-chip">重複</li>
+              <li class="wf-trio-chip">連結</li>
+              <li class="wf-trio-chip">欄位</li>
+            </ul>
+          </article>
         </div>
         </div>
 
@@ -655,9 +887,51 @@
           <span class="wf-focus-block__tag">分工模型</span>
           <h3 class="blog-subheading">三層分工模型</h3>
           <div class="wf-trio-grid">
-          <div class="blog-point-card"><h4 class="font-black mb-2">AI 可獨立做</h4><p class="mb-0 text-slate-700 leading-relaxed">整理、分類、摘要、格式轉換、清單與初稿。</p></div>
-          <div class="blog-point-card"><h4 class="font-black mb-2">AI 先做，人檢查</h4><p class="mb-0 text-slate-700 leading-relaxed">文案、教案、SEO 架構、報表解讀、網頁黑白稿。</p></div>
-          <div class="rounded-2xl border border-rose-200 bg-rose-50 p-5"><h4 class="font-black mb-2">人類主導</h4><p class="mb-0 text-slate-700 leading-relaxed">策略、品牌、法律、金額、正式承諾、敏感內容、最終上線。</p></div>
+          <article class="wf-trio-card wf-trio-card--emerald">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__badge" aria-hidden="true">L1</span>
+              <h4 class="wf-trio-card__title">AI 可獨立做</h4>
+            </div>
+            <p class="wf-trio-card__lead">低風險、可重複的整理型任務。</p>
+            <ul class="wf-trio-chip-list" aria-label="AI 可獨立做">
+              <li class="wf-trio-chip">整理</li>
+              <li class="wf-trio-chip">分類</li>
+              <li class="wf-trio-chip">摘要</li>
+              <li class="wf-trio-chip">格式轉換</li>
+              <li class="wf-trio-chip">清單</li>
+              <li class="wf-trio-chip">初稿</li>
+            </ul>
+          </article>
+          <article class="wf-trio-card wf-trio-card--violet">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__badge" aria-hidden="true">L2</span>
+              <h4 class="wf-trio-card__title">AI 先做，人檢查</h4>
+            </div>
+            <p class="wf-trio-card__lead">需要方向感，但可由 AI 加速。</p>
+            <ul class="wf-trio-chip-list" aria-label="AI 先做，人檢查">
+              <li class="wf-trio-chip">文案</li>
+              <li class="wf-trio-chip">教案</li>
+              <li class="wf-trio-chip">SEO 架構</li>
+              <li class="wf-trio-chip">報表解讀</li>
+              <li class="wf-trio-chip">網頁黑白稿</li>
+            </ul>
+          </article>
+          <article class="wf-trio-card wf-trio-card--rose">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__badge" aria-hidden="true">L3</span>
+              <h4 class="wf-trio-card__title">人類主導</h4>
+            </div>
+            <p class="wf-trio-card__lead">牽涉責任與承諾，不能外包給 AI。</p>
+            <ul class="wf-trio-chip-list" aria-label="人類主導">
+              <li class="wf-trio-chip">策略</li>
+              <li class="wf-trio-chip">品牌</li>
+              <li class="wf-trio-chip">法律</li>
+              <li class="wf-trio-chip">金額</li>
+              <li class="wf-trio-chip">正式承諾</li>
+              <li class="wf-trio-chip">敏感內容</li>
+              <li class="wf-trio-chip">最終上線</li>
+            </ul>
+          </article>
         </div>
         </div>
 
@@ -894,36 +1168,45 @@
           <h2 class="text-2xl font-black text-slate-900 mb-0">真實職業的一天：AI 如何進入不同工作</h2>
           <p class="text-slate-700 leading-relaxed">AI 不是只有工程師能用，而是任何有流程的工作都能用。重點是找到 AI 參與的位置，而不是強迫 AI 做完整件事。</p>
           <div class="wf-trio-grid">
-          <div class="blog-point-card">
-            <h3 class="font-black mb-3">網站企劃的一天</h3>
-            <ol class="blog-rule-list list-decimal ml-4 space-y-1 text-sm mb-0">
-              <li>收到文案與上線期限。</li>
-              <li>AI 協助拆區塊與 FAQ。</li>
-              <li>人類判斷資訊順序與 CTA。</li>
-              <li>AI 產 HTML 黑白稿。</li>
-              <li>人工驗收後交設計或上線。</li>
+          <article class="wf-trio-card wf-trio-card--sky wf-trio-card--steps">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__icon" aria-hidden="true">🌐</span>
+              <h4 class="wf-trio-card__title">網站企劃的一天</h4>
+            </div>
+            <ol class="wf-trio-steps">
+              <li class="wf-trio-step"><span class="wf-trio-step__n">1</span><span>收到文案與上線期限</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">2</span><span><span class="wf-trio-step__tag">AI</span> 協助拆區塊與 FAQ</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">3</span><span><span class="wf-trio-step__tag">人</span> 判斷資訊順序與 CTA</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">4</span><span><span class="wf-trio-step__tag">AI</span> 產 HTML 黑白稿</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">5</span><span><span class="wf-trio-step__tag">人</span> 驗收後交設計或上線</span></li>
             </ol>
-          </div>
-          <div class="blog-point-card">
-            <h3 class="font-black mb-3">攝影師的一天</h3>
-            <ol class="blog-rule-list list-decimal ml-4 space-y-1 text-sm mb-0">
-              <li>完成拍攝匯入照片。</li>
-              <li>AI 協助分類與標記模糊。</li>
-              <li>人類挑情緒與故事線。</li>
-              <li>AI 輔助建立交件清單。</li>
-              <li>人工確認重要畫面完整。</li>
+          </article>
+          <article class="wf-trio-card wf-trio-card--amber wf-trio-card--steps">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__icon" aria-hidden="true">📷</span>
+              <h4 class="wf-trio-card__title">攝影師的一天</h4>
+            </div>
+            <ol class="wf-trio-steps">
+              <li class="wf-trio-step"><span class="wf-trio-step__n">1</span><span>完成拍攝匯入照片</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">2</span><span><span class="wf-trio-step__tag">AI</span> 協助分類與標記模糊</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">3</span><span><span class="wf-trio-step__tag">人</span> 挑情緒與故事線</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">4</span><span><span class="wf-trio-step__tag">AI</span> 輔助建立交件清單</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">5</span><span><span class="wf-trio-step__tag">人</span> 確認重要畫面完整</span></li>
             </ol>
-          </div>
-          <div class="blog-point-card">
-            <h3 class="font-black mb-3">老師的一天</h3>
-            <ol class="blog-rule-list list-decimal ml-4 space-y-1 text-sm mb-0">
-              <li>設定課程目標與學生程度。</li>
-              <li>AI 產生例子與練習題。</li>
-              <li>老師調整順序與難度。</li>
-              <li>上課觀察學生反應。</li>
-              <li>用回饋再優化教材。</li>
+          </article>
+          <article class="wf-trio-card wf-trio-card--emerald wf-trio-card--steps">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__icon" aria-hidden="true">📚</span>
+              <h4 class="wf-trio-card__title">老師的一天</h4>
+            </div>
+            <ol class="wf-trio-steps">
+              <li class="wf-trio-step"><span class="wf-trio-step__n">1</span><span>設定課程目標與學生程度</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">2</span><span><span class="wf-trio-step__tag">AI</span> 產生例子與練習題</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">3</span><span><span class="wf-trio-step__tag">人</span> 調整順序與難度</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">4</span><span><span class="wf-trio-step__tag">人</span> 上課觀察學生反應</span></li>
+              <li class="wf-trio-step"><span class="wf-trio-step__n">5</span><span><span class="wf-trio-step__tag">人</span> 用回饋再優化教材</span></li>
             </ol>
-          </div>
+          </article>
         </div>
         </div>
       </section>
@@ -933,18 +1216,43 @@
           <span class="wf-focus-block__tag">Reading Check</span>
           <h2 class="text-2xl font-black text-slate-900 mb-0">閱讀到這裡，你應該已經懂三件事</h2>
           <div class="wf-trio-grid">
-          <div class="rounded-2xl border border-sky-200 bg-sky-50 p-5">
-            <h3 class="font-black mb-2">1. 不要直接丟整包</h3>
-            <p class="text-slate-700 leading-relaxed mb-0">模糊任務要先拆成可執行步驟，AI 才能準確協助。</p>
-          </div>
-          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-            <h3 class="font-black mb-2">2. 不要把責任丟給 AI</h3>
-            <p class="text-slate-700 leading-relaxed mb-0">AI 負責加速與整理，人類負責方向、判斷與承擔結果。</p>
-          </div>
-          <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-            <h3 class="font-black mb-2">3. 不驗收就不算完成</h3>
-            <p class="text-slate-700 leading-relaxed mb-0">AI 成果要通過功能、內容、目標、體驗與風險檢查。</p>
-          </div>
+          <article class="wf-trio-card wf-trio-card--sky">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__num" aria-hidden="true">1</span>
+              <h4 class="wf-trio-card__title">不要直接丟整包</h4>
+            </div>
+            <p class="wf-trio-card__insight">模糊任務要先拆成可執行步驟，AI 才能準確協助。</p>
+            <ul class="wf-trio-chip-list" aria-label="不要直接丟整包">
+              <li class="wf-trio-chip">先拆步驟</li>
+              <li class="wf-trio-chip">再交 AI</li>
+            </ul>
+          </article>
+          <article class="wf-trio-card wf-trio-card--emerald">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__num" aria-hidden="true">2</span>
+              <h4 class="wf-trio-card__title">不要把責任丟給 AI</h4>
+            </div>
+            <p class="wf-trio-card__insight">AI 負責加速與整理，人類負責方向、判斷與承擔結果。</p>
+            <ul class="wf-trio-chip-list" aria-label="不要把責任丟給 AI">
+              <li class="wf-trio-chip">AI：加速</li>
+              <li class="wf-trio-chip">人：方向</li>
+              <li class="wf-trio-chip">人：承擔</li>
+            </ul>
+          </article>
+          <article class="wf-trio-card wf-trio-card--amber">
+            <div class="wf-trio-card__top">
+              <span class="wf-trio-card__num" aria-hidden="true">3</span>
+              <h4 class="wf-trio-card__title">不驗收就不算完成</h4>
+            </div>
+            <p class="wf-trio-card__insight">AI 成果要通過功能、內容、目標、體驗與風險檢查。</p>
+            <ul class="wf-trio-chip-list" aria-label="不驗收就不算完成">
+              <li class="wf-trio-chip">功能</li>
+              <li class="wf-trio-chip">內容</li>
+              <li class="wf-trio-chip">目標</li>
+              <li class="wf-trio-chip">體驗</li>
+              <li class="wf-trio-chip">風險</li>
+            </ul>
+          </article>
         </div>
         </div>
       </section>
