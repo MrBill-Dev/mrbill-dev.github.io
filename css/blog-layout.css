@@ -85,14 +85,152 @@
 }
 
 .blog-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.55rem;
   margin-top: 1rem;
   font-size: 0.8125rem;
   font-weight: 600;
+  line-height: 1.55;
   color: #94a3b8;
+  max-width: 100%;
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
 }
 
-.blog-hero__views {
+.blog-hero__meta-item + .blog-hero__meta-item::before {
+  content: "·";
+  margin-right: 0.55rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.blog-hero__likes {
+  display: inline-flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.35rem;
+  max-width: 100%;
+  min-width: 0;
+  white-space: normal;
+  color: #fda4af;
+}
+
+.blog-hero__likes-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 1.4;
+  margin-top: 0.1rem;
+}
+
+.blog-hero__likes-text {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.25rem;
+  max-width: 100%;
+  min-width: 0;
+  color: #cbd5e1;
+  font-weight: 600;
+  line-height: 1.5;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.blog-hero__likes-part--lead {
+  white-space: normal;
+}
+
+.blog-hero__likes-part--tail {
+  flex-shrink: 0;
   white-space: nowrap;
+}
+
+.blog-hero__likes-text #busuanzi_value_page_pv {
+  color: #fecdd3;
+  font-weight: 800;
+}
+
+/* —— 喜歡這篇（按鈕 + 不蒜子累計） —— */
+
+.blog-like-beacon {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.blog-like-panel {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 0.875rem;
+  position: sticky;
+  top: 5.25rem;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.blog-like-btn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  max-width: 100%;
+  padding: 0.55rem 1rem 0.55rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid #fecdd3;
+  background: #fff;
+  color: #e11d48;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  line-height: 1.35;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.08);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.blog-like-btn__icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+.blog-like-btn:hover:not(:disabled) {
+  background: #fff1f2;
+  border-color: #fda4af;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.12);
+}
+
+.blog-like-btn.is-liked {
+  background: #fff1f2;
+  border-color: #fda4af;
+  color: #be123c;
+  cursor: default;
+  box-shadow: none;
+}
+
+.blog-like-btn.is-busy {
+  opacity: 0.75;
+}
+
+.blog-like-btn:disabled:not(.is-busy) {
+  cursor: default;
 }
 
 @media (min-width: 768px) {

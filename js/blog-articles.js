@@ -294,7 +294,7 @@ function initBlogArticlePage(slug) {
       window.initBlogStats();
     }
     if (typeof window.initBlogArticleUI === "function") {
-      window.initBlogArticleUI();
+      window.initBlogArticleUI(slug);
     }
   });
 }
