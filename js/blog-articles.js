@@ -23,17 +23,17 @@ const BLOG_INDEX = {
 
 const BLOG_ARTICLES = [
   {
-    slug: "2026-06-12-ai-workflow-lesson-04-06",
+    slug: "2026-06-06-ai-workflow-lesson-04-06",
     title: "AI 工作流實戰課｜拆・分・驗落地篇",
     subtitle: "任務拆解、人機協作、成果驗收——從模糊需求到可交付作品。",
     excerpt:
       "拆・分・驗三部曲：拆任務、分人力與 AI、用驗收標準避免「看起來完成卻不能用」。",
     category: "AI學習地圖",
     author: "Mr.Bill",
-    date: "2026-06-12",
+    date: "2026-06-06",
     readMins: 32,
     tags: ["AI 工作流", "任務拆解", "驗收"],
-    cover: "assets/blog-2026-06-12-ai-workflow-lesson-04-06-og.jpg",
+    cover: "assets/blog-2026-06-06-ai-workflow-lesson-04-06-og.jpg",
     relatedSlugs: [
       "2026-06-05-ai-workflow-lesson-01-02",
       "2026-05-31-ai-prompt-six-levels"
@@ -52,7 +52,7 @@ const BLOG_ARTICLES = [
     tags: ["AI 工作流", "Context", "Rules", "Workflow"],
     cover: "assets/blog-2026-06-05-ai-workflow-og.jpg",
     relatedSlugs: [
-      "2026-06-12-ai-workflow-lesson-04-06",
+      "2026-06-06-ai-workflow-lesson-04-06",
       "2026-05-31-ai-prompt-six-levels"
     ]
   },
@@ -68,7 +68,7 @@ const BLOG_ARTICLES = [
     tags: ["Prompt", "AI 思維", "工作流"],
     cover: "assets/blog-2026-05-31-ai-prompt-og.jpg",
     relatedSlugs: [
-      "2026-06-12-ai-workflow-lesson-04-06",
+      "2026-06-06-ai-workflow-lesson-04-06",
       "2026-06-05-ai-workflow-lesson-01-02"
     ]
   }
