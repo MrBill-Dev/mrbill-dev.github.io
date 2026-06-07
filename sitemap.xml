@@ -13,6 +13,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://mrbill-dev.github.io/blog/taipei-newtaipei-rainy-day-family.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://mrbill-dev.github.io/blog/2026-06-06-ai-workflow-lesson-04-06.html</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>

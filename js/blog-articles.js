@@ -26,10 +26,26 @@ const BLOG_INDEX = {
   tag: "文章筆記",
   description:
     "Mr.Bill 的文章筆記，整理 AI、前端、設計、攝影、SEO、工作流、教學與生活觀察，分享工作與學習中累積的實務經驗與可參考做法。",
-  heroCover: null
+  heroCover: "assets/blog-index-hero.jpg"
 };
 
 const BLOG_ARTICLES = [
+  {
+    slug: "taipei-newtaipei-rainy-day-family",
+    title: "台北、新北下雨天親子景點推薦",
+    subtitle: "室內備案、即時天氣、路線與地圖｜家長收藏版",
+    excerpt:
+      "下雨天不知道帶小孩去哪？整理雙北室內親子景點、依雨勢路線、年齡建議、官方連結與地圖導航，適合週末、暑假與臨時雨天收藏。",
+    label: "親子 / 生活",
+    audience: "台北、新北有家長，週末或雨天臨時要帶小孩出門的人",
+    category: "生活觀察",
+    author: "Mr.Bill",
+    date: "2026-06-08",
+    readMins: 22,
+    tags: ["雨天親子", "台北", "新北", "室內景點"],
+    cover: "assets/blog-taipei-newtaipei-rainy-day-family-cover.png",
+    relatedSlugs: []
+  },
   {
     slug: "2026-06-06-ai-workflow-lesson-04-06",
     title: "AI 工作流實戰課｜拆・分・驗落地篇",
