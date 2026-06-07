@@ -36,6 +36,34 @@
       return isNaN(n) ? 72 : n;
     }
 
+    function getWorkspaceEl() {
+      return document.querySelector('.tutorial-workspace');
+    }
+
+    /** 側欄過長時，不要讓左欄把整頁撐出大段空白 */
+    function limitSidebarInFlowHeight(sidebar) {
+      var workspace = getWorkspaceEl();
+      if (!sidebar) return;
+      if (!window.matchMedia('(min-width: 1024px)').matches) {
+        sidebar.style.maxHeight = '';
+        sidebar.style.overflowY = '';
+        return;
+      }
+      if (sidebar.classList.contains('is-docked')) return;
+      if (!workspace) return;
+      var wsH = Math.max(workspace.offsetHeight, 1);
+      sidebar.style.maxHeight = wsH + 'px';
+      sidebar.style.overflowY = 'auto';
+    }
+
+    function resolveSpacerHeight(sidebar) {
+      if (!sidebar) return 1;
+      var layoutH = Math.max(sidebar.offsetHeight, 1);
+      var workspace = getWorkspaceEl();
+      if (!workspace) return layoutH;
+      return Math.min(layoutH, Math.max(workspace.offsetHeight, 1));
+    }
+
     function isHeroInView() {
       var hero = document.querySelector(cfg.heroSelector);
       if (!hero) return false;
@@ -95,7 +123,7 @@
       col.classList.add('has-docked-spacer');
       if (spacer) {
         spacer.style.display = 'block';
-        spacer.style.height = naturalHeight + 'px';
+        spacer.style.height = resolveSpacerHeight(sidebar) + 'px';
       }
     }
 
@@ -128,13 +156,17 @@
       syncHeaderOffset();
       syncMobileChapterFab();
       if (!window.matchMedia('(min-width: 1024px)').matches) {
+        sidebar.style.maxHeight = '';
+        sidebar.style.overflowY = '';
         undock();
         return;
       }
       if (isHeroInView()) {
+        limitSidebarInFlowHeight(sidebar);
         undock();
         return;
       }
+      limitSidebarInFlowHeight(sidebar);
       if (sidebar.classList.contains('is-docked')) {
         var col = el(cfg.colId);
         var spacer = el(cfg.spacerId);
@@ -145,7 +177,7 @@
         sidebar.style.left = left + 'px';
         sidebar.style.maxHeight = 'calc(100dvh - ' + top + 'px)';
         if (spacer) {
-          spacer.style.height = Math.max(sidebar.offsetHeight, sidebar.scrollHeight, 1) + 'px';
+          spacer.style.height = resolveSpacerHeight(sidebar) + 'px';
         }
         return;
       }
@@ -181,6 +213,8 @@
       if (!sidebar || resizeObserver || !('ResizeObserver' in window)) return;
       resizeObserver = new ResizeObserver(syncDock);
       resizeObserver.observe(sidebar);
+      var workspace = getWorkspaceEl();
+      if (workspace) resizeObserver.observe(workspace);
     }
 
     function initDrawer() {

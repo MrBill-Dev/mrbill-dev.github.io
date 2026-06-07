@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>攝影與光學美學學堂｜Mr.Bill 數位實驗室</title>
+  <title>攝影光影練習室｜曝光、構圖、焦段、白平衡與後製互動教學</title>
   <!-- site-seo:start -->
-  <meta name="description" content="曝光、構圖、色彩與視覺敘事實戰教學，整合攝影術語、互動範例與作品思維訓練。" />
+  <meta name="description" content="攝影光影練習室以互動方式練習曝光三角、構圖、焦段、白平衡、RAW/JPG、閃燈同步、光質軟硬與剪映後製流程，幫助新手理解相機參數與畫面質感的關係。" />
   <link rel="canonical" href="https://mrbill-dev.github.io/photography.html" />
   <link rel="preload" as="image" href="images/og-home.jpg" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Mr.Bill 數位實驗室" />
   <meta property="og:locale" content="zh_TW" />
-  <meta property="og:title" content="攝影與光學美學學堂" />
-  <meta property="og:description" content="曝光、構圖、色彩與視覺敘事實戰教學，整合攝影術語、互動範例與作品思維訓練。" />
+  <meta property="og:title" content="攝影光影練習室｜曝光、構圖、焦段、白平衡與後製互動教學" />
+  <meta property="og:description" content="攝影光影練習室以互動方式練習曝光三角、構圖、焦段、白平衡、RAW/JPG、閃燈同步、光質軟硬與剪映後製流程，幫助新手理解相機參數與畫面質感的關係。" />
   <meta property="og:url" content="https://mrbill-dev.github.io/photography.html" />
   <meta property="og:image" content="https://mrbill-dev.github.io/images/og-home.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Mr.Bill 數位實驗室 AI 前端 攝影 SEO 學習平台" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="攝影與光學美學學堂" />
-  <meta name="twitter:description" content="曝光、構圖、色彩與視覺敘事實戰教學，整合攝影術語、互動範例與作品思維訓練。" />
+  <meta name="twitter:title" content="攝影光影練習室｜曝光、構圖、焦段、白平衡與後製互動教學" />
+  <meta name="twitter:description" content="攝影光影練習室以互動方式練習曝光三角、構圖、焦段、白平衡、RAW/JPG、閃燈同步、光質軟硬與剪映後製流程，幫助新手理解相機參數與畫面質感的關係。" />
   <meta name="twitter:image" content="https://mrbill-dev.github.io/images/og-home.jpg" />
   <script type="application/ld+json">
   {
@@ -98,26 +98,48 @@
       0%, 100% { transform: translateY(0) scale(1); }
       50% { transform: translateY(-3px) scale(1.03); }
     }
+    /* 右下角浮動按鈕：術語 FAB 疊在 TOP 上方，避免互相遮擋 */
+    body.page-course {
+      --photo-fab-top-offset: 1.25rem;
+      --photo-fab-top-size: 3.25rem;
+      --photo-fab-stack-gap: 0.625rem;
+    }
+    @media (max-width: 639px) {
+      body.page-course {
+        --photo-fab-top-offset: 1rem;
+        --photo-fab-top-size: 3rem;
+      }
+    }
+    @media (max-width: 1023px) {
+      body.page-course.has-mobile-dock.is-mobile-dock-visible {
+        --photo-fab-top-offset: 5.75rem;
+      }
+    }
+    #photo-glossary-fab {
+      bottom: calc(var(--photo-fab-top-offset) + var(--photo-fab-top-size) + var(--photo-fab-stack-gap));
+      z-index: 44;
+    }
     .fab-tip {
       position: fixed;
       right: 1rem;
-      bottom: 8.2rem;
-      z-index: 48;
+      bottom: calc(var(--photo-fab-top-offset) + var(--photo-fab-top-size) + var(--photo-fab-stack-gap) + 3rem);
+      z-index: 43;
+      max-width: 10.5rem;
     }
     @media (min-width: 768px) {
-      .fab-tip { right: 1.1rem; bottom: 5.2rem; }
+      .fab-tip { right: 1.1rem; }
     }
     @media (max-width: 767px) {
       .fab-tip { display: none; }
     }
     .fab-close {
       position: fixed;
-      z-index: 51;
+      z-index: 45;
       right: 0.6rem;
-      bottom: 10.95rem;
+      bottom: calc(var(--photo-fab-top-offset) + var(--photo-fab-top-size) + var(--photo-fab-stack-gap) + 2.85rem);
     }
     @media (min-width: 768px) {
-      .fab-close { right: 0.8rem; bottom: 7.8rem; }
+      .fab-close { right: 0.8rem; }
     }
     /* 構圖圖解圖鑑（無照片） */
     .comp-atlas {
@@ -434,25 +456,365 @@
       color: #64748b;
       font-weight: 600;
     }
+    .photo-plain-hint {
+      font-size: 0.75rem;
+      line-height: 1.55;
+      color: #64748b;
+      font-weight: 600;
+      margin-top: 0.15rem;
+    }
+    .photo-guide-h-scroll {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 0.35rem;
+      margin: 0 -0.15rem;
+      padding-left: 0.15rem;
+      padding-right: 0.15rem;
+    }
+    .photo-guide-card {
+      flex: 0 0 min(82vw, 15.5rem);
+      scroll-snap-align: start;
+      text-align: left;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      padding: 1rem 1.1rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      cursor: pointer;
+    }
+    .photo-guide-card:hover {
+      border-color: #c7d2fe;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.1);
+    }
+    .photo-guide-card__n {
+      font-size: 0.6875rem;
+      font-weight: 800;
+      color: #6366f1;
+      letter-spacing: 0.03em;
+    }
+    .photo-guide-card__title {
+      font-size: 0.9375rem;
+      font-weight: 900;
+      color: #0f172a;
+      margin-top: 0.35rem;
+    }
+    .photo-guide-card__desc {
+      font-size: 0.8125rem;
+      line-height: 1.55;
+      color: #64748b;
+      margin-top: 0.35rem;
+    }
+    .photo-hero-quick {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .photo-hero-quick-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.75rem;
+      padding: 0.55rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 800;
+      line-height: 1.2;
+      backdrop-filter: blur(6px);
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .photo-hero-quick-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+    .photo-hero-quick-btn--accent {
+      background: rgba(251, 191, 36, 0.22);
+      border-color: rgba(251, 191, 36, 0.55);
+      color: #fef3c7;
+    }
+    .photo-module-guide-item {
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.75rem;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid #e0e7ff;
+    }
+    .photo-module-guide-item strong {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: #4f46e5;
+      margin-bottom: 0.2rem;
+    }
+    .photo-module-guide-item p {
+      margin: 0;
+      font-size: 0.8125rem;
+      line-height: 1.55;
+      color: #475569;
+      font-weight: 600;
+    }
+    .photo-slider-stack > div {
+      padding: 0.35rem 0;
+    }
+    .photo-param-state {
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: #475569;
+      font-weight: 600;
+      margin-top: 0.2rem;
+      min-height: 2.25rem;
+    }
+    .photo-risk-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .photo-risk-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      font-size: 0.6875rem;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .photo-risk-chip--ok { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    .photo-risk-chip--warn { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+    .photo-risk-chip--info { background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; }
+    .photo-practice-tip {
+      border-radius: 0.85rem;
+      border: 1px solid #fde68a;
+      background: #fffbeb;
+      overflow: hidden;
+    }
+    .photo-practice-tip summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.8125rem;
+      font-weight: 800;
+      color: #92400e;
+    }
+    .photo-practice-tip summary::-webkit-details-marker { display: none; }
+    .photo-practice-tip summary::after {
+      content: "＋";
+      float: right;
+      font-weight: 900;
+      color: #d97706;
+    }
+    .photo-practice-tip[open] summary::after { content: "－"; }
+    .photo-practice-tip__body {
+      padding: 0 0.85rem 0.75rem;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: #78350f;
+      font-weight: 600;
+    }
+    .photo-practice-tip__body p { margin: 0 0 0.5rem; }
+    .photo-practice-tip__body p:last-child { margin-bottom: 0; }
+    @media (max-width: 767px) {
+      #photo-module-guide.photo-module-guide--collapsible .photo-module-guide-desktop { display: none; }
+      #photo-module-guide.photo-module-guide--collapsible[open] .photo-module-guide-desktop { display: grid; }
+      #photo-module-guide.photo-module-guide--collapsible > summary {
+        cursor: pointer;
+        list-style: none;
+        font-size: 0.8125rem;
+        font-weight: 800;
+        color: #4f46e5;
+        margin-bottom: 0.35rem;
+      }
+      #photo-module-guide.photo-module-guide--collapsible > summary::-webkit-details-marker { display: none; }
+    }
+    @media (min-width: 768px) {
+      .photo-guide-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+    }
+    @media (max-width: 767px) {
+      input[type="range"] {
+        height: 1.5rem;
+        cursor: pointer;
+        margin: 0.35rem 0 0.5rem;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        width: 1.45rem;
+        height: 1.45rem;
+      }
+      .curtain-btn {
+        min-height: 2.75rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      #btn-reset-demo {
+        min-height: 2.75rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.8125rem;
+      }
+      .photo-slider-stack {
+        gap: 1.25rem;
+      }
+    }
+    #photo-glossary-modal .photo-glossary-sheet {
+      max-height: min(92dvh, 100%);
+      display: flex;
+      flex-direction: column;
+    }
+    #photo-glossary-modal .photo-glossary-body {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      flex: 1;
+      min-height: 0;
+      overscroll-behavior: contain;
+    }
+    .photo-glossary-section {
+      border-radius: 0.85rem;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      overflow: hidden;
+    }
+    .photo-glossary-section summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 0.75rem 0.85rem;
+      font-size: 0.8125rem;
+      font-weight: 800;
+      color: #334155;
+      background: #f8fafc;
+    }
+    .photo-glossary-section summary::-webkit-details-marker { display: none; }
+    .photo-glossary-section[open] summary { border-bottom: 1px solid #e2e8f0; }
+    @media (min-width: 768px) {
+      .photo-glossary-section { border: none; background: transparent; }
+      .photo-glossary-section summary { display: none; }
+      .photo-glossary-section .photo-glossary-section__body { display: block !important; }
+    }
+    .photo-glossary-card {
+      border-radius: 0.85rem;
+      padding: 0.85rem 0.9rem;
+      min-height: 2.75rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .photo-glossary-section summary:hover { background: #f1f5f9; }
+    .photo-glossary-section summary:active { background: #e2e8f0; }
+    @media (hover: hover) {
+      .photo-glossary-card:hover { box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06); }
+    }
+    .photo-glossary-card__term { font-weight: 900; font-size: 0.875rem; }
+    .photo-glossary-card__line { margin: 0.35rem 0 0; font-size: 0.8125rem; line-height: 1.55; color: #475569; }
+    .photo-glossary-card__line strong { color: #334155; font-weight: 800; }
+    .photo-delivery-steps {
+      display: grid;
+      gap: 0.65rem;
+    }
+    @media (min-width: 640px) {
+      .photo-delivery-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1024px) {
+      .photo-delivery-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .photo-delivery-step {
+      border-radius: 0.85rem;
+      border: 1px solid #fecdd3;
+      background: #fff;
+      padding: 0.85rem 0.95rem;
+    }
+    .photo-delivery-step__n {
+      font-size: 0.6875rem;
+      font-weight: 900;
+      color: #e11d48;
+      letter-spacing: 0.04em;
+    }
+    .photo-delivery-step__title {
+      font-size: 0.875rem;
+      font-weight: 900;
+      color: #0f172a;
+      margin-top: 0.2rem;
+    }
+    .photo-delivery-step__desc {
+      font-size: 0.8125rem;
+      line-height: 1.55;
+      color: #64748b;
+      margin-top: 0.3rem;
+      font-weight: 600;
+    }
+    .photo-footer-cta {
+      background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+      border-top: 1px solid #e2e8f0;
+    }
+    .photo-footer-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.85rem;
+      padding: 0.65rem 1.1rem;
+      border-radius: 0.85rem;
+      font-size: 0.875rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .curtain-btn-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    @media (min-width: 480px) {
+      .curtain-btn-row { flex-direction: row; flex-wrap: wrap; }
+    }
   </style>
 </head>
 <body class="page-course bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
 
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <main class="flex-grow w-full min-w-0 max-w-full pt-0">
+  <main id="top" class="flex-grow w-full min-w-0 max-w-full pt-0">
     <div class="tutorial-hero relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-8 mb-10 text-white">
       <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=2200&q=80" alt="攝影主視覺" class="w-full h-[300px] md:h-[420px] object-cover" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-indigo-900/72 to-amber-900/58"></div>
       <div class="absolute inset-0">
         <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
           <div class="pb-8 md:pb-12 max-w-4xl">
-            <h1 class="text-3xl md:text-4xl font-black">📷 <span class="text-amber-200">攝影與光影敘事學堂</span></h1>
-            <p class="tutorial-hero-desc mt-3 leading-relaxed text-[15px] md:text-base text-indigo-100">從曝光、構圖、對焦到後期與剪映，建立可重複的影像工作流，讓作品不只好看，也能穩定交付。</p>
+            <h1 class="text-2xl md:text-4xl font-black leading-tight">📷 <span class="text-amber-200">攝影光影練習室｜從參數到質感的互動學堂</span></h1>
+            <p class="md:hidden mt-3 text-[15px] leading-relaxed text-indigo-100">邊拖滑桿、邊看畫面變化——先從曝光玩起。</p>
+            <p id="photo-hero-lead-full" class="tutorial-hero-desc mt-3 leading-relaxed text-[15px] md:text-base text-indigo-100 hidden md:block">攝影不是只看參數，而是理解光線、構圖、焦段與後製之間的關係。這一頁把曝光、對焦、焦段、白平衡、閃燈、RAW 後製與剪映流程做成互動練習，讓你不是背規則，而是看得懂畫面為什麼變好。</p>
+            <p id="photo-hero-lead-mobile" class="tutorial-hero-desc hidden max-md:mt-2 text-[15px] leading-relaxed text-indigo-100">攝影不是只看參數，而是理解光線、構圖、焦段與後製之間的關係。這一頁把曝光、對焦、焦段、白平衡、閃燈、RAW 後製與剪映流程做成互動練習，讓你不是背規則，而是看得懂畫面為什麼變好。</p>
+            <nav class="photo-hero-quick" aria-label="快速進入練習">
+              <button type="button" class="photo-hero-quick-btn" onclick="photoGoToSection('exposure')">先玩曝光</button>
+              <button type="button" class="photo-hero-quick-btn" onclick="photoGoToSection('light-lens')">看光線與焦段</button>
+              <button type="button" class="photo-hero-quick-btn photo-hero-quick-btn--accent" onclick="photoGoToSection('glossary')">打開術語翻譯</button>
+            </nav>
+            <button type="button" id="photo-hero-toggle" class="md:hidden mt-3 text-xs font-bold text-amber-200 underline underline-offset-2 decoration-amber-200/50 hover:text-white" aria-expanded="false">展開完整說明</button>
           </div>
         </div>
       </div>
     </div>
+
+    <section id="photo-start-guide" class="max-w-[90rem] mx-auto px-4 lg:px-6 mb-6 scroll-mt-28">
+      <p class="text-xs font-black uppercase tracking-wider text-indigo-600">新手導覽</p>
+      <h2 class="text-lg md:text-xl font-black text-slate-900 mt-1">第一次來，建議這樣看</h2>
+      <p class="text-sm text-slate-500 mt-1 hidden md:block">不用一次看完所有章節，照下面順序慢慢玩互動區就好。</p>
+      <p class="text-xs text-slate-400 mt-1 md:hidden">左右滑動查看更多 →</p>
+      <div class="photo-guide-h-scroll md:hidden mt-3 gap-3">
+        <button type="button" class="photo-guide-card" onclick="photoStartGuide('photo_triangle')"><span class="photo-guide-card__n">第 1 步</span><span class="photo-guide-card__title">先玩曝光</span><span class="photo-guide-card__desc">理解光圈、快門、ISO 怎麼影響亮度、動態與畫面質感。</span></button>
+        <button type="button" class="photo-guide-card" onclick="photoStartGuide('photo_level')"><span class="photo-guide-card__n">第 2 步</span><span class="photo-guide-card__title">再看構圖與焦段</span><span class="photo-guide-card__desc">理解地平線、廣角、長焦、透視壓縮與畫面穩定感。</span></button>
+        <button type="button" class="photo-guide-card" onclick="photoStartGuide('photo_light_s2')"><span class="photo-guide-card__n">第 3 步</span><span class="photo-guide-card__title">接著看光線</span><span class="photo-guide-card__desc">理解主光、補光、光質軟硬、閃燈同步與陰影方向。</span></button>
+        <button type="button" class="photo-guide-card" onclick="photoStartGuide('photo_raw_vs_jpg')"><span class="photo-guide-card__n">第 4 步</span><span class="photo-guide-card__title">最後看後製</span><span class="photo-guide-card__desc">理解 RAW、JPG、白平衡、直方圖、剪映時間軸與交付流程。</span></button>
+      </div>
+      <div class="photo-guide-grid hidden md:grid mt-4">
+        <button type="button" class="photo-guide-card" onclick="photoStartGuide('photo_triangle')"><span class="photo-guide-card__n">第 1 步</span><span class="photo-guide-card__title">先玩曝光</span><span class="photo-guide-card__desc">理解光圈、快門、ISO 怎麼影響亮度、動態與畫面質感。</span></button>
+        <button type="button" class="photo-guide-card" onclick="photoStartGuide('photo_level')"><span class="photo-guide-card__n">第 2 步</span><span class="photo-guide-card__title">再看構圖與焦段</span><span class="photo-guide-card__desc">理解地平線、廣角、長焦、透視壓縮與畫面穩定感。</span></button>
+        <button type="button" class="photo-guide-card" onclick="photoStartGuide('photo_light_s2')"><span class="photo-guide-card__n">第 3 步</span><span class="photo-guide-card__title">接著看光線</span><span class="photo-guide-card__desc">理解主光、補光、光質軟硬、閃燈同步與陰影方向。</span></button>
+        <button type="button" class="photo-guide-card" onclick="photoStartGuide('photo_raw_vs_jpg')"><span class="photo-guide-card__n">第 4 步</span><span class="photo-guide-card__title">最後看後製</span><span class="photo-guide-card__desc">理解 RAW、JPG、白平衡、直方圖、剪映時間軸與交付流程。</span></button>
+      </div>
+    </section>
 
     <div id="photo-stage" class="tutorial-stage">
     <div id="photo-sidebar-backdrop" class="tutorial-sidebar-backdrop hidden" aria-hidden="true"></div>
@@ -495,14 +857,32 @@
 
       <div id="lesson-main-column" class="flex-1 min-w-0 w-full space-y-6 scroll-mt-20">
         
-        <div id="lesson-sandbox-anchor" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6 scroll-mt-24">
+        <div id="exposure" class="scroll-mt-32" aria-hidden="true"></div>
+        <div id="composition" class="scroll-mt-32" aria-hidden="true"></div>
+        <div id="raw-jpg" class="scroll-mt-32" aria-hidden="true"></div>
+        <div id="flash-light" class="scroll-mt-32" aria-hidden="true"></div>
+        <div id="focal-length" class="scroll-mt-32" aria-hidden="true"></div>
+        <div id="white-balance" class="scroll-mt-32" aria-hidden="true"></div>
+        <div id="histogram" class="scroll-mt-32" aria-hidden="true"></div>
+        <div id="editing-timeline" class="scroll-mt-32" aria-hidden="true"></div>
+        <div id="light-lens" class="scroll-mt-32" aria-hidden="true"></div>
+        <div id="glossary" class="scroll-mt-32" aria-hidden="true"></div>
+
+        <div id="lesson-sandbox-anchor" class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6 scroll-mt-32">
           <div class="border-b border-slate-100 pb-4">
-            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-700 tracking-wide uppercase mb-1">M-Mode & Aesthetic Game</span>
-            <h3 id="dynamic-mode-title" class="text-2xl font-black text-slate-900 tracking-tight">光學曝光與構圖交互主機</h3>
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-700 tracking-wide uppercase mb-1">互動練習區</span>
+            <h2 id="dynamic-mode-title" class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">邊拖滑桿，邊看畫面怎麼變</h2>
+            <p class="text-sm text-slate-500 mt-1 leading-relaxed">從左側練習捷徑或章節目錄進入，在這裡動手調。拖完看預覽與下方回饋。</p>
           </div>
 
+          <details id="photo-module-guide" open class="hidden rounded-2xl border border-indigo-100 bg-indigo-50/40 p-4 md:p-5 photo-module-guide--collapsible">
+            <summary class="md:hidden">本模組怎麼練（點開）</summary>
+            <p class="text-xs font-black uppercase tracking-wider text-indigo-600 mb-2 hidden md:block">本模組怎麼練</p>
+            <div id="photo-module-guide-body" class="photo-module-guide-desktop grid gap-2 md:grid-cols-2"></div>
+          </details>
+
           <div class="relative overflow-hidden rounded-2xl border border-slate-200 shadow-md max-w-2xl mx-auto aspect-video bg-slate-950 flex items-center justify-center select-none">
-            <img id="view-bg-layer" alt="" class="absolute w-full h-full object-cover transition-all duration-300" />
+            <img id="view-bg-layer" alt="攝影互動練習預覽畫面" class="absolute w-full h-full object-cover transition-all duration-300" />
             <img id="view-dof-blur" alt="" class="absolute w-full h-full object-cover transition-all duration-500 pointer-events-none z-[8] opacity-0" style="-webkit-mask-image: radial-gradient(circle at 50% 42%, transparent 22%, black 58%); mask-image: radial-gradient(circle at 50% 42%, transparent 22%, black 58%);" />
             <img id="view-fg-layer" alt="" class="absolute w-full h-full object-cover transition-all duration-300" />
             
@@ -572,22 +952,35 @@
             
             <p id="sandbox-hint" class="hidden text-sm font-medium text-slate-500 mb-2 bg-slate-50 rounded-xl px-4 py-2 border border-slate-100"></p>
             <div id="sandbox-demo-tools" class="mb-3 flex flex-wrap items-center gap-2">
-              <button type="button" id="btn-reset-demo" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 text-xs font-bold shadow-sm hover:bg-slate-50">↺ 重設本課參數</button>
+              <button type="button" id="btn-reset-demo" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 text-xs font-bold shadow-sm hover:bg-slate-50" title="把目前模組的滑桿與按鈕恢復到預設值">↺ 重設本模組</button>
             </div>
 
-            <div id="panel-exposure-mode" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div id="panel-exposure-mode" class="photo-slider-stack grid grid-cols-1 md:grid-cols-3 gap-6">
               <div id="wrap-slider-aperture" class="space-y-1.5">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>⭕ 光圈 Aperture（門的大小）</span><span id="label-aperture" class="text-indigo-600 font-black">F1.4</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>⭕ 光圈</span><span id="label-aperture" class="text-indigo-600 font-black">F1.4</span></div>
                 <input type="range" id="slider-aperture" min="0" max="5" value="0" oninput="runExposureSandbox()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                <p id="hint-aperture" class="photo-param-state">F1.4～F2.8：背景模糊明顯，適合人像、食物、低光。</p>
               </div>
               <div id="wrap-slider-shutter" class="space-y-1.5">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>⏱ 快門 Shutter（開門時間）</span><span id="label-shutter" class="text-indigo-600 font-black">1/1000s</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>⏱ 快門</span><span id="label-shutter" class="text-indigo-600 font-black">1/1000s</span></div>
                 <input type="range" id="slider-shutter" min="0" max="5" value="5" oninput="runExposureSandbox()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                <p id="hint-shutter" class="photo-param-state">1/250 以上：較能凝結動作，適合小孩、活動、婚禮進場。</p>
               </div>
               <div id="wrap-slider-iso" class="space-y-1.5">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🔢 ISO（暗房增益）</span><span id="label-iso" class="text-indigo-600 font-black">100</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🔢 ISO</span><span id="label-iso" class="text-indigo-600 font-black">100</span></div>
                 <input type="range" id="slider-iso" min="0" max="5" value="0" oninput="runExposureSandbox()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                <p id="hint-iso" class="photo-param-state">ISO 100～400：畫面乾淨，適合戶外與光線充足場合。</p>
               </div>
+            </div>
+            <div id="panel-exposure-extra" class="hidden mt-3 space-y-2">
+              <div id="exposure-risk-row" class="photo-risk-row" aria-live="polite"></div>
+              <details class="photo-practice-tip">
+                <summary>實戰提醒</summary>
+                <div class="photo-practice-tip__body">
+                  <p>拍人像時，不是光圈越大越好；多人同框或主體會移動，景深太淺反而容易失焦。</p>
+                  <p>拍活動時，快門安全通常比低 ISO 更重要——先保證不糊，再談畫質乾淨。</p>
+                </div>
+              </details>
             </div>
             <div id="panel-triangle-demo" class="hidden mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4 space-y-3">
               <p class="text-sm font-bold text-indigo-900">📷 參數拖動示範圖（此圖才會隨光圈／快門／ISO 變化）</p>
@@ -596,9 +989,10 @@
               </div>
             </div>
 
-            <div id="panel-composition-mode" class="hidden grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div id="panel-composition-mode" class="photo-slider-stack hidden grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>⚖️ 手動拉直地平線校正軸</span><span id="label-rotate" class="text-indigo-600 font-black">-12° 嚴重歪斜</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>⚖️ 地平線校正</span><span id="label-rotate" class="text-indigo-600 font-black">-12° 嚴重歪斜</span></div>
+                <p class="photo-plain-hint">白話：讓畫面不歪，照片會立刻更穩定、更專業。</p>
                 <input type="range" id="slider-rotate" min="-12" max="12" value="-12" oninput="runCompositionAdjustment()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
               </div>
               <div class="text-right">
@@ -606,30 +1000,49 @@
               </div>
             </div>
 
-            <div id="panel-darkroom-mode" class="hidden grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div id="panel-darkroom-mode" class="photo-slider-stack hidden grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🕯️ 無損暗部細節拉升強度</span><span id="label-ev" class="text-indigo-600 font-black">+0 EV 原圖暗沉</span></div>
+                <p class="text-sm font-bold text-slate-600">RAW / JPG 對照</p>
+                <p class="photo-plain-hint">白話：JPG 像完成品，RAW 像還能細修的母帶。</p>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🕯️ 暗部拉升強度</span><span id="label-ev" class="text-indigo-600 font-black">+0 EV 原圖暗沉</span></div>
                 <input type="range" id="slider-ev" min="0" max="5" value="0" oninput="runDarkroomRecoverySimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
               </div>
             </div>
 
-            <div id="panel-curtain-mode" class="hidden grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div id="panel-curtain-mode" class="photo-slider-stack hidden grid-cols-1 md:grid-cols-2 gap-6 items-start">
               <div class="space-y-3">
-                <span class="block text-sm font-bold text-slate-500">⚡ 選擇閃光燈引閃協定 (Sync Mode)</span>
-                <div class="flex gap-2">
-                  <button onclick="selectCurtainSyncType('front', this)" class="curtain-btn px-4 py-2 text-sm font-bold rounded-xl bg-brand-600 text-white shadow-sm">前簾同步 (Front Sync)</button>
-                  <button onclick="selectCurtainSyncType('rear', this)" class="curtain-btn px-4 py-2 text-sm font-bold rounded-xl bg-slate-50 text-slate-600 border border-slate-200">大師級後簾同步 (Rear Sync)</button>
+                <span class="block text-sm font-bold text-slate-500">⚡ 閃燈同步</span>
+                <p id="hint-curtain-sync" class="photo-param-state">前簾：閃光在曝光一開始，拖影容易出現在動作前方。</p>
+                <div class="curtain-btn-row">
+                  <button type="button" onclick="selectCurtainSyncType('front', this)" class="curtain-btn px-4 py-2.5 text-sm font-bold rounded-xl bg-brand-600 text-white shadow-sm">前簾同步</button>
+                  <button type="button" onclick="selectCurtainSyncType('rear', this)" class="curtain-btn px-4 py-2.5 text-sm font-bold rounded-xl bg-slate-50 text-slate-600 border border-slate-200">後簾同步</button>
                 </div>
               </div>
               <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>⏱ 慢速快門軌跡曝光長度</span><span id="label-curtain-shutter" class="text-indigo-600 font-black">1/4 秒</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>⏱ 慢速快門長度</span><span id="label-curtain-shutter" class="text-indigo-600 font-black">1/4 秒</span></div>
                 <input type="range" id="slider-curtain-shutter" min="1" max="4" value="1" oninput="runCurtainLightStreakSimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                <p class="photo-param-state">慢快門保留環境光與拖影，閃燈負責把主體定住。</p>
               </div>
             </div>
+            <div id="panel-curtain-extra" class="hidden mt-2 space-y-2">
+              <details class="photo-practice-tip">
+                <summary>什麼時候會用到</summary>
+                <div class="photo-practice-tip__body">
+                  <p>婚禮進場、舞池、夜景人像、活動紀錄、餐廳低光、親子夜間動態拍攝——需要「人清楚 + 現場氛圍」時最常碰到。</p>
+                </div>
+              </details>
+              <details class="photo-practice-tip">
+                <summary>實戰提醒</summary>
+                <div class="photo-practice-tip__body">
+                  <p>如果只是要乾淨補亮，不一定需要後簾同步；如果想保留動態軌跡與現場氛圍，後簾同步才更有意義。</p>
+                </div>
+              </details>
+            </div>
 
-            <div id="panel-focus-mode" class="hidden grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div id="panel-focus-mode" class="photo-slider-stack hidden grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div class="space-y-2">
                 <div class="flex justify-between font-bold text-sm text-slate-500"><span>🔍 手動對焦環（前後移動焦平面）</span><span id="label-focus" class="text-indigo-600 font-black">對焦中…</span></div>
+                <p class="photo-plain-hint">白話：前後移動焦平面，找到眼睛最清楚的位置。</p>
                 <input type="range" id="slider-focus" min="0" max="10" value="5" oninput="runFocusSimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
               </div>
               <div class="text-right">
@@ -637,31 +1050,94 @@
               </div>
             </div>
 
-            <div id="panel-lens-mode" class="hidden grid-cols-1 gap-6 items-center">
+            <div id="panel-lens-mode" class="photo-slider-stack hidden grid-cols-1 gap-6 items-center">
               <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🔭 焦段模擬（廣角 16mm ↔ 長焦 135mm）</span><span id="label-focal" class="text-indigo-600 font-black">24mm 標準視野</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🔭 焦段</span><span id="label-focal" class="text-indigo-600 font-black">35mm</span></div>
                 <input type="range" id="slider-focal" min="0" max="10" value="3" oninput="runLensSimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                <p id="hint-focal" class="photo-param-state">35mm：自然好用，適合日常、親子、街拍、環境人像。</p>
               </div>
-              <p class="text-xs text-slate-500 font-medium">左側：廣角誇張透視、前景巨大｜右側：長焦空間壓縮、背景貼近主體</p>
+              <div id="panel-lens-extra" class="hidden space-y-2">
+                <details class="photo-practice-tip">
+                  <summary>同一主體，不同焦段</summary>
+                  <div class="photo-practice-tip__body">
+                    <p>同一個人站在同一個位置，廣角近拍會誇張五官與背景空間；長焦後退拍，背景會被壓縮，人物也更穩定自然。</p>
+                  </div>
+                </details>
+                <details class="photo-practice-tip">
+                  <summary>實戰提醒</summary>
+                  <div class="photo-practice-tip__body">
+                    <p>旅遊和親子影片常需要廣角交代環境，但拍人像特寫時，35mm～85mm 通常會比超廣角更自然。</p>
+                  </div>
+                </details>
+              </div>
             </div>
 
-            <div id="panel-wb-mode" class="hidden grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div id="panel-wb-mode" class="photo-slider-stack hidden grid-cols-1 gap-6 items-center">
               <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🌡️ 色溫 K 值（白平衡）</span><span id="label-kelvin" class="text-indigo-600 font-black">5500K 中性</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🌡️ 白平衡</span><span id="label-kelvin" class="text-indigo-600 font-black">5600K</span></div>
                 <input type="range" id="slider-kelvin" min="0" max="10" value="5" oninput="runWhiteBalanceSimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-orange-500" />
+                <p id="hint-kelvin" class="photo-param-state">5600K 左右：接近日光，適合戶外與標準色彩。</p>
               </div>
-              <p class="text-xs text-slate-500 font-medium">左：偏冷藍（高 K）｜右：偏暖黃（低 K 鎢絲燈感）</p>
+              <div id="panel-wb-extra" class="hidden space-y-2">
+                <details class="photo-practice-tip">
+                  <summary>修正 vs 創作</summary>
+                  <div class="photo-practice-tip__body">
+                    <p><strong>修正白平衡：</strong>讓白色看起來接近真正的白。</p>
+                    <p><strong>創作白平衡：</strong>故意保留暖色或冷色，建立畫面情緒。</p>
+                  </div>
+                </details>
+                <details class="photo-practice-tip">
+                  <summary>實戰提醒</summary>
+                  <div class="photo-practice-tip__body">
+                    <p>婚禮、餐廳、室內活動常混合黃燈、白燈與窗光。白平衡不一定要完全「正確」，而是要讓膚色舒服、整組照片一致。</p>
+                  </div>
+                </details>
+              </div>
             </div>
 
-            <div id="panel-histogram-mode" class="hidden grid-cols-1 gap-4">
+            <div id="panel-histogram-mode" class="photo-slider-stack hidden grid-cols-1 gap-4">
               <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>📊 模擬曝光偏移（觀察直方圖位移）</span><span id="label-hist-ev" class="text-indigo-600 font-black">0 EV</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>📊 曝光偏移（模擬直方圖）</span><span id="label-hist-ev" class="text-indigo-600 font-black">0 EV</span></div>
                 <input type="range" id="slider-hist-ev" min="-5" max="5" value="0" oninput="runHistogramSimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600" />
+                <p id="hint-histogram" class="photo-param-state">集中中間：曝光較平均，主體細節通常較安全。</p>
               </div>
-              <p class="text-xs text-slate-500 font-medium">上方黑色區域為放大直方圖；拉滑桿時山丘會向左（欠曝）或向右（過曝）移動。</p>
+            </div>
+            <div id="panel-histogram-extra" class="hidden mt-2 space-y-2">
+              <details class="photo-practice-tip">
+                <summary>為什麼不要只看螢幕</summary>
+                <div class="photo-practice-tip__body">
+                  <p>相機螢幕會被現場環境光影響。大太陽下看起來太暗，室內又可能太亮。直方圖可以幫你更客觀判斷曝光。</p>
+                </div>
+              </details>
+              <details class="photo-practice-tip">
+                <summary>什麼時候會用到</summary>
+                <div class="photo-practice-tip__body">
+                  <p>白紗、黑西裝、逆光、夜景、高反差、食物高光、婚宴舞台燈、室內窗光——主體細節容易流失的場景，都值得看一眼直方圖。</p>
+                </div>
+              </details>
+              <details class="photo-practice-tip">
+                <summary>實戰提醒</summary>
+                <div class="photo-practice-tip__body">
+                  <p>不是所有貼邊都一定錯。畫面裡若有太陽、燈泡、純黑背景，局部貼邊可能可以接受。重點是主體細節有沒有保住。</p>
+                </div>
+              </details>
             </div>
 
             <div id="panel-video-mode" class="hidden grid-cols-1 gap-4">
+              <p class="text-sm text-slate-600 leading-relaxed">拍攝只是第一步，真正交付作品時，還需要理解剪輯節奏、色彩一致性與輸出格式。這一區用時間軸概念，幫你把拍攝後的整理、剪輯與交付流程串起來。</p>
+              <div class="photo-delivery-steps">
+                <div class="photo-delivery-step"><span class="photo-delivery-step__n">STEP 1</span><p class="photo-delivery-step__title">素材整理</p><p class="photo-delivery-step__desc">挑掉失焦、模糊、重複或不需要的片段。</p></div>
+                <div class="photo-delivery-step"><span class="photo-delivery-step__n">STEP 2</span><p class="photo-delivery-step__title">粗剪節奏</p><p class="photo-delivery-step__desc">先把故事順序、重要片段與節奏排出來。</p></div>
+                <div class="photo-delivery-step"><span class="photo-delivery-step__n">STEP 3</span><p class="photo-delivery-step__title">色彩一致</p><p class="photo-delivery-step__desc">讓不同場景的亮度、白平衡與色調不要跳太大。</p></div>
+                <div class="photo-delivery-step"><span class="photo-delivery-step__n">STEP 4</span><p class="photo-delivery-step__title">字幕與聲音</p><p class="photo-delivery-step__desc">補上必要字幕、環境音、音樂與聲音層次。</p></div>
+                <div class="photo-delivery-step sm:col-span-2 lg:col-span-1"><span class="photo-delivery-step__n">STEP 5</span><p class="photo-delivery-step__title">輸出交付</p><p class="photo-delivery-step__desc">依用途輸出：社群短影音、親子紀錄、婚禮短片或作品集。</p></div>
+              </div>
+              <details class="photo-practice-tip">
+                <summary>實戰提醒</summary>
+                <div class="photo-practice-tip__body">
+                  <p>剪輯不是把所有畫面都放進去，而是留下能推動情緒、故事與重點的片段。拍得多不代表成品會更好，整理與取捨才是交付品質的關鍵。</p>
+                </div>
+              </details>
               <p id="video-panel-intro" class="text-sm font-medium text-slate-600 bg-rose-50 border border-rose-100 rounded-xl px-4 py-3"></p>
               <div id="capcut-steps-detail" class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-700 space-y-3"></div>
               <div id="capcut-demo-gallery" class="space-y-4"></div>
@@ -671,26 +1147,45 @@
               <p id="device-mode-hint" class="text-sm font-medium text-slate-600 bg-slate-50 border border-slate-100 rounded-xl px-4 py-3"></p>
             </div>
 
-            <div id="panel-lighting-mode" class="hidden grid-cols-1 md:grid-cols-3 gap-6 items-end">
+            <div id="panel-lighting-mode" class="photo-slider-stack hidden grid-cols-1 md:grid-cols-3 gap-6 items-end">
               <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>💡 主光角度（0° 正側 → 90° 正前方）</span><span id="label-light-angle" class="text-indigo-600 font-black">45°</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>💡 主光角度</span><span id="label-light-angle" class="text-indigo-600 font-black">45°</span></div>
                 <input type="range" id="slider-light-angle" min="0" max="10" value="4" oninput="runLightingSimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-500" />
+                <p class="photo-param-state">側光角度越大，臉部明暗對比越明顯。</p>
               </div>
               <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🕯️ 補光強度（Fill Ratio）</span><span id="label-fill" class="text-indigo-600 font-black">50%</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>🕯️ 補光比例</span><span id="label-fill" class="text-indigo-600 font-black">50%</span></div>
                 <input type="range" id="slider-fill" min="0" max="10" value="5" oninput="runLightingSimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-500" />
+                <p id="hint-fill" class="photo-param-state">輕補光：保留立體感，陰影還在但不死黑。</p>
               </div>
               <div class="space-y-2">
-                <div class="flex justify-between font-bold text-sm text-slate-500"><span>☁️ 光質軟硬（陰影邊緣）</span><span id="label-softness" class="text-indigo-600 font-black">中等柔光</span></div>
+                <div class="flex justify-between font-bold text-sm text-slate-500"><span>☁️ 光質軟硬</span><span id="label-softness" class="text-indigo-600 font-black">柔光</span></div>
                 <input type="range" id="slider-softness" min="0" max="10" value="6" oninput="runLightingSimulation()" class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-amber-500" />
+                <p id="hint-softness" class="photo-param-state">柔光：陰影過渡自然，膚質更順，適合人像與婚禮。</p>
               </div>
+            </div>
+            <div id="panel-lighting-extra" class="hidden mt-2 space-y-2">
+              <details class="photo-practice-tip">
+                <summary>硬光 vs 柔光、補光是什麼</summary>
+                <div class="photo-practice-tip__body">
+                  <p><strong>硬光：</strong>陰影邊緣清楚，畫面有戲劇感，但皮膚瑕疵也更明顯。</p>
+                  <p><strong>柔光：</strong>陰影過渡自然，膚質更順，適合人像、婚禮、食物、商品。</p>
+                  <p><strong>補光：</strong>不是把陰影全部打掉，而是控制反差，讓主體細節保留下來。</p>
+                </div>
+              </details>
+              <details class="photo-practice-tip">
+                <summary>實戰提醒</summary>
+                <div class="photo-practice-tip__body">
+                  <p>婚禮和人像拍攝時，柔光不代表沒有方向。好的柔光仍然要有明暗層次，畫面才不會扁平。</p>
+                </div>
+              </details>
             </div>
 
           </div>
 
           <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-100">
             <div id="simulator-feedback-banner" class="px-5 py-3 rounded-xl font-bold text-sm tracking-wide text-center sm:text-left flex-grow transition-all duration-200 bg-emerald-50 text-emerald-700 border border-emerald-100">
-              主機就緒。請點選左側目錄加載大綱。
+              互動區就緒。建議從上方「先玩曝光」或左側練習捷徑開始。
             </div>
           </div>
         </div>
@@ -719,21 +1214,21 @@
 
           <div id="lesson-tier-cards" class="space-y-6">
             <div class="bg-emerald-50/40 p-6 rounded-3xl border border-emerald-100/60 space-y-2">
-              <span id="photo-easy-label" class="inline-block px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-sm font-bold tracking-wide">🌱 入門 · 兒童趣味比喻</span>
+              <span id="photo-easy-label" class="inline-block px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-sm font-bold tracking-wide">🌱 入門白話</span>
               <p id="photo-easy" class="text-slate-700 text-base leading-relaxed font-medium pt-1 whitespace-pre-line"></p>
             </div>
             <div class="bg-blue-50/40 p-6 rounded-3xl border border-blue-100/60 space-y-2">
-              <span id="photo-medium-label" class="inline-block px-3 py-1 rounded-lg bg-blue-100 text-blue-800 text-sm font-bold tracking-wide">📸 實戰 · 正宗相機控制</span>
+              <span id="photo-medium-label" class="inline-block px-3 py-1 rounded-lg bg-blue-100 text-blue-800 text-sm font-bold tracking-wide">📸 實戰操作</span>
               <p id="photo-medium" class="text-slate-700 text-base leading-relaxed font-medium pt-1 whitespace-pre-line"></p>
             </div>
             <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-2">
-              <span id="photo-hard-label" class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold tracking-wide">🔬 進階 · 數位光學科學</span>
+              <span id="photo-hard-label" class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 text-sm font-bold tracking-wide">🔬 進階原理</span>
               <p id="photo-hard" class="text-slate-700 text-base leading-relaxed font-medium pt-1"></p>
             </div>
           </div>
 
           <div id="lesson-tip-card" class="p-6 rounded-3xl bg-amber-50/60 border border-amber-200/70">
-            <span id="lesson-tip-label" class="font-black block text-amber-950 text-base mb-1">💡 婚禮攝影與微電影大師口訣：</span>
+            <span id="lesson-tip-label" class="font-black block text-amber-950 text-base mb-1">💡 實戰提醒</span>
             <p id="photo-ui-tip" class="font-medium text-slate-600 text-base leading-relaxed"></p>
           </div>
           <div id="photo-author-note"></div>
@@ -751,6 +1246,19 @@
     </div>
   </main>
 
+  <section id="photo-footer-cta" class="photo-footer-cta py-8 px-4 sm:px-6">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-xs font-black uppercase tracking-wider text-indigo-600">下一步</p>
+      <h2 class="text-lg md:text-xl font-black text-slate-900 mt-1">練完攝影，還可以往哪裡走？</h2>
+      <p class="text-sm text-slate-500 mt-2 leading-relaxed">不用一次學完，挑你現在需要的方向就好。</p>
+      <div class="mt-5 flex flex-col sm:flex-row flex-wrap justify-center gap-2.5">
+        <a href="ai-learning-map.html" class="photo-footer-cta__btn bg-indigo-600 text-white hover:bg-indigo-700">查看 AI 學習地圖</a>
+        <a href="blog/" class="photo-footer-cta__btn bg-white text-slate-800 border border-slate-200 hover:bg-slate-50">閱讀文章筆記</a>
+        <button type="button" onclick="photoOpenChapterNav()" class="photo-footer-cta__btn bg-white text-indigo-700 border border-indigo-200 hover:bg-indigo-50">回到章節目錄</button>
+      </div>
+    </div>
+  </section>
+
   <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
 
   <div id="photo-glossary-tip" class="fab-tip">
@@ -759,7 +1267,7 @@
     </div>
   </div>
 
-  <button id="photo-glossary-fab" type="button" onclick="openPhotoGlossary()" class="fixed z-50 right-3 bottom-24 md:right-4 md:bottom-10 h-11 px-3 md:h-auto md:w-auto md:px-4 md:py-3 rounded-full bg-indigo-600 text-white text-sm font-black shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-all fab-attention flex items-center justify-center gap-1 md:block">
+  <button id="photo-glossary-fab" type="button" onclick="openPhotoGlossary()" class="fixed right-3 md:right-4 h-11 px-3 md:h-auto md:w-auto md:px-4 md:py-3 rounded-full bg-indigo-600 text-white text-sm font-black shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-all fab-attention flex items-center justify-center gap-1 md:block">
     <span class="md:hidden text-xs">📘 術語</span>
     <span class="hidden md:inline">📘 術語提醒</span>
   </button>
@@ -767,19 +1275,19 @@
     ×
   </button>
 
-  <div id="photo-glossary-modal" class="hidden fixed inset-0 z-50 bg-slate-950/55 p-4 md:p-6">
-    <div class="max-w-4xl mx-auto h-full flex items-center">
-      <div class="w-full max-h-[88vh] overflow-y-auto rounded-2xl bg-white border border-slate-200 p-5 md:p-6">
-        <div class="flex items-start justify-between gap-3">
-          <div>
-            <h3 class="text-xl md:text-2xl font-black text-slate-900">📘 攝影術語翻譯區（新手彈窗）</h3>
-            <p class="text-sm text-slate-600 mt-1">看不懂再打開，不占主版面。手機與電腦都可使用。</p>
+  <div id="photo-glossary-modal" class="hidden fixed inset-0 z-50 bg-slate-950/55 p-3 md:p-6 flex items-end md:items-center justify-center">
+    <div class="photo-glossary-sheet w-full max-w-4xl rounded-2xl bg-white border border-slate-200 shadow-xl">
+        <div class="flex items-start justify-between gap-3 p-4 md:p-5 border-b border-slate-100 shrink-0">
+          <div class="min-w-0 pr-2">
+            <h3 class="text-lg md:text-2xl font-black text-slate-900">📘 攝影術語翻譯</h3>
+            <p class="text-sm text-slate-600 mt-1">看不懂再打開查。點背景、按關閉或 Esc 即可退出；內容可上下捲動。</p>
           </div>
-          <button type="button" onclick="closePhotoGlossary()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm">關閉 ✕</button>
+          <button type="button" onclick="closePhotoGlossary()" class="shrink-0 px-3 py-2 rounded-lg bg-slate-900 text-white font-bold text-sm min-h-[2.5rem]">關閉 ✕</button>
         </div>
-        <p class="text-xs text-slate-500 mt-3">共 7 類、40+ 條，含通透感、空靈感、光害等常聽詞彙。</p>
-        <div id="photo-glossary-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-3 text-sm mt-3"></div>
-      </div>
+        <div class="photo-glossary-body p-4 md:p-5">
+          <p class="text-xs text-slate-500">6 大類攝影字典。遇到不懂的詞就查，查完回互動區對照畫面。</p>
+          <div id="photo-glossary-grid" class="space-y-2 md:space-y-4 mt-3"></div>
+        </div>
     </div>
   </div>
 
@@ -796,6 +1304,115 @@
     let selectedSyncType = 'front';
     let lensWideSrc = '';
     let lensTeleSrc = '';
+
+    function setParamHint(id, text) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = text;
+    }
+
+    function getApertureStateHint(ap) {
+      if (ap <= 2) return AP_VALS[ap] + '：背景模糊明顯，適合人像、食物、低光。';
+      if (ap <= 3) return AP_VALS[ap] + '：景深平衡，適合日常、旅遊紀錄。';
+      return AP_VALS[ap] + '：景深較深，適合風景、團體照。';
+    }
+
+    function getShutterStateHint(sh) {
+      if (sh <= 1) return SH_VALS[sh] + '：容易拖影，適合動態感或夜景光軌。';
+      if (sh <= 3) return SH_VALS[sh] + '：日常安全快門，一般走路、靜態人像可用。';
+      return SH_VALS[sh] + '：較能凝結動作，適合小孩、活動、婚禮進場。';
+    }
+
+    function getIsoStateHint(iso) {
+      if (iso <= 1) return 'ISO ' + ISO_VALS[iso] + '：畫面乾淨，適合戶外與光線充足場合。';
+      if (iso <= 3) return 'ISO ' + ISO_VALS[iso] + '：室內、晚宴常用，亮度與雜訊仍可接受。';
+      return 'ISO ' + ISO_VALS[iso] + '：可用但要注意雜訊，盡量搭配腳架或閃燈。';
+    }
+
+    function updateExposureParamHints(ap, sh, iso) {
+      setParamHint('hint-aperture', getApertureStateHint(ap));
+      setParamHint('hint-shutter', getShutterStateHint(sh));
+      setParamHint('hint-iso', getIsoStateHint(iso));
+    }
+
+    function updateExposureRiskChips(ap, sh, iso, diff) {
+      var row = document.getElementById('exposure-risk-row');
+      if (!row) return;
+      var chips = [];
+      if (Math.abs(diff) < 1) chips.push({ t: '曝光正常', c: 'ok' });
+      else if (diff >= 2) chips.push({ t: '過曝風險', c: 'warn' });
+      else if (diff > 0) chips.push({ t: '偏亮', c: 'warn' });
+      else if (diff <= -2) chips.push({ t: '偏暗', c: 'warn' });
+      else chips.push({ t: '稍暗', c: 'warn' });
+      if (ap <= 1) chips.push({ t: '景深很淺', c: 'info' });
+      else if (ap <= 2) chips.push({ t: '背景虛化', c: 'info' });
+      else if (ap >= 4) chips.push({ t: '景深深', c: 'info' });
+      if (sh <= 1) chips.push({ t: '拖影風險', c: 'warn' });
+      else if (sh >= 4) chips.push({ t: '動作凝固', c: 'ok' });
+      if (iso >= 4) chips.push({ t: '雜訊風險', c: 'warn' });
+      else if (iso <= 1) chips.push({ t: '畫面乾淨', c: 'ok' });
+      row.innerHTML = chips.map(function(chip) {
+        return '<span class="photo-risk-chip photo-risk-chip--' + chip.c + '">' + chip.t + '</span>';
+      }).join('');
+    }
+
+    function buildExposureBanner(diff, ap, sh, iso) {
+      var parts = [];
+      if (Math.abs(diff) < 1) parts.push('曝光平衡');
+      else if (diff >= 2) parts.push('過曝風險：高光細節可能流失');
+      else if (diff > 0) parts.push('偏亮：可縮光圈、加快快門或降 ISO');
+      else if (diff <= -2) parts.push('偏暗：暗部細節可能被吃掉');
+      else parts.push('稍暗：三者任一向亮側補一格');
+      if (sh <= 1) parts.push('快門偏慢，手持易糊');
+      if (iso >= 4) parts.push('ISO 偏高，雜訊會變明顯');
+      if (ap <= 2) parts.push('景深偏淺，多人或移動主體要小心對焦');
+      return parts.join(' · ');
+    }
+
+    function getFocalStateHint(val) {
+      if (val <= 1) return '16～20mm：空間感強，適合旅遊、Vlog、室內；近拍人像易變形。';
+      if (val === 2) return '24mm：環境交代好用，近距離拍人仍要小心透視誇張。';
+      if (val === 3) return '35mm：自然好用，適合日常、親子、街拍、環境人像。';
+      if (val === 4) return '50mm：接近舒服的人眼視角，適合人像、生活紀錄、細節。';
+      if (val <= 6) return '70～85mm：背景壓縮明顯，主體更突出，適合人像、婚禮特寫。';
+      if (val <= 8) return '105～120mm：壓縮感更強，活動特寫好用，需較遠距離。';
+      if (val === 9) return '135mm：畫面集中、背景貼近，需更穩定手持或腳架。';
+      return '200mm：極端長焦壓縮，運動或舞台抓拍常用。';
+    }
+
+    function getKelvinStateHint(k, kelvin) {
+      if (k <= 2) return kelvin + 'K：偏暖，適合燈泡、餐廳、溫馨氛圍。';
+      if (k <= 4) return kelvin + 'K：略暖，適合室內自然感與晚宴現場。';
+      if (k <= 6) return kelvin + 'K：接近日光，適合戶外與標準色彩。';
+      return kelvin + 'K：偏冷，適合清晨、陰天、冷調情緒。';
+    }
+
+    function getSoftnessStateHint(softVal, softLabel) {
+      if (softVal <= 3) return softLabel + '：陰影邊緣清楚，戲劇感強，瑕疵也更明顯。';
+      if (softVal >= 7) return softLabel + '：陰影過渡自然，膚質更順，適合人像與婚禮。';
+      return softLabel + '：明暗過渡適中，兼顧立體感與膚質。';
+    }
+
+    function getFillStateHint(fillVal, fillPct) {
+      if (fillVal <= 2) return fillPct + '% 補光：反差大，陰影重，立體感明顯。';
+      if (fillVal >= 7) return fillPct + '% 補光：陰影變淡，畫面更平，細節較完整。';
+      return fillPct + '% 補光：輕補光，保留立體感，陰影還在但不死黑。';
+    }
+
+    function syncModulePanelExtras(mode) {
+      var exposureModes = ['triangle', 'aperture', 'shutter', 'iso', 'exposure'];
+      var extra = document.getElementById('panel-exposure-extra');
+      if (extra) extra.classList.toggle('hidden', exposureModes.indexOf(mode) === -1);
+      var lensExtra = document.getElementById('panel-lens-extra');
+      if (lensExtra) lensExtra.classList.toggle('hidden', mode !== 'lens');
+      var wbExtra = document.getElementById('panel-wb-extra');
+      if (wbExtra) wbExtra.classList.toggle('hidden', mode !== 'wb');
+      var lightExtra = document.getElementById('panel-lighting-extra');
+      if (lightExtra) lightExtra.classList.toggle('hidden', mode !== 'lighting');
+      var curtainExtra = document.getElementById('panel-curtain-extra');
+      if (curtainExtra) curtainExtra.classList.toggle('hidden', mode !== 'curtain');
+      var histExtra = document.getElementById('panel-histogram-extra');
+      if (histExtra) histExtra.classList.toggle('hidden', mode !== 'histogram');
+    }
 
     function setPreviewSrc(el, url, fallbackUrl, fallback2) {
       if (!el) return;
@@ -1190,6 +1807,199 @@
       nav.classList.toggle('hidden', !prevKey && !nextKey);
     }
 
+    function photoNavBtnForKey(key) {
+      return document.querySelector('.photo-nav-btn[onclick*="' + key + '"]');
+    }
+
+    const PHOTO_SECTION_MAP = {
+      exposure: 'photo_triangle',
+      composition: 'photo_level',
+      'raw-jpg': 'photo_raw_vs_jpg',
+      'flash-light': 'photo_curtain_sync',
+      'focal-length': 'camera_photo_lens',
+      'white-balance': 'photo_wb',
+      histogram: 'photo_histogram',
+      'editing-timeline': 'video_capcut_import',
+      'light-lens': 'photo_light_s2'
+    };
+
+    const PHOTO_LESSON_SECTION = {
+      photo_triangle: 'exposure', photo_aperture: 'exposure', photo_shutter: 'exposure', photo_iso: 'exposure',
+      photo_level: 'composition', photo_composition: 'composition', photo_angle: 'composition',
+      photo_raw_vs_jpg: 'raw-jpg',
+      photo_curtain_sync: 'flash-light', camera_photo_flash: 'flash-light',
+      camera_photo_lens: 'focal-length', photo_lens: 'focal-length',
+      photo_wb: 'white-balance',
+      photo_histogram: 'histogram',
+      video_capcut_import: 'editing-timeline', video_capcut_advanced: 'editing-timeline',
+      photo_light_s2: 'light-lens', photo_light_s3: 'light-lens', photo_light_s4: 'light-lens',
+      photo_light_s5: 'light-lens', photo_light_s6: 'light-lens', photo_light_s1: 'light-lens',
+      photo_focus: 'exposure'
+    };
+
+    const PHOTO_MODULE_GUIDES = {
+      triangle: {
+        what: '光圈、快門、ISO 一起決定亮度，也分別影響景深、動態與雜訊。',
+        how: '拖三根滑桿，看哪個角亮起；下方示範圖與狀態標籤會跟著變。',
+        change: '偏亮、偏暗、過曝、拖影、雜訊、景深變化都會即時顯示。',
+        when: '現場光線突變時，知道先保快門、先顧虛化，還是先顧畫質乾淨。'
+      },
+      aperture: {
+        what: '光圈控制進光量，也決定背景虛化深淺。',
+        how: '只拖光圈滑桿，看同一張人像的虛化與亮度變化。',
+        change: '左側大光圈背景更糊、畫面更亮；右側小光圈更清晰、較暗。',
+        when: '人像要分離背景、或風景要全景清晰時。'
+      },
+      shutter: {
+        what: '快門決定曝光時間長短，影響動態凝固或拖影。',
+        how: '拖快門滑桿，比較凝固與殘影兩種畫面。',
+        change: '快快門定格動作；慢快門出現車軌與流動感。',
+        when: '拍運動、婚禮進場，或夜景光軌長曝光。'
+      },
+      iso: {
+        what: 'ISO 像音量鍵，在暗光下把畫面墊亮，但會帶雜訊。',
+        how: '只拉 ISO，觀察螢火蟲夜景的亮度與顆粒。',
+        change: '低 ISO 暗而乾淨；高 ISO 亮但出現彩噪。',
+        when: '室內、晚宴、夜景不得已要拉高 ISO 時。'
+      },
+      histogram: {
+        what: '直方圖是現場判斷曝光是否安全的工具，不是進階玩家專用。',
+        how: '拖曝光滑桿，看山丘往左、中間或往右，對照上方狀態提示。',
+        change: '偏左偏暗、偏右偏亮；貼左可能死黑、貼右可能爆高光。',
+        when: '白紗、黑西裝、逆光、夜景、高反差、舞台燈——主體細節容易流失時。'
+      },
+      composition: {
+        what: '構圖與地平線決定畫面穩定感，觀者第一眼會不會舒服。',
+        how: '拖地平線滑桿校正歪斜；構圖課可點圓圈對準交叉點。',
+        change: '水平回正後，海平面與建築不再讓人暈；構圖對準後更有重心。',
+        when: '風景海平面、建築仰拍、或活動快拍來不及細修時。'
+      },
+      darkroom: {
+        what: 'RAW 是後製母帶，JPG 是相機先幫你調好的成品。',
+        how: '左右對照 RAW/JPG，再拖暗部拉升滑桿。',
+        change: 'JPG 拉暗部容易破圖冒噪；RAW 暗部較能救回。',
+        when: '逆光婚禮、大反差現場——寧可拍 RAW 再修。'
+      },
+      curtain: {
+        what: '前簾與後簾不是誰比較高級，而是拖影方向和使用情境不同。',
+        how: '切換前簾／後簾，再拖慢快門，看拖影在身前還是身後。',
+        change: '前簾主體先定格、拖影易在前方；後簾拖影多在身後，動態感較自然。',
+        when: '婚禮進場、舞池、夜景人像、活動紀錄、餐廳低光、親子夜間動態。'
+      },
+      focus: {
+        what: '對焦決定畫面哪個距離最銳利，拍人像通常是眼睛。',
+        how: '拖對焦環滑桿，找綠色合焦區間，再按鎖定。',
+        change: '偏離時整張糊掉；對準時眼部清晰、邊框變綠。',
+        when: '大光圈人像、微距、隔玻璃或暗光手動對焦。'
+      },
+      lens: {
+        what: '焦段會改變空間感、臉型與背景壓縮，不只是拉近拉遠。',
+        how: '拖焦段滑桿，從 16mm 到 135mm，看預覽怎麼變。',
+        change: '廣角拉開空間；長焦壓縮背景、主體更集中。',
+        when: 'Vlog 用廣角、人像用 35～85mm、活動特寫用長焦。'
+      },
+      wb: {
+        what: '白平衡可修正色彩，也可刻意保留冷暖來建立情緒。',
+        how: '拖 K 值滑桿，看膚色與氛圍變化。',
+        change: '偏暖像宴會燈光；偏冷像陰天或清晨。',
+        when: '混合光源現場，重點是膚色舒服、整組一致。'
+      },
+      lighting: {
+        what: '光有方向、反差、軟硬——不只亮不亮而已。',
+        how: '拖主光角度、補光比例、光質軟硬三根滑桿。',
+        change: '硬光陰影利、柔光過渡順；補光越多畫面越平。',
+        when: '人像、婚禮、商品拍攝都要先懂這三個旋鈕。'
+      },
+      video: {
+        what: '拍攝後的整理、剪輯與交付，跟現場曝光一樣需要流程感。',
+        how: '先看五步交付流程，再照下方剪映步驟清單動手做。',
+        change: '素材變精簡、節奏變清楚、色彩一致、聲音層次完整。',
+        when: '活動紀錄、親子短片、婚禮交片或社群短影音要出貨時。'
+      }
+    };
+
+    function scrollToPhotoSection(sectionId) {
+      var target = (sectionId && document.getElementById(sectionId)) || document.getElementById('lesson-sandbox-anchor');
+      if (!target || typeof scrollToContentAnchor !== 'function') return;
+      scrollToContentAnchor({
+        anchorId: target.id,
+        offset: window.matchMedia('(max-width: 1023px)').matches ? 80 : 128
+      });
+    }
+
+    function updateModuleGuide(mode) {
+      var box = document.getElementById('photo-module-guide');
+      var body = document.getElementById('photo-module-guide-body');
+      if (!box || !body) return;
+      var guide = PHOTO_MODULE_GUIDES[mode];
+      if (!guide) {
+        box.classList.add('hidden');
+        body.innerHTML = '';
+        return;
+      }
+      var labels = ['這是什麼', '怎麼操作', '畫面會怎麼變', '實戰什麼時候用'];
+      var keys = ['what', 'how', 'change', 'when'];
+      body.innerHTML = keys.map(function(k, i) {
+        return '<div class="photo-module-guide-item"><strong>' + labels[i] + '</strong><p>' + guide[k] + '</p></div>';
+      }).join('');
+      box.classList.remove('hidden');
+    }
+
+    window.photoGoToSection = function(sectionId, btnEl) {
+      if (sectionId === 'glossary') {
+        openPhotoGlossary();
+        if (history.replaceState) history.replaceState(null, '', '#glossary');
+        return;
+      }
+      var key = PHOTO_SECTION_MAP[sectionId];
+      if (!key) return;
+      var btn = btnEl || photoNavBtnForKey(key);
+      window.loadPhotoLesson(key, btn, { scroll: false });
+      setTimeout(function() { scrollToPhotoSection(sectionId); }, 60);
+      if (history.replaceState) history.replaceState(null, '', '#' + sectionId);
+      if (window.matchMedia('(max-width: 1023px)').matches && photoCourseDock && photoCourseDock.close) {
+        photoCourseDock.close();
+      }
+    };
+
+    window.photoStartGuide = function(key) {
+      var btn = photoNavBtnForKey(key);
+      window.loadPhotoLesson(key, btn || null);
+      var stage = document.getElementById('photo-stage');
+      if (stage) stage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    window.photoOpenChapterNav = function() {
+      if (window.matchMedia('(max-width: 1023px)').matches) {
+        if (typeof photoCourseDock !== 'undefined' && photoCourseDock.open) photoCourseDock.open();
+      }
+      var col = document.getElementById('photography-sidebar-col') || document.getElementById('photo-stage');
+      if (col) col.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (history.replaceState) history.replaceState(null, '', '#top');
+    };
+
+    function initPhotoHeroToggle() {
+      var btn = document.getElementById('photo-hero-toggle');
+      var full = document.getElementById('photo-hero-lead-mobile');
+      if (!btn || !full) return;
+      btn.addEventListener('click', function() {
+        var collapsed = full.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        btn.textContent = collapsed ? '展開完整說明' : '收合說明';
+      });
+    }
+
+    function initModuleGuideMobileCollapse() {
+      var guide = document.getElementById('photo-module-guide');
+      if (!guide) return;
+      function sync() {
+        if (window.matchMedia('(max-width: 767px)').matches) guide.removeAttribute('open');
+        else guide.setAttribute('open', '');
+      }
+      sync();
+      window.addEventListener('resize', sync, { passive: true });
+    }
+
     window.loadPhotoLesson = function(key, btnElement, opts) {
         opts = opts || {};
         const lesson = photographyRepository[key];
@@ -1225,6 +2035,10 @@
         updateLightingDiagram(lesson, key);
         updateDataCard(lesson);
         if (!hideTheoryCards || lesson.chapterRead) showChapterRead(lesson);
+        updateModuleGuide(lesson.mode);
+        syncModulePanelExtras(lesson.mode);
+        var sectionId = PHOTO_LESSON_SECTION[key];
+        if (sectionId && history.replaceState) history.replaceState(null, '', '#' + sectionId);
 
         resetAllSandboxPanels();
         currentActiveMode = lesson.mode;
@@ -1346,9 +2160,9 @@
           }
           const introEl = document.getElementById('video-panel-intro');
           if (lesson.videoSubtype === 'shoot') {
-            introEl.textContent = '📹 本課為拍攝入門：先把畫面拍穩、比例選對，再進入剪映剪輯。';
+            introEl.textContent = '📹 本課先練拍攝：畫面拍穩、比例選對，素材夠了再進剪映。';
           } else {
-            introEl.textContent = '✂️ 本課為剪映教學：直接照下方步驟在 App 操作即可。';
+            introEl.textContent = '✂️ 本課練剪映時間軸：照下方步驟在 App 操作，做完一支再調下一個環節。';
           }
           renderCapcutGuide(lesson);
 
@@ -1461,13 +2275,20 @@
         };
 
         document.querySelectorAll('.photo-nav-btn').forEach(b => {
+            if ((b.getAttribute('onclick') || '').indexOf('loadPhotoLesson') === -1) return;
             b.className = "photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors";
         });
-        if (btnElement) btnElement.className = "photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold bg-brand-50 text-indigo-600 transition-colors";
+        if (btnElement && (btnElement.getAttribute('onclick') || '').indexOf('loadPhotoLesson') !== -1) {
+          btnElement.className = "photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold bg-brand-50 text-indigo-600 transition-colors";
+        }
         updateLessonFlowNav(key);
 
         if (window.matchMedia('(max-width: 1023px)').matches) photoCourseDock.close();
-        if (opts.scroll !== false) scrollToLesson();
+        if (opts.scroll !== false) {
+          var sec = PHOTO_LESSON_SECTION[key];
+          if (sec) scrollToPhotoSection(sec);
+          else scrollToLesson();
+        }
     };
 
     function resetAllSandboxPanels() {
@@ -1541,7 +2362,10 @@
 
     function runApertureCompare() {
       const ap = parseInt(document.getElementById('slider-aperture').value);
+      const sh = parseInt(document.getElementById('slider-shutter').value);
+      const iso = parseInt(document.getElementById('slider-iso').value);
       document.getElementById('label-aperture').textContent = AP_VALS[ap];
+      updateExposureParamHints(ap, sh, iso);
       const t = ap / 5;
       const bg = document.getElementById('view-bg-layer');
       const dof = document.getElementById('view-dof-blur');
@@ -1561,8 +2385,11 @@
     }
 
     function runShutterCompare() {
+      const ap = parseInt(document.getElementById('slider-aperture').value);
       const sh = parseInt(document.getElementById('slider-shutter').value);
+      const iso = parseInt(document.getElementById('slider-iso').value);
       document.getElementById('label-shutter').textContent = SH_VALS[sh];
+      updateExposureParamHints(ap, sh, iso);
       const slow = (5 - sh) / 5;
       const bg = document.getElementById('view-bg-layer');
       const fg = document.getElementById('view-fg-layer');
@@ -1588,8 +2415,11 @@
     }
 
     function runIsoCompare() {
+      const ap = parseInt(document.getElementById('slider-aperture').value);
+      const sh = parseInt(document.getElementById('slider-shutter').value);
       const iso = parseInt(document.getElementById('slider-iso').value);
       document.getElementById('label-iso').textContent = ISO_VALS[iso];
+      updateExposureParamHints(ap, sh, iso);
       const grain = document.getElementById('effect-grain-mask');
       const bg = document.getElementById('view-bg-layer');
       const mask = document.getElementById('effect-brightness-mask');
@@ -1617,8 +2447,10 @@
       document.getElementById('label-aperture').textContent = AP_VALS[ap];
       document.getElementById('label-shutter').textContent = SH_VALS[sh];
       document.getElementById('label-iso').textContent = ISO_VALS[iso];
+      updateExposureParamHints(ap, sh, iso);
       const lightValue = (5 - ap) + sh + iso;
       const diff = lightValue - 7;
+      updateExposureRiskChips(ap, sh, iso, diff);
       const demoImg = document.getElementById('triangle-demo-img');
       if (demoImg) {
         const brightness = 1 + (diff * 0.08);
@@ -1639,11 +2471,11 @@
       hideCompareLabels();
       const banner = document.getElementById('simulator-feedback-banner');
       if (Math.abs(diff) < 1) {
-        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
-        banner.textContent = '⚡ 曝光平衡！光圈、快門、ISO 三者互相補償成功——這就是曝光三角。';
+        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
+        banner.textContent = '⚡ ' + buildExposureBanner(diff, ap, sh, iso);
       } else {
-        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center flex-grow border bg-rose-50 text-rose-800 border-rose-100";
-        banner.textContent = diff > 0 ? '☀️ 太亮：縮小光圈、或加快快門、或降低 ISO 其中一項。' : '🌑 太暗：三者方向相反補光。';
+        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-rose-50 text-rose-800 border-rose-100";
+        banner.textContent = (diff > 0 ? '☀️ ' : '🌑 ') + buildExposureBanner(diff, ap, sh, iso);
       }
     }
 
@@ -1656,10 +2488,14 @@
       document.getElementById('label-aperture').textContent = AP_VALS[ap];
       document.getElementById('label-shutter').textContent  = SH_VALS[sh];
       document.getElementById('label-iso').textContent      = ISO_VALS[iso];
+      updateExposureParamHints(ap, sh, iso);
 
       const lightValue = (5 - ap) + sh + iso;
       const targetValue = 7;
       const diff = lightValue - targetValue;
+      if (currentActiveMode === 'triangle' || currentLessonKey === 'photo_triangle') {
+        updateExposureRiskChips(ap, sh, iso, diff);
+      }
 
       const bg = document.getElementById('view-bg-layer');
       const fg = document.getElementById('view-fg-layer');
@@ -1686,15 +2522,11 @@
         : "absolute inset-0 bg-black pointer-events-none z-20";
 
       if (Math.abs(diff) < 1) {
-          banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center flex-grow border bg-emerald-50 text-emerald-700";
-          banner.textContent = currentLessonKey === 'photo_triangle'
-            ? "🎯 曝光三角平衡！光圈、快門、ISO 三者已達理想亮度。"
-            : currentLessonKey === 'photo_aperture'
-            ? "🎯 曝光平衡！此時 F" + AP_VALS[ap].slice(1) + " 可同時兼顧進光與景深控制。"
-            : "🎯 曝光平衡：參數能封存婚禮最純淨的原始細節！";
+          banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700";
+          banner.textContent = '🎯 ' + buildExposureBanner(diff, ap, sh, iso);
         } else {
-          banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center flex-grow border bg-rose-50 text-rose-700";
-          banner.textContent = diff > 0 ? "☀️ 過曝！畫面太亮，高光細節流失。" : "🌑 欠曝！畫面太暗，暗部細節被吃掉。";
+          banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-rose-50 text-rose-700";
+          banner.textContent = (diff > 0 ? '☀️ ' : '🌑 ') + buildExposureBanner(diff, ap, sh, iso);
         }
     }
 
@@ -1738,7 +2570,8 @@
       const val = parseInt(document.getElementById('slider-focal').value);
       const t = val / 10;
       const focalLabel = FOCAL_VALS[Math.min(val, FOCAL_VALS.length - 1)];
-      document.getElementById('label-focal').textContent = focalLabel + (val <= 3 ? ' · 廣角透視' : val >= 7 ? ' · 長焦壓縮' : ' · 標準視野');
+      document.getElementById('label-focal').textContent = focalLabel;
+      setParamHint('hint-focal', getFocalStateHint(val));
 
       const bg = document.getElementById('view-bg-layer');
       const banner = document.getElementById('simulator-feedback-banner');
@@ -1756,13 +2589,16 @@
 
       if (val <= 2) {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-blue-50 text-blue-800 border-blue-100";
-        banner.textContent = "📐 16-24mm 廣角：透視誇張、前景巨大，適合空間交代與環境人像。";
+        banner.textContent = "📐 " + focalLabel + " 廣角：空間被拉開，近拍人像容易變形。";
       } else if (val >= 8) {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-purple-50 text-purple-800 border-purple-100";
-        banner.textContent = "🔭 105-135mm 長焦：背景被壓縮貼近主體，婚禮進場更有集中張力。";
+        banner.textContent = "🔭 " + focalLabel + " 長焦：背景壓縮、主體更突出，記得拉開距離再拍。";
+      } else if (val >= 6) {
+        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-indigo-50 text-indigo-800 border-indigo-100";
+        banner.textContent = "📷 " + focalLabel + " 人像焦段：臉型較自然，婚禮特寫常用區間。";
       } else {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-slate-100 text-slate-700";
-        banner.textContent = "↔️ 拖動焦段滑桿，比較廣角與長焦如何改變空間壓縮感。";
+        banner.textContent = "↔️ " + focalLabel + "：拖動滑桿，看廣角與長焦如何改變空間感。";
       }
     }
 
@@ -1798,11 +2634,13 @@
 
       const angleDeg = Math.round(angleVal * 9);
       const fillPct = fillVal * 10;
-      const softLabel = softVal <= 3 ? '硬光 · 銳利陰影' : softVal >= 7 ? '柔光 · 羽化過渡' : '中等柔光';
+      const softLabel = softVal <= 3 ? '硬光' : softVal >= 7 ? '柔光' : '中性光';
 
       document.getElementById('label-light-angle').textContent = angleDeg + '°';
       document.getElementById('label-fill').textContent = fillPct + '%';
       document.getElementById('label-softness').textContent = softLabel;
+      setParamHint('hint-softness', getSoftnessStateHint(softVal, softLabel));
+      setParamHint('hint-fill', getFillStateHint(fillVal, fillPct));
 
       const mask = document.getElementById('effect-lighting-mask');
       const bg = document.getElementById('view-bg-layer');
@@ -1820,7 +2658,7 @@
         `;
       bg.style.filter = `contrast(${1 + (10 - softVal) * 0.02}) brightness(${0.92 + fillVal * 0.008})`;
 
-      let msg = '💡 調整主光角度與補光，觀察臉部明暗比例與輪廓分離。';
+      let msg = '💡 ' + softLabel + ' · ' + fillPct + '% 補光 · 主光 ' + angleDeg + '°：觀察陰影深淺與臉部立體感。';
       let success = false;
       if (currentLessonKey === 'photo_light_s1') {
         msg = '🗺️ 先認識燈位圖中的組件，再試著拖滑桿感受光的方向。';
@@ -1852,19 +2690,20 @@
       const k = parseInt(document.getElementById('slider-kelvin').value);
       const kelvin = 2500 + k * 550;
       document.getElementById('label-kelvin').textContent = kelvin + 'K';
+      setParamHint('hint-kelvin', getKelvinStateHint(k, kelvin));
       const bg = document.getElementById('view-bg-layer');
       const banner = document.getElementById('simulator-feedback-banner');
       const warm = (k - 5) * -12;
       bg.style.filter = `sepia(${Math.max(0, warm * 0.4)}%) hue-rotate(${warm}deg) saturate(${1 + warm * 0.01})`;
       if (k <= 3) {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-orange-50 text-orange-900 border-orange-100";
-        banner.textContent = "🕯️ 偏暖（鎢絲燈／宴會）：適合溫馨婚禮，但白紗可能偏黃。";
+        banner.textContent = "🕯️ " + kelvin + "K 偏暖：創作上適合溫馨氛圍；修正時注意白紗是否偏黃。";
       } else if (k >= 7) {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-blue-50 text-blue-900 border-blue-100";
-        banner.textContent = "❄️ 偏冷（陰天／藍調）：電影感強，注意膚色是否發青。";
+        banner.textContent = "❄️ " + kelvin + "K 偏冷：適合陰天或冷調情緒，注意膚色是否發青。";
       } else {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
-        banner.textContent = "✓ 約 5500K 中性：色彩較自然。剪映調色時可微調色溫達成同一效果。";
+        banner.textContent = "✓ " + kelvin + "K 接近中性：適合當作戶外標準，後製再微調一致即可。";
       }
     }
 
@@ -1888,10 +2727,20 @@
       svg.innerHTML = bars + `<line x1="0" y1="${H - 1}" x2="${W}" y2="${H - 1}" stroke="#64748b" stroke-width="0.5"/>`;
     }
 
+    function getHistogramStateHint(ev) {
+      if (ev <= -4) return '左側貼邊：暗部可能死黑，主體暗部細節要特別注意。';
+      if (ev <= -2) return '偏左：畫面偏暗，暗部細節可能留不住。';
+      if (ev >= 4) return '右側貼邊：高光可能爆掉，白紗、燈光容易救不回。';
+      if (ev >= 2) return '偏右：畫面偏亮，注意高光有沒有溢出。';
+      return '集中中間：曝光較平均，主體細節通常較安全。';
+    }
+
     function runHistogramSimulation() {
       if (currentActiveMode !== 'histogram') return;
       const ev = parseInt(document.getElementById('slider-hist-ev').value);
       document.getElementById('label-hist-ev').textContent = (ev > 0 ? '+' : '') + ev + ' EV';
+      const hint = document.getElementById('hint-histogram');
+      if (hint) hint.textContent = getHistogramStateHint(ev);
       const mask = document.getElementById('effect-brightness-mask');
       const banner = document.getElementById('simulator-feedback-banner');
       mask.style.opacity = Math.min(0.5, Math.abs(ev) * 0.09);
@@ -1900,15 +2749,19 @@
         : "absolute inset-0 bg-black pointer-events-none z-20";
       drawHistogram(ev, 'histogram-svg-large');
       drawHistogram(ev, 'histogram-svg');
-      if (ev <= -3) {
+      if (ev <= -4 || ev >= 4) {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-rose-50 text-rose-700 border-rose-100";
-        banner.textContent = "⬅️ 直方圖撞左牆：欠曝，暗部死黑，山丘擠在左側。";
-      } else if (ev >= 3) {
-        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-rose-50 text-rose-700 border-rose-100";
-        banner.textContent = "➡️ 直方圖撞右牆：過曝，高光溢出成純白。";
+        banner.textContent = ev <= -4
+          ? '山丘貼左：暗部可能死黑。先看主體暗部細節還在不在。'
+          : '山丘貼右：高光可能爆掉。白紗、燈泡、舞台追光最常踩到這裡。';
+      } else if (ev <= -2 || ev >= 2) {
+        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-amber-50 text-amber-800 border-amber-100";
+        banner.textContent = ev < 0
+          ? '整體偏暗。逆光、黑西裝、夜景常會往左偏，記得對照主體。'
+          : '整體偏亮。雪地、白牆、窗邊亮部容易往右偏，注意高光。';
       } else {
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
-        banner.textContent = "📊 理想分佈：山丘在中間，兩端未貼邊。上方為放大直方圖。";
+        banner.textContent = '山丘集中中間：曝光較平均。現場還是要確認主體細節有沒有保住。';
       }
     }
 
@@ -1982,9 +2835,9 @@
     function selectCurtainSyncType(type, btnElement) {
       selectedSyncType = type;
       document.querySelectorAll('.curtain-btn').forEach(b => {
-        b.className = "curtain-btn px-4 py-2 text-sm font-bold rounded-xl bg-slate-50 text-slate-600 border border-slate-200";
+        b.className = "curtain-btn px-4 py-2.5 text-sm font-bold rounded-xl bg-slate-50 text-slate-600 border border-slate-200";
       });
-      btnElement.className = "curtain-btn px-4 py-2 text-sm font-bold rounded-xl bg-brand-600 text-white shadow-sm";
+      btnElement.className = "curtain-btn px-4 py-2.5 text-sm font-bold rounded-xl bg-brand-600 text-white shadow-sm";
       runCurtainLightStreakSimulation();
     }
 
@@ -1996,26 +2849,25 @@
       const streak = document.getElementById('curtain-light-streak');
       const fg = document.getElementById('view-fg-layer');
       const banner = document.getElementById('simulator-feedback-banner');
+      const hint = document.getElementById('hint-curtain-sync');
 
-      const streakLength = shVal * 40; // 隨著快門變慢，光軌拉長
+      const streakLength = shVal * 40;
       streak.style.width = `${streakLength}px`;
 
       if (selectedSyncType === 'front') {
-        // 前簾同步：流光在人像前方 (錯位)
         streak.style.transform = `translateX(${40}px)`;
         fg.style.transform = `translateX(-20px) scale(0.95)`;
         fg.style.filter = "blur(1px) opacity(0.85)";
-        
-        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-rose-50 text-rose-700 border-rose-100";
-        banner.textContent = "❌ 糟糕！採用前簾同步，快門一開燈就閃，導致跳舞的新人運動流光黏在『正前方（臉上）』，破壞了美感！";
+        if (hint) hint.textContent = '前簾：閃光在曝光一開始，主體先被定格，拖影容易出現在動作前方。';
+        banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-amber-50 text-amber-800 border-amber-100";
+        banner.textContent = '前簾同步：閃光一開就亮，拖影容易黏在人物前方，方向感可能不自然。';
       } else {
-        // 後簾同步：流光拖曳在人像後方 (大師級)
         streak.style.transform = `translateX(${-80}px)`;
         fg.style.transform = `translateX(30px) scale(1)`;
         fg.style.filter = "none";
-
+        if (hint) hint.textContent = '後簾：閃光在曝光結束前，拖影留在主體後方，動態感通常比較自然。';
         banner.className = "px-5 py-3 rounded-xl font-bold text-sm text-center sm:text-left flex-grow border bg-emerald-50 text-emerald-700 border-emerald-100";
-        banner.textContent = "🎯 太夢幻了！後簾同步成功！相機先記錄了舞池背景炫麗的長拉絲流光，最後一刻定格新人，光軌完美拖曳在身後！";
+        banner.textContent = '後簾同步：先記錄環境光與拖影，最後一刻定格主體。進場、舞池、夜景人像很常這樣拍。';
       }
     }
 
@@ -2069,7 +2921,12 @@
           });
           photoCourseDock.refresh();
           requestAnimationFrame(function() { photoCourseDock.refresh(); });
-          window.loadPhotoLesson('photo_light', document.querySelector('.photo-nav-btn'), { scroll: false });
+          var hash = (location.hash || '').replace(/^#/, '');
+          if (hash && (PHOTO_SECTION_MAP[hash] || hash === 'glossary')) {
+            photoGoToSection(hash);
+          } else {
+            window.loadPhotoLesson('photo_triangle', document.querySelector('.photo-nav-btn'), { scroll: false });
+          }
         });
 
         renderPrefaces();
@@ -2086,12 +2943,17 @@
         });
         const resetBtn = document.getElementById('btn-reset-demo');
         if (resetBtn) resetBtn.addEventListener('click', resetCurrentModeControls);
+        initPhotoHeroToggle();
+        initModuleGuideMobileCollapse();
         const glossaryModal = document.getElementById('photo-glossary-modal');
         if (glossaryModal) {
           glossaryModal.addEventListener('click', function(e) {
             if (e.target === glossaryModal) closePhotoGlossary();
           });
         }
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') closePhotoGlossary();
+        });
         const hideHint = localStorage.getItem('mrbill_photo_glossary_hint_hidden') === '1';
         if (hideHint) {
           const fab = document.getElementById('photo-glossary-fab');

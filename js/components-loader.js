@@ -245,7 +245,7 @@ function injectSiteRwdStyles() {
         '.site-prose-safe img, .site-prose-safe video { max-width: 100%; height: auto; }',
         '#mobile-content-dock { transition: opacity 0.22s ease, transform 0.22s ease; }',
         '#mobile-content-dock.is-hidden { opacity: 0; pointer-events: none; transform: translateY(10px); }',
-        '@media (max-width: 1023px) { body.has-mobile-dock { padding-bottom: 5.5rem; } }',
+        '@media (max-width: 1023px) { body.has-mobile-dock.is-mobile-dock-visible { padding-bottom: 5.5rem; } }',
         '.nav-mega-grid .nav-mega-card { min-height: 5.25rem; display: flex; flex-direction: column; justify-content: center; }',
         '[data-nav-articles].nav-articles--has-new { position: relative; }',
         '.nav-articles-new-badge { position: absolute; display: inline-flex; align-items: center; justify-content: center; min-width: 1.125rem; height: 1.125rem; padding: 0 0.3rem; border-radius: 9999px; background: #f43f5e; color: #fff; font-size: 0.625rem; font-weight: 900; line-height: 1; letter-spacing: -0.02em; box-shadow: 0 0 0 2px rgba(255,255,255,0.95); pointer-events: none; top: 0.1rem; right: -0.2rem; }',
@@ -257,7 +257,8 @@ function injectSiteRwdStyles() {
         '.blog-top-btn:hover { background: linear-gradient(160deg, #4338ca 0%, #3730a3 100%); box-shadow: 0 8px 22px rgba(79, 70, 229, 0.45); transform: translateY(-2px) scale(1.02); }',
         '.blog-top-btn__text { font-size: 0.625rem; font-weight: 800; letter-spacing: 0.12em; line-height: 1; }',
         '.blog-top-btn__icon { display: inline-flex; line-height: 0; }',
-        '@media (max-width: 639px) { .blog-top-btn { right: 0.875rem; bottom: 1rem; width: 3rem; height: 3rem; } body.has-mobile-dock .blog-top-btn { bottom: 5.75rem; } }',
+        '@media (max-width: 1023px) { body.has-mobile-dock.is-mobile-dock-visible .blog-top-btn { bottom: 5.75rem; } }',
+        '@media (max-width: 639px) { .blog-top-btn { right: 0.875rem; bottom: 1rem; width: 3rem; height: 3rem; } }',
         '@media (prefers-reduced-motion: reduce) { .blog-top-btn { transition: opacity 0.15s ease; } .blog-top-btn:hover { transform: none; } }'
     ].join('\n');
     document.head.appendChild(style);
@@ -312,12 +313,14 @@ function initMobileContentDock(options) {
         var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
         if (isDesktop) {
             dock.classList.add('is-hidden');
+            document.body.classList.remove('is-mobile-dock-visible');
             return;
         }
         var rect = anchor.getBoundingClientRect();
         var headerRoom = options.offset != null ? options.offset : 88;
         var anchorVisible = rect.top < window.innerHeight - headerRoom && rect.bottom > headerRoom;
         dock.classList.toggle('is-hidden', anchorVisible);
+        document.body.classList.toggle('is-mobile-dock-visible', !anchorVisible);
         if (!anchorVisible) refreshThumb();
     }
 
