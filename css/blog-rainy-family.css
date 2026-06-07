@@ -520,6 +520,8 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
 
 .rainy-guide a {
   display: inline-flex;
+  flex: 0 0 auto;
+  max-width: none;
   padding: 0.35rem 0.55rem;
   border-radius: 999px;
   background: #eef7ff;
@@ -527,6 +529,7 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   font-size: 0.75rem;
   font-weight: 800;
   white-space: nowrap;
+  word-break: normal;
 }
 
 .rainy-guide a:hover { background: #102a43; color: #fff; }
@@ -1468,8 +1471,88 @@ details.rainy-faq-item {
   }
 
   .rainy-weather-mini { grid-template-columns: 1fr; }
-  .rainy-hourly { grid-template-columns: repeat(2, 1fr); }
-  .rainy-weekly { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  .rainy-weather-more summary {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.88rem;
+  }
+
+  .rainy-weather-sub {
+    padding: 0 0.65rem;
+    font-size: 0.78rem;
+    margin-top: 0.75rem;
+  }
+
+  .rainy-hourly {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    padding: 0 0.65rem 0.65rem;
+  }
+
+  .rainy-hour {
+    padding: 0.6rem 0.45rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .rainy-hour strong {
+    font-size: 0.84rem;
+    margin-top: 0.2rem;
+  }
+
+  .rainy-weekly {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0 0.65rem 0.75rem;
+  }
+
+  .rainy-week {
+    display: grid;
+    grid-template-columns: minmax(6rem, 1.2fr) 1.65rem minmax(4.5rem, 1fr) minmax(3.5rem, 0.8fr);
+    align-items: center;
+    gap: 0.35rem 0.5rem;
+    padding: 0.65rem 0.75rem;
+    text-align: left;
+    font-size: 0.8rem;
+  }
+
+  .rainy-week-day {
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .rainy-week > span:not(.rainy-week-day):not(.rainy-week-temp) {
+    font-size: 1.2rem;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .rainy-week strong {
+    margin-top: 0;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .rainy-week-temp {
+    font-size: 0.78rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .rainy-small-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
+  }
+
+  .rainy-small-link {
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem 0.65rem;
+    font-size: 0.78rem;
+  }
+
   .rainy-scenario-grid,
   .rainy-quick-grid,
   .rainy-spot-grid,
@@ -1488,11 +1571,29 @@ details.rainy-faq-item {
   }
 
   .rainy-guide {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-bottom: 0.35rem;
-    -webkit-overflow-scrolling: touch;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+    overflow: visible;
+    padding: 0.65rem 0;
     max-width: 100%;
+  }
+
+  .rainy-guide a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    min-height: 2.55rem;
+    padding: 0.5rem 0.55rem;
+    border-radius: 0.75rem;
+    white-space: normal;
+    word-break: keep-all;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.35;
+    flex: none;
   }
 
   .rainy-box,
@@ -1582,12 +1683,9 @@ details.rainy-faq-item {
     h2,
     h3,
     h4,
-    span,
-    a,
     button,
     label,
     summary,
-    strong,
     .rainy-section-desc,
     .rainy-lead,
     .rainy-list-meta,
@@ -1603,6 +1701,18 @@ details.rainy-faq-item {
     word-wrap: break-word;
     text-wrap: wrap;
     max-width: 100%;
+  }
+
+  .rainy-guide a,
+  .rainy-small-link,
+  .rainy-hour,
+  .rainy-week,
+  .rainy-week-day,
+  .rainy-week-temp,
+  .rainy-hour strong,
+  .rainy-week strong {
+    max-width: none;
+    word-break: normal;
   }
 
   .rainy-list-meta,
