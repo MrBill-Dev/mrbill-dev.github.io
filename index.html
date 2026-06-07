@@ -50,6 +50,8 @@
 <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/components-loader.js"></script>
   <script src="js/ai-lab.js"></script>
+  <link rel="stylesheet" href="css/home-rain-recommend.css" />
+  <script src="js/home-rain-recommend.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -382,9 +384,26 @@
     @keyframes promptCursorBlink { 50% { opacity: 0; } }
   </style>
 </head>
-<body class="site-colorful text-slate-800 antialiased min-h-screen flex flex-col text-lg">
+<body class="site-colorful has-ai-update-fab text-slate-800 antialiased min-h-screen flex flex-col text-lg">
 
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <div id="homeRainRecommendSpacer" class="home-blog-strip-spacer hidden" aria-hidden="true"></div>
+  <div id="homeRainRecommend" class="home-blog-strip hidden" aria-label="文章筆記生活觀察" data-rain-mode="default">
+    <span class="home-blog-strip__accent" aria-hidden="true"></span>
+    <span class="home-blog-strip__shine" aria-hidden="true"></span>
+    <div class="home-blog-strip__inner px-4 lg:px-6">
+      <span id="rainRecommendKicker" class="home-blog-strip__kicker"><span class="home-blog-strip__dot" aria-hidden="true"></span>文章筆記</span>
+      <span id="rainRecommendHint" class="home-blog-strip__hint" aria-live="polite">延伸閱讀｜爸媽可先收藏</span>
+      <span id="rainRecommendBadge" class="home-blog-strip__pill">生活觀察</span>
+      <p id="rainRecommendTitle" class="home-blog-strip__title">雙北雨天親子景點懶人包｜文章筆記，適合家長先收藏</p>
+      <span id="rainRecommendMeta" class="home-blog-strip__meta hidden md:inline">非課程主線，屬延伸閱讀</span>
+      <a id="rainRecommendLink" href="blog/taipei-newtaipei-rainy-day-family.html" class="home-blog-strip__cta">
+        <span id="rainRecommendCta">閱讀筆記 →</span>
+      </a>
+      <a href="blog/index.html" class="home-blog-strip__more">更多筆記</a>
+    </div>
+  </div>
 
   <!-- 全寬主視覺（僅首頁 tab 顯示） -->
   <div id="home-hero-bleed" class="hero-fullbleed hero-bg py-24 md:py-36 px-6 md:px-12 text-center shadow-2xl shadow-indigo-950/25 hidden">
@@ -1157,8 +1176,8 @@
 
   <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
 
-  <button id="ai-update-fab" type="button" onclick="openAiUpdateModal()" class="fixed z-40 right-4 bottom-20 md:bottom-8 px-4 py-3 rounded-full bg-indigo-600 text-white text-sm font-black shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-colors">
-    📰 AI 更新重點
+  <button id="ai-update-fab" type="button" onclick="openAiUpdateModal()" class="px-4 py-3 rounded-full bg-indigo-600 text-white text-sm font-black shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-colors" aria-label="開啟 AI 大記事">
+    📰 AI 大記事
   </button>
 
   <div id="ai-update-modal" class="hidden fixed inset-0 z-50 bg-slate-950/60 p-4 md:p-6">
@@ -1376,10 +1395,21 @@
       const targetSect = document.getElementById('sect-' + tabId);
       if (targetSect) targetSect.classList.remove('hidden');
       const hero = document.getElementById('home-hero-bleed');
+      const blogStrip = document.getElementById('homeRainRecommend');
+      const blogStripSpacer = document.getElementById('homeRainRecommendSpacer');
       if (hero) {
         if (tabId === 'home') hero.classList.remove('hidden');
         else hero.classList.add('hidden');
       }
+      if (blogStrip) {
+        if (tabId === 'home') blogStrip.classList.remove('hidden');
+        else blogStrip.classList.add('hidden');
+      }
+      if (blogStripSpacer) {
+        if (tabId === 'home') blogStripSpacer.classList.remove('hidden');
+        else blogStripSpacer.classList.add('hidden');
+      }
+      if (window.syncHomeBlogStripLayout) window.syncHomeBlogStripLayout();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     function parseUrlRoute() {
@@ -1424,7 +1454,10 @@
       blocks.forEach(function(b) { obs.observe(b); });
     }
     window.addEventListener('DOMContentLoaded', function() {
-      includeComponentSlot('global-header', 'components/header.html', null, function() { parseUrlRoute(); });
+      includeComponentSlot('global-header', 'components/header.html', null, function() {
+        if (window.syncHomeBlogStripLayout) window.syncHomeBlogStripLayout();
+        parseUrlRoute();
+      });
       includeComponentSlot('global-footer', 'components/footer.html');
       initParallax();
       initRevealBlocks();
