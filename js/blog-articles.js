@@ -6,11 +6,16 @@
  * - preset: "embed"  → 站內內嵌區（精簡列 + limit，例：ai-learning-map）
  * - variant: "full" | "compact" | "featured-compact" | "auto" 可覆寫 preset
  *
- * 新增文章：BLOG_ARTICLES 加一筆即可，列表各處自動串聯。
+ * 新增文章：BLOG_ARTICLES 加一筆 → 複製 article.template.html → 執行 npm run seo:sync
  * 未讀提示：30 天內且個人尚未開啟該文章 → 列表 NEW + 導覽數字徽章（localStorage，blog 區內不顯示）。
  */
-const BLOG_SITE_ORIGIN = "https://mrbill-dev.github.io";
-const BLOG_SITE_NAME = "MrBill AI Studio";
+function blogSeoOrigin() {
+  return (window.MRBILL_SITE_SEO && window.MRBILL_SITE_SEO.origin) || "https://mrbill-dev.github.io";
+}
+
+function blogSeoSiteName() {
+  return (window.MRBILL_SITE_SEO && window.MRBILL_SITE_SEO.siteName) || "Mr.Bill 數位實驗室";
+}
 
 /** 文章列表頁（blog/index.html）專區文案；hero 圖預設取最新文章 cover */
 const BLOG_INDEX = {
@@ -205,20 +210,12 @@ function getLatestBlogArticle() {
 }
 
 function blogCoverAbsoluteUrl(cover) {
+  if (typeof window.mrbillSeoAbsUrl === "function") {
+    return window.mrbillSeoAbsUrl(cover);
+  }
   if (!cover) return "";
   if (/^https?:\/\//.test(cover)) return cover;
-  return BLOG_SITE_ORIGIN + "/" + cover.replace(/^\//, "");
-}
-
-function setDocumentMeta(name, content, attr) {
-  if (!content) return;
-  attr = attr || "name";
-  var el =
-    document.querySelector('meta[' + attr + '="' + name + '"]') ||
-    document.createElement("meta");
-  el.setAttribute(attr, name);
-  el.setAttribute("content", content);
-  if (!el.parentNode) document.head.appendChild(el);
+  return blogSeoOrigin() + "/" + cover.replace(/^\//, "");
 }
 
 function preloadBlogArticleCover(article) {
@@ -234,39 +231,29 @@ function preloadBlogArticleCover(article) {
 }
 
 function applyBlogArticleHead(article) {
-  if (!article) return;
+  if (!article || typeof window.applySiteSeo !== "function") return;
   preloadBlogArticleCover(article);
-  document.title = article.title + "｜" + BLOG_SITE_NAME;
-  setDocumentMeta("description", article.excerpt);
-  setDocumentMeta("og:type", "article", "property");
-  setDocumentMeta("og:site_name", BLOG_SITE_NAME, "property");
-  setDocumentMeta("og:locale", "zh_TW", "property");
-  setDocumentMeta("og:title", article.title, "property");
-  setDocumentMeta("og:description", article.excerpt, "property");
-  setDocumentMeta(
-    "og:url",
-    BLOG_SITE_ORIGIN + "/blog/" + article.slug + ".html",
-    "property"
-  );
-  setDocumentMeta("og:image", blogCoverAbsoluteUrl(article.cover), "property");
-  setDocumentMeta("og:image:width", "1200", "property");
-  setDocumentMeta("og:image:height", "630", "property");
-  setDocumentMeta("twitter:card", "summary_large_image");
-  setDocumentMeta("twitter:title", article.title);
-  setDocumentMeta("twitter:description", article.excerpt);
-  setDocumentMeta("twitter:image", blogCoverAbsoluteUrl(article.cover));
-  var canonical = document.querySelector('link[rel="canonical"]');
-  if (canonical) {
-    canonical.setAttribute(
-      "href",
-      BLOG_SITE_ORIGIN + "/blog/" + article.slug + ".html"
-    );
-  }
+  window.applySiteSeo({
+    title: article.title,
+    description: article.excerpt,
+    ogTitle: article.title,
+    ogDescription: article.excerpt,
+    ogImage: article.cover,
+    type: "article",
+    path: "/blog/" + article.slug + ".html",
+    skipOrganization: true
+  });
 }
 
 function applyBlogIndexHead() {
-  document.title = BLOG_INDEX.title + "｜" + BLOG_SITE_NAME;
-  setDocumentMeta("description", BLOG_INDEX.description);
+  if (typeof window.applySiteSeo !== "function") return;
+  window.applySiteSeo({
+    pageId: "blog-index",
+    title: BLOG_INDEX.title,
+    description: BLOG_INDEX.description,
+    ogDescription: BLOG_INDEX.description,
+    path: "/blog/"
+  });
 }
 
 function blogArticleHref(article) {

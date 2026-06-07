@@ -1,6 +1,8 @@
 window.MRBILL_SITE_CONFIG = {
   authorName: "Mr.Bill",
-  siteName: "MrBill AI Studio",
+  get siteName() {
+    return (window.MRBILL_SITE_SEO && window.MRBILL_SITE_SEO.siteName) || "Mr.Bill 數位實驗室";
+  },
   authorHintTemplate: ""
 };
 

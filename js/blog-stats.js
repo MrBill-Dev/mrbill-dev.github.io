@@ -46,9 +46,9 @@ function getBlogStatsPageUrl(slug) {
     return (location.origin + location.pathname).replace(/\/+$/, "");
   }
   var origin =
-    typeof BLOG_SITE_ORIGIN !== "undefined"
-      ? BLOG_SITE_ORIGIN
-      : location.origin;
+    (window.MRBILL_SITE_SEO && window.MRBILL_SITE_SEO.origin) ||
+    (typeof blogSeoOrigin === "function" ? blogSeoOrigin() : null) ||
+    location.origin;
   if (/^https?:\/\/(localhost|127\.0\.0\.1)/i.test(location.origin)) {
     origin = location.origin;
   }

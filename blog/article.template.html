@@ -4,30 +4,17 @@
 
   新增文章：
   1. js/blog-articles.js → BLOG_ARTICLES 加一筆（列表／內嵌區自動更新）
-  2. 複製本檔為 blog/{slug}.html，改 <head> meta（參考 2026-06-05 工作流文）與 <article> 內文
-  3. 根目錄 sitemap.xml 加一筆 <url>
+  2. 複製本檔為 blog/{slug}.html，改 <article> 內文
+  3. 執行 npm run seo:sync（將靜態 SEO meta 寫入 HTML，爬蟲可讀）
+  4. 根目錄 sitemap.xml 加一筆 <url>
   內嵌列表：initBlogEmbedList(mountId, { category: "…" })；門檻見 BLOG_LIST_CONFIG
 -->
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>文章｜MrBill AI Studio</title>
-  <meta name="description" content="" />
-  <link rel="canonical" href="" />
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="MrBill AI Studio" />
-  <meta property="og:locale" content="zh_TW" />
-  <meta property="og:title" content="" />
-  <meta property="og:description" content="" />
-  <meta property="og:url" content="" />
-  <meta property="og:image" content="" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="" />
-  <meta name="twitter:description" content="" />
-  <meta name="twitter:image" content="" />
+  <title>文章標題</title>
+  <script src="../js/site-seo.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../js/components-loader.js"></script>
   <script src="../js/blog-articles.js"></script>

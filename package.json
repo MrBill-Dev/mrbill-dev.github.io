@@ -1,0 +1,7 @@
+{
+  "name": "mrbill-dev.github.io",
+  "private": true,
+  "scripts": {
+    "seo:sync": "node scripts/sync-seo-meta.mjs"
+  }
+}

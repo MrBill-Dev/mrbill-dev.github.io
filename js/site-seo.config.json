@@ -1,0 +1,105 @@
+{
+  "site": {
+    "origin": "https://mrbill-dev.github.io",
+    "siteName": "Mr.Bill 數位實驗室",
+    "locale": "zh_TW",
+    "lang": "zh-Hant",
+    "titleSuffix": "Mr.Bill 數位實驗室",
+    "defaultDescription": "Mr.Bill 數位實驗室整理 AI 應用、前端網頁設計、攝影視覺、內容表達與 SEO/GEO 實戰教學，適合學生、家長、自學者與創作者建立可交付的數位能力。",
+    "defaultOgImage": "images/og-home.jpg",
+    "defaultOgImageWidth": 1200,
+    "defaultOgImageHeight": 630,
+    "defaultOgImageAlt": "Mr.Bill 數位實驗室 AI 前端 攝影 SEO 學習平台",
+    "twitterCard": "summary_large_image",
+    "organization": {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Mr.Bill 數位實驗室",
+      "description": "Mr.Bill 數位實驗室提供 AI 應用、前端網頁設計、攝影視覺、內容表達與 SEO/GEO 實戰教學。",
+      "sameAs": [],
+      "knowsAbout": [
+        "AI 教學",
+        "Prompt Engineering",
+        "前端網頁設計",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "攝影教學",
+        "SEO",
+        "GEO",
+        "內容表達"
+      ]
+    }
+  },
+  "pages": {
+    "home": {
+      "path": "/",
+      "title": "Mr.Bill 數位實驗室｜AI 教學、前端設計、攝影與 SEO 實戰學習",
+      "description": "Mr.Bill 數位實驗室整理 AI 應用、前端網頁設計、攝影視覺、內容表達與 SEO/GEO 實戰教學，適合學生、家長、自學者與創作者建立可交付的數位能力。",
+      "ogTitle": "Mr.Bill 數位實驗室｜AI、前端、攝影與 SEO 實戰學習",
+      "ogDescription": "從 AI 基礎、Prompt、前端網頁、攝影視覺到 SEO/GEO，建立能實作、能交付、能被搜尋的數位學習路徑。",
+      "ogImage": "images/og-home.jpg",
+      "ogImageAlt": "Mr.Bill 數位實驗室 AI 前端 攝影 SEO 學習平台",
+      "twitterDescription": "AI 應用、Prompt、前端網頁、攝影視覺、內容表達與 SEO/GEO 實戰學習入口。",
+      "type": "website",
+      "rawTitle": true,
+      "jsonLd": true
+    },
+    "tutorial": {
+      "title": "前端與設計手冊",
+      "description": "HTML、CSS、JavaScript 與 RWD 實作教學，含互動沙盒、作業檢核與從零到可上線的前端學習路徑。",
+      "type": "website"
+    },
+    "photography": {
+      "title": "攝影與光學美學學堂",
+      "description": "曝光、構圖、色彩與視覺敘事實戰教學，整合攝影術語、互動範例與作品思維訓練。",
+      "type": "website"
+    },
+    "ai-learning-map": {
+      "title": "AI 實戰學程",
+      "description": "從 Prompt、工作流到實作專案，建立可交付的 AI 應用能力與跨領域學習地圖。",
+      "type": "website"
+    },
+    "ai-practice": {
+      "title": "概念互動練習箱",
+      "description": "以互動題與小實驗理解 AI、前端與設計核心概念，邊做邊學。",
+      "type": "website"
+    },
+    "ai-prompt-tool": {
+      "title": "Prompt 指令工具箱",
+      "description": "整理常用 Prompt 模板與結構化輸入技巧，快速產出可複用的 AI 指令。",
+      "type": "website"
+    },
+    "ai-game-center": {
+      "title": "AI 小遊戲中心",
+      "description": "用輕量遊戲與互動任務練習 AI 與邏輯思維，適合課堂與自學暖身。",
+      "type": "website"
+    },
+    "ai-workshop-playbook": {
+      "title": "AI 實戰教學總覽",
+      "description": "工作坊教案、教學流程與實戰模組總覽，協助教學與自學規劃。",
+      "type": "website"
+    },
+    "design-toolkit": {
+      "title": "視覺設計學院",
+      "description": "版面、色彩、字體與 UI 實作工具箱，連結設計思維與前端落地。",
+      "type": "website"
+    },
+    "geo-content-lab": {
+      "title": "內容表達學：網站文案到簡報",
+      "description": "從網站文案、簡報到影片腳本，建立能被理解與被搜尋的內容表達能力。",
+      "type": "website"
+    },
+    "marketing-seo-geo": {
+      "title": "SEO / GEO 與 GA4 實戰",
+      "description": "搜尋優化、生成式引擎優化與 GA4 事件追蹤實戰，附檢查表與可落地步驟。",
+      "type": "website"
+    },
+    "blog-index": {
+      "path": "/blog/",
+      "title": "文章分享",
+      "description": "一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。",
+      "type": "website"
+    }
+  }
+}

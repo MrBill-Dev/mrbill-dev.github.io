@@ -1,3 +1,10 @@
 # ── 本地維護說明（預設不推送）────────────────────────────
-# 要納入版本庫時：刪除下面這一行 → 在 GitHub Desktop 勾選提交即可。
+# 要納入版本庫時：刪除對應行 → 在 GitHub Desktop 勾選提交即可。
+
+# 部落格維護備忘
 blog/README.md
+
+# AI 協作／架構說明（僅本機 Cursor 用，不推 GitHub）
+AGENTS.md
+docs/
+.cursor/
