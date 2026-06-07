@@ -251,7 +251,14 @@ function injectSiteRwdStyles() {
         '.nav-articles-new-badge { position: absolute; display: inline-flex; align-items: center; justify-content: center; min-width: 1.125rem; height: 1.125rem; padding: 0 0.3rem; border-radius: 9999px; background: #f43f5e; color: #fff; font-size: 0.625rem; font-weight: 900; line-height: 1; letter-spacing: -0.02em; box-shadow: 0 0 0 2px rgba(255,255,255,0.95); pointer-events: none; top: 0.1rem; right: -0.2rem; }',
         '.mobile-nav-top.nav-articles--has-new .nav-articles-new-badge { top: 50%; right: 0.75rem; transform: translateY(-50%); }',
         '@media (prefers-reduced-motion: no-preference) { .nav-articles-new-badge { animation: nav-articles-new-pulse 2.4s ease-in-out infinite; } }',
-        '@keyframes nav-articles-new-pulse { 0%, 100% { box-shadow: 0 0 0 2px rgba(255,255,255,0.95); } 50% { box-shadow: 0 0 0 2px rgba(255,255,255,0.95), 0 0 0 4px rgba(244,63,94,0.28); } }'
+        '@keyframes nav-articles-new-pulse { 0%, 100% { box-shadow: 0 0 0 2px rgba(255,255,255,0.95); } 50% { box-shadow: 0 0 0 2px rgba(255,255,255,0.95), 0 0 0 4px rgba(244,63,94,0.28); } }',
+        '.blog-top-btn { position: fixed; right: 1rem; bottom: 1.25rem; z-index: 45; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.125rem; width: 3.25rem; height: 3.25rem; border: none; border-radius: 9999px; background: linear-gradient(160deg, #4f46e5 0%, #4338ca 100%); color: #fff; box-shadow: 0 6px 18px rgba(79, 70, 229, 0.38); cursor: pointer; opacity: 0; transform: translateY(0.75rem) scale(0.92); pointer-events: none; transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, background 0.2s ease; }',
+        '.blog-top-btn.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }',
+        '.blog-top-btn:hover { background: linear-gradient(160deg, #4338ca 0%, #3730a3 100%); box-shadow: 0 8px 22px rgba(79, 70, 229, 0.45); transform: translateY(-2px) scale(1.02); }',
+        '.blog-top-btn__text { font-size: 0.625rem; font-weight: 800; letter-spacing: 0.12em; line-height: 1; }',
+        '.blog-top-btn__icon { display: inline-flex; line-height: 0; }',
+        '@media (max-width: 639px) { .blog-top-btn { right: 0.875rem; bottom: 1rem; width: 3rem; height: 3rem; } body.has-mobile-dock .blog-top-btn { bottom: 5.75rem; } }',
+        '@media (prefers-reduced-motion: reduce) { .blog-top-btn { transition: opacity 0.15s ease; } .blog-top-btn:hover { transform: none; } }'
     ].join('\n');
     document.head.appendChild(style);
 }
@@ -420,6 +427,52 @@ function initGlobalAnchorSmoothScroll() {
             scrollToHashTarget(window.location.hash, false);
         }, 80);
     });
+}
+
+function sitePrefersReducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+}
+
+/** 全站回到頂部（與文章頁 TOP 按鈕同款） */
+function initSiteBackToTop() {
+    var existing = document.getElementById('blog-back-to-top');
+    if (existing) return existing;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'blog-back-to-top';
+    btn.className = 'blog-top-btn';
+    btn.setAttribute('aria-label', '回到頁首');
+    btn.innerHTML =
+        '<span class="blog-top-btn__icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg></span><span class="blog-top-btn__text">TOP</span>';
+
+    btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: sitePrefersReducedMotion() ? 'auto' : 'smooth' });
+    });
+
+    document.body.appendChild(btn);
+
+    var toggle = function() {
+        if (window.scrollY > 360) {
+            btn.classList.add('is-visible');
+        } else {
+            btn.classList.remove('is-visible');
+        }
+    };
+
+    toggle();
+    window.addEventListener('scroll', toggle, { passive: true });
+    return btn;
+}
+window.initSiteBackToTop = initSiteBackToTop;
+
+function bootSiteBackToTop() {
+    initSiteBackToTop();
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootSiteBackToTop);
+} else {
+    bootSiteBackToTop();
 }
 
 initGlobalAnchorSmoothScroll();

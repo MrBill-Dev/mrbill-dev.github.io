@@ -3,6 +3,7 @@
 function practiceItem(q, title, content, tip, extra) {
   return Object.assign({
     q: q, title: title, content: content, tip: tip || '',
+    scenario: '', thinkFirst: '', refAnswer: '',
     lesson: '', steps: [], classroom: '', extend: '', nextStep: ''
   }, extra || {});
 }
@@ -14,6 +15,42 @@ const practiceCategories = [
     label: '基礎觀念',
     color: 'indigo',
     items: [
+      practiceItem('為什麼同一句 Prompt，每次 AI 回答都不一樣？', '溫度與隨機性讓每次生成略有差異',
+        'LLM 每次回答都是在「預測下一個 token」，模型會從多個合理選項中抽樣。溫度（temperature）越高，用詞變化越大；即使溫度低，對話歷史、系統提示、模型版本更新也會讓結果不同。這不代表 AI「忘記」了，而是生成機制本來就不是固定輸出。',
+        '需要穩定格式時，請在 Prompt 寫死輸出格式（JSON、表格、條列），並降低溫度。',
+        { key: 'prompt-variance',
+          scenario: '你對 ChatGPT 貼了同一段「幫我寫開場白」，連續問了三次，發現用詞和段落順序都不一樣，開始懷疑是不是自己操作錯了。',
+          thinkFirst: '你覺得「同樣問題應該同樣答案」嗎？如果 AI 是預測文字，而不是查資料庫，結果會怎麼變？',
+          refAnswer: '同一句 Prompt 每次不同，主因是生成時的隨機抽樣與上下文差異。要穩定輸出：① 指定輸出格式 ② 降低溫度 ③ 附上 Few-shot 範例 ④ 重要內容仍要人工定稿。',
+          lesson: '現場連續問 AI 同一題 3 次，投影差異。再問學員：哪些任務可以接受變化？哪些不行？',
+          steps: ['連續問 3 次，記下 3 個差異點', '在 Prompt 加「輸出格式：條列 5 點」', '再問 1 次，比較是否較穩定', '討論：哪些內容必須人工定稿'],
+          classroom: '分組各找 1 個「可以接受變化」與 1 個「不能接受變化」的任務，貼到共筆牆。',
+          extend: '進階：seed 參數、JSON mode、system prompt 版本管理。',
+          nextStep: '→ 練「模糊需求改清楚 Prompt」或到 Prompt 工具寫一份固定格式模板。' }),
+      practiceItem('為什麼 AI 回答看起來很合理，但可能是錯的？', '流暢語氣 ≠ 正確事實（幻覺）',
+        '模型訓練目標是「產出像人話的文字」，不是「保證每句都對」。當資料不足或問題超出訓練範圍，它仍可能用自信語氣編出法條編號、論文、統計數字。這叫幻覺。看起來合理，是因為語法通順、邏輯像真的——但事實層可能全錯。',
+        '醫療、法律、股價、法規編號這類，一定要人工查證，不能直接貼。',
+        { key: 'plausible-wrong',
+          scenario: '同學用 AI 查「某年某法條第幾條」，回答格式完整、語氣肯定，差點直接貼進報告。你發現條文編號查不到原文。',
+          thinkFirst: '如果 AI 的目標是「接得像真的」，而不是「查證後再答」，什麼情況最容易出錯？你會怎麼驗證？',
+          refAnswer: 'AI 會幻覺，因為它優化的是語言流暢度，不是事實正確率。防護三步：① 要求附來源 ② 關鍵事實用官方網站或書籍查 ③ 不確定就標「需人工查證」，不要硬答。',
+          lesson: '故意問一個冷門法條或論文，展示「看起來很真但其實錯」。',
+          steps: ['找一題 AI 可能胡說的冷門問題', '記下 AI 回答中「最像真的」的一句', '用搜尋或官方來源查證', '列出查證清單：什麼一定要查、什麼可以信'],
+          classroom: '建立班級「查證清單」：法規、醫療、財務、個資、引用文獻。',
+          extend: 'RAG、要求引用格式、confidence 標示。',
+          nextStep: '→ 練「幻覺」專題或到倫理安全分類做個資題。' }),
+      practiceItem('怎麼把一句模糊需求改成清楚 Prompt？', '從「幫我寫」到 RTCS 五段式',
+        '「幫我寫文案」缺了對象、目的、限制與格式，AI 只能猜。清楚 Prompt 至少要有：Role（你是誰）、Task（做什麼）、Context（背景）、Constraints（字數、禁忌）、Output（表格/條列/JSON）。寫成 Markdown 標題，模型服從度會高很多。',
+        '到本站 Prompt 工具可選情境，自動產 .md 範本。',
+        { key: 'fuzzy-to-clear',
+          scenario: '老闆傳訊息：「幫我想一下下週活動宣傳。」你只丟這句給 AI，得到泛泛而談的內容，老闆說「不是我想要的」。',
+          thinkFirst: '如果換成你派工作給實習生，你會補哪些資訊？活動對象、平台、字數、語氣、截止時間？',
+          refAnswer: '模糊句「幫我寫宣傳」→ 清楚 Prompt 範例：Role=行銷助理；Task=寫 3 則 IG 貼文；Context=親子手作活動、下週六、限 20 組；Constraints=每則 80 字內、不誇大療效；Output=表格（標題/內文/CTA）。',
+          lesson: '投影「幫我寫文案」vs RTCS 五段式的前後差異。',
+          steps: ['把模糊句寫在左欄', '補 Role / Task / Context / Constraints / Output', '貼給 AI 產第一版', '依老闆回饋再改 Constraints'],
+          classroom: '兩兩一組：A 給模糊需求，B 追問 3 個問題後寫出 RTCS Prompt。',
+          extend: 'Few-shot 範例、JSON mode、多輪迭代紀錄。',
+          nextStep: '→ 打開 Prompt 工具，把這題存成 .md 工作稿。' }),
       practiceItem('大語言模型（LLM）到底在做什麼？', 'LLM = 超高階的文字機率預測器',
         'ChatGPT、Claude、Gemini 本質上都在做同一件事：根據前面出現的文字，預測下一個最可能出現的 token。它讀過海量資料，學到「祝你生日」後面常接「快樂」。這不是真正「理解」世界，而是極強的統計模式匹配——所以會自信地說錯話（幻覺），也需要人類審稿。',
         '常見主流模型都屬於此類：擅長語言生成、摘要整理與多步任務協作。',
@@ -112,7 +149,8 @@ const practiceTeach = {
   notebooklm: { lesson: '上傳 10 頁講義，現場問 3 題。', steps: ['上傳', '問答', '產 FAQ'], classroom: '各組設計 1 題考倒助教。', extend: '多來源整合、音訊摘要。', nextStep: '→ RAG 概念題。' },
   'mj-vs-dalle': { lesson: '同一 Prompt 兩平台出圖對照。', steps: ['草稿', '比較', '決定商用路線'], classroom: '列出「不能商用」的 3 個理由。', extend: '印刷解析度、色域。', nextStep: '→ 產圖 pathway。' },
   parent: { lesson: '家長工作坊：先體驗再談規範。', steps: ['親子共寫大綱', '孩子重寫', '討論誠實繳交'], classroom: '簽署家庭 AI 使用公約範本。', extend: '校園誠信、參考書目。', nextStep: '→ 帶課實戰親子題。' },
-  assess: { lesson: '發 Rubric 表，互評同學 Prompt 作業。', steps: ['四項指標', '互評', '教師複評'], classroom: '選 1 份最佳作業分享。', extend: '作品集、歷程檔案。', nextStep: '→ 首頁 AI 課程 M8 治理。' }
+  assess: { lesson: '發 Rubric 表，互評同學 Prompt 作業。', steps: ['四項指標', '互評', '教師複評'], classroom: '選 1 份最佳作業分享。', extend: '作品集、歷程檔案。', nextStep: '→ 首頁 AI 課程 M8 治理。' },
+  llm: { lesson: '請學員在手機輸入「祝你生日」，觀察 AI 接龍。再問：「它真的懂生日嗎？」', steps: ['用白話定義 LLM', '示範正確接龍 vs 幻覺', '強調：輸出是草稿，人要審'], classroom: '分組各寫 1 個「AI 可能說錯的領域」。', extend: 'Transformer、訓練 vs 推論。', nextStep: '→ 練 Token 或到 Prompt 矩陣寫第一個 Role/Task。' }
 };
 
 function defaultTeachFallback(item) {
@@ -127,72 +165,63 @@ function defaultTeachFallback(item) {
 
 function enrichPracticeItem(item) {
   var extra = practiceTeach[item.key] || defaultTeachFallback(item);
-  return Object.assign({}, item, extra);
+  var merged = Object.assign({}, item, extra);
+  if (!merged.scenario) merged.scenario = '你想弄懂：「' + merged.q + '」——這是新手很常遇到的狀況。';
+  if (!merged.thinkFirst) merged.thinkFirst = '先停 30 秒，用自己的話回答這題。寫不出來也沒關係，等下對照解析。';
+  if (!merged.refAnswer) {
+    var first = (merged.content || '').split('。')[0];
+    merged.refAnswer = merged.title + (first ? '：' + first + '。' : '');
+  }
+  return merged;
+}
+
+function practiceSectionHtml(label, bodyHtml) {
+  if (!bodyHtml) return '';
+  return '<section class="ai-answer-step practice-answer-section">' +
+    '<p class="ai-answer-step-label">' + label + '</p>' +
+    '<div class="text-slate-700 text-[15px] leading-relaxed">' + bodyHtml + '</div></section>';
 }
 
 function initPracticeLab() {
   const root = document.getElementById('practice-root');
   if (!root) return;
   let html = '<div class="flex flex-wrap gap-2 mb-4" id="practice-tabs"></div>';
-  html += '<p class="text-sm text-slate-500 mb-4">點選問題後，切換下方分頁：概念解析／實作帶練步驟／延伸與下一步。遇到不懂名詞，先看下方「新手名詞小字典」，再回來看這題會更好吸收。</p>';
+  html += '<p class="text-sm text-slate-500 mb-5 leading-relaxed px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-100">先選主題，再點題目。每題依序看八個區塊練一遍；不懂名詞可先滑到「新手名詞翻譯區」。</p>';
   html += '<div id="practice-questions" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>';
-  html += `<div id="answerDisplay" class="mt-8 hidden rounded-2xl border border-indigo-100 overflow-hidden">
-    <div class="flex flex-wrap gap-1 p-3 bg-indigo-50 border-b border-indigo-100" id="practice-answer-tabs">
-      <button type="button" data-pane="content" class="practice-pane-btn px-4 py-2 rounded-lg text-sm font-bold bg-indigo-600 text-white">📖 概念解析</button>
-      <button type="button" data-pane="lesson" class="practice-pane-btn px-4 py-2 rounded-lg text-sm font-bold bg-white text-slate-600">🛠 實作帶練步驟</button>
-      <button type="button" data-pane="extend" class="practice-pane-btn px-4 py-2 rounded-lg text-sm font-bold bg-white text-slate-600">🧭 延伸與下一步</button>
+  html += `<div id="answerDisplay" class="mt-8 hidden border border-indigo-100 overflow-hidden bg-white">
+    <div class="p-4 md:p-5 bg-gradient-to-r from-indigo-50 to-violet-50 border-b border-indigo-100">
+      <p class="ai-card-meta text-indigo-600">練習解析</p>
+      <h4 id="answerTitle" class="ai-answer-title mt-1.5"></h4>
     </div>
-    <div class="p-6 md:p-8 bg-gradient-to-br from-indigo-50 to-purple-50">
-      <h4 id="answerTitle" class="font-black text-indigo-900 text-xl mb-3"></h4>
-      <div id="answerPaneContent" class="practice-pane text-slate-700 text-base leading-relaxed whitespace-pre-line"></div>
-      <div id="answerPaneLesson" class="practice-pane hidden text-slate-700 text-base leading-relaxed space-y-4"></div>
-      <div id="answerPaneExtend" class="practice-pane hidden text-slate-700 text-base leading-relaxed space-y-4"></div>
-      <p id="answerTip" class="mt-4 text-sm font-bold text-indigo-600 border-t border-indigo-100 pt-4"></p>
-    </div>
+    <div id="answerBody" class="p-4 md:p-6 bg-slate-50/50"></div>
+    <p id="answerTip" class="hidden px-4 md:px-6 pb-4 md:pb-6 text-sm font-medium text-indigo-700 border-t border-indigo-100 pt-4"></p>
   </div>`;
   html += `<div class="mt-8 rounded-2xl border border-cyan-100 bg-cyan-50 p-5">
-    <p class="text-xs font-black text-cyan-700 uppercase tracking-wider mb-3">新手名詞翻譯區</p>
-    <div class="grid md:grid-cols-3 gap-3 text-sm mb-4">
-      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Token</p><p class="text-slate-600 mt-1">可理解成 AI 計算字數與成本的單位。</p></div>
-      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">RAG</p><p class="text-slate-600 mt-1">先查你的資料，再回覆，不靠模型亂猜。</p></div>
-      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Prompt</p><p class="text-slate-600 mt-1">你給 AI 的任務說明書，寫越清楚越準。</p></div>
-      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Agent</p><p class="text-slate-600 mt-1">會自己拆任務並呼叫工具的 AI，不只是聊天。</p></div>
-      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">Few-shot</p><p class="text-slate-600 mt-1">先給 2-3 個範例，AI 會比較穩定模仿格式。</p></div>
-      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-black text-slate-900">推理模型</p><p class="text-slate-600 mt-1">適合多步驟難題，但速度可能較慢、成本較高。</p></div>
+    <p class="text-sm font-bold text-cyan-900 mb-3">新手名詞翻譯區</p>
+    <div class="grid md:grid-cols-3 gap-3 text-sm">
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-bold text-slate-900">Token</p><p class="text-slate-600 mt-1 leading-relaxed">可理解成 AI 計算字數與成本的單位。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-bold text-slate-900">RAG</p><p class="text-slate-600 mt-1 leading-relaxed">先查你的資料，再回覆，不靠模型亂猜。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-bold text-slate-900">Prompt</p><p class="text-slate-600 mt-1 leading-relaxed">你給 AI 的任務說明書，寫越清楚越準。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-bold text-slate-900">Agent</p><p class="text-slate-600 mt-1 leading-relaxed">會自己拆任務並呼叫工具的 AI，不只是聊天。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-bold text-slate-900">Few-shot</p><p class="text-slate-600 mt-1 leading-relaxed">先給 2-3 個範例，AI 會比較穩定模仿格式。</p></div>
+      <div class="rounded-xl bg-white border border-cyan-100 p-3"><p class="font-bold text-slate-900">推理模型</p><p class="text-slate-600 mt-1 leading-relaxed">適合多步驟難題，但速度可能較慢、成本較高。</p></div>
     </div>
   </div>`;
   html += `<div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-5">
-    <p class="text-xs font-black text-slate-500 uppercase tracking-wider mb-3">學完之後怎麼做</p>
+    <p class="text-sm font-bold text-slate-700 mb-3">學完之後怎麼做</p>
     <div class="grid md:grid-cols-3 gap-3">
-      <button type="button" data-go="tool" class="text-left p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-300 transition-colors">
-        <p class="font-black text-slate-900">① 把這題變成 Prompt</p>
-        <p class="text-sm text-slate-600 mt-1">跳到 Prompt 矩陣，直接套到真實情境。</p>
+      <button type="button" data-go="tool" class="text-left p-4 rounded-xl bg-white border border-slate-200 hover:border-indigo-300 transition-colors">
+        <p class="font-bold text-slate-900">① 把這題變成 Prompt</p>
+        <p class="text-sm text-slate-600 mt-1 leading-relaxed">跳到 Prompt 矩陣，直接套到真實情境。</p>
       </button>
       <button type="button" data-go="game" class="text-left p-4 rounded-xl bg-white border border-slate-200 hover:border-emerald-300 transition-colors">
-        <p class="font-black text-slate-900">② 用遊戲驗證理解</p>
-        <p class="text-sm text-slate-600 mt-1">到小遊戲做「下一步指引 / 情境決策」。</p>
+        <p class="font-bold text-slate-900">② 用遊戲驗證理解</p>
+        <p class="text-sm text-slate-600 mt-1 leading-relaxed">到小遊戲做「下一步指引 / 情境決策」。</p>
       </button>
       <a href="marketing-seo-geo.html" class="block p-4 rounded-xl bg-white border border-slate-200 hover:border-indigo-300 transition-colors no-underline">
-        <p class="font-black text-slate-900">③ 看真實商業案例</p>
-        <p class="text-sm text-slate-600 mt-1">前往 SEO / GEO 實戰，對照可落地流程。</p>
+        <p class="font-bold text-slate-900">③ 看真實商業案例</p>
+        <p class="text-sm text-slate-600 mt-1 leading-relaxed">前往 SEO / GEO 實戰，對照可落地流程。</p>
       </a>
-    </div>
-  </div>`;
-  html += `<div class="mt-6 rounded-2xl border border-indigo-100 bg-indigo-50 p-5 space-y-4">
-    <p class="text-xs font-black text-indigo-700 uppercase tracking-wider">延伸學習地圖（建議順序）</p>
-    <div class="grid md:grid-cols-4 gap-3 text-sm">
-      <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">Step 1 觀念校正</p><p class="text-slate-600 mt-1">先點 2 題「基礎觀念」與 1 題「倫理安全」。</p></div>
-      <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">Step 2 套用 Prompt</p><p class="text-slate-600 mt-1">把當前題目改寫成 RTCS .md，並產生第一版輸出。</p></div>
-      <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">Step 3 查證與修稿</p><p class="text-slate-600 mt-1">用來源與條件回查，保留「修前/修後」紀錄。</p></div>
-      <div class="rounded-xl bg-white border border-indigo-100 p-3"><p class="font-black text-slate-900">Step 4 交付與反思</p><p class="text-slate-600 mt-1">完成可交付版本，回到小遊戲驗證下一步路徑。</p></div>
-    </div>
-    <div class="rounded-xl bg-white border border-indigo-100 p-4 text-sm">
-      <p class="font-black text-slate-900 mb-2">實戰任務包（可當自學作業）</p>
-      <ul class="list-disc pl-5 space-y-1 text-slate-700">
-        <li>任務 A：把一篇 SEO 教學文改寫成「可被 AI 摘要引用」版本。</li>
-        <li>任務 B：用兩個不同模型完成同題，做差異比較報告。</li>
-        <li>任務 C：產圖需求寫出 Prompt + 版權風險清單 + 人工審稿流程。</li>
-      </ul>
     </div>
   </div>`;
   root.innerHTML = html;
@@ -202,58 +231,61 @@ function initPracticeLab() {
     const b = document.createElement('button');
     b.type = 'button';
     b.dataset.cat = cat.id;
-    b.className = 'practice-tab px-4 py-2 rounded-xl text-sm font-bold border transition-all ' +
+    b.className = 'practice-tab px-4 py-2 border transition-all ' +
       (i === 0 ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-200');
     b.textContent = cat.label;
     tabsEl.appendChild(b);
   });
 
   let currentItem = null;
-
-  function showPane(pane) {
-    document.querySelectorAll('.practice-pane').forEach(el => el.classList.add('hidden'));
-    document.getElementById('answerPane' + pane.charAt(0).toUpperCase() + pane.slice(1)).classList.remove('hidden');
-    document.querySelectorAll('.practice-pane-btn').forEach(btn => {
-      btn.className = 'practice-pane-btn px-4 py-2 rounded-lg text-sm font-bold ' +
-        (btn.dataset.pane === pane ? 'bg-indigo-600 text-white' : 'bg-white text-slate-600');
-    });
-  }
+  let activeCatId = practiceCategories[0].id;
 
   function renderAnswer(item) {
     currentItem = enrichPracticeItem(item);
     document.getElementById('answerTitle').textContent = currentItem.title;
-    document.getElementById('answerPaneContent').textContent = currentItem.content;
-    document.getElementById('answerTip').textContent = currentItem.tip ? '💡 ' + currentItem.tip : '';
 
-    const steps = currentItem.steps && currentItem.steps.length ? currentItem.steps : ['（此題可參考概念解析，或至 Prompt 矩陣實作）'];
-    document.getElementById('answerPaneLesson').innerHTML =
-      (currentItem.lesson ? '<p><strong>開場／講解：</strong>' + currentItem.lesson + '</p>' : '') +
-      '<p><strong>建議流程：</strong></p><ol class="list-decimal ml-5 space-y-1">' + steps.map(s => '<li>' + s + '</li>').join('') + '</ol>' +
-      (currentItem.classroom ? '<p class="mt-3 p-4 rounded-xl bg-white border border-indigo-100"><strong>🎯 課堂活動：</strong>' + currentItem.classroom + '</p>' : '');
+    const steps = currentItem.steps && currentItem.steps.length ? currentItem.steps : ['閱讀概念解析', '用自己的話重述一次', '到 Prompt 工具實作一版'];
+    let stepsHtml = (currentItem.lesson ? '<p class="mb-3"><span class="font-bold text-slate-900">開場：</span>' + currentItem.lesson + '</p>' : '') +
+      '<ol class="list-decimal ml-5 space-y-1.5">' + steps.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ol>';
+    if (currentItem.classroom) {
+      stepsHtml += '<p class="mt-3 text-sm text-slate-600"><span class="font-semibold text-slate-900">課堂活動：</span>' + currentItem.classroom + '</p>';
+    }
 
-    document.getElementById('answerPaneExtend').innerHTML =
-      (currentItem.extend ? '<p><strong>📚 延伸：</strong>' + currentItem.extend + '</p>' : '') +
-      (currentItem.nextStep ? '<p class="p-4 rounded-xl bg-emerald-50 border border-emerald-100 font-bold text-emerald-800">' + currentItem.nextStep + '</p>' : '');
+    const body = document.getElementById('answerBody');
+    body.innerHTML =
+      practiceSectionHtml('題目', '<p class="font-medium text-slate-800">' + currentItem.q + '</p>') +
+      practiceSectionHtml('情境', '<p>' + currentItem.scenario + '</p>') +
+      practiceSectionHtml('先想一想', '<p class="text-slate-500">' + currentItem.thinkFirst + '</p>') +
+      practiceSectionHtml('概念解析', '<p class="whitespace-pre-line">' + currentItem.content + '</p>') +
+      practiceSectionHtml('實作帶練步驟', stepsHtml) +
+      practiceSectionHtml('參考答案', '<p>' + currentItem.refAnswer + '</p>') +
+      practiceSectionHtml('延伸任務', '<p>' + (currentItem.extend || '把這題改寫成自己的作業：附 Prompt、修改前後對照。') + '</p>') +
+      practiceSectionHtml('下一步', '<p class="font-medium text-slate-800">' + (currentItem.nextStep || '→ 打開「下一步指引」選你的學習目標。') + '</p>');
 
-    showPane('content');
+    const tipEl = document.getElementById('answerTip');
+    if (currentItem.tip) {
+      tipEl.textContent = '💡 ' + currentItem.tip;
+      tipEl.classList.remove('hidden');
+    } else {
+      tipEl.textContent = '';
+      tipEl.classList.add('hidden');
+    }
+
     document.getElementById('answerDisplay').classList.remove('hidden');
     document.getElementById('answerDisplay').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
-
-  document.querySelectorAll('.practice-pane-btn').forEach(btn => {
-    btn.addEventListener('click', () => showPane(btn.dataset.pane));
-  });
   root.querySelectorAll('[data-go]').forEach(btn => {
     btn.addEventListener('click', function() {
       if (typeof switchTab === 'function') switchTab(btn.dataset.go);
     });
   });
   function renderCat(catId) {
+    activeCatId = catId;
     const cat = practiceCategories.find(c => c.id === catId);
     const box = document.getElementById('practice-questions');
     if (!cat || !box) return;
     box.innerHTML = cat.items.map(it =>
-      '<button type="button" data-key="' + it.key + '" class="practice-q text-left p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-300 hover:bg-indigo-50/40 font-bold text-slate-800 text-sm leading-snug transition-all">❓ ' + it.q + '</button>'
+      '<button type="button" data-key="' + it.key + '" class="practice-q text-left p-4 bg-white text-slate-800 leading-snug transition-all">' + it.q + '</button>'
     ).join('');
     box.querySelectorAll('.practice-q').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -263,19 +295,47 @@ function initPracticeLab() {
     });
   }
 
-  document.querySelectorAll('.practice-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.practice-tab').forEach(t => {
-        t.className = 'practice-tab px-4 py-2 rounded-xl text-sm font-bold border bg-white text-slate-600 border-slate-200 hover:border-indigo-200';
-      });
-      tab.className = 'practice-tab px-4 py-2 rounded-xl text-sm font-bold border bg-indigo-600 text-white border-indigo-600';
-      renderCat(tab.dataset.cat);
+  function activateTab(catId) {
+    document.querySelectorAll('.practice-tab').forEach(function(t) {
+      t.className = 'practice-tab px-4 py-2 border transition-all ' +
+        (t.dataset.cat === catId ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-200');
     });
+    renderCat(catId);
+  }
+
+  document.querySelectorAll('.practice-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() { activateTab(tab.dataset.cat); });
   });
+
+  window.scrollToPracticeCat = function(catId) {
+    var lab = document.getElementById('practice-lab');
+    if (lab) lab.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    activateTab(catId || activeCatId);
+  };
+
+  document.querySelectorAll('[data-practice-cat]').forEach(function(btn) {
+    btn.addEventListener('click', function() { window.scrollToPracticeCat(btn.dataset.practiceCat); });
+  });
+
   renderCat(practiceCategories[0].id);
 }
 
 // ─── Prompt 矩陣（分類 + Markdown + 模擬回覆）───
+const promptFieldDefaults = {
+  constraints: [
+    '不放入真實個資、帳密或內部機密資料',
+    '不編造數據；不確定請標註「需人工查證」',
+    '若資訊不足，先列出需要補充的問題再開始',
+    '字數、格式與禁忌依 Output 區塊執行'
+  ],
+  outputs: [
+    'Markdown 標題 + 條列重點',
+    '表格（欄位名稱清楚）',
+    '先列假設與不確定處，再給主要內容',
+    '繁體中文（影像英文 Prompt 除外）'
+  ]
+};
+
 const promptCategories = {
   teach: {
     label: '教學培訓',
@@ -283,6 +343,8 @@ const promptCategories = {
     role: '資深 AI 素養講師，擅長將技術概念轉為國中以上學生能理解的比喻',
     tasks: ['用 3 個生活比喻解釋「什麼是大語言模型」', '設計 45 分鐘 AI 倫理工作坊大綱（含討論題）', '將以下技術文件改寫為 FAQ 共 8 題'],
     contexts: ['學員無程式背景，第一次接觸 ChatGPT', '企業內訓，學員為行銷與行政人員', '親子共學，家長與國小高年級孩子'],
+    constraints: ['活動需符合課堂時間與學員年齡', '不編造學員真實個資或成績', '不確定法規或政策請標註需查證'],
+    outputs: ['Markdown 標題 + 條列', '附「講師備註」小欄', '先列教學目標，再給活動步驟'],
     styles: ['繁體中文，每段不超過 4 行，必要時用 emoji 標記重點', '專業但友善，附「講師備註」小欄', '互動式：每段結尾加一個反思問題'],
     sampleResponse: '## 大語言模型是什麼？\n\n可以把它想成「讀過整個圖書館的超強接龍玩家」：\n\n1. **接龍**：你給開頭，它猜下一個最合理的字。\n2. **圖書館**：訓練時讀過網頁、書籍、程式碼，所以懂很多主題。\n3. **限制**：它不是在「思考」，而是「統計上最像正確答案的接法」——所以偶爾會自信地說錯。\n\n### 課堂小測\n若 AI 說「2020 年奧運在東京」但沒發生，這屬於什麼現象？→ **幻覺**'
   },
@@ -292,6 +354,8 @@ const promptCategories = {
     role: '資深全端工程師，熟悉 HTML/CSS/JS、RWD、無障礙與 GA4',
     tasks: ['審查以下程式碼的安全與 RWD 問題，條列修正建議', '將需求拆解為可實作的任務清單（含驗收標準）', '為以下函式撰寫單元測試案例（Jest 語法）'],
     contexts: ['專案使用 Tailwind + 原生 JS，無 React', '需支援 Chrome/Safari 手機版', '程式由初學者撰寫，請用淺顯語言解釋'],
+    constraints: ['不直接合併未測試的程式碼', '標註安全與 RWD 風險等級', '不確定 API 行為請標註需驗證'],
+    outputs: ['Markdown + 程式區塊（標註語言）', '先列結論與風險，再給修正建議', '條列驗收檢查項'],
     styles: ['輸出 Markdown，程式區塊標註語言', '先給結論與風險等級，再給修正程式', '每個建議附「為什麼」一句話'],
     sampleResponse: '## 審查結論（優先處理）\n\n| 等級 | 問題 | 建議 |\n|------|------|------|\n| 🔴 高 | 按鈕無 `aria-label` | 螢幕閱讀器無法辨識 |\n| 🟡 中 | 圖片未設 `width/height` | 易造成 CLS 版面跳動 |\n\n```html\n<button aria-label="提交表單" class="...">送出</button>\n```\n\n**驗收**：Lighthouse 無障礙分數 ≥ 90。'
   },
@@ -301,6 +365,8 @@ const promptCategories = {
     role: '品牌內容策略師，熟悉 SEO、GEO 與轉換文案',
     tasks: ['撰寫 Landing Page 首屏標題 + 副標 + 3 個賣點（各 40 字內）', '將長文拆成 5 則 Threads 貼文（含 CTA）', '針對搜尋意圖「XXX」寫 meta description（120 字內）'],
     contexts: ['品牌：手工皂工作室，目標：每月 30 筆 LINE 詢問', '語氣：專業但不推銷，強調成分與敏感肌', '需符合 GEO：段落可被子題摘要'],
+    constraints: ['不誇大療效或違法宣稱', '不編造評價、銷量或認證', 'CTA 需具體可執行'],
+    outputs: ['標題 + 副標 + 條列賣點', '社群貼文格式（含 CTA）', 'SEO meta 與首段關鍵字檢查'],
     styles: ['繁體中文，動詞開頭 CTA', '附「SEO 檢查」：主關鍵字是否出現於標題與首段', '條列式，一段一結論'],
     sampleResponse: '## 首屏文案草案\n\n**H1**：台南手工皂推薦｜敏感肌也能安心的冷製皂\n\n**副標**：pH 8–9、無 SLS，每批附成分檢驗說明——先試用再決定。\n\n### 賣點\n1. 在地小量製作，非工廠量產香精\n2. 提供 24 小時貼片測試指南\n3. 滿額附贈「選皂流程圖」PDF\n\n**CTA**：加 LINE 領選購檢查表 →\n\n> GEO 提示：首段已含「台南」「手工皂」「敏感肌」三個可引用實體。'
   },
@@ -310,6 +376,8 @@ const promptCategories = {
     role: '商業攝影指導與 AI 影像 Prompt 專家',
     tasks: ['將拍攝需求轉為 Midjourney 英文 Prompt（含光線與鏡頭）', '列出婚禮晚宴拍攝 Checklist 20 項', '分析這張照片的曝光問題並給修正步驟'],
     contexts: ['現場：婚宴廳燈光偏黃，無閃燈', '器材：全片幅 + 50mm f/1.8', '後製：Lightroom，需保留膚色自然'],
+    constraints: ['英文 Prompt 加 --no text, watermark', '不假造品牌 Logo 或授權聲明', '商用前需人工檢查邊緣與色準'],
+    outputs: ['英文 MJ / DALL·E Prompt', '中文拍攝對照建議', '品質檢查與優化建議 3 點'],
     styles: ['攝影參數用中英文對照', 'Prompt 用英文，說明用繁中', '附「品質檢查與優化建議」'],
     sampleResponse: '## Midjourney Prompt\n\n```\ncommercial wedding portrait, soft window light, 50mm f/1.8, shallow depth of field, warm skin tones, elegant dress detail, photorealistic, no text --ar 2:3 --style raw\n```\n\n### 現場建議\n- 白平衡：5500K 起，依現場試拍微調\n- 快門：≥ 1/125 避免晃動\n- **避免**：正面硬閃導致油亮膚感'
   },
@@ -319,6 +387,8 @@ const promptCategories = {
     role: '數據分析顧問，熟悉 GA4、Search Console 與 Excel',
     tasks: ['解讀以下 GA4 數據異常的可能原因（至少 3 種）', '設計每週內容成效報表欄位與解讀方式', '將自然語言問題轉為 SQL 查詢邏輯（偽代碼）'],
     contexts: ['電商內容站，主要轉換：表單詢單', '本週：自然流量 +20% 但詢單 -10%', '團隊非技術背景，需白話報告'],
+    constraints: ['不捏造報表數字', '相關性不等於因果', '需標註回 GA4 / GSC 驗證的項目'],
+    outputs: ['先結論再細節', '表格：假設｜驗證方式｜下週行動', '白話版 + 技術名詞對照'],
     styles: ['先結論再細節', '用表格呈現假設與驗證步驟', '標註「需回 GA4 確認」的項目'],
     sampleResponse: '## 診斷結論\n\n流量升、詢單降 → **意圖或轉換路徑問題**，較非 SEO 排名問題。\n\n| 假設 | 驗證方式 |\n|------|----------|\n| 新流量來自低意圖關鍵字 | Search Console 看查詢詞 CTR |\n| CTA 點擊率下降 | GA4 事件 `click_cta` 週比較 |\n| 表單技術故障 | 測試送出 + 即時報表 |\n\n**下週行動**：A/B 測試首屏 CTA 文案（動詞 + 具體利益）。'
   },
@@ -328,6 +398,8 @@ const promptCategories = {
     role: '產品經理，熟悉 PRD、User Story 與敏捷迭代',
     tasks: ['將模糊需求寫成 User Story + 驗收標準', '列出 MVP 功能優先級（MoSCoW）', '撰寫功能上線後的 GA4 追蹤規格'],
     contexts: ['新功能：線上課程預約系統', '用戶：25–40 歲自學者', '時程：2 週 MVP'],
+    constraints: ['每個需求需有驗收標準', '標註風險與依賴項', 'MVP 範圍需可 2 週內交付'],
+    outputs: ['User Story + 驗收 checkbox', 'MoSCoW 優先級表', 'SOP 或待辦拆解條列'],
     styles: ['Markdown 表格 + 條列', '每個 Story 含「作為…我想要…以便…」', '附風險與依賴項'],
     sampleResponse: '## User Story\n\n**US-01** 作為訪客，我想要在 3 步內完成預約，以便快速鎖定時段。\n\n**驗收標準**\n- [ ] 選日期 → 選時段 → 填姓名電話，共 ≤ 3 屏\n- [ ] 成功後 GA4 觸發 `generate_lead`\n- [ ] 手機版按鈕 ≥ 44px 高\n\n### MoSCoW\n| Must | Should | Could |\n|------|--------|-------|\n| 預約表單 | Email 確認信 | 行事曆同步 |'
   }
@@ -392,7 +464,7 @@ const promptTechniques = [
   { id: 'cite', label: '📌 要求引用', md: '\n# Constraints\n每個事實附來源；不確定請寫「需人工查證」。' }
 ];
 
-let promptState = { category: 'teach', scenarioId: '', role: '', task: '', context: '', style: '', techniques: [] };
+let promptState = { category: 'teach', scenarioId: '', role: '', task: '', context: '', constraints: '', output: '', style: '', techniques: [] };
 let promptFlowState = { scenarioId: '', activeStep: 0, done: [] };
 
 function getActiveScenario() {
@@ -404,8 +476,14 @@ function buildMarkdownPrompt() {
   const s = promptState;
   const cat = promptCategories[s.category];
   const sc = getActiveScenario();
-  let md = '# Role\n' + (s.role || cat.role) + '\n\n# Task\n' + (s.task || cat.tasks[0]) +
-    '\n\n# Context\n' + (s.context || cat.contexts[0]) + '\n\n# Style & Constraints\n' + (s.style || cat.styles[0]);
+  var cstrList = cat.constraints || promptFieldDefaults.constraints;
+  var outList = cat.outputs || promptFieldDefaults.outputs;
+  let md = '# Role\n' + (s.role || cat.role) +
+    '\n\n# Task\n' + (s.task || cat.tasks[0]) +
+    '\n\n# Context\n' + (s.context || cat.contexts[0]) +
+    '\n\n# Constraints\n' + (s.constraints || cstrList[0]) +
+    '\n\n# Output\n' + (s.output || outList[0]) +
+    '\n\n# Style\n' + (s.style || cat.styles[0]);
   if (sc && sc.extraMd) md += sc.extraMd;
   (s.techniques || []).forEach(tid => {
     const t = promptTechniques.find(x => x.id === tid);
@@ -414,7 +492,7 @@ function buildMarkdownPrompt() {
   if (promptState.category === 'image' && promptState.imagePrompt) {
     md += '\n\n# Image Generation Brief\n' + promptState.imagePrompt;
   }
-  md += '\n\n# Output Format\n- 使用繁體中文（影像 Prompt 英文除外）\n- 標題用 Markdown\n- 若不確定事實，標註「需人工查證」\n';
+  md += '\n\n---\n若資訊不足，請先列出需補充的問題，確認理解後再開始。\n';
   return md;
 }
 
@@ -738,14 +816,20 @@ function initPromptLab() {
     promptState.category = id;
     promptState.techniques = [];
     var cat = promptCategories[id];
+    var cstrList = cat.constraints || promptFieldDefaults.constraints;
+    var outList = cat.outputs || promptFieldDefaults.outputs;
     promptState.role = cat.role;
     promptState.task = cat.tasks[0];
     promptState.context = cat.contexts[0];
+    promptState.constraints = cstrList[0];
+    promptState.output = outList[0];
     promptState.style = cat.styles[0];
     renderScenarioPanel(id);
     renderFactorButtons('role', cat.role, [cat.role]);
     renderFactorButtons('task', cat.tasks[0], cat.tasks);
     renderFactorButtons('context', cat.contexts[0], cat.contexts);
+    renderFactorButtons('constraints', cstrList[0], cstrList);
+    renderFactorButtons('output', outList[0], outList);
     renderFactorButtons('style', cat.styles[0], cat.styles);
     if (techBar) techBar.querySelectorAll('.prompt-tech-btn').forEach(function(b) {
       b.className = 'prompt-tech-btn px-3 py-1.5 rounded-lg text-xs font-bold border bg-white border-slate-200 text-slate-700';
@@ -786,6 +870,16 @@ function initPromptLab() {
   });
 
   loadCategory('teach');
+
+  document.querySelectorAll('[data-jump-cat]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = btn.getAttribute('data-jump-cat');
+      var catBtn = document.querySelector('.prompt-cat-btn[data-pcat="' + id + '"]');
+      if (catBtn) catBtn.click();
+      var gen = document.getElementById('prompt-generator');
+      if (gen) gen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 }
 
 var promptStreamCancel = null;
@@ -1388,6 +1482,16 @@ function initGameLab() {
   }
   resetCurrentGameProgress();
   renderGame();
+
+  document.querySelectorAll('[data-jump-game]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = btn.getAttribute('data-jump-game');
+      var target = modeBar.querySelector('[data-game="' + id + '"]');
+      if (target) target.click();
+      var panel = document.getElementById('game-board');
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 }
 
 function shuffle(arr) {

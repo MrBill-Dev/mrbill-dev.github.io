@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI 小遊戲中心｜Mr.Bill 數位實驗室</title>
+  <title>AI 小遊戲中心｜用闖關方式練 Prompt、工具選擇與 AI 判斷力</title>
   <!-- site-seo:start -->
-  <meta name="description" content="用輕量遊戲與互動任務練習 AI 與邏輯思維，適合課堂與自學暖身。" />
+  <meta name="description" content="AI 小遊戲中心透過任務闖關、情境決策、工具選擇、限時挑戰與雙人協作，幫助新手練習 Prompt、AI 查證、任務拆解與可交付成果整理。" />
   <link rel="canonical" href="https://mrbill-dev.github.io/ai-game-center.html" />
   <link rel="preload" as="image" href="images/og-home.jpg" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Mr.Bill 數位實驗室" />
   <meta property="og:locale" content="zh_TW" />
-  <meta property="og:title" content="AI 小遊戲中心" />
-  <meta property="og:description" content="用輕量遊戲與互動任務練習 AI 與邏輯思維，適合課堂與自學暖身。" />
+  <meta property="og:title" content="AI 小遊戲中心｜用闖關方式練 Prompt、工具選擇與 AI 判斷力" />
+  <meta property="og:description" content="AI 小遊戲中心透過任務闖關、情境決策、工具選擇、限時挑戰與雙人協作，幫助新手練習 Prompt、AI 查證、任務拆解與可交付成果整理。" />
   <meta property="og:url" content="https://mrbill-dev.github.io/ai-game-center.html" />
   <meta property="og:image" content="https://mrbill-dev.github.io/images/og-home.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Mr.Bill 數位實驗室 AI 前端 攝影 SEO 學習平台" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI 小遊戲中心" />
-  <meta name="twitter:description" content="用輕量遊戲與互動任務練習 AI 與邏輯思維，適合課堂與自學暖身。" />
+  <meta name="twitter:title" content="AI 小遊戲中心｜用闖關方式練 Prompt、工具選擇與 AI 判斷力" />
+  <meta name="twitter:description" content="AI 小遊戲中心透過任務闖關、情境決策、工具選擇、限時挑戰與雙人協作，幫助新手練習 Prompt、AI 查證、任務拆解與可交付成果整理。" />
   <meta name="twitter:image" content="https://mrbill-dev.github.io/images/og-home.jpg" />
   <script type="application/ld+json">
   {
@@ -47,8 +47,8 @@
   <!-- site-seo:end -->
   <script src="js/site-seo.config.js"></script>
   <script src="js/site-seo.js"></script>
-
 <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/ai-content-ui.css" />
   <script src="js/components-loader.js"></script>
   <script src="js/ai-lab.js"></script>
   <style>
@@ -460,25 +460,87 @@
 <body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
   <main class="max-w-[90rem] mx-auto flex-grow w-full min-w-0 fade-in-up pb-12">
-    <div class="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-8 mb-10 text-white">
-      <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=2200&q=80" alt="AI 知識小遊戲中心主視覺" class="w-full h-[320px] md:h-[430px] object-cover" loading="lazy" />
-      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/82 via-emerald-900/70 to-cyan-900/58"></div>
-      <div class="absolute inset-0">
-        <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
-          <div class="pb-8 md:pb-12 max-w-4xl">
-            <h1 class="text-3xl md:text-4xl font-black">🎮 <span class="text-emerald-200">AI 知識小遊戲中心</span></h1>
-            <p class="mt-3 max-w-3xl leading-relaxed text-[15px] md:text-base text-indigo-100">透過闖關與情境決策，把 AI 工具選型、提問策略與下一步行動轉成可執行判斷。</p>
+    <section class="ai-page-hero ai-page-hero--emerald w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-8 mb-10 text-white">
+      <div class="ai-page-hero__media" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=2200&q=80" alt="" class="ai-page-hero__img" loading="lazy" />
+      </div>
+      <div class="ai-page-hero__panel">
+        <div class="ai-page-hero__inner max-w-[90rem] mx-auto px-4 lg:px-6">
+          <div class="ai-page-hero__copy">
+            <p class="text-sm font-semibold text-emerald-200/90">學習型遊戲 · 不是純娛樂頁</p>
+            <h1>AI 小遊戲中心：用闖關方式練 AI 判斷力</h1>
+            <p class="ai-page-hero__lead">透過任務闖關、情境決策、工具選擇與雙人協作，把 AI 學習變成一個可以操作、可以討論、可以留下成果的練習過程。</p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="ai-lab-stack">
+    <div class="ai-lab-stack px-4 lg:px-6">
+      <div class="ai-lab-panel border-slate-200">
+        <p class="text-xs font-black uppercase tracking-wider text-emerald-600">學習定位</p>
+        <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">這不是單純玩遊戲</h2>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">而是把 AI 學習拆成一個個小任務。每一關都會練一種能力：</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4 text-sm">
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50/50 p-3"><p class="font-bold text-emerald-800">1. 看懂題目</p><p class="mt-1 text-slate-600 leading-relaxed">先確認任務目標，不要急著問 AI。</p></div>
+          <div class="rounded-xl border border-cyan-100 bg-cyan-50/50 p-3"><p class="font-bold text-cyan-800">2. 拆解任務</p><p class="mt-1 text-slate-600 leading-relaxed">把大需求切成可執行的小步驟。</p></div>
+          <div class="rounded-xl border border-violet-100 bg-violet-50/50 p-3"><p class="font-bold text-violet-800">3. 選擇工具</p><p class="mt-1 text-slate-600 leading-relaxed">依任務選 ChatGPT、Gemini、Cursor 或影像工具。</p></div>
+          <div class="rounded-xl border border-indigo-100 bg-indigo-50/50 p-3"><p class="font-bold text-indigo-800">4. 寫出 Prompt</p><p class="mt-1 text-slate-600 leading-relaxed">用角色、任務、背景與限制把需求寫清楚。</p></div>
+          <div class="rounded-xl border border-amber-100 bg-amber-50/50 p-3"><p class="font-bold text-amber-800">5. 檢查 AI 回答</p><p class="mt-1 text-slate-600 leading-relaxed">查幻覺、查來源，標記不確定的地方。</p></div>
+          <div class="rounded-xl border border-rose-100 bg-rose-50/50 p-3"><p class="font-bold text-rose-800">6. 修正成可交付成果</p><p class="mt-1 text-slate-600 leading-relaxed">把草稿改成能交出去的文章、簡報或流程。</p></div>
+        </div>
+      </div>
+
+      <div class="ai-lab-panel border-slate-200">
+        <p class="text-xs font-black uppercase tracking-wider text-emerald-600">第一次玩建議順序</p>
+        <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">新手先照這 3 步玩</h2>
+        <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+          <div class="rounded-xl border border-emerald-200 bg-white p-4">
+            <p class="text-xs font-bold text-emerald-600">第 1 步｜下一步指引</p>
+            <p class="font-bold text-slate-900 mt-1">先找學習方向</p>
+            <p class="mt-2 text-slate-600 leading-relaxed">先回答幾個簡單問題，找出自己目前最適合的 AI 學習方向。</p>
+          </div>
+          <div class="rounded-xl border border-cyan-200 bg-white p-4">
+            <p class="text-xs font-bold text-cyan-600">第 2 步｜情境決策</p>
+            <p class="font-bold text-slate-900 mt-1">練判斷與查證</p>
+            <p class="mt-2 text-slate-600 leading-relaxed">遇到真實任務時，練習判斷該怎麼問、怎麼查、怎麼改。</p>
+          </div>
+          <div class="rounded-xl border border-violet-200 bg-white p-4">
+            <p class="text-xs font-bold text-violet-600">第 3 步｜工具選擇</p>
+            <p class="font-bold text-slate-900 mt-1">選對工具再練</p>
+            <p class="mt-2 text-slate-600 leading-relaxed">根據任務類型，選出適合使用的 AI 工具與下一步練習。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-lab-panel border-slate-200">
+        <p class="text-xs font-black uppercase tracking-wider text-emerald-600">遊戲分類</p>
+        <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">選一種模式開始</h2>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">點卡片會跳到下方遊戲區並自動切換模式。上方模式列可隨時換關。</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 text-sm">
+          <button type="button" data-jump-game="pathway" class="text-left rounded-xl border border-emerald-100 bg-emerald-50/40 p-4 hover:border-emerald-300 transition-colors">
+            <p class="font-bold text-emerald-800">下一步指引</p>
+            <p class="mt-1.5 text-slate-600 leading-relaxed">找出你現在該練哪一種 AI 能力。</p>
+          </button>
+          <button type="button" data-jump-game="decision" class="text-left rounded-xl border border-cyan-100 bg-cyan-50/40 p-4 hover:border-cyan-300 transition-colors">
+            <p class="font-bold text-cyan-800">情境決策</p>
+            <p class="mt-1.5 text-slate-600 leading-relaxed">用真實任務練判斷，不只是選答案。</p>
+          </button>
+          <button type="button" data-jump-game="toolpick" class="text-left rounded-xl border border-violet-100 bg-violet-50/40 p-4 hover:border-violet-300 transition-colors">
+            <p class="font-bold text-violet-800">工具選擇</p>
+            <p class="mt-1.5 text-slate-600 leading-relaxed">學會依任務選 ChatGPT、Gemini、Claude、Cursor、影像工具。</p>
+          </button>
+          <button type="button" data-jump-game="quiz" class="text-left rounded-xl border border-amber-100 bg-amber-50/40 p-4 hover:border-amber-300 transition-colors">
+            <p class="font-bold text-amber-800">限時挑戰</p>
+            <p class="mt-1.5 text-slate-600 leading-relaxed">在時間內完成判斷、配對或射擊挑戰（部分模式附倒數）。</p>
+          </button>
+        </div>
+      </div>
+
       <div id="game-mode-bar" class="ai-lab-mode-bar"></div>
-      <div class="ai-lab-panel">
+      <div id="game-board" class="ai-lab-panel scroll-mt-24">
         <div class="ai-lab-callout">
-          <p class="font-black text-emerald-900">第一次玩建議順序</p>
-          <p class="text-slate-700 mt-1">先從「下一步指引」做完一輪，再到「情境決策」看你卡在哪，最後用「工具選擇」決定下一步該練哪種 AI 工具。</p>
+          <p class="font-bold text-emerald-900">開始玩之前</p>
+          <p class="text-slate-700 mt-1">從上方模式列選關，或點「遊戲分類」卡片。建議新手先玩「下一步指引」→「情境決策」→「工具選擇」。</p>
         </div>
         <div class="flex justify-between items-center mb-5">
           <div class="text-sm font-bold text-slate-400">進度：<span id="game-progress-label" class="font-black text-slate-800">—</span></div>
@@ -492,31 +554,114 @@
         <div class="game-fx-layer"><div id="game-fx-text" class="game-fx-text" aria-live="polite"></div></div>
         <div id="game-board-viewport" class="space-y-4 min-h-[220px] w-full"></div>
       </div>
-      <div class="ai-lab-grid-3">
-        <article class="ai-lab-card">
-          <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=800&q=80" alt="AI 任務闖關示意" class="ai-lab-card-media" loading="lazy" />
-          <div class="ai-lab-card-body"><p class="font-black text-slate-900">闖關玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">每關只給目標，不給答案，訓練你自己拆步驟。</p></div>
-        </article>
-        <article class="ai-lab-card">
-          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="分組協作學習示意" class="ai-lab-card-media" loading="lazy" />
-          <div class="ai-lab-card-body"><p class="font-black text-slate-900">雙人協作玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">一人下 Prompt、一人審稿，輪替角色強化判斷。</p></div>
-        </article>
-        <article class="ai-lab-card">
-          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="課後反思與記錄示意" class="ai-lab-card-media" loading="lazy" />
-          <div class="ai-lab-card-body"><p class="font-black text-slate-900">課後延伸玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">把今天結果寫成「可交付紀錄」，累積作品與履歷。</p></div>
-        </article>
-        <article class="ai-lab-card">
-          <div class="ai-lab-card-icon" aria-hidden="true">🧪</div>
-          <div class="ai-lab-card-body"><p class="font-black text-slate-900">任務挑戰玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">抽一個真實任務（寫文案/修碼/產圖），在 10 分鐘內做出可交付版本。</p></div>
-        </article>
-        <article class="ai-lab-card">
-          <div class="ai-lab-card-icon" aria-hidden="true">👥</div>
-          <div class="ai-lab-card-body"><p class="font-black text-slate-900">雙人教練玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">A 負責下 Prompt，B 負責審稿；每輪交換角色，訓練提問與查證。</p></div>
-        </article>
-        <article class="ai-lab-card">
-          <div class="ai-lab-card-icon" aria-hidden="true">📒</div>
-          <div class="ai-lab-card-body"><p class="font-black text-slate-900">課後路徑玩法</p><p class="text-sm text-slate-600 mt-1 flex-1">依「下一步指引」完成一條路徑，繳交 Prompt + 成果截圖 + 修正紀錄。</p></div>
-        </article>
+      <div class="ai-lab-panel border-slate-200">
+        <p class="text-xs font-black uppercase tracking-wider text-slate-500">延伸玩法</p>
+        <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">線下、課堂或自學可以這樣玩</h2>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">下面是補充玩法，適合分組、親子共學或課後作業。不用全做，挑一種練到底就有感。</p>
+        <div class="ai-lab-grid-3 mt-4">
+          <article class="ai-lab-card">
+            <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=800&q=80" alt="AI 任務闖關示意" class="ai-lab-card-media" loading="lazy" />
+            <div class="ai-lab-card-body">
+              <p class="font-black text-slate-900">任務闖關</p>
+              <p class="text-xs font-bold text-emerald-700 mt-2">練什麼</p>
+              <p class="text-sm text-slate-600 leading-relaxed">拆解任務、寫 Prompt、修正答案</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">適合誰</p>
+              <p class="text-sm text-slate-600 leading-relaxed">AI 新手、學生、想練工作流程的人</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">產出</p>
+              <p class="text-sm text-slate-600 leading-relaxed flex-1">一份 Prompt + 一份修正版成果</p>
+            </div>
+          </article>
+          <article class="ai-lab-card">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="分組協作學習示意" class="ai-lab-card-media" loading="lazy" />
+            <div class="ai-lab-card-body">
+              <p class="font-black text-slate-900">雙人協作</p>
+              <p class="text-xs font-bold text-emerald-700 mt-2">練什麼</p>
+              <p class="text-sm text-slate-600 leading-relaxed">分工提問、交叉審稿、輪替角色</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">適合誰</p>
+              <p class="text-sm text-slate-600 leading-relaxed">課堂分組、親子共學、同事練習</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">產出</p>
+              <p class="text-sm text-slate-600 leading-relaxed flex-1">提問稿 + 審稿意見對照表</p>
+            </div>
+          </article>
+          <article class="ai-lab-card">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="課後反思與記錄示意" class="ai-lab-card-media" loading="lazy" />
+            <div class="ai-lab-card-body">
+              <p class="font-black text-slate-900">課後延伸</p>
+              <p class="text-xs font-bold text-emerald-700 mt-2">練什麼</p>
+              <p class="text-sm text-slate-600 leading-relaxed">把遊戲結果整理成可交付紀錄</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">適合誰</p>
+              <p class="text-sm text-slate-600 leading-relaxed">想累積作品、準備分享或面試的人</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">產出</p>
+              <p class="text-sm text-slate-600 leading-relaxed flex-1">學習紀錄一篇（含反思與下一步）</p>
+            </div>
+          </article>
+          <article class="ai-lab-card">
+            <div class="ai-lab-card-icon" aria-hidden="true">🧪</div>
+            <div class="ai-lab-card-body">
+              <p class="font-black text-slate-900">任務挑戰</p>
+              <p class="text-xs font-bold text-emerald-700 mt-2">練什麼</p>
+              <p class="text-sm text-slate-600 leading-relaxed">限時完成真實任務（文案、修碼、產圖）</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">適合誰</p>
+              <p class="text-sm text-slate-600 leading-relaxed">已有基礎、想練交付速度的人</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">產出</p>
+              <p class="text-sm text-slate-600 leading-relaxed flex-1">10 分鐘內可交出去的草稿版</p>
+            </div>
+          </article>
+          <article class="ai-lab-card">
+            <div class="ai-lab-card-icon" aria-hidden="true">👥</div>
+            <div class="ai-lab-card-body">
+              <p class="font-black text-slate-900">雙人教練</p>
+              <p class="text-xs font-bold text-emerald-700 mt-2">練什麼</p>
+              <p class="text-sm text-slate-600 leading-relaxed">A 下 Prompt、B 審稿，每輪交換</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">適合誰</p>
+              <p class="text-sm text-slate-600 leading-relaxed">想練提問與查證習慣的新手</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">產出</p>
+              <p class="text-sm text-slate-600 leading-relaxed flex-1">兩版 Prompt + 審稿 checklist</p>
+            </div>
+          </article>
+          <article class="ai-lab-card">
+            <div class="ai-lab-card-icon" aria-hidden="true">📒</div>
+            <div class="ai-lab-card-body">
+              <p class="font-black text-slate-900">課後路徑</p>
+              <p class="text-xs font-bold text-emerald-700 mt-2">練什麼</p>
+              <p class="text-sm text-slate-600 leading-relaxed">依「下一步指引」走完一條學習路線</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">適合誰</p>
+              <p class="text-sm text-slate-600 leading-relaxed">不確定下一步該學什麼的人</p>
+              <p class="text-xs font-bold text-slate-500 mt-2">產出</p>
+              <p class="text-sm text-slate-600 leading-relaxed flex-1">Prompt + 成果截圖 + 修正紀錄</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="ai-lab-panel border-amber-100 bg-gradient-to-br from-amber-50/60 via-white to-emerald-50/40">
+        <p class="text-xs font-black uppercase tracking-wider text-amber-700">學習紀錄</p>
+        <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">遊戲後要留下什麼</h2>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">每次玩完，建議留下 3 樣東西。遊戲不是玩完就結束，而是會累積成學習紀錄與作品。</p>
+        <ol class="mt-4 space-y-3 text-sm">
+          <li class="rounded-xl border border-amber-100 bg-white p-4">
+            <p class="font-bold text-slate-900">1. 我的 Prompt</p>
+            <p class="mt-1 text-slate-600 leading-relaxed">記錄你這次怎麼問 AI。</p>
+          </li>
+          <li class="rounded-xl border border-amber-100 bg-white p-4">
+            <p class="font-bold text-slate-900">2. AI 的原始回答</p>
+            <p class="mt-1 text-slate-600 leading-relaxed">保留第一次結果，方便比較。</p>
+          </li>
+          <li class="rounded-xl border border-amber-100 bg-white p-4">
+            <p class="font-bold text-slate-900">3. 我的修正版</p>
+            <p class="mt-1 text-slate-600 leading-relaxed">把 AI 回答修改成可以交付的版本。</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="ai-lab-panel border-indigo-100 bg-gradient-to-br from-indigo-50/40 via-white to-emerald-50/30 text-center">
+        <h2 class="text-xl md:text-2xl font-bold text-slate-900">玩完之後，下一步去哪？</h2>
+        <p class="text-sm text-slate-600 mt-2 max-w-2xl mx-auto leading-relaxed">這頁練的是判斷力與操作感。想深入練題、產 Prompt 或看完整路線，從下面選一個繼續。</p>
+        <div class="mt-6 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
+          <a href="ai-practice.html" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-indigo-600 text-white text-sm font-bold no-underline hover:bg-indigo-700 transition-colors">前往 AI 互動練習箱</a>
+          <a href="ai-prompt-tool.html" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-purple-600 text-white text-sm font-bold no-underline hover:bg-purple-700 transition-colors">打開 Prompt 工具箱</a>
+          <a href="ai-learning-map.html" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold no-underline hover:bg-emerald-700 transition-colors">查看 AI 學習地圖</a>
+        </div>
       </div>
     </div>
   </main>

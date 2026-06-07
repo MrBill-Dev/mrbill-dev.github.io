@@ -58,34 +58,10 @@ function initBlogScrollReveal() {
 }
 
 function initBlogBackToTop() {
-  var existing = document.getElementById("blog-back-to-top");
-  if (existing) return existing;
-
-  var btn = document.createElement("button");
-  btn.type = "button";
-  btn.id = "blog-back-to-top";
-  btn.className = "blog-top-btn";
-  btn.setAttribute("aria-label", "回到頁首");
-  btn.innerHTML =
-    '<span class="blog-top-btn__icon" aria-hidden="true"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg></span><span class="blog-top-btn__text">TOP</span>';
-
-  btn.addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: blogArticlePrefersReducedMotion() ? "auto" : "smooth" });
-  });
-
-  document.body.appendChild(btn);
-
-  var toggle = function () {
-    if (window.scrollY > 360) {
-      btn.classList.add("is-visible");
-    } else {
-      btn.classList.remove("is-visible");
-    }
-  };
-
-  toggle();
-  window.addEventListener("scroll", toggle, { passive: true });
-  return btn;
+  if (typeof window.initSiteBackToTop === "function") {
+    return window.initSiteBackToTop();
+  }
+  return null;
 }
 
 function renderBlogAuthorCard(mountId) {

@@ -57,23 +57,29 @@ window.__MRBILL_SEO_CONFIG__ = {
       "type": "website"
     },
     "ai-learning-map": {
-      "title": "AI 實戰學程",
-      "description": "從 Prompt、工作流到實作專案，建立可交付的 AI 應用能力與跨領域學習地圖。",
+      "title": "AI 學習地圖｜從 Prompt 到 Agent、RAG、前端開發與影像應用",
+      "description": "Mr.Bill AI 學習地圖，從 AI 新手入門、Prompt 工程、RAG、Agent、自動化、前端開發、影像生成到 SEO/GEO 實戰，建立可交付的 AI 工作流程。",
+      "ogTitle": "AI 學習地圖｜從 Prompt 到 Agent、RAG、前端開發與影像應用",
+      "ogDescription": "從 AI 新手入門、Prompt 工程、RAG、Agent 到前端開發與 SEO/GEO，建立可交付的 AI 工作流程。",
+      "rawTitle": true,
       "type": "website"
     },
     "ai-practice": {
-      "title": "概念互動練習箱",
-      "description": "以互動題與小實驗理解 AI、前端與設計核心概念，邊做邊學。",
+      "title": "AI 互動練習箱｜Prompt 練習、AI 概念題與新手任務",
+      "description": "透過 AI 互動練習題、概念解析、Prompt 帶練步驟與實戰任務，幫助新手理解 AI、查證回答，並把 AI 產出轉成可交付成果。",
+      "ogTitle": "AI 互動練習箱｜Prompt 練習、AI 概念題與新手任務",
+      "ogDescription": "透過練習題、概念解析與帶練步驟，幫助新手理解 AI、查證回答，並把產出轉成可交付成果。",
+      "rawTitle": true,
       "type": "website"
     },
     "ai-prompt-tool": {
-      "title": "Prompt 指令工具箱",
-      "description": "整理常用 Prompt 模板與結構化輸入技巧，快速產出可複用的 AI 指令。",
+      "title": "Prompt 指令工具箱｜AI Prompt 模板、Markdown 指令與工作流產生器",
+      "description": "使用 Prompt 指令工具箱，從應用情境、角色、任務、背景、限制、輸出格式與語氣快速產生可複製的 Markdown Prompt，適合教學、前端、行銷、影像與工作流程應用。",
       "type": "website"
     },
     "ai-game-center": {
-      "title": "AI 小遊戲中心",
-      "description": "用輕量遊戲與互動任務練習 AI 與邏輯思維，適合課堂與自學暖身。",
+      "title": "AI 小遊戲中心｜用闖關方式練 Prompt、工具選擇與 AI 判斷力",
+      "description": "AI 小遊戲中心透過任務闖關、情境決策、工具選擇、限時挑戰與雙人協作，幫助新手練習 Prompt、AI 查證、任務拆解與可交付成果整理。",
       "type": "website"
     },
     "ai-workshop-playbook": {
