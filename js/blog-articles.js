@@ -19,10 +19,13 @@ function blogSeoSiteName() {
 
 /** 文章列表頁（blog/index.html）專區文案；hero 圖預設取最新文章 cover */
 const BLOG_INDEX = {
-  title: "文章分享",
-  subtitle: "一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。",
-  tag: "文章分享",
-  description: "一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。",
+  title: "文章筆記｜實務經驗、數位工作與生活觀察",
+  subtitle:
+    "這裡整理一些工作、學習與生活中累積的想法，包含 AI、前端、設計、攝影、工作流與實務經驗。內容不一定固定主題，但都希望能留下可參考的觀點與做法。",
+  subtitleShort: "工作、學習與生活中的想法，涵蓋 AI、前端、設計與實務經驗。",
+  tag: "文章筆記",
+  description:
+    "Mr.Bill 的文章筆記，整理 AI、前端、設計、攝影、SEO、工作流、教學與生活觀察，分享工作與學習中累積的實務經驗與可參考做法。",
   heroCover: null
 };
 
@@ -32,7 +35,9 @@ const BLOG_ARTICLES = [
     title: "AI 工作流實戰課｜拆・分・驗落地篇",
     subtitle: "任務拆解、人機協作、成果驗收——從模糊需求到可交付作品。",
     excerpt:
-      "拆・分・驗三部曲：拆任務、分人力與 AI、用驗收標準避免「看起來完成卻不能用」。",
+      "拆・分・驗三部曲：拆任務、分人力與 AI、用驗收標準避免「看起來完成卻不能用」。適合已讀 Context、Rules 篇的讀者。",
+    label: "AI / Workflow",
+    audience: "已讀過 Context、Rules 篇，想把 AI 工作流真正落地的人",
     category: "AI學習地圖",
     author: "Mr.Bill",
     date: "2026-06-06",
@@ -49,7 +54,9 @@ const BLOG_ARTICLES = [
     title: "AI 工作流實戰課｜跨領域通用版",
     subtitle: "AI 不是拿來聊天，是拿來重整工作方式。",
     excerpt:
-      "用跨領域方式學會 Context、Rules、Workflow，建立可以實際工作的 AI 系統。",
+      "用教學、設計、行銷與開發案例學會 Context、Rules、Workflow，適合想把 AI 變成工作系統的讀者。",
+    label: "AI / Workflow",
+    audience: "想把 AI 用在教學、設計、行銷或開發，但不知從何整理的人",
     category: "AI學習地圖",
     author: "Mr.Bill",
     date: "2026-06-05",
@@ -65,7 +72,9 @@ const BLOG_ARTICLES = [
     slug: "2026-05-31-ai-prompt-six-levels",
     title: "99% 的人都在錯用 AI Prompt",
     subtitle: "從一句話輸入，到企業級 AI 系統設計，建立你的真正 AI 思維架構",
-    excerpt: "從一句話輸入到企業級 AI 系統設計，用 6 個層級建立輸出行為控制思維。",
+    excerpt: "用 6 個層級看懂 Prompt 進化：從一句話輸入到可重現的輸出行為控制，適合想建立 AI 思維架構的讀者。",
+    label: "AI / Workflow",
+    audience: "會用 ChatGPT 但總覺得回答不穩定，想建立 Prompt 思維架構的人",
     category: "AI學習地圖",
     author: "Mr.Bill",
     date: "2026-05-31",
@@ -87,7 +96,7 @@ const BLOG_CATEGORY_LINKS = {
 };
 
 const BLOG_SITE_LINKS = [
-  { href: "index.html", label: "文章列表" },
+  { href: "index.html", label: "文章筆記" },
   { href: "../ai-practice.html", label: "互動練習" }
 ];
 
@@ -299,7 +308,9 @@ function renderBlogArticleHero(slug) {
   var tags = document.getElementById("blog-hero-tags");
   if (tags) {
     tags.innerHTML =
-      '<span class="blog-hero__tag">' + escapeBlogHtml(article.category) + "</span>";
+      '<span class="blog-hero__tag">' +
+      escapeBlogHtml(article.label || article.category) +
+      "</span>";
   }
 
   var title = document.getElementById("blog-hero-title");
@@ -330,8 +341,14 @@ function renderBlogIndexHero() {
   var title = document.getElementById("blog-index-hero-title");
   if (title) title.textContent = BLOG_INDEX.title;
 
+  var subtitleShort = document.getElementById("blog-index-hero-subtitle-short");
+  if (subtitleShort) subtitleShort.textContent = BLOG_INDEX.subtitleShort || BLOG_INDEX.subtitle;
+
   var subtitle = document.getElementById("blog-index-hero-subtitle");
   if (subtitle) subtitle.textContent = BLOG_INDEX.subtitle;
+
+  var subtitleMobile = document.getElementById("blog-index-hero-subtitle-mobile");
+  if (subtitleMobile) subtitleMobile.textContent = BLOG_INDEX.subtitle;
 
   var tag = document.getElementById("blog-index-hero-tag");
   if (tag) tag.textContent = BLOG_INDEX.tag;
@@ -597,56 +614,51 @@ function resolveBlogListSections(articles, options) {
   return { full: articles, compact: [] };
 }
 
+function blogArticleCardLabel(article) {
+  return article.label || article.category || "";
+}
+
 function renderBlogArticleCardFull(article, ctx) {
   ctx = ctx || {};
-  var tags = (article.tags || [])
-    .map(function (t) {
-      return (
-        '<span class="inline-block px-2 py-0.5 rounded-md bg-cyan-50 text-cyan-800 text-xs font-bold">' +
-        escapeBlogHtml(t) +
-        "</span>"
-      );
-    })
-    .join(" ");
   var cover = article.cover
-    ? '<div class="sm:w-44 md:w-52 shrink-0 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">' +
+    ? '<div class="blog-list-card__cover shrink-0 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">' +
       '<img src="' +
       blogAssetHref(article.cover) +
       '" alt="' +
       escapeBlogHtml(article.title) +
-      '" class="w-full h-28 sm:h-full sm:min-h-[7.5rem] object-cover" loading="lazy" width="1200" height="630" />' +
+      '" class="w-full h-full object-cover" loading="lazy" width="1200" height="630" />' +
       "</div>"
     : "";
   var badge = renderBlogListBadge(article, ctx.showNewBadge);
+  var audience = article.audience
+    ? '<p class="blog-list-card__audience"><span class="blog-list-card__audience-label">適合</span>' +
+      escapeBlogHtml(article.audience) +
+      "</p>"
+    : "";
   return (
-    '<a href="' +
-    blogArticleHref(article) +
-    '" class="blog-list-card blog-list-card--full flex flex-col sm:flex-row gap-4 rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-cyan-50/40 p-5 md:p-6 no-underline hover:border-cyan-300 hover:shadow-md transition-all group">' +
+    '<article class="blog-list-card blog-list-card--full">' +
     cover +
-    '<div class="min-w-0 flex-1">' +
-    '<div class="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500">' +
-    '<span class="text-cyan-700">' +
-    escapeBlogHtml(article.category) +
-    "</span>" +
-    "<span aria-hidden=\"true\">·</span><span>" +
-    escapeBlogHtml(article.date) +
+    '<div class="blog-list-card__body min-w-0 flex-1">' +
+    '<div class="blog-list-card__meta">' +
+    '<span class="blog-list-card__label">' +
+    escapeBlogHtml(blogArticleCardLabel(article)) +
     "</span>" +
     "<span aria-hidden=\"true\">·</span><span>" +
     escapeBlogHtml(formatReadDuration(article.readMins)) +
     "</span>" +
     badge +
     "</div>" +
-    '<h4 class="mt-2 text-xl font-black text-slate-900 group-hover:text-indigo-700 transition-colors">' +
+    '<h3 class="blog-list-card__title">' +
     escapeBlogHtml(article.title) +
-    "</h4>" +
-    '<p class="mt-2 text-sm text-slate-600 leading-relaxed">' +
+    "</h3>" +
+    '<p class="blog-list-card__excerpt">' +
     escapeBlogHtml(article.excerpt) +
     "</p>" +
-    '<div class="mt-3 flex flex-wrap gap-1.5">' +
-    tags +
-    "</div>" +
-    '<p class="mt-4 text-sm font-bold text-indigo-600">閱讀全文 →</p>' +
-    "</div></a>"
+    audience +
+    '<a href="' +
+    blogArticleHref(article) +
+    '" class="blog-list-card__btn">閱讀文章</a>' +
+    "</div></article>"
   );
 }
 
@@ -660,7 +672,7 @@ function renderBlogArticleCardCompact(article, ctx) {
     '<div class="blog-list-card--compact__main">' +
     '<div class="blog-list-card--compact__meta">' +
     '<span class="blog-list-card--compact__cat">' +
-    escapeBlogHtml(article.category) +
+    escapeBlogHtml(blogArticleCardLabel(article)) +
     "</span>" +
     "<span aria-hidden=\"true\">·</span><span>" +
     escapeBlogHtml(article.date) +

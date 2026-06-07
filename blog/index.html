@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>文章分享｜Mr.Bill 數位實驗室</title>
+  <title>文章筆記｜實務經驗、數位工作與生活觀察</title>
   <!-- site-seo:start -->
-  <meta name="description" content="一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。" />
+  <meta name="description" content="Mr.Bill 的文章筆記，整理 AI、前端、設計、攝影、SEO、工作流、教學與生活觀察，分享工作與學習中累積的實務經驗與可參考做法。" />
   <link rel="canonical" href="https://mrbill-dev.github.io/blog/" />
   <link rel="preload" as="image" href="../images/og-home.jpg" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Mr.Bill 數位實驗室" />
   <meta property="og:locale" content="zh_TW" />
-  <meta property="og:title" content="文章分享" />
-  <meta property="og:description" content="一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。" />
+  <meta property="og:title" content="文章筆記｜實務經驗、數位工作與生活觀察" />
+  <meta property="og:description" content="Mr.Bill 的文章筆記，整理 AI、前端、設計、攝影、SEO、工作流、教學與生活觀察，分享工作與學習中累積的實務經驗與可參考做法。" />
   <meta property="og:url" content="https://mrbill-dev.github.io/blog/" />
   <meta property="og:image" content="https://mrbill-dev.github.io/images/og-home.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Mr.Bill 數位實驗室 AI 前端 攝影 SEO 學習平台" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="文章分享" />
-  <meta name="twitter:description" content="一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。" />
+  <meta name="twitter:title" content="文章筆記｜實務經驗、數位工作與生活觀察" />
+  <meta name="twitter:description" content="Mr.Bill 的文章筆記，整理 AI、前端、設計、攝影、SEO、工作流、教學與生活觀察，分享工作與學習中累積的實務經驗與可參考做法。" />
   <meta name="twitter:image" content="https://mrbill-dev.github.io/images/og-home.jpg" />
   <script type="application/ld+json">
   {
@@ -71,22 +71,27 @@
             <ol>
               <li><a href="../index.html">首頁</a></li>
               <li aria-hidden="true">/</li>
-              <li><span class="text-white font-medium" id="blog-index-breadcrumb-title">文章分享</span></li>
+              <li><span class="text-white font-medium" id="blog-index-breadcrumb-title">文章筆記</span></li>
             </ol>
           </nav>
           <div class="blog-hero__tags">
-            <span class="blog-hero__tag" id="blog-index-hero-tag">文章分享</span>
+            <span class="blog-hero__tag" id="blog-index-hero-tag">文章筆記</span>
           </div>
-          <h1 class="blog-hero__title" id="blog-index-hero-title">文章分享</h1>
-          <p class="blog-hero__subtitle" id="blog-index-hero-subtitle">一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。</p>
+          <h1 class="blog-hero__title" id="blog-index-hero-title">文章筆記｜實務經驗、數位工作與生活觀察</h1>
+          <p class="blog-hero__subtitle md:hidden" id="blog-index-hero-subtitle-short">工作、學習與生活中的想法，涵蓋 AI、前端、設計與實務經驗。</p>
+          <p class="blog-hero__subtitle hidden md:block" id="blog-index-hero-subtitle">這裡整理一些工作、學習與生活中累積的想法，包含 AI、前端、設計、攝影、工作流與實務經驗。內容不一定固定主題，但都希望能留下可參考的觀點與做法。</p>
+          <p class="blog-hero__subtitle hidden max-md:mt-2" id="blog-index-hero-subtitle-mobile">這裡整理一些工作、學習與生活中累積的想法，包含 AI、前端、設計、攝影、工作流與實務經驗。內容不一定固定主題，但都希望能留下可參考的觀點與做法。</p>
+          <button type="button" id="blog-index-hero-toggle" class="md:hidden mt-2 text-xs font-bold text-indigo-200 underline underline-offset-2 decoration-indigo-200/50 hover:text-white" aria-expanded="false">展開完整說明</button>
         </div>
       </div>
     </section>
 
     <div class="blog-shell px-4 lg:px-8 py-10 md:py-14">
       <div id="blog-article-list" class="blog-list-mount"></div>
-      <p class="mt-8 text-center text-sm text-slate-500">
-        <a href="../ai-learning-map.html" class="font-bold text-indigo-600 no-underline hover:text-indigo-800">← AI 學習地圖（系統化學程）</a>
+      <p class="mt-8 text-center text-sm text-slate-500 flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6">
+        <a href="../index.html" class="font-bold text-slate-600 no-underline hover:text-slate-900">← 回到首頁</a>
+        <a href="../ai-learning-map.html" class="font-bold text-indigo-600 no-underline hover:text-indigo-800">AI 學習地圖</a>
+        <a href="../tutorial.html" class="font-bold text-cyan-700 no-underline hover:text-cyan-900">前端與設計手冊</a>
       </p>
     </div>
   </main>
@@ -107,9 +112,20 @@
         });
       });
     }
+    function initBlogIndexHeroToggle() {
+      var btn = document.getElementById("blog-index-hero-toggle");
+      var full = document.getElementById("blog-index-hero-subtitle-mobile");
+      if (!btn || !full) return;
+      btn.addEventListener("click", function () {
+        var collapsed = full.classList.toggle("hidden");
+        btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
+        btn.textContent = collapsed ? "展開完整說明" : "收合說明";
+      });
+    }
     window.addEventListener("DOMContentLoaded", function () {
       includeComponentSlot("global-header", "../components/header.html", null, fixNavPathsFromSubdir);
       includeComponentSlot("global-footer", "../components/footer.html", null, fixNavPathsFromSubdir);
+      initBlogIndexHeroToggle();
       initBlogIndexPage();
     });
   </script>

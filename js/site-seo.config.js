@@ -104,8 +104,11 @@ window.__MRBILL_SEO_CONFIG__ = {
     },
     "blog-index": {
       "path": "/blog/",
-      "title": "文章分享",
-      "description": "一個來自多年累積的內容空間，分享實務經驗與長期整理的思考。",
+      "title": "文章筆記｜實務經驗、數位工作與生活觀察",
+      "description": "Mr.Bill 的文章筆記，整理 AI、前端、設計、攝影、SEO、工作流、教學與生活觀察，分享工作與學習中累積的實務經驗與可參考做法。",
+      "ogTitle": "文章筆記｜實務經驗、數位工作與生活觀察",
+      "ogDescription": "Mr.Bill 的文章筆記，整理 AI、前端、設計、攝影、SEO、工作流、教學與生活觀察，分享工作與學習中累積的實務經驗與可參考做法。",
+      "rawTitle": true,
       "type": "website"
     }
   }
