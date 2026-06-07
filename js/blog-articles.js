@@ -738,6 +738,29 @@ function renderBlogArticleList(mountId, options) {
   mount.innerHTML = parts.join("");
 }
 
+/** 右欄僅區塊標題用小圖示，其餘靠字級與間距分層 */
+var BLOG_RAIL_SVG = {
+  info:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+  related:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2"/></svg>',
+  extend:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>'
+};
+
+function blogRailTitleHtml(iconName, label) {
+  var svg = BLOG_RAIL_SVG[iconName] || BLOG_RAIL_SVG.info;
+  return (
+    '<p class="blog-rail-title">' +
+    '<span class="blog-rail-title__icon" aria-hidden="true">' +
+    svg +
+    "</span>" +
+    "<span>" +
+    escapeBlogHtml(label) +
+    "</span></p>"
+  );
+}
+
 function blogRailLinkHtml(href, label) {
   return (
     '<a href="' +
@@ -893,8 +916,9 @@ function renderBlogArticleRail(mountId, slug) {
 
   if (!article) {
     mount.innerHTML =
-      '<div class="blog-rail-card space-y-4">' +
-      '<div><p class="blog-rail-title">延伸</p>' +
+      '<div class="blog-rail-card">' +
+      '<div class="blog-rail-block">' +
+      blogRailTitleHtml("extend", "延伸") +
       '<div class="blog-rail-links">' +
       BLOG_SITE_LINKS.map(function (link) {
         return blogRailLinkHtml(blogPageHref(link.href), link.label);
@@ -921,41 +945,42 @@ function renderBlogArticleRail(mountId, slug) {
     siteLinks.unshift(categoryLink);
   }
 
-  mount.innerHTML =
-    '<div class="blog-rail-card space-y-4">' +
-    '<div>' +
-    '<p class="blog-rail-title">文章資訊</p>' +
-    '<p class="text-sm font-bold text-slate-800">' +
-    article.category +
-    "</p>" +
-    '<p class="blog-rail-meta mt-1">' +
-    '<span class="blog-rail-meta__line">' +
-    article.date +
-    "</span>" +
-    '<span class="blog-rail-meta__line">' +
-    formatReadDuration(article.readMins) +
-    "</span>" +
-    "</p>" +
-    (article.tags && article.tags.length
-      ? '<div class="mt-2 flex flex-wrap gap-1">' +
+  var tagsHtml =
+    article.tags && article.tags.length
+      ? '<div class="blog-rail-tags">' +
         article.tags
           .map(function (t) {
             return (
-              '<span class="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[0.6875rem] font-bold">' +
-              t +
-              "</span>"
+              '<span class="blog-rail-tag">' + escapeBlogHtml(t) + "</span>"
             );
           })
           .join("") +
         "</div>"
-      : "") +
+      : "";
+
+  mount.innerHTML =
+    '<div class="blog-rail-card">' +
+    '<div class="blog-rail-block">' +
+    blogRailTitleHtml("info", "文章資訊") +
+    '<p class="blog-rail-category">' +
+    escapeBlogHtml(article.category) +
+    "</p>" +
+    '<p class="blog-rail-meta">' +
+    '<span class="blog-rail-meta__line">' +
+    escapeBlogHtml(article.date) +
+    "</span>" +
+    '<span class="blog-rail-meta__line">' +
+    escapeBlogHtml(formatReadDuration(article.readMins)) +
+    "</span>" +
+    "</p>" +
+    tagsHtml +
     "</div>" +
-    '<div>' +
-    '<p class="blog-rail-title">相關文章</p>' +
+    '<div class="blog-rail-block blog-rail-block--divider">' +
+    blogRailTitleHtml("related", "相關文章") +
     relatedHtml +
     "</div>" +
-    '<div>' +
-    '<p class="blog-rail-title">延伸</p>' +
+    '<div class="blog-rail-block blog-rail-block--divider">' +
+    blogRailTitleHtml("extend", "延伸") +
     '<div class="blog-rail-links">' +
     siteLinks
       .map(function (link) {
