@@ -12,7 +12,7 @@
   <meta property="og:site_name" content="Mr.Bill 數位實驗室" />
   <meta property="og:locale" content="zh_TW" />
   <meta property="og:title" content="AI 互動練習箱｜Prompt 練習、AI 概念題與新手任務" />
-  <meta property="og:description" content="透過練習題、概念解析與帶練步驟，幫助新手理解 AI、查證回答，並把產出轉成可交付成果。" />
+  <meta property="og:description" content="透過 AI 互動練習題、概念解析、Prompt 帶練步驟與實戰任務，幫助新手理解 AI、查證回答，並把 AI 產出轉成可交付成果。" />
   <meta property="og:url" content="https://mrbill-dev.github.io/ai-practice.html" />
   <meta property="og:image" content="https://mrbill-dev.github.io/images/og-home.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -20,7 +20,7 @@
   <meta property="og:image:alt" content="Mr.Bill 數位實驗室 AI 前端 攝影 SEO 學習平台" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AI 互動練習箱｜Prompt 練習、AI 概念題與新手任務" />
-  <meta name="twitter:description" content="透過練習題、概念解析與帶練步驟，幫助新手理解 AI、查證回答，並把產出轉成可交付成果。" />
+  <meta name="twitter:description" content="透過 AI 互動練習題、概念解析、Prompt 帶練步驟與實戰任務，幫助新手理解 AI、查證回答，並把 AI 產出轉成可交付成果。" />
   <meta name="twitter:image" content="https://mrbill-dev.github.io/images/og-home.jpg" />
   <script type="application/ld+json">
   {
@@ -52,7 +52,7 @@
   <script src="js/components-loader.js"></script>
   <script src="js/ai-lab.js"></script>
   <style>
-    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 8rem; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; line-height: 1.7; }
     .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
@@ -72,46 +72,135 @@
       <div class="ai-page-hero__panel">
         <div class="ai-page-hero__inner max-w-[90rem] mx-auto px-4 lg:px-6">
           <div class="ai-page-hero__copy">
-            <p class="text-sm font-semibold text-cyan-200/90">AI 新手練習場</p>
+            <p class="text-sm font-semibold text-cyan-200/90">AI 練習場 · 互動練習箱</p>
             <h1>AI 互動練習箱：用題目練會 AI 思考方式</h1>
-            <p class="ai-page-hero__lead">不是背名詞，而是透過題目、解析、帶練步驟與實戰任務，讓新手理解 AI 怎麼用、怎麼查證、怎麼變成可交付成果。</p>
+            <p class="md:hidden text-[15px] leading-relaxed text-indigo-100">用題目練會怎麼問、怎麼查、怎麼交付。</p>
+            <p id="hero-lead-full" class="ai-page-hero__lead hidden md:block">不是背名詞，而是透過題目、解析、帶練步驟與實戰任務，讓新手理解 AI 怎麼用、怎麼查證、怎麼變成可交付成果。</p>
+            <p id="hero-lead-mobile-full" class="ai-page-hero__lead hidden max-md:mt-2">不是背名詞，而是透過題目、解析、帶練步驟與實戰任務，讓新手理解 AI 怎麼用、怎麼查證、怎麼變成可交付成果。</p>
+            <button type="button" id="hero-lead-toggle" class="md:hidden mt-2 text-xs font-bold text-cyan-200 underline underline-offset-2 decoration-cyan-200/50 hover:text-white" aria-expanded="false">展開完整說明</button>
           </div>
         </div>
       </div>
     </section>
 
     <div class="ai-lab-stack px-4 lg:px-6">
-      <div id="who-for" class="ai-lab-panel scroll-mt-24">
+      <nav class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 -mt-2 md:mt-0" aria-label="快速入口">
+        <a href="#beginner-route" class="ai-quick-entry ai-quick-entry--primary col-span-2 md:col-span-1">先練基礎</a>
+        <a href="#practice-types" class="ai-quick-entry">Prompt 練習</a>
+        <a href="#missions" class="ai-quick-entry">實戰任務</a>
+      </nav>
+
+      <div id="who-for" class="ai-lab-panel scroll-mt-32">
         <div class="ai-sec-head">
           <span class="ai-kicker">入門對象</span>
           <h2 class="ai-sec-title">這頁適合誰？</h2>
-          <p class="ai-sec-lead">如果你不確定該從哪開始，先對照下面四種情況，再往下挑題目練。</p>
+          <p class="ai-sec-guide">先對照你是不是下面四種情況之一。</p>
+          <p class="ai-sec-lead hidden md:block">對上了，就往下選題目或任務開始練。</p>
         </div>
         <div class="grid sm:grid-cols-2 gap-4">
           <div class="ai-card ai-tone-indigo ai-card--row">
             <span class="ai-icon ai-icon--indigo" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></span>
-            <div><p class="ai-card-title">剛開始學 AI，不知道怎麼問問題</p><p class="ai-card-body">先練基礎觀念與 Prompt 結構，把「一句話 ask」改成可重複使用的寫法。</p></div>
+            <div><p class="ai-card-title">剛開始學 AI，不知道怎麼問問題</p><p class="ai-card-body hidden md:block">先練基礎觀念與 Prompt 結構，把「一句話 ask」改成可重複使用的寫法。</p></div>
           </div>
           <div class="ai-card ai-tone-rose ai-card--row">
             <span class="ai-icon ai-icon--rose" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></span>
-            <div><p class="ai-card-title">看得懂 AI 回答，但不知道怎麼判斷對錯</p><p class="ai-card-body">練查證與安全題，建立「先查再貼」的習慣，避免幻覺與個資風險。</p></div>
+            <div><p class="ai-card-title">看得懂 AI 回答，但不知道怎麼判斷對錯</p><p class="ai-card-body hidden md:block">練查證與安全題，建立「先查再貼」的習慣，避免幻覺與個資風險。</p></div>
           </div>
           <div class="ai-card ai-tone-purple ai-card--row">
             <span class="ai-icon ai-icon--purple" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/></svg></span>
-            <div><p class="ai-card-title">想練 Prompt，但不想只背模板</p><p class="ai-card-body">每題都有情境、帶練步驟與延伸任務，練的是思考方式，不是死背格式。</p></div>
+            <div><p class="ai-card-title">想練 Prompt，但不想只背模板</p><p class="ai-card-body hidden md:block">每題都有情境、帶練步驟與延伸任務，練的是思考方式，不是死背格式。</p></div>
           </div>
           <div class="ai-card ai-tone-emerald ai-card--row">
             <span class="ai-icon ai-icon--emerald" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0"/></svg></span>
-            <div><p class="ai-card-title">想把 AI 用在寫作、簡報、網頁、圖片或工作流程</p><p class="ai-card-body">依你的目標挑分類練習，再接到 Prompt 工具、小遊戲或完整學習地圖。</p></div>
+            <div><p class="ai-card-title">想把 AI 用在寫作、簡報、網頁、圖片或工作流程</p><p class="ai-card-body hidden md:block">依你的目標挑分類練習，再接到 Prompt 工具、小遊戲或完整學習地圖。</p></div>
           </div>
         </div>
       </div>
 
-      <div id="practice-categories" class="ai-lab-panel scroll-mt-24">
+      <div id="practice-tips" class="ai-lab-panel scroll-mt-32">
+        <div class="ai-sec-head">
+          <span class="ai-kicker">練題節奏</span>
+          <h2 class="ai-sec-title">新手操作提醒</h2>
+          <p class="ai-sec-guide">不用一次看完，照這三步慢慢練。</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-3 mt-1">
+          <div class="ai-tip-card border-indigo-100 bg-indigo-50/40">
+            <p class="font-bold text-indigo-800 text-sm">1. 先看題目</p>
+            <p class="text-sm text-slate-600 mt-1.5 leading-relaxed">不用急著看答案，先判斷這題在問什麼。</p>
+          </div>
+          <div class="ai-tip-card border-purple-100 bg-purple-50/40">
+            <p class="font-bold text-purple-800 text-sm">2. 再看解析</p>
+            <p class="text-sm text-slate-600 mt-1.5 leading-relaxed">理解這個概念解決什麼問題。</p>
+          </div>
+          <div class="ai-tip-card border-emerald-100 bg-emerald-50/40">
+            <p class="font-bold text-emerald-800 text-sm">3. 最後照步驟做</p>
+            <p class="text-sm text-slate-600 mt-1.5 leading-relaxed">把名詞變成可以執行的動作。</p>
+          </div>
+        </div>
+        <div id="tips-noun-extra" class="hidden md:block mt-4 ai-note">
+          <p class="font-bold text-amber-900 text-sm">看不懂名詞時，先用這個讀法</p>
+          <ol class="mt-2 list-decimal pl-5 text-sm text-slate-700 space-y-1.5 leading-relaxed">
+            <li>先抓「這個名詞在解決什麼問題」，不用先背完整定義。</li>
+            <li>看同一題的「實作帶練步驟」，把名詞轉成可做動作。</li>
+            <li>如果還是不懂，先跳到題庫裡的「新手名詞翻譯區」再回來看題目。</li>
+          </ol>
+        </div>
+        <button type="button" id="tips-noun-toggle" class="md:hidden mt-3 text-xs font-bold text-amber-700 underline underline-offset-2" aria-expanded="false">名詞看不懂？展開閱讀提示</button>
+      </div>
+
+      <div id="beginner-route" class="ai-lab-panel scroll-mt-32">
+        <div class="ai-sec-head">
+          <span class="ai-kicker">建議節奏</span>
+          <h2 class="ai-sec-title">新手上手路線（建議 7 天）</h2>
+          <p class="ai-sec-guide">每天一張任務卡，練完再往下走。</p>
+          <p class="ai-sec-lead hidden md:block">不用趕進度，比一次看完有效。</p>
+          <p class="md:hidden text-xs text-slate-400 mt-2">左右滑動查看更多 →</p>
+        </div>
+        <div class="ai-h-scroll ai-h-scroll--days gap-4 mt-3 md:mt-4">
+          <div class="ai-h-scroll-card ai-card ai-tone-indigo">
+            <p class="ai-card-meta text-indigo-600">Day 1｜認識 AI 怎麼回答</p>
+            <p class="ai-card-body mt-2"><span class="font-semibold text-indigo-700">練習：</span>LLM + Token</p>
+            <p class="ai-card-body mt-1"><span class="font-semibold text-indigo-700">目標：</span>知道 AI 不是搜尋引擎，而是根據上下文預測與生成內容。</p>
+          </div>
+          <div class="ai-h-scroll-card ai-card ai-tone-purple">
+            <p class="ai-card-meta text-purple-600">Day 2｜學會寫清楚需求</p>
+            <p class="ai-card-body mt-2"><span class="font-semibold text-purple-700">練習：</span>RTCS + Few-shot</p>
+            <p class="ai-card-body mt-1"><span class="font-semibold text-purple-700">目標：</span>把一句話需求改成可重複使用的 Prompt。</p>
+          </div>
+          <div class="ai-h-scroll-card ai-card ai-tone-cyan">
+            <p class="ai-card-meta text-cyan-600">Day 3｜做一份可交付內容</p>
+            <p class="ai-card-body mt-2"><span class="font-semibold text-cyan-700">練習：</span>文案 / 程式碼審查</p>
+            <p class="ai-card-body mt-1"><span class="font-semibold text-cyan-700">目標：</span>知道 AI 產出後還需要人工檢查與修正。</p>
+          </div>
+          <div class="ai-h-scroll-card ai-card ai-tone-rose">
+            <p class="ai-card-meta text-rose-600">Day 4｜避免 AI 亂講</p>
+            <p class="ai-card-body mt-2"><span class="font-semibold text-rose-700">練習：</span>個資 / 幻覺 / 查證</p>
+            <p class="ai-card-body mt-1"><span class="font-semibold text-rose-700">目標：</span>知道哪些內容不能直接相信。</p>
+          </div>
+          <div class="ai-h-scroll-card ai-card ai-tone-amber">
+            <p class="ai-card-meta text-amber-600">Day 5｜圖片與多模態</p>
+            <p class="ai-card-body mt-2"><span class="font-semibold text-amber-700">練習：</span>產圖 / 看圖 / 影片腳本</p>
+            <p class="ai-card-body mt-1"><span class="font-semibold text-amber-700">目標：</span>學會描述畫面、檢查畫面與修正提示。</p>
+          </div>
+          <div class="ai-h-scroll-card ai-card ai-tone-violet">
+            <p class="ai-card-meta text-violet-600">Day 6｜整理成 Prompt 工作稿</p>
+            <p class="ai-card-body mt-2"><span class="font-semibold text-violet-700">練習：</span>Markdown 指令模板</p>
+            <p class="ai-card-body mt-1"><span class="font-semibold text-violet-700">目標：</span>做出一份可以重複使用的 .md 工作流程。</p>
+          </div>
+          <div class="ai-h-scroll-card ai-card ai-tone-emerald">
+            <p class="ai-card-meta text-emerald-600">Day 7｜完成下一步指引</p>
+            <p class="ai-card-body mt-2"><span class="font-semibold text-emerald-700">練習：</span>任務小遊戲</p>
+            <p class="ai-card-body mt-1"><span class="font-semibold text-emerald-700">目標：</span>知道自己接下來該往內容、設計、前端或自動化哪條路走。</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="practice-types" class="ai-lab-panel scroll-mt-32">
         <div class="ai-sec-head">
           <span class="ai-kicker">題庫分類</span>
           <h2 class="ai-sec-title">練習題分類</h2>
-          <p class="ai-sec-lead">點選分類會跳到下方題庫並自動切換主題。</p>
+          <p class="ai-sec-guide">點分類會跳到下方題庫，自動切換主題。</p>
+          <p class="ai-sec-lead hidden md:block">先選一個最接近你現況的類型，再挑題目練。</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <button type="button" data-practice-cat="foundation" class="ai-cat-btn ai-tone-indigo"><span class="ai-cat-btn__inner"><span class="ai-icon ai-icon--indigo" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg></span><span><p class="ai-card-title">基礎觀念題</p><p class="ai-card-body mt-1">LLM、Token、上下文、模型差異</p></span></span></button>
@@ -123,120 +212,91 @@
         </div>
       </div>
 
-      <div id="practice-lab" class="ai-lab-panel scroll-mt-24">
-        <div class="ai-lab-callout ai-lab-callout-indigo ai-card--row">
-          <span class="ai-icon ai-icon--indigo" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg></span>
-          <div><p class="font-bold text-indigo-900">怎麼練一題？</p>
-          <p class="text-slate-700 mt-1">每題都依序看：題目 → 情境 → 先想一想 → 概念解析 → 帶練步驟 → 參考答案 → 延伸任務 → 下一步。不用一次看完，可以分兩次練完。</p></div>
-        </div>
-        <div class="ai-note mb-5">
-          <p class="font-bold text-amber-900">看不懂名詞時，先用這個讀法</p>
-          <ol class="mt-2 list-decimal pl-5 text-slate-700 space-y-1.5">
-            <li>先抓「這個名詞在解決什麼問題」，不用先背完整定義。</li>
-            <li>看同一題的「實作帶練步驟」，把名詞轉成可做動作。</li>
-            <li>如果還是不懂，先跳到下方「新手名詞翻譯區」再回來看題目。</li>
-          </ol>
+      <div id="practice-lab" class="ai-lab-panel scroll-mt-32">
+        <div class="ai-sec-head mb-4">
+          <span class="ai-kicker">開始練題</span>
+          <h2 class="ai-sec-title">互動題庫</h2>
+          <p class="ai-sec-guide">選一題，照步驟練完就好。</p>
+          <p class="text-sm text-slate-600 mt-2 leading-relaxed hidden md:block">每題依序看：題目 → 情境 → 先想一想 → 概念解析 → 帶練步驟 → 參考答案 → 延伸任務。可以分兩次練完。</p>
         </div>
         <div id="practice-root"></div>
       </div>
 
-      <div id="seven-day" class="ai-lab-panel scroll-mt-24">
+      <div id="missions" class="ai-lab-panel scroll-mt-32">
         <div class="ai-sec-head">
-          <span class="ai-kicker">建議節奏</span>
-          <h2 class="ai-sec-title">新手上手路線（建議 7 天）</h2>
-          <p class="ai-sec-lead">每天一張任務卡，不用趕進度。練完再往下走，比一次看完有效。</p>
+          <span class="ai-kicker">實戰產出</span>
+          <h2 class="ai-sec-title">你可以直接做的實戰任務</h2>
+          <p class="ai-sec-guide">練完題目後，挑一個任務做出可交付成果。</p>
         </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          <div class="ai-card ai-tone-indigo">
-            <p class="ai-card-meta text-indigo-600">Day 1</p>
-            <p class="ai-card-title mt-1">認識 AI 怎麼回答</p>
-            <p class="ai-card-body mt-2"><span class="font-semibold text-indigo-700">練習：</span>LLM + Token</p>
-            <p class="ai-card-body mt-1"><span class="font-semibold text-indigo-700">目標：</span>知道 AI 不是搜尋引擎，而是根據上下文預測與生成內容。</p>
+        <div class="grid md:grid-cols-3 gap-4 mt-2">
+          <div class="ai-mission-card ai-tone-indigo bg-indigo-50/40 border-indigo-100">
+            <p class="font-bold text-indigo-900">任務 A｜把理論變教學稿</p>
+            <p class="text-xs font-bold text-indigo-600 mt-2">難度：新手版</p>
+            <p class="text-sm text-slate-700 mt-2 leading-relaxed"><span class="font-semibold text-slate-900">目標：</span>把任一題改寫成給國中生可懂的版本，並加一個課堂活動。</p>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed"><span class="font-semibold text-slate-800">產出：</span>一份教學稿 + 一個活動設計</p>
           </div>
-          <div class="ai-card ai-tone-purple">
-            <p class="ai-card-meta text-purple-600">Day 2</p>
-            <p class="ai-card-title mt-1">學會寫清楚需求</p>
-            <p class="ai-card-body mt-2"><span class="font-semibold text-purple-700">練習：</span>RTCS + Few-shot</p>
-            <p class="ai-card-body mt-1"><span class="font-semibold text-purple-700">目標：</span>把一句話需求改成可重複使用的 Prompt。</p>
+          <div class="ai-mission-card ai-tone-emerald bg-emerald-50/40 border-emerald-100">
+            <p class="font-bold text-emerald-900">任務 B｜雙模型比較</p>
+            <p class="text-xs font-bold text-emerald-600 mt-2">難度：進階版</p>
+            <p class="text-sm text-slate-700 mt-2 leading-relaxed"><span class="font-semibold text-slate-900">目標：</span>同一份 Prompt 丟兩種 AI，比較差異並寫修正版。</p>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed"><span class="font-semibold text-slate-800">產出：</span>模型比較表 + 修正版內容</p>
           </div>
-          <div class="ai-card ai-tone-cyan">
-            <p class="ai-card-meta text-cyan-600">Day 3</p>
-            <p class="ai-card-title mt-1">做一份可交付內容</p>
-            <p class="ai-card-body mt-2"><span class="font-semibold text-cyan-700">練習：</span>文案 / 程式碼審查</p>
-            <p class="ai-card-body mt-1"><span class="font-semibold text-cyan-700">目標：</span>知道 AI 產出後還需要人工檢查與修正。</p>
-          </div>
-          <div class="ai-card ai-tone-rose">
-            <p class="ai-card-meta text-rose-600">Day 4</p>
-            <p class="ai-card-title mt-1">避免 AI 亂講</p>
-            <p class="ai-card-body mt-2"><span class="font-semibold text-rose-700">練習：</span>個資 / 幻覺 / 查證</p>
-            <p class="ai-card-body mt-1"><span class="font-semibold text-rose-700">目標：</span>知道哪些內容不能直接相信。</p>
-          </div>
-          <div class="ai-card ai-tone-amber">
-            <p class="ai-card-meta text-amber-600">Day 5</p>
-            <p class="ai-card-title mt-1">圖片與多模態</p>
-            <p class="ai-card-body mt-2"><span class="font-semibold text-amber-700">練習：</span>產圖 / 看圖 / 影片腳本</p>
-            <p class="ai-card-body mt-1"><span class="font-semibold text-amber-700">目標：</span>學會描述畫面、檢查畫面與修正提示。</p>
-          </div>
-          <div class="ai-card ai-tone-violet">
-            <p class="ai-card-meta text-violet-600">Day 6</p>
-            <p class="ai-card-title mt-1">整理成 Prompt 工作稿</p>
-            <p class="ai-card-body mt-2"><span class="font-semibold text-violet-700">練習：</span>Markdown 指令模板</p>
-            <p class="ai-card-body mt-1"><span class="font-semibold text-violet-700">目標：</span>做出一份可以重複使用的 .md 工作流程。</p>
-          </div>
-          <div class="ai-card ai-tone-emerald sm:col-span-2 lg:col-span-1">
-            <p class="ai-card-meta text-emerald-600">Day 7</p>
-            <p class="ai-card-title mt-1">完成下一步指引</p>
-            <p class="ai-card-body mt-2"><span class="font-semibold text-emerald-700">練習：</span>任務小遊戲</p>
-            <p class="ai-card-body mt-1"><span class="font-semibold text-emerald-700">目標：</span>知道自己接下來該往內容、設計、前端或自動化哪條路走。</p>
+          <div class="ai-mission-card ai-tone-amber bg-amber-50/40 border-amber-100">
+            <p class="font-bold text-amber-900">任務 C｜產圖審稿</p>
+            <p class="text-xs font-bold text-amber-600 mt-2">難度：實戰版</p>
+            <p class="text-sm text-slate-700 mt-2 leading-relaxed"><span class="font-semibold text-slate-900">目標：</span>做一張 AI 圖，列出可用點、風險點、人工修正點。</p>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed"><span class="font-semibold text-slate-800">產出：</span>圖片審稿表 + 修正建議</p>
           </div>
         </div>
       </div>
 
-      <div class="ai-lab-subcard">
-        <h3 class="ai-sub-title">你可以直接做的實戰任務</h3>
-        <div class="mt-4 space-y-3 text-sm">
-          <div class="ai-card ai-tone-indigo">
-            <p class="ai-card-title">任務 A：把理論變教學稿</p>
-            <p class="ai-card-body">把任一題改寫成「給國中生可懂」版本，並加一個課堂活動。（新手版）</p>
-          </div>
-          <div class="ai-card ai-tone-emerald">
-            <p class="ai-card-title">任務 B：雙模型比較</p>
-            <p class="ai-card-body">同一份 Prompt 丟兩種 AI，比較差異並寫修正版。（進階版）</p>
-          </div>
-          <div class="ai-card ai-tone-amber">
-            <p class="ai-card-title">任務 C：產圖審稿</p>
-            <p class="ai-card-body">做一張 AI 圖，列出「可用點 / 風險點 / 人工修正點」。（實戰版）</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="practice-cta" class="ai-lab-panel scroll-mt-24 text-center">
+      <div id="module-map" class="ai-lab-panel scroll-mt-32">
         <div class="ai-sec-head">
-          <span class="ai-kicker">練完之後</span>
-          <h2 class="ai-sec-title">下一步去哪裡？</h2>
-          <p class="ai-sec-lead mx-auto">選一個方向繼續練。不用三個都做，挑最符合你目標的那個就好。</p>
+          <span class="ai-kicker">課程對照</span>
+          <h2 class="ai-sec-title">這頁對應課程模組（M1–M8）</h2>
+          <p class="ai-sec-guide">練習箱涵蓋的模組重點，對照學習地圖往下看。</p>
+          <p class="md:hidden text-xs text-slate-400 mt-1">點卡片展開完整說明</p>
         </div>
-        <div class="mt-6 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-          <a href="ai-prompt-tool.html" class="ai-cta-btn inline-flex items-center justify-center px-6 py-3 bg-indigo-600 text-white no-underline hover:bg-indigo-700 transition-colors">前往 Prompt 工具</a>
-          <a href="ai-game-center.html" class="ai-cta-btn inline-flex items-center justify-center px-6 py-3 bg-emerald-600 text-white no-underline hover:bg-emerald-700 transition-colors">前往 AI 小遊戲</a>
-          <a href="ai-learning-map.html" class="ai-cta-btn inline-flex items-center justify-center px-6 py-3 bg-violet-600 text-white no-underline hover:bg-violet-700 transition-colors">看完整 AI 學習地圖</a>
-        </div>
-      </div>
-
-      <div class="ai-lab-subcard">
-        <h3 class="ai-sub-title">這頁對應課程模組（M1–M8）</h3>
-        <div class="mt-4 grid md:grid-cols-3 gap-3 text-sm">
+        <div class="grid md:grid-cols-3 gap-3 text-sm mt-2">
           <div class="ai-card ai-tone-indigo">
             <p class="ai-card-title">先修重點</p>
-            <p class="ai-card-body">M1 基礎原理、M2 Prompt 結構、M8 倫理安全。</p>
+            <p class="ai-card-body md:mt-2">M1 基礎原理、M2 Prompt 結構、M8 倫理安全。</p>
+            <p class="ai-module-extra hidden md:block text-sm text-slate-600 mt-2 leading-relaxed">入門先打穩觀念、寫法與查證，再往下接實作。</p>
+            <button type="button" class="ai-module-toggle mt-3 md:hidden" data-module-toggle aria-expanded="false">展開說明</button>
           </div>
           <div class="ai-card ai-tone-cyan">
             <p class="ai-card-title">延伸重點</p>
-            <p class="ai-card-body">M3 RAG、M4 Agent 與工具邊界、M6 多模態應用。</p>
+            <p class="ai-card-body md:mt-2">M3 RAG、M4 Agent 與工具邊界、M6 多模態應用。</p>
+            <p class="ai-module-extra hidden md:block text-sm text-slate-600 mt-2 leading-relaxed">進階練資料整理、自動化邊界，以及影像與多媒體應用。</p>
+            <button type="button" class="ai-module-toggle mt-3 md:hidden" data-module-toggle aria-expanded="false">展開說明</button>
           </div>
           <div class="ai-card ai-tone-emerald">
             <p class="ai-card-title">下一步落地</p>
-            <p class="ai-card-body">M5 開發協作、M7 內容成效（SEO/GEO/GA4）做可交付成果。</p>
+            <p class="ai-card-body md:mt-2">M5 開發協作、M7 內容成效（SEO/GEO/GA4）做可交付成果。</p>
+            <p class="ai-module-extra hidden md:block text-sm text-slate-600 mt-2 leading-relaxed">把練習接到網頁實作與內容成效追蹤，完成可交付作品。</p>
+            <button type="button" class="ai-module-toggle mt-3 md:hidden" data-module-toggle aria-expanded="false">展開說明</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="practice-cta" class="ai-lab-panel scroll-mt-32">
+        <div class="ai-sec-head text-center">
+          <span class="ai-kicker">練完之後</span>
+          <h2 class="ai-sec-title">下一步去哪裡？</h2>
+          <p class="ai-sec-guide mx-auto">挑一個方向繼續就好，不用全做。</p>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-4 mt-4">
+          <div class="rounded-xl border border-indigo-100 bg-indigo-50/40 p-4 text-center">
+            <p class="font-bold text-slate-900 text-sm">想產生 Prompt？</p>
+            <a href="ai-prompt-tool.html" class="ai-cta-btn inline-flex items-center justify-center mt-3 px-5 py-2.5 bg-indigo-600 text-white text-sm no-underline hover:bg-indigo-700 transition-colors w-full sm:w-auto">前往 Prompt 工具</a>
+          </div>
+          <div class="rounded-xl border border-emerald-100 bg-emerald-50/40 p-4 text-center">
+            <p class="font-bold text-slate-900 text-sm">想用闖關方式練？</p>
+            <a href="ai-game-center.html" class="ai-cta-btn inline-flex items-center justify-center mt-3 px-5 py-2.5 bg-emerald-600 text-white text-sm no-underline hover:bg-emerald-700 transition-colors w-full sm:w-auto">前往小遊戲中心</a>
+          </div>
+          <div class="rounded-xl border border-violet-100 bg-violet-50/40 p-4 text-center sm:col-span-1">
+            <p class="font-bold text-slate-900 text-sm">想看完整路線？</p>
+            <a href="ai-learning-map.html" class="ai-cta-btn inline-flex items-center justify-center mt-3 px-5 py-2.5 bg-violet-600 text-white text-sm no-underline hover:bg-violet-700 transition-colors w-full sm:w-auto">看完整 AI 學習地圖</a>
           </div>
         </div>
       </div>
@@ -251,9 +311,46 @@
       else if (tabId === 'game') window.location.href = 'ai-game-center.html';
       else window.location.href = 'ai-practice.html';
     }
+    function initHeroLeadToggle() {
+      var btn = document.getElementById('hero-lead-toggle');
+      var full = document.getElementById('hero-lead-mobile-full');
+      if (!btn || !full) return;
+      btn.addEventListener('click', function() {
+        var collapsed = full.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        btn.textContent = collapsed ? '展開完整說明' : '收合說明';
+      });
+    }
+    function initTipsNounToggle() {
+      var btn = document.getElementById('tips-noun-toggle');
+      var extra = document.getElementById('tips-noun-extra');
+      if (!btn || !extra) return;
+      btn.addEventListener('click', function() {
+        extra.classList.remove('hidden');
+        extra.classList.add('block', 'mt-4');
+        btn.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      });
+    }
+    function initModuleMapToggle() {
+      document.querySelectorAll('#module-map [data-module-toggle]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var card = btn.closest('.ai-card');
+          if (!card) return;
+          var extra = card.querySelector('.ai-module-extra');
+          if (!extra) return;
+          var collapsed = extra.classList.toggle('hidden');
+          btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+          btn.textContent = collapsed ? '展開說明' : '收合說明';
+        });
+      });
+    }
     window.addEventListener('DOMContentLoaded', function() {
       includeComponentSlot('global-header', 'components/header.html');
       includeComponentSlot('global-footer', 'components/footer.html');
+      initHeroLeadToggle();
+      initTipsNounToggle();
+      initModuleMapToggle();
       if (typeof initAiLab === 'function') initAiLab();
     });
   </script>
