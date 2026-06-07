@@ -141,6 +141,33 @@
       mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black, transparent);
     }
     .mk-flow-card { backdrop-filter: blur(12px); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
+    .mk-outcome-card {
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+    }
+    .mk-outcome-card__label { font-size: 0.6875rem; font-weight: 900; letter-spacing: 0.04em; color: #4f46e5; }
+    .mk-outcome-card__title { font-size: 0.9375rem; font-weight: 900; color: #0f172a; margin-top: 0.35rem; }
+    .mk-outcome-card__desc { font-size: 0.8125rem; line-height: 1.6; color: #64748b; margin-top: 0.4rem; font-weight: 600; }
+    .mk-chapter-output {
+      border-radius: 1rem;
+      border: 1px solid #c7d2fe;
+      background: #eef2ff;
+      padding: 0.9rem 1rem;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
+    .mk-chapter-output strong { color: #3730a3; }
+    .mk-chapter-output ul { margin: 0.35rem 0 0 1.1rem; list-style: disc; color: #4338ca; }
+    .mk-chapter-output li { margin-bottom: 0.2rem; }
+    @media (max-width: 767px) {
+      .mk-nav-link { min-height: 2.75rem; display: flex; align-items: center; }
+      .marketing-panel { line-height: 1.75; }
+      .article-prose pre { font-size: 0.6875rem; padding: 0.75rem; }
+      .article-prose table { display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    }
   </style>
 </head>
 <body class="page-course bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
@@ -161,7 +188,7 @@
               Growth System · SEO + GEO + GA4
             </span>
             <h1 class="text-[1.65rem] sm:text-4xl md:text-6xl font-black tracking-tight leading-[1.12] break-words text-balance">
-              讓內容被<span class="text-cyan-300"> Google 找到</span>、被<span class="text-violet-300"> AI 引用</span>、用<span class="text-emerald-300"> 數據證明有效</span>
+              讓內容被<span class="text-cyan-300"> Google 找到</span>、被<span class="text-violet-300"> AI 引用</span>，並用<span class="text-emerald-300"> 數據證明有效</span>
             </h1>
             <p class="tutorial-hero-desc text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl">不懂寫程式也能照做：左邊選章節切換教學，每章都有情境故事、操作步驟與真實範例。</p>
             <div class="flex flex-wrap gap-2">
@@ -189,6 +216,27 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mk-outcomes" class="max-w-6xl mx-auto px-4 sm:px-6 mb-8 scroll-mt-28" aria-labelledby="mk-outcomes-title">
+      <p id="mk-outcomes-title" class="text-xs font-black uppercase tracking-wider text-indigo-600">這頁學完會得到什麼</p>
+      <div class="grid md:grid-cols-3 gap-3 md:gap-4 mt-3">
+        <div class="mk-outcome-card">
+          <p class="mk-outcome-card__label">學完你會知道</p>
+          <p class="mk-outcome-card__title">SEO、GEO、GA4 各自負責什麼</p>
+          <p class="mk-outcome-card__desc">知道搜尋、AI 摘要與數據追蹤在內容成長裡各扮演哪一段。</p>
+        </div>
+        <div class="mk-outcome-card">
+          <p class="mk-outcome-card__label">你會做出</p>
+          <p class="mk-outcome-card__title">目標、關鍵字、事件表</p>
+          <p class="mk-outcome-card__desc">一份內容目標、一組關鍵字、一版 GA4 事件表。</p>
+        </div>
+        <div class="mk-outcome-card">
+          <p class="mk-outcome-card__label">你會開始追蹤</p>
+          <p class="mk-outcome-card__title">流量到轉換的成效</p>
+          <p class="mk-outcome-card__desc">流量、CTA 點擊、詢單與內容轉換效果。</p>
         </div>
       </div>
     </section>
@@ -306,6 +354,7 @@
               </ul>
             </div>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>SEO、GEO、GA4 各自負責什麼的對照理解</li><li>一份新手名詞白話對照表</li></ul></div>
         </section>
 
         <section id="mk-kpi" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
@@ -352,6 +401,7 @@
             <p class="font-black text-emerald-900 mb-2">流量增加但沒詢問 = 訊號</p>
             <p>如果流量漲了但詢問沒漲，通常是：關鍵字太泛（吸到不會買的人）、或者內容沒有說清楚「你能幫我解決什麼、我要怎麼開始聯絡你」。這兩點先修，再談流量。</p>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>一份 KPI 拆解（曝光 → 互動 → 轉換）</li><li>一個可追蹤的 GA4 轉換事件定義</li></ul></div>
         </section>
 
         <section id="mk-seo-foundation" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
@@ -409,6 +459,7 @@
               </ul>
             </div>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>SEO 三要素檢核概念（內容／技術／信任）</li><li>一份有效做法順序清單</li></ul></div>
         </section>
 
         <section id="mk-keyword" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
@@ -449,10 +500,10 @@
             <pre class="overflow-x-auto rounded-xl bg-slate-900 p-4 text-emerald-300 text-xs leading-relaxed">主關鍵字：台南手工皂推薦
 搜尋意圖：比較型
 目標讀者：有皮膚敏感問題、第一次買手工皂的人
-標題草案：2026 台南手工皂推薦｜敏感肌適合哪種？5 款比較整理
+標題草案：2026 台南手工皂推薦｜成分與品牌怎麼比較？5 款整理
 H2 章節：
   1) 手工皂和一般市售皂有什麼不同？
-  2) 敏感肌選手工皂的 3 個重點
+  2) 挑選手工皂時可以確認哪些資訊
   3) 台南 5 家值得推薦的手工皂品牌比較
   4) 常見問題 FAQ
 CTA：加 LINE 詢問客製禮盒</pre>
@@ -466,6 +517,7 @@ CTA：加 LINE 詢問客製禮盒</pre>
               <li><strong>Google Search Console</strong>：你的網站已經有哪些關鍵字在帶流量，哪些排第 5-15 名可以優化衝上去。</li>
             </ul>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>一組關鍵字與搜尋意圖對照</li><li>一篇文章架構草稿（標題、H2、CTA）</li></ul></div>
         </section>
 
         <section id="mk-onpage" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
@@ -494,6 +546,7 @@ CTA：加 LINE 詢問客製禮盒</pre>
               <li>CTA 使用動詞，例如「下載檢查表」比「更多資訊」有效。</li>
             </ol>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>一份 On-page 檢查表</li><li>一組 title／description／h1 實作範例</li></ul></div>
         </section>
 
         <section id="mk-tech-seo" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
@@ -524,6 +577,7 @@ CTA：加 LINE 詢問客製禮盒</pre>
               <p>大量複製相似頁、圖片沒有尺寸造成 CLS、手機版內容少於桌機版、重要內容靠點擊後才載入，這些都會讓搜尋引擎理解成本變高。</p>
             </div>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>技術 SEO 每週 15 分鐘檢查清單</li><li>索引與速度優先順序判斷</li></ul></div>
         </section>
 
         <section id="mk-geo-foundation" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
@@ -541,6 +595,9 @@ CTA：加 LINE 詢問客製禮盒</pre>
           </div>
 
           <p>GEO 不是取代 SEO，而是在 SEO 基礎上，再讓你的內容格式更符合 AI 模型的「閱讀習慣」。</p>
+          <div class="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm">
+            <p class="text-amber-900 font-semibold">保守提醒：GEO 不是保證一定被 AI 引用，而是提高內容被理解、摘要與引用的機率。</p>
+          </div>
 
           <!-- AI 偏好什麼 -->
           <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
@@ -560,7 +617,7 @@ CTA：加 LINE 詢問客製禮盒</pre>
               </div>
               <div class="flex gap-3">
                 <span class="shrink-0 w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 text-xs font-black flex items-center justify-center">4</span>
-                <div><strong>有具體數據或條件</strong>：「大約」「可能」這種模糊說法不容易被引用；「敏感肌建議選 pH 值 8-9 以下的皂」這種有條件、有根據的說法才容易成為引用素材。</div>
+                <div><strong>有具體條件或步驟</strong>：「大約」「可能」這種模糊說法不容易被引用；「挑選時先確認成分標示、適用膚質與試用方式」這種有條件、有步驟的說法才容易成為引用素材。</div>
               </div>
             </div>
           </div>
@@ -569,6 +626,7 @@ CTA：加 LINE 詢問客製禮盒</pre>
             <p class="font-black text-emerald-900 mb-1">GEO 操作關鍵字訣</p>
             <p>把每章用四段式寫：<strong>是什麼 → 什麼時候用 → 怎麼做 → 常見錯誤</strong>。這個結構最容易被 AI 拆成一個完整的「可回答片段」。</p>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>GEO 四段式段落結構草稿</li><li>AI 可擷取內容的寫作原則清單</li></ul></div>
         </section>
 
         <section id="mk-geo-content" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
@@ -587,8 +645,8 @@ CTA：加 LINE 詢問客製禮盒</pre>
               </div>
               <div class="p-5 bg-emerald-50">
                 <p class="font-black text-emerald-800 mb-3">✅ GEO 寫法（容易被引用）</p>
-                <p class="text-slate-700 leading-relaxed italic">「敏感肌選手工皂時，建議選擇 pH 值 8-9 的冷製皂、不含 SLS 及香精。使用前先在手腕內側測試 24 小時，無紅疹後再全臉使用。」</p>
-                <p class="mt-3 text-emerald-700">改善：有具體數值（pH 8-9）、有排除條件（不含 SLS）、有操作步驟。讀者和 AI 都能直接引用這段。</p>
+                <p class="text-slate-700 leading-relaxed italic">「挑選手工皂時，可以先確認成分標示、香精添加、適用膚質說明與試用方式。若本身容易敏感，建議先做局部測試，或依照皮膚科醫師建議選擇產品。」</p>
+                <p class="mt-3 text-emerald-700">改善：有確認項目、有試用步驟、有保守提醒。讀者和 AI 都能直接引用這段，也不會像醫療建議。</p>
               </div>
             </div>
           </div>
@@ -613,6 +671,7 @@ CTA：加 LINE 詢問客製禮盒</pre>
             <blockquote class="rounded-xl border-l-4 border-slate-400 bg-white p-4 text-slate-600 italic">「我們的 SEO 課程很實用，學員都很滿意，適合各種程度的人。」</blockquote>
             <p class="mt-3 text-slate-600">→ 試著改成：有具體對象（什麼程度的人）、有具體結果（學了能做什麼）、有條件（什麼情況下適合）。這樣 AI 才有辦法幫讀者回答「這個課程適合我嗎」。</p>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>一段可被引用的 GEO 改寫段落</li><li>每篇文章 GEO 實作勾選清單</li></ul></div>
         </section>
 
         <section id="mk-entity" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
@@ -632,6 +691,7 @@ CTA：加 LINE 詢問客製禮盒</pre>
               <li>引用外部來源時，優先連到官方文件、研究報告或原始數據。</li>
             </ul>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>作者／品牌實體訊號清單</li><li>一組權威內容補強項目</li></ul></div>
         </section>
 
         <section id="mk-social" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
@@ -703,7 +763,7 @@ CTA：我把對照表放在文章第 7 章，直接套你網站。</pre>
               <div class="rounded-xl border border-slate-200 bg-white p-4">
                 <p class="font-black text-cyan-700">B. 案例型貼文（建立信任）</p>
                 <pre class="mt-2 overflow-x-auto rounded-lg bg-slate-900 p-3 text-emerald-300 text-xs">案例：台南手工皂品牌，兩週內將 CTA 點擊率 +42%
-做法：首頁 CTA 文案由「了解更多」改為「領敏感肌選皂清單」
+做法：首頁 CTA 文案由「了解更多」改為「領選皂檢查表」
 結果：自然流量持平，詢單提升
 CTA：完整改寫前後截圖在站內案例頁。</pre>
               </div>
@@ -762,7 +822,7 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
                   <div class="w-9 h-9 rounded-full bg-amber-600 text-white flex items-center justify-center font-black">BH</div>
                   <div><p class="font-black text-slate-900">BillHuang Studio</p><p class="text-xs text-slate-500">昨天 · Instagram</p></div>
                 </div>
-                <p class="text-slate-700 leading-relaxed">【案例】台南手工皂網站 14 天詢單 +42%<br/>我們只做兩件事：<br/>1) 首屏按鈕從「了解更多」改成「領敏感肌選皂清單」<br/>2) 社群每篇只導一頁，並用 UTM 分辨貼文成效。<br/>接著把文章改成「痛點一句＋步驟三點＋案例一段」，讓讀者 8 秒內知道這篇能解什麼問題，點進站內後才願意留聯絡。</p>
+                <p class="text-slate-700 leading-relaxed">【案例】台南手工皂網站 14 天詢單 +42%<br/>我們只做兩件事：<br/>1) 首屏按鈕從「了解更多」改成「領選皂檢查表」<br/>2) 社群每篇只導一頁，並用 UTM 分辨貼文成效。<br/>接著把文章改成「痛點一句＋步驟三點＋案例一段」，讓讀者 8 秒內知道這篇能解什麼問題，點進站內後才願意留聯絡。</p>
                 <p class="text-amber-700 font-bold">🔗 完整前後對照圖：精選限動 / 站內案例頁（含 GA4 圖表）</p>
                 <p class="text-xs text-slate-500">#手工皂行銷 #案例拆解 #GEO #內容導流</p>
                 <div class="flex items-center justify-between text-xs text-slate-500 border-t border-slate-200 pt-2">
@@ -787,6 +847,7 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
               </article>
             </div>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>一組 UTM 連結範本</li><li>社群導流貼文結構（痛點／步驟／CTA）</li></ul></div>
         </section>
 
         <section id="mk-ga4-setup" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
@@ -839,6 +900,7 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
             </ol>
             <p class="mt-3 text-slate-600">不確定怎麼做？搜尋「GTM GA4 按鈕點擊追蹤」，有許多中文教學影片。</p>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>一組 GA4 事件命名表（page_view／scroll／click_cta／generate_lead）</li><li>GTM 按鈕追蹤設定步驟</li></ul></div>
         </section>
 
         <section id="mk-ga4-analysis" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-5">
@@ -877,7 +939,7 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
                     <td class="px-4 py-3 text-amber-700">讀完率高但沒按 → <strong>CTA 太不明顯</strong></td>
                   </tr>
                   <tr class="bg-slate-50">
-                    <td class="px-4 py-3">敏感肌手工皂選購</td>
+                    <td class="px-4 py-3">手工皂選購指南</td>
                     <td class="px-4 py-3 font-bold">95</td>
                     <td class="px-4 py-3 text-red-500 font-bold">18%</td>
                     <td class="px-4 py-3">2 次</td>
@@ -902,7 +964,7 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
                 <p class="text-xs text-amber-700 mt-2">診斷：讀完率高但沒按，CTA 太不明顯。</p>
               </article>
               <article class="rounded-xl border border-slate-200 bg-slate-50 p-3">
-                <p class="font-black text-slate-900">敏感肌手工皂選購</p>
+                <p class="font-black text-slate-900">手工皂選購指南</p>
                 <p class="text-xs text-slate-600 mt-1">流量 <strong>95</strong> · 讀完率 <strong class="text-rose-600">18%</strong> · CTA <strong>2 次</strong> · 詢問 <strong>0</strong></p>
                 <p class="text-xs text-rose-700 mt-2">診斷：讀完率太低，內容不符合搜尋意圖。</p>
               </article>
@@ -929,6 +991,7 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
               <p>表單太複雜、LINE 加入頁面打不開、或是讀者有疑慮但找不到解答。在 CTA 附近補一句「常見問題」或「30 秒就能完成」。</p>
             </div>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>一頁 GA4 診斷對照表（流量／讀完率／CTA／詢問）</li><li>三種常見漏斗問題的修正方向</li></ul></div>
         </section>
 
         <section id="mk-ops" class="marketing-panel bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-3">
@@ -962,6 +1025,7 @@ CTA：站內有「事件命名表 + UTM 模板」。</pre>
               <p class="mt-1">用 GA4 看 CTA、詢單與來源品質。</p>
             </div>
           </div>
+          <div class="mk-chapter-output"><strong>本章產出</strong><ul><li>一份 30 天操作節奏</li><li>每週固定檢視與優化節拍</li></ul></div>
         </section>
 
         <div id="marketing-author-note"></div>
