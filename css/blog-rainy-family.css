@@ -1,5 +1,13 @@
 /* 台北新北雨天親子文章 — 僅限 .rainy-article 內，等比例縮放適配 blog 中欄 */
 
+body:has(.rainy-family-prose) {
+  overscroll-behavior-y: auto;
+}
+
+body:has(.rainy-family-prose) main {
+  touch-action: pan-y;
+}
+
 .rainy-article {
   --rainy-ink: #172033;
   --rainy-muted: #617087;
@@ -15,8 +23,9 @@
   font-size: 0.94rem;
   min-width: 0;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
+  touch-action: pan-y;
   word-break: break-word;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -31,7 +40,7 @@
   text-wrap: wrap;
   max-width: 100%;
   min-width: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .rainy-family-prose.blog-main.blog-prose h2,
@@ -545,7 +554,6 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   box-shadow: 0 12px 32px rgba(20,45,80,.07);
   min-width: 0;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 .rainy-box p,
@@ -663,6 +671,8 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
 .rainy-age-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x pan-y;
   border-radius: 1rem;
   border: 1px solid var(--rainy-line);
   background: #fff;
@@ -1233,7 +1243,7 @@ details.rainy-faq-item {
 }
 
 .rainy-footer-note {
-  margin: 1.25rem 0 1.5rem;
+  margin: 1rem 0 0.85rem;
   padding: 1rem;
   border-radius: 1.25rem;
   background: #f7fbff;
@@ -1247,6 +1257,15 @@ details.rainy-faq-item {
   padding-bottom: 0.5rem;
 }
 
+html.rainy-scroll-locked {
+  overflow: hidden;
+}
+
+html.rainy-scroll-locked body {
+  overflow: hidden;
+  touch-action: none;
+}
+
 .rainy-modal {
   position: fixed;
   inset: 0;
@@ -1258,12 +1277,19 @@ details.rainy-faq-item {
   backdrop-filter: blur(8px);
 }
 
-.rainy-modal.is-open { display: grid; }
+.rainy-modal.is-open {
+  display: grid;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
 
 .rainy-modal-card {
   width: min(42rem, 100%);
   max-height: min(86vh, 42rem);
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
   border-radius: 1.35rem;
   background: #fff;
   box-shadow: 0 24px 64px rgba(0,0,0,.28);
@@ -1665,7 +1691,24 @@ details.rainy-faq-item {
   }
 
   .rainy-footer-note {
-    margin-bottom: 1.25rem;
+    margin: 0.85rem 0 0.65rem;
+  }
+
+  .rainy-guide-wrap {
+    position: relative;
+    top: auto;
+    z-index: 20;
+    margin-bottom: 0.35rem;
+  }
+
+  .rainy-section:last-of-type {
+    padding-bottom: 1rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  html:has(.rainy-family-prose) {
+    scroll-behavior: auto;
   }
 }
 
@@ -1677,7 +1720,7 @@ details.rainy-faq-item {
     overflow-wrap: break-word;
     word-wrap: break-word;
     text-wrap: wrap;
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
   }
 
@@ -1738,7 +1781,6 @@ details.rainy-faq-item {
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    overflow-x: hidden;
   }
 
   .rainy-weather-head > div,

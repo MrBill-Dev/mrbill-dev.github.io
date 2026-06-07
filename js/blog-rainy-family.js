@@ -526,6 +526,40 @@
     return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query);
   }
 
+  var rainyScrollLockY = 0;
+  var rainyScrollLocked = false;
+
+  function syncRainyPageScrollLock() {
+    var spotOpen = document.getElementById("rainySpotModal");
+    var mapOpen = document.getElementById("rainyMapModal");
+    var shouldLock =
+      (spotOpen && spotOpen.classList.contains("is-open")) ||
+      (mapOpen && mapOpen.classList.contains("is-open"));
+
+    if (shouldLock) {
+      if (rainyScrollLocked) return;
+      rainyScrollLocked = true;
+      rainyScrollLockY = window.scrollY || window.pageYOffset || 0;
+      document.documentElement.classList.add("rainy-scroll-locked");
+      document.body.style.position = "fixed";
+      document.body.style.top = "-" + rainyScrollLockY + "px";
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
+      return;
+    }
+
+    if (!rainyScrollLocked) return;
+    rainyScrollLocked = false;
+    document.documentElement.classList.remove("rainy-scroll-locked");
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, rainyScrollLockY);
+  }
+
   function openMapModal(query, title) {
     var modal = document.getElementById("rainyMapModal");
     var frame = document.getElementById("rainyMapFrame");
@@ -536,6 +570,7 @@
     if (ext) ext.href = rainyMapExternalUrl(query);
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
+    syncRainyPageScrollLock();
   }
 
   function closeMapModal() {
@@ -545,6 +580,7 @@
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
     if (frame) frame.src = "about:blank";
+    syncRainyPageScrollLock();
   }
 
   function linkifyRainyText(html) {
@@ -785,12 +821,14 @@
     var modal = document.getElementById("rainySpotModal");
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
+    syncRainyPageScrollLock();
   }
 
   function closeModal() {
     var modal = document.getElementById("rainySpotModal");
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
+    syncRainyPageScrollLock();
   }
 
   function showToast(text) {
@@ -961,6 +999,8 @@
     if (shareBtn) shareBtn.addEventListener("click", copyShareText);
 
     bindRainyDelegatedActions(document);
+    syncRainyPageScrollLock();
+    window.addEventListener("pageshow", syncRainyPageScrollLock);
     decorateRainyFaq();
     linkifyRainyFaq();
     renderSpots();
