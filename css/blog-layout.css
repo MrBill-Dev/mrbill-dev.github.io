@@ -1631,8 +1631,7 @@
 }
 
 .blog-article-nav__grid--duo .blog-article-nav__placeholder {
-  display: block;
-  min-height: 0;
+  display: none;
 }
 
 .blog-article-nav__card {
@@ -1681,6 +1680,14 @@
   margin-top: 1rem;
   padding-top: 0.95rem;
   border-top: 1px solid #e2e8f0;
+}
+
+/* 僅相關文章、無上下篇時，不要多出上方分隔線區塊 */
+.blog-article-nav__related:first-child,
+.blog-article-nav__related--lead {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
 }
 
 .blog-article-nav__related-links {

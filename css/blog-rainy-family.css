@@ -1233,7 +1233,7 @@ details.rainy-faq-item {
 }
 
 .rainy-footer-note {
-  margin: 1.25rem 0 2.75rem;
+  margin: 1.25rem 0 1.5rem;
   padding: 1rem;
   border-radius: 1.25rem;
   background: #f7fbff;
@@ -1662,6 +1662,10 @@ details.rainy-faq-item {
   .rainy-article select {
     font-size: 0.8rem;
     white-space: normal;
+  }
+
+  .rainy-footer-note {
+    margin-bottom: 1.25rem;
   }
 }
 

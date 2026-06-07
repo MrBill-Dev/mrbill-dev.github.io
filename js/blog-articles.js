@@ -916,7 +916,9 @@ function renderBlogArticleNav(slug) {
   }
 
   if (related.length) {
-    parts.push('<div class="blog-article-nav__related">');
+    var relatedClass = "blog-article-nav__related";
+    if (!hasNeighbors) relatedClass += " blog-article-nav__related--lead";
+    parts.push('<div class="' + relatedClass + '">');
     parts.push('<p class="blog-article-nav__related-title">相關文章</p>');
     parts.push('<div class="blog-article-nav__related-links">');
     related.forEach(function (a) {
