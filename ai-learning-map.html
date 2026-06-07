@@ -62,16 +62,69 @@
     }
   </script>
   <style>
-    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 8rem; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; line-height: 1.7; }
     .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .ai-map-rail__link { display: block; padding: 0.5rem 0.625rem; border-radius: 0.625rem; border: 1px solid transparent; text-decoration: none; transition: background 0.15s ease, border-color 0.15s ease; }
+    .ai-map-rail__link:hover { background: #f8fafc; border-color: #e2e8f0; }
+    .ai-map-rail__link.is-active { background: #eef2ff; border-color: #c7d2fe; }
+    .ai-map-rail__link.is-active .ai-map-rail__title { color: #4338ca; }
+    .ai-map-rail__title { display: block; font-size: 0.8125rem; font-weight: 800; color: #334155; line-height: 1.3; }
+    .ai-map-rail__desc { display: block; font-size: 0.6875rem; color: #94a3b8; margin-top: 0.125rem; line-height: 1.35; }
+    .ai-route-cta { display: inline-flex; align-items: center; margin-top: 1rem; padding: 0.4375rem 0.875rem; border-radius: 0.625rem; font-size: 0.75rem; font-weight: 800; text-decoration: none; transition: background 0.15s ease, box-shadow 0.15s ease; }
+    .ai-sec-guide { font-size: 0.9375rem; font-weight: 600; color: #475569; line-height: 1.55; }
+    .ai-quick-entry { display: inline-flex; align-items: center; justify-content: center; padding: 0.625rem 0.75rem; border-radius: 0.75rem; font-size: 0.8125rem; font-weight: 800; text-decoration: none; text-align: center; line-height: 1.35; border: 1px solid #e2e8f0; background: #fff; color: #334155; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05); transition: border-color 0.15s ease, background 0.15s ease; }
+    .ai-quick-entry:hover { border-color: #c7d2fe; background: #eef2ff; color: #4338ca; }
+    .ai-quick-entry--primary { border-color: #c7d2fe; background: #eef2ff; color: #4338ca; }
+    .ai-h-scroll { display: flex; gap: 1rem; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; padding-bottom: 0.25rem; margin-left: -0.25rem; margin-right: -0.25rem; padding-left: 0.25rem; padding-right: 0.25rem; }
+    .ai-h-scroll::-webkit-scrollbar { height: 4px; }
+    .ai-h-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .ai-h-scroll-card { min-width: 260px; flex-shrink: 0; scroll-snap-align: start; }
+    @media (min-width: 768px) {
+      .ai-h-scroll { display: grid; overflow: visible; scroll-snap-type: none; margin: 0; padding: 0; }
+      .ai-h-scroll-card { min-width: 0; flex-shrink: 1; scroll-snap-align: none; }
+      .ai-h-scroll--outcomes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .ai-h-scroll--pain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .ai-module-toggle { font-size: 0.75rem; font-weight: 800; color: #4f46e5; background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 0.5rem; padding: 0.375rem 0.75rem; cursor: pointer; }
+    .ai-module-toggle[aria-expanded="true"] { color: #4338ca; background: #e0e7ff; }
+    @media (min-width: 768px) { .ai-module-toggle { display: none; } }
   </style>
 </head>
 <body class="ai-content-page bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-lg overflow-x-hidden">
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
-  <main class="max-w-[90rem] mx-auto flex-grow w-full min-w-0">
+  <aside id="ai-map-rail" class="hidden xl:block fixed right-6 top-28 z-40 w-44" aria-label="學習導覽">
+    <nav class="bg-white border border-slate-200 rounded-2xl shadow-sm shadow-slate-200/60 p-2 space-y-0.5">
+      <a href="#pain-points" class="ai-map-rail__link" data-rail-target="pain-points">
+        <span class="ai-map-rail__title">新手卡點</span>
+        <span class="ai-map-rail__desc">看看你現在卡在哪</span>
+      </a>
+      <a href="#outcomes" class="ai-map-rail__link" data-rail-target="outcomes">
+        <span class="ai-map-rail__title">學習成果</span>
+        <span class="ai-map-rail__desc">學完可以做什麼</span>
+      </a>
+      <a href="#beginner-path" class="ai-map-rail__link" data-rail-target="beginner-path">
+        <span class="ai-map-rail__title">新手路徑</span>
+        <span class="ai-map-rail__desc">選一條路開始</span>
+      </a>
+      <a href="#modules" class="ai-map-rail__link" data-rail-target="modules">
+        <span class="ai-map-rail__title">完整課綱</span>
+        <span class="ai-map-rail__desc">M1–M8 能力地圖</span>
+      </a>
+      <a href="#parents" class="ai-map-rail__link" data-rail-target="parents">
+        <span class="ai-map-rail__title">家長說明</span>
+        <span class="ai-map-rail__desc">AI 不是抄答案</span>
+      </a>
+      <a href="#prompt-table" class="ai-map-rail__link" data-rail-target="prompt-table">
+        <span class="ai-map-rail__title">常用指令</span>
+        <span class="ai-map-rail__desc">英文指令速查</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="max-w-[90rem] mx-auto flex-grow w-full min-w-0 xl:pr-52">
     <section id="ai-home" class="space-y-10 fade-in-up pb-12">
       <section class="ai-page-hero w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-8 mb-10 text-white">
         <div class="ai-page-hero__media" aria-hidden="true">
@@ -82,51 +135,64 @@
             <div class="ai-page-hero__copy">
               <p class="text-xs font-bold uppercase tracking-wide text-cyan-200/90">AI 學習地圖 · 課程導覽</p>
               <h1>AI 學習地圖：從會問問題，到做出真正可用的作品</h1>
-              <p class="ai-page-hero__lead">這裡不是只教怎麼問 AI，而是幫你建立完整工作流程——從 <span class="text-cyan-200 font-bold">Prompt 與資料整理</span>、<span class="text-violet-200 font-bold">寫作與設計</span>、<span class="text-emerald-200 font-bold">前端開發與自動化</span>，到影像與行銷應用，讓結果能交付、能檢查、能持續優化。</p>
+              <p class="md:hidden text-[15px] leading-relaxed text-indigo-100">先找到自己的起點，再一步步做出可交付成果。</p>
+              <p id="hero-lead-full" class="ai-page-hero__lead hidden md:block">這裡不是只教怎麼問 AI，而是幫你建立完整工作流程——從 <span class="text-cyan-200 font-bold">Prompt 與資料整理</span>、<span class="text-violet-200 font-bold">寫作與設計</span>、<span class="text-emerald-200 font-bold">前端開發與自動化</span>，到影像與行銷應用，讓結果能交付、能檢查、能持續優化。</p>
+              <p id="hero-lead-mobile-full" class="ai-page-hero__lead hidden max-md:mt-2">這裡不是只教怎麼問 AI，而是幫你建立完整工作流程——從 <span class="text-cyan-200 font-bold">Prompt 與資料整理</span>、<span class="text-violet-200 font-bold">寫作與設計</span>、<span class="text-emerald-200 font-bold">前端開發與自動化</span>，到影像與行銷應用，讓結果能交付、能檢查、能持續優化。</p>
+              <button type="button" id="hero-lead-toggle" class="md:hidden mt-2 text-xs font-bold text-cyan-200 underline underline-offset-2 decoration-cyan-200/50 hover:text-white" aria-expanded="false">展開完整說明</button>
             </div>
           </div>
         </div>
       </section>
 
       <div class="px-4 lg:px-6 space-y-10">
-        <section id="stuck-where" class="ai-sec bg-white border border-rose-100 scroll-mt-24">
+        <nav class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 -mt-2 md:mt-0" aria-label="快速入口">
+          <a href="#beginner-path" class="ai-quick-entry ai-quick-entry--primary col-span-2 md:col-span-1">我是新手</a>
+          <a href="#outcomes" class="ai-quick-entry">想做作品</a>
+          <a href="#parents" class="ai-quick-entry">給家長看</a>
+        </nav>
+
+        <section id="pain-points" class="ai-sec bg-white border border-rose-100 scroll-mt-32">
           <p class="text-xs font-bold uppercase tracking-wide text-rose-600">常見卡點</p>
           <h2 class="text-2xl font-bold text-slate-900 mt-1">你現在可能卡在哪？</h2>
-          <p class="text-sm text-slate-600 mt-2 leading-relaxed">多數人不是不會用 AI，而是不知道下一步該往哪走。先對照一下，再往下選路線。</p>
-          <div class="grid sm:grid-cols-2 gap-4 mt-5">
-            <div class="rounded-2xl border border-rose-100 bg-rose-50/50 p-4">
+          <p class="ai-sec-guide mt-2">先看看你目前最容易卡在哪。</p>
+          <p class="text-sm text-slate-600 mt-2 leading-relaxed hidden md:block">多數人不是不會用 AI，而是不知道下一步該往哪走。先對照一下，再往下選路線。</p>
+          <p class="md:hidden text-xs text-slate-400 mt-3">左右滑動查看更多 →</p>
+          <div class="ai-h-scroll ai-h-scroll--pain gap-4 mt-3 md:mt-5">
+            <div class="ai-h-scroll-card rounded-2xl border border-rose-100 bg-rose-50/50 p-4">
               <p class="font-bold text-slate-900">只會一句話問 AI</p>
               <p class="mt-1 text-sm text-slate-600 leading-relaxed">每次重新開局，回答品質忽高忽低，很難複製同樣好的結果。</p>
             </div>
-            <div class="rounded-2xl border border-amber-100 bg-amber-50/50 p-4">
+            <div class="ai-h-scroll-card rounded-2xl border border-amber-100 bg-amber-50/50 p-4">
               <p class="font-bold text-slate-900">不知道哪個工具適合自己</p>
               <p class="mt-1 text-sm text-slate-600 leading-relaxed">ChatGPT、Claude、Gemini、影像工具一大堆，不知道先學哪個、用在哪。</p>
             </div>
-            <div class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
+            <div class="ai-h-scroll-card rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
               <p class="font-bold text-slate-900">有答案，但不能交付成作品</p>
               <p class="mt-1 text-sm text-slate-600 leading-relaxed">文字看起來不錯，但放不進網頁、簡報、教案或實際工作流程裡。</p>
             </div>
-            <div class="rounded-2xl border border-violet-100 bg-violet-50/50 p-4">
+            <div class="ai-h-scroll-card rounded-2xl border border-violet-100 bg-violet-50/50 p-4">
               <p class="font-bold text-slate-900">怕 AI 亂講又不會檢查</p>
               <p class="mt-1 text-sm text-slate-600 leading-relaxed">擔心幻覺、版權與個資問題，卻不知道哪裡該人工把關。</p>
             </div>
           </div>
         </section>
 
-        <section id="after-learn" class="ai-sec bg-white border border-emerald-100 scroll-mt-24">
+        <section id="outcomes" class="ai-sec bg-white border border-emerald-100 scroll-mt-32">
           <p class="text-xs font-bold uppercase tracking-wide text-emerald-600">學習成果</p>
           <h2 class="text-2xl font-bold text-slate-900 mt-1">學完後，你能做什麼？</h2>
-          <p class="text-sm text-slate-600 mt-2 leading-relaxed">重點不是背名詞，而是把 AI 放進你真實會用到的工作裡。</p>
-          <div class="grid md:grid-cols-3 gap-4 mt-5">
-            <div class="rounded-2xl border border-cyan-100 bg-cyan-50/50 p-4">
+          <p class="ai-sec-guide mt-2">這裡看學完後可以做出什麼。</p>
+          <p class="text-sm text-slate-600 mt-2 leading-relaxed hidden md:block">重點不是背名詞，而是把 AI 放進你真實會用到的工作裡。</p>
+          <p class="md:hidden text-xs text-slate-400 mt-3">左右滑動查看更多 →</p>
+          <div class="ai-h-scroll ai-h-scroll--outcomes gap-4 mt-3 md:mt-5">
+            <div class="ai-h-scroll-card rounded-2xl border border-cyan-100 bg-cyan-50/50 p-4">
               <p class="font-bold text-cyan-800">做出內容</p>
               <p class="mt-1 text-sm text-slate-600 leading-relaxed">文章、社群貼文、課程大綱、SEO 內容——有結構、有受眾、能改版。</p>
             </div>
-            <div class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
+            <div class="ai-h-scroll-card rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
               <p class="font-bold text-indigo-800">做出網頁</p>
               <p class="mt-1 text-sm text-slate-600 leading-relaxed">HTML、CSS、JS、RWD、CTA 與頁面結構，AI 協助、人類審稿。</p>
             </div>
-            <div class="rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4">
+            <div class="ai-h-scroll-card rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4">
               <p class="font-bold text-emerald-800">做出流程</p>
               <p class="mt-1 text-sm text-slate-600 leading-relaxed">資料整理、開發協作、內容優化、半自動化與檢查流程，知道哪步不能全交給 AI。</p>
             </div>
@@ -135,26 +201,30 @@
 
         <div class="ai-sec bg-white border border-slate-200 space-y-4">
           <h2 class="ai-sec-title">導讀前言</h2>
-          <p class="font-semibold text-indigo-900 leading-relaxed" style="font-size:var(--ai-fs-lead)">現在的 AI 工具很多，新手最容易卡住的，不是不會用，而是不知道該先學哪一個。</p>
-          <p class="text-sm text-slate-700 leading-relaxed">其實不用一開始就研究所有模型，也不用急著把全部功能學完。先選一套工具、完成一個實際成果，比同時學很多東西更重要。</p>
-          <p class="text-sm text-slate-700 leading-relaxed">這個學程會從日常最常見的工作情境開始，帶你理解不同 AI 的用途與差異。你會慢慢知道：</p>
-          <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1 marker:text-indigo-500 leading-relaxed">
-            <li>哪種 AI 適合哪種工作</li>
-            <li>怎麼把問題問得更清楚</li>
-            <li>哪些地方需要人工判斷</li>
-            <li>怎麼把 AI 接進真實工作流程</li>
-          </ul>
-          <p class="text-sm text-violet-800 leading-relaxed">如果你是第一次接觸 AI，建議先從「AI 差異比較」與「Prompt 基礎」開始。不用急著一次看完整份課綱，先完成第一個可交付成果就好。</p>
+          <p class="md:hidden font-semibold text-indigo-900 leading-relaxed text-[15px]">先選一套工具、完成一個實際成果，比同時學很多更重要。</p>
+          <div id="intro-full" class="hidden md:block space-y-4">
+            <p class="font-semibold text-indigo-900 leading-relaxed" style="font-size:var(--ai-fs-lead)">現在的 AI 工具很多，新手最容易卡住的，不是不會用，而是不知道該先學哪一個。</p>
+            <p class="text-sm text-slate-700 leading-relaxed">其實不用一開始就研究所有模型，也不用急著把全部功能學完。先選一套工具、完成一個實際成果，比同時學很多東西更重要。</p>
+            <p class="text-sm text-slate-700 leading-relaxed">這個學程會從日常最常見的工作情境開始，帶你理解不同 AI 的用途與差異。你會慢慢知道：</p>
+            <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1 marker:text-indigo-500 leading-relaxed">
+              <li>哪種 AI 適合哪種工作</li>
+              <li>怎麼把問題問得更清楚</li>
+              <li>哪些地方需要人工判斷</li>
+              <li>怎麼把 AI 接進真實工作流程</li>
+            </ul>
+            <p class="text-sm text-violet-800 leading-relaxed">如果你是第一次接觸 AI，建議先從「AI 差異比較」與「Prompt 基礎」開始。不用急著一次看完整份課綱，先完成第一個可交付成果就好。</p>
+          </div>
+          <button type="button" id="intro-toggle" class="md:hidden text-xs font-bold text-indigo-600 underline underline-offset-2" aria-expanded="false">展開完整說明</button>
         </div>
 
         <div class="ai-nav-bar">
           <p class="ai-card-meta text-slate-500">快速導覽</p>
           <div class="mt-2 flex flex-wrap gap-2 text-sm">
             <a href="#beginner-path" class="ai-nav-pill no-underline">新手路線</a>
-            <a href="#course-m1m8" class="ai-nav-pill no-underline">M1–M8 課綱</a>
+            <a href="#modules" class="ai-nav-pill no-underline">M1–M8 課綱</a>
             <a href="#course-compare" class="ai-nav-pill no-underline">AI 差異比較</a>
             <a href="#course-articles" class="ai-nav-pill no-underline">教學文章</a>
-            <a href="#for-parents" class="ai-nav-pill no-underline">給家長</a>
+            <a href="#parents" class="ai-nav-pill no-underline">給家長</a>
             <button type="button" onclick="openCoursePromptModal()" class="ai-nav-pill bg-slate-900 text-white border-slate-900">複製常用指令</button>
           </div>
         </div>
@@ -166,7 +236,7 @@
           <div class="ai-stat-card border-emerald-100"><p class="text-2xl font-bold text-emerald-600">Agent</p><p class="text-xs font-bold text-slate-600 mt-1">自動化工作流</p></div>
         </div>
 
-        <div id="course-articles" class="ai-sec bg-white border border-cyan-100 space-y-4 scroll-mt-24">
+        <div id="course-articles" class="ai-sec bg-white border border-cyan-100 space-y-4 scroll-mt-32">
           <div class="flex flex-wrap items-end justify-between gap-3">
             <div>
               <p class="text-xs font-bold uppercase tracking-wide text-cyan-700">文章分享 · AI學習地圖</p>
@@ -178,7 +248,7 @@
         </div>
 
         <div id="ai-practice" class="relative -top-24"></div>
-        <div id="course-compare" class="ai-sec bg-white border border-slate-200 space-y-6 scroll-mt-24">
+        <div id="course-compare" class="ai-sec bg-white border border-slate-200 space-y-6 scroll-mt-32">
           <h3 class="text-2xl font-bold text-slate-900">新手先看：你每天在用的 AI，到底差在哪？</h3>
           <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4 text-sm">
             <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
@@ -318,19 +388,24 @@
           </div>
         </div>
 
-        <section id="beginner-path" class="ai-sec bg-white border border-violet-100 scroll-mt-24">
+        <section id="beginner-path" class="ai-sec bg-white border border-violet-100 scroll-mt-32">
           <p class="text-xs font-bold uppercase tracking-wide text-violet-600">從這裡開始</p>
           <h2 class="text-2xl font-bold text-slate-900 mt-1">依照你的目標，選一條路開始</h2>
-          <p class="text-sm text-slate-600 mt-2 leading-relaxed">不用一次學完 M1–M8。先選最接近你現況的路線，完成第一個可交付成果再往下走。</p>
+          <p class="ai-sec-guide mt-2">不用一次學完，先選一條最接近你的路。</p>
+          <p class="text-sm text-slate-600 mt-2 leading-relaxed hidden md:block">先選最接近你現況的路線，完成第一個可交付成果再往下走。</p>
           <div class="grid md:grid-cols-3 gap-4 mt-5">
-            <div class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
-              <p class="font-bold text-indigo-800">路線 A｜AI 新手入門</p>
+            <div class="rounded-2xl border-2 border-indigo-200 bg-indigo-50/70 p-4 shadow-md shadow-indigo-100/50 ring-1 ring-indigo-100">
+              <div class="flex flex-wrap items-center gap-2">
+                <p class="font-bold text-indigo-800">路線 A｜AI 新手入門</p>
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-indigo-600 text-white text-[10px] font-black uppercase tracking-wide">建議新手先走這條</span>
+              </div>
               <ul class="mt-2 space-y-1 text-sm text-slate-700 list-none pl-0 leading-relaxed">
                 <li><strong>M1</strong>：理解 AI 基本原理</li>
                 <li><strong>M2</strong>：學會結構化 Prompt</li>
                 <li><strong>M8</strong>：知道風險與查證方式</li>
               </ul>
               <p class="text-sm text-slate-600 mt-2 leading-relaxed">適合第一次接觸 AI、學生與想先建立正確觀念的人。</p>
+              <a href="ai-practice.html" class="ai-route-cta bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm">開始互動練習</a>
             </div>
             <div class="rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4">
               <p class="font-bold text-emerald-800">路線 B｜網頁與作品實作</p>
@@ -340,6 +415,7 @@
                 <li><strong>M4</strong>：建立半自動工作流</li>
               </ul>
               <p class="text-sm text-slate-600 mt-2 leading-relaxed">適合想做網頁、作品集或把 AI 接進開發流程的人。</p>
+              <a href="tutorial.html" class="ai-route-cta bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm">前往前端實作</a>
             </div>
             <div class="rounded-2xl border border-rose-100 bg-rose-50/50 p-4">
               <p class="font-bold text-rose-800">路線 C｜內容、行銷與影像</p>
@@ -349,20 +425,26 @@
                 <li><strong>M7</strong>：SEO / GEO / 成效追蹤</li>
               </ul>
               <p class="text-sm text-slate-600 mt-2 leading-relaxed">適合內容創作者、行銷人員與需要產出與優化的人。</p>
+              <a href="marketing-seo-geo.html" class="ai-route-cta bg-rose-600 text-white hover:bg-rose-700 shadow-sm">查看 SEO / GEO 實戰</a>
             </div>
           </div>
         </section>
 
-        <div id="course-m1m8" class="space-y-4 scroll-mt-24">
-          <div class="ai-sec bg-white border border-violet-100">
+        <div id="modules" class="space-y-4 scroll-mt-32">
+          <div class="ai-sec bg-white border border-violet-100 scroll-mt-32">
             <p class="text-xs font-bold uppercase tracking-wide text-violet-600">完整課綱</p>
             <h2 class="text-2xl font-bold text-slate-900 mt-1">M1–M8 模組總覽</h2>
-            <p class="text-sm text-slate-600 mt-2 leading-relaxed">每個模組都回答三件事：學什麼、能做什麼、適合誰。</p>
+            <p class="ai-sec-guide mt-2">從基礎概念到工具應用，逐步建立能力。</p>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed hidden md:block">每個模組都回答三件事：學什麼、能做什麼、適合誰。</p>
+            <p class="md:hidden text-xs text-slate-400 mt-2">點模組展開學什麼、能做什麼、適合誰</p>
           </div>
 
           <article class="bg-white p-6 md:p-8 border border-slate-100 border-l-4 border-l-indigo-500">
             <h3 class="text-xl font-bold text-slate-900">M1 · 大語言模型與生成式 AI 原理 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-indigo-50 text-indigo-700">入門</span></h3>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+            <p class="md:hidden text-sm text-slate-600 mt-2 leading-relaxed">搞懂 AI 怎麼運作，以及為什麼會自信說錯。</p>
+            <button type="button" class="ai-module-toggle mt-3" data-module-toggle aria-expanded="false">展開模組詳情</button>
+            <div class="ai-module-body hidden md:block mt-4">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
               <div class="rounded-xl bg-indigo-50 border border-indigo-100 p-4"><p class="font-bold text-indigo-800">學什麼</p><p class="text-slate-700 mt-1 leading-relaxed">Token、上下文視窗、Transformer、幻覺機制、模型類型差異</p></div>
               <div class="rounded-xl bg-indigo-50 border border-indigo-100 p-4"><p class="font-bold text-indigo-800">能做什麼</p><p class="text-slate-700 mt-1 leading-relaxed">解釋 AI 為何會自信說錯，並依任務選對話 / 推理 / 多模態模型</p></div>
               <div class="rounded-xl bg-indigo-50 border border-indigo-100 p-4"><p class="font-bold text-indigo-800">適合誰</p><p class="text-slate-700 mt-1 leading-relaxed">AI 新手、學生、家長、第一次系統學 AI 的人</p></div>
@@ -373,11 +455,15 @@
               <p><strong>需要工具：</strong>ChatGPT 或 Claude 任一即可</p>
               <p><strong>前置基礎：</strong>0 基礎可直接開始（不用會程式）</p>
             </div>
+            </div>
           </article>
 
           <article id="ai-tool" class="bg-white p-6 md:p-8 border border-slate-100 border-l-4 border-l-purple-500">
             <h3 class="text-xl font-bold text-slate-900">M2 · Prompt 工程與 Markdown 工作流 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-purple-50 text-purple-700">入門</span></h3>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+            <p class="md:hidden text-sm text-slate-600 mt-2 leading-relaxed">把需求寫成可重複使用的 Prompt 結構。</p>
+            <button type="button" class="ai-module-toggle mt-3" data-module-toggle aria-expanded="false">展開模組詳情</button>
+            <div class="ai-module-body hidden md:block mt-4">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
               <div class="rounded-xl bg-purple-50 border border-purple-100 p-4"><p class="font-bold text-purple-800">學什麼</p><p class="text-slate-700 mt-1 leading-relaxed">Role、Task、Context、Constraints、Output、Few-shot、Markdown 指令模板</p></div>
               <div class="rounded-xl bg-purple-50 border border-purple-100 p-4"><p class="font-bold text-purple-800">能做什麼</p><p class="text-slate-700 mt-1 leading-relaxed">寫出穩定的文案、教案、網頁需求、圖片提示詞與檢查清單</p></div>
               <div class="rounded-xl bg-purple-50 border border-purple-100 p-4"><p class="font-bold text-purple-800">適合誰</p><p class="text-slate-700 mt-1 leading-relaxed">AI 新手、學生、內容創作者、網站企劃、設計與行銷人員</p></div>
@@ -388,11 +474,15 @@
               <p><strong>需要工具：</strong>Markdown 編輯器 + 任一聊天模型</p>
               <p><strong>前置基礎：</strong>M1 名詞先懂；0 基礎可接觸</p>
             </div>
+            </div>
           </article>
 
           <article class="bg-white p-6 md:p-8 border border-slate-100 border-l-4 border-l-cyan-500">
             <h3 class="text-xl font-bold text-slate-900">M3 · RAG 與企業知識應用 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-cyan-50 text-cyan-700">中階</span></h3>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+            <p class="md:hidden text-sm text-slate-600 mt-2 leading-relaxed">用自家資料做有來源的問答與整理。</p>
+            <button type="button" class="ai-module-toggle mt-3" data-module-toggle aria-expanded="false">展開模組詳情</button>
+            <div class="ai-module-body hidden md:block mt-4">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
               <div class="rounded-xl bg-cyan-50 border border-cyan-100 p-4"><p class="font-bold text-cyan-800">學什麼</p><p class="text-slate-700 mt-1 leading-relaxed">文件切片、向量搜尋、引用回答、知識庫邊界與資料安全</p></div>
               <div class="rounded-xl bg-cyan-50 border border-cyan-100 p-4"><p class="font-bold text-cyan-800">能做什麼</p><p class="text-slate-700 mt-1 leading-relaxed">用自家資料做 FAQ、SOP 查詢、研究摘要，回答附來源</p></div>
               <div class="rounded-xl bg-cyan-50 border border-cyan-100 p-4"><p class="font-bold text-cyan-800">適合誰</p><p class="text-slate-700 mt-1 leading-relaxed">需要整理大量文件的人、小團隊、教學與內部知識管理</p></div>
@@ -403,11 +493,15 @@
               <p><strong>需要工具：</strong>NotebookLM 或企業知識庫工具、可上傳 PDF</p>
               <p><strong>前置基礎：</strong>建議先完成 M1~M2；0 基礎可做概念版</p>
             </div>
+            </div>
           </article>
 
           <article id="ai-game" class="bg-white p-6 md:p-8 border border-slate-100 border-l-4 border-l-violet-500">
             <h3 class="text-xl font-bold text-slate-900">M4 · AI Agent 與自動化 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-violet-50 text-violet-700">中階</span></h3>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+            <p class="md:hidden text-sm text-slate-600 mt-2 leading-relaxed">把重複工作半自動化，並設好人工審核點。</p>
+            <button type="button" class="ai-module-toggle mt-3" data-module-toggle aria-expanded="false">展開模組詳情</button>
+            <div class="ai-module-body hidden md:block mt-4">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
               <div class="rounded-xl bg-violet-50 border border-violet-100 p-4"><p class="font-bold text-violet-800">學什麼</p><p class="text-slate-700 mt-1 leading-relaxed">任務拆解、工具呼叫、Agent 流程、自動化邊界與人工審核點</p></div>
               <div class="rounded-xl bg-violet-50 border border-violet-100 p-4"><p class="font-bold text-violet-800">能做什麼</p><p class="text-slate-700 mt-1 leading-relaxed">把重複步驟半自動化，串搜尋、API、檔案與通知</p></div>
               <div class="rounded-xl bg-violet-50 border border-violet-100 p-4"><p class="font-bold text-violet-800">適合誰</p><p class="text-slate-700 mt-1 leading-relaxed">想把 AI 接進工作流程的上班族、開發者、自學進階者</p></div>
@@ -418,11 +512,15 @@
               <p><strong>需要工具：</strong>Cursor / Copilot / Zapier（三選一先開始）</p>
               <p><strong>前置基礎：</strong>建議先有 M2；0 基礎先做流程圖與權限邊界</p>
             </div>
+            </div>
           </article>
 
           <article class="bg-white p-6 md:p-8 border border-slate-100 border-l-4 border-l-emerald-500">
             <h3 class="text-xl font-bold text-slate-900">M5 · 開發協作（Vibe Coding / Code Review） <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-emerald-50 text-emerald-700">中階</span></h3>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+            <p class="md:hidden text-sm text-slate-600 mt-2 leading-relaxed">用 AI 協作寫網頁，並知道哪裡要人工驗收。</p>
+            <button type="button" class="ai-module-toggle mt-3" data-module-toggle aria-expanded="false">展開模組詳情</button>
+            <div class="ai-module-body hidden md:block mt-4">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
               <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-4"><p class="font-bold text-emerald-800">學什麼</p><p class="text-slate-700 mt-1 leading-relaxed">AI 協作寫碼、Code Review、測試、重構、RWD 與安全檢查</p></div>
               <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-4"><p class="font-bold text-emerald-800">能做什麼</p><p class="text-slate-700 mt-1 leading-relaxed">產出可上線的 HTML/CSS/JS 頁面，並知道哪裡要人工驗收</p></div>
               <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-4"><p class="font-bold text-emerald-800">適合誰</p><p class="text-slate-700 mt-1 leading-relaxed">網頁設計初學者、前端自學者、想把作品做出來的學生</p></div>
@@ -433,11 +531,15 @@
               <p><strong>需要工具：</strong>VS Code / Cursor、瀏覽器 DevTools、Git 基本指令</p>
               <p><strong>前置基礎：</strong>HTML/CSS/JS 基礎；0 基礎先補手冊入門課</p>
             </div>
+            </div>
           </article>
 
           <article class="bg-white p-6 md:p-8 border border-slate-100 border-l-4 border-l-amber-500">
             <h3 class="text-xl font-bold text-slate-900">M6 · 多模態：影像、影片、語音 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-amber-50 text-amber-700">中階</span></h3>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+            <p class="md:hidden text-sm text-slate-600 mt-2 leading-relaxed">產出影像、短片與配音等多媒體內容。</p>
+            <button type="button" class="ai-module-toggle mt-3" data-module-toggle aria-expanded="false">展開模組詳情</button>
+            <div class="ai-module-body hidden md:block mt-4">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
               <div class="rounded-xl bg-amber-50 border border-amber-100 p-4"><p class="font-bold text-amber-800">學什麼</p><p class="text-slate-700 mt-1 leading-relaxed">影像提示詞、短片合成、字幕、配音、風格與構圖控制</p></div>
               <div class="rounded-xl bg-amber-50 border border-amber-100 p-4"><p class="font-bold text-amber-800">能做什麼</p><p class="text-slate-700 mt-1 leading-relaxed">產出主視覺、教學短片、社群素材與可交付的多媒體內容</p></div>
               <div class="rounded-xl bg-amber-50 border border-amber-100 p-4"><p class="font-bold text-amber-800">適合誰</p><p class="text-slate-700 mt-1 leading-relaxed">內容創作者、設計系學生、攝影與影像工作者</p></div>
@@ -448,11 +550,15 @@
               <p><strong>需要工具：</strong>MJ / DALL·E / Runway 擇一，手機或相機做對照拍攝</p>
               <p><strong>前置基礎：</strong>建議先懂曝光三角；0 基礎可先做手機路線</p>
             </div>
+            </div>
           </article>
 
           <article class="bg-white p-6 md:p-8 border border-slate-100 border-l-4 border-l-rose-500">
             <h3 class="text-xl font-bold text-slate-900">M7 · 行銷、SEO 與 GEO <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-rose-50 text-rose-700">可交付</span></h3>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+            <p class="md:hidden text-sm text-slate-600 mt-2 leading-relaxed">讓內容能被找到，並用數據回看成效。</p>
+            <button type="button" class="ai-module-toggle mt-3" data-module-toggle aria-expanded="false">展開模組詳情</button>
+            <div class="ai-module-body hidden md:block mt-4">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
               <div class="rounded-xl bg-rose-50 border border-rose-100 p-4"><p class="font-bold text-rose-800">學什麼</p><p class="text-slate-700 mt-1 leading-relaxed">AI 輔助內容、E-E-A-T、結構化段落、GEO 與 GA4 成效追蹤</p></div>
               <div class="rounded-xl bg-rose-50 border border-rose-100 p-4"><p class="font-bold text-rose-800">能做什麼</p><p class="text-slate-700 mt-1 leading-relaxed">產出可被搜尋與被引用的內容，並用數據回看哪裡要改</p></div>
               <div class="rounded-xl bg-rose-50 border border-rose-100 p-4"><p class="font-bold text-rose-800">適合誰</p><p class="text-slate-700 mt-1 leading-relaxed">自媒體、行銷人員、網站經營者、想把作品被看見的創作者</p></div>
@@ -463,11 +569,15 @@
               <p><strong>需要工具：</strong>Search Console、GA4、內容編輯器</p>
               <p><strong>前置基礎：</strong>M2 結構化提問必備；0 基礎可先做文案流程，不做技術 SEO</p>
             </div>
+            </div>
           </article>
 
           <article class="bg-white p-6 md:p-8 border border-slate-100 border-l-4 border-l-slate-500">
             <h3 class="text-xl font-bold text-slate-900">M8 · 治理、倫理與合規 <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-slate-100 text-slate-700">可交付</span></h3>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+            <p class="md:hidden text-sm text-slate-600 mt-2 leading-relaxed">建立查證習慣，負責任地使用 AI。</p>
+            <button type="button" class="ai-module-toggle mt-3" data-module-toggle aria-expanded="false">展開模組詳情</button>
+            <div class="ai-module-body hidden md:block mt-4">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
               <div class="rounded-xl bg-slate-50 border border-slate-200 p-4"><p class="font-bold text-slate-800">學什麼</p><p class="text-slate-700 mt-1 leading-relaxed">幻覺查證、個資、版權、偏見、深度偽造與企業採用決策</p></div>
               <div class="rounded-xl bg-slate-50 border border-slate-200 p-4"><p class="font-bold text-slate-800">能做什麼</p><p class="text-slate-700 mt-1 leading-relaxed">建立查證習慣與使用規範，知道哪些內容不能直接用</p></div>
               <div class="rounded-xl bg-slate-50 border border-slate-200 p-4"><p class="font-bold text-slate-800">適合誰</p><p class="text-slate-700 mt-1 leading-relaxed">所有人——尤其學生、家長、教師與需要負責任使用 AI 的人</p></div>
@@ -478,10 +588,11 @@
               <p><strong>需要工具：</strong>查證來源、企業資料分級清單、法務或管理規範文件</p>
               <p><strong>前置基礎：</strong>所有階段都應並行學；0 基礎也必學</p>
             </div>
+            </div>
           </article>
         </div>
 
-        <div id="course-next-step" class="ai-sec bg-white border border-indigo-100 scroll-mt-24">
+        <div id="course-next-step" class="ai-sec bg-white border border-indigo-100 scroll-mt-32">
           <h3 class="text-xl font-bold text-slate-900">M1–M8 學完後下一步：依你的起點選路徑</h3>
           <div class="grid md:grid-cols-2 gap-4 mt-4 text-sm">
             <div class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-4">
@@ -513,10 +624,11 @@
           </div>
         </div>
 
-        <section id="for-parents" class="ai-sec bg-white border border-amber-100 scroll-mt-24">
+        <section id="parents" class="ai-sec bg-white border border-amber-100 scroll-mt-32">
           <p class="text-xs font-bold uppercase tracking-wide text-amber-600">給家長</p>
           <h2 class="text-2xl font-bold text-slate-900 mt-1">這不是讓孩子用 AI 抄答案</h2>
-          <p class="text-sm text-slate-700 mt-3 leading-relaxed">很多家長會擔心：孩子用了 AI，作業是不是就不算自己的？這份學習地圖的重點恰恰相反——教孩子怎麼<strong>把問題說清楚、把結果查清楚、把作品做出來</strong>。</p>
+          <p class="ai-sec-guide mt-2">重點不是抄答案，而是訓練表達、判斷與作品能力。</p>
+          <p class="text-sm text-slate-700 mt-3 leading-relaxed hidden md:block">很多家長會擔心：孩子用了 AI，作業是不是就不算自己的？這份學習地圖的重點恰恰相反——教孩子怎麼<strong>把問題說清楚、把結果查清楚、把作品做出來</strong>。</p>
           <div class="grid md:grid-cols-3 gap-4 mt-5">
             <div class="rounded-2xl border border-amber-100 bg-amber-50/50 p-4">
               <p class="font-bold text-amber-800">表達能力</p>
@@ -534,11 +646,18 @@
           <p class="text-sm text-slate-600 mt-4 leading-relaxed">若孩子剛開始，建議先走路線 A（M1 → M2 → M8），並搭配 <a href="ai-practice.html" class="font-bold text-indigo-700 no-underline hover:underline">互動練習</a> 建立查證習慣。</p>
         </section>
 
-        <section id="course-cta" class="border border-indigo-100 bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-600 text-white p-8 md:p-10 scroll-mt-24">
+        <section id="prompt-table" class="ai-sec bg-white border border-slate-200 scroll-mt-32">
+          <p class="text-xs font-bold uppercase tracking-wide text-slate-500">常用指令</p>
+          <h2 class="text-2xl font-bold text-slate-900 mt-1">英文指令速查</h2>
+          <p class="text-sm text-slate-600 mt-2 leading-relaxed max-w-2xl">文案、設計、前端、行銷、影像情境的英文 Prompt 對照表，點一列即可複製貼到 AI 工具使用。</p>
+          <button type="button" onclick="openCoursePromptModal()" class="mt-4 inline-flex items-center px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-bold hover:bg-slate-800 transition-colors">開啟指令對照表</button>
+        </section>
+
+        <section id="course-cta" class="border border-indigo-100 bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-600 text-white p-8 md:p-10 scroll-mt-32">
           <h2 class="ai-sec-title text-white" style="font-size:var(--ai-fs-sec)">準備好了？從這裡開始</h2>
           <p class="mt-2 text-indigo-100 leading-relaxed max-w-2xl" style="font-size:var(--ai-fs-lead)">選一個最接近你現況的入口，先完成一個小成果，再回來對照 M1–M8 往下走。</p>
           <div class="mt-5 flex flex-wrap gap-3">
-            <a href="#course-m1m8" class="ai-cta-btn px-4 py-2 rounded-xl bg-white text-indigo-700 font-bold no-underline hover:bg-indigo-50">查看 M1–M8 課綱</a>
+            <a href="#modules" class="ai-cta-btn px-4 py-2 rounded-xl bg-white text-indigo-700 font-bold no-underline hover:bg-indigo-50">查看 M1–M8 課綱</a>
             <a href="blog/index.html" class="ai-cta-btn px-4 py-2 rounded-xl bg-white/15 border border-white/30 text-white font-bold no-underline hover:bg-white/25">閱讀 AI 教學文章</a>
             <button type="button" onclick="openCoursePromptModal()" class="px-4 py-2 rounded-xl bg-white/15 border border-white/30 text-white font-bold hover:bg-white/25">複製常用指令</button>
           </div>
@@ -656,7 +775,72 @@
           filterPromptTable('course-prompt', btn.getAttribute('data-tab-value') || 'all');
         });
       });
+      initAiMapRail();
+      initHeroLeadToggle();
+      initIntroToggle();
+      initModuleAccordions();
     });
+    function initIntroToggle() {
+      var btn = document.getElementById('intro-toggle');
+      var full = document.getElementById('intro-full');
+      if (!btn || !full) return;
+      btn.addEventListener('click', function() {
+        full.classList.remove('hidden');
+        full.classList.add('block', 'space-y-4', 'mt-3');
+        btn.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      });
+    }
+    function initHeroLeadToggle() {
+      var btn = document.getElementById('hero-lead-toggle');
+      var full = document.getElementById('hero-lead-mobile-full');
+      if (!btn || !full) return;
+      btn.addEventListener('click', function() {
+        var collapsed = full.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        btn.textContent = collapsed ? '展開完整說明' : '收合說明';
+      });
+    }
+    function initModuleAccordions() {
+      document.querySelectorAll('[data-module-toggle]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var article = btn.closest('article');
+          if (!article) return;
+          var body = article.querySelector('.ai-module-body');
+          if (!body) return;
+          var collapsed = body.classList.toggle('hidden');
+          btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+          btn.textContent = collapsed ? '展開模組詳情' : '收合詳情';
+        });
+      });
+    }
+    function initAiMapRail() {
+      var railLinks = document.querySelectorAll('[data-rail-target]');
+      var sections = [];
+      railLinks.forEach(function(link) {
+        var id = link.getAttribute('data-rail-target');
+        var el = document.getElementById(id);
+        if (el) sections.push({ id: id, el: el });
+      });
+      if (!sections.length) return;
+      function syncRailActive() {
+        var offset = typeof getGlobalScrollOffset === 'function' ? getGlobalScrollOffset() : 96;
+        var bestId = sections[0].id;
+        var bestDist = Infinity;
+        sections.forEach(function(item) {
+          var dist = Math.abs(item.el.getBoundingClientRect().top - offset - 16);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestId = item.id;
+          }
+        });
+        railLinks.forEach(function(link) {
+          link.classList.toggle('is-active', link.getAttribute('data-rail-target') === bestId);
+        });
+      }
+      syncRailActive();
+      window.addEventListener('scroll', syncRailActive, { passive: true });
+    }
   </script>
 </body>
 </html>

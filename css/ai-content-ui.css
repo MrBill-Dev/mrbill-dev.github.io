@@ -256,15 +256,15 @@
   border-radius: var(--ai-r-card);
   border-width: 1px;
 }
-#course-m1m8 article.bg-white,
-#course-m1m8 .border-l-4 {
+#modules article.bg-white,
+#modules .border-l-4 {
   border-radius: var(--ai-r-panel);
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.05);
 }
-#course-m1m8 .rounded-xl {
+#modules .rounded-xl {
   border-radius: var(--ai-r-card);
 }
-#course-m1m8 article h3 {
+#modules article h3 {
   font-size: var(--ai-fs-sub);
   font-weight: 800;
 }
