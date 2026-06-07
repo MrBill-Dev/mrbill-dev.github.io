@@ -1213,7 +1213,8 @@ details.rainy-faq-item {
   line-height: 1.55;
 }
 
-.rainy-list-meta {
+.rainy-list-meta,
+.rainy-list-rest {
   display: block;
   margin-top: 0.35rem;
   color: #6a7f97;
@@ -1221,6 +1222,72 @@ details.rainy-faq-item {
   line-height: 1.5;
   font-weight: 500;
 }
+
+.rainy-list-rest { color: #5f7a62; }
+
+.rainy-spot-rest {
+  margin: 0 0 0.55rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.55rem;
+  background: #f6faf7;
+  border: 1px solid #e0ece3;
+  color: #4d6470;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.rainy-spot-rest-label {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0.08rem 0.35rem;
+  border-radius: 999px;
+  background: #e8f3ea;
+  color: #3d6b4a;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.rainy-rest-list {
+  margin: 0.35rem 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.rainy-rest-item {
+  margin: 0 0 0.65rem;
+  padding: 0.65rem 0.7rem;
+  border-radius: 0.65rem;
+  background: #f8fbf9;
+  border: 1px solid #e3ebe5;
+}
+
+.rainy-rest-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+}
+
+.rainy-rest-tag {
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: #eef7ff;
+  color: #1d62b4;
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
+.rainy-rest-note,
+.rainy-rest-meta {
+  margin: 0.35rem 0 0;
+  color: #5a6d80;
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.rainy-rest-meta { color: #6a7f97; font-size: 0.76rem; }
+
+.rainy-rest-disclaimer { margin-top: 0.35rem; }
 
 .rainy-modal-actions {
   display: flex;
