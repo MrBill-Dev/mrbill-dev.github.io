@@ -790,8 +790,8 @@
         <div class="max-w-[90rem] mx-auto px-4 lg:px-6 h-full flex items-end">
           <div class="pb-8 md:pb-12 max-w-4xl">
             <h1 class="text-2xl md:text-4xl font-black leading-tight">📷 <span class="text-amber-200">攝影光影練習室｜從參數到質感的互動學堂</span></h1>
-            <p class="md:hidden mt-3 text-[15px] leading-relaxed text-indigo-100">邊拖滑桿、邊看畫面變化——先從曝光玩起。</p>
-            <p id="photo-hero-lead" class="tutorial-hero-desc hidden max-md:mt-2 md:mt-3 md:block leading-relaxed text-[15px] md:text-base text-indigo-100">攝影不是只看參數，而是理解光線、構圖、焦段與後製之間的關係。這一頁把曝光、對焦、焦段、白平衡、閃燈、RAW 後製與剪映流程做成互動練習，讓你不是背規則，而是看得懂畫面為什麼變好。</p>
+            <p id="photo-hero-teaser" class="md:hidden mt-3 text-[15px] leading-relaxed text-indigo-100">邊拖滑桿、邊看畫面變化——先從曝光玩起。</p>
+            <p id="photo-hero-lead" class="tutorial-hero-desc hidden max-md:mt-2 md:mt-3 md:!block leading-relaxed text-[15px] md:text-base text-indigo-100">攝影不是只看參數，而是理解光線、構圖、焦段與後製之間的關係。這一頁把曝光、對焦、焦段、白平衡、閃燈、RAW 後製與剪映流程做成互動練習，讓你不是背規則，而是看得懂畫面為什麼變好。</p>
             <nav class="photo-hero-quick" aria-label="快速進入練習">
               <button type="button" class="photo-hero-quick-btn" onclick="photoGoToSection('exposure')">先玩曝光</button>
               <button type="button" class="photo-hero-quick-btn" onclick="photoGoToSection('light-lens')">看光線與焦段</button>
@@ -836,21 +836,20 @@
         <div class="space-y-6">
 
     <div id="intro-photography-block" class="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 md:p-8 rounded-2xl border border-purple-100 fade-in-up preface-split">
-      <h3 id="photo-preface-title" class="preface-split-title text-xl md:text-2xl font-black text-purple-950 leading-snug">開始之前｜這頁要怎麼練</h3>
+      <p id="photo-preface-title" class="preface-split-title text-xl md:text-2xl font-black text-purple-950 leading-snug">開始之前｜這頁要怎麼練</p>
       <div id="photo-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
-      <div id="photo-preface-steps" class="grid grid-cols-1 gap-3 text-sm lg:grid-cols-1"></div>
     </div>
 
-    <div id="intro-lighting-block" class="hidden bg-gradient-to-r from-amber-50 to-yellow-50 p-6 md:p-8 rounded-2xl border border-amber-200 fade-in-up preface-split">
-      <h3 id="lighting-preface-title" class="preface-split-title text-xl font-black text-amber-950">💡 打燈布光：六階段由淺入深</h3>
+    <div id="intro-lighting-block" class="hidden bg-gradient-to-r from-amber-50 to-yellow-50 p-6 md:p-8 rounded-2xl border border-amber-200 fade-in-up preface-split" aria-hidden="true">
+      <p id="lighting-preface-title" class="preface-split-title text-xl font-black text-amber-950">💡 打燈布光：六階段由淺入深</p>
       <div id="lighting-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
     </div>
-    <div id="intro-speedlight-block" class="hidden bg-gradient-to-r from-sky-50 to-cyan-50 p-6 md:p-8 rounded-2xl border border-sky-200 fade-in-up preface-split">
-      <h3 id="speedlight-preface-title" class="preface-split-title text-xl font-black text-sky-950">⚡ 機頂閃燈實戰：從反打修正到婚禮佈光</h3>
+    <div id="intro-speedlight-block" class="hidden bg-gradient-to-r from-sky-50 to-cyan-50 p-6 md:p-8 rounded-2xl border border-sky-200 fade-in-up preface-split" aria-hidden="true">
+      <p id="speedlight-preface-title" class="preface-split-title text-xl font-black text-sky-950">⚡ 機頂閃燈實戰：從反打修正到婚禮佈光</p>
       <div id="speedlight-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
     </div>
-    <div id="intro-video-block" class="hidden bg-gradient-to-r from-rose-50 to-orange-50 p-6 md:p-8 rounded-2xl border border-rose-100 fade-in-up preface-split">
-      <h3 id="video-preface-title" class="preface-split-title text-xl md:text-2xl font-black text-rose-950 leading-snug">🎬 拍攝之後：剪映與交付</h3>
+    <div id="intro-video-block" class="hidden bg-gradient-to-r from-rose-50 to-orange-50 p-6 md:p-8 rounded-2xl border border-rose-100 fade-in-up preface-split" aria-hidden="true">
+      <p id="video-preface-title" class="preface-split-title text-xl md:text-2xl font-black text-rose-950 leading-snug">🎬 拍攝之後：剪映與交付</p>
       <div id="video-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
       <ul id="video-preface-why" class="preface-prose text-sm text-slate-700 font-medium list-disc pl-5 space-y-1"></ul>
     </div>
@@ -1519,9 +1518,6 @@
     function renderPrefaces() {
       document.getElementById('photo-preface-title').textContent = photographyPreface.title;
       document.getElementById('photo-preface-body').innerHTML = photographyPreface.contentHtml || '';
-      document.getElementById('photo-preface-steps').innerHTML = (photographyPreface.steps || []).map(s =>
-        `<div class="bg-white/70 rounded-xl p-4 border border-purple-100"><span class="font-black text-purple-800 block mb-1">${s.icon} ${s.title}</span><p class="text-slate-600 leading-relaxed">${s.desc}</p></div>`
-      ).join('');
       document.getElementById('lighting-preface-title').textContent = lightingPreface.title;
       document.getElementById('lighting-preface-body').innerHTML = lightingPreface.contentHtml || '';
       document.getElementById('speedlight-preface-title').textContent = speedlightPreface.title;
@@ -1535,10 +1531,23 @@
       const isVideo = key.startsWith('video_') || key.startsWith('phone_video') || key.startsWith('camera_video');
       const isLighting = key.startsWith('photo_light_');
       const isSpeedlight = key.startsWith('photo_flash_');
-      document.getElementById('intro-video-block').classList.toggle('hidden', !isVideo);
-      document.getElementById('intro-lighting-block').classList.toggle('hidden', !isLighting);
-      document.getElementById('intro-speedlight-block').classList.toggle('hidden', !isSpeedlight);
-      document.getElementById('intro-photography-block').classList.toggle('hidden', isVideo || isLighting || isSpeedlight);
+      var videoBlock = document.getElementById('intro-video-block');
+      var lightingBlock = document.getElementById('intro-lighting-block');
+      var speedlightBlock = document.getElementById('intro-speedlight-block');
+      var photoBlock = document.getElementById('intro-photography-block');
+      if (videoBlock) {
+        videoBlock.classList.toggle('hidden', !isVideo);
+        videoBlock.setAttribute('aria-hidden', isVideo ? 'false' : 'true');
+      }
+      if (lightingBlock) {
+        lightingBlock.classList.toggle('hidden', !isLighting);
+        lightingBlock.setAttribute('aria-hidden', isLighting ? 'false' : 'true');
+      }
+      if (speedlightBlock) {
+        speedlightBlock.classList.toggle('hidden', !isSpeedlight);
+        speedlightBlock.setAttribute('aria-hidden', isSpeedlight ? 'false' : 'true');
+      }
+      if (photoBlock) photoBlock.classList.toggle('hidden', isVideo || isLighting || isSpeedlight);
     }
 
     function renderCapcutGuide(lesson) {
@@ -1980,9 +1989,11 @@
     function initPhotoHeroToggle() {
       var btn = document.getElementById('photo-hero-toggle');
       var full = document.getElementById('photo-hero-lead');
+      var teaser = document.getElementById('photo-hero-teaser');
       if (!btn || !full) return;
       btn.addEventListener('click', function() {
         var collapsed = full.classList.toggle('hidden');
+        if (teaser) teaser.classList.toggle('hidden', !collapsed);
         btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
         btn.textContent = collapsed ? '展開完整說明' : '收合說明';
       });
