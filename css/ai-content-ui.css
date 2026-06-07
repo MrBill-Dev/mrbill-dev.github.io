@@ -626,6 +626,75 @@
   border-radius: var(--ai-r-card);
   border: 1px solid #e2e8f0;
   padding: 1.125rem 1rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.ai-mission-card--indigo { border-color: #c7d2fe; background: linear-gradient(180deg, rgba(238, 242, 255, 0.55) 0%, #fff 42%); }
+.ai-mission-card--emerald { border-color: #a7f3d0; background: linear-gradient(180deg, rgba(236, 253, 245, 0.55) 0%, #fff 42%); }
+.ai-mission-card--amber { border-color: #fde68a; background: linear-gradient(180deg, rgba(254, 243, 199, 0.45) 0%, #fff 42%); }
+.ai-mission-kicker {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+.ai-mission-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.35;
+}
+.ai-mission-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+.ai-mission-badge {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+}
+.ai-mission-badge--diff {
+  border-color: #c7d2fe;
+  background: #eef2ff;
+  color: #4338ca;
+}
+.ai-mission-card--emerald .ai-mission-badge--diff {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  color: #047857;
+}
+.ai-mission-card--amber .ai-mission-badge--diff {
+  border-color: #fde68a;
+  background: #fffbeb;
+  color: #b45309;
+}
+.ai-mission-dl {
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: #475569;
+}
+.ai-mission-dl dt {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #64748b;
+}
+.ai-mission-dl dd {
+  margin: 0.2rem 0 0;
+  color: #334155;
 }
 .ai-module-toggle {
   font-size: 0.75rem;

@@ -52,7 +52,7 @@
   <script src="js/components-loader.js"></script>
   <script src="js/ai-lab.js"></script>
   <style>
-    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 8rem; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
     .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
@@ -76,13 +76,22 @@
           <div class="ai-page-hero__copy">
             <p class="text-sm font-semibold text-violet-200/90">工具頁 · 不是長文課程</p>
             <h1>Prompt 指令工具箱：把模糊需求變成可複製的 AI 指令</h1>
-            <p class="ai-page-hero__lead">不用從空白開始寫 Prompt。先選應用情境，再補上角色、任務、背景、限制與輸出格式，快速產生一份可以直接貼到 AI 使用的 .md 指令稿。</p>
+            <p class="md:hidden text-[15px] leading-relaxed text-indigo-100">先選情境，再補六個欄位，產出可貼上的 .md 指令。</p>
+            <p id="hero-lead-full" class="ai-page-hero__lead hidden md:block">不用從空白開始寫 Prompt。先選應用情境，再補上角色、任務、背景、限制與輸出格式，快速產生一份可以直接貼到 AI 使用的 .md 指令稿。</p>
+            <p id="hero-lead-mobile-full" class="ai-page-hero__lead hidden max-md:mt-2">不用從空白開始寫 Prompt。先選應用情境，再補上角色、任務、背景、限制與輸出格式，快速產生一份可以直接貼到 AI 使用的 .md 指令稿。</p>
+            <button type="button" id="hero-lead-toggle" class="md:hidden mt-2 text-xs font-bold text-violet-200 underline underline-offset-2 decoration-violet-200/50 hover:text-white" aria-expanded="false">展開完整說明</button>
           </div>
         </div>
       </div>
     </section>
 
     <div class="ai-lab-stack px-4 lg:px-6">
+      <nav class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 relative z-10" aria-label="快速入口">
+        <a href="#prompt-scenes" class="ai-quick-entry ai-quick-entry--primary col-span-2 md:col-span-1">選應用情境</a>
+        <a href="#prompt-generator" class="ai-quick-entry">開始產生</a>
+        <a href="#prompt-quality" class="ai-quick-entry">品質檢查</a>
+      </nav>
+
       <div class="ai-lab-subcard border-purple-100 bg-gradient-to-br from-purple-50 via-white to-indigo-50">
         <div class="grid lg:grid-cols-2 gap-6 items-center">
           <div>
@@ -99,7 +108,7 @@
         </div>
       </div>
 
-      <div class="ai-lab-subcard">
+      <div id="prompt-scenes" class="ai-lab-subcard scroll-mt-32">
         <p class="text-xs font-black uppercase tracking-wider text-purple-600">範本分類</p>
         <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">先選你最常做的應用場景</h2>
         <p class="text-sm text-slate-600 mt-2 leading-relaxed">點卡片會跳到下方產生器，並自動切換對應分類。之後再微調六個欄位就好。</p>
@@ -131,7 +140,7 @@
         </div>
       </div>
 
-      <div id="prompt-generator" class="ai-lab-panel space-y-6 scroll-mt-24">
+      <div id="prompt-generator" class="ai-lab-panel space-y-6 scroll-mt-32">
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider text-purple-600 mb-3">Step 1 · 應用分類</label>
           <div id="prompt-cat-bar" class="flex flex-wrap gap-2"></div>
@@ -175,22 +184,12 @@
             <div id="formedPromptOutputContainer" class="w-full min-h-[220px] max-h-[320px] overflow-y-auto overflow-x-auto p-4 rounded-2xl bg-slate-900 text-emerald-300 font-mono text-xs leading-relaxed whitespace-pre-wrap select-all border border-slate-700"></div>
             <div id="prompt-pitfalls" class="p-4 rounded-xl bg-rose-50 border border-rose-100 text-sm text-rose-900 hidden"></div>
             <div id="prompt-sim-response" class="p-4 md:p-5 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 min-h-[160px] text-sm overflow-x-auto"></div>
-
-            <div class="rounded-2xl border border-amber-100 bg-amber-50/60 p-4 md:p-5 text-sm">
-              <p class="font-bold text-amber-900">複製後建議這樣用</p>
-              <ol class="mt-2 list-decimal pl-5 space-y-1.5 text-slate-700 leading-relaxed">
-                <li><strong>第一次：</strong>直接貼上，看 AI 是否理解任務。</li>
-                <li><strong>第二次：</strong>補充你的真實資料或範例。</li>
-                <li><strong>第三次：</strong>要求 AI 修改語氣、格式或細節。</li>
-                <li><strong>第四次：</strong>人工檢查內容，確認是否可交付。</li>
-              </ol>
-            </div>
           </div>
         </div>
       </div>
 
-      <div class="ai-lab-subcard">
-        <p class="text-xs font-black uppercase tracking-wider text-rose-600">品質檢查</p>
+      <div id="prompt-quality" class="ai-lab-subcard scroll-mt-32">
+        <p class="text-xs font-black uppercase tracking-wider text-rose-600">Prompt 品質檢查</p>
         <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">複製前，先檢查這 6 件事</h2>
         <ul class="mt-4 grid sm:grid-cols-2 gap-2 text-sm text-slate-700 leading-relaxed">
           <li class="flex gap-2"><span class="text-slate-400 shrink-0">□</span>有沒有說清楚 AI 的角色？</li>
@@ -207,7 +206,18 @@
           <li class="flex gap-2"><span class="text-slate-400 shrink-0">□</span>是否要求輸出可執行步驟？</li>
           <li class="flex gap-2"><span class="text-slate-400 shrink-0">□</span>是否要求提供檢查表或下一步？</li>
         </ul>
-        <p class="text-sm text-slate-500 mt-4 leading-relaxed">上方「進階技巧」可勾選 CoT、Few-shot、JSON 輸出等，需要時再加，不用一開始就全開。</p>
+        <p class="text-sm text-slate-500 mt-4 leading-relaxed hidden md:block">上方「進階技巧」可勾選 CoT、Few-shot、JSON 輸出等，需要時再加，不用一開始就全開。</p>
+      </div>
+
+      <div id="prompt-copy-guide" class="ai-lab-subcard border-amber-100 bg-gradient-to-br from-amber-50/60 via-white to-violet-50/30 scroll-mt-32">
+        <p class="text-xs font-black uppercase tracking-wider text-amber-700">複製後怎麼用</p>
+        <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">貼到 AI 之後，建議照這 4 輪調整</h2>
+        <ol class="mt-4 grid sm:grid-cols-2 gap-3 text-sm text-slate-700 leading-relaxed">
+          <li class="rounded-xl border border-amber-100 bg-white p-4"><strong class="text-slate-900">第一次：</strong>直接貼上，看 AI 是否理解任務。</li>
+          <li class="rounded-xl border border-amber-100 bg-white p-4"><strong class="text-slate-900">第二次：</strong>補充你的真實資料或範例。</li>
+          <li class="rounded-xl border border-amber-100 bg-white p-4"><strong class="text-slate-900">第三次：</strong>要求 AI 修改語氣、格式或細節。</li>
+          <li class="rounded-xl border border-amber-100 bg-white p-4"><strong class="text-slate-900">第四次：</strong>人工檢查內容，確認是否可交付。</li>
+        </ol>
       </div>
 
       <div class="ai-lab-subcard border-indigo-100 bg-gradient-to-br from-indigo-50/50 via-white to-violet-50/40 text-center">
@@ -228,9 +238,20 @@
       else if (tabId === 'game') window.location.href = 'ai-game-center.html';
       else window.location.href = 'ai-prompt-tool.html';
     }
+    function initHeroLeadToggle() {
+      var btn = document.getElementById('hero-lead-toggle');
+      var full = document.getElementById('hero-lead-mobile-full');
+      if (!btn || !full) return;
+      btn.addEventListener('click', function() {
+        var collapsed = full.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        btn.textContent = collapsed ? '展開完整說明' : '收合說明';
+      });
+    }
     window.addEventListener('DOMContentLoaded', function() {
       includeComponentSlot('global-header', 'components/header.html');
       includeComponentSlot('global-footer', 'components/footer.html');
+      initHeroLeadToggle();
       if (typeof initAiLab === 'function') initAiLab();
     });
   </script>

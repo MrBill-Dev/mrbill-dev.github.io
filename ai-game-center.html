@@ -52,7 +52,7 @@
   <script src="js/components-loader.js"></script>
   <script src="js/ai-lab.js"></script>
   <style>
-    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 8rem; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
     .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
@@ -469,14 +469,23 @@
           <div class="ai-page-hero__copy">
             <p class="text-sm font-semibold text-emerald-200/90">學習型遊戲 · 不是純娛樂頁</p>
             <h1>AI 小遊戲中心：用闖關方式練 AI 判斷力</h1>
-            <p class="ai-page-hero__lead">透過任務闖關、情境決策、工具選擇與雙人協作，把 AI 學習變成一個可以操作、可以討論、可以留下成果的練習過程。</p>
+            <p class="md:hidden text-[15px] leading-relaxed text-emerald-100">用闖關練判斷力，玩完留下 Prompt 與修正版。</p>
+            <p id="hero-lead-full" class="ai-page-hero__lead hidden md:block">透過任務闖關、情境決策、工具選擇與雙人協作，把 AI 學習變成一個可以操作、可以討論、可以留下成果的練習過程。</p>
+            <p id="hero-lead-mobile-full" class="ai-page-hero__lead hidden max-md:mt-2">透過任務闖關、情境決策、工具選擇與雙人協作，把 AI 學習變成一個可以操作、可以討論、可以留下成果的練習過程。</p>
+            <button type="button" id="hero-lead-toggle" class="md:hidden mt-2 text-xs font-bold text-emerald-200 underline underline-offset-2 decoration-emerald-200/50 hover:text-white" aria-expanded="false">展開完整說明</button>
           </div>
         </div>
       </div>
     </section>
 
     <div class="ai-lab-stack px-4 lg:px-6">
-      <div class="ai-lab-panel border-slate-200">
+      <nav class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 relative z-10" aria-label="快速入口">
+        <a href="#game-intro" class="ai-quick-entry ai-quick-entry--primary col-span-2 md:col-span-1">這頁練什麼</a>
+        <a href="#game-categories" class="ai-quick-entry">選遊戲模式</a>
+        <a href="#game-board" class="ai-quick-entry">開始玩</a>
+      </nav>
+
+      <div id="game-intro" class="ai-lab-panel border-slate-200 scroll-mt-32">
         <p class="text-xs font-black uppercase tracking-wider text-emerald-600">學習定位</p>
         <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">這不是單純玩遊戲</h2>
         <p class="text-sm text-slate-600 mt-2 leading-relaxed">而是把 AI 學習拆成一個個小任務。每一關都會練一種能力：</p>
@@ -490,7 +499,7 @@
         </div>
       </div>
 
-      <div class="ai-lab-panel border-slate-200">
+      <div id="game-start-order" class="ai-lab-panel border-slate-200 scroll-mt-32">
         <p class="text-xs font-black uppercase tracking-wider text-emerald-600">第一次玩建議順序</p>
         <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">新手先照這 3 步玩</h2>
         <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
@@ -512,7 +521,7 @@
         </div>
       </div>
 
-      <div class="ai-lab-panel border-slate-200">
+      <div id="game-categories" class="ai-lab-panel border-slate-200 scroll-mt-32">
         <p class="text-xs font-black uppercase tracking-wider text-emerald-600">遊戲分類</p>
         <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">選一種模式開始</h2>
         <p class="text-sm text-slate-600 mt-2 leading-relaxed">點卡片會跳到下方遊戲區並自動切換模式。上方模式列可隨時換關。</p>
@@ -537,7 +546,7 @@
       </div>
 
       <div id="game-mode-bar" class="ai-lab-mode-bar"></div>
-      <div id="game-board" class="ai-lab-panel scroll-mt-24">
+      <div id="game-board" class="ai-lab-panel scroll-mt-32">
         <div class="ai-lab-callout">
           <p class="font-bold text-emerald-900">開始玩之前</p>
           <p class="text-slate-700 mt-1">從上方模式列選關，或點「遊戲分類」卡片。建議新手先玩「下一步指引」→「情境決策」→「工具選擇」。</p>
@@ -634,7 +643,7 @@
         </div>
       </div>
 
-      <div class="ai-lab-panel border-amber-100 bg-gradient-to-br from-amber-50/60 via-white to-emerald-50/40">
+      <div id="game-artifacts" class="ai-lab-panel border-amber-100 bg-gradient-to-br from-amber-50/60 via-white to-emerald-50/40 scroll-mt-32">
         <p class="text-xs font-black uppercase tracking-wider text-amber-700">學習紀錄</p>
         <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-1">遊戲後要留下什麼</h2>
         <p class="text-sm text-slate-600 mt-2 leading-relaxed">每次玩完，建議留下 3 樣東西。遊戲不是玩完就結束，而是會累積成學習紀錄與作品。</p>
@@ -672,9 +681,20 @@
       else if (tabId === 'tool') window.location.href = 'ai-prompt-tool.html';
       else window.location.href = 'ai-game-center.html';
     }
+    function initHeroLeadToggle() {
+      var btn = document.getElementById('hero-lead-toggle');
+      var full = document.getElementById('hero-lead-mobile-full');
+      if (!btn || !full) return;
+      btn.addEventListener('click', function() {
+        var collapsed = full.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        btn.textContent = collapsed ? '展開完整說明' : '收合說明';
+      });
+    }
     window.addEventListener('DOMContentLoaded', function() {
       includeComponentSlot('global-header', 'components/header.html');
       includeComponentSlot('global-footer', 'components/footer.html');
+      initHeroLeadToggle();
       if (typeof initAiLab === 'function') initAiLab();
     });
   </script>
