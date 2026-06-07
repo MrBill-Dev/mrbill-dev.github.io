@@ -1,131 +1,131 @@
-<div class="space-y-3">
-  <div class="flex items-center justify-between gap-2 lg:hidden">
-    <span class="text-sm font-black text-slate-800">章節目錄</span>
-    <button type="button" id="photography-sidebar-close" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold">關閉 ✕</button>
-  </div>
-</div>
-
-<nav class="rounded-xl border border-indigo-100 bg-indigo-50/50 p-3 mb-2" aria-label="練習捷徑">
-  <p class="text-[11px] font-black uppercase tracking-wide text-indigo-700 mb-2">練習捷徑</p>
-  <div class="space-y-1">
-    <button type="button" onclick="photoGoToSection('exposure', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">曝光三角</button>
-    <button type="button" onclick="photoGoToSection('composition', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">構圖與地平線</button>
-    <button type="button" onclick="photoGoToSection('raw-jpg', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">RAW / JPG 與後製</button>
-    <button type="button" onclick="photoGoToSection('flash-light', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">閃燈與光線</button>
-    <button type="button" onclick="photoGoToSection('focal-length', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">焦段與透視</button>
-    <button type="button" onclick="photoGoToSection('white-balance', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">白平衡與色彩</button>
-    <button type="button" onclick="photoGoToSection('histogram', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">直方圖判讀</button>
-    <button type="button" onclick="photoGoToSection('editing-timeline', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">剪映時間軸</button>
-    <button type="button" onclick="photoGoToSection('glossary', this)" class="w-full text-left px-3 py-2.5 rounded-lg bg-indigo-600 text-white text-sm font-bold hover:bg-indigo-700">攝影術語翻譯</button>
-  </div>
-</nav>
-
-<details class="group rounded-xl border border-slate-200 bg-white mb-1">
-  <summary class="cursor-pointer list-none px-3 py-2.5 text-sm font-black text-slate-700 flex items-center justify-between">
-    <span>完整課程目錄</span>
-    <span class="text-slate-400 group-open:rotate-180 transition-transform text-xs">⌄</span>
-  </summary>
-  <div class="px-2 pb-3 space-y-4 max-h-[50vh] overflow-y-auto custom-scrollbar">
-<div>
-  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3">1. 基礎光影與構圖</div>
-  <div class="space-y-1.5">
-    <button onclick="window.loadPhotoLesson('photo_light', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">光與影的魔法視角</button>
-    <button onclick="window.loadPhotoLesson('photo_composition', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">構圖圖解與九宮格</button>
-    <button onclick="window.loadPhotoLesson('photo_level', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">絕對水平線與幾何對齊</button>
-    <button onclick="window.loadPhotoLesson('photo_angle', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">螞蟻與巨人的高低視角</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3">2. 曝光與相機控制</div>
-  <div class="space-y-1.5">
-    <button onclick="window.loadPhotoLesson('photo_aperture', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">貓咪眼睛的瞳孔（光圈）</button>
-    <button onclick="window.loadPhotoLesson('photo_shutter', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">瞬間定身術（快門速度）</button>
-    <button onclick="window.loadPhotoLesson('photo_iso', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">黑暗中的螢火蟲（感光度）</button>
-    <button onclick="window.loadPhotoLesson('photo_triangle', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">曝光三角的蹺蹺板平衡</button>
-    <button onclick="window.loadPhotoLesson('photo_focus', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">放大鏡抓焦點（對焦學）</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-sky-600 uppercase tracking-wider px-2 mb-3">3. 手機拍照專區</div>
-  <div class="space-y-1.5">
-    <button onclick="window.loadPhotoLesson('phone_photo_pro', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">專業模式：手動曝光</button>
-    <button onclick="window.loadPhotoLesson('phone_photo_portrait', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">人像模式：虛化光斑</button>
-    <button onclick="window.loadPhotoLesson('phone_photo_night', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">夜景與螢火蟲（手機）</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-slate-700 uppercase tracking-wider px-2 mb-3">4. 相機拍照專區</div>
-  <div class="space-y-1.5">
-    <button onclick="window.loadPhotoLesson('camera_photo_modes', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">模式轉盤 P／A／S／M</button>
-    <button onclick="window.loadPhotoLesson('camera_photo_fireflies', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">相機拍螢火蟲（長曝光）</button>
-    <button onclick="window.loadPhotoLesson('camera_photo_lens', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">鏡頭焦段與壓縮感</button>
-    <button onclick="window.loadPhotoLesson('camera_photo_flash', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">閃燈與後簾同步</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3">5. 數位影像進階</div>
-  <div class="space-y-1.5">
-    <button onclick="window.loadPhotoLesson('photo_raw_vs_jpg', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">RAW 與 JPG 寬容度</button>
-    <button onclick="window.loadPhotoLesson('photo_histogram', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">直方圖客觀科學</button>
-    <button onclick="window.loadPhotoLesson('photo_lens', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">定焦與變焦光學視野</button>
-    <button onclick="window.loadPhotoLesson('photo_wb', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">白平衡（色溫 K 值）</button>
-    <button onclick="window.loadPhotoLesson('photo_curtain_sync', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">婚禮後簾同步魔術</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-amber-600 uppercase tracking-wider px-2 mb-3">6. 打燈布光（六階段）</div>
-  <div class="space-y-1.5">
-    <button onclick="window.loadPhotoLesson('photo_light_s1', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">① 理解基本組件</button>
-    <button onclick="window.loadPhotoLesson('photo_light_s2', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">② 單燈直射</button>
-    <button onclick="window.loadPhotoLesson('photo_light_s3', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">③ 雙燈佈光：立體感</button>
-    <button onclick="window.loadPhotoLesson('photo_light_s4', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">④ 與背景分離</button>
-    <button onclick="window.loadPhotoLesson('photo_light_s5', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">⑤ 專業背景分離</button>
-    <button onclick="window.loadPhotoLesson('photo_light_s6', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">⑥ 三燈佈光：勾邊光</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-sky-700 uppercase tracking-wider px-2 mb-3">7. 機頂閃燈實戰</div>
-  <div class="space-y-2">
-    <div class="px-2 pt-0.5 text-[11px] font-black text-sky-600 tracking-wide">第 1 階段 · 基礎</div>
-    <button onclick="window.loadPhotoLesson('photo_flash_u1', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 1 · 單燈反打牆壁</button>
-    <div class="px-2 pt-1 text-[11px] font-black text-sky-600 tracking-wide">第 2 階段 · 多燈配置</div>
-    <button onclick="window.loadPhotoLesson('photo_flash_u2', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 2 · 雙機頂對稱佈光</button>
-    <button onclick="window.loadPhotoLesson('photo_flash_u3', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 3 · 三點佈光（立體）</button>
-    <div class="px-2 pt-1 text-[11px] font-black text-sky-600 tracking-wide">第 3 階段 · 柔光道具</div>
-    <button onclick="window.loadPhotoLesson('photo_flash_u4', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 4 · 柔光傘（透光 vs 反光）</button>
-    <button onclick="window.loadPhotoLesson('photo_flash_u5', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 5 · 柔光箱與蜂巢格柵</button>
-    <div class="px-2 pt-1 text-[11px] font-black text-sky-600 tracking-wide">第 4 階段 · 實戰主題</div>
-    <button onclick="window.loadPhotoLesson('photo_flash_u6', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 6 · 戶外 HSS 補光</button>
-    <button onclick="window.loadPhotoLesson('photo_flash_u7', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 7 · 婚禮純白背景</button>
-    <div class="px-2 pt-1 text-[11px] font-black text-violet-600 tracking-wide">第 5 階段 · 經典打燈法</div>
-    <button onclick="window.loadPhotoLesson('photo_flash_u8', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 8 · 環形光 (Loop)</button>
-    <button onclick="window.loadPhotoLesson('photo_flash_u9', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 9 · 林布蘭光＋反光板</button>
-    <button onclick="window.loadPhotoLesson('photo_flash_u10', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 10 · 分割光 (Split)</button>
-    <button onclick="window.loadPhotoLesson('photo_flash_u11', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 11 · 劇場夾光 (Rim)</button>
-  </div>
-</div>
-<div>
-  <div class="text-xs font-bold text-rose-600 uppercase tracking-wider px-2 mb-3">8. 錄影與剪映剪輯</div>
-  <div class="space-y-2">
-    <div class="px-2 pt-1 pb-0.5 text-[11px] font-black text-rose-500 tracking-wide">新手先做</div>
-    <button onclick="window.loadPhotoLesson('phone_video_basic', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-700 bg-rose-50 border border-rose-100 hover:bg-rose-100/70 transition-colors">手機錄影</button>
-    <button onclick="window.loadPhotoLesson('camera_video_manual', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">相機錄影</button>
-    <button onclick="window.loadPhotoLesson('video_capcut_import', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪輯入門篇</button>
-    <button onclick="window.loadPhotoLesson('video_capcut_advanced', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪輯進階篇：5 大核心</button>
-
-    <details class="group rounded-xl border border-slate-200 bg-white">
-      <summary class="cursor-pointer list-none px-3 py-2 text-sm font-black text-slate-700 flex items-center justify-between">
-        <span>進階升級（做完新手再看）</span>
-        <span class="text-slate-400 group-open:rotate-180 transition-transform">⌄</span>
-      </summary>
-      <div class="px-2 pb-2 space-y-1.5">
-        <button onclick="window.loadPhotoLesson('video_shoot_framing', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">錄影構圖 16:9／9:16</button>
-        <button onclick="window.loadPhotoLesson('video_capcut_transition', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映轉場節奏</button>
-        <button onclick="window.loadPhotoLesson('video_capcut_color', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映調色白平衡</button>
-      </div>
-    </details>
-  </div>
-</div>
-  </div>
-</details>
+<div class="space-y-3">
+  <div class="flex items-center justify-between gap-2 lg:hidden">
+    <span class="text-sm font-black text-slate-800">練習目錄</span>
+    <button type="button" id="photography-sidebar-close" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold">關閉 ✕</button>
+  </div>
+</div>
+
+<nav class="rounded-xl border border-indigo-100 bg-indigo-50/50 p-3 mb-2" aria-label="練習捷徑">
+  <p class="text-[11px] font-black uppercase tracking-wide text-indigo-700 mb-2">練習捷徑</p>
+  <div class="space-y-1">
+    <button type="button" onclick="photoGoToSection('exposure', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">曝光三角</button>
+    <button type="button" onclick="photoGoToSection('composition', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">構圖與地平線</button>
+    <button type="button" onclick="photoGoToSection('raw-jpg', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">RAW / JPG 與後製</button>
+    <button type="button" onclick="photoGoToSection('flash-light', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">閃燈與光線</button>
+    <button type="button" onclick="photoGoToSection('focal-length', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">焦段與透視</button>
+    <button type="button" onclick="photoGoToSection('white-balance', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">白平衡與色彩</button>
+    <button type="button" onclick="photoGoToSection('histogram', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">直方圖判讀</button>
+    <button type="button" onclick="photoGoToSection('editing-timeline', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg bg-white border border-indigo-100 text-indigo-900 text-sm font-bold hover:bg-indigo-50">剪映時間軸</button>
+    <button type="button" onclick="photoGoToSection('glossary', this)" class="w-full text-left px-3 py-2.5 rounded-lg bg-indigo-600 text-white text-sm font-bold hover:bg-indigo-700">攝影術語翻譯</button>
+  </div>
+</nav>
+
+<details class="group rounded-xl border border-slate-200 bg-white mb-1">
+  <summary class="cursor-pointer list-none px-3 py-2.5 text-sm font-black text-slate-700 flex items-center justify-between">
+    <span>完整課程目錄</span>
+    <span class="text-slate-400 group-open:rotate-180 transition-transform text-xs">⌄</span>
+  </summary>
+  <div class="px-2 pb-3 space-y-4 max-h-[50vh] overflow-y-auto custom-scrollbar">
+<div>
+  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3">1. 基礎光影與構圖</div>
+  <div class="space-y-1.5">
+    <button onclick="window.loadPhotoLesson('photo_light', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">光與影的魔法視角</button>
+    <button onclick="window.loadPhotoLesson('photo_composition', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">構圖圖解與九宮格</button>
+    <button onclick="window.loadPhotoLesson('photo_level', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">絕對水平線與幾何對齊</button>
+    <button onclick="window.loadPhotoLesson('photo_angle', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">螞蟻與巨人的高低視角</button>
+  </div>
+</div>
+<div>
+  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3">2. 曝光與相機控制</div>
+  <div class="space-y-1.5">
+    <button onclick="window.loadPhotoLesson('photo_aperture', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">貓咪眼睛的瞳孔（光圈）</button>
+    <button onclick="window.loadPhotoLesson('photo_shutter', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">瞬間定身術（快門速度）</button>
+    <button onclick="window.loadPhotoLesson('photo_iso', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">黑暗中的螢火蟲（感光度）</button>
+    <button onclick="window.loadPhotoLesson('photo_triangle', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">曝光三角的蹺蹺板平衡</button>
+    <button onclick="window.loadPhotoLesson('photo_focus', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">放大鏡抓焦點（對焦學）</button>
+  </div>
+</div>
+<div>
+  <div class="text-xs font-bold text-sky-600 uppercase tracking-wider px-2 mb-3">3. 手機拍照專區</div>
+  <div class="space-y-1.5">
+    <button onclick="window.loadPhotoLesson('phone_photo_pro', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">專業模式：手動曝光</button>
+    <button onclick="window.loadPhotoLesson('phone_photo_portrait', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">人像模式：虛化光斑</button>
+    <button onclick="window.loadPhotoLesson('phone_photo_night', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">夜景與螢火蟲（手機）</button>
+  </div>
+</div>
+<div>
+  <div class="text-xs font-bold text-slate-700 uppercase tracking-wider px-2 mb-3">4. 相機拍照專區</div>
+  <div class="space-y-1.5">
+    <button onclick="window.loadPhotoLesson('camera_photo_modes', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">模式轉盤 P／A／S／M</button>
+    <button onclick="window.loadPhotoLesson('camera_photo_fireflies', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">相機拍螢火蟲（長曝光）</button>
+    <button onclick="window.loadPhotoLesson('camera_photo_lens', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">鏡頭焦段與壓縮感</button>
+    <button onclick="window.loadPhotoLesson('camera_photo_flash', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">閃燈與後簾同步</button>
+  </div>
+</div>
+<div>
+  <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-3">5. 數位影像進階</div>
+  <div class="space-y-1.5">
+    <button onclick="window.loadPhotoLesson('photo_raw_vs_jpg', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">RAW 與 JPG 寬容度</button>
+    <button onclick="window.loadPhotoLesson('photo_histogram', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">直方圖客觀科學</button>
+    <button onclick="window.loadPhotoLesson('photo_lens', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">定焦與變焦光學視野</button>
+    <button onclick="window.loadPhotoLesson('photo_wb', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">白平衡（色溫 K 值）</button>
+    <button onclick="window.loadPhotoLesson('photo_curtain_sync', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">婚禮後簾同步魔術</button>
+  </div>
+</div>
+<div>
+  <div class="text-xs font-bold text-amber-600 uppercase tracking-wider px-2 mb-3">6. 打燈布光（六階段）</div>
+  <div class="space-y-1.5">
+    <button onclick="window.loadPhotoLesson('photo_light_s1', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">① 理解基本組件</button>
+    <button onclick="window.loadPhotoLesson('photo_light_s2', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">② 單燈直射</button>
+    <button onclick="window.loadPhotoLesson('photo_light_s3', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">③ 雙燈佈光：立體感</button>
+    <button onclick="window.loadPhotoLesson('photo_light_s4', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">④ 與背景分離</button>
+    <button onclick="window.loadPhotoLesson('photo_light_s5', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">⑤ 專業背景分離</button>
+    <button onclick="window.loadPhotoLesson('photo_light_s6', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">⑥ 三燈佈光：勾邊光</button>
+  </div>
+</div>
+<div>
+  <div class="text-xs font-bold text-sky-700 uppercase tracking-wider px-2 mb-3">7. 機頂閃燈實戰</div>
+  <div class="space-y-2">
+    <div class="px-2 pt-0.5 text-[11px] font-black text-sky-600 tracking-wide">第 1 階段 · 基礎</div>
+    <button onclick="window.loadPhotoLesson('photo_flash_u1', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 1 · 單燈反打牆壁</button>
+    <div class="px-2 pt-1 text-[11px] font-black text-sky-600 tracking-wide">第 2 階段 · 多燈配置</div>
+    <button onclick="window.loadPhotoLesson('photo_flash_u2', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 2 · 雙機頂對稱佈光</button>
+    <button onclick="window.loadPhotoLesson('photo_flash_u3', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 3 · 三點佈光（立體）</button>
+    <div class="px-2 pt-1 text-[11px] font-black text-sky-600 tracking-wide">第 3 階段 · 柔光道具</div>
+    <button onclick="window.loadPhotoLesson('photo_flash_u4', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 4 · 柔光傘（透光 vs 反光）</button>
+    <button onclick="window.loadPhotoLesson('photo_flash_u5', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 5 · 柔光箱與蜂巢格柵</button>
+    <div class="px-2 pt-1 text-[11px] font-black text-sky-600 tracking-wide">第 4 階段 · 實戰主題</div>
+    <button onclick="window.loadPhotoLesson('photo_flash_u6', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 6 · 戶外 HSS 補光</button>
+    <button onclick="window.loadPhotoLesson('photo_flash_u7', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 7 · 婚禮純白背景</button>
+    <div class="px-2 pt-1 text-[11px] font-black text-violet-600 tracking-wide">第 5 階段 · 經典打燈法</div>
+    <button onclick="window.loadPhotoLesson('photo_flash_u8', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 8 · 環形光 (Loop)</button>
+    <button onclick="window.loadPhotoLesson('photo_flash_u9', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 9 · 林布蘭光＋反光板</button>
+    <button onclick="window.loadPhotoLesson('photo_flash_u10', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 10 · 分割光 (Split)</button>
+    <button onclick="window.loadPhotoLesson('photo_flash_u11', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">單元 11 · 劇場夾光 (Rim)</button>
+  </div>
+</div>
+<div>
+  <div class="text-xs font-bold text-rose-600 uppercase tracking-wider px-2 mb-3">8. 錄影與剪映剪輯</div>
+  <div class="space-y-2">
+    <div class="px-2 pt-1 pb-0.5 text-[11px] font-black text-rose-500 tracking-wide">新手先做</div>
+    <button onclick="window.loadPhotoLesson('phone_video_basic', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-700 bg-rose-50 border border-rose-100 hover:bg-rose-100/70 transition-colors">手機錄影</button>
+    <button onclick="window.loadPhotoLesson('camera_video_manual', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">相機錄影</button>
+    <button onclick="window.loadPhotoLesson('video_capcut_import', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪輯入門篇</button>
+    <button onclick="window.loadPhotoLesson('video_capcut_advanced', this)" class="photo-nav-btn w-full text-left px-4 py-3 rounded-xl text-base font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪輯進階篇：5 大核心</button>
+
+    <details class="group rounded-xl border border-slate-200 bg-white">
+      <summary class="cursor-pointer list-none px-3 py-2 text-sm font-black text-slate-700 flex items-center justify-between">
+        <span>進階升級（做完新手再看）</span>
+        <span class="text-slate-400 group-open:rotate-180 transition-transform">⌄</span>
+      </summary>
+      <div class="px-2 pb-2 space-y-1.5">
+        <button onclick="window.loadPhotoLesson('video_shoot_framing', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">錄影構圖 16:9／9:16</button>
+        <button onclick="window.loadPhotoLesson('video_capcut_transition', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映轉場節奏</button>
+        <button onclick="window.loadPhotoLesson('video_capcut_color', this)" class="photo-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">剪映調色白平衡</button>
+      </div>
+    </details>
+  </div>
+</div>
+  </div>
+</details>
 

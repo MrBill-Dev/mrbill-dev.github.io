@@ -822,18 +822,24 @@
     <div id="photo-shell" class="tutorial-shell">
       <div id="photography-sidebar-col" class="tutorial-sidebar-col">
         <div id="photography-sidebar-spacer" class="tutorial-sidebar-spacer" aria-hidden="true"></div>
-        <aside id="photography-sidebar" class="tutorial-sidebar custom-scrollbar space-y-5" aria-label="課程目錄"></aside>
+        <aside id="photography-sidebar" class="tutorial-sidebar custom-scrollbar space-y-5" aria-label="練習目錄"></aside>
       </div>
 
       <div class="tutorial-workspace">
         <div class="tutorial-sidebar-toggle-bar lg:hidden">
-          <button type="button" id="photography-sidebar-open" class="course-chapter-fab-btn" aria-controls="photography-sidebar" aria-expanded="false" aria-label="開啟章節目錄">
+          <button type="button" id="photography-sidebar-open" class="course-chapter-fab-btn" aria-controls="photography-sidebar" aria-expanded="false" aria-label="開啟練習目錄">
             <span class="course-chapter-fab-emoji" aria-hidden="true">📷</span>
-            <span class="course-chapter-fab-label">章節目錄</span>
+            <span class="course-chapter-fab-label">練習目錄</span>
           </button>
         </div>
 
         <div class="space-y-6">
+
+    <section id="photo-extension-handbook" class="space-y-3" aria-labelledby="photo-extension-handbook-label">
+      <div class="px-1">
+        <p id="photo-extension-handbook-label" class="text-xs font-black uppercase tracking-wider text-purple-600">延伸手冊</p>
+        <p class="text-sm text-slate-500 mt-1">依你目前練的主題，顯示對應的進階閱讀說明。</p>
+      </div>
 
     <div id="intro-photography-block" class="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 md:p-8 rounded-2xl border border-purple-100 fade-in-up preface-split">
       <p id="photo-preface-title" class="preface-split-title text-xl md:text-2xl font-black text-purple-950 leading-snug">開始之前｜這頁要怎麼練</p>
@@ -853,6 +859,7 @@
       <div id="video-preface-body" class="preface-prose text-base text-slate-700 font-medium"></div>
       <ul id="video-preface-why" class="preface-prose text-sm text-slate-700 font-medium list-disc pl-5 space-y-1"></ul>
     </div>
+    </section>
 
       <div id="lesson-main-column" class="flex-1 min-w-0 w-full space-y-6 scroll-mt-20">
         
@@ -871,7 +878,7 @@
           <div class="border-b border-slate-100 pb-4">
             <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-700 tracking-wide uppercase mb-1">互動練習區</span>
             <h2 id="dynamic-mode-title" class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">邊拖滑桿，邊看畫面怎麼變</h2>
-            <p class="text-sm text-slate-500 mt-1 leading-relaxed">從左側練習捷徑或章節目錄進入，在這裡動手調。拖完看預覽與下方回饋。</p>
+            <p class="text-sm text-slate-500 mt-1 leading-relaxed">從左側練習捷徑或練習目錄進入，在這裡動手調。拖完看預覽與下方回饋。</p>
           </div>
 
           <details id="photo-module-guide" open class="hidden rounded-2xl border border-indigo-100 bg-indigo-50/40 p-4 md:p-5 photo-module-guide--collapsible">
@@ -1187,10 +1194,16 @@
             </div>
           </div>
         </div>
-        
+
+        <section id="photo-lesson-handbook" class="space-y-4 scroll-mt-24" aria-labelledby="photo-lesson-handbook-label">
+          <div class="px-1">
+            <p class="text-xs font-black uppercase tracking-wider text-indigo-600">進階攝影手冊</p>
+            <h2 id="photo-lesson-handbook-label" class="text-lg md:text-xl font-black text-slate-900 mt-1">延伸閱讀</h2>
+            <p class="text-sm text-slate-500 mt-1">互動練完後，可往下讀本章導讀、燈位圖與實戰提醒。</p>
+          </div>
         <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6">
           <span id="lesson-flash-stage" class="hidden inline-flex px-3 py-1 rounded-full text-xs font-black tracking-wide bg-sky-100 text-sky-800 border border-sky-200"></span>
-          <h3 id="photo-title" class="text-3xl font-black text-slate-900 tracking-tight">⚡ 8. 曝光三角的蹺蹺板平衡（Exposure Triangle）</h3>
+          <h3 id="photo-title" class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">⚡ 8. 曝光三角的蹺蹺板平衡（Exposure Triangle）</h3>
           <div class="w-full h-0.5 bg-slate-100 rounded-full"></div>
 
           <div id="lesson-chapter-read" class="hidden p-5 rounded-2xl bg-indigo-50/80 border border-indigo-100 space-y-2">
@@ -1235,6 +1248,7 @@
             <button id="lesson-next-btn" type="button" class="px-4 py-2 rounded-xl border border-indigo-200 text-indigo-700 font-bold text-sm bg-indigo-50 hover:bg-indigo-100 text-left"></button>
           </div>
         </div>
+        </section>
 
       </div>
 
@@ -1252,7 +1266,7 @@
       <div class="mt-5 flex flex-col sm:flex-row flex-wrap justify-center gap-2.5">
         <a href="ai-learning-map.html" class="photo-footer-cta__btn bg-indigo-600 text-white hover:bg-indigo-700">查看 AI 學習地圖</a>
         <a href="blog/" class="photo-footer-cta__btn bg-white text-slate-800 border border-slate-200 hover:bg-slate-50">閱讀文章筆記</a>
-        <button type="button" onclick="photoOpenChapterNav()" class="photo-footer-cta__btn bg-white text-indigo-700 border border-indigo-200 hover:bg-indigo-50">回到章節目錄</button>
+        <button type="button" onclick="photoOpenChapterNav()" class="photo-footer-cta__btn bg-white text-indigo-700 border border-indigo-200 hover:bg-indigo-50">回到練習目錄</button>
       </div>
     </div>
   </section>
