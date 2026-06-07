@@ -15,14 +15,32 @@
   font-size: 0.94rem;
   min-width: 0;
   max-width: 100%;
-  overflow-x: clip;
-  word-break: normal;
-  overflow-wrap: anywhere;
+  overflow-x: hidden;
+  width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-wrap: wrap;
+  -webkit-text-size-adjust: 100%;
 }
 
 .rainy-family-prose.blog-main.blog-prose {
-  word-break: normal;
-  overflow-wrap: anywhere;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-wrap: wrap;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.rainy-family-prose.blog-main.blog-prose h2,
+.rainy-family-prose.blog-main.blog-prose h3,
+.rainy-family-prose.blog-main.blog-prose h4 {
+  text-wrap: wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .rainy-article * { box-sizing: border-box; }
@@ -47,17 +65,21 @@
 
 .rainy-text-list .rainy-inline-link,
 .rainy-box .rainy-inline-link {
-  display: inline;
+  display: inline-block;
   padding: 0.1rem 0.45rem;
-  margin: 0 0.05rem;
+  margin: 0.08rem 0.05rem;
   border-radius: 0.45rem;
   background: #eef7ff;
   border: 1px solid rgba(47, 128, 237, 0.22);
   text-decoration: none;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
-  overflow-wrap: anywhere;
-  word-break: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
   max-width: 100%;
+  vertical-align: baseline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 .rainy-text-list .rainy-inline-link::after,
@@ -80,8 +102,9 @@
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
   cursor: pointer;
-  overflow-wrap: anywhere;
-  word-break: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
   max-width: 100%;
 }
 
@@ -135,8 +158,9 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   margin: 0 0 0.65rem;
   color: var(--rainy-deep);
   font-weight: 900;
-  overflow-wrap: anywhere;
-  word-break: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
   max-width: 100%;
 }
 
@@ -145,8 +169,9 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   line-height: 1.35;
   color: var(--rainy-deep);
   font-weight: 700;
-  overflow-wrap: anywhere;
-  word-break: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
   max-width: 100%;
 }
 
@@ -155,8 +180,9 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   color: var(--rainy-muted);
   font-size: 0.92rem;
   line-height: 1.72;
-  overflow-wrap: anywhere;
-  word-break: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
   max-width: 100%;
 }
 
@@ -246,6 +272,13 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   align-items: flex-start;
   margin-bottom: 0.65rem;
   min-width: 0;
+  max-width: 100%;
+}
+
+.rainy-weather-head > div {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .rainy-weather-head h2 {
@@ -261,7 +294,8 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   font-weight: 800;
   font-size: 0.72rem;
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
   max-width: 100%;
   text-align: left;
 }
@@ -313,7 +347,8 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
 .rainy-data-item span,
 .rainy-data-item strong {
   min-width: 0;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .rainy-weather-select { display: grid; gap: 0.35rem; margin-top: 0.55rem; }
@@ -507,7 +542,7 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   box-shadow: 0 12px 32px rgba(20,45,80,.07);
   min-width: 0;
   max-width: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 .rainy-box p,
@@ -516,8 +551,9 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
 .rainy-decision p {
   color: #4d6078;
   font-size: 0.9rem;
-  overflow-wrap: anywhere;
-  word-break: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .rainy-box p { margin-top: 0; }
@@ -556,7 +592,8 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   min-height: 8.75rem;
   min-width: 0;
   max-width: 100%;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .rainy-scenario-grid span,
@@ -580,8 +617,9 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif;
   letter-spacing: 0.01em;
   color: #2a3f58;
-  overflow-wrap: anywhere;
-  word-break: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .rainy-scenario-grid p,
@@ -750,7 +788,7 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
 }
 
 .rainy-spot-type {
-  display: inline-flex;
+  display: inline-block;
   max-width: 100%;
   padding: 0.18rem 0.42rem;
   border-radius: 999px;
@@ -760,7 +798,7 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   font-weight: 900;
   margin-bottom: 0.45rem;
   line-height: 1.35;
-  word-break: keep-all;
+  word-break: break-word;
   white-space: normal;
 }
 
@@ -782,7 +820,7 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   font-weight: 900;
   text-align: left;
   cursor: pointer;
-  word-break: keep-all;
+  word-break: break-word;
 }
 
 .rainy-spot-title-btn:hover {
@@ -935,8 +973,9 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   font-weight: 750;
   color: #324862;
   font-size: 0.78rem;
-  overflow-wrap: anywhere;
-  word-break: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .rainy-route-card.featured .rainy-step { background: rgba(255,255,255,.12); color: #fff; }
@@ -993,7 +1032,8 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   color: #1d62b4;
   font-weight: 900;
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
   text-align: right;
 }
 
@@ -1277,8 +1317,9 @@ details.rainy-faq-item {
   font-size: 0.78rem;
   line-height: 1.55;
   font-weight: 500;
-  overflow-wrap: anywhere;
-  word-break: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
   max-width: 100%;
 }
 
@@ -1474,8 +1515,9 @@ details.rainy-faq-item {
   .rainy-weather-desc,
   .rainy-notice p,
   .rainy-term-link {
-    overflow-wrap: anywhere;
-    word-break: normal;
+    overflow-wrap: break-word;
+  word-wrap: break-word;
+    word-break: break-word;
   }
 
   .rainy-text-list li {
@@ -1484,14 +1526,15 @@ details.rainy-faq-item {
 
   .rainy-spot-title,
   .rainy-spot-title-btn {
-    word-break: normal;
-    overflow-wrap: anywhere;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  word-wrap: break-word;
     padding-right: 0;
   }
 
   .rainy-spot-type {
     white-space: normal;
-    word-break: normal;
+    word-break: break-word;
   }
 
   .rainy-filter-bar {
@@ -1505,8 +1548,9 @@ details.rainy-faq-item {
 
   .rainy-faq-item summary,
   .rainy-faq-item p {
-    overflow-wrap: anywhere;
-    word-break: normal;
+    overflow-wrap: break-word;
+  word-wrap: break-word;
+    word-break: break-word;
   }
 
   .rainy-faq-item p {
@@ -1517,6 +1561,83 @@ details.rainy-faq-item {
   .rainy-article select {
     font-size: 0.8rem;
     white-space: normal;
+  }
+}
+
+/* iOS Safari：修正 keep-all / text-wrap: pretty 導致中文長句不換行 */
+@supports (-webkit-touch-callout: none) {
+  .rainy-family-prose.blog-main.blog-prose,
+  .rainy-family-prose .rainy-article {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-wrap: wrap;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  .rainy-article :is(
+    p,
+    li,
+    h2,
+    h3,
+    h4,
+    span,
+    a,
+    button,
+    label,
+    summary,
+    strong,
+    .rainy-section-desc,
+    .rainy-lead,
+    .rainy-list-meta,
+    .rainy-list-rest,
+    .rainy-rain-advice,
+    .rainy-weather-hint,
+    .rainy-weather-desc,
+    .rainy-data-item,
+    .rainy-link-row
+  ) {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-wrap: wrap;
+    max-width: 100%;
+  }
+
+  .rainy-list-meta,
+  .rainy-list-rest {
+    word-break: break-all;
+  }
+
+  .rainy-box,
+  .rainy-text-list,
+  .rainy-avoid,
+  .rainy-decision,
+  .rainy-weather,
+  .rainy-scenario-grid article,
+  .rainy-quick-grid article,
+  .rainy-route-card,
+  .rainy-info-panel,
+  .rainy-section,
+  .rainy-section-head {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .rainy-weather-head > div,
+  .rainy-link-row span,
+  .rainy-data-item span,
+  .rainy-data-item strong {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .rainy-article select {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
