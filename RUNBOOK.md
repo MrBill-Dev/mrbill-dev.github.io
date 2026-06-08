@@ -331,3 +331,147 @@ npx wrangler dev
 - 換 Worker 網址
 - 換 ADMIN_TOKEN
 - 新增靜態文章或改版型規則
+
+---
+
+## 十二、備份／匯出匯入（搬家必看）
+
+目標：就算換 Cloudflare 帳號、換收費方案、換空間，也能把站完整搬走。
+
+### 12.1 需要備份的內容
+
+| 類型 | 備份內容 | 建議頻率 |
+|------|----------|----------|
+| 程式碼 | GitHub repo（`main`） | 每次功能完成就 push |
+| 資料庫 | D1 匯出 SQL（文章、設定、統計） | 每週或重大更新前後 |
+| 金鑰 | `ADMIN_TOKEN`、Cloudflare API Token（只存密碼管理器） | 變更時立即更新 |
+
+### 12.2 D1 匯出（備份）
+
+在 `backend/mrbill-worker` 執行：
+
+```powershell
+cd backend\mrbill-worker
+$env:CLOUDFLARE_API_TOKEN = "你的權杖"
+$env:NODE_TLS_REJECT_UNAUTHORIZED = "0"
+npx wrangler d1 export mrbill-stats --remote --output .\backups\mrbill-stats-YYYYMMDD.sql
+```
+
+> 若 `d1 export` 因 wrangler 版本不同不可用，改用 Cloudflare D1 Console 匯出 SQL。
+
+### 12.3 搬到新空間（匯入）
+
+1. 在新 Cloudflare 帳號建立 Worker + D1。  
+2. 匯入備份 SQL：
+
+```powershell
+cd backend\mrbill-worker
+$env:CLOUDFLARE_API_TOKEN = "新帳號權杖"
+$env:NODE_TLS_REJECT_UNAUTHORIZED = "0"
+npx wrangler d1 execute <新DB名稱> --remote --file=.\backups\mrbill-stats-YYYYMMDD.sql
+npx wrangler deploy
+```
+
+3. 更新 API endpoint（3 個檔案）：
+   - `js/blog-articles.config.js`
+   - `js/blog-stats.config.js`
+   - `js/admin/admin.config.local.js`（本機）
+
+4. 驗證：
+   - `blog/index.html` 列表有資料
+   - `blog/post.html?slug=...` 可讀
+   - `admin.html` 可登入儲存
+   - 喜歡數可加總
+
+### 12.4 備份檔放哪裡
+
+- 建議路徑：`backend/mrbill-worker/backups/`
+- 建議檔名：`mrbill-stats-YYYYMMDD.sql`
+- 建議：備份檔不要公開；可上傳到私有雲端或私有 repo release asset
+
+---
+
+## 十三、讓 Cursor 接手的最短模板
+
+跨公司／家裡環境時，請用這段開場，避免浪費額度：
+
+```text
+專案：MrBill-Dev（GitHub Pages + Cloudflare Worker + D1）
+請先讀 RUNBOOK.md，不要全專案掃描。
+
+目前狀態：
+- 分支：main
+- 最新 commit：<貼 git log -1>
+- GitHub push：已/未
+- Worker deploy：已/未
+- D1 migration：v2/v3/v4
+
+這次要做：
+<一句話需求>
+
+錯誤訊息（完整）：
+<貼錯誤全文>
+
+只看這些檔案：
+<最多 3~5 個路徑>
+```
+
+要求 Cursor 先回覆：
+
+1. 目前狀態理解
+2. 第一個要檢查的檔案
+3. 第一個要執行的命令或修改
+
+---
+
+## 十四、每週 5 分鐘備份例行表
+
+> 建議時間：每週五下班前，或重大改文／改後端前後各做一次。  
+> 全部做完約 5 分鐘；D1 匯出若網路慢可能多 1～2 分鐘。
+
+### 本週日期：__________　地點：公司 / 家裡
+
+| # | 項目 | 勾選 | 備註 |
+|---|------|------|------|
+| 1 | `git status -sb` 工作區乾淨（或已 commit） | ☐ | |
+| 2 | `git push` 已推到 GitHub | ☐ | commit：__________ |
+| 3 | D1 匯出備份（見下方指令） | ☐ | 檔名：__________ |
+| 4 | 備份檔已存到安全位置（非公開） | ☐ | 路徑：__________ |
+| 5 | 更新 RUNBOOK **第二節** 勾選狀態 | ☐ | deploy / migration |
+| 6 | `admin.config.local.js` 仍存在本機、未進 Git | ☐ | |
+| 7 | 密碼管理器有最新 `ADMIN_TOKEN` 紀錄 | ☐ | 僅在換密碼時 |
+
+### 快速指令（複製即用）
+
+```powershell
+# 1～2：確認並推送
+cd <專案路徑>
+git status -sb
+git log -1 --oneline
+# 若有未 push：GitHub Desktop Push 或 git push
+
+# 3：D1 匯出
+cd backend\mrbill-worker
+mkdir backups -ErrorAction SilentlyContinue
+$env:CLOUDFLARE_API_TOKEN = "你的權杖"
+$env:NODE_TLS_REJECT_UNAUTHORIZED = "0"
+$date = Get-Date -Format "yyyyMMdd"
+npx wrangler d1 export mrbill-stats --remote --output ".\backups\mrbill-stats-$date.sql"
+```
+
+### 什麼時候要「加做」
+
+| 情境 | 加做 |
+|------|------|
+| 剛改 Worker / 跑 migration | 匯出後立刻 `wrangler deploy`，並在 RUNBOOK 記 migration 版本 |
+| 剛換 `ADMIN_TOKEN` | 更新密碼管理器 + 兩邊 `admin.config.local.js` |
+| 公司與家裡要切換維護 | 先 push + 匯出，另一邊 `git pull` 再開工 |
+| 準備搬家／換 Cloudflare 帳號 | 照 **第十二節** 完整走一輪 |
+
+### 給 Cursor 的週例行提示（可選）
+
+```text
+請先讀 RUNBOOK.md 第十四節，協助我完成本週備份例行表。
+不要全專案掃描。先看 git 狀態，再確認 D1 匯出指令是否成功。
+```
+
