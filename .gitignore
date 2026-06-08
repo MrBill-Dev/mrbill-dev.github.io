@@ -8,3 +8,11 @@ blog/README.md
 AGENTS.md
 docs/
 .cursor/
+
+# 後端建置產物（GitHub Desktop 不應出現這些）
+node_modules/
+.wrangler/
+backend/MrBill.Api/bin/
+backend/MrBill.Api/obj/
+backend/MrBill.Api/publish/
+backend/MrBill.Api/App_Data/

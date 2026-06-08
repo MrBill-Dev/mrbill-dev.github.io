@@ -1,0 +1,15 @@
+name = "mrbill-stats"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# 第一次 deploy 後會得到：https://mrbill-stats.<你的帳號>.workers.dev/api
+# 把網址填進 js/blog-stats.config.js 的 production
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mrbill-stats"
+# 執行 `npx wrangler d1 create mrbill-stats` 後，把輸出的 database_id 貼到下一行：
+database_id = "34ec918b-072a-423d-ab96-925a673f4c4b"
+
+[vars]
+CANONICAL_ORIGIN = "https://mrbill-dev.github.io"

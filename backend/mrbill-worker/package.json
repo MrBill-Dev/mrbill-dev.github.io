@@ -1,0 +1,13 @@
+{
+  "name": "mrbill-worker",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "db:init": "wrangler d1 execute mrbill-stats --local --file=./schema.sql",
+    "db:seed": "wrangler d1 execute mrbill-stats --local --file=./seed.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^3.99.0"
+  }
+}

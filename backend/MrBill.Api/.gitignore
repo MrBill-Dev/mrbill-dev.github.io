@@ -1,0 +1,7 @@
+bin/
+obj/
+publish/
+App_Data/*.db
+App_Data/*.db-*
+*.user
+.vs/

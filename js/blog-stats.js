@@ -5,7 +5,9 @@
  * - 按「我也喜歡」：POST +1（同裝置每篇一次）
  * - 切回分頁：GET 僅讀取最新數字（不再 +1）
  */
-var BLOG_STATS_API = "https://bsz.saop.cc/api";
+var BLOG_STATS_API =
+  (typeof window !== "undefined" && window.BLOG_STATS_API) ||
+  "http://localhost:5088/api";
 
 function getBlogLikeCountEl() {
   return (
