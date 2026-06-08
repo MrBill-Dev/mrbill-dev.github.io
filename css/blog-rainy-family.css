@@ -157,9 +157,7 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
 
 .rainy-article h2,
 .rainy-box > h2,
-.rainy-section-head > h2,
-.rainy-decision > h2,
-.rainy-share h2 {
+.rainy-section-head > h2 {
   font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
   font-size: clamp(1.32rem, 2.7vw, 1.78rem);
   line-height: 1.32;
@@ -177,12 +175,19 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
 .rainy-family-prose.blog-main.blog-prose .rainy-article h2,
 .rainy-family-prose.blog-main.blog-prose .rainy-box > h2,
 .rainy-family-prose.blog-main.blog-prose .rainy-section-head > h2,
-.rainy-family-prose.blog-main.blog-prose .rainy-decision > h2,
-.rainy-family-prose.blog-main.blog-prose .rainy-share h2,
 .rainy-family-prose.blog-main.blog-prose .rainy-weather-head h2 {
   font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
   letter-spacing: 0.02em;
   font-weight: 900;
+}
+
+/* 深藍底區塊：標題必須白字，蓋過 blog-layout 全域 h2 深色 */
+.rainy-family-prose.blog-main.blog-prose .rainy-decision > h2,
+.rainy-family-prose.blog-main.blog-prose .rainy-share h2 {
+  font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  letter-spacing: 0.02em;
+  font-weight: 900;
+  color: #fff;
 }
 
 .rainy-article h3 {
@@ -583,7 +588,6 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
 .rainy-box strong,
 .rainy-text-list strong,
 .rainy-avoid strong,
-.rainy-decision strong { color: var(--rainy-deep); }
 
 .rainy-box ul,
 .rainy-text-list ol,
