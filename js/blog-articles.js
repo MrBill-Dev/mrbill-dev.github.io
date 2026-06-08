@@ -38,10 +38,10 @@ const BLOG_LEGACY_FEATURED_SLUGS = {
 const BLOG_ARTICLES = [
   {
     slug: "taipei-newtaipei-rainy-day-family",
-    title: "台北、新北下雨天親子景點推薦",
+    title: "北部下雨天好去處｜台北、新北親子室內景點推薦",
     subtitle: "室內備案、即時天氣、路線與地圖｜家長收藏版",
     excerpt:
-      "下雨天不知道帶小孩去哪？整理雙北室內親子景點、依雨勢路線、年齡建議、官方連結與地圖導航，適合週末、暑假與臨時雨天收藏。",
+      "整理北部下雨天好去處，精選台北、新北適合親子的室內景點、博物館、親子館、圖書館、百貨商場與雨天備案，依雨勢、年齡、交通與停留時間快速選擇。",
     label: "親子 / 生活",
     audience: "台北、新北有家長，週末或雨天臨時要帶小孩出門的人",
     category: "生活觀察",
