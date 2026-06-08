@@ -123,8 +123,8 @@ https://mrbill-stats.billhuang19get.workers.dev
 | `js/blog-stats.config.js` | `BLOG_STATS_API` | 喜歡數 |
 | `js/admin/admin.config.local.js` | `MRBILL_ADMIN` | **後台專用**（本機，gitignore） |
 
-前台兩個 config **已寫死 production 網址**，公司預覽站與 GitHub 正式站共用同一 Worker。  
-本機 `localhost` 開發時會自動改連 `http://localhost:8787`。
+前台兩個 config **已寫死 production 網址**，本機 Live Server、公司預覽站與 GitHub 正式站**共用同一雲端 Worker**（家裡不需 wrangler dev）。  
+本機若出現 `Failed to fetch`：確認 Live Server 為 `http://localhost`（任意 port 皆可，Worker CORS 已放行），且已 `wrangler deploy` 含 localhost CORS 的版本。
 
 ### 3.3 後台本機設定（必做一次，不推 Git）
 
@@ -359,6 +359,7 @@ npx wrangler deploy
 
 | 現象 | 可能原因 | 解法 |
 |------|----------|------|
+| 後台／預覽 `Failed to fetch` | CORS 或 API 指到本機 8787 | 確認 `blog-articles.config.js` 為雲端網址；本機用 `http://localhost` 開站；Worker 需 deploy 含 localhost CORS 版 |
 | 後台 401 Unauthorized | Token 錯或未設 | 檢查 `admin.config.local.js` 與 Cloudflare `ADMIN_TOKEN` 是否相同 |
 | 儲存失敗 `no such column: title_font` | DB 未升級 | 跑 `migrate-articles-v4.sql` + deploy |
 | 選明體但前台沒變 | Worker 舊版或未 deploy | `wrangler deploy`；強制重新整理 `post.html` |

@@ -5,6 +5,20 @@ const ALLOWED_ORIGINS = [
   "http://127.0.0.1:5500"
 ];
 
+/** 本機 Live Server 任意 port（僅 http://localhost、127.0.0.1） */
+function isLocalDevOrigin(origin) {
+  if (!origin) return false;
+  try {
+    const u = new URL(origin);
+    return (
+      u.protocol === "http:" &&
+      (u.hostname === "localhost" || u.hostname === "127.0.0.1")
+    );
+  } catch {
+    return false;
+  }
+}
+
 const MAX_BODY_BYTES = 512 * 1024;
 const MAX_AUTH_FAILURES = 8;
 const AUTH_WINDOW_MINUTES = 15;
@@ -19,7 +33,10 @@ const LEGACY_STATIC_SLUGS = new Set([
 
 function corsHeaders(request, extra) {
   const origin = request.headers.get("Origin") || "";
-  const allow = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  const allow =
+    ALLOWED_ORIGINS.includes(origin) || isLocalDevOrigin(origin)
+      ? origin
+      : ALLOWED_ORIGINS[0];
   return Object.assign(
     {
       "Access-Control-Allow-Origin": allow,
