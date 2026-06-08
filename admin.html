@@ -7,7 +7,7 @@
   <title>文章內容管理｜Mr.Bill 數位實驗室</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/blog-layout.css" />
-  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/admin.css?v=block-a2" />
 </head>
 <body class="admin-body text-slate-800 antialiased">
 
@@ -239,25 +239,54 @@
           <div class="admin-form-section">
             <p class="admin-section-title">正文</p>
             <div class="admin-field">
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-                <label for="contentHtml">正文 HTML（版型與靜態 4 篇相同）</label>
-                <div class="admin-snippet-toolbar flex flex-wrap gap-2 items-center">
-                  <select id="admin-snippet-select" class="!w-auto"></select>
-                  <button type="button" id="admin-snippet-insert">插入區塊</button>
-                  <button type="button" id="admin-snippet-reset">重設開場版型</button>
+              <div class="admin-block-editor__toolbar">
+                <div class="admin-block-editor__modes">
+                  <button type="button" id="admin-editor-mode-blocks" class="admin-mode-btn is-active">區塊編輯</button>
+                  <button type="button" id="admin-editor-mode-html" class="admin-mode-btn">HTML 進階</button>
                 </div>
+                <select id="admin-block-add-select" class="admin-block-add-select" aria-label="新增區塊">
+                  <option value="">＋ 新增區塊…</option>
+                  <option value="intro">開場章節</option>
+                  <option value="section">白底章節卡</option>
+                  <option value="faq">常見問題 FAQ</option>
+                  <option value="bridge">章節轉場</option>
+                  <option value="callout">重點提示框</option>
+                  <option value="compare">前後對照</option>
+                  <option value="code">程式碼／Prompt</option>
+                  <option value="image">內文圖片</option>
+                  <option value="lesson">課程重點帶</option>
+                  <option value="pillars">四欄重點卡</option>
+                </select>
               </div>
-              <details class="admin-help-details">
-                <summary>版型怎麼對齊靜態 4 篇？</summary>
-                <ul class="mt-2 space-y-1 list-disc pl-4 leading-relaxed">
-                  <li><strong>不用寫</strong>頁首、封面大圖、右欄、上下篇——<code>blog/post.html</code> 會自動載入。</li>
-                  <li>常用白底卡 class：<code>scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8</code></li>
-                  <li>儲存後用右側 <strong>預覽文章／首頁／列表</strong>；滑到底按儲存時，畫面下方會顯示結果提示。</li>
-                  <li><strong>SEO／GEO</strong>：上方「摘要」「封面」→ 搜尋與分享顯圖；文末插入「常見問題 FAQ」區塊 → 自動產 FAQ 結構化資料（不必另填欄位）。</li>
-                  <li>預覽文章時（須已登入後台）頁首會出現 <strong>「SEO／分享預覽檢查」</strong> 摺疊列，可直接對照 title、og:image、FAQ 題數。</li>
-                </ul>
-              </details>
-              <textarea id="contentHtml" name="contentHtml" placeholder="按「新增」會帶入開場版型；也可用上方按鈕插入區塊。"></textarea>
+              <p class="admin-field-hint mb-3">區塊模式：常見版型（開場、轉場、對照、課程帶、四欄卡等）可直接編輯並即時預覽；深色面板、領域卡等複合版型仍請用 HTML 進階。</p>
+
+              <div id="admin-block-editor-panel" class="admin-block-editor__layout">
+                <div class="admin-block-editor__preview-wrap">
+                  <p class="admin-block-editor__preview-label">版型預覽</p>
+                  <iframe id="admin-content-preview" class="admin-block-editor__preview" title="正文版型預覽"></iframe>
+                </div>
+                <div id="admin-block-list" class="admin-block-editor__blocks"></div>
+              </div>
+
+              <div id="admin-html-editor-panel" class="hidden">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-1 mt-2">
+                  <label for="contentHtml">正文 HTML</label>
+                  <div class="admin-snippet-toolbar flex flex-wrap gap-2 items-center">
+                    <select id="admin-snippet-select" class="!w-auto"></select>
+                    <button type="button" id="admin-snippet-insert">插入區塊</button>
+                    <button type="button" id="admin-snippet-reset">重設開場版型</button>
+                  </div>
+                </div>
+                <details class="admin-help-details">
+                  <summary>版型怎麼對齊靜態 4 篇？</summary>
+                  <ul class="mt-2 space-y-1 list-disc pl-4 leading-relaxed">
+                    <li><strong>不用寫</strong>頁首、封面大圖、右欄、上下篇——<code>blog/post.html</code> 會自動載入。</li>
+                    <li>儲存後用上方 <strong>預覽文章</strong> 看完整頁；區塊模式左側為正文版型預覽。</li>
+                    <li>文末加 <strong>FAQ 區塊</strong> → 自動產 FAQ 結構化資料。</li>
+                  </ul>
+                </details>
+                <textarea id="contentHtml" name="contentHtml" placeholder="HTML 進階模式：直接編輯原始碼。"></textarea>
+              </div>
             </div>
             <div class="admin-form-actions">
               <button type="submit">儲存</button>
@@ -278,6 +307,7 @@
   <script src="js/admin/admin.config.example.js"></script>
   <script src="js/admin/admin.config.local.js"></script>
   <script src="js/admin/blog-content-snippets.js"></script>
-  <script src="js/admin/admin-app.js?v=title-font-1"></script>
+  <script src="js/admin/blog-block-editor.js?v=block-a2"></script>
+  <script src="js/admin/admin-app.js?v=block-a2"></script>
 </body>
 </html>

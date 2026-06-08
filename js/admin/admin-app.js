@@ -40,6 +40,7 @@
     homeStripSettingsSave: document.getElementById("home-strip-settings-save")
   };
 
+  var blockEditor = null;
   var statusToastTimer = null;
 
   function setStatus(msg, isError) {
@@ -669,6 +670,7 @@
     field("homeMarquee").checked = !!a.homeMarquee;
     field("homeCarousel").checked = !!a.homeCarousel;
     field("contentHtml").value = a.contentHtml || "";
+    if (blockEditor) blockEditor.loadFromHtml(a.contentHtml || "");
     updateArticleLinksFromForm();
     highlightActiveListItem(a.slug);
   }
@@ -734,6 +736,15 @@
     var key = els.snippetSelect ? els.snippetSelect.value : "";
     var snippet = getBlogSnippets()[key];
     if (!snippet || !field("contentHtml")) return;
+    if (blockEditor && blockEditor.getMode() === "blocks") {
+      var appended = blockEditor.appendFromHtml(snippet);
+      if (appended.ok) {
+        setStatus("已插入「" + (getBlogSnippetLabels()[key] || key) + "」區塊");
+        return;
+      }
+      if (appended.message) setStatus(appended.message, true);
+      return;
+    }
     insertAtTextarea(field("contentHtml"), snippet);
     setStatus("已插入「" + (getBlogSnippetLabels()[key] || key) + "」區塊");
   }
@@ -746,7 +757,12 @@
     ) {
       return;
     }
-    field("contentHtml").value = getStarterContentHtml();
+    if (blockEditor && blockEditor.getMode() === "blocks") {
+      blockEditor.resetToDefault();
+    } else {
+      field("contentHtml").value = getStarterContentHtml();
+      if (blockEditor) blockEditor.loadFromHtml(field("contentHtml").value);
+    }
     setStatus("已套用開場版型");
   }
 
@@ -756,7 +772,8 @@
     field("slug").readOnly = false;
     field("status").value = "draft";
     field("readMins").value = 5;
-    if (field("contentHtml")) field("contentHtml").value = getStarterContentHtml();
+    if (blockEditor) blockEditor.resetToDefault();
+    else if (field("contentHtml")) field("contentHtml").value = getStarterContentHtml();
     if (field("date") && !field("date").value) {
       field("date").value = new Date().toISOString().slice(0, 10);
     }
@@ -768,6 +785,7 @@
   }
 
   function collectForm() {
+    if (blockEditor) blockEditor.syncToTextarea();
     return {
       slug: field("slug").value.trim(),
       title: field("title").value.trim(),
@@ -867,9 +885,16 @@
     }
     if (els.form) {
       els.form.addEventListener("submit", saveForm);
-      els.form.addEventListener("change", function () {
+      els.form.addEventListener("change", function (ev) {
         updateArticleLinksFromForm();
         updateDeleteButton();
+        if (
+          blockEditor &&
+          ev.target &&
+          (ev.target.id === "titleFont" || ev.target.name === "titleFont")
+        ) {
+          blockEditor.refreshPreview();
+        }
       });
     }
     if (els.deleteBtn) els.deleteBtn.addEventListener("click", deleteArticle);
@@ -894,6 +919,23 @@
     }
     if (els.snippetReset) {
       els.snippetReset.addEventListener("click", resetStarterTemplate);
+    }
+
+    if (window.MRBILL_BLOG_BLOCK_EDITOR) {
+      blockEditor = window.MRBILL_BLOG_BLOCK_EDITOR.init({
+        textarea: field("contentHtml"),
+        blockListEl: document.getElementById("admin-block-list"),
+        previewIframe: document.getElementById("admin-content-preview"),
+        blockPanel: document.getElementById("admin-block-editor-panel"),
+        htmlPanel: document.getElementById("admin-html-editor-panel"),
+        modeBlocksBtn: document.getElementById("admin-editor-mode-blocks"),
+        modeHtmlBtn: document.getElementById("admin-editor-mode-html"),
+        addBlockSelect: document.getElementById("admin-block-add-select"),
+        getTitleFont: function () {
+          var f = field("titleFont");
+          return f && f.value === "serif" ? "serif" : "sans";
+        }
+      });
     }
 
     if (isAsciiToken(getToken())) {
