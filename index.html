@@ -50,8 +50,30 @@
 <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/components-loader.js"></script>
   <script src="js/ai-lab.js"></script>
-  <link rel="stylesheet" href="css/home-rain-recommend.css" />
-  <script src="js/home-rain-recommend.js"></script>
+  <link rel="stylesheet" href="css/home-rain-recommend.css?v=strip-loop-4" />
+  <link rel="stylesheet" href="css/home-article-carousel.css" />
+  <style>
+    .home-preview-banner {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      padding: 10px 16px;
+      background: #fef3c7;
+      color: #92400e;
+      border-bottom: 1px solid #fcd34d;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    body.has-home-preview-banner #global-header {
+      top: 2.75rem;
+    }
+  </style>
+  <script src="js/mrbill-admin-session.js"></script>
+  <script src="js/blog-articles.config.js"></script>
+  <script src="js/home-strip.config.js"></script>
+  <script src="js/home-rain-recommend.js?v=strip-loop-4"></script>
+  <script src="js/home-articles-feed.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -386,23 +408,18 @@
 </head>
 <body class="site-colorful has-ai-update-fab text-slate-800 antialiased min-h-screen flex flex-col text-lg">
 
+  <div id="home-preview-banner" class="home-preview-banner hidden" role="status"></div>
+
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
   <div id="homeRainRecommendSpacer" class="home-blog-strip-spacer hidden" aria-hidden="true"></div>
   <div id="homeRainRecommend" class="home-blog-strip hidden" aria-label="文章筆記生活觀察" data-rain-mode="default">
     <div class="home-blog-strip__surface">
-      <span class="home-blog-strip__accent" aria-hidden="true"></span>
-      <span class="home-blog-strip__shine" aria-hidden="true"></span>
-      <div class="home-blog-strip__inner px-4 lg:px-6">
-      <span id="rainRecommendKicker" class="home-blog-strip__kicker"><span class="home-blog-strip__dot" aria-hidden="true"></span>文章筆記</span>
-      <span id="rainRecommendHint" class="home-blog-strip__hint" aria-live="polite">延伸閱讀｜爸媽可先收藏</span>
-      <span id="rainRecommendBadge" class="home-blog-strip__pill">生活觀察</span>
-      <p id="rainRecommendTitle" class="home-blog-strip__title">雙北雨天親子景點懶人包｜文章筆記，適合家長先收藏</p>
-      <span id="rainRecommendMeta" class="home-blog-strip__meta hidden md:inline">非課程主線，屬延伸閱讀</span>
-      <a id="rainRecommendLink" href="blog/taipei-newtaipei-rainy-day-family.html" class="home-blog-strip__cta">
-        <span id="rainRecommendCta">閱讀筆記 →</span>
-      </a>
-      <a href="blog/index.html" class="home-blog-strip__more">更多筆記</a>
+      <div class="home-blog-strip__viewport">
+        <div id="homeBlogStripTrack" class="home-blog-strip__track"></div>
+      </div>
+      <div id="homeBlogStripNav" class="home-blog-strip__nav hidden" aria-hidden="true">
+        <div id="homeBlogStripDots" class="home-blog-strip__dots"></div>
       </div>
     </div>
   </div>
@@ -449,6 +466,24 @@
   <main class="max-w-[90rem] mx-auto px-4 lg:px-6 py-8 flex-grow w-full">
 
     <section id="sect-home" class="tab-content hidden space-y-16 pb-16">
+      <section id="homeArticleCarousel" class="home-article-carousel reveal-block hidden" aria-label="精選文章輪播">
+        <div class="home-article-carousel__head">
+          <div>
+            <p class="home-article-carousel__kicker">Featured Articles</p>
+            <h2 class="home-article-carousel__title">精選文章輪播</h2>
+          </div>
+          <a href="blog/index.html" class="home-article-carousel__more">更多筆記 →</a>
+        </div>
+        <div class="home-article-carousel__viewport">
+          <div id="homeArticleCarouselTrack" class="home-article-carousel__track"></div>
+        </div>
+        <div class="home-article-carousel__nav">
+          <button id="homeArticleCarouselPrev" type="button" class="home-article-carousel__btn" aria-label="上一則">‹</button>
+          <div id="homeArticleCarouselDots" class="home-article-carousel__dots"></div>
+          <button id="homeArticleCarouselNext" type="button" class="home-article-carousel__btn" aria-label="下一則">›</button>
+        </div>
+      </section>
+
       <div class="reveal-block bg-white border border-indigo-200 rounded-3xl p-5 md:p-6 space-y-5">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div>

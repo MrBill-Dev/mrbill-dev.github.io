@@ -1,0 +1,5 @@
+-- 列表版型與標籤欄位（執行一次即可）
+ALTER TABLE articles ADD COLUMN list_style TEXT NOT NULL DEFAULT 'auto';
+ALTER TABLE articles ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE articles ADD COLUMN badge_popular INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE articles ADD COLUMN badge_trending INTEGER NOT NULL DEFAULT 0;

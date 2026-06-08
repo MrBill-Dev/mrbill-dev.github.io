@@ -29,6 +29,11 @@ const BLOG_INDEX = {
   heroCover: "assets/blog-index-hero.jpg"
 };
 
+/** 靜態精選：永遠以列表大卡呈現（不受動態文章影響） */
+const BLOG_LEGACY_FEATURED_SLUGS = {
+  "taipei-newtaipei-rainy-day-family": true
+};
+
 const BLOG_ARTICLES = [
   {
     slug: "taipei-newtaipei-rainy-day-family",
@@ -44,7 +49,10 @@ const BLOG_ARTICLES = [
     readMins: 22,
     tags: ["雨天親子", "台北", "新北", "室內景點"],
     cover: "assets/blog-taipei-newtaipei-rainy-day-family-cover.png",
-    relatedSlugs: []
+    relatedSlugs: [],
+    featured: true,
+    pinned: true,
+    listStyle: "full"
   },
   {
     slug: "2026-06-06-ai-workflow-lesson-04-06",
@@ -104,6 +112,246 @@ const BLOG_ARTICLES = [
   }
 ];
 
+/** 由 Worker API 載入的動態文章（靜態 4 篇仍以 BLOG_ARTICLES 為準） */
+var BLOG_DYNAMIC_ARTICLES = [];
+var BLOG_DYNAMIC_LOADED = false;
+var BLOG_DYNAMIC_LOADING = null;
+
+function blogArticlesApiBase() {
+  return String(window.BLOG_ARTICLES_API || "").replace(/\/+$/, "");
+}
+
+function isStaticBlogSlug(slug) {
+  return BLOG_ARTICLES.some(function (a) {
+    return a.slug === slug;
+  });
+}
+
+function isDynamicBlogSlug(slug) {
+  if (!slug || isStaticBlogSlug(slug)) return false;
+  return BLOG_DYNAMIC_ARTICLES.some(function (a) {
+    return a.slug === slug;
+  });
+}
+
+function normalizeDynamicArticle(row) {
+  if (!row || !row.slug) return null;
+  return {
+    slug: row.slug,
+    title: row.title || row.slug,
+    subtitle: row.subtitle || "",
+    excerpt: row.excerpt || "",
+    label: row.label || "",
+    audience: row.audience || "",
+    category: row.category || "",
+    author: row.author || "Mr.Bill",
+    date: row.date || "",
+    readMins: Number(row.readMins) || 5,
+    tags: row.tags || [],
+    cover: row.cover || "",
+    relatedSlugs: row.relatedSlugs || [],
+    status: row.status || "draft",
+    featured: !!row.featured,
+    homeMarquee: !!row.homeMarquee,
+    homeCarousel: !!row.homeCarousel,
+    listStyle: row.listStyle || "auto",
+    pinned: !!row.pinned,
+    badgePopular: !!row.badgePopular,
+    badgeTrending: !!row.badgeTrending,
+    sortOrder: Number(row.sortOrder) || 0,
+    _dynamic: true
+  };
+}
+
+function registerDynamicArticleCache(row) {
+  var article = normalizeDynamicArticle(row);
+  if (!article) return null;
+  var idx = -1;
+  for (var i = 0; i < BLOG_DYNAMIC_ARTICLES.length; i++) {
+    if (BLOG_DYNAMIC_ARTICLES[i].slug === article.slug) {
+      idx = i;
+      break;
+    }
+  }
+  if (idx >= 0) BLOG_DYNAMIC_ARTICLES[idx] = article;
+  else BLOG_DYNAMIC_ARTICLES.push(article);
+  return article;
+}
+
+function fetchDynamicBlogArticles() {
+  if (BLOG_DYNAMIC_LOADED) {
+    return Promise.resolve(BLOG_DYNAMIC_ARTICLES);
+  }
+  if (BLOG_DYNAMIC_LOADING) return BLOG_DYNAMIC_LOADING;
+
+  var base = blogArticlesApiBase();
+  if (!base) {
+    BLOG_DYNAMIC_LOADED = true;
+    return Promise.resolve(BLOG_DYNAMIC_ARTICLES);
+  }
+
+  BLOG_DYNAMIC_LOADING = fetch(base + "/api/articles", {
+    headers: { Accept: "application/json" }
+  })
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (json) {
+      if (json && json.success && json.data && json.data.articles) {
+        json.data.articles.forEach(registerDynamicArticleCache);
+      }
+      BLOG_DYNAMIC_LOADED = true;
+      return BLOG_DYNAMIC_ARTICLES;
+    })
+    .catch(function () {
+      BLOG_DYNAMIC_FETCH_ERROR = true;
+      BLOG_DYNAMIC_LOADED = true;
+      return BLOG_DYNAMIC_ARTICLES;
+    })
+    .finally(function () {
+      BLOG_DYNAMIC_LOADING = null;
+    });
+
+  return BLOG_DYNAMIC_LOADING;
+}
+
+function withDynamicBlogArticles(done) {
+  return fetchDynamicBlogArticles().then(function () {
+    if (done) done();
+    return BLOG_DYNAMIC_ARTICLES;
+  });
+}
+
+function getMergedBlogArticles() {
+  var staticSlugs = {};
+  BLOG_ARTICLES.forEach(function (a) {
+    staticSlugs[a.slug] = true;
+  });
+  var dynamic = BLOG_DYNAMIC_ARTICLES.filter(function (a) {
+    return !staticSlugs[a.slug];
+  });
+  return BLOG_ARTICLES.concat(dynamic);
+}
+
+function isBlogPreviewMode() {
+  try {
+    return new URLSearchParams(location.search || "").get("preview") === "1";
+  } catch (e) {
+    return false;
+  }
+}
+
+function getAdminPreviewToken() {
+  var sess = window.MRBILL_ADMIN_SESSION;
+  return sess ? sess.getToken() : "";
+}
+
+function isArticlePublicOnSite(article) {
+  if (!article) return false;
+  if (article.status === "published") return true;
+  if (article.status === "scheduled" && article.publishedAt) {
+    var t = new Date(String(article.publishedAt).replace(" ", "T"));
+    return !isNaN(t.getTime()) && t.getTime() <= Date.now();
+  }
+  return false;
+}
+
+function fetchAdminDraftArticles() {
+  var token = getAdminPreviewToken();
+  var base = blogArticlesApiBase();
+  if (!token || !base) return Promise.resolve([]);
+  return fetch(base + "/api/admin/articles", {
+    headers: { Accept: "application/json", Authorization: "Bearer " + token }
+  })
+    .then(function (res) {
+      return res.json().then(function (json) {
+        if (!res.ok || !json.success) return [];
+        return json.data.articles || [];
+      });
+    })
+    .catch(function () {
+      return [];
+    });
+}
+
+function blogArticlePreviewHref(article) {
+  var path =
+    "post.html?slug=" + encodeURIComponent(article.slug) + "&preview=1";
+  if (isBlogSectionPath()) return path;
+  return "blog/" + path;
+}
+
+function getAdminPrivateArticles(articles) {
+  return (articles || [])
+    .map(function (row) {
+      return normalizeDynamicArticle(row);
+    })
+    .filter(function (a) {
+      return (
+        a &&
+        a.slug &&
+        !isStaticBlogSlug(a.slug) &&
+        a.status !== "archived" &&
+        !isArticlePublicOnSite(a)
+      );
+    });
+}
+
+function renderBlogAdminStatusBadge(status) {
+  var labels = { draft: "草稿預覽", scheduled: "排程預覽" };
+  return (
+    '<span class="blog-list-badge blog-list-badge--draft" title="僅管理員可見">' +
+    escapeBlogHtml(labels[status] || "預覽") +
+    "</span>"
+  );
+}
+
+function renderAdminDraftStrip(articles) {
+  var mount = document.getElementById("blog-admin-draft-strip");
+  if (!mount) return;
+  var privateOnes = getAdminPrivateArticles(articles);
+  if (!privateOnes.length) {
+    mount.classList.add("hidden");
+    mount.innerHTML = "";
+    return;
+  }
+  mount.classList.remove("hidden");
+  mount.classList.add("blog-list-mount");
+
+  var ctxBase = { showNewBadge: false, previewMode: true };
+  var parts = [
+    '<div class="rounded-2xl border border-amber-200 bg-amber-50 p-4 md:p-5 mb-6">' +
+      '<p class="text-sm font-bold text-amber-900">管理員預覽區（僅你可見）</p>' +
+      '<p class="blog-admin-draft-strip__note mt-2">' +
+      '<a href="../admin.html">回到後台</a>　·　' +
+      "下方卡片與讀者列表相同版型；改「已上架」並儲存後，才會出現在下方公開列表。" +
+      "</p></div>"
+  ];
+
+  var sections = partitionBlogListByStyle(privateOnes, { variant: "auto" });
+  if (sections.full.length) {
+    parts.push('<div class="blog-list-block blog-list-block--featured">');
+    sections.full.forEach(function (a) {
+      parts.push(renderBlogArticleCardFull(a, ctxBase));
+    });
+    parts.push("</div>");
+  }
+  if (sections.compact.length) {
+    parts.push('<div class="blog-list-block blog-list-block--compact">');
+    sections.compact.forEach(function (a) {
+      parts.push(renderBlogArticleCardCompact(a, ctxBase));
+    });
+    parts.push("</div>");
+  }
+
+  mount.innerHTML = parts.join("");
+}
+
+function isBlogPostShellPath() {
+  var p = (location.pathname || "").replace(/\\/g, "/").toLowerCase();
+  return /\/blog\/post\.html$/.test(p);
+}
+
 /** 分類對應的站內學程／專區連結（右欄「延伸」區塊） */
 const BLOG_CATEGORY_LINKS = {
   "AI學習地圖": { href: "../ai-learning-map.html", label: "AI 學習地圖" },
@@ -131,6 +379,35 @@ const BLOG_LIST_CONFIG = {
   popularMinLikes: 50
 };
 
+/** 無封面時使用的 Unsplash 免費圖（與站內其他頁相同來源） */
+const BLOG_FALLBACK_COVERS = [
+  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80"
+];
+
+var BLOG_DYNAMIC_FETCH_ERROR = false;
+
+function blogCoverSeedHash(str) {
+  var h = 0;
+  var s = String(str || "blog");
+  for (var i = 0; i < s.length; i++) {
+    h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  }
+  return h;
+}
+
+function blogResolveCover(article) {
+  if (!article) return BLOG_FALLBACK_COVERS[0];
+  var cover = String(article.cover || "").trim();
+  if (cover) return cover;
+  var key = article.slug || article.title || "blog";
+  return BLOG_FALLBACK_COVERS[blogCoverSeedHash(key) % BLOG_FALLBACK_COVERS.length];
+}
+
 const BLOG_READ_STORAGE_KEY = "mrbill-blog-read-v1";
 
 function readBlogReadMap() {
@@ -153,7 +430,7 @@ function writeBlogReadMap(map) {
 function pruneBlogReadMap(map) {
   var valid = {};
   var known = {};
-  BLOG_ARTICLES.forEach(function (a) {
+  getMergedBlogArticles().forEach(function (a) {
     known[a.slug] = true;
   });
   Object.keys(map).forEach(function (slug) {
@@ -209,10 +486,14 @@ function isBlogSectionPath() {
 }
 
 function getCurrentBlogSlug() {
+  try {
+    var fromQuery = new URLSearchParams(location.search || "").get("slug");
+    if (fromQuery) return decodeURIComponent(fromQuery);
+  } catch (e) {}
   var m = (location.pathname || "").replace(/\\/g, "/").match(/\/blog\/([^/]+)\.html$/i);
   if (!m) return null;
   var slug = decodeURIComponent(m[1]);
-  if (slug.toLowerCase() === "index") return null;
+  if (slug.toLowerCase() === "index" || slug.toLowerCase() === "post") return null;
   return slug;
 }
 
@@ -225,16 +506,26 @@ function isBlogIndexPath() {
 
 function getBlogArticleBySlug(slug) {
   if (!slug) return null;
-  return BLOG_ARTICLES.find(function (a) {
+  var staticArticle = BLOG_ARTICLES.find(function (a) {
     return a.slug === slug;
-  }) || null;
+  });
+  if (staticArticle) return staticArticle;
+  return (
+    BLOG_DYNAMIC_ARTICLES.find(function (a) {
+      return a.slug === slug;
+    }) || null
+  );
 }
 
 function getLatestBlogArticle() {
   return filterBlogArticles()[0] || null;
 }
 
-function blogCoverAbsoluteUrl(cover) {
+function blogCoverAbsoluteUrl(coverOrArticle) {
+  var cover =
+    coverOrArticle && typeof coverOrArticle === "object"
+      ? blogResolveCover(coverOrArticle)
+      : coverOrArticle || "";
   if (typeof window.mrbillSeoAbsUrl === "function") {
     return window.mrbillSeoAbsUrl(cover);
   }
@@ -244,8 +535,8 @@ function blogCoverAbsoluteUrl(cover) {
 }
 
 function preloadBlogArticleCover(article) {
-  if (!article || !article.cover) return;
-  var href = blogAssetHref(article.cover);
+  if (!article) return;
+  var href = blogAssetHref(blogResolveCover(article));
   if (!href || document.querySelector("link[data-blog-cover-preload]")) return;
   var link = document.createElement("link");
   link.rel = "preload";
@@ -258,14 +549,17 @@ function preloadBlogArticleCover(article) {
 function applyBlogArticleHead(article) {
   if (!article || typeof window.applySiteSeo !== "function") return;
   preloadBlogArticleCover(article);
+  var path = isDynamicBlogSlug(article.slug) || article._dynamic
+    ? "/blog/post.html?slug=" + encodeURIComponent(article.slug)
+    : "/blog/" + article.slug + ".html";
   window.applySiteSeo({
     title: article.title,
     description: article.excerpt,
     ogTitle: article.title,
     ogDescription: article.excerpt,
-    ogImage: article.cover,
+    ogImage: blogResolveCover(article),
     type: "article",
-    path: "/blog/" + article.slug + ".html",
+    path: path,
     skipOrganization: true
   });
 }
@@ -282,10 +576,11 @@ function applyBlogIndexHead() {
 }
 
 function blogArticleHref(article) {
-  if (isBlogSectionPath()) {
-    return article.slug + ".html";
-  }
-  return "blog/" + article.slug + ".html";
+  var path = isStaticBlogSlug(article.slug)
+    ? article.slug + ".html"
+    : "post.html?slug=" + encodeURIComponent(article.slug);
+  if (isBlogSectionPath()) return path;
+  return "blog/" + path;
 }
 
 function blogAssetHref(path) {
@@ -316,8 +611,8 @@ function renderBlogArticleHero(slug) {
   if (!article) return;
 
   var cover = document.getElementById("blog-hero-cover");
-  if (cover && article.cover) {
-    cover.src = blogAssetHref(article.cover);
+  if (cover) {
+    cover.src = blogAssetHref(blogResolveCover(article));
     cover.alt = article.title;
   }
 
@@ -438,22 +733,177 @@ function initBlogArticlePage(slug) {
   });
 }
 
-function initBlogIndexPage(listOptions) {
-  renderBlogIndexHero();
-  var crumb = document.getElementById("blog-index-breadcrumb-title");
-  if (crumb) crumb.textContent = BLOG_INDEX.title;
+function injectDynamicArticleContent(contentHtml) {
+  var main = document.querySelector(".blog-main.blog-prose");
+  if (!main) return;
+  var loading = document.getElementById("blog-dynamic-loading");
+  if (loading) loading.remove();
+  var navSlot = document.getElementById("blog-article-nav-slot");
+  var authorSlot = document.getElementById("blog-article-author-slot");
+  Array.prototype.slice.call(main.children).forEach(function (node) {
+    if (node === navSlot || node === authorSlot) return;
+    if (node.getAttribute && node.getAttribute("data-dynamic-content") === "1") {
+      node.remove();
+    }
+  });
+  var temp = document.createElement("div");
+  temp.innerHTML =
+    contentHtml || '<p class="text-slate-500" data-dynamic-content="1">（尚無正文）</p>';
+  var nodes = Array.prototype.slice.call(temp.childNodes);
+  nodes.forEach(function (node) {
+    if (node.nodeType === 1) node.setAttribute("data-dynamic-content", "1");
+    if (navSlot) main.insertBefore(node, navSlot);
+    else main.appendChild(node);
+  });
+}
+
+function showDynamicPreviewBanner(article) {
+  var el = document.getElementById("blog-preview-banner");
+  if (!el || !article) return;
+  var statusMap = {
+    draft: "草稿預覽",
+    scheduled: "排程預覽",
+    published: "已上架預覽",
+    archived: "已下架預覽"
+  };
+  el.textContent =
+    (statusMap[article.status] || "預覽模式") +
+    "：僅管理員可見，讀者看不到此狀態下的內容。";
+  el.classList.remove("hidden");
+}
+
+function showDynamicArticleError(message, options) {
+  options = options || {};
+  var loading = document.getElementById("blog-dynamic-loading");
+  if (!loading) return;
+  var extra = "";
+  if (options.showAdminLink) {
+    if (getAdminPreviewToken()) {
+      extra =
+        '<p class="mt-4 text-sm text-slate-600 leading-relaxed">' +
+        "已偵測登入狀態，但預覽仍失敗。請回後台重新輸入密碼，再按「預覽前台」。" +
+        '　<a class="font-bold text-indigo-600 underline" href="../admin.html">回到後台</a>' +
+        '　·　<a class="font-bold text-slate-700 underline" href="index.html">文章列表</a>' +
+        "</p>";
+    } else {
+      extra =
+        '<p class="mt-4 text-sm text-slate-600">' +
+        '<a class="font-bold text-indigo-600 underline" href="../admin.html">前往後台登入</a>' +
+        '　·　<a class="font-bold text-slate-700 underline" href="index.html">文章列表</a>' +
+        "</p>";
+    }
+  }
+  loading.innerHTML =
+    '<div class="max-w-lg mx-auto text-center">' +
+    '<p class="text-sm text-rose-600">' +
+    escapeBlogHtml(message || "無法載入文章") +
+    "</p>" +
+    extra +
+    "</div>";
+  loading.className = "py-8";
+}
+
+function fetchBlogArticleForPage(slug, preview) {
+  var base = blogArticlesApiBase();
+  if (!base) return Promise.reject(new Error("未設定 BLOG_ARTICLES_API"));
+  var path = preview
+    ? "/api/admin/articles/" + encodeURIComponent(slug)
+    : "/api/articles/" + encodeURIComponent(slug);
+  var headers = { Accept: "application/json" };
+  if (preview) {
+    var token = getAdminPreviewToken();
+    if (!token) {
+      return Promise.reject(
+        new Error("預覽草稿請先在 admin.html 登入，再從後台按「預覽前台」")
+      );
+    }
+    headers.Authorization = "Bearer " + token;
+  }
+  return fetch(base + path, { headers: headers })
+    .then(function (res) {
+      return res.json().then(function (json) {
+        if (!res.ok || !json.success) {
+          var msg = (json && json.message) || "Not found";
+          if (!preview && (msg === "Not found" || res.status === 404)) {
+            throw new Error(
+              "文章尚未上架或不存在。草稿請從後台按「預覽前台」；已上架請確認狀態為「已上架」並已儲存。"
+            );
+          }
+          throw new Error(msg === "Unauthorized" ? "預覽權限不足，請重新登入後台" : msg);
+        }
+        return json.data.article;
+      });
+    });
+}
+
+function initDynamicBlogArticlePage() {
+  var slug = getCurrentBlogSlug();
+  if (!slug) {
+    showDynamicArticleError("網址缺少 slug 參數，例：post.html?slug=2026-06-10-my-post");
+    return;
+  }
+  if (isStaticBlogSlug(slug)) {
+    location.replace(slug + ".html");
+    return;
+  }
+  var preview = isBlogPreviewMode();
+  fetchBlogArticleForPage(slug, preview)
+    .then(function (row) {
+      registerDynamicArticleCache(row);
+      injectDynamicArticleContent(row.contentHtml);
+      if (preview) showDynamicPreviewBanner(row);
+      initBlogArticlePage(slug);
+    })
+    .catch(function (err) {
+      var needsAdmin =
+        preview &&
+        (err.message || "").indexOf("admin.html") >= 0;
+      showDynamicArticleError(err.message || "載入失敗", {
+        showAdminLink: needsAdmin || preview
+      });
+    });
+}
+
+function renderBlogIndexList(listOptions) {
   renderBlogArticleList(
     "blog-article-list",
     Object.assign({ preset: "index" }, listOptions || {})
   );
+  var mount = document.getElementById("blog-article-list");
+  if (mount && BLOG_DYNAMIC_FETCH_ERROR) {
+    var note = document.getElementById("blog-dynamic-fetch-note");
+    if (!note) {
+      note = document.createElement("p");
+      note.id = "blog-dynamic-fetch-note";
+      note.className = "text-xs text-amber-700 text-center mt-3";
+      note.textContent =
+        "動態文章暫時無法載入，以下為靜態文章。請稍後重新整理。";
+      mount.insertAdjacentElement("afterend", note);
+    }
+  }
+}
+
+function initBlogIndexPage(listOptions) {
+  renderBlogIndexHero();
+  var crumb = document.getElementById("blog-index-breadcrumb-title");
+  if (crumb) crumb.textContent = BLOG_INDEX.title;
+  renderBlogIndexList(listOptions);
+  fetchAdminDraftArticles().then(renderAdminDraftStrip);
+  withDynamicBlogArticles(function () {
+    renderBlogIndexList(listOptions);
+    syncBlogNavNewIndicator();
+    fetchAdminDraftArticles().then(renderAdminDraftStrip);
+  });
 }
 
 /** 站內專區內嵌文章列表（學習地圖等） */
 function initBlogEmbedList(mountId, options) {
-  renderBlogArticleList(
-    mountId || "blog-article-list",
-    Object.assign({ preset: "embed" }, options || {})
-  );
+  var mountIdResolved = mountId || "blog-article-list";
+  var merged = Object.assign({ preset: "embed" }, options || {});
+  renderBlogArticleList(mountIdResolved, merged);
+  withDynamicBlogArticles(function () {
+    renderBlogArticleList(mountIdResolved, merged);
+  });
 }
 
 function blogPageHref(href) {
@@ -469,7 +919,7 @@ function blogPageHref(href) {
 
 function filterBlogArticles(options) {
   options = options || {};
-  var list = BLOG_ARTICLES.slice();
+  var list = getMergedBlogArticles().slice();
 
   if (options.category) {
     list = list.filter(function (a) {
@@ -490,6 +940,14 @@ function filterBlogArticles(options) {
   }
 
   list.sort(function (a, b) {
+    if (isBlogLegacyFeatured(a) !== isBlogLegacyFeatured(b)) {
+      return isBlogLegacyFeatured(a) ? -1 : 1;
+    }
+    if (!!a.pinned !== !!b.pinned) return a.pinned ? -1 : 1;
+    if ((b.sortOrder || 0) !== (a.sortOrder || 0)) {
+      return (b.sortOrder || 0) - (a.sortOrder || 0);
+    }
+    if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
     return (b.date || "").localeCompare(a.date || "");
   });
 
@@ -605,6 +1063,65 @@ function renderBlogListBadge(article, showNewBadge) {
     ' 天內，你尚未閱讀">NEW</span>';
 }
 
+function isBlogLegacyFeatured(article) {
+  return !!(article && BLOG_LEGACY_FEATURED_SLUGS[article.slug]);
+}
+
+function resolveArticleListStyle(article, options, listSize) {
+  if (isBlogLegacyFeatured(article)) return "full";
+  var style = article.listStyle || "auto";
+  if (style === "full" || style === "compact") return style;
+  options = options || {};
+  if (options.variant === "compact" || options.limit) return "compact";
+  if (article.featured) return "full";
+  if ((options.variant || "auto") === "auto") {
+    if (listSize <= BLOG_LIST_CONFIG.indexFullCardMax) return "full";
+    return "compact";
+  }
+  return "full";
+}
+
+function partitionBlogListByStyle(articles, options) {
+  options = options || {};
+  var full = [];
+  var compact = [];
+  var listSize = articles.length;
+  articles.forEach(function (article) {
+    if (resolveArticleListStyle(article, options, listSize) === "full") {
+      full.push(article);
+    } else {
+      compact.push(article);
+    }
+  });
+  return { full: full, compact: compact };
+}
+
+function renderBlogArticleBadges(article, ctx) {
+  ctx = ctx || {};
+  var parts = [];
+  if (ctx.previewMode) {
+    parts.push(renderBlogAdminStatusBadge(article.status));
+    return parts.join("");
+  }
+  if (article.pinned) {
+    parts.push(
+      '<span class="blog-list-badge blog-list-badge--pinned" title="置頂">置頂</span>'
+    );
+  }
+  if (article.badgePopular) {
+    parts.push(
+      '<span class="blog-list-badge blog-list-badge--popular" title="熱門">熱門</span>'
+    );
+  }
+  if (article.badgeTrending) {
+    parts.push(
+      '<span class="blog-list-badge blog-list-badge--trending" title="人氣">人氣</span>'
+    );
+  }
+  parts.push(renderBlogListBadge(article, ctx.showNewBadge));
+  return parts.join("");
+}
+
 function resolveBlogListSections(articles, options) {
   var variant = options.variant || "full";
   var featuredCount = options.featuredCount;
@@ -634,25 +1151,34 @@ function blogArticleCardLabel(article) {
   return article.label || article.category || "";
 }
 
+function blogArticleCardHref(article, ctx) {
+  ctx = ctx || {};
+  if (ctx.previewMode) return blogArticlePreviewHref(article);
+  return blogArticleHref(article);
+}
+
 function renderBlogArticleCardFull(article, ctx) {
   ctx = ctx || {};
-  var cover = article.cover
-    ? '<div class="blog-list-card__cover shrink-0 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">' +
-      '<img src="' +
-      blogAssetHref(article.cover) +
-      '" alt="' +
-      escapeBlogHtml(article.title) +
-      '" class="w-full h-full object-cover" loading="lazy" width="1200" height="630" />' +
-      "</div>"
-    : "";
-  var badge = renderBlogListBadge(article, ctx.showNewBadge);
+  var coverSrc = blogAssetHref(blogResolveCover(article));
+  var cover =
+    '<div class="blog-list-card__cover shrink-0 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">' +
+    '<img src="' +
+    escapeBlogHtml(coverSrc) +
+    '" alt="' +
+    escapeBlogHtml(article.title) +
+    '" class="w-full h-full object-cover" loading="lazy" width="1200" height="630" />' +
+    "</div>";
+  var badge = renderBlogArticleBadges(article, ctx);
   var audience = article.audience
     ? '<p class="blog-list-card__audience"><span class="blog-list-card__audience-label">適合</span>' +
       escapeBlogHtml(article.audience) +
       "</p>"
     : "";
+  var btnLabel = ctx.previewMode ? "預覽文章" : "閱讀文章";
   return (
-    '<article class="blog-list-card blog-list-card--full">' +
+    '<article class="blog-list-card blog-list-card--full' +
+    (ctx.previewMode ? " blog-list-card--admin-preview" : "") +
+    '">' +
     cover +
     '<div class="blog-list-card__body min-w-0 flex-1">' +
     '<div class="blog-list-card__meta">' +
@@ -668,23 +1194,27 @@ function renderBlogArticleCardFull(article, ctx) {
     escapeBlogHtml(article.title) +
     "</h3>" +
     '<p class="blog-list-card__excerpt">' +
-    escapeBlogHtml(article.excerpt) +
+    escapeBlogHtml(article.excerpt || article.subtitle || "") +
     "</p>" +
     audience +
     '<a href="' +
-    blogArticleHref(article) +
-    '" class="blog-list-card__btn">閱讀文章</a>' +
+    escapeBlogHtml(blogArticleCardHref(article, ctx)) +
+    '" class="blog-list-card__btn">' +
+    btnLabel +
+    "</a>" +
     "</div></article>"
   );
 }
 
 function renderBlogArticleCardCompact(article, ctx) {
   ctx = ctx || {};
-  var badge = renderBlogListBadge(article, ctx.showNewBadge);
+  var badge = renderBlogArticleBadges(article, ctx);
   return (
     '<a href="' +
-    blogArticleHref(article) +
-    '" class="blog-list-card blog-list-card--compact group">' +
+    escapeBlogHtml(blogArticleCardHref(article, ctx)) +
+    '" class="blog-list-card blog-list-card--compact group' +
+    (ctx.previewMode ? " blog-list-card--admin-preview" : "") +
+    '">' +
     '<div class="blog-list-card--compact__main">' +
     '<div class="blog-list-card--compact__meta">' +
     '<span class="blog-list-card--compact__cat">' +
@@ -726,7 +1256,7 @@ function renderBlogArticleList(mountId, options) {
   }
 
   mount.classList.add("blog-list-mount");
-  var sections = resolveBlogListSections(articles, options);
+  var sections = partitionBlogListByStyle(articles, options);
   var ctxBase = { showNewBadge: options.showNewBadge };
   var parts = [];
 
@@ -1067,6 +1597,7 @@ window.applyBlogNavNewIndicator = applyBlogNavNewIndicator;
 
 (function syncBlogHeadEarly() {
   if (typeof document === "undefined") return;
+  if (isBlogPostShellPath()) return;
   var slug = getCurrentBlogSlug();
   if (slug) {
     var article = getBlogArticleBySlug(slug);
@@ -1075,3 +1606,6 @@ window.applyBlogNavNewIndicator = applyBlogNavNewIndicator;
   }
   if (isBlogIndexPath()) applyBlogIndexHead();
 })();
+
+window.initDynamicBlogArticlePage = initDynamicBlogArticlePage;
+window.blogArticlePublicHref = blogArticleHref;

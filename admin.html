@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>文章內容管理｜Mr.Bill 數位實驗室</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/blog-layout.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin-body text-slate-800 antialiased">
+
+  <header class="admin-topbar">
+    <div class="admin-topbar__inner">
+      <a href="./" class="admin-brand" title="回到 Mr.Bill 數位實驗室首頁">
+        <div class="admin-brand__mark" aria-hidden="true">B</div>
+        <div>
+          <div class="admin-brand__title">MrBill AI Studio</div>
+          <div class="admin-brand__sub">Mr.Bill 數位實驗室</div>
+          <span class="admin-brand__badge">內容管理系統</span>
+        </div>
+      </a>
+      <nav class="admin-topnav" aria-label="後台捷徑">
+        <a href="./">網站首頁</a>
+        <a href="blog/index.html" target="_blank" rel="noopener">文章列表</a>
+        <button id="admin-logout-btn" type="button" class="admin-topnav__logout">登出</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-shell">
+    <div class="admin-page-head">
+      <p class="admin-breadcrumb">
+        <a href="./">Mr.Bill 數位實驗室</a>
+        <span aria-hidden="true"> › </span>
+        <span>文章內容管理</span>
+      </p>
+      <h1 class="admin-page-title">文章內容管理後台</h1>
+      <p class="admin-page-desc">
+        與前台「文章分享」同一套體系：在此新增、編輯、預覽動態文章，不需為每篇推 GitHub。
+        靜態 4 篇維持原檔不變。左側選文章、右側編輯與預覽。
+      </p>
+    </div>
+
+    <div id="admin-gate" class="admin-gate-card">
+      <h2>登入後台</h2>
+      <p class="mb-3">請輸入管理密碼（與 Cloudflare <code>ADMIN_TOKEN</code> 相同，至少 8 字元，<strong>僅限英文／數字／符號</strong>，不可中文）。</p>
+      <input id="admin-token-input" type="password" class="w-full border border-slate-300 rounded-xl px-3 py-2.5 mb-2" placeholder="管理密碼" autocomplete="current-password" />
+      <p id="admin-gate-status" class="text-sm mb-2 min-h-[1.25rem]" role="alert" aria-live="polite"></p>
+      <button id="admin-token-save" type="button" class="admin-btn-primary">進入後台</button>
+      <p class="text-xs text-slate-500 mt-4">密碼只存在本機瀏覽器（localStorage），不會寫進 GitHub。</p>
+    </div>
+
+    <div id="admin-app" class="hidden admin-layout">
+      <aside class="admin-sidebar admin-panel" aria-label="文章列表">
+        <div class="admin-sidebar__head">
+          <p class="admin-panel__title">動態文章</p>
+          <div class="admin-sidebar-actions">
+            <button id="admin-new-btn" type="button">＋ 新增</button>
+            <button id="admin-refresh-btn" type="button">重新整理</button>
+          </div>
+          <div class="admin-sidebar__tools">
+            <input id="admin-list-search" type="search" class="admin-sidebar__search" placeholder="搜尋標題、slug、分類…" autocomplete="off" />
+            <select id="admin-list-filter" class="admin-sidebar__filter" aria-label="依狀態篩選">
+              <option value="">全部狀態</option>
+              <option value="draft">草稿</option>
+              <option value="scheduled">排程</option>
+              <option value="published">已上架</option>
+              <option value="archived">已下架</option>
+            </select>
+          </div>
+          <p id="admin-list-count" class="admin-sidebar__count">—</p>
+        </div>
+        <div class="admin-sidebar__list-wrap">
+          <div id="admin-article-list" class="admin-sidebar__list"></div>
+        </div>
+      </aside>
+
+      <section class="admin-panel admin-main">
+        <p id="admin-status" class="admin-status" role="status" aria-live="polite"></p>
+
+        <div id="admin-preview-bar" class="admin-preview-bar mb-4">
+          <p class="admin-section-title">前台預覽</p>
+          <div class="admin-links-actions">
+            <a id="admin-preview-link" href="#" role="button" class="admin-btn-primary">預覽文章</a>
+            <a id="admin-home-preview-link" href="#" role="button">預覽首頁</a>
+            <a id="admin-list-preview-link" href="blog/index.html" target="_blank" rel="noopener">預覽列表</a>
+          </div>
+          <p id="admin-link-hint" class="admin-preview-bar__hint">請先儲存文章後，即可預覽文章與首頁效果。</p>
+        </div>
+
+        <div id="admin-home-strip-settings" class="admin-home-settings mb-4">
+          <p class="admin-section-title">首頁橫幅設定</p>
+          <label class="admin-home-settings__label">
+            <input id="homeStripShowNav" type="checkbox" />
+            顯示輪播圓點（預設關閉；僅多則輪播時出現）
+          </label>
+          <div class="admin-home-settings__grid">
+            <div class="admin-field">
+              <label for="homeStripIntervalSec">自動切換間隔（秒）</label>
+              <input id="homeStripIntervalSec" type="number" min="2" max="60" step="1" value="2" />
+              <p class="admin-field-hint">2～60 秒；若小於滑動時間會自動放慢，建議 ≥ 滑動秒數 + 1</p>
+            </div>
+            <div class="admin-field">
+              <label for="homeStripTransitionMs">滑動速度（毫秒）</label>
+              <input id="homeStripTransitionMs" type="number" min="400" max="2000" step="50" value="1000" />
+              <p class="admin-field-hint">400～2000，愈大愈慢愈滑順，建議 800～1200</p>
+            </div>
+          </div>
+          <button id="home-strip-settings-save" type="button" class="admin-home-settings__save">儲存橫幅設定</button>
+        </div>
+
+        <div id="admin-article-links" class="admin-links-panel hidden">
+          <p>前台位置與連結</p>
+          <ul id="admin-placement-list"></ul>
+          <div class="admin-links-actions admin-links-actions--secondary">
+            <a id="admin-public-link" href="#" target="_blank" rel="noopener" class="hidden">上架連結</a>
+          </div>
+        </div>
+
+        <form id="admin-article-form" class="space-y-5">
+          <div class="admin-form-section">
+            <p class="admin-section-title">基本資訊</p>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="admin-field">
+                <label for="slug">slug（網址名，建立後不可改）</label>
+                <input id="slug" name="slug" required pattern="[a-z0-9][a-z0-9-]*" placeholder="2026-06-10-my-new-post" />
+                <p class="admin-field-hint">例：<code>2026-06-10-ai-workflow-tips</code>（小寫、數字、連字號）</p>
+              </div>
+              <div class="admin-field">
+                <label for="status">狀態</label>
+                <select id="status" name="status">
+                  <option value="draft">草稿</option>
+                  <option value="scheduled">排程</option>
+                  <option value="published">已上架</option>
+                  <option value="archived">已下架</option>
+                </select>
+                <p class="admin-field-hint">讀者只看得到「已上架」；草稿請用右側「預覽文章／首頁／列表」。</p>
+              </div>
+            </div>
+            <div class="admin-field mt-4">
+              <label for="title">標題</label>
+              <input id="title" name="title" required placeholder="99% 的人都在錯用 AI Prompt" />
+              <p class="admin-field-hint">列表與文章頁大標題，建議 20～40 字。</p>
+            </div>
+            <div class="admin-field">
+              <label for="subtitle">副標</label>
+              <input id="subtitle" name="subtitle" placeholder="從一句話輸入，到可重現的輸出行為控制" />
+              <p class="admin-field-hint">hero 區副標；沒填摘要時，列表可能用這段當說明。</p>
+            </div>
+            <div class="admin-field">
+              <label for="excerpt">摘要</label>
+              <textarea id="excerpt" name="excerpt" rows="2" placeholder="用 6 個層級看懂 Prompt 進化，適合想建立 AI 思維架構的讀者。"></textarea>
+              <p class="admin-field-hint">列表大卡下方的灰色說明，建議 1～2 句。</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4">
+              <div class="admin-field">
+                <label for="label">標籤 label</label>
+                <input id="label" name="label" placeholder="AI / Workflow" />
+                <p class="admin-field-hint">列表小標籤，例：<code>親子 / 生活</code></p>
+              </div>
+              <div class="admin-field">
+                <label for="category">分類</label>
+                <input id="category" name="category" placeholder="AI學習地圖" />
+                <p class="admin-field-hint">與站內學程連動，例：<code>AI學習地圖</code>、<code>生活觀察</code></p>
+              </div>
+              <div class="admin-field">
+                <label for="date">日期</label>
+                <input id="date" name="date" placeholder="2026-06-10" />
+                <p class="admin-field-hint">格式 <code>YYYY-MM-DD</code>，影響排序與 NEW 標籤。</p>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="admin-field">
+                <label for="readMins">閱讀分鐘</label>
+                <input id="readMins" name="readMins" type="number" min="1" max="999" placeholder="8" />
+                <p class="admin-field-hint">例：<code>5</code>、<code>22</code>（顯示為「預估閱讀 X 分鐘」）</p>
+              </div>
+              <div class="admin-field">
+                <label for="cover">封面 assets/ 路徑</label>
+                <input id="cover" name="cover" placeholder="assets/blog-2026-06-06-ai-workflow-og.jpg" />
+                <p class="admin-field-hint">留空會自動用免費圖。例：<code>assets/你的圖.jpg</code></p>
+              </div>
+            </div>
+            <div class="admin-field">
+              <label for="audience">適合對象（選填）</label>
+              <input id="audience" name="audience" placeholder="會用 ChatGPT 但總覺得回答不穩定的讀者" />
+              <p class="admin-field-hint">列表大卡會顯示「適合 …」；靜態 4 篇有此欄位。</p>
+            </div>
+          </div>
+
+          <div class="admin-form-section">
+            <p class="admin-section-title">列表呈現</p>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="admin-field">
+                <label for="listStyle">列表版型</label>
+                <select id="listStyle" name="listStyle">
+                  <option value="auto">自動（依精選／篇數）</option>
+                  <option value="full">大圖卡片（精選區）</option>
+                  <option value="compact">精簡列（下方橫列）</option>
+                </select>
+                <p class="admin-field-hint">自動：≤3 篇全大卡；多篇時精選走大卡，其餘走精簡列。</p>
+              </div>
+              <div class="admin-field">
+                <label for="sortOrder">排序權重</label>
+                <input id="sortOrder" name="sortOrder" type="number" min="0" max="9999" placeholder="0" />
+                <p class="admin-field-hint">數字越大越前面（0～9999）。可搭配「置頂」使用。</p>
+              </div>
+            </div>
+            <div class="admin-check-grid text-sm mt-3">
+              <label><input id="pinned" name="pinned" type="checkbox" /> 置頂</label>
+              <label><input id="featured" name="featured" type="checkbox" /> 列表精選</label>
+              <label><input id="badgePopular" name="badgePopular" type="checkbox" /> 熱門標籤</label>
+              <label><input id="badgeTrending" name="badgeTrending" type="checkbox" /> 人氣標籤</label>
+              <label><input id="homeMarquee" name="homeMarquee" type="checkbox" /> 首頁跑馬燈</label>
+              <label><input id="homeCarousel" name="homeCarousel" type="checkbox" /> 首頁輪播</label>
+            </div>
+            <p class="admin-field-hint">首頁跑馬燈會與「雙北親子」常駐橫幅輪播（常駐不會被取代）。精選推薦需已上架或排程時間已到；草稿用「預覽首頁」。</p>
+            <div class="admin-field mt-3">
+              <label for="publishedAt">排程發布時間（選填，scheduled 用）</label>
+              <input id="publishedAt" name="publishedAt" type="datetime-local" />
+              <p class="admin-field-hint">狀態選「排程」時使用；時間到才會出現在讀者列表。</p>
+            </div>
+          </div>
+
+          <div class="admin-form-section">
+            <p class="admin-section-title">正文</p>
+            <div class="admin-field">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                <label for="contentHtml">正文 HTML（版型與靜態 4 篇相同）</label>
+                <div class="admin-snippet-toolbar flex flex-wrap gap-2 items-center">
+                  <select id="admin-snippet-select" class="!w-auto"></select>
+                  <button type="button" id="admin-snippet-insert">插入區塊</button>
+                  <button type="button" id="admin-snippet-reset">重設開場版型</button>
+                </div>
+              </div>
+              <details class="admin-help-details">
+                <summary>版型怎麼對齊靜態 4 篇？</summary>
+                <ul class="mt-2 space-y-1 list-disc pl-4 leading-relaxed">
+                  <li><strong>不用寫</strong>頁首、封面大圖、右欄、上下篇——<code>blog/post.html</code> 會自動載入。</li>
+                  <li>常用白底卡 class：<code>scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8</code></li>
+                  <li>儲存後用右側 <strong>預覽文章／首頁／列表</strong>；滑到底按儲存時，畫面下方會顯示結果提示。</li>
+                </ul>
+              </details>
+              <textarea id="contentHtml" name="contentHtml" placeholder="按「新增」會帶入開場版型；也可用上方按鈕插入區塊。"></textarea>
+            </div>
+            <div class="admin-form-actions">
+              <button type="submit">儲存</button>
+              <button type="button" id="admin-delete-btn" class="hidden">刪除</button>
+              <p id="admin-status-foot" class="admin-status-foot" role="status" aria-live="polite"></p>
+            </div>
+            <p id="admin-delete-hint" class="hidden text-xs text-slate-500 mt-2">草稿／已下架可永久刪除；已上架請先「下架」或改狀態為已下架。</p>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <div id="admin-toast" class="admin-toast" role="status" aria-live="assertive"></div>
+
+  <script src="js/mrbill-admin-session.js"></script>
+  <script src="js/home-strip.config.js"></script>
+  <script src="js/admin/admin.config.example.js"></script>
+  <script src="js/admin/admin.config.local.js"></script>
+  <script src="js/admin/blog-content-snippets.js"></script>
+  <script src="js/admin/admin-app.js"></script>
+</body>
+</html>

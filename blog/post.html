@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+  動態文章殼層：由 D1 + Worker 提供內容，不需為每篇複製 HTML。
+  公開：blog/post.html?slug=your-slug
+  預覽（草稿/排程）：blog/post.html?slug=your-slug&preview=1（須先在 admin 登入）
+-->
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>載入中…</title>
+  <script src="../js/site-seo.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../js/components-loader.js"></script>
+  <script src="../js/mrbill-admin-session.js"></script>
+  <script src="../js/blog-articles.config.js"></script>
+  <script src="../js/blog-articles.js"></script>
+  <script src="../js/blog-stats.config.js?v=20260608"></script>
+  <script src="../js/blog-stats.js?v=20260608"></script>
+  <script src="../js/blog-article-ui.js"></script>
+  <link rel="stylesheet" href="../css/blog-layout.css" />
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }
+    .blog-pre { white-space: pre-wrap; word-break: break-word; }
+    .blog-preview-banner {
+      background: #fef3c7; border-bottom: 1px solid #fcd34d;
+      color: #92400e; font-size: 13px; font-weight: 700;
+      text-align: center; padding: 10px 16px;
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col text-base overflow-x-hidden">
+  <div id="blog-preview-banner" class="blog-preview-banner hidden" role="status"></div>
+
+  <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
+
+  <main class="flex-grow w-full min-w-0">
+    <div id="blog-article-hero-slot"></div>
+
+    <div class="blog-shell px-4 lg:px-8 py-8 md:py-10 lg:py-12">
+      <div class="blog-layout">
+        <article class="blog-main blog-prose space-y-6 lg:space-y-7">
+          <p id="blog-dynamic-loading" class="text-sm text-slate-500 py-8 text-center">載入文章…</p>
+          <div id="blog-article-nav-slot"></div>
+          <div id="blog-article-author-slot"></div>
+        </article>
+
+        <div id="blog-article-rail-slot"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="global-footer" class="bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden"></footer>
+
+  <script>
+    function fixNavPathsFromSubdir() {
+      var header = document.getElementById("global-header");
+      var footer = document.getElementById("global-footer");
+      [header, footer].forEach(function (root) {
+        if (!root) return;
+        root.querySelectorAll("a[href]").forEach(function (a) {
+          var h = a.getAttribute("href");
+          if (!h || /^https?:\/\//.test(h) || h.startsWith("#") || h.startsWith("../") || h.startsWith("/")) return;
+          if (h.startsWith("./")) a.setAttribute("href", ".." + h.slice(1));
+          else a.setAttribute("href", "../" + h);
+        });
+      });
+    }
+    window.addEventListener("DOMContentLoaded", function () {
+      includeComponentSlot("global-header", "../components/header.html", null, fixNavPathsFromSubdir);
+      includeComponentSlot("global-footer", "../components/footer.html", null, fixNavPathsFromSubdir);
+      initDynamicBlogArticlePage();
+    });
+  </script>
+</body>
+</html>

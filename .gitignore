@@ -1,18 +1,109 @@
 # ── 本地維護說明（預設不推送）────────────────────────────
-# 要納入版本庫時：刪除對應行 → 在 GitHub Desktop 勾選提交即可。
+
+# GitHub Desktop 不應出現下列檔案。要納入版本庫時：刪除對應行。
+
+
 
 # 部落格維護備忘
+
 blog/README.md
 
-# AI 協作／架構說明（僅本機 Cursor 用，不推 GitHub）
+
+
+# AI 協作／架構說明（僅本機 Cursor 用）
+
 AGENTS.md
+
 docs/
+
 .cursor/
 
-# 後端建置產物（GitHub Desktop 不應出現這些）
+
+
+# ── 密碼與本機設定（絕對不推）────────────────────────────
+
+js/admin/admin.config.local.js
+**/admin.config.local.js
+.env
+
+.env.*
+
+.dev.vars
+
+*.pem
+
+*.key
+
+*.pfx
+
+
+
+# ── Node / Cloudflare Worker 建置產物 ────────────────────
+
 node_modules/
+
+**/node_modules/
+
 .wrangler/
+
+**/.wrangler/
+
+**/node_modules/.cache/
+
+npm-debug.log*
+
+pnpm-debug.log*
+
+yarn-debug.log*
+
+yarn-error.log*
+
+
+
+# ── .NET 後端建置產物（MrBill.Api，暫保留原始碼）──────
+
 backend/MrBill.Api/bin/
+
 backend/MrBill.Api/obj/
+
 backend/MrBill.Api/publish/
+
 backend/MrBill.Api/App_Data/
+
+**/[Bb]in/
+
+**/[Oo]bj/
+
+**/publish/
+
+
+
+# ── 資料庫與快取 ───────────────────────────────────────
+
+*.db
+
+*.db-*
+
+*.sqlite
+
+*.sqlite3
+
+
+
+# ── 系統與 IDE ───────────────────────────────────────────
+
+.DS_Store
+
+Thumbs.db
+
+desktop.ini
+
+.vs/
+
+*.user
+
+*.suo
+
+.idea/
+
+

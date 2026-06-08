@@ -13,3 +13,7 @@ database_id = "34ec918b-072a-423d-ab96-925a673f4c4b"
 
 [vars]
 CANONICAL_ORIGIN = "https://mrbill-dev.github.io"
+
+# 2C：每 15 分鐘檢查排程文章，時間到自動改為 published
+[triggers]
+crons = ["*/15 * * * *"]
