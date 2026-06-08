@@ -425,6 +425,10 @@
     if (homeCarousel) {
       placements.push("首頁輪播：首頁 tab「精選文章輪播」區（用「預覽首頁」查看）");
     }
+    var titleFont = field("titleFont") ? field("titleFont").value : "sans";
+    placements.push(
+      titleFont === "serif" ? "標題字體：明體（生活筆記）" : "標題字體：黑體（預設）"
+    );
 
     if (els.placementList) {
       els.placementList.innerHTML = placements
@@ -582,6 +586,7 @@
     else if (a.featured) bits.push("精選");
     if (a.badgePopular) bits.push("熱門");
     if (a.badgeTrending) bits.push("人氣");
+    if (a.titleFont === "serif") bits.push("明體");
     return bits.length ? " · " + bits.join("、") : "";
   }
 
@@ -795,19 +800,38 @@
     ev.preventDefault();
     var data = collectForm();
     var isNew = !field("slug").readOnly;
+    var sentTitleFont = data.titleFont === "serif" ? "serif" : "sans";
     var path = isNew
       ? "/api/admin/articles"
       : "/api/admin/articles/" + encodeURIComponent(data.slug);
     var method = isNew ? "POST" : "PUT";
     api(path, { method: method, body: data })
       .then(function () {
-        setStatus(isNew ? "已建立" : "已儲存");
         field("slug").readOnly = true;
+        return api("/api/admin/articles/" + encodeURIComponent(data.slug));
+      })
+      .then(function (resp) {
+        var saved = (resp && resp.article) || {};
+        fillForm(saved);
         updateArticleLinksFromForm();
         loadList();
+        var savedTitleFont = saved.titleFont === "serif" ? "serif" : "sans";
+        if (sentTitleFont !== savedTitleFont) {
+          setStatus(
+            "已儲存其他欄位，但標題字體未寫入資料庫。請在 backend/mrbill-worker 執行 migrate-articles-v4.sql 後 wrangler deploy。",
+            true
+          );
+          return;
+        }
+        setStatus(isNew ? "已建立" : "已儲存");
       })
       .catch(function (err) {
-        setStatus(err.message, true);
+        var msg = err.message || "儲存失敗";
+        if (/title_font|no such column/i.test(msg)) {
+          msg +=
+            "。請執行 migrate-articles-v4.sql 後 wrangler deploy。";
+        }
+        setStatus(msg, true);
       });
   }
 
