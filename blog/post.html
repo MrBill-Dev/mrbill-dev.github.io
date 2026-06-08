@@ -9,8 +9,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>載入中…</title>
+  <script src="../js/site-seo.config.js"></script>
   <script src="../js/site-seo.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: [
+              "-apple-system",
+              "BlinkMacSystemFont",
+              '"SF Pro Text"',
+              '"Noto Sans TC"',
+              "sans-serif"
+            ]
+          }
+        }
+      }
+    };
+  </script>
   <script src="../js/components-loader.js"></script>
   <script src="../js/mrbill-admin-session.js"></script>
   <script src="../js/blog-articles.config.js"></script>

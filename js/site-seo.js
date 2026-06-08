@@ -193,10 +193,14 @@
       el.id = id;
       document.head.appendChild(el);
     }
-    var payload = Object.assign({}, data, {
-      name: data.name || MRBILL_SITE_SEO.siteName,
-      url: data.url || MRBILL_SITE_SEO.origin + "/"
-    });
+    var payload = Object.assign({}, data);
+    if (
+      payload["@type"] === "EducationalOrganization" ||
+      payload["@type"] === "Organization"
+    ) {
+      payload.name = payload.name || MRBILL_SITE_SEO.siteName;
+      payload.url = payload.url || MRBILL_SITE_SEO.origin + "/";
+    }
     el.textContent = JSON.stringify(payload, null, 2);
   }
 
@@ -256,4 +260,5 @@
   global.mrbillSeoAbsUrl = absUrl;
   global.mrbillSeoSetMeta = setMeta;
   global.mrbillSeoSetLink = setLink;
+  global.mrbillSeoSetJsonLd = setJsonLd;
 })(typeof window !== "undefined" ? window : this);

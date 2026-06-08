@@ -50,6 +50,23 @@ window.MRBILL_BLOG_SNIPPETS = {
   image:
     '<img src="../assets/你的圖片.png" alt="圖片說明" class="w-full rounded-2xl object-cover border border-slate-200" loading="lazy" />',
 
+  faq:
+    '<section id="blog-faq" class="blog-faq scroll-mt-28 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-4">\n' +
+    '  <h2 class="text-2xl font-black text-slate-900">常見問題</h2>\n' +
+    '  <details class="blog-faq__item">\n' +
+    '    <summary>第一個問題？</summary>\n' +
+    '    <p class="blog-faq__a text-slate-700 leading-relaxed">第一個答案（GEO：清楚、可引用、一句結論開頭）。</p>\n' +
+    "  </details>\n" +
+    '  <details class="blog-faq__item">\n' +
+    '    <summary>第二個問題？</summary>\n' +
+    '    <p class="blog-faq__a text-slate-700 leading-relaxed">第二個答案。</p>\n' +
+    "  </details>\n" +
+    '  <details class="blog-faq__item">\n' +
+    '    <summary>第三個問題？</summary>\n' +
+    '    <p class="blog-faq__a text-slate-700 leading-relaxed">第三個答案。</p>\n' +
+    "  </details>\n" +
+    "</section>",
+
   compare:
     '<div class="blog-compare-stack">\n' +
     '  <div>\n' +
@@ -72,5 +89,6 @@ window.MRBILL_BLOG_SNIPPET_LABELS = {
   callout: "重點提示框",
   code: "程式碼／Prompt",
   image: "內文圖片",
-  compare: "前後對照"
+  compare: "前後對照",
+  faq: "常見問題 FAQ（GEO）"
 };

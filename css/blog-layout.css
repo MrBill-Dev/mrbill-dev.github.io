@@ -71,6 +71,7 @@
 }
 
 .blog-hero__title {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif;
   font-size: 1.5rem;
   font-weight: 900;
   line-height: 1.25;
@@ -1296,6 +1297,146 @@
 .blog-main.blog-prose h3,
 .blog-main.blog-prose h4 {
   text-wrap: balance;
+}
+
+.blog-main.blog-prose h2 {
+  font-family: inherit;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.blog-faq {
+  max-width: 100%;
+}
+
+.blog-faq__item {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: #f8fafc;
+  padding: 0.85rem 1rem;
+}
+
+.blog-faq__item + .blog-faq__item {
+  margin-top: 0.65rem;
+}
+
+.blog-faq__item summary,
+.blog-faq__q {
+  cursor: pointer;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.5;
+  list-style: none;
+}
+
+.blog-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.blog-faq__item[open] summary,
+.blog-faq__item[open] .blog-faq__q {
+  color: #4338ca;
+  margin-bottom: 0.5rem;
+}
+
+.blog-faq__a {
+  margin: 0;
+}
+
+.blog-seo-preview-panel {
+  position: relative;
+  z-index: 48;
+  padding: 0 1rem;
+  margin: 0;
+  pointer-events: auto;
+}
+
+.blog-seo-preview-panel__box {
+  max-width: 72rem;
+  margin: 0.5rem auto 0;
+  border: 1px solid #c7d2fe;
+  border-radius: 0.75rem;
+  background: #eef2ff;
+  color: #312e81;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.blog-seo-preview-panel__summary {
+  cursor: pointer;
+  font-weight: 800;
+  padding: 0.65rem 0.85rem;
+  list-style: none;
+}
+
+.blog-seo-preview-panel__summary::-webkit-details-marker {
+  display: none;
+}
+
+.blog-seo-preview-panel__badge {
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: #4338ca;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.blog-seo-preview-panel__body {
+  padding: 0 0.85rem 0.85rem;
+  border-top: 1px solid #c7d2fe;
+}
+
+.blog-seo-preview-panel__note {
+  margin: 0.65rem 0;
+  color: #4338ca;
+}
+
+.blog-seo-preview-panel__list {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.35rem 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.blog-seo-preview-panel__list dt {
+  font-weight: 800;
+  color: #3730a3;
+}
+
+.blog-seo-preview-panel__list dd {
+  margin: 0;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.blog-seo-preview-panel__list code {
+  font-size: 0.75rem;
+}
+
+.blog-seo-preview-panel__hint {
+  color: #6366f1;
+  font-size: 0.75rem;
+}
+
+.blog-seo-preview-panel__thumb {
+  display: block;
+  max-width: 280px;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid #c7d2fe;
+  margin-top: 0.5rem;
+}
+
+.blog-seo-preview-panel__tools {
+  margin: 0.65rem 0 0;
+  font-size: 0.78rem;
+}
+
+.blog-seo-preview-panel__tools a {
+  color: #4338ca;
+  font-weight: 700;
 }
 
 .blog-note-key {

@@ -135,9 +135,9 @@ body:has(.rainy-family-prose) main {
 }
 
 body:has(.rainy-family-prose) .blog-hero__title {
-  font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif;
   font-weight: 900;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.02em;
   line-height: 1.28;
 }
 

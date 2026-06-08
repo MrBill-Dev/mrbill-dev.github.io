@@ -6,7 +6,8 @@
  * - preset: "embed"  → 站內內嵌區（精簡列 + limit，例：ai-learning-map）
  * - variant: "full" | "compact" | "featured-compact" | "auto" 可覆寫 preset
  *
- * 新增文章：BLOG_ARTICLES 加一筆 → 複製 article.template.html → 執行 npm run seo:sync
+ * 靜態文：BLOG_ARTICLES 加一筆 → 複製 article.template.html → npm run seo:sync
+ * 動態文：後台 CMS；SEO／OG／Article／FAQ 由 applyBlogArticleHead() 統一處理
  * 未讀提示：30 天內且個人尚未開啟該文章 → 列表 NEW + 導覽數字徽章（localStorage，blog 區內不顯示）。
  */
 function blogSeoOrigin() {
@@ -546,22 +547,269 @@ function preloadBlogArticleCover(article) {
   document.head.appendChild(link);
 }
 
-function applyBlogArticleHead(article) {
+function blogArticleCanonicalPath(article) {
+  if (!article || !article.slug) return "/blog/";
+  if (isDynamicBlogSlug(article.slug) || article._dynamic) {
+    return "/blog/post.html?slug=" + encodeURIComponent(article.slug);
+  }
+  return "/blog/" + article.slug + ".html";
+}
+
+function blogArticleCanonicalUrl(article) {
+  var path = blogArticleCanonicalPath(article);
+  if (typeof window.mrbillSeoAbsUrl === "function") {
+    return window.mrbillSeoAbsUrl(path);
+  }
+  return blogSeoOrigin() + path;
+}
+
+function truncateBlogSeoText(text, max) {
+  max = max || 500;
+  var t = String(text || "").replace(/\s+/g, " ").trim();
+  if (t.length <= max) return t;
+  return t.slice(0, max - 1).trim() + "…";
+}
+
+function extractFaqItemsFromRoot(root) {
+  if (!root) return [];
+  var items = [];
+  root.querySelectorAll(".blog-faq details, .blog-faq__item").forEach(function (node) {
+    var qEl = node.querySelector("summary, .blog-faq__q");
+    var aEl = node.querySelector(".blog-faq__a") || node.querySelector("p");
+    var question = qEl ? truncateBlogSeoText(qEl.textContent, 200) : "";
+    var answer = aEl ? truncateBlogSeoText(aEl.textContent, 500) : "";
+    if (question && answer) items.push({ question: question, answer: answer });
+  });
+  return items;
+}
+
+function extractFaqFromHtml(html) {
+  if (!html) return [];
+  var wrap = document.createElement("div");
+  wrap.innerHTML = html;
+  return extractFaqItemsFromRoot(wrap);
+}
+
+function extractFaqFromDom() {
+  var main = document.querySelector(".blog-main.blog-prose");
+  return extractFaqItemsFromRoot(main);
+}
+
+function pageHasJsonLdType(type) {
+  var scripts = document.querySelectorAll('script[type="application/ld+json"]');
+  for (var i = 0; i < scripts.length; i++) {
+    try {
+      var data = JSON.parse(scripts[i].textContent || "{}");
+      if (data["@type"] === type) return true;
+      if (Array.isArray(data["@graph"])) {
+        for (var j = 0; j < data["@graph"].length; j++) {
+          if (data["@graph"][j] && data["@graph"][j]["@type"] === type) return true;
+        }
+      }
+    } catch (e) {}
+  }
+  return false;
+}
+
+function setBlogJsonLd(data, id) {
+  if (!data || typeof window.mrbillSeoSetJsonLd !== "function") return;
+  window.mrbillSeoSetJsonLd(data, id);
+}
+
+function buildBlogArticleJsonLd(article) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title || article.slug,
+    description: article.excerpt || article.subtitle || "",
+    image: blogCoverAbsoluteUrl(article),
+    author: {
+      "@type": "Person",
+      name: article.author || "Mr.Bill"
+    },
+    datePublished: article.date || undefined,
+    inLanguage: "zh-Hant",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": blogArticleCanonicalUrl(article)
+    },
+    publisher: {
+      "@type": "Organization",
+      name: blogSeoSiteName()
+    }
+  };
+}
+
+function buildBlogFaqJsonLd(items) {
+  if (!items || !items.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map(function (item) {
+      return {
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer
+        }
+      };
+    })
+  };
+}
+
+function applyBlogArticleKeywords(article) {
+  var tags = article.tags;
+  if (!tags || !tags.length || typeof window.mrbillSeoSetMeta !== "function") return;
+  var existing = document.querySelector('meta[name="keywords"]');
+  if (existing && existing.getAttribute("content")) return;
+  window.mrbillSeoSetMeta("keywords", tags.join(", "));
+}
+
+function applyBlogArticleStructuredData(article, options) {
+  options = options || {};
+  if (!article) return;
+
+  if (!pageHasJsonLdType("Article")) {
+    setBlogJsonLd(buildBlogArticleJsonLd(article), "site-seo-article-jsonld");
+  }
+
+  if (!pageHasJsonLdType("FAQPage")) {
+    var faqItems =
+      (options.faqItems && options.faqItems.length && options.faqItems) ||
+      extractFaqFromHtml(options.contentHtml) ||
+      extractFaqFromDom();
+    var faqLd = buildBlogFaqJsonLd(faqItems);
+    if (faqLd) setBlogJsonLd(faqLd, "site-seo-faq-jsonld");
+  }
+
+  applyBlogArticleKeywords(article);
+}
+
+function applyBlogArticleHead(article, options) {
   if (!article || typeof window.applySiteSeo !== "function") return;
+  options = options || {};
   preloadBlogArticleCover(article);
-  var path = isDynamicBlogSlug(article.slug) || article._dynamic
-    ? "/blog/post.html?slug=" + encodeURIComponent(article.slug)
-    : "/blog/" + article.slug + ".html";
   window.applySiteSeo({
     title: article.title,
     description: article.excerpt,
     ogTitle: article.title,
     ogDescription: article.excerpt,
     ogImage: blogResolveCover(article),
+    ogImageAlt: article.title || "Mr.Bill 文章筆記",
     type: "article",
-    path: path,
+    path: blogArticleCanonicalPath(article),
     skipOrganization: true
   });
+  applyBlogArticleStructuredData(article, options);
+}
+
+function shouldShowBlogSeoPanel() {
+  return !!getAdminPreviewToken();
+}
+
+function collectBlogArticleSeoSnapshot(article, options) {
+  options = options || {};
+  var cover = blogResolveCover(article);
+  var faqItems =
+    extractFaqFromHtml(options.contentHtml) ||
+    extractFaqFromDom();
+  var ogImageEl = document.querySelector('meta[property="og:image"]');
+  var canonicalEl = document.querySelector('link[rel="canonical"]');
+  return {
+    documentTitle: document.title || "",
+    description:
+      (document.querySelector('meta[name="description"]') || {}).content ||
+      article.excerpt ||
+      "",
+    canonical: (canonicalEl && canonicalEl.href) || blogArticleCanonicalUrl(article),
+    ogTitle:
+      (document.querySelector('meta[property="og:title"]') || {}).content ||
+      article.title ||
+      "",
+    ogDescription:
+      (document.querySelector('meta[property="og:description"]') || {}).content ||
+      article.excerpt ||
+      "",
+    ogImage: (ogImageEl && ogImageEl.content) || blogCoverAbsoluteUrl(cover),
+    ogImageSource: String(article.cover || "").trim() ? "後台封面欄位" : "依 slug 自動配圖",
+    hasArticleLd:
+      !!document.getElementById("site-seo-article-jsonld") ||
+      pageHasJsonLdType("Article"),
+    hasFaqLd:
+      !!document.getElementById("site-seo-faq-jsonld") || pageHasJsonLdType("FAQPage"),
+    faqCount: faqItems.length,
+    keywords:
+      (document.querySelector('meta[name="keywords"]') || {}).content || ""
+  };
+}
+
+function renderBlogSeoPreviewPanel(article, options) {
+  if (!shouldShowBlogSeoPanel() || !article) return;
+  var panelId = "blog-seo-preview-panel";
+  var existing = document.getElementById(panelId);
+  if (existing) existing.remove();
+
+  var snap = collectBlogArticleSeoSnapshot(article, options);
+  var panel = document.createElement("aside");
+  panel.id = panelId;
+  panel.className = "blog-seo-preview-panel";
+  panel.setAttribute("aria-label", "SEO 檢查（僅管理員）");
+
+  panel.innerHTML =
+    '<details class="blog-seo-preview-panel__box" open>' +
+    '<summary class="blog-seo-preview-panel__summary">SEO／分享預覽檢查 <span class="blog-seo-preview-panel__badge">僅管理員</span></summary>' +
+    '<div class="blog-seo-preview-panel__body">' +
+    '<p class="blog-seo-preview-panel__note">動態文用 JS 寫入 &lt;head&gt;，<strong>檢視原始碼看不到</strong>；以下為載入後實際值。草稿預覽與上架後邏輯相同（canonical 為正式網址）。</p>' +
+    '<dl class="blog-seo-preview-panel__list">' +
+    "<dt>分頁 title</dt><dd>" +
+    escapeBlogHtml(snap.documentTitle) +
+    "</dd>" +
+    "<dt>description</dt><dd>" +
+    escapeBlogHtml(snap.description) +
+    "</dd>" +
+    "<dt>canonical</dt><dd><code>" +
+    escapeBlogHtml(snap.canonical) +
+    "</code></dd>" +
+    "<dt>og:image</dt><dd><code>" +
+    escapeBlogHtml(snap.ogImage) +
+    '</code> <span class="blog-seo-preview-panel__hint">(' +
+    escapeBlogHtml(snap.ogImageSource) +
+    ")</span></dd>" +
+    "<dt>Article 結構化</dt><dd>" +
+    (snap.hasArticleLd ? "已注入" : "未偵測") +
+    "</dd>" +
+    "<dt>FAQ 結構化</dt><dd>" +
+    (snap.faqCount
+      ? "已萃取 " + snap.faqCount + " 題" + (snap.hasFaqLd ? "（JSON-LD 已注入）" : "")
+      : "正文尚無 .blog-faq 區塊") +
+    "</dd>" +
+    (snap.keywords
+      ? "<dt>keywords</dt><dd>" + escapeBlogHtml(snap.keywords) + "</dd>"
+      : "") +
+    "</dl>" +
+    (snap.ogImage
+      ? '<img class="blog-seo-preview-panel__thumb" src="' +
+        escapeBlogHtml(snap.ogImage) +
+        '" alt="OG 顯圖預覽" loading="lazy" />'
+      : "") +
+    '<p class="blog-seo-preview-panel__tools">驗證工具（貼 canonical 網址）：' +
+    '<a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener noreferrer">Meta 分享偵錯</a> · ' +
+    '<a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener noreferrer">Google 複雜結果</a>' +
+    "</p>" +
+    "</div></details>";
+
+  var anchor = document.getElementById("blog-preview-banner");
+  if (anchor && anchor.parentNode) {
+    anchor.parentNode.insertBefore(panel, anchor.nextSibling);
+  } else {
+    var header = document.getElementById("global-header");
+    if (header && header.parentNode) {
+      header.parentNode.insertBefore(panel, header);
+    } else {
+      document.body.insertBefore(panel, document.body.firstChild);
+    }
+  }
 }
 
 function applyBlogIndexHead() {
@@ -606,7 +854,8 @@ function renderBlogHeroReadTime(mountId, slug) {
   el.setAttribute("title", "依字數估算的一般閱讀時間，實際長短因人而異");
 }
 
-function renderBlogArticleHero(slug) {
+function renderBlogArticleHero(slug, options) {
+  options = options || {};
   var article = getBlogArticleBySlug(slug || getCurrentBlogSlug());
   if (!article) return;
 
@@ -643,7 +892,12 @@ function renderBlogArticleHero(slug) {
   var crumb = document.getElementById("blog-hero-breadcrumb-title");
   if (crumb) crumb.textContent = article.title;
 
-  applyBlogArticleHead(article);
+  applyBlogArticleHead(article, options);
+  if (shouldShowBlogSeoPanel()) {
+    requestAnimationFrame(function () {
+      renderBlogSeoPreviewPanel(article, options);
+    });
+  }
 }
 
 function renderBlogIndexHero() {
@@ -717,11 +971,12 @@ function loadBlogArticleShell(done) {
   if (pending === 0 && done) done();
 }
 
-function initBlogArticlePage(slug) {
+function initBlogArticlePage(slug, options) {
   slug = slug || getCurrentBlogSlug();
+  options = options || {};
   markBlogArticleRead(slug);
   loadBlogArticleShell(function () {
-    renderBlogArticleHero(slug);
+    renderBlogArticleHero(slug, options);
     renderBlogArticleRail("blog-article-rail", slug);
     renderBlogArticleNav(slug);
     if (typeof window.initBlogStats === "function") {
@@ -852,7 +1107,7 @@ function initDynamicBlogArticlePage() {
       registerDynamicArticleCache(row);
       injectDynamicArticleContent(row.contentHtml);
       if (preview) showDynamicPreviewBanner(row);
-      initBlogArticlePage(slug);
+      initBlogArticlePage(slug, { contentHtml: row.contentHtml });
     })
     .catch(function (err) {
       var needsAdmin =
