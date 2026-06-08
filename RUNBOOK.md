@@ -1,6 +1,6 @@
 # Mr.Bill 數位實驗室 — 操作手冊（RUNBOOK）
 
-> 最後更新：**2026-06-08**（含 D1／R2／圖片儲存說明）  
+> 最後更新：**2026-06-08**（含 D1／R2／圖片儲存、動態文省時 SOP、GPT 套版流程）  
 > 用途：關掉 Cursor 後，照這份文件就能知道怎麼操作、怎麼部署、API 怎麼串、出錯怎麼查。
 
 ---
@@ -233,6 +233,87 @@ npx wrangler secret put ADMIN_TOKEN
 | 首頁跑馬燈 | header 下橫幅（與雨天親子常駐輪播） |
 | 首頁輪播 | 首頁「精選文章輪播」區 |
 | 列表精選 / 列表版型 | 控制 `blog/index.html` 大卡或精簡列 |
+
+### 4.5 寫一篇動態文最省時（5 步）
+
+> 目標：**少來回、少手改 HTML**。常規教學文用區塊；怪版型用 snippet 或請 Cursor 套版。
+
+| 步 | 你做什麼 | 花多久（約） |
+|----|----------|--------------|
+| 1 | GPT 出草稿（見 4.6）或自己列大綱 | 5～15 分 |
+| 2 | 請 Cursor **套成站內版型** → 得到 `content_html` | 1 次對話 |
+| 3 | 後台貼上：區塊模式能解析就自動拆；否則 **HTML 進階** 整段貼 | 2～5 分 |
+| 4 | 填 slug、標題、摘要、封面路徑 → **儲存** → **預覽文章** | 2 分 |
+| 5 | 狀態改「已上架」或「排程」→ 再存一次 → 看列表 | 1 分 |
+
+**存檔前 30 秒檢查（四項）**：slug、標題、狀態、封面（或接受 Unsplash 預設圖）。
+
+**分工原則（省時間）**
+
+- **區塊編輯**：開場、白底章節、轉場、對照、FAQ、課程帶、四欄卡 → 日後小改用這裡。
+- **HTML 進階**：GPT／Cursor 整段貼上、或含 `blog-domain-card`、`blog-level-card` 等複合版型。
+- **不必**等所有靜態文版型都變成表單；偶爾 HTML 貼一段比等系統開發快。
+
+### 4.6 GPT 草稿 → Cursor 套站內版型（常用流程）
+
+實際工作流多半是：**GPT 寫內容與粗略 HTML → 貼給 Cursor → 套成與靜態四篇相同的 class** → 貼進後台。  
+GPT 常出現的「出入」：自創 class、`<div>` 亂包、沒有 `blog-*` 結構、封面／標題混進正文、表格樣式跑掉——**交給 Cursor 統一，不要自己逐段改**。
+
+#### 給 GPT 的提示（先產「純內容」即可）
+
+```text
+你是 Mr.Bill 數位實驗室的文章編輯。請用繁體中文寫〈主題〉。
+
+輸出要求：
+1. 只給「結構化大綱 + 各段正文」，不要包完整網頁、不要 <html><body>。
+2. 標註區塊類型：開場、章節、轉場、重點提示、前後對照、FAQ、程式碼範例。
+3. 不要自創 CSS class；不要 inline style。
+4. 圖片用佔位：[圖：說明文字]。
+5. 文末附 3～5 題 FAQ（問答分開列）。
+
+參考語氣：教學筆記、實務、可掃讀。
+```
+
+#### 貼給 Cursor 的提示（套站內版型）
+
+```text
+請先讀 RUNBOOK.md 第四節 4.5～4.6，不要全專案掃描。
+
+把下方 GPT 草稿套成 Mr.Bill 動態文章正文 HTML：
+- 參考 js/admin/blog-content-snippets.js 與 blog/2026-06-05-ai-workflow-lesson-01-02.html 的 class
+- 只輸出 <article class="blog-main blog-prose"> 內的 HTML（不要 hero、不要全頁）
+- 封面、標題、摘要我會在後台表單填，不要寫進正文
+- 常用：開場 section#blog-intro、白底章節卡、blog-bridge、對照 blog-compare-stack、FAQ #blog-faq
+- 圖片路徑用 assets/blog-YYYY-MM-DD-slug-描述.jpg 佔位
+
+GPT 原文：
+〈貼在這裡〉
+
+請同時給：建議 slug、標題、摘要（各一行）。
+```
+
+#### 套版後進後台
+
+1. **HTML 進階**：貼 Cursor 輸出的正文 → 儲存 → **預覽文章**（以完整頁為準，iframe 僅供粗看）。
+2. 若要日後用區塊小改：儲存後切 **區塊編輯**；若提示「無法轉成區塊」→ 維持 HTML 模式即可，不影響上架。
+3. 封面圖放 `assets/` 後 **git push**（或暫留空用預設圖）。
+
+#### 減少「出入」的三條規則
+
+| 規則 | 原因 |
+|------|------|
+| GPT 只出內容，版型交 Cursor | GPT 不熟悉 `blog-layout.css`，自創 class 會跑版 |
+| 以 **預覽文章** 為最終標準 | 後台 iframe 沒有 hero／側欄，和讀者看到的不完全一樣 |
+| 一篇文一種主版型 | 教學文像 Lesson；清單文像 section + FAQ；不要混太多一次性版型 |
+
+**版型對照檔**（給 Cursor 或自己查）：
+
+| 需求 | 參考 |
+|------|------|
+| snippet 一鍵插入 | `js/admin/blog-content-snippets.js` |
+| 課程／對照／domain 卡 | `blog/2026-06-05-ai-workflow-lesson-01-02.html` |
+| 六層級分割卡 | `blog/2026-05-31-ai-prompt-six-levels.html` |
+| 區塊編輯支援範圍 | `js/admin/blog-block-editor.js` 頂部 `BLOCK_TYPE_LABELS` |
 
 ---
 
@@ -478,6 +559,20 @@ npx wrangler deploy
 1. 目前狀態理解
 2. 第一個要檢查的檔案
 3. 第一個要執行的命令或修改
+
+### 13.1 GPT 原文 → 套站內版型（專用開場）
+
+```text
+專案：MrBill-Dev。請先讀 RUNBOOK.md 4.5～4.6，不要全專案掃描。
+
+任務：把 GPT 草稿套成動態文章 content_html（blog-prose 內文）。
+參考：js/admin/blog-content-snippets.js、blog/2026-06-05-ai-workflow-lesson-01-02.html
+
+不要改 Worker。輸出：正文 HTML + 建議 slug／標題／摘要。
+
+GPT 原文：
+〈貼全文〉
+```
 
 ---
 
