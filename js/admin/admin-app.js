@@ -655,6 +655,7 @@
     field("status").value = a.status || "draft";
     field("publishedAt").value = (a.publishedAt || "").replace(" ", "T");
     field("listStyle").value = a.listStyle || "auto";
+    if (field("titleFont")) field("titleFont").value = a.titleFont === "serif" ? "serif" : "sans";
     field("sortOrder").value = a.sortOrder != null ? a.sortOrder : 0;
     field("pinned").checked = !!a.pinned;
     field("featured").checked = !!a.featured;
@@ -778,6 +779,7 @@
         ? field("publishedAt").value.replace("T", " ") + ":00"
         : null,
       listStyle: field("listStyle").value,
+      titleFont: field("titleFont") ? field("titleFont").value : "sans",
       sortOrder: Number(field("sortOrder").value) || 0,
       pinned: field("pinned").checked,
       featured: field("featured").checked,

@@ -156,6 +156,7 @@ function normalizeDynamicArticle(row) {
     homeMarquee: !!row.homeMarquee,
     homeCarousel: !!row.homeCarousel,
     listStyle: row.listStyle || "auto",
+    titleFont: row.titleFont === "serif" ? "serif" : "sans",
     pinned: !!row.pinned,
     badgePopular: !!row.badgePopular,
     badgeTrending: !!row.badgeTrending,
@@ -854,10 +855,22 @@ function renderBlogHeroReadTime(mountId, slug) {
   el.setAttribute("title", "依字數估算的一般閱讀時間，實際長短因人而異");
 }
 
+function applyBlogTitleFont(article) {
+  if (!document.body) return;
+  if (document.querySelector(".rainy-family-prose")) return;
+  var mode = article && article.titleFont === "serif" ? "serif" : "sans";
+  document.body.classList.remove("blog-title-font-sans", "blog-title-font-serif");
+  document.body.classList.add(
+    mode === "serif" ? "blog-title-font-serif" : "blog-title-font-sans"
+  );
+}
+
 function renderBlogArticleHero(slug, options) {
   options = options || {};
   var article = getBlogArticleBySlug(slug || getCurrentBlogSlug());
   if (!article) return;
+
+  applyBlogTitleFont(article);
 
   var cover = document.getElementById("blog-hero-cover");
   if (cover) {

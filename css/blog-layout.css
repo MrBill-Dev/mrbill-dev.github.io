@@ -78,6 +78,21 @@
   letter-spacing: -0.02em;
 }
 
+/* CMS 標題字型：僅大標 + 標準章節卡直層 h2；雨天親子／卡片內小標不套用 */
+body.blog-title-font-serif:not(:has(.rainy-family-prose)) .blog-hero__title {
+  font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  letter-spacing: 0.02em;
+  line-height: 1.28;
+}
+
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  > section
+  > h2 {
+  font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  letter-spacing: 0.02em;
+}
+
 .blog-hero__subtitle {
   margin-top: 0.75rem;
   font-size: 0.9375rem;

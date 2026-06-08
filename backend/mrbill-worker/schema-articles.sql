@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS articles (
   home_marquee  INTEGER NOT NULL DEFAULT 0,
   home_carousel INTEGER NOT NULL DEFAULT 0,
   list_style    TEXT NOT NULL DEFAULT 'auto',
+  title_font    TEXT NOT NULL DEFAULT 'sans',
   pinned        INTEGER NOT NULL DEFAULT 0,
   badge_popular INTEGER NOT NULL DEFAULT 0,
   badge_trending INTEGER NOT NULL DEFAULT 0,

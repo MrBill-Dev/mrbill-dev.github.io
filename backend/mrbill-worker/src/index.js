@@ -127,6 +127,7 @@ function rowToArticle(row, includeContent) {
     homeMarquee: !!row.home_marquee,
     homeCarousel: !!row.home_carousel,
     listStyle: row.list_style || "auto",
+    titleFont: row.title_font === "serif" ? "serif" : "sans",
     pinned: !!row.pinned,
     badgePopular: !!row.badge_popular,
     badgeTrending: !!row.badge_trending,
@@ -275,6 +276,11 @@ function normalizeArticleInput(body, existing) {
     const styles = new Set(["auto", "full", "compact"]);
     if (!styles.has(body.listStyle)) throw new Error("Invalid listStyle");
     out.listStyle = body.listStyle;
+  }
+  if (body.titleFont != null) {
+    const fonts = new Set(["sans", "serif"]);
+    if (!fonts.has(body.titleFont)) throw new Error("Invalid titleFont");
+    out.titleFont = body.titleFont;
   }
   if (body.sortOrder != null) {
     out.sortOrder = Math.max(0, Math.min(9999, Number(body.sortOrder) || 0));
@@ -513,8 +519,8 @@ async function upsertArticle(db, data) {
         slug, title, subtitle, excerpt, label, audience, category, author,
         date, read_mins, tags, cover, related_slugs, content_html, status,
         published_at, featured, home_marquee, home_carousel,
-        list_style, pinned, badge_popular, badge_trending, sort_order, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+        list_style, title_font, pinned, badge_popular, badge_trending, sort_order, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
       ON CONFLICT(slug) DO UPDATE SET
         title=excluded.title, subtitle=excluded.subtitle, excerpt=excluded.excerpt,
         label=excluded.label, audience=excluded.audience, category=excluded.category,
@@ -523,7 +529,7 @@ async function upsertArticle(db, data) {
         content_html=excluded.content_html, status=excluded.status,
         published_at=excluded.published_at, featured=excluded.featured,
         home_marquee=excluded.home_marquee, home_carousel=excluded.home_carousel,
-        list_style=excluded.list_style, pinned=excluded.pinned,
+        list_style=excluded.list_style, title_font=excluded.title_font, pinned=excluded.pinned,
         badge_popular=excluded.badge_popular, badge_trending=excluded.badge_trending,
         sort_order=excluded.sort_order, updated_at=datetime('now')`
     )
@@ -548,6 +554,7 @@ async function upsertArticle(db, data) {
       data.homeMarquee ? 1 : 0,
       data.homeCarousel ? 1 : 0,
       data.listStyle || "auto",
+      data.titleFont === "serif" ? "serif" : "sans",
       data.pinned ? 1 : 0,
       data.badgePopular ? 1 : 0,
       data.badgeTrending ? 1 : 0,

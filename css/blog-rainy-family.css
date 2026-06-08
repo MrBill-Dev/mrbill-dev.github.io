@@ -135,9 +135,9 @@ body:has(.rainy-family-prose) main {
 }
 
 body:has(.rainy-family-prose) .blog-hero__title {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif;
+  font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
   font-weight: 900;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
   line-height: 1.28;
 }
 
@@ -171,6 +171,18 @@ body:has(.rainy-family-prose) .blog-hero__subtitle {
   word-wrap: break-word;
   word-break: break-word;
   max-width: 100%;
+}
+
+/* 蓋過 blog-layout 全域 h2（font-family:inherit 會吃掉明體） */
+.rainy-family-prose.blog-main.blog-prose .rainy-article h2,
+.rainy-family-prose.blog-main.blog-prose .rainy-box > h2,
+.rainy-family-prose.blog-main.blog-prose .rainy-section-head > h2,
+.rainy-family-prose.blog-main.blog-prose .rainy-decision > h2,
+.rainy-family-prose.blog-main.blog-prose .rainy-share h2,
+.rainy-family-prose.blog-main.blog-prose .rainy-weather-head h2 {
+  font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  letter-spacing: 0.02em;
+  font-weight: 900;
 }
 
 .rainy-article h3 {

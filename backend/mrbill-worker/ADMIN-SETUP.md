@@ -69,13 +69,21 @@ window.MRBILL_ADMIN = {
 
 ---
 
-## 資料庫升級（列表版型欄位）
+## 資料庫升級
 
 若儲存時出現 `no such column: list_style`，請執行一次：
 
 ```powershell
 cd backend\mrbill-worker
 npx wrangler d1 execute mrbill-stats --remote --file=./migrate-articles-v3.sql
+npx wrangler deploy
+```
+
+若出現 `no such column: title_font`（標題字型切換），請執行：
+
+```powershell
+cd backend\mrbill-worker
+npx wrangler d1 execute mrbill-stats --remote --file=./migrate-articles-v4.sql
 npx wrangler deploy
 ```
 
