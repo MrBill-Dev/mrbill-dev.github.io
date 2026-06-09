@@ -407,6 +407,16 @@
       );
     } else if (status === "published") {
       placements.push("已上架：出現在 blog/index.html 文章列表");
+      if (publishedAt) {
+        var pubAt = new Date(String(publishedAt).replace(" ", "T"));
+        if (!isNaN(pubAt.getTime()) && pubAt.getTime() > Date.now()) {
+          placements.push(
+            "⚠ 排程時間仍在未來（" +
+              publishedAt.replace("T", " ") +
+              "）。若讀者看不到，請清空「排程發布時間」再儲存。"
+          );
+        }
+      }
     } else if (status === "archived") {
       placements.push("已下架：讀者看不到");
     }
@@ -834,6 +844,12 @@
     var data = collectForm();
     var isNew = !field("slug").readOnly;
     var sentTitleFont = data.titleFont === "serif" ? "serif" : "sans";
+    if (data.status === "published" && data.publishedAt) {
+      var pubAt = new Date(String(data.publishedAt).replace(" ", "T"));
+      if (!isNaN(pubAt.getTime()) && pubAt.getTime() > Date.now()) {
+        data.publishedAt = null;
+      }
+    }
     var path = isNew
       ? "/api/admin/articles"
       : "/api/admin/articles/" + encodeURIComponent(data.slug);

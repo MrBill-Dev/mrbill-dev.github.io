@@ -11,6 +11,7 @@
   var TAIPEI_LAT = 25.0478;
   var TAIPEI_LON = 121.5319;
   var ENGAGE_KEY = "homeBlogStripEngaged";
+  var DISMISS_KEY = "homeBlogStripDismissed";
   var DEFAULT_INTERVAL_SEC = 10;
   var DEFAULT_TRANSITION_MS = 900;
   var rotateIntervalMs = DEFAULT_INTERVAL_SEC * 1000;
@@ -92,6 +93,14 @@
     };
   }
 
+  function stripShortText(text, max) {
+    var limit = max || 32;
+    var t = String(text || "").replace(/\s+/g, " ").trim();
+    if (!t) return "";
+    if (t.length <= limit) return t;
+    return t.slice(0, limit).replace(/\s+\S*$/, "") + "…";
+  }
+
   function featuredSlideFromArticle(article) {
     return {
       type: "featured",
@@ -99,9 +108,9 @@
       slotLabel: "精選推薦",
       kicker: article.label || "文章筆記",
       pill: article.category || article.label || "精選",
-      hint: article.subtitle || "延伸閱讀｜精選文章",
+      hint: stripShortText(article.subtitle, 28) || "延伸閱讀",
       title: article.title || article.slug,
-      meta: article.excerpt || "非課程主線，屬延伸閱讀",
+      meta: "",
       btn: "閱讀文章",
       href: articleHrefFromSlug(article.slug, !!previewOpts.preview)
     };
@@ -197,9 +206,11 @@
       '<p class="home-blog-strip__title">' +
       escapeHtml(slide.title) +
       "</p>" +
-      '<span class="home-blog-strip__meta hidden md:inline">' +
-      escapeHtml(slide.meta) +
-      "</span>" +
+      (slide.meta
+        ? '<span class="home-blog-strip__meta hidden md:inline">' +
+          escapeHtml(slide.meta) +
+          "</span>"
+        : "") +
       '<a href="' +
       escapeHtml(slide.href) +
       '" class="home-blog-strip__cta" title="' +
@@ -577,6 +588,63 @@
       });
   }
 
+  function applyStripDismissed(dismissed) {
+    var root = getRoot();
+    var spacer = document.getElementById("homeRainRecommendSpacer");
+    if (!root) return;
+    root.classList.toggle("is-dismissed", dismissed);
+    root.classList.toggle("hidden", dismissed);
+    if (dismissed) {
+      if (spacer) spacer.style.height = "0";
+      clearStripTimers();
+      return;
+    }
+    requestAnimationFrame(syncLayout);
+  }
+
+  function bindStripDismiss() {
+    var root = getRoot();
+    if (!root) return;
+
+    if (sessionStorage.getItem(DISMISS_KEY) === "1") {
+      applyStripDismissed(true);
+    }
+
+    var closeBtn = root.querySelector(".home-blog-strip__close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        sessionStorage.setItem(DISMISS_KEY, "1");
+        applyStripDismissed(true);
+      });
+    }
+  }
+
+  function bindScrollPastHero() {
+    var root = getRoot();
+    var hero = document.getElementById("home-hero-bleed");
+    if (!root || !hero) return;
+
+    var mq = window.matchMedia ? window.matchMedia("(max-width: 767px)") : null;
+
+    function updateScrollState() {
+      if (root.classList.contains("is-dismissed")) return;
+      if (mq && !mq.matches) {
+        root.classList.remove("is-scrolled-past-hero");
+        return;
+      }
+      var heroBottom = hero.getBoundingClientRect().bottom;
+      root.classList.toggle("is-scrolled-past-hero", heroBottom <= 8);
+    }
+
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState, { passive: true });
+    updateScrollState();
+  }
+
+  window.isHomeBlogStripDismissed = function () {
+    return sessionStorage.getItem(DISMISS_KEY) === "1";
+  };
+
   function bindStripEngagement() {
     var root = getRoot();
     if (!root) return;
@@ -620,6 +688,8 @@
     var surface = root.querySelector(".home-blog-strip__surface");
     if (!surface) return;
     surface.innerHTML =
+      '<button type="button" class="home-blog-strip__close" aria-label="關閉推薦橫幅" title="關閉">' +
+      '<span aria-hidden="true">×</span></button>' +
       '<div class="home-blog-strip__viewport">' +
       '<div id="homeBlogStripTrack" class="home-blog-strip__track"></div>' +
       "</div>" +
@@ -646,6 +716,8 @@
 
     window.syncHomeBlogStripLayout = syncLayout;
     bindStripEngagement();
+    bindStripDismiss();
+    bindScrollPastHero();
     bindLayoutSync();
 
     renderStrip();

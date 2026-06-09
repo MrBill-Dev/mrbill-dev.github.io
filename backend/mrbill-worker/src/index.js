@@ -164,8 +164,7 @@ function isPubliclyVisible(row, nowSqlStr) {
   if (!row) return false;
   const now = nowSqlStr || nowSql();
   if (row.status === "published") {
-    if (!row.published_at) return true;
-    return row.published_at <= now;
+    return true;
   }
   if (row.status === "scheduled" && row.published_at && row.published_at <= now) {
     return true;

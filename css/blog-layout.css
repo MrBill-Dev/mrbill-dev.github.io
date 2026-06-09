@@ -981,6 +981,34 @@ body.blog-title-font-serif
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  max-width: 100%;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .blog-compare-grid--dual {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+.blog-compare-card--pros {
+  border-color: #a7f3d0;
+  background: rgba(236, 253, 245, 0.78);
+}
+
+.blog-compare-card--pros .blog-compare-card__title {
+  color: #065f46;
+}
+
+.blog-compare-card--cons {
+  border-color: #fecaca;
+  background: rgba(254, 242, 242, 0.78);
+}
+
+.blog-compare-card--cons .blog-compare-card__title {
+  color: #991b1b;
 }
 
 .blog-compare-divider {
@@ -1298,6 +1326,27 @@ body.blog-title-font-serif
   max-width: 100%;
   min-width: 0;
   overflow-x: clip;
+}
+
+/* iOS Safari：keep-all 在 ul/li 內易橫向溢出被 clip 裁切 */
+.blog-main.blog-prose ul,
+.blog-main.blog-prose ol,
+.blog-main.blog-prose li,
+.blog-main.blog-prose .blog-rule-list li,
+.blog-main.blog-prose .blog-checklist li {
+  word-break: normal;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.blog-main.blog-prose section > div,
+.blog-main.blog-prose .blog-compare-grid > *,
+.blog-main.blog-prose .blog-compare-grid--dual > *,
+.blog-main.blog-prose .blog-dual-cards > * {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .blog-main.blog-prose > section,
@@ -2280,8 +2329,17 @@ body.blog-title-font-serif
 
   .blog-main.blog-prose p.leading-relaxed,
   .blog-main.blog-prose p.text-slate-700 {
+    word-break: normal;
+    overflow-wrap: break-word;
     font-size: 0.96875rem;
     line-height: 1.9;
+  }
+
+  .blog-main.blog-prose ul,
+  .blog-main.blog-prose ol,
+  .blog-main.blog-prose li {
+    word-break: normal;
+    overflow-wrap: anywhere;
   }
 
   .blog-text-chunks > p {

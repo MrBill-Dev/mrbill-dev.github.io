@@ -232,9 +232,9 @@
             </div>
             <p class="admin-field-hint">首頁跑馬燈會與「雙北親子」常駐橫幅輪播（常駐不會被取代）。精選推薦需已上架或排程時間已到；草稿用「預覽首頁」。</p>
             <div class="admin-field mt-3">
-              <label for="publishedAt">排程發布時間（選填，scheduled 用）</label>
+              <label for="publishedAt">排程發布時間（選填，僅「排程」用）</label>
               <input id="publishedAt" name="publishedAt" type="datetime-local" />
-              <p class="admin-field-hint">狀態選「排程」時使用；時間到才會出現在讀者列表。</p>
+              <p class="admin-field-hint">狀態選「排程」時才需要填。若改「已上架」仍留未來時間，舊版 Worker 可能暫時看不到——請清空此欄再儲存，或 deploy 最新 Worker。</p>
             </div>
           </div>
 
