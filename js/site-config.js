@@ -4,7 +4,7 @@ window.MRBILL_SITE_CONFIG = {
     return (window.MRBILL_SITE_SEO && window.MRBILL_SITE_SEO.siteName) || "Mr.Bill 數位實驗室";
   },
   authorHintTemplate:
-    "目前從事網頁前端維護，並個人經營本網站，整理 AI、前端與數位技能的實作筆記。"
+    "十多年網頁前端實務，現職前端維護；本站為個人經營，整理實作與改版心得。"
 };
 
 function renderAuthorSignature(targetId, options) {

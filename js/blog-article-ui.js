@@ -3,15 +3,46 @@
  */
 var BLOG_AUTHOR = {
   name: "Mr.Bill",
-  tagline: "前端維護者，也是這個站的建置與維護者",
+  tagline: "十多年網頁前端實務 · 現職前端維護",
   intro:
-    "我目前以網頁前端維護為主；本站是我個人經營，用來整理 AI、前端與數位工作流的實作筆記。",
-  current:
-    "持續在前端維護工作中累積實務，並把 AI 導入與應用規劃作為深化方向，透過這個站分享可參考的作法與踩坑經驗。",
-  moreLabel: "學歷與相關經歷",
-  background:
-    "國立海山高工機械製圖科、萬能科技大學紡織系纖維科技組；後續曾涉獵網頁／UI 設計、網站企劃與行銷、視覺與 3D、工業設計，以及機構、硬體與 PHP 等實作領域。",
-  tags: ["網頁", "UI", "行銷", "視覺", "3D", "工業設計", "工程", "PHP", "AI 應用"]
+    "做網頁前端超過十年，從切版、RWD、互動元件到改版維護與上線後調校都實際做過。本站是我個人經營，把維護、改版與 AI 應用試做後的心得整理成文——偏向「真的做過、踩過坑」的紀錄。",
+  moreLabel: "學歷與工作經歷",
+  details: [
+    {
+      label: "學歷",
+      text: "國立海山高工機械製圖科；萬能科技大學紡織系纖維科技組。"
+    },
+    {
+      label: "前端與網站",
+      text:
+        "網頁設計與維護、UI、RWD 切版、網站企劃與行銷。技術面橫跨 ASP、ASP.NET、PHP 後台整合，以及 JavaScript、jQuery、Vue 等前端實作——從早期全站維護到現行改版都實際做過。"
+    },
+    {
+      label: "設計與工程",
+      text: "美術視覺、3D 角色、工業設計、機構與硬體工程。"
+    },
+    {
+      label: "影像創作",
+      text: "微電影製作與婚禮攝影；從取景構圖、敘事節奏到後期調色，與網頁視覺、UI 的工作有相通的審美與執行經驗。"
+    },
+    {
+      label: "現階段",
+      text: "前端維護仍是主要工作；同時深化 AI 導入與應用規劃，並在本站分享可落地的做法。"
+    }
+  ],
+  tags: [
+    "前端維護",
+    "JavaScript",
+    "Vue",
+    "jQuery",
+    "PHP",
+    "ASP.NET",
+    "RWD",
+    "UI",
+    "微電影",
+    "婚禮攝影",
+    "AI 應用"
+  ]
 };
 
 function blogArticlePrefersReducedMotion() {
@@ -102,27 +133,30 @@ function renderBlogAuthorCard(mountId) {
   if (author.intro) {
     html += '<p class="blog-author-card__bio">' + blogAuthorEscape(author.intro) + "</p>";
   }
-  if (author.current) {
-    html +=
-      '<div class="blog-author-card__section blog-author-card__section--current">' +
-      '<p class="blog-author-card__section-label">目前</p>' +
-      '<p class="blog-author-card__section-text">' +
-      blogAuthorEscape(author.current) +
-      "</p></div>";
+  var detailItems = author.details || [];
+  if (!detailItems.length && author.background) {
+    detailItems = [{ label: "", text: author.background }];
   }
-  if (author.background || (author.tags && author.tags.length)) {
+  if (detailItems.length || (author.tags && author.tags.length)) {
     html +=
       '<details class="blog-author-card__more">' +
       '<summary class="blog-author-card__more-toggle">' +
       blogAuthorEscape(author.moreLabel || "更多背景") +
       "</summary>" +
       '<div class="blog-author-card__more-body">';
-    if (author.background) {
+    detailItems.forEach(function (item) {
+      html += '<div class="blog-author-card__detail">';
+      if (item.label) {
+        html +=
+          '<p class="blog-author-card__section-label">' +
+          blogAuthorEscape(item.label) +
+          "</p>";
+      }
       html +=
         '<p class="blog-author-card__section-text">' +
-        blogAuthorEscape(author.background) +
-        "</p>";
-    }
+        blogAuthorEscape(item.text) +
+        "</p></div>";
+    });
     if (author.tags && author.tags.length) {
       html += '<div class="blog-author-card__tags" aria-label="相關領域">';
       author.tags.forEach(function (tag) {
