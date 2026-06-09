@@ -325,7 +325,9 @@ function renderAdminDraftStrip(articles) {
     '<div class="rounded-2xl border border-amber-200 bg-amber-50 p-4 md:p-5 mb-6">' +
       '<p class="text-sm font-bold text-amber-900">管理員預覽區（僅你可見）</p>' +
       '<p class="blog-admin-draft-strip__note mt-2">' +
-      '<a href="../admin.html">回到後台</a>　·　' +
+      '<a href="' +
+      escapeBlogHtml(blogAssetHref("admin.html")) +
+      '">回到後台</a>　·　' +
       "下方卡片與讀者列表相同版型；改「已上架」並儲存後，才會出現在下方公開列表。" +
       "</p></div>"
   ];
@@ -517,6 +519,23 @@ function blogSiblingPrefix() {
   var out = "";
   for (var i = 1; i < d; i++) out += "../";
   return out;
+}
+
+function fixBlogNavPathsFromSubdir() {
+  var header = document.getElementById("global-header");
+  var footer = document.getElementById("global-footer");
+  var prefix = blogAssetPrefix();
+  [header, footer].forEach(function (root) {
+    if (!root) return;
+    root.querySelectorAll("a[href]").forEach(function (a) {
+      var h = a.getAttribute("href");
+      if (!h || /^https?:\/\//.test(h) || h.startsWith("#") || h.startsWith("../") || h.startsWith("/")) {
+        return;
+      }
+      if (h.startsWith("./")) a.setAttribute("href", prefix + h.slice(2));
+      else a.setAttribute("href", prefix + h);
+    });
+  });
 }
 
 function getCurrentBlogSlug() {
@@ -1047,7 +1066,7 @@ function loadBlogArticleShell(done) {
     pending++;
     includeComponentSlot(
       "blog-article-hero-slot",
-      "../components/blog-article-hero.html",
+      blogAssetHref("components/blog-article-hero.html"),
       null,
       tick
     );
@@ -1056,7 +1075,7 @@ function loadBlogArticleShell(done) {
     pending++;
     includeComponentSlot(
       "blog-article-rail-slot",
-      "../components/blog-article-rail.html",
+      blogAssetHref("components/blog-article-rail.html"),
       null,
       tick
     );
@@ -1132,14 +1151,22 @@ function showDynamicArticleError(message, options) {
       extra =
         '<p class="mt-4 text-sm text-slate-600 leading-relaxed">' +
         "已偵測登入狀態，但預覽仍失敗。請回後台重新輸入密碼，再按「預覽前台」。" +
-        '　<a class="font-bold text-indigo-600 underline" href="../admin.html">回到後台</a>' +
-        '　·　<a class="font-bold text-slate-700 underline" href="index.html">文章列表</a>' +
+        '　<a class="font-bold text-indigo-600 underline" href="' +
+        escapeBlogHtml(blogAssetHref("admin.html")) +
+        '">回到後台</a>' +
+        '　·　<a class="font-bold text-slate-700 underline" href="' +
+        escapeBlogHtml(blogSiblingPrefix() + "index.html") +
+        '">文章列表</a>' +
         "</p>";
     } else {
       extra =
         '<p class="mt-4 text-sm text-slate-600">' +
-        '<a class="font-bold text-indigo-600 underline" href="../admin.html">前往後台登入</a>' +
-        '　·　<a class="font-bold text-slate-700 underline" href="index.html">文章列表</a>' +
+        '<a class="font-bold text-indigo-600 underline" href="' +
+        escapeBlogHtml(blogAssetHref("admin.html")) +
+        '">前往後台登入</a>' +
+        '　·　<a class="font-bold text-slate-700 underline" href="' +
+        escapeBlogHtml(blogSiblingPrefix() + "index.html") +
+        '">文章列表</a>' +
         "</p>";
     }
   }
@@ -2028,5 +2055,6 @@ window.applyBlogNavNewIndicator = applyBlogNavNewIndicator;
 })();
 
 window.initDynamicBlogArticlePage = initDynamicBlogArticlePage;
+window.fixBlogNavPathsFromSubdir = fixBlogNavPathsFromSubdir;
 window.blogArticlePublicHref = blogArticleHref;
 window.blogArticleShareUrl = blogArticleShareUrl;

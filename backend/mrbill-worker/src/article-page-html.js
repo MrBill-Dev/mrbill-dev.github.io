@@ -116,7 +116,7 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/components-loader.js"></script>\n' +
     '  <script src="../../js/mrbill-admin-session.js"></script>\n' +
     '  <script src="../../js/blog-articles.config.js"></script>\n' +
-    '  <script src="../../js/blog-articles.js?v=clean-slug-url-1"></script>\n' +
+    '  <script src="../../js/blog-articles.js?v=nested-path-fix-1"></script>\n' +
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
     '  <script src="../../js/blog-article-ui.js"></script>\n' +
@@ -151,17 +151,7 @@ export function buildPublishedArticlePageHtml(article) {
     "\n  <footer id=\"global-footer\" class=\"bg-white border-t border-slate-100 py-8 px-4 sm:px-6 mt-auto overflow-x-hidden\"></footer>\n" +
     "\n  <script>\n" +
     "    function fixNavPathsFromSubdir() {\n" +
-    '      var header = document.getElementById("global-header");\n' +
-    '      var footer = document.getElementById("global-footer");\n' +
-    "      [header, footer].forEach(function (root) {\n" +
-    "        if (!root) return;\n" +
-    '        root.querySelectorAll("a[href]").forEach(function (a) {\n' +
-    '          var h = a.getAttribute("href");\n' +
-    '          if (!h || /^https?:\\/\\//.test(h) || h.startsWith("#") || h.startsWith("../") || h.startsWith("/")) return;\n' +
-    '          if (h.startsWith("./")) a.setAttribute("href", "../.." + h.slice(1));\n' +
-    '          else a.setAttribute("href", "../../" + h);\n' +
-    "        });\n" +
-    "      });\n" +
+    "      if (typeof fixBlogNavPathsFromSubdir === 'function') fixBlogNavPathsFromSubdir();\n" +
     "    }\n" +
     '    window.addEventListener("DOMContentLoaded", function () {\n' +
     '      includeComponentSlot("global-header", "../../components/header.html", null, fixNavPathsFromSubdir);\n' +
