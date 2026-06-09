@@ -11,6 +11,12 @@ import {
   OG_IMAGE_HEIGHT
 } from "./share-seo.js";
 
+/** 文章明體標題用（手機無系統宋體時必須載入 webfont） */
+export const BLOG_SERIF_FONT_HEAD =
+  '  <link rel="preconnect" href="https://fonts.googleapis.com" />\n' +
+  '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n' +
+  '  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&amp;display=swap" rel="stylesheet" />\n';
+
 /** 動態文正式網址：/blog/{slug}/（磁碟上為 blog/{slug}/index.html） */
 export function blogArticlePublicPath(slug) {
   return "/blog/" + slug + "/";
@@ -350,11 +356,12 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/components-loader.js"></script>\n' +
     '  <script src="../../js/mrbill-admin-session.js"></script>\n' +
     '  <script src="../../js/blog-articles.config.js"></script>\n' +
-    '  <script src="../../js/blog-articles.js?v=seo-panel-note-1"></script>\n' +
+    '  <script src="../../js/blog-articles.js?v=title-font-mobile-1"></script>\n' +
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
     '  <script src="../../js/blog-article-ui.js"></script>\n' +
-    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=clean-slug-url-1" />\n' +
+    (article.titleFont === "serif" ? BLOG_SERIF_FONT_HEAD : "") +
+    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=title-font-mobile-1" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }\n' +
@@ -416,4 +423,4 @@ export function publishedArticleFilePath(slug) {
 export function legacyFlatPublishedArticleFilePath(slug) {
   return "blog/" + slug + ".html";
 }
-
+

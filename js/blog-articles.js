@@ -979,10 +979,28 @@ function renderBlogHeroReadTime(mountId, slug) {
   el.setAttribute("title", "依字數估算的一般閱讀時間，實際長短因人而異");
 }
 
+function readStaticPublishedTitleFont() {
+  var dataEl = document.getElementById("blog-static-article-data");
+  if (!dataEl || !dataEl.textContent) return null;
+  try {
+    var row = JSON.parse(dataEl.textContent);
+    return row && row.titleFont === "serif" ? "serif" : row ? "sans" : null;
+  } catch (e) {
+    return null;
+  }
+}
+
 function applyBlogTitleFont(article) {
   if (!document.body) return;
   if (document.querySelector(".rainy-family-prose")) return;
-  var mode = article && article.titleFont === "serif" ? "serif" : "sans";
+  var mode = "sans";
+  if (article && article.titleFont === "serif") mode = "serif";
+  else if (article && article.titleFont) mode = "sans";
+  else if (document.body.classList.contains("blog-title-font-serif")) mode = "serif";
+  else {
+    var fromStatic = readStaticPublishedTitleFont();
+    if (fromStatic) mode = fromStatic;
+  }
   document.body.classList.remove("blog-title-font-sans", "blog-title-font-serif");
   document.body.classList.add(
     mode === "serif" ? "blog-title-font-serif" : "blog-title-font-sans"
@@ -1337,6 +1355,7 @@ function initStaticPublishedBlogArticlePage() {
     article = Object.assign({}, article, { contentHtml: staticRoot.innerHTML });
   }
   registerDynamicArticleCache(article);
+  applyBlogTitleFont(article);
   initBlogArticlePage(slug, {
     contentHtml: article.contentHtml,
     staticPublished: true

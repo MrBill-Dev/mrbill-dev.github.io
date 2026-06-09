@@ -78,8 +78,9 @@
   letter-spacing: -0.02em;
 }
 
-/* CMS 標題字型：僅大標 + 標準章節卡直層 h2；雨天親子／卡片內小標不套用 */
-body.blog-title-font-serif:not(:has(.rainy-family-prose)) .blog-hero__title {
+/* CMS 標題字型：僅大標 + 標準章節卡直層 h2（勿用 :has()，部分手機內建瀏覽器不支援會整條失效）
+   明體需搭配 HTML 載入 Noto Serif TC（見 post.html / Worker 靜態頁） */
+body.blog-title-font-serif .blog-hero__title {
   font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
   letter-spacing: 0.02em;
   line-height: 1.28;

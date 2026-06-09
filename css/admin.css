@@ -1,9 +1,18 @@
 /* Mr.Bill 數位實驗室 — 文章內容管理後台 */
 :root {
   --admin-topbar-h: 72px;
+  --admin-subbar-h: 0px;
   --admin-shell-max: min(1680px, calc(100vw - 40px));
   --admin-sidebar-w: 360px;
-  --admin-action-dock-h: 76px;
+  --admin-action-dock-h: 64px;
+}
+
+.admin-is-authed {
+  --admin-subbar-h: 62px;
+}
+
+.admin-is-authed:has(#admin-notice:not(:empty)) {
+  --admin-subbar-h: 102px;
 }
 
 .admin-body {
@@ -124,6 +133,54 @@
 
 .admin-topnav__logout:not(.admin-is-visible) {
   display: none;
+}
+
+/* 第二排：編輯分頁 + 預覽（全站頂欄下方滿版） */
+.admin-subbar {
+  border-top: 1px solid #e2e8f0;
+  background: rgba(248, 250, 252, 0.97);
+}
+
+.admin-subbar__inner {
+  max-width: var(--admin-shell-max);
+  margin: 0 auto;
+  padding: 10px 20px 12px;
+}
+
+.admin-subbar .admin-editor-chrome {
+  position: static;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.admin-subbar .admin-editor-toolbar {
+  width: 100%;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+}
+
+.admin-subbar .admin-editor-chrome:has(.admin-notice:not(:empty)) .admin-editor-toolbar {
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  border-bottom: 1px solid #c7d2fe;
+}
+
+.admin-subbar .admin-notice {
+  margin-top: 0;
+  border-radius: 0 0 14px 14px;
+  border: 1px solid #a7f3d0;
+  border-top: none;
+}
+
+.admin-subbar .admin-notice--err {
+  border-color: #fecdd3;
+  border-top: none;
 }
 
 .admin-shell {
@@ -258,17 +315,19 @@
 }
 
 .admin-main {
-  padding: 24px 28px 12px;
+  padding: 20px 22px 16px;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-/* —— 編輯工作區（分頁切換感） —— */
-.admin-editor-workspace {
-  border: 1px solid #c7d2fe;
-  border-radius: 18px;
-  background: #fff;
-  padding: 14px 16px 18px;
-  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.06);
+/* —— 編輯區：僅內容框 —— */
+.admin-editor-shell {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
 }
 
 .admin-editor-toolbar {
@@ -277,14 +336,19 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px 16px;
-  position: sticky;
-  top: calc(var(--admin-topbar-h) + 8px);
-  z-index: 12;
-  margin: -4px -4px 12px;
-  padding: 8px;
-  border-radius: 14px;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+}
+
+.admin-editor-workspace {
+  border: 1px solid #c7d2fe;
+  border-radius: 18px;
+  background: #fff;
+  padding: 16px 16px 0;
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.06);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: min(68vh, 780px);
+  min-width: 0;
 }
 
 .admin-editor-tabs {
@@ -322,8 +386,8 @@
   font-size: 1.125rem;
   font-weight: 900;
   color: #0f172a;
-  margin: 0 0 14px;
-  padding-bottom: 10px;
+  margin: 0;
+  padding-bottom: 8px;
   border-bottom: 2px solid #e0e7ff;
 }
 
@@ -359,17 +423,66 @@
 .admin-editor-toolbar__hint {
   font-size: 0.75rem;
   color: #64748b;
-  margin: 0 0 12px;
+  margin: 6px 0 0;
   line-height: 1.5;
+}
+
+/* 單一通知列：與上方選單同一外層卡片，不遮擋內容框 */
+.admin-notice {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 9px 14px;
+  border-radius: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.admin-notice:not(:empty) {
+  display: flex;
+}
+
+.admin-notice--ok {
+  background: #ecfdf5;
+  color: #047857;
+  border: none;
+}
+
+.admin-notice--err {
+  background: #fff1f2;
+  color: #be123c;
+  border: none;
+}
+
+.admin-editor-stage {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0 2px 18px;
+  scrollbar-gutter: stable;
+}
+
+.admin-editor-stage__head {
+  margin-bottom: 14px;
+}
+
+.admin-editor-form {
+  display: block;
 }
 
 .admin-tab-panel {
   display: none;
-  animation: adminTabIn 0.18s ease;
+  animation: adminTabIn 0.2s ease;
 }
 
 .admin-tab-panel.is-active {
   display: block;
+}
+
+.admin-editor-shell[data-admin-active-tab="body"] .admin-tab-panel.is-active {
+  min-height: min(64vh, 760px);
 }
 
 @keyframes adminTabIn {
@@ -478,6 +591,23 @@
   background: #f8fafc;
 }
 
+.admin-github-panel--compact {
+  padding: 10px 12px;
+}
+
+.admin-github-panel--compact .admin-github-panel__text {
+  margin-top: 4px;
+  font-size: 0.75rem;
+}
+
+.admin-github-panel--compact.admin-github-panel--ok .admin-github-panel__actions {
+  display: none;
+}
+
+.admin-github-panel--compact.admin-github-panel--ok .admin-github-panel__text {
+  display: none;
+}
+
 .admin-github-panel--ok {
   background: #ecfdf5;
   border-color: #6ee7b7;
@@ -571,13 +701,26 @@
 @media (min-width: 1024px) {
   .admin-sidebar {
     position: sticky;
-    top: calc(var(--admin-topbar-h) + 12px);
-    max-height: calc(100vh - var(--admin-topbar-h) - 28px);
+    top: calc(var(--admin-topbar-h) + var(--admin-subbar-h) + 12px);
+    max-height: calc(100vh - var(--admin-topbar-h) - var(--admin-subbar-h) - 28px);
   }
 
   .admin-main {
-    max-height: calc(100vh - var(--admin-topbar-h) - 24px);
+    max-height: calc(100vh - var(--admin-topbar-h) - var(--admin-subbar-h) - 24px);
     overflow: auto;
+  }
+
+  .admin-editor-stage {
+    overflow: visible;
+  }
+
+  .admin-editor-shell {
+    min-height: calc(100vh - var(--admin-topbar-h) - var(--admin-subbar-h) - var(--admin-action-dock-h) - 80px);
+  }
+
+  .admin-editor-workspace {
+    min-height: 0;
+    flex: 1;
   }
 }
 
@@ -842,14 +985,14 @@
 }
 
 .admin-form-section {
-  padding-top: 6px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #f1f5f9;
-  margin-bottom: 8px;
+  padding-top: 4px;
+  padding-bottom: 16px;
+  margin-bottom: 0;
+  border-bottom: none;
 }
 
-.admin-form-section:last-of-type {
-  border-bottom: none;
+.admin-tab-panel.is-active .admin-form-section {
+  padding-bottom: 24px;
 }
 
 .admin-section-title {
@@ -946,43 +1089,20 @@
 .admin-action-dock__inner {
   max-width: var(--admin-shell-max);
   margin: 0 auto;
-  padding: 10px 20px 12px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-}
-
-@media (min-width: 1024px) {
-  .admin-action-dock__inner {
-    grid-template-columns: var(--admin-sidebar-w) 28px minmax(0, 1fr);
-  }
-
-  .admin-action-dock__sidebar-gap {
-    display: block;
-  }
-}
-
-.admin-action-dock__sidebar-gap {
-  display: none;
-}
-
-.admin-action-dock__content {
+  padding: 12px 20px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px 16px;
-  min-width: 0;
+  justify-content: center;
 }
 
 .admin-action-dock__buttons {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  flex-shrink: 0;
-  margin-left: auto;
+  justify-content: center;
+  gap: 10px 12px;
+  width: 100%;
+  max-width: 720px;
 }
 
 .admin-action-dock__save {
@@ -1027,42 +1147,66 @@
   cursor: pointer;
 }
 
-.admin-action-dock__status {
-  flex: 1 1 160px;
-  min-width: 0;
-  margin: 0;
-  font-size: 0.8125rem;
-  line-height: 1.45;
-  color: #64748b;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  padding: 8px 12px;
-  border-radius: 10px;
-}
-
-.admin-action-dock__status:empty {
-  display: none;
-}
-
 .admin-delete-hint {
   margin-bottom: 8px;
 }
 
 @media (max-width: 1023px) {
-  .admin-action-dock__content {
-    flex-direction: column;
-    align-items: stretch;
+  .admin-editor-workspace {
+    min-height: 0;
   }
 
-  .admin-action-dock__buttons {
-    margin-left: 0;
-    width: 100%;
+  .admin-is-authed {
+    --admin-subbar-h: 108px;
+  }
+
+  .admin-is-authed:has(#admin-notice:not(:empty)) {
+    --admin-subbar-h: 148px;
   }
 }
 
 @media (max-width: 640px) {
   :root {
-    --admin-action-dock-h: 132px;
+    --admin-action-dock-h: 118px;
+  }
+
+  .admin-main {
+    padding: 14px 12px 12px;
+  }
+
+  .admin-subbar__inner {
+    padding: 8px 12px 10px;
+  }
+
+  .admin-editor-workspace {
+    padding: 12px 10px 0;
+    border-radius: 14px;
+  }
+
+  .admin-subbar .admin-editor-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+  }
+
+  .admin-editor-tabs {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .admin-editor-tabs__btn {
+    flex: 1 1 0;
+    text-align: center;
+    padding: 10px 8px;
+  }
+
+  .admin-editor-toolbar__preview {
+    width: 100%;
+  }
+
+  .admin-editor-toolbar__preview-main {
+    flex: 1;
+    justify-content: center;
   }
 
   .admin-action-dock__buttons {

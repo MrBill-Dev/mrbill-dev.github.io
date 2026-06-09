@@ -7,7 +7,7 @@
   <title>文章內容管理｜Mr.Bill 數位實驗室</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/blog-layout.css" />
-  <link rel="stylesheet" href="css/admin.css?v=editor-tabs-2" />
+  <link rel="stylesheet" href="css/admin.css?v=editor-tabs-5" />
 </head>
 <body class="admin-body text-slate-800 antialiased">
 
@@ -26,6 +26,25 @@
         <a href="blog/index.html" target="_blank" rel="noopener">文章列表</a>
         <button id="admin-logout-btn" type="button" class="admin-topnav__logout">登出</button>
       </nav>
+    </div>
+    <div id="admin-subbar" class="admin-subbar hidden" aria-label="編輯工具列">
+      <div class="admin-subbar__inner">
+        <div class="admin-editor-chrome">
+          <div class="admin-editor-toolbar">
+            <nav class="admin-editor-tabs" aria-label="編輯分頁" role="tablist">
+              <button type="button" role="tab" aria-selected="true" class="admin-editor-tabs__btn is-active" data-admin-tab="basic">① 基本</button>
+              <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="list">② 曝光</button>
+              <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="body">③ 正文</button>
+            </nav>
+            <div class="admin-editor-toolbar__preview">
+              <a id="admin-preview-link" href="#" role="button" class="admin-btn-primary admin-editor-toolbar__preview-main">預覽文章</a>
+              <a id="admin-home-preview-link" href="#" role="button" class="admin-editor-toolbar__preview-link">首頁</a>
+              <a id="admin-list-preview-link" href="blog/index.html" target="_blank" rel="noopener" class="admin-editor-toolbar__preview-link">列表</a>
+            </div>
+          </div>
+          <p id="admin-notice" class="admin-notice" role="status" aria-live="polite"></p>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -80,77 +99,57 @@
       </aside>
 
       <section class="admin-panel admin-main">
-        <p id="admin-status" class="admin-status" role="status" aria-live="polite"></p>
+        <div id="admin-editor-shell" class="admin-editor-shell" data-admin-active-tab="basic">
+          <div id="admin-editor-workspace" class="admin-editor-workspace">
+          <div id="admin-editor-stage" class="admin-editor-stage">
+            <header class="admin-editor-stage__head">
+              <h2 id="admin-tab-heading" class="admin-tab-heading">基本資訊</h2>
+              <p id="admin-link-hint" class="admin-editor-toolbar__hint">請先儲存文章後，即可預覽文章與首頁效果。「預覽列表」隨時可開。</p>
+            </header>
 
-        <div id="admin-github-sync-panel" class="admin-github-panel hidden" aria-live="polite"></div>
+            <form id="admin-article-form" class="admin-editor-form">
+              <div id="admin-sec-basic" class="admin-form-section admin-tab-panel is-active" data-admin-tab-panel="basic">
+                <div id="admin-github-sync-panel" class="admin-github-panel admin-github-panel--compact hidden" aria-live="polite"></div>
 
-        <div class="admin-editor-workspace">
-          <div class="admin-editor-toolbar">
-            <nav class="admin-editor-tabs" aria-label="編輯分頁" role="tablist">
-              <button type="button" role="tab" aria-selected="true" class="admin-editor-tabs__btn is-active" data-admin-tab="basic">① 基本</button>
-              <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="list">② 曝光</button>
-              <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="body">③ 正文</button>
-            </nav>
-            <div class="admin-editor-toolbar__preview">
-              <a id="admin-preview-link" href="#" role="button" class="admin-btn-primary admin-editor-toolbar__preview-main">預覽文章</a>
-              <a id="admin-home-preview-link" href="#" role="button" class="admin-editor-toolbar__preview-link">首頁</a>
-              <a id="admin-list-preview-link" href="blog/index.html" target="_blank" rel="noopener" class="admin-editor-toolbar__preview-link">列表</a>
-            </div>
-          </div>
-          <p id="admin-link-hint" class="admin-editor-toolbar__hint">請先儲存文章後，即可預覽文章與首頁效果。</p>
+                <details id="admin-utils-drawer" class="admin-utils-drawer">
+                  <summary>全站設定（首頁橫幅 · GitHub Token）</summary>
+                  <div class="admin-utils-drawer__body">
+                    <div id="admin-home-strip-settings" class="admin-home-settings">
+                      <p class="admin-section-title">首頁橫幅設定</p>
+                      <label class="admin-home-settings__label">
+                        <input id="homeStripShowNav" type="checkbox" />
+                        顯示輪播圓點（預設關閉；僅多則輪播時出現）
+                      </label>
+                      <div class="admin-home-settings__grid">
+                        <div class="admin-field">
+                          <label for="homeStripIntervalSec">自動切換間隔（秒）</label>
+                          <input id="homeStripIntervalSec" type="number" min="2" max="60" step="1" value="2" />
+                          <p class="admin-field-hint">2～60 秒；若小於滑動時間會自動放慢，建議 ≥ 滑動秒數 + 1</p>
+                        </div>
+                        <div class="admin-field">
+                          <label for="homeStripTransitionMs">滑動速度（毫秒）</label>
+                          <input id="homeStripTransitionMs" type="number" min="400" max="2000" step="50" value="1000" />
+                          <p class="admin-field-hint">400～2000，愈大愈慢愈滑順，建議 800～1200</p>
+                        </div>
+                      </div>
+                      <button id="home-strip-settings-save" type="button" class="admin-home-settings__save">儲存橫幅設定</button>
+                    </div>
+                    <div id="admin-github-token-form" class="admin-github-form">
+                      <p class="admin-section-title">GitHub Token 到期提醒</p>
+                      <p class="admin-field-hint mb-2">申請 PAT 時 GitHub 會顯示到期日（API 讀不到，需手動記錄）。到期前請重新申請並更新 Worker。</p>
+                      <div class="admin-github-form__row">
+                        <div class="admin-field admin-github-form__date">
+                          <label for="githubTokenExpiresAt">到期日</label>
+                          <input id="githubTokenExpiresAt" type="date" />
+                        </div>
+                        <button id="github-token-save" type="button" class="admin-github-form__save">儲存到期日</button>
+                        <button id="github-token-probe" type="button" class="admin-github-form__probe">測試連線</button>
+                        <a class="admin-github-form__help" href="admin-github-help.html" target="_blank" rel="noopener noreferrer">完整步驟說明 →</a>
+                      </div>
+                    </div>
+                  </div>
+                </details>
 
-          <h2 id="admin-tab-heading" class="admin-tab-heading">基本資訊</h2>
-
-        <details id="admin-utils-drawer" class="admin-utils-drawer">
-          <summary>全站設定（首頁橫幅 · GitHub Token）</summary>
-          <div class="admin-utils-drawer__body">
-            <div id="admin-home-strip-settings" class="admin-home-settings">
-              <p class="admin-section-title">首頁橫幅設定</p>
-              <label class="admin-home-settings__label">
-                <input id="homeStripShowNav" type="checkbox" />
-                顯示輪播圓點（預設關閉；僅多則輪播時出現）
-              </label>
-              <div class="admin-home-settings__grid">
-                <div class="admin-field">
-                  <label for="homeStripIntervalSec">自動切換間隔（秒）</label>
-                  <input id="homeStripIntervalSec" type="number" min="2" max="60" step="1" value="2" />
-                  <p class="admin-field-hint">2～60 秒；若小於滑動時間會自動放慢，建議 ≥ 滑動秒數 + 1</p>
-                </div>
-                <div class="admin-field">
-                  <label for="homeStripTransitionMs">滑動速度（毫秒）</label>
-                  <input id="homeStripTransitionMs" type="number" min="400" max="2000" step="50" value="1000" />
-                  <p class="admin-field-hint">400～2000，愈大愈慢愈滑順，建議 800～1200</p>
-                </div>
-              </div>
-              <button id="home-strip-settings-save" type="button" class="admin-home-settings__save">儲存橫幅設定</button>
-            </div>
-            <div id="admin-github-token-form" class="admin-github-form">
-              <p class="admin-section-title">GitHub Token 到期提醒</p>
-              <p class="admin-field-hint mb-2">申請 PAT 時 GitHub 會顯示到期日（API 讀不到，需手動記錄）。到期前請重新申請並更新 Worker。</p>
-              <div class="admin-github-form__row">
-                <div class="admin-field admin-github-form__date">
-                  <label for="githubTokenExpiresAt">到期日</label>
-                  <input id="githubTokenExpiresAt" type="date" />
-                </div>
-                <button id="github-token-save" type="button" class="admin-github-form__save">儲存到期日</button>
-                <button id="github-token-probe" type="button" class="admin-github-form__probe">測試連線</button>
-                <a class="admin-github-form__help" href="admin-github-help.html" target="_blank" rel="noopener noreferrer">完整步驟說明 →</a>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <div id="admin-article-links" class="admin-links-panel hidden">
-          <p>前台位置與連結</p>
-          <ul id="admin-placement-list"></ul>
-          <div class="admin-links-actions admin-links-actions--secondary">
-            <a id="admin-public-link" href="#" target="_blank" rel="noopener" class="hidden">上架連結</a>
-          </div>
-        </div>
-
-        <form id="admin-article-form" class="space-y-5">
-          <div id="admin-sec-basic" class="admin-form-section admin-tab-panel is-active" data-admin-tab-panel="basic">
-            <p class="admin-section-title">基本資訊</p>
             <div class="grid md:grid-cols-2 gap-4">
               <div class="admin-field">
                 <label for="slug">slug（網址名，建立後不可改）</label>
@@ -228,8 +227,15 @@
             </div>
           </div>
 
-          <div id="admin-sec-list" class="admin-form-section admin-tab-panel" data-admin-tab-panel="list">
-            <p class="admin-section-title">列表呈現</p>
+              <div id="admin-sec-list" class="admin-form-section admin-tab-panel" data-admin-tab-panel="list">
+                <div id="admin-article-links" class="admin-links-panel hidden">
+                  <p>前台位置與連結</p>
+                  <ul id="admin-placement-list"></ul>
+                  <div class="admin-links-actions admin-links-actions--secondary">
+                    <a id="admin-public-link" href="#" target="_blank" rel="noopener" class="hidden">上架連結</a>
+                  </div>
+                </div>
+
             <div class="grid md:grid-cols-2 gap-4">
               <div class="admin-field">
                 <label for="listStyle">列表版型</label>
@@ -262,8 +268,7 @@
             </div>
           </div>
 
-          <div id="admin-sec-body" class="admin-form-section admin-tab-panel" data-admin-tab-panel="body">
-            <p class="admin-section-title">正文</p>
+              <div id="admin-sec-body" class="admin-form-section admin-tab-panel" data-admin-tab-panel="body">
             <div class="admin-field">
               <div class="admin-block-editor__toolbar">
                 <div class="admin-block-editor__modes">
@@ -316,7 +321,9 @@
             </div>
             <p id="admin-delete-hint" class="hidden text-xs text-slate-500 mt-2 admin-delete-hint">草稿／已下架可永久刪除；已上架請先「下架」或改狀態為已下架。</p>
           </div>
-        </form>
+            </form>
+          </div>
+          </div>
         </div>
       </section>
     </div>
@@ -324,14 +331,10 @@
 
   <div id="admin-action-dock" class="admin-action-dock hidden" aria-label="文章操作">
     <div class="admin-action-dock__inner">
-      <div class="admin-action-dock__sidebar-gap" aria-hidden="true"></div>
-      <div class="admin-action-dock__content">
-        <p id="admin-status-foot" class="admin-status-foot admin-action-dock__status" role="status" aria-live="polite"></p>
-        <div class="admin-action-dock__buttons">
-          <button type="submit" form="admin-article-form" class="admin-action-dock__save">儲存文章</button>
-          <button type="button" id="admin-sync-share-btn" class="admin-action-dock__sync hidden">同步 GitHub</button>
-          <button type="button" id="admin-delete-btn" class="admin-action-dock__delete hidden">刪除</button>
-        </div>
+      <div class="admin-action-dock__buttons">
+        <button type="submit" form="admin-article-form" class="admin-action-dock__save">儲存文章</button>
+        <button type="button" id="admin-sync-share-btn" class="admin-action-dock__sync hidden">同步 GitHub</button>
+        <button type="button" id="admin-delete-btn" class="admin-action-dock__delete hidden">刪除</button>
       </div>
     </div>
   </div>
@@ -345,6 +348,6 @@
   <script src="js/admin/blog-content-snippets.js"></script>
   <script src="js/admin/seed-imports/pending-drafts.js?v=kids-ai-1"></script>
   <script src="js/admin/blog-block-editor.js?v=block-a2"></script>
-  <script src="js/admin/admin-app.js?v=editor-tabs-2"></script>
+  <script src="js/admin/admin-app.js?v=editor-tabs-5"></script>
 </body>
 </html>

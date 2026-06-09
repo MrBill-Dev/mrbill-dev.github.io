@@ -643,7 +643,12 @@
       "<!DOCTYPE html><html lang=\"zh-Hant\"><head><meta charset=\"UTF-8\">" +
       "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">" +
       "<script src=\"https://cdn.tailwindcss.com\"><\/script>" +
-      "<link rel=\"stylesheet\" href=\"css/blog-layout.css?v=block-preview-1\">" +
+      "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">" +
+      "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>" +
+      (titleFont === "serif"
+        ? "<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&display=swap\" rel=\"stylesheet\">"
+        : "") +
+      "<link rel=\"stylesheet\" href=\"css/blog-layout.css?v=title-font-mobile-1\">" +
       "<style>body{margin:0;background:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,\"Noto Sans TC\",sans-serif}" +
       ".blog-main.blog-prose{max-width:42rem;margin:0 auto;padding:1rem 1rem 2rem}</style>" +
       "</head><body class=\"" +

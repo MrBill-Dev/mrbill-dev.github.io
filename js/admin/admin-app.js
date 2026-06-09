@@ -14,7 +14,10 @@
     listFilter: document.getElementById("admin-list-filter"),
     listCount: document.getElementById("admin-list-count"),
     form: document.getElementById("admin-article-form"),
-    status: document.getElementById("admin-status"),
+    notice: document.getElementById("admin-notice"),
+    editorShell: document.getElementById("admin-editor-shell"),
+    editorWorkspace: document.getElementById("admin-editor-workspace"),
+    editorStage: document.getElementById("admin-editor-stage"),
     gateStatus: document.getElementById("admin-gate-status"),
     newBtn: document.getElementById("admin-new-btn"),
     refreshBtn: document.getElementById("admin-refresh-btn"),
@@ -32,12 +35,12 @@
     homePreviewLink: document.getElementById("admin-home-preview-link"),
     listPreviewLink: document.getElementById("admin-list-preview-link"),
     publicLink: document.getElementById("admin-public-link"),
-    statusFoot: document.getElementById("admin-status-foot"),
     toast: document.getElementById("admin-toast"),
     linkHint: document.getElementById("admin-link-hint"),
     deleteBtn: document.getElementById("admin-delete-btn"),
     deleteHint: document.getElementById("admin-delete-hint"),
     syncShareBtn: document.getElementById("admin-sync-share-btn"),
+    subbar: document.getElementById("admin-subbar"),
     actionDock: document.getElementById("admin-action-dock"),
     snippetSelect: document.getElementById("admin-snippet-select"),
     snippetInsert: document.getElementById("admin-snippet-insert"),
@@ -72,30 +75,23 @@
   function setStatus(msg, isError, options) {
     options = options || {};
     var text = msg || "";
-    if (els.status) {
-      els.status.textContent = text;
-      els.status.className = "admin-status";
+    if (els.notice) {
+      els.notice.textContent = text;
+      els.notice.className = "admin-notice";
       if (text) {
-        els.status.classList.add(isError ? "admin-status--err" : "admin-status--ok");
+        els.notice.classList.add(isError ? "admin-notice--err" : "admin-notice--ok");
       }
     }
-    if (els.statusFoot) {
-      els.statusFoot.textContent = text;
-      els.statusFoot.className = "admin-status-foot";
-      if (text) {
-        els.statusFoot.classList.add(isError ? "admin-status-foot--err" : "admin-status-foot--ok");
-      }
+    if (els.toast) {
+      els.toast.classList.remove("is-visible");
     }
-    if (els.toast && text && !options.silent) {
-      els.toast.textContent = text;
-      els.toast.className =
-        "admin-toast is-visible " + (isError ? "admin-toast--err" : "admin-toast--ok");
+    if (text && !options.silent && !options.sticky) {
       if (statusToastTimer) clearTimeout(statusToastTimer);
       statusToastTimer = setTimeout(function () {
-        if (els.toast) els.toast.classList.remove("is-visible");
-      }, isError ? 6000 : 4000);
-    } else if (els.toast) {
-      els.toast.classList.remove("is-visible");
+        if (els.notice && els.notice.textContent === text) {
+          setStatus("", false, { silent: true });
+        }
+      }, isError ? 8000 : 5000);
     }
   }
 
@@ -289,9 +285,9 @@
     document.body.classList.add("admin-is-authed");
     if (els.gate) els.gate.classList.add("hidden");
     if (els.app) els.app.classList.remove("hidden");
+    if (els.subbar) els.subbar.classList.remove("hidden");
     if (els.actionDock) els.actionDock.classList.remove("hidden");
     if (els.logoutBtn) els.logoutBtn.classList.add("admin-is-visible");
-    if (els.previewBar) els.previewBar.classList.remove("hidden");
     updatePreviewBar("", false, "draft", "");
     loadHomeStripSettings();
   }
@@ -300,6 +296,7 @@
     document.body.classList.remove("admin-is-authed");
     if (els.gate) els.gate.classList.remove("hidden");
     if (els.app) els.app.classList.add("hidden");
+    if (els.subbar) els.subbar.classList.add("hidden");
     if (els.actionDock) els.actionDock.classList.add("hidden");
     if (els.logoutBtn) els.logoutBtn.classList.remove("admin-is-visible");
   }
@@ -311,7 +308,7 @@
     }
     hideApp();
     if (els.tokenInput) els.tokenInput.value = "";
-    if (els.status) els.status.textContent = "";
+    if (els.notice) els.notice.textContent = "";
     setGateStatus("已登出。可重新輸入密碼測試登入／預覽。", false);
   }
 
@@ -532,7 +529,8 @@
       );
     }
 
-    els.githubPanel.className = "admin-github-panel admin-github-panel--" + level;
+    els.githubPanel.className =
+      "admin-github-panel admin-github-panel--compact admin-github-panel--" + level;
     els.githubPanel.innerHTML =
       '<p class="admin-github-panel__title">GitHub 文章頁同步 <span class="admin-github-panel__badge">' +
       escapeHtml(badge) +
@@ -658,6 +656,9 @@
         btn.setAttribute("aria-selected", active ? "true" : "false");
       });
     }
+    if (els.editorShell) {
+      els.editorShell.setAttribute("data-admin-active-tab", tabId);
+    }
     if (els.tabHeading && ADMIN_TAB_LABELS[tabId]) {
       els.tabHeading.textContent = ADMIN_TAB_LABELS[tabId];
     }
@@ -672,6 +673,13 @@
     try {
       localStorage.setItem(ADMIN_TAB_LS_KEY, tabId);
     } catch (e) {}
+    if (els.editorStage) {
+      els.editorStage.scrollTop = 0;
+    }
+    var mainPanel = document.querySelector(".admin-main");
+    if (mainPanel) {
+      mainPanel.scrollTop = 0;
+    }
     if (tabId === "body" && blockEditor && blockEditor.refreshPreview) {
       requestAnimationFrame(function () {
         blockEditor.refreshPreview();
