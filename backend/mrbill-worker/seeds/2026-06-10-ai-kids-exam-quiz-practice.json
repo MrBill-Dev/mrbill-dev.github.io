@@ -1,0 +1,28 @@
+{
+  "slug": "2026-06-10-ai-kids-exam-quiz-practice",
+  "title": "AI 幫小孩出題怎麼用？國小考前複習、錯題分析與線上測驗完整指南",
+  "subtitle": "從 AI 出題、錯題分析、考古題整理、線上測驗，到孩子學習成長",
+  "excerpt": "完整整理家長如何用 AI 幫國小孩子考前複習，包含五科練習、錯題分析、弱點補強、考古題資源、考券製作與 Google Forms 線上測驗教學。",
+  "label": "AI 教育",
+  "audience": "家長、老師、國小學生家長",
+  "category": "AI學習地圖",
+  "author": "Mr.Bill",
+  "date": "2026-06-10",
+  "readMins": 18,
+  "tags": [
+    "AI 出題",
+    "國小考前複習",
+    "錯題分析",
+    "Google Forms",
+    "親子陪讀",
+    "AI 教育"
+  ],
+  "cover": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80",
+  "relatedSlugs": [
+    "2026-06-09-kids-ai-learning-plays",
+    "2026-05-31-ai-prompt-six-levels",
+    "2026-06-05-ai-workflow-lesson-01-02"
+  ],
+  "titleFont": "sans",
+  "contentHtmlFile": "backend/mrbill-worker/seeds/2026-06-10-ai-kids-exam-quiz-practice-content.html"
+}

@@ -1,0 +1,536 @@
+/* AI 國小考前複習專文 — 僅在 .ai-kids-exam-prose 內生效 */
+.ai-kids-exam-prose :root{
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --dark: #101827;
+      --primary: #2563eb;
+      --primary-soft: #eff6ff;
+      --green: #16a34a;
+      --green-soft: #ecfdf5;
+      --red: #dc2626;
+      --red-soft: #fef2f2;
+      --yellow: #f59e0b;
+      --yellow-soft: #fffbeb;
+      --purple: #7c3aed;
+      --purple-soft: #f5f3ff;
+      --cyan-soft: #ecfeff;
+      --radius: 24px;
+      --shadow: 0 24px 70px rgba(15, 23, 42, .10);
+    }.ai-kids-exam-prose *{ box-sizing: border-box; }.ai-kids-exam-prose{ scroll-behavior: smooth; }.ai-kids-exam-prose{
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.86;
+    }.ai-kids-exam-prose a{ color: var(--primary); text-decoration: none; }.ai-kids-exam-prose a:hover{ text-decoration: underline; }.ai-kids-exam-prose img{ max-width: 100%; display: block; }.ai-kids-exam-prose .page{ overflow: hidden; }.ai-kids-exam-prose .hero{
+      position: relative;
+      padding: 90px 22px 84px;
+      color: #fff;
+      background:
+        linear-gradient(120deg, rgba(15, 23, 42, .94), rgba(30, 64, 175, .78), rgba(124, 58, 237, .58)),
+        url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1900&q=80") center/cover no-repeat;
+    }.ai-kids-exam-prose .hero::after{
+      content: "";
+      position: absolute;
+      inset: auto -10% -82px -10%;
+      height: 150px;
+      background: var(--bg);
+      transform: rotate(-2deg);
+    }.ai-kids-exam-prose .hero-inner{
+      position: relative;
+      z-index: 1;
+      width: min(1140px, 100%);
+      margin: 0 auto;
+    }.ai-kids-exam-prose .badge-row{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }.ai-kids-exam-prose .badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .13);
+      border: 1px solid rgba(255, 255, 255, .23);
+      backdrop-filter: blur(12px);
+      font-size: 14px;
+      color: #fff;
+      font-weight: 700;
+    }.ai-kids-exam-prose .hero h1{
+      margin: 0 0 20px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 1.12;
+      letter-spacing: -1.6px;
+      max-width: 980px;
+    }.ai-kids-exam-prose .hero p{
+      max-width: 860px;
+      margin: 0 0 30px;
+      font-size: 19px;
+      color: rgba(255, 255, 255, .88);
+    }.ai-kids-exam-prose .hero-actions{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }.ai-kids-exam-prose .btn{
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 900;
+      cursor: pointer;
+      transition: .2s ease;
+      text-decoration: none;
+    }.ai-kids-exam-prose .btn-primary{
+      background: #fff;
+      color: #111827;
+    }.ai-kids-exam-prose .btn-primary:hover{
+      transform: translateY(-2px);
+      text-decoration: none;
+    }.ai-kids-exam-prose .btn-ghost{
+      background: rgba(255, 255, 255, .1);
+      color: #fff;
+      border-color: rgba(255, 255, 255, .25);
+    }.ai-kids-exam-prose .btn-ghost:hover{
+      background: rgba(255, 255, 255, .18);
+      text-decoration: none;
+    }.ai-kids-exam-prose .wrap{
+      width: min(1140px, calc(100% - 36px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }.ai-kids-exam-prose .toc{
+      margin-top: -36px;
+      background: rgba(255, 255, 255, .94);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(229, 231, 235, .9);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 18px;
+    }.ai-kids-exam-prose .toc-title{
+      font-weight: 950;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }.ai-kids-exam-prose .toc-grid{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }.ai-kids-exam-prose .toc a{
+      display: block;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #f9fafb;
+      color: #374151;
+      font-size: 15px;
+      font-weight: 800;
+      border: 1px solid #eef2f7;
+    }.ai-kids-exam-prose .toc a:hover{
+      background: var(--primary-soft);
+      color: var(--primary);
+      text-decoration: none;
+    }.ai-kids-exam-prose section{ margin: 52px 0; }.ai-kids-exam-prose .section-head{ margin-bottom: 24px; }.ai-kids-exam-prose .eyebrow{
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-weight: 950;
+      letter-spacing: .08em;
+      font-size: 13px;
+      text-transform: uppercase;
+    }.ai-kids-exam-prose h2{
+      margin: 0 0 12px;
+      color: var(--dark);
+      font-size: clamp(26px, 3vw, 39px);
+      line-height: 1.25;
+      letter-spacing: -.7px;
+    }.ai-kids-exam-prose h3{
+      margin: 0 0 10px;
+      color: var(--dark);
+      font-size: 23px;
+      line-height: 1.35;
+    }.ai-kids-exam-prose h4{
+      margin: 0 0 8px;
+      color: var(--dark);
+      font-size: 18px;
+    }.ai-kids-exam-prose p{ margin: 0 0 14px; }.ai-kids-exam-prose strong{ color: #111827; }.ai-kids-exam-prose .lead{
+      font-size: 18px;
+      color: #4b5563;
+    }.ai-kids-exam-prose .grid-2{
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items: stretch;
+    }.ai-kids-exam-prose .grid-3{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }.ai-kids-exam-prose .grid-4{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }.ai-kids-exam-prose .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: 0 10px 32px rgba(15, 23, 42, .06);
+    }.ai-kids-exam-prose .card.soft-blue{ background: linear-gradient(180deg, #ffffff, var(--primary-soft)); }.ai-kids-exam-prose .card.soft-green{ background: linear-gradient(180deg, #ffffff, var(--green-soft)); }.ai-kids-exam-prose .card.soft-yellow{ background: linear-gradient(180deg, #ffffff, var(--yellow-soft)); }.ai-kids-exam-prose .card.soft-purple{ background: linear-gradient(180deg, #ffffff, var(--purple-soft)); }.ai-kids-exam-prose .card.soft-cyan{ background: linear-gradient(180deg, #ffffff, var(--cyan-soft)); }.ai-kids-exam-prose .photo-card{
+      overflow: hidden;
+      padding: 0;
+      position: relative;
+    }.ai-kids-exam-prose .photo-card img{
+      width: 100%;
+      height: 100%;
+      min-height: 330px;
+      object-fit: cover;
+    }.ai-kids-exam-prose .caption{
+      padding: 13px 16px;
+      background: rgba(15, 23, 42, .92);
+      color: rgba(255, 255, 255, .86);
+      font-size: 14px;
+    }.ai-kids-exam-prose .note{
+      border-left: 5px solid var(--primary);
+      background: var(--primary-soft);
+      border-radius: 18px;
+      padding: 18px 20px;
+      color: #1e3a8a;
+      font-weight: 760;
+    }.ai-kids-exam-prose .warning{
+      border-left-color: var(--yellow);
+      background: var(--yellow-soft);
+      color: #92400e;
+    }.ai-kids-exam-prose .danger{
+      border-left-color: var(--red);
+      background: var(--red-soft);
+      color: #991b1b;
+    }.ai-kids-exam-prose .mini-list{ margin: 0; padding-left: 20px; }.ai-kids-exam-prose .mini-list li{ margin: 7px 0; }.ai-kids-exam-prose .pill-list{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }.ai-kids-exam-prose .pill{
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+      font-size: 14px;
+      font-weight: 850;
+    }.ai-kids-exam-prose .subject-grid{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }.ai-kids-exam-prose .subject{
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      min-height: 218px;
+    }.ai-kids-exam-prose .subject .icon{
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 22px;
+      font-weight: 950;
+    }.ai-kids-exam-prose .subject p{ color: var(--muted); font-size: 15px; }.ai-kids-exam-prose .flow{
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      align-items: stretch;
+    }.ai-kids-exam-prose .flow-item{
+      position: relative;
+      padding: 16px 12px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid var(--line);
+      text-align: center;
+      font-weight: 900;
+      color: #111827;
+      min-height: 96px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, .05);
+    }.ai-kids-exam-prose .flow-item::after{
+      content: "→";
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      font-weight: 950;
+      z-index: 2;
+    }.ai-kids-exam-prose .flow-item:last-child::after{ display: none; }.ai-kids-exam-prose .prompt-box{
+      background: #0f172a;
+      color: #dbeafe;
+      border-radius: 22px;
+      padding: 22px;
+      overflow: auto;
+      border: 1px solid rgba(148, 163, 184, .35);
+    }.ai-kids-exam-prose .prompt-box code{
+      white-space: pre-wrap;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 14px;
+      line-height: 1.82;
+    }.ai-kids-exam-prose .resource-table{
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #fff;
+    }.ai-kids-exam-prose .resource-table th, .ai-kids-exam-prose .resource-table td{
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }.ai-kids-exam-prose .resource-table th{
+      background: #111827;
+      color: #fff;
+      white-space: nowrap;
+    }.ai-kids-exam-prose .resource-table tr:last-child td{ border-bottom: 0; }.ai-kids-exam-prose .resource-table td:first-child{
+      font-weight: 950;
+      color: var(--dark);
+      white-space: nowrap;
+    }.ai-kids-exam-prose .quiz-panel{
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, .24), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(124, 58, 237, .2), transparent 34%),
+        #0f172a;
+      border-radius: 30px;
+      padding: 26px;
+      color: #fff;
+      box-shadow: var(--shadow);
+    }.ai-kids-exam-prose .quiz-top{
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+    }.ai-kids-exam-prose .quiz-score{
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .18);
+      font-weight: 950;
+      white-space: nowrap;
+    }.ai-kids-exam-prose .quiz-question{
+      min-height: 88px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 22px;
+      padding: 20px;
+      font-size: 20px;
+      font-weight: 950;
+      line-height: 1.6;
+    }.ai-kids-exam-prose .quiz-options{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }.ai-kids-exam-prose .quiz-option{
+      border: 1px solid rgba(255, 255, 255, .18);
+      background: rgba(255, 255, 255, .08);
+      color: #fff;
+      border-radius: 18px;
+      padding: 15px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 850;
+      transition: .18s ease;
+    }.ai-kids-exam-prose .quiz-option:hover{
+      background: rgba(255, 255, 255, .15);
+      transform: translateY(-1px);
+    }.ai-kids-exam-prose .quiz-option.correct{
+      background: rgba(22, 163, 74, .88);
+      border-color: rgba(187, 247, 208, .7);
+    }.ai-kids-exam-prose .quiz-option.wrong{
+      background: rgba(220, 38, 38, .88);
+      border-color: rgba(254, 202, 202, .7);
+    }.ai-kids-exam-prose .quiz-feedback{
+      min-height: 68px;
+      padding: 15px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .14);
+      color: rgba(255, 255, 255, .9);
+    }.ai-kids-exam-prose .diagnosis-box{
+      display: none;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .09);
+      border: 1px solid rgba(255, 255, 255, .14);
+    }.ai-kids-exam-prose .diagnosis-grid{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }.ai-kids-exam-prose .diagnosis-chip{
+      padding: 9px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .15);
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      color: rgba(255, 255, 255, .88);
+    }.ai-kids-exam-prose .remedial-box{
+      display: none;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(37, 99, 235, .22);
+      border: 1px solid rgba(147, 197, 253, .32);
+      color: #dbeafe;
+    }.ai-kids-exam-prose .quiz-controls{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }.ai-kids-exam-prose .quiz-controls button{
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 950;
+      cursor: pointer;
+    }.ai-kids-exam-prose .btn-next{
+      background: #fff;
+      color: #111827;
+      border: 0;
+    }.ai-kids-exam-prose .btn-reset, .ai-kids-exam-prose .btn-remedial{
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .22);
+    }.ai-kids-exam-prose .tabs{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }.ai-kids-exam-prose .tab-btn{
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #374151;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 950;
+      cursor: pointer;
+    }.ai-kids-exam-prose .tab-btn.active{
+      background: var(--dark);
+      color: #fff;
+    }.ai-kids-exam-prose .tab-content{ display: none; }.ai-kids-exam-prose .tab-content.active{ display: block; }.ai-kids-exam-prose .step{
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      margin: 18px 0;
+    }.ai-kids-exam-prose .step-num{
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--dark);
+      color: #fff;
+      font-weight: 950;
+      font-size: 14px;
+    }.ai-kids-exam-prose .scenario{
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+      background: #fff;
+    }.ai-kids-exam-prose .scenario-tag{
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--purple-soft);
+      color: #5b21b6;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }.ai-kids-exam-prose .compare{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }.ai-kids-exam-prose .compare-item{
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }.ai-kids-exam-prose .compare-item.good{
+      border-color: rgba(22, 163, 74, .35);
+      background: var(--green-soft);
+    }.ai-kids-exam-prose .compare-item.warn{
+      border-color: rgba(245, 158, 11, .45);
+      background: var(--yellow-soft);
+    }.ai-kids-exam-prose .compare-item.bad{
+      border-color: rgba(220, 38, 38, .35);
+      background: var(--red-soft);
+    }.ai-kids-exam-prose .faq-item{
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }.ai-kids-exam-prose .faq-item:last-child{ border-bottom: 0; }.ai-kids-exam-prose .faq-q{
+      font-weight: 950;
+      color: var(--dark);
+      font-size: 18px;
+      margin-bottom: 6px;
+    }.ai-kids-exam-prose .cta{
+      padding: 44px 24px;
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, .94), rgba(124, 58, 237, .92)),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+      color: #fff;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }.ai-kids-exam-prose .cta h2{ color: #fff; }.ai-kids-exam-prose .cta p{
+      color: rgba(255, 255, 255, .9);
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 18px;
+    }.ai-kids-exam-prose .footer-note{
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+      padding: 30px 0 50px;
+    }
+
+    @media (max-width: 1060px) {.ai-kids-exam-prose .toc-grid, .ai-kids-exam-prose .grid-4, .ai-kids-exam-prose .flow{
+        grid-template-columns: repeat(2, 1fr);
+      }.ai-kids-exam-prose .flow-item::after{ display: none; }.ai-kids-exam-prose .subject-grid{
+        grid-template-columns: repeat(2, 1fr);
+      }.ai-kids-exam-prose .diagnosis-grid{
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {.ai-kids-exam-prose .grid-2, .ai-kids-exam-prose .grid-3, .ai-kids-exam-prose .compare{
+        grid-template-columns: 1fr;
+      }.ai-kids-exam-prose .photo-card img{
+        min-height: 260px;
+      }
+    }
+
+    @media (max-width: 640px) {.ai-kids-exam-prose .hero{ padding-top: 60px; }.ai-kids-exam-prose .toc-grid, .ai-kids-exam-prose .grid-4, .ai-kids-exam-prose .subject-grid, .ai-kids-exam-prose .quiz-options, .ai-kids-exam-prose .diagnosis-grid, .ai-kids-exam-prose .flow{
+        grid-template-columns: 1fr;
+      }.ai-kids-exam-prose .resource-table{
+        display: block;
+        overflow-x: auto;
+      }.ai-kids-exam-prose .quiz-top{
+        align-items: flex-start;
+        flex-direction: column;
+      }.ai-kids-exam-prose .hero h1{
+        letter-spacing: -1px;
+      }
+    }
