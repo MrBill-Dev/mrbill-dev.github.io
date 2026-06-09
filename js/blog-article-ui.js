@@ -3,6 +3,7 @@
  */
 var BLOG_AUTHOR = {
   name: "Mr.Bill",
+  avatar: "assets/mrbill-author-avatar.png",
   motto: "無論你是學生、上班族或創作者，\n願你在這裡找到能帶著走、對自己有幫助的內容。",
   tagline: "十多年網頁前端實務 · 本站 SEO/GEO 落地 · AI 應用深化",
   intro:
@@ -145,6 +146,27 @@ function ensureAuthorMottoFont() {
   document.head.appendChild(link);
 }
 
+function blogAuthorAvatarHtml(author) {
+  var path = (author && author.avatar) || "";
+  if (path) {
+    var src =
+      typeof blogAssetHref === "function" ? blogAssetHref(path) : path;
+    var alt = (author.name || "Mr.Bill") + " 作者頭像";
+    return (
+      '<div class="blog-author-card__avatar">' +
+      '<img class="blog-author-card__avatar-img" src="' +
+      blogAuthorEscape(src) +
+      '" alt="' +
+      blogAuthorEscape(alt) +
+      '" width="52" height="52" loading="lazy" decoding="async" />' +
+      "</div>"
+    );
+  }
+  return (
+    '<div class="blog-author-card__avatar blog-author-card__avatar--fallback" aria-hidden="true">MB</div>'
+  );
+}
+
 function renderBlogAuthorCard(mountId) {
   var mount = document.getElementById(mountId || "blog-article-author-slot");
   if (!mount) return;
@@ -153,7 +175,7 @@ function renderBlogAuthorCard(mountId) {
   if (author.motto) ensureAuthorMottoFont();
   var html =
     '<section class="blog-author-card blog-reveal" id="blog-author" aria-labelledby="blog-author-name">' +
-    '<div class="blog-author-card__avatar" aria-hidden="true">MB</div>' +
+    blogAuthorAvatarHtml(author) +
     '<div class="blog-author-card__body">' +
     '<p class="blog-author-card__label">關於作者</p>' +
     '<p class="blog-author-card__name" id="blog-author-name">' +
