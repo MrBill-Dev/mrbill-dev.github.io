@@ -430,6 +430,30 @@ function clampIntSetting(val, min, max, fallback) {
   return Math.max(min, Math.min(max, Math.floor(n)));
 }
 
+async function getGithubSyncSettings(db) {
+  const expiresAt = await getSiteSetting(db, "github_token_expires_at", "");
+  const lastProbeAt = await getSiteSetting(db, "github_token_last_probe_at", "");
+  const lastProbeOk = parseBoolSetting(
+    await getSiteSetting(db, "github_token_last_probe_ok", ""),
+    true
+  );
+  return {
+    expiresAt: expiresAt || "",
+    lastProbeAt: lastProbeAt || "",
+    lastProbeOk: lastProbeOk
+  };
+}
+
+async function recordGithubProbeResult(db, ok) {
+  if (!db) return;
+  try {
+    await setSiteSetting(db, "github_token_last_probe_at", new Date().toISOString());
+    await setSiteSetting(db, "github_token_last_probe_ok", ok ? "1" : "0");
+  } catch {
+    /* site_settings 未建表時略過 */
+  }
+}
+
 async function getHomeStripSettings(db) {
   const showNav = parseBoolSetting(
     await getSiteSetting(db, "home_strip_show_nav", "0"),
@@ -504,6 +528,44 @@ async function handleAdminSettings(request, env, url) {
   const auth = await requireAdmin(request, env, env.DB, url.pathname);
   if (!auth.ok) {
     return jsonResponse(request, { success: false, message: auth.message }, auth.status);
+  }
+
+  if (url.pathname === "/api/admin/settings/github-sync") {
+    if (request.method === "GET") {
+      const settings = await getGithubSyncSettings(env.DB);
+      return jsonResponse(request, { success: true, data: settings });
+    }
+    if (request.method === "PUT" || request.method === "POST") {
+      const body = await readJsonBody(request);
+      const expiresAt = String(body.expiresAt || "").trim();
+      if (expiresAt && !/^\d{4}-\d{2}-\d{2}$/.test(expiresAt)) {
+        return jsonResponse(
+          request,
+          { success: false, message: "到期日格式請用 YYYY-MM-DD" },
+          400
+        );
+      }
+      try {
+        await setSiteSetting(env.DB, "github_token_expires_at", expiresAt);
+      } catch (err) {
+        return jsonResponse(
+          request,
+          {
+            success: false,
+            message:
+              "無法寫入 site_settings（請在 D1 執行 migrate-github-token-meta.sql）"
+          },
+          500
+        );
+      }
+      const settings = await getGithubSyncSettings(env.DB);
+      return jsonResponse(request, { success: true, data: settings });
+    }
+    return jsonResponse(
+      request,
+      { success: false, message: "請使用 GET 或 PUT 儲存 github-sync 設定" },
+      405
+    );
   }
 
   if (url.pathname === "/api/admin/settings/home-strip") {
@@ -720,9 +782,15 @@ async function handleArticlesAdmin(request, env, url) {
 
   if (request.method === "GET" && parts.length === 4 && parts[3] === "github-sync-probe") {
     const probe = await probeGithubSyncAccess(env);
+    await recordGithubProbeResult(env.DB, probe.ok);
+    const githubSettings = await getGithubSyncSettings(env.DB);
     return jsonResponse(
       request,
-      { success: probe.ok, data: { probe: probe }, message: probe.message },
+      {
+        success: probe.ok,
+        data: { probe: probe, githubSettings: githubSettings },
+        message: probe.message
+      },
       probe.ok ? 200 : 400
     );
   }

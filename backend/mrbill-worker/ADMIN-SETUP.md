@@ -181,6 +181,23 @@ npx wrangler deploy
 
 未設定 `GITHUB_TOKEN` 時：文章照常上架，只是分享頁不會自動推到 GitHub（狀態列會提示）。
 
+### Token 到期提醒（後台）
+
+Fine-grained PAT **申請時 GitHub 會顯示到期日**（API 無法自動讀取）。請在 `admin.html` 登入後：
+
+1. 看頂部 **GitHub 文章頁同步** 狀態列（異常時會變黃／紅）
+2. 展開 **全站設定** → 填 **Token 到期日** → 儲存
+3. 到期前 14 天內後台會提醒；過期或 401 時請重新申請並執行：
+
+```powershell
+cd backend\mrbill-worker
+.\scripts\push-github-token.ps1
+```
+
+（或 `npx wrangler secret put GITHUB_TOKEN`）
+
+首次使用需執行 D1：`migrate-github-token-meta.sql`（見 RUNBOOK 第六節）。
+
 ---
 
 ## 公司網路 Wrangler 登入失敗（常見）

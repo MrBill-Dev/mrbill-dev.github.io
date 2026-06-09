@@ -434,6 +434,7 @@ npx wrangler deploy
 | `migrate-articles-v3.sql` | `list_style` | `no such column: list_style` |
 | `migrate-articles-v4.sql` | **`title_font`** | `no such column: title_font` |
 | `migrate-site-settings.sql` | 首頁橫幅設定表 | 橫幅設定儲存失敗 |
+| `migrate-github-token-meta.sql` | GitHub Token 到期日紀錄 | 後台「儲存到期日」失敗 |
 
 **目前文章表重要欄位：**
 

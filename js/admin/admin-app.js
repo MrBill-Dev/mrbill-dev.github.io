@@ -18,7 +18,14 @@
     gateStatus: document.getElementById("admin-gate-status"),
     newBtn: document.getElementById("admin-new-btn"),
     refreshBtn: document.getElementById("admin-refresh-btn"),
-    previewBar: document.getElementById("admin-preview-bar"),
+    githubPanel: document.getElementById("admin-github-sync-panel"),
+    utilsDrawer: document.getElementById("admin-utils-drawer"),
+    githubTokenExpiresAt: document.getElementById("githubTokenExpiresAt"),
+    githubTokenSave: document.getElementById("github-token-save"),
+    githubTokenProbe: document.getElementById("github-token-probe"),
+    editorTabBtns: document.querySelectorAll("[data-admin-tab]"),
+    tabPanels: document.querySelectorAll("[data-admin-tab-panel]"),
+    tabHeading: document.getElementById("admin-tab-heading"),
     linksPanel: document.getElementById("admin-article-links"),
     placementList: document.getElementById("admin-placement-list"),
     previewLink: document.getElementById("admin-preview-link"),
@@ -46,6 +53,21 @@
 
   var blockEditor = null;
   var statusToastTimer = null;
+  var ADMIN_TAB_LS_KEY = "mrbill-admin-editor-tab";
+  var GITHUB_EXPIRY_LS_KEY = "mrbill-github-token-expires-at";
+  var GITHUB_HELP_PAGE = "admin-github-help.html";
+  var ADMIN_TAB_LABELS = {
+    basic: "基本資訊",
+    list: "列表曝光",
+    body: "正文編輯"
+  };
+  var githubSyncState = {
+    expiresAt: "",
+    lastProbeAt: "",
+    lastProbeOk: true,
+    probeOk: null,
+    probeMessage: ""
+  };
 
   function setStatus(msg, isError, options) {
     options = options || {};
@@ -74,11 +96,6 @@
       }, isError ? 6000 : 4000);
     } else if (els.toast) {
       els.toast.classList.remove("is-visible");
-    }
-    if (els.statusFoot && text) {
-      requestAnimationFrame(function () {
-        els.statusFoot.scrollIntoView({ block: "nearest", behavior: "smooth" });
-      });
     }
   }
 
@@ -397,28 +414,285 @@
     };
   }
 
-  function probeGithubSync() {
-    return api("/api/admin/articles/github-sync-probe")
+  function daysUntilExpiry(dateStr) {
+    if (!dateStr) return null;
+    var d = new Date(dateStr + "T12:00:00");
+    if (isNaN(d.getTime())) return null;
+    return Math.ceil((d.getTime() - Date.now()) / 86400000);
+  }
+
+  function formatProbeTime(iso) {
+    if (!iso) return "";
+    try {
+      var d = new Date(iso);
+      if (isNaN(d.getTime())) return iso;
+      return d.toLocaleString("zh-TW", { hour12: false });
+    } catch (e) {
+      return iso;
+    }
+  }
+
+  function readGithubExpiryLocal() {
+    try {
+      return localStorage.getItem(GITHUB_EXPIRY_LS_KEY) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function writeGithubExpiryLocal(val) {
+    try {
+      if (val) localStorage.setItem(GITHUB_EXPIRY_LS_KEY, val);
+      else localStorage.removeItem(GITHUB_EXPIRY_LS_KEY);
+    } catch (e) {}
+  }
+
+  function mergeGithubSettings(data) {
+    if (!data) return;
+    if (data.expiresAt !== undefined) githubSyncState.expiresAt = data.expiresAt || "";
+    if (!githubSyncState.expiresAt) {
+      githubSyncState.expiresAt = readGithubExpiryLocal();
+    }
+    if (data.lastProbeAt !== undefined) {
+      githubSyncState.lastProbeAt = data.lastProbeAt || "";
+    }
+    if (data.lastProbeOk !== undefined) githubSyncState.lastProbeOk = !!data.lastProbeOk;
+    if (els.githubTokenExpiresAt) {
+      els.githubTokenExpiresAt.value = githubSyncState.expiresAt;
+    }
+  }
+
+  function openGithubSettings() {
+    if (els.utilsDrawer) {
+      els.utilsDrawer.open = true;
+      els.utilsDrawer.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    if (els.githubTokenExpiresAt) {
+      setTimeout(function () {
+        els.githubTokenExpiresAt.focus();
+      }, 80);
+    }
+  }
+
+  function saveGithubExpiryRequest(val) {
+    function tryMethod(method) {
+      return api("/api/admin/settings/github-sync", {
+        method: method,
+        body: { expiresAt: val }
+      });
+    }
+    return tryMethod("PUT").catch(function (err) {
+      if (err && err.status === 405) {
+        return tryMethod("POST");
+      }
+      throw err;
+    });
+  }
+
+  function renderGithubSyncPanel() {
+    if (!els.githubPanel) return;
+    var state = githubSyncState;
+    var days = daysUntilExpiry(state.expiresAt);
+    var level = "ok";
+    var badge = "GitHub 同步正常";
+    var lines = [];
+
+    if (state.probeOk === false) {
+      level = "err";
+      badge = "無法同步 GitHub";
+      lines.push(state.probeMessage || "Token 測試失敗");
+      if (/Bad credentials|401/i.test(state.probeMessage || "")) {
+        lines.push("請重新申請 PAT 並執行 wrangler secret put GITHUB_TOKEN");
+      }
+    }
+
+    if (!state.expiresAt) {
+      if (level === "ok") {
+        level = "warn";
+        badge = "請記錄 Token 到期日";
+      }
+      lines.push("申請 PAT 時 GitHub 會顯示到期日 → 點「填寫到期日」記在後台。");
+    } else if (days !== null && days < 0) {
+      level = "err";
+      badge = "Token 已過期";
+      lines.push("到期日 " + state.expiresAt + "，請重新申請並更新 Worker secret。");
+    } else if (days !== null && days <= 14) {
+      if (level !== "err") level = "warn";
+      badge = days <= 7 ? days + " 天內到期" : "約 " + days + " 天後到期";
+      lines.push("到期日 " + state.expiresAt + "，建議提前更新 Token。");
+    } else if (state.expiresAt) {
+      lines.push("Token 到期日：" + state.expiresAt);
+    }
+
+    if (state.lastProbeAt) {
+      lines.push(
+        "上次連線測試：" +
+          formatProbeTime(state.lastProbeAt) +
+          (state.lastProbeOk ? "（成功）" : "（失敗）")
+      );
+    }
+
+    els.githubPanel.className = "admin-github-panel admin-github-panel--" + level;
+    els.githubPanel.innerHTML =
+      '<p class="admin-github-panel__title">GitHub 文章頁同步 <span class="admin-github-panel__badge">' +
+      escapeHtml(badge) +
+      "</span></p>" +
+      '<p class="admin-github-panel__text">' +
+      lines.map(escapeHtml).join("<br>") +
+      "</p>" +
+      '<div class="admin-github-panel__actions">' +
+      '<button type="button" data-github-open-settings>填寫到期日</button>' +
+      '<button type="button" data-github-probe>測試連線</button>' +
+      '<a href="' +
+      escapeHtml(GITHUB_HELP_PAGE) +
+      '" target="_blank" rel="noopener noreferrer">Token 申請步驟</a>' +
+      "</div>";
+    els.githubPanel.classList.remove("hidden");
+
+    if (level !== "ok" && els.utilsDrawer) {
+      els.utilsDrawer.open = true;
+    }
+
+    var openBtn = els.githubPanel.querySelector("[data-github-open-settings]");
+    if (openBtn) {
+      openBtn.addEventListener("click", openGithubSettings);
+    }
+    var probeBtn = els.githubPanel.querySelector("[data-github-probe]");
+    if (probeBtn) {
+      probeBtn.addEventListener("click", function () {
+        probeGithubSync();
+      });
+    }
+  }
+
+  function loadGithubSyncSettings() {
+    mergeGithubSettings({ expiresAt: readGithubExpiryLocal() });
+    return api("/api/admin/settings/github-sync")
       .then(function (data) {
-        var probe = (data && data.probe) || {};
-        var msg = probe.message || "GitHub Token 正常";
-        if (probe.ok) {
-          setStatus(msg, false, { silent: true });
-          return;
-        }
-        var detail = msg;
-        if (probe.tokenLength) {
-          detail += "（Worker token 長度 " + probe.tokenLength + "）";
-        }
-        if (/Bad credentials|401/i.test(msg)) {
-          detail +=
-            " → 請在 backend/mrbill-worker 執行 .\\scripts\\push-github-token.ps1";
-        }
-        setStatus(detail, true, { silent: true });
+        mergeGithubSettings(data);
+        if (data && data.expiresAt) writeGithubExpiryLocal(data.expiresAt);
+        renderGithubSyncPanel();
+      })
+      .catch(function () {
+        renderGithubSyncPanel();
+      });
+  }
+
+  function saveGithubTokenExpiry() {
+    var val = els.githubTokenExpiresAt ? els.githubTokenExpiresAt.value : "";
+    if (els.githubTokenSave) els.githubTokenSave.disabled = true;
+    return saveGithubExpiryRequest(val)
+      .then(function (data) {
+        mergeGithubSettings(data);
+        writeGithubExpiryLocal(val);
+        renderGithubSyncPanel();
+        setStatus(val ? "已儲存 Token 到期日：" + val : "已清除到期日紀錄");
       })
       .catch(function (err) {
-        setStatus(err.message || "GitHub 測試失敗", true, { silent: true });
+        var msg = err && err.message ? err.message : "無法儲存到期日";
+        if (/Method not allowed|405/i.test(msg)) {
+          writeGithubExpiryLocal(val);
+          mergeGithubSettings({ expiresAt: val });
+          renderGithubSyncPanel();
+          setStatus(
+            "已暫存本機瀏覽器。請 wrangler deploy 並執行 migrate-github-token-meta.sql 後再儲存一次以同步雲端。",
+            true
+          );
+          return;
+        }
+        setStatus(msg, true);
+      })
+      .finally(function () {
+        if (els.githubTokenSave) els.githubTokenSave.disabled = false;
       });
+  }
+
+  function probeGithubSync() {
+    if (els.githubTokenProbe) els.githubTokenProbe.disabled = true;
+    return fetch(apiBase + "/api/admin/articles/github-sync-probe", {
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + getToken()
+      }
+    })
+      .then(function (res) {
+        return res.json().then(function (json) {
+          var data = (json && json.data) || {};
+          var probe = data.probe || {};
+          mergeGithubSettings(data.githubSettings);
+          githubSyncState.probeOk = !!probe.ok;
+          githubSyncState.probeMessage = probe.message || (json && json.message) || "";
+          if (data.githubSettings && data.githubSettings.lastProbeAt) {
+            githubSyncState.lastProbeAt = data.githubSettings.lastProbeAt;
+            githubSyncState.lastProbeOk = !!data.githubSettings.lastProbeOk;
+          }
+          renderGithubSyncPanel();
+          if (probe.ok) {
+            setStatus(probe.message || "GitHub Token 正常", false, { silent: true });
+          } else {
+            var detail = githubSyncState.probeMessage;
+            if (probe.tokenLength) {
+              detail += "（Worker token 長度 " + probe.tokenLength + "）";
+            }
+            setStatus(detail, true);
+          }
+        });
+      })
+      .catch(function (err) {
+        githubSyncState.probeOk = false;
+        githubSyncState.probeMessage = err.message || "GitHub 測試失敗";
+        renderGithubSyncPanel();
+        setStatus(githubSyncState.probeMessage, true);
+      })
+      .finally(function () {
+        if (els.githubTokenProbe) els.githubTokenProbe.disabled = false;
+      });
+  }
+
+  function switchEditorTab(tabId) {
+    if (!tabId) return;
+    if (els.editorTabBtns) {
+      els.editorTabBtns.forEach(function (btn) {
+        var active = btn.getAttribute("data-admin-tab") === tabId;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-selected", active ? "true" : "false");
+      });
+    }
+    if (els.tabHeading && ADMIN_TAB_LABELS[tabId]) {
+      els.tabHeading.textContent = ADMIN_TAB_LABELS[tabId];
+    }
+    if (els.tabPanels) {
+      els.tabPanels.forEach(function (panel) {
+        panel.classList.toggle(
+          "is-active",
+          panel.getAttribute("data-admin-tab-panel") === tabId
+        );
+      });
+    }
+    try {
+      localStorage.setItem(ADMIN_TAB_LS_KEY, tabId);
+    } catch (e) {}
+    if (tabId === "body" && blockEditor && blockEditor.refreshPreview) {
+      requestAnimationFrame(function () {
+        blockEditor.refreshPreview();
+      });
+    }
+  }
+
+  function initEditorTabs() {
+    var saved = "basic";
+    try {
+      saved = localStorage.getItem(ADMIN_TAB_LS_KEY) || "basic";
+    } catch (e) {}
+    if (saved !== "basic" && saved !== "list" && saved !== "body") saved = "basic";
+    switchEditorTab(saved);
+    if (els.editorTabBtns) {
+      els.editorTabBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          switchEditorTab(btn.getAttribute("data-admin-tab"));
+        });
+      });
+    }
   }
 
   function updatePreviewBar(slug, isSaved, status, publishedAt) {
@@ -1170,6 +1444,13 @@
     if (els.homeStripSettingsSave) {
       els.homeStripSettingsSave.addEventListener("click", saveHomeStripSettings);
     }
+    if (els.githubTokenSave) {
+      els.githubTokenSave.addEventListener("click", saveGithubTokenExpiry);
+    }
+    if (els.githubTokenProbe) {
+      els.githubTokenProbe.addEventListener("click", probeGithubSync);
+    }
+    initEditorTabs();
     initSnippetToolbar();
     if (els.snippetInsert) {
       els.snippetInsert.addEventListener("click", insertSelectedSnippet);
@@ -1199,7 +1480,9 @@
       syncAdminSession();
       showApp();
       loadList();
-      probeGithubSync();
+      loadGithubSyncSettings().then(function () {
+        return probeGithubSync();
+      });
     }
   }
 

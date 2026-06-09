@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>GitHub Token 申請與更新｜後台說明</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+  <main class="max-w-2xl mx-auto px-4 py-10">
+    <p class="text-sm font-bold text-indigo-600 mb-2"><a href="admin.html" class="underline">← 回到文章後台</a></p>
+    <h1 class="text-2xl font-black text-slate-900">GitHub Token：申請、到期、重設</h1>
+    <p class="mt-3 text-slate-600 leading-relaxed">後台「儲存已上架文」會用 Token 把 <code class="bg-slate-100 px-1 rounded">blog/文章slug/</code> 推到 GitHub。Token 過期或填錯時，文章仍會上架，但靜態分享頁不會更新。</p>
+
+    <section class="mt-8 space-y-4">
+      <h2 class="text-lg font-bold text-slate-900">1. 申請 Token（Fine-grained PAT）</h2>
+      <ol class="list-decimal pl-5 space-y-2 text-sm leading-relaxed">
+        <li>GitHub → <strong>Settings</strong> → <strong>Developer settings</strong> → <strong>Personal access tokens</strong> → <strong>Fine-grained tokens</strong></li>
+        <li>Repository 選 <code class="bg-slate-100 px-1 rounded">mrbill-dev.github.io</code>（或你的 Pages repo）</li>
+        <li>權限：<strong>Contents</strong> 讀寫</li>
+        <li>記下申請畫面上的<strong>到期日</strong>，回到後台「全站設定」填寫</li>
+      </ol>
+    </section>
+
+    <section class="mt-8 space-y-4">
+      <h2 class="text-lg font-bold text-slate-900">2. 寫入 Cloudflare Worker</h2>
+      <p class="text-sm text-slate-600">在本機專案 <code class="bg-slate-100 px-1 rounded">backend/mrbill-worker</code> 執行：</p>
+      <pre class="text-xs bg-slate-900 text-slate-100 p-4 rounded-xl overflow-x-auto">cd backend\mrbill-worker
+.\scripts\push-github-token.ps1</pre>
+      <p class="text-sm text-slate-600">或手動：<code class="bg-slate-100 px-1 rounded">npx wrangler secret put GITHUB_TOKEN</code> 後 <code class="bg-slate-100 px-1 rounded">npx wrangler deploy</code></p>
+    </section>
+
+    <section class="mt-8 space-y-4">
+      <h2 class="text-lg font-bold text-slate-900">3. 到期前要重做什麼？</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm leading-relaxed">
+        <li>重新申請新 Token（步驟 1）</li>
+        <li>再執行步驟 2 更新 Worker secret</li>
+        <li>後台按「重新測試連線」應顯示成功</li>
+        <li>對已上架文章按「同步 GitHub」或再儲存一次</li>
+      </ul>
+    </section>
+
+    <section class="mt-8 p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm text-amber-950 leading-relaxed">
+      <strong>後台「儲存到期日」出現 Method not allowed？</strong><br />
+      代表 Worker 尚未 deploy 最新版，或 D1 未執行 <code class="bg-white px-1 rounded">migrate-github-token-meta.sql</code>。到期日會暫存本機瀏覽器；deploy + migration 後再儲存一次即可同步雲端。
+    </section>
+  </main>
+</body>
+</html>
