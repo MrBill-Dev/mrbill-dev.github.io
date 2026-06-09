@@ -1001,6 +1001,61 @@ function blogAssetHref(path) {
   return path;
 }
 
+var KIDS_EXAM_QUIZ_ASSET_V = "quiz-bank-6";
+
+/** 已發布靜態頁若 head 未帶專用資源，動態補載 CSS/JS */
+function ensureKidsExamQuizAssets(done) {
+  if (!document.getElementById("ai-kids-exam-quiz-root")) {
+    if (done) done();
+    return;
+  }
+  var cssHref = blogAssetHref("css/blog-kids-exam-quiz.css?v=" + KIDS_EXAM_QUIZ_ASSET_V);
+  if (!document.querySelector('link[href*="blog-kids-exam-quiz.css"]')) {
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = cssHref;
+    document.head.appendChild(link);
+  }
+  if (window.AI_KIDS_EXAM_QUIZ_BANK && typeof window.initAiKidsExamQuiz === "function") {
+    if (done) done();
+    return;
+  }
+  var scripts = [
+    blogAssetHref("js/blog-kids-exam-quiz-bank.js?v=" + KIDS_EXAM_QUIZ_ASSET_V),
+    blogAssetHref("js/blog-kids-exam-quiz.js?v=" + KIDS_EXAM_QUIZ_ASSET_V)
+  ];
+  function loadNext(i) {
+    if (i >= scripts.length) {
+      if (done) done();
+      return;
+    }
+    var src = scripts[i];
+    var key = src.split("/").pop().split("?")[0];
+    if (document.querySelector('script[src*="' + key + '"]')) {
+      loadNext(i + 1);
+      return;
+    }
+    var s = document.createElement("script");
+    s.src = src;
+    s.onload = s.onerror = function () {
+      loadNext(i + 1);
+    };
+    document.head.appendChild(s);
+  }
+  loadNext(0);
+}
+
+function bootKidsExamQuizIfPresent() {
+  ensureKidsExamQuizAssets(function () {
+    var quizRoot = document.getElementById("ai-kids-exam-quiz-root");
+    if (!quizRoot) return;
+    quizRoot.removeAttribute("data-ai-exam-init");
+    if (typeof window.initAiKidsExamQuiz === "function") {
+      window.initAiKidsExamQuiz();
+    }
+  });
+}
+
 /** 依字數估算的一般閱讀時間（readMins），非影片長度 */
 function formatReadDuration(mins) {
   if (!mins) return "";
@@ -1200,6 +1255,10 @@ function initBlogArticlePage(slug, options) {
         if (typeof window.initBlogArticleUI === "function") {
           window.initBlogArticleUI(slug);
         }
+        bootKidsExamQuizIfPresent();
+        if (typeof window.initBlogFaqAccordion === "function") {
+          window.initBlogFaqAccordion();
+        }
         var art = getBlogArticleBySlug(slug);
         if (art) initBlogArticleShare(art);
       });
@@ -1228,11 +1287,7 @@ function injectDynamicArticleContent(contentHtml) {
     if (navSlot) main.insertBefore(node, navSlot);
     else main.appendChild(node);
   });
-  var quizRoot = document.getElementById("ai-kids-exam-quiz-root");
-  if (quizRoot) quizRoot.removeAttribute("data-ai-exam-init");
-  if (typeof window.initAiKidsExamQuiz === "function") {
-    window.initAiKidsExamQuiz();
-  }
+  bootKidsExamQuizIfPresent();
   if (typeof window.initBlogFaqAccordion === "function") {
     window.initBlogFaqAccordion();
   }

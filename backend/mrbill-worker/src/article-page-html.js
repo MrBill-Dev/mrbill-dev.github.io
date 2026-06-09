@@ -11,13 +11,13 @@ import {
   OG_IMAGE_HEIGHT
 } from "./share-seo.js";
 
-/** ?áÁ??éÈ?Ê®ôÈ??®Ô??ãÊ??°Á≥ªÁµ±Â?È´îÊ?ÂøÖÈ?ËºâÂÖ• webfontÔº?*/
+/** ????????????????????????????????? webfont??*/
 export const BLOG_SERIF_FONT_HEAD =
   '  <link rel="preconnect" href="https://fonts.googleapis.com" />\n' +
   '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n' +
   '  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&amp;display=swap" rel="stylesheet" />\n';
 
-/** ?ïÊ??áÊ≠£ÂºèÁ∂≤?ÄÔº?blog/{slug}/ÔºàÁ?Á¢ü‰???blog/{slug}/index.htmlÔº?*/
+/** ?????????????blog/{slug}/????????blog/{slug}/index.html??*/
 export function blogArticlePublicPath(slug) {
   return "/blog/" + slug + "/";
 }
@@ -40,7 +40,7 @@ function parseJsonArray(value) {
   return [];
 }
 
-/** D1 row ???úÊ??ÅÂª∫ÁΩÆÁî® article ?©‰ª∂ */
+/** D1 row ??????????? article ??? */
 export function articleFromDbRow(row) {
   if (!row) return null;
   return {
@@ -64,7 +64,7 @@ export function articleFromDbRow(row) {
   };
 }
 
-/** ?åÊ≠•?ÇÁ¢∫‰øùÂ∏∂??content_htmlÔºàcronÔºèÊ???sync ?ØËÉΩ?™ÂÇ≥ metadataÔº?*/
+/** ??????????content_html?cron?????sync ?????? metadata??*/
 export async function resolveArticleForStaticPage(env, article) {
   if (!article) return null;
   if (typeof article.contentHtml === "string") return article;
@@ -94,7 +94,7 @@ function escapeHtmlText(value) {
     .replace(/>/g, "&gt;");
 }
 
-/** blog/{slug}/index.html Ê∑±Â∫¶Ôºö‰øÆÊ≠?≠£?áÂÖß?∏Â?Ë≥áÁî¢Ë∑ØÂ? */
+/** blog/{slug}/index.html ???????????????????? */
 function rewriteNestedBlogAssetPaths(html) {
   if (!html) return "";
   let out = html;
@@ -110,7 +110,7 @@ function rewriteNestedBlogAssetPaths(html) {
 function formatReadDuration(mins) {
   const n = Number(mins) || 0;
   if (!n) return "";
-  return "?ê‰º∞?±Ë? " + n + " ?ÜÈ?";
+  return "??????? " + n + " ????";
 }
 
 function buildArticleJsonLd(article, pageUrl) {
@@ -161,12 +161,12 @@ function buildArticleMetaJson(article) {
 
 function buildStaticHeroSection(article) {
   const cover = absUrl(SITE_ORIGIN, blogResolveCover(article));
-  const tag = escapeHtmlText(article.label || article.category || "?áÁ?Á≠ÜË?");
+  const tag = escapeHtmlText(article.label || article.category || "???????");
   const title = escapeHtmlText(article.title || article.slug);
   const subtitle = escapeHtmlText(article.subtitle || article.excerpt || "");
   const authorDate =
     escapeHtmlText(article.author || "Mr.Bill") +
-    (article.date ? " ¬∑ " + escapeHtmlText(article.date) : "");
+    (article.date ? " ? " + escapeHtmlText(article.date) : "");
   const readTime = escapeHtmlText(formatReadDuration(article.readMins));
 
   return (
@@ -180,12 +180,12 @@ function buildStaticHeroSection(article) {
     "  </div>\n" +
     '  <div class="blog-hero__panel">\n' +
     '    <div class="blog-shell blog-hero__inner">\n' +
-    '      <a href="../../blog/" class="blog-hero__back md:hidden">???áÁ?Á≠ÜË?</a>\n' +
-    '      <nav class="blog-hero__breadcrumb hidden md:block" aria-label="È∫µÂ?Â±?>\n' +
+    '      <a href="../../blog/" class="blog-hero__back md:hidden">?????????</a>\n' +
+    '      <nav class="blog-hero__breadcrumb hidden md:block" aria-label="?????>\n' +
     "        <ol>\n" +
-    '          <li><a href="../../index.html">È¶ñÈ?</a></li>\n' +
+    '          <li><a href="../../index.html">???</a></li>\n' +
     '          <li aria-hidden="true">/</li>\n' +
-    '          <li><a href="../../blog/">?áÁ?Á≠ÜË?</a></li>\n' +
+    '          <li><a href="../../blog/">???????</a></li>\n' +
     '          <li aria-hidden="true">/</li>\n' +
     '          <li><span class="text-white font-medium" id="blog-hero-breadcrumb-title">' +
     title +
@@ -212,13 +212,13 @@ function buildStaticHeroSection(article) {
         readTime +
         "</span>\n"
       : '        <span class="blog-hero__meta-item" id="blog-hero-read-time"></span>\n') +
-    '        <span class="blog-hero__likes blog-hero__meta-item" id="busuanzi_container_page_pv" aria-label="Â∑≤Ê?ËÆÄ?ÖÂ?Ê≠°ÈÄôÁ??ÑÁ¥ØË®à‰∫∫??>\n' +
+    '        <span class="blog-hero__likes blog-hero__meta-item" id="busuanzi_container_page_pv" aria-label="???????????????????>\n' +
     '          <span class="blog-hero__likes-icon" aria-hidden="true">\n' +
     '            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>\n' +
     "          </span>\n" +
     '          <span class="blog-hero__likes-text">\n' +
-    '            <span class="blog-hero__likes-part blog-hero__likes-part--lead">Â∑≤Ê? <span id="busuanzi_value_page_pv">??/span> ‰ΩçË???/span>\n' +
-    '            <span class="blog-hero__likes-part blog-hero__likes-part--tail">?úÊ≠°</span>\n' +
+    '            <span class="blog-hero__likes-part blog-hero__likes-part--lead">??? <span id="busuanzi_value_page_pv">??/span> ?????/span>\n' +
+    '            <span class="blog-hero__likes-part blog-hero__likes-part--tail">???</span>\n' +
     "          </span>\n" +
     "        </span>\n" +
     "      </p>\n" +
@@ -232,7 +232,7 @@ function buildStaticSeoHead(article, pageUrl) {
   const ogTitle = blogArticleShareOgTitle(article);
   const description = String(article.excerpt || article.subtitle || "").trim();
   const ogImage = absUrl(SITE_ORIGIN, blogResolveCover(article));
-  const ogImageAlt = String(article.title || "Mr.Bill ?áÁ?Á≠ÜË?").trim();
+  const ogImageAlt = String(article.title || "Mr.Bill ???????").trim();
   const docTitle = formatDocumentTitle(article);
   const tags = Array.isArray(article.tags) ? article.tags : [];
   const keywordsLine =
@@ -298,24 +298,60 @@ function buildStaticSeoHead(article, pageUrl) {
   );
 }
 
+const KIDS_EXAM_QUIZ_ASSET_VERSION = "quiz-bank-6";
+
+/** ?????????????????? CSS/JS */
+function needsKidsExamQuizAssets(html) {
+  return /ai-kids-exam-(prose|quiz-root)/i.test(String(html || ""));
+}
+
+function buildKidsExamQuizHeadTags() {
+  const v = KIDS_EXAM_QUIZ_ASSET_VERSION;
+  return (
+    '  <script src="../../js/blog-kids-exam-quiz-bank.js?v=' +
+    v +
+    '"></script>\n' +
+    '  <script src="../../js/blog-kids-exam-quiz.js?v=' +
+    v +
+    '"></script>\n' +
+    '  <link rel="stylesheet" href="../../css/blog-kids-exam-quiz.css?v=' +
+    v +
+    '" />\n'
+  );
+}
+
+/** ?????????? head ???? CSS ??????????? */
+function buildKidsExamQuizBodyPreamble() {
+  const v = KIDS_EXAM_QUIZ_ASSET_VERSION;
+  return (
+    '<link rel="stylesheet" href="../../css/blog-kids-exam-quiz.css?v=' +
+    v +
+    '" />\n'
+  );
+}
+
 function buildStaticArticleBody(article) {
   const raw = String(article.contentHtml || "").trim();
   const safe = rewriteNestedBlogAssetPaths(stripDangerousHtml(raw));
   if (!safe) {
     return (
       '          <div id="blog-static-content" data-blog-static-content="1">\n' +
-      '            <p class="text-slate-500">ÔºàÂ??°Ê≠£?áÔ?</p>\n' +
+      '            <p class="text-slate-500">??????????</p>\n' +
       "          </div>\n"
     );
   }
+  const quizPreamble = needsKidsExamQuizAssets(raw)
+    ? buildKidsExamQuizBodyPreamble()
+    : "";
   return (
     '          <div id="blog-static-content" data-blog-static-content="1">\n' +
+    quizPreamble +
     safe +
     "\n          </div>\n"
   );
 }
 
-/** Â∑≤‰??∂Â??ãÊ???GitHub ?úÊ??ÅÔ???OG + ?ØÁà¨?≤Ê≠£?áÔ? */
+/** ?????????????GitHub ??????????OG + ?????????? */
 export function buildPublishedArticlePageHtml(article) {
   const slug = article.slug;
   const pageUrl = blogArticlePublicUrl(slug, SITE_ORIGIN);
@@ -325,6 +361,9 @@ export function buildPublishedArticlePageHtml(article) {
   const hero = buildStaticHeroSection(article);
   const bodyContent = buildStaticArticleBody(article);
   const metaJson = buildArticleMetaJson(article);
+  const quizAssets = needsKidsExamQuizAssets(article.contentHtml)
+    ? buildKidsExamQuizHeadTags()
+    : "";
 
   return (
     "<!DOCTYPE html>\n" +
@@ -356,15 +395,13 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/components-loader.js"></script>\n' +
     '  <script src="../../js/mrbill-admin-session.js"></script>\n' +
     '  <script src="../../js/blog-articles.config.js"></script>\n' +
-    '  <script src="../../js/blog-articles.js?v=title-font-mobile-1"></script>\n' +
+    '  <script src="../../js/blog-articles.js?v=quiz-assets-loader-1"></script>\n' +
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
     '  <script src="../../js/blog-article-ui.js?v=faq-accordion-1"></script>\n' +
-    '  <script src="../../js/blog-kids-exam-quiz-bank.js?v=quiz-bank-6"></script>\n' +
-    '  <script src="../../js/blog-kids-exam-quiz.js?v=quiz-bank-6"></script>\n' +
+    quizAssets +
     (article.titleFont === "serif" ? BLOG_SERIF_FONT_HEAD : "") +
     '  <link rel="stylesheet" href="../../css/blog-layout.css?v=ios-mobile-1" />\n' +
-    '  <link rel="stylesheet" href="../../css/blog-kids-exam-quiz.css?v=quiz-bank-6" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; max-width: 100%; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; overflow-x: clip; max-width: 100%; }\n' +
@@ -423,7 +460,7 @@ export function publishedArticleFilePath(slug) {
   return "blog/" + slug + "/index.html";
 }
 
-/** ?äÁ??ÅÂπ≥Ë∑ØÂ?ÔºàÂ?Ê≠•Ê?‰∏Ä‰ΩµÊ??§Ô? */
+/** ???????????????????????? */
 export function legacyFlatPublishedArticleFilePath(slug) {
   return "blog/" + slug + ".html";
 }

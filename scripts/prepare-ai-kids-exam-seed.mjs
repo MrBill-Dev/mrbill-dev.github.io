@@ -99,6 +99,7 @@ mainHtml = mainHtml.replace(/ data-ai-exam-tab-btn type="button"/g, "");
 
 const contentHtml =
   '<div id="ai-kids-exam-quiz-root" class="ai-kids-exam-prose">\n' +
+  '<link rel="stylesheet" href="../../css/blog-kids-exam-quiz.css?v=quiz-bank-6" />\n' +
   mainHtml +
   "\n</div>\n";
 
