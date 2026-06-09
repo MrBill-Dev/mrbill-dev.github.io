@@ -31,6 +31,7 @@
     deleteBtn: document.getElementById("admin-delete-btn"),
     deleteHint: document.getElementById("admin-delete-hint"),
     syncShareBtn: document.getElementById("admin-sync-share-btn"),
+    actionDock: document.getElementById("admin-action-dock"),
     snippetSelect: document.getElementById("admin-snippet-select"),
     snippetInsert: document.getElementById("admin-snippet-insert"),
     snippetReset: document.getElementById("admin-snippet-reset"),
@@ -46,7 +47,8 @@
   var blockEditor = null;
   var statusToastTimer = null;
 
-  function setStatus(msg, isError) {
+  function setStatus(msg, isError, options) {
+    options = options || {};
     var text = msg || "";
     if (els.status) {
       els.status.textContent = text;
@@ -62,7 +64,7 @@
         els.statusFoot.classList.add(isError ? "admin-status-foot--err" : "admin-status-foot--ok");
       }
     }
-    if (els.toast && text) {
+    if (els.toast && text && !options.silent) {
       els.toast.textContent = text;
       els.toast.className =
         "admin-toast is-visible " + (isError ? "admin-toast--err" : "admin-toast--ok");
@@ -270,6 +272,7 @@
     document.body.classList.add("admin-is-authed");
     if (els.gate) els.gate.classList.add("hidden");
     if (els.app) els.app.classList.remove("hidden");
+    if (els.actionDock) els.actionDock.classList.remove("hidden");
     if (els.logoutBtn) els.logoutBtn.classList.add("admin-is-visible");
     if (els.previewBar) els.previewBar.classList.remove("hidden");
     updatePreviewBar("", false, "draft", "");
@@ -280,6 +283,7 @@
     document.body.classList.remove("admin-is-authed");
     if (els.gate) els.gate.classList.remove("hidden");
     if (els.app) els.app.classList.add("hidden");
+    if (els.actionDock) els.actionDock.classList.add("hidden");
     if (els.logoutBtn) els.logoutBtn.classList.remove("admin-is-visible");
   }
 
@@ -360,20 +364,61 @@
   }
 
   function formatShareSyncNote(shareSync) {
-    if (!shareSync) return "";
+    if (!shareSync) return { text: "", isError: false };
     if (shareSync.ok && shareSync.url) {
-      return "文章頁已同步 GitHub（約 1～2 分鐘生效，可直接貼網址列到 Facebook）";
+      return {
+        text:
+          "文章頁已同步 GitHub（約 1～2 分鐘生效，路徑 " +
+          (shareSync.path || "blog/slug/") +
+          "）",
+        isError: false
+      };
     }
     if (shareSync.ok && shareSync.removed) {
-      return "已從 GitHub 移除分享頁";
+      return { text: "已從 GitHub 移除分享頁", isError: false };
     }
     if (shareSync.skipped) {
       if (shareSync.message && shareSync.message.indexOf("GITHUB_TOKEN") >= 0) {
-        return "分享頁未同步：請設定 GITHUB_TOKEN（見 ADMIN-SETUP.md）";
+        return {
+          text: "分享頁未同步：請設定 GITHUB_TOKEN（見 ADMIN-SETUP.md）",
+          isError: true
+        };
       }
-      return "";
+      return { text: "", isError: false };
     }
-    return shareSync.message ? "分享頁同步失敗：" + shareSync.message : "";
+    return {
+      text:
+        "分享頁同步失敗：" +
+        (shareSync.message || "未知錯誤") +
+        (shareSync.message && /Bad credentials|401/i.test(shareSync.message)
+          ? " — 請用「本機 test 成功的那個 token」再執行 wrangler secret put GITHUB_TOKEN"
+          : ""),
+      isError: true
+    };
+  }
+
+  function probeGithubSync() {
+    return api("/api/admin/articles/github-sync-probe")
+      .then(function (data) {
+        var probe = (data && data.probe) || {};
+        var msg = probe.message || "GitHub Token 正常";
+        if (probe.ok) {
+          setStatus(msg, false, { silent: true });
+          return;
+        }
+        var detail = msg;
+        if (probe.tokenLength) {
+          detail += "（Worker token 長度 " + probe.tokenLength + "）";
+        }
+        if (/Bad credentials|401/i.test(msg)) {
+          detail +=
+            " → 請在 backend/mrbill-worker 執行 .\\scripts\\push-github-token.ps1";
+        }
+        setStatus(detail, true, { silent: true });
+      })
+      .catch(function (err) {
+        setStatus(err.message || "GitHub 測試失敗", true, { silent: true });
+      });
   }
 
   function updatePreviewBar(slug, isSaved, status, publishedAt) {
@@ -896,7 +941,7 @@
     })
       .then(function (data) {
         var note = formatShareSyncNote(data && data.shareSync);
-        setStatus(note || "分享頁已同步");
+        setStatus(note.text || "分享頁已同步", note.isError);
         updateArticleLinksFromForm();
       })
       .catch(function (err) {
@@ -951,8 +996,8 @@
             "。SEO 與 sitemap 已自動生效（動態文無需 npm run seo:sync）";
         }
         var shareNote = formatShareSyncNote(shareSync);
-        if (shareNote) statusMsg += "；" + shareNote;
-        setStatus(statusMsg);
+        if (shareNote.text) statusMsg += "；" + shareNote.text;
+        setStatus(statusMsg, shareNote.isError);
       })
       .catch(function (err) {
         var msg = err.message || "儲存失敗";
@@ -1154,6 +1199,7 @@
       syncAdminSession();
       showApp();
       loadList();
+      probeGithubSync();
     }
   }
 

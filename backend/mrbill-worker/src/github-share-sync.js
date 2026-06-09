@@ -31,9 +31,9 @@ function toBase64Utf8(text) {
 }
 
 function githubConfig(env) {
-  const token = env.GITHUB_TOKEN;
-  const repo = env.GITHUB_REPO || "MrBill-Dev/mrbill-dev.github.io";
-  const branch = env.GITHUB_BRANCH || "main";
+  const token = String(env.GITHUB_TOKEN || "").trim();
+  const repo = String(env.GITHUB_REPO || "MrBill-Dev/mrbill-dev.github.io").trim();
+  const branch = String(env.GITHUB_BRANCH || "main").trim();
   if (!token) return null;
   return { token, repo, branch };
 }
@@ -66,7 +66,19 @@ async function githubApi(env, path, options) {
   }
   if (!res.ok) {
     const msg = (json && json.message) || "GitHub API HTTP " + res.status;
-    throw new Error(msg);
+    const hint =
+      res.status === 401
+        ? "（Token 無效或過期，請重新 wrangler secret put GITHUB_TOKEN）"
+        : res.status === 403
+          ? "（Token 權限不足：需對 mrbill-dev.github.io 的 Contents 讀寫）"
+          : res.status === 404
+            ? "（找不到 repo 或路徑，請確認 GITHUB_REPO）"
+            : "";
+    const extra =
+      json && json.errors && json.errors.length
+        ? " " + JSON.stringify(json.errors)
+        : "";
+    throw new Error(msg + hint + extra);
   }
   return json;
 }
@@ -300,6 +312,39 @@ export async function removeArticleSharePageFromGitHub(env, slug) {
     };
   }
   return { ok: true, removed: true, path: path, manifest: manifest };
+}
+
+/** 管理員診斷：測試 GITHUB_TOKEN 能否讀寫 repo（不修改文章頁） */
+export async function probeGithubSyncAccess(env) {
+  const cfg = githubConfig(env);
+  if (!cfg) {
+    return { ok: false, message: "GITHUB_TOKEN 未設定", tokenLength: 0 };
+  }
+  const tokenLength = cfg.token.length;
+  try {
+    await githubApi(env, "", { method: "GET" });
+    const meta = await getGithubFileMeta(env, "blog/index.html");
+    if (!meta || !meta.sha) {
+      return {
+        ok: false,
+        tokenLength: tokenLength,
+        message: "Token 可連線，但讀不到 blog/index.html（請確認 GITHUB_REPO／GITHUB_BRANCH）"
+      };
+    }
+    return {
+      ok: true,
+      tokenLength: tokenLength,
+      repo: cfg.repo,
+      branch: cfg.branch,
+      message: "GitHub 已連線，可同步文章頁"
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      tokenLength: tokenLength,
+      message: err && err.message ? err.message : String(err)
+    };
+  }
 }
 
 export async function maybeSyncSharePageForArticle(env, article) {

@@ -5,6 +5,7 @@ import {
 import { isSocialCrawler, crawlerOgResponse } from "./social-crawler.js";
 import {
   maybeSyncSharePageForArticle,
+  probeGithubSyncAccess,
   syncArticleSharePageToGitHub
 } from "./github-share-sync.js";
 
@@ -749,6 +750,15 @@ async function handleArticlesAdmin(request, env, url) {
 
   const parts = url.pathname.split("/").filter(Boolean);
   const slug = parts[3];
+
+  if (request.method === "GET" && parts.length === 4 && parts[3] === "github-sync-probe") {
+    const probe = await probeGithubSyncAccess(env);
+    return jsonResponse(
+      request,
+      { success: probe.ok, data: { probe: probe }, message: probe.message },
+      probe.ok ? 200 : 400
+    );
+  }
 
   if (request.method === "GET" && parts.length === 3) {
     const list = await listAdminArticles(env.DB);

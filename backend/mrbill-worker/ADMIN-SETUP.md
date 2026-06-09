@@ -120,10 +120,37 @@ npx wrangler deploy
 
 ### 1. 建立 GitHub Personal Access Token
 
-1. GitHub → **Settings → Developer settings → Personal access tokens**
-2. 建議用 **Fine-grained token**，Repository 選 `MrBill-Dev/mrbill-dev.github.io`
-3. 權限：**Contents → Read and write**
-4. 複製 token（只顯示一次）
+**建議用 Classic token**（較少權限踩雷）：
+
+1. GitHub → **Settings → Developer settings → Personal access tokens → Tokens (classic)**
+2. **Generate new token (classic)**，勾選 **`repo`**（公開 repo 會包含 Contents 讀寫）
+3. 複製 token（`ghp_` 開頭，只顯示一次）
+
+若用 **Fine-grained token**：
+
+1. Repository 必須選 **`MrBill-Dev/mrbill-dev.github.io`**
+2. 權限：**Contents → Read and write**
+3. 複製 token（`github_pat_` 開頭）
+
+本機可先驗證 token（不必 deploy）：
+
+```powershell
+cd backend\mrbill-worker
+$env:GITHUB_TOKEN = "貼上 token"
+node scripts/test-github-sync.mjs
+```
+
+看到 `✓ 寫入成功` 再執行下方推送 Worker（**不要**手動互動貼上，容易貼錯）：
+
+```powershell
+cd backend\mrbill-worker
+$env:GITHUB_TOKEN = "貼上 token"
+$env:CLOUDFLARE_API_TOKEN = "你的Cloudflare_API權杖"
+$env:NODE_TLS_REJECT_UNAUTHORIZED = "0"
+.\scripts\push-github-token.ps1
+```
+
+腳本會先跑 `test-github-sync.mjs`，成功後用 `wrangler secret bulk` 寫入**同一個** token。
 
 ### 2. 寫入 Worker Secret
 

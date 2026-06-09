@@ -7,7 +7,7 @@
   <title>文章內容管理｜Mr.Bill 數位實驗室</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/blog-layout.css" />
-  <link rel="stylesheet" href="css/admin.css?v=block-a2" />
+  <link rel="stylesheet" href="css/admin.css?v=action-dock-1" />
 </head>
 <body class="admin-body text-slate-800 antialiased">
 
@@ -290,18 +290,23 @@
                 <textarea id="contentHtml" name="contentHtml" placeholder="HTML 進階模式：直接編輯原始碼。"></textarea>
               </div>
             </div>
-            <div class="admin-form-actions">
-              <button type="submit">儲存</button>
-              <button type="button" id="admin-sync-share-btn" class="hidden">同步 GitHub 文章頁</button>
-              <button type="button" id="admin-delete-btn" class="hidden">刪除</button>
-              <p id="admin-status-foot" class="admin-status-foot" role="status" aria-live="polite"></p>
-            </div>
-            <p id="admin-delete-hint" class="hidden text-xs text-slate-500 mt-2">草稿／已下架可永久刪除；已上架請先「下架」或改狀態為已下架。</p>
+            <p id="admin-delete-hint" class="hidden text-xs text-slate-500 mt-2 admin-delete-hint">草稿／已下架可永久刪除；已上架請先「下架」或改狀態為已下架。</p>
           </div>
         </form>
       </section>
     </div>
   </main>
+
+  <div id="admin-action-dock" class="admin-action-dock hidden" aria-label="文章操作">
+    <div class="admin-action-dock__inner">
+      <div class="admin-action-dock__buttons">
+        <button type="submit" form="admin-article-form" class="admin-action-dock__save">儲存</button>
+        <button type="button" id="admin-sync-share-btn" class="admin-action-dock__sync hidden">同步 GitHub</button>
+        <button type="button" id="admin-delete-btn" class="admin-action-dock__delete hidden">刪除</button>
+      </div>
+      <p id="admin-status-foot" class="admin-status-foot admin-action-dock__status" role="status" aria-live="polite"></p>
+    </div>
+  </div>
 
   <div id="admin-toast" class="admin-toast" role="status" aria-live="assertive"></div>
 
@@ -312,6 +317,6 @@
   <script src="js/admin/blog-content-snippets.js"></script>
   <script src="js/admin/seed-imports/pending-drafts.js?v=kids-ai-1"></script>
   <script src="js/admin/blog-block-editor.js?v=block-a2"></script>
-  <script src="js/admin/admin-app.js?v=seed-import-1"></script>
+  <script src="js/admin/admin-app.js?v=action-dock-2"></script>
 </body>
 </html>

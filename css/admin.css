@@ -3,6 +3,7 @@
   --admin-topbar-h: 72px;
   --admin-shell-max: min(1680px, calc(100vw - 40px));
   --admin-sidebar-w: 360px;
+  --admin-action-dock-h: 76px;
 }
 
 .admin-body {
@@ -252,8 +253,12 @@
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
 }
 
+.admin-body.admin-is-authed {
+  padding-bottom: calc(var(--admin-action-dock-h) + 20px);
+}
+
 .admin-main {
-  padding: 24px 28px 28px;
+  padding: 24px 28px 12px;
   min-width: 0;
 }
 
@@ -620,17 +625,120 @@
 }
 
 .admin-form-actions {
+  display: none;
+}
+
+/* 固定底部操作列：儲存／同步／下架 */
+.admin-action-dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 55;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -8px 32px rgba(15, 23, 42, 0.08);
+}
+
+.admin-action-dock__inner {
+  max-width: var(--admin-shell-max);
+  margin: 0 auto;
+  padding: 12px 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
   align-items: center;
-  padding-top: 10px;
-  position: sticky;
-  bottom: 0;
-  z-index: 20;
-  margin: 0 -4px;
-  padding: 14px 4px 4px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #fff 28%);
+  gap: 12px 16px;
+}
+
+.admin-action-dock__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.admin-action-dock__save {
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.28);
+}
+
+.admin-action-dock__save:hover {
+  filter: brightness(1.05);
+}
+
+.admin-action-dock__sync {
+  padding: 11px 18px;
+  border-radius: 12px;
+  border: 1px solid #c7d2fe;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 0.875rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-action-dock__sync:hover {
+  background: #e0e7ff;
+}
+
+.admin-action-dock__delete {
+  padding: 11px 18px;
+  border-radius: 12px;
+  border: 1px solid #fecaca;
+  background: #fff1f2;
+  color: #be123c;
+  font-size: 0.875rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-action-dock__status {
+  flex: 1 1 200px;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.admin-action-dock__status:empty {
+  display: none;
+}
+
+.admin-delete-hint {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --admin-action-dock-h: 120px;
+  }
+
+  .admin-action-dock__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-action-dock__buttons {
+    justify-content: stretch;
+  }
+
+  .admin-action-dock__save,
+  .admin-action-dock__sync,
+  .admin-action-dock__delete {
+    flex: 1 1 auto;
+    text-align: center;
+  }
 }
 
 .admin-status-foot {
@@ -662,7 +770,7 @@
 .admin-toast {
   position: fixed;
   left: 50%;
-  bottom: 24px;
+  bottom: calc(var(--admin-action-dock-h) + 12px);
   transform: translateX(-50%) translateY(120%);
   z-index: 60;
   max-width: min(520px, calc(100vw - 32px));
@@ -693,7 +801,8 @@
   border: 1px solid #9f1239;
 }
 
-.admin-form-actions button[type="submit"] {
+.admin-form-actions button[type="submit"],
+.admin-action-dock__save {
   padding: 12px 26px;
   border-radius: 12px;
   border: none;
@@ -705,7 +814,8 @@
   box-shadow: 0 6px 16px rgba(79, 70, 229, 0.28);
 }
 
-#admin-delete-btn {
+#admin-delete-btn,
+.admin-action-dock__delete {
   padding: 12px 20px;
   border-radius: 12px;
   border: 1px solid #fecaca;
