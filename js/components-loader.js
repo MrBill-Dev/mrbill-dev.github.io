@@ -3,7 +3,7 @@ function isBlogSectionPath() {
     return /\/blog(\/|$)/.test(p) || p.endsWith('/blog');
 }
 
-/** 文章分享高亮僅在 /blog/ 底下；其他頁面的 explicitId 不會誤亮 nav-articles */
+/** 文章筆記高亮僅在 /blog/ 底下；其他頁面的 explicitId 不會誤亮 nav-articles */
 function resolveActiveNavId(explicitId) {
     if (isBlogSectionPath()) {
         return 'nav-articles';
@@ -44,7 +44,7 @@ function setNavActive(el) {
     }
 }
 
-/** 主選單目前頁面高亮：桌機漸層、手機淺底；文章分享僅在 /blog/ */
+/** 主選單目前頁面高亮：桌機漸層、手機淺底；文章筆記僅在 /blog/ */
 function applyGlobalNavActive(explicitId) {
     var navId = resolveActiveNavId(explicitId);
 

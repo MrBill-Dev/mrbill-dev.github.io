@@ -473,7 +473,7 @@
             <p class="home-article-carousel__kicker">Featured Articles</p>
             <h2 class="home-article-carousel__title">精選文章輪播</h2>
           </div>
-          <a href="blog/index.html" class="home-article-carousel__more">更多筆記 →</a>
+          <a href="blog/" class="home-article-carousel__more">更多筆記 →</a>
         </div>
         <div class="home-article-carousel__viewport">
           <div id="homeArticleCarouselTrack" class="home-article-carousel__track"></div>
@@ -1464,7 +1464,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       var tab = urlParams.get('tab') || 'home';
       if (tab === 'showcase') {
-        window.location.replace('blog/index.html');
+        window.location.replace('blog/');
         return;
       }
       switchTab(tab);

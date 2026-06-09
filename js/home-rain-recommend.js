@@ -220,7 +220,7 @@
       '"><span>' +
       escapeHtml(slide.btn) +
       " →</span></a>" +
-      '<a href="blog/index.html" class="home-blog-strip__more">更多筆記</a>' +
+      '<a href="blog/" class="home-blog-strip__more">更多筆記</a>' +
       "</div></div>"
     );
   }

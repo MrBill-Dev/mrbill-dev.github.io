@@ -521,6 +521,15 @@ function blogSiblingPrefix() {
   return out;
 }
 
+/** 文章列表頁連結：站外 blog/、blog 區內 ./ 或 ../ */
+function blogIndexHref() {
+  if (isBlogSectionPath()) {
+    var sibling = blogSiblingPrefix();
+    return sibling || "./";
+  }
+  return "blog/";
+}
+
 function fixBlogNavPathsFromSubdir() {
   var header = document.getElementById("global-header");
   var footer = document.getElementById("global-footer");
@@ -945,7 +954,7 @@ function applyBlogIndexHead() {
 function blogArticleHref(article) {
   var sibling = blogSiblingPrefix();
   if (!article || !article.slug) {
-    return isBlogSectionPath() ? sibling + "index.html" : "blog/index.html";
+    return blogIndexHref();
   }
   if (isStaticBlogSlug(article.slug)) {
     var staticPath = article.slug + ".html";
@@ -1216,7 +1225,7 @@ function showDynamicArticleError(message, options) {
         escapeBlogHtml(blogAssetHref("admin.html")) +
         '">回到後台</a>' +
         '　·　<a class="font-bold text-slate-700 underline" href="' +
-        escapeBlogHtml(blogSiblingPrefix() + "index.html") +
+        escapeBlogHtml(blogIndexHref()) +
         '">文章列表</a>' +
         "</p>";
     } else {
@@ -1226,7 +1235,7 @@ function showDynamicArticleError(message, options) {
         escapeBlogHtml(blogAssetHref("admin.html")) +
         '">前往後台登入</a>' +
         '　·　<a class="font-bold text-slate-700 underline" href="' +
-        escapeBlogHtml(blogSiblingPrefix() + "index.html") +
+        escapeBlogHtml(blogIndexHref()) +
         '">文章列表</a>' +
         "</p>";
     }
@@ -1439,11 +1448,11 @@ function initBlogEmbedList(mountId, options) {
 
 function blogPageHref(href) {
   if (!href) return "";
+  if (href === "index.html" || href === "blog/index.html") {
+    return blogIndexHref();
+  }
   if (isBlogSectionPath() && !/^(https?:|\/|\.\.\/|#)/.test(href)) {
     return href;
-  }
-  if (!isBlogSectionPath() && href === "index.html") {
-    return "blog/index.html";
   }
   return href;
 }
@@ -2103,12 +2112,12 @@ function clearBlogNavNewIndicator() {
   });
 }
 
-/** 全站導覽「文章分享」未讀數字徽章（30 天內且個人未讀） */
+/** 全站導覽「文章筆記」未讀數字徽章（30 天內且個人未讀） */
 function applyBlogNavNewIndicator() {
   if (isBlogSectionPath() || !hasUnreadNewBlogArticles()) return;
 
   var unreadCount = getUnreadNewBlogArticles().length;
-  var label = "文章分享，" + unreadCount + " 篇未讀新文章";
+  var label = "文章筆記，" + unreadCount + " 篇未讀新文章";
   var badgeText = formatBlogNavUnreadCount(unreadCount);
 
   document.querySelectorAll("[data-nav-articles]").forEach(function (el) {

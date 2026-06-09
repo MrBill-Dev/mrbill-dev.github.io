@@ -180,12 +180,12 @@ function buildStaticHeroSection(article) {
     "  </div>\n" +
     '  <div class="blog-hero__panel">\n' +
     '    <div class="blog-shell blog-hero__inner">\n' +
-    '      <a href="../../blog/index.html" class="blog-hero__back md:hidden">← 文章筆記</a>\n' +
+    '      <a href="../../blog/" class="blog-hero__back md:hidden">← 文章筆記</a>\n' +
     '      <nav class="blog-hero__breadcrumb hidden md:block" aria-label="麵包屑">\n' +
     "        <ol>\n" +
     '          <li><a href="../../index.html">首頁</a></li>\n' +
     '          <li aria-hidden="true">/</li>\n' +
-    '          <li><a href="../../blog/index.html">文章筆記</a></li>\n' +
+    '          <li><a href="../../blog/">文章筆記</a></li>\n' +
     '          <li aria-hidden="true">/</li>\n' +
     '          <li><span class="text-white font-medium" id="blog-hero-breadcrumb-title">' +
     title +

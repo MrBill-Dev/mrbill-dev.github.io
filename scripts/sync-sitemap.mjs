@@ -20,7 +20,7 @@ const SITEMAP_PATH = path.join(ROOT, "sitemap.xml");
 
 const STATIC_PAGES = [
   { path: "/", file: "index.html" },
-  { path: "/blog/index.html", file: "blog/index.html" },
+  { path: "/blog/", file: "blog/index.html" },
   { path: "/ai-learning-map.html", file: "ai-learning-map.html" },
   { path: "/ai-practice.html", file: "ai-practice.html" },
   { path: "/tutorial.html", file: "tutorial.html" },

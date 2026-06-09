@@ -745,7 +745,7 @@
       setPreviewLinkEnabled(els.homePreviewLink, isSaved);
     }
     if (els.listPreviewLink) {
-      els.listPreviewLink.href = "blog/index.html";
+      els.listPreviewLink.href = "blog/";
       setPreviewLinkEnabled(els.listPreviewLink, true);
     }
     if (els.linkHint) {

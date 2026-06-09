@@ -1,5 +1,5 @@
 https://mrbill-dev.github.io/
-https://mrbill-dev.github.io/blog/index.html
+https://mrbill-dev.github.io/blog/
 https://mrbill-dev.github.io/blog/taipei-newtaipei-rainy-day-family.html
 https://mrbill-dev.github.io/blog/2026-06-06-ai-workflow-lesson-04-06.html
 https://mrbill-dev.github.io/blog/2026-06-05-ai-workflow-lesson-01-02.html
