@@ -1559,6 +1559,18 @@ details.blog-faq__item:not([open]) > :not(summary) {
   pointer-events: auto;
 }
 
+#blog-preview-banner:not(.is-visible) {
+  display: none !important;
+}
+
+#blog-dynamic-loading {
+  display: none !important;
+}
+
+html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
+  display: block !important;
+}
+
 .blog-seo-preview-panel__box {
   max-width: 72rem;
   margin: 0.5rem auto 0;

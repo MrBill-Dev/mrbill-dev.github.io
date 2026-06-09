@@ -1265,9 +1265,17 @@ function initBlogArticlePage(slug, options) {
     });
 }
 
+function setBlogDynamicLoadingVisible(visible) {
+  var root = document.documentElement;
+  if (!root) return;
+  if (visible) root.setAttribute("data-blog-dynamic-loading", "1");
+  else root.removeAttribute("data-blog-dynamic-loading");
+}
+
 function injectDynamicArticleContent(contentHtml) {
   var main = document.querySelector(".blog-main.blog-prose");
   if (!main) return;
+  setBlogDynamicLoadingVisible(false);
   var loading = document.getElementById("blog-dynamic-loading");
   if (loading) loading.remove();
   var navSlot = document.getElementById("blog-article-nav-slot");
@@ -1305,11 +1313,12 @@ function showDynamicPreviewBanner(article) {
   el.textContent =
     (statusMap[article.status] || "預覽模式") +
     "：僅管理員可見，讀者看不到此狀態下的內容。";
-  el.classList.remove("hidden");
+  el.classList.add("is-visible");
 }
 
 function showDynamicArticleError(message, options) {
   options = options || {};
+  setBlogDynamicLoadingVisible(true);
   var loading = document.getElementById("blog-dynamic-loading");
   if (!loading) return;
   var extra = "";
@@ -1478,6 +1487,7 @@ function initDynamicBlogArticlePage() {
     showDynamicArticleError("網址缺少 slug 參數，例：post.html?slug=2026-06-10-my-post");
     return;
   }
+  setBlogDynamicLoadingVisible(true);
   if (isStaticBlogSlug(slug)) {
     location.replace(slug + ".html");
     return;
