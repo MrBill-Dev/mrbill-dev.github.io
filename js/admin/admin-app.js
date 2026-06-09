@@ -30,6 +30,7 @@
     linkHint: document.getElementById("admin-link-hint"),
     deleteBtn: document.getElementById("admin-delete-btn"),
     deleteHint: document.getElementById("admin-delete-hint"),
+    syncShareBtn: document.getElementById("admin-sync-share-btn"),
     snippetSelect: document.getElementById("admin-snippet-select"),
     snippetInsert: document.getElementById("admin-snippet-insert"),
     snippetReset: document.getElementById("admin-snippet-reset"),
@@ -353,6 +354,28 @@
     linkEl.classList.toggle("is-disabled", !enabled);
   }
 
+  function articleShareUrl(slug) {
+    if (!slug) return "";
+    return "https://mrbill-dev.github.io/blog/" + encodeURIComponent(slug) + ".html";
+  }
+
+  function formatShareSyncNote(shareSync) {
+    if (!shareSync) return "";
+    if (shareSync.ok && shareSync.url) {
+      return "文章頁已同步 GitHub（約 1～2 分鐘生效，可直接貼網址列到 Facebook）";
+    }
+    if (shareSync.ok && shareSync.removed) {
+      return "已從 GitHub 移除分享頁";
+    }
+    if (shareSync.skipped) {
+      if (shareSync.message && shareSync.message.indexOf("GITHUB_TOKEN") >= 0) {
+        return "分享頁未同步：請設定 GITHUB_TOKEN（見 ADMIN-SETUP.md）";
+      }
+      return "";
+    }
+    return shareSync.message ? "分享頁同步失敗：" + shareSync.message : "";
+  }
+
   function updatePreviewBar(slug, isSaved, status, publishedAt) {
     if (els.previewLink) {
       els.previewLink.href = isSaved ? blogPostUrl(slug, true) : "#";
@@ -369,13 +392,20 @@
       setPreviewLinkEnabled(els.listPreviewLink, true);
     }
     if (els.linkHint) {
-      els.linkHint.textContent = isSaved
-        ? "公開網址：blog/post.html?slug=" +
+      if (!isSaved) {
+        els.linkHint.textContent =
+          "請先儲存文章後，即可預覽文章與首頁效果。「預覽列表」隨時可開。";
+      } else if (isPubliclyVisibleStatus(status, publishedAt)) {
+        els.linkHint.innerHTML =
+          "正式網址（訪客複製、Facebook 用）：<code>blog/" +
+          escapeHtml(slug) +
+          ".html</code>（儲存已上架文時自動同步 GitHub）";
+      } else {
+        els.linkHint.textContent =
+          "公開網址：blog/post.html?slug=" +
           slug +
-          (isPubliclyVisibleStatus(status, publishedAt)
-            ? "（讀者可開）"
-            : "（尚未對讀者開放，請先預覽）")
-        : "請先儲存文章後，即可預覽文章與首頁效果。「預覽列表」隨時可開。";
+          "（尚未對讀者開放，請先預覽）";
+      }
     }
   }
 
@@ -390,6 +420,7 @@
     if (!isSaved) {
       if (els.linksPanel) els.linksPanel.classList.add("hidden");
       if (els.placementList) els.placementList.innerHTML = "";
+      if (els.syncShareBtn) els.syncShareBtn.classList.add("hidden");
       updateDeleteButton();
       return;
     }
@@ -406,7 +437,9 @@
           (publishedAt ? "預計 " + publishedAt.replace("T", " ") + " 後出現在列表" : "請設定排程時間")
       );
     } else if (status === "published") {
-      placements.push("已上架：出現在 blog/index.html 文章列表");
+      placements.push(
+        "已上架：blog/" + slug + ".html（自動含 OG，訪客複製網址列即可分享）"
+      );
       if (publishedAt) {
         var pubAt = new Date(String(publishedAt).replace(" ", "T"));
         if (!isNaN(pubAt.getTime()) && pubAt.getTime() > Date.now()) {
@@ -458,6 +491,12 @@
       els.publicLink.textContent = "上架連結";
       if (showPublic) els.publicLink.classList.remove("hidden");
       else els.publicLink.classList.add("hidden");
+    }
+    if (els.syncShareBtn) {
+      var showShare =
+        isSaved && isPubliclyVisibleStatus(status, publishedAt);
+      els.syncShareBtn.classList.toggle("hidden", !showShare);
+      els.syncShareBtn.disabled = !showShare;
     }
     if (els.linksPanel) els.linksPanel.classList.remove("hidden");
     updateDeleteButton();
@@ -839,6 +878,35 @@
     };
   }
 
+  function syncSharePage() {
+    var slug = (field("slug") && field("slug").value.trim()) || "";
+    if (!slug || !field("slug").readOnly) {
+      setStatus("請先儲存文章", true);
+      return;
+    }
+    if (!isPubliclyVisibleStatus(field("status").value, field("publishedAt").value)) {
+      setStatus("僅已上架文章可同步分享頁", true);
+      return;
+    }
+    if (els.syncShareBtn) els.syncShareBtn.disabled = true;
+    setStatus("同步分享頁中…");
+    api("/api/admin/articles/" + encodeURIComponent(slug) + "/sync-share", {
+      method: "POST",
+      body: {}
+    })
+      .then(function (data) {
+        var note = formatShareSyncNote(data && data.shareSync);
+        setStatus(note || "分享頁已同步");
+        updateArticleLinksFromForm();
+      })
+      .catch(function (err) {
+        setStatus(err.message || "分享頁同步失敗", true);
+      })
+      .finally(function () {
+        if (els.syncShareBtn) els.syncShareBtn.disabled = false;
+      });
+  }
+
   function saveForm(ev) {
     ev.preventDefault();
     var data = collectForm();
@@ -855,12 +923,17 @@
       : "/api/admin/articles/" + encodeURIComponent(data.slug);
     var method = isNew ? "POST" : "PUT";
     api(path, { method: method, body: data })
-      .then(function () {
+      .then(function (saveData) {
         field("slug").readOnly = true;
-        return api("/api/admin/articles/" + encodeURIComponent(data.slug));
+        return api("/api/admin/articles/" + encodeURIComponent(data.slug)).then(
+          function (resp) {
+            return { saved: resp, shareSync: saveData && saveData.shareSync };
+          }
+        );
       })
-      .then(function (resp) {
-        var saved = (resp && resp.article) || {};
+      .then(function (bundle) {
+        var saved = (bundle.saved && bundle.saved.article) || {};
+        var shareSync = bundle.shareSync;
         fillForm(saved);
         updateArticleLinksFromForm();
         loadList();
@@ -877,6 +950,8 @@
           statusMsg +=
             "。SEO 與 sitemap 已自動生效（動態文無需 npm run seo:sync）";
         }
+        var shareNote = formatShareSyncNote(shareSync);
+        if (shareNote) statusMsg += "；" + shareNote;
         setStatus(statusMsg);
       })
       .catch(function (err) {
@@ -1034,6 +1109,7 @@
       });
     }
     if (els.deleteBtn) els.deleteBtn.addEventListener("click", deleteArticle);
+    if (els.syncShareBtn) els.syncShareBtn.addEventListener("click", syncSharePage);
     if (els.logoutBtn) els.logoutBtn.addEventListener("click", logoutAdmin);
     if (els.previewLink) {
       els.previewLink.addEventListener("click", openPreviewFromAdmin);

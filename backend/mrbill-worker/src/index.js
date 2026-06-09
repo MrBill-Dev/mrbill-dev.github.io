@@ -1,3 +1,10 @@
+import { buildPublishedArticlePageHtml } from "./article-page-html.js";
+import { isSocialCrawler, crawlerOgResponse } from "./social-crawler.js";
+import {
+  maybeSyncSharePageForArticle,
+  syncArticleSharePageToGitHub
+} from "./github-share-sync.js";
+
 const ALLOWED_ORIGINS = [
   "https://mrbill-dev.github.io",
   "https://plan.get.com.tw",
@@ -174,7 +181,21 @@ function isPubliclyVisible(row, nowSqlStr) {
 
 async function publishDueScheduledArticles(db) {
   const now = nowSql();
-  const result = await db
+  const due = await db
+    .prepare(
+      `SELECT slug FROM articles
+       WHERE status = 'scheduled'
+         AND published_at IS NOT NULL
+         AND published_at <= ?`
+    )
+    .bind(now)
+    .all();
+  const slugs = (due.results || []).map(function (row) {
+    return row.slug;
+  });
+  if (!slugs.length) return [];
+
+  await db
     .prepare(
       `UPDATE articles
        SET status = 'published', updated_at = datetime('now')
@@ -184,7 +205,7 @@ async function publishDueScheduledArticles(db) {
     )
     .bind(now)
     .run();
-  return result.meta && result.meta.changes ? Number(result.meta.changes) : 0;
+  return slugs;
 }
 
 async function recordAuthFailure(db, ip, path) {
@@ -608,8 +629,7 @@ async function buildDynamicSitemapXml(env) {
 
   articles.forEach(function (article) {
     if (!article || !article.slug || LEGACY_STATIC_SLUGS.has(article.slug)) return;
-    const loc =
-      origin + "/blog/post.html?slug=" + encodeURIComponent(article.slug);
+    const loc = origin + "/blog/" + encodeURIComponent(article.slug) + ".html";
     const lastmod = articleSitemapLastmod(article);
     lines.push("  <url>");
     lines.push("    <loc>" + escapeXmlText(loc) + "</loc>");
@@ -621,6 +641,63 @@ async function buildDynamicSitemapXml(env) {
 
   lines.push("</urlset>");
   return lines.join("\n") + "\n";
+}
+
+async function handleBlogPostHtml(request, env, url) {
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return new Response("Method not allowed", { status: 405 });
+  }
+  const slug = url.searchParams.get("slug");
+  if (!slug || !isValidSlug(slug)) {
+    return new Response("Not found", { status: 404 });
+  }
+  if (!isSocialCrawler(request)) {
+    const origin = String(env.CANONICAL_ORIGIN || "https://mrbill-dev.github.io").replace(
+      /\/$/,
+      ""
+    );
+    const target =
+      origin + "/blog/" + encodeURIComponent(slug) + ".html";
+    return Response.redirect(target, 302);
+  }
+  const article = await getPublicArticle(env.DB, slug);
+  if (!article) {
+    return new Response("Not found", { status: 404 });
+  }
+  if (request.method === "HEAD") {
+    const res = await crawlerOgResponse(article);
+    return new Response(null, { status: 200, headers: res.headers });
+  }
+  return crawlerOgResponse(article);
+}
+
+async function handleShareBlog(request, env, url) {
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return new Response("Method not allowed", { status: 405 });
+  }
+  const parts = url.pathname.split("/").filter(Boolean);
+  if (parts.length !== 3 || parts[0] !== "share" || parts[1] !== "blog") {
+    return new Response("Not found", { status: 404 });
+  }
+  const slug = parts[2];
+  if (!isValidSlug(slug)) {
+    return new Response("Invalid slug", { status: 400 });
+  }
+  const article = await getPublicArticle(env.DB, slug);
+  if (!article) {
+    return new Response("Not found", { status: 404 });
+  }
+  const html = buildPublishedArticlePageHtml(article);
+  const headers = {
+    "Content-Type": "text/html; charset=utf-8",
+    "Cache-Control": "public, max-age=300",
+    "Accept-Ranges": "none",
+    Vary: "Accept-Encoding"
+  };
+  if (request.method === "HEAD") {
+    return new Response(null, { status: 200, headers });
+  }
+  return new Response(html, { status: 200, headers });
 }
 
 async function handleDynamicSitemap(request, env) {
@@ -706,7 +783,44 @@ async function handleArticlesAdmin(request, env, url) {
     });
     if (!data.slug) throw new Error("Slug required");
     await upsertArticle(env.DB, data);
-    return jsonResponse(request, { success: true, data: { slug: data.slug } }, 201);
+    let shareSync = { ok: true, skipped: true };
+    try {
+      shareSync = await maybeSyncSharePageForArticle(env, data);
+    } catch (err) {
+      shareSync = {
+        ok: false,
+        message: err && err.message ? err.message : "分享頁同步失敗"
+      };
+    }
+    return jsonResponse(
+      request,
+      { success: true, data: { slug: data.slug, shareSync: shareSync } },
+      201
+    );
+  }
+
+  if (request.method === "POST" && parts.length === 5 && parts[4] === "sync-share") {
+    if (!isValidSlug(slug)) {
+      return jsonResponse(request, { success: false, message: "Invalid slug" }, 400);
+    }
+    const row = await env.DB.prepare("SELECT * FROM articles WHERE slug = ?")
+      .bind(slug)
+      .first();
+    if (!row) return jsonResponse(request, { success: false, message: "Not found" }, 404);
+    const article = rowToArticle(row, false);
+    try {
+      const shareSync = await syncArticleSharePageToGitHub(env, article);
+      return jsonResponse(request, { success: true, data: { shareSync: shareSync } });
+    } catch (err) {
+      return jsonResponse(
+        request,
+        {
+          success: false,
+          message: err && err.message ? err.message : "分享頁同步失敗"
+        },
+        400
+      );
+    }
   }
 
   if (request.method === "PUT" && parts.length === 4) {
@@ -723,7 +837,19 @@ async function handleArticlesAdmin(request, env, url) {
     body.slug = slug;
     const data = normalizeArticleInput(body, rowToArticle(existing, true));
     await upsertArticle(env.DB, data);
-    return jsonResponse(request, { success: true, data: { slug: slug } });
+    let shareSync = { ok: true, skipped: true };
+    try {
+      shareSync = await maybeSyncSharePageForArticle(env, data);
+    } catch (err) {
+      shareSync = {
+        ok: false,
+        message: err && err.message ? err.message : "分享頁同步失敗"
+      };
+    }
+    return jsonResponse(request, {
+      success: true,
+      data: { slug: slug, shareSync: shareSync }
+    });
   }
 
   if (request.method === "DELETE" && parts.length === 4) {
@@ -749,6 +875,11 @@ async function handleArticlesAdmin(request, env, url) {
         );
       }
       await env.DB.prepare("DELETE FROM articles WHERE slug = ?").bind(slug).run();
+      try {
+        await maybeSyncSharePageForArticle(env, { slug: slug, status: "draft" });
+      } catch (err) {
+        console.warn("share page remove failed:", err.message || err);
+      }
       return jsonResponse(request, { success: true, data: { purged: true } });
     }
     await env.DB.prepare(
@@ -756,6 +887,11 @@ async function handleArticlesAdmin(request, env, url) {
     )
       .bind(slug)
       .run();
+    try {
+      await maybeSyncSharePageForArticle(env, { slug: slug, status: "archived" });
+    } catch (err) {
+      console.warn("share page remove failed:", err.message || err);
+    }
     return jsonResponse(request, { success: true, data: { archived: true } });
   }
 
@@ -765,9 +901,19 @@ async function handleArticlesAdmin(request, env, url) {
 export default {
   async scheduled(event, env, ctx) {
     ctx.waitUntil(
-      publishDueScheduledArticles(env.DB).then(function (count) {
-        if (count > 0) {
-          console.log("Published " + count + " scheduled article(s)");
+      publishDueScheduledArticles(env.DB).then(async function (slugs) {
+        if (!slugs.length) return;
+        console.log("Published " + slugs.length + " scheduled article(s)");
+        for (const slug of slugs) {
+          try {
+            const row = await env.DB.prepare("SELECT * FROM articles WHERE slug = ?")
+              .bind(slug)
+              .first();
+            if (!row) continue;
+            await syncArticleSharePageToGitHub(env, rowToArticle(row, false));
+          } catch (err) {
+            console.warn("share sync failed for " + slug + ":", err.message || err);
+          }
         }
       })
     );
@@ -791,6 +937,14 @@ export default {
 
       if (url.pathname === "/sitemap-dynamic.xml") {
         return await handleDynamicSitemap(request, env);
+      }
+
+      if (url.pathname === "/blog/post.html") {
+        return await handleBlogPostHtml(request, env, url);
+      }
+
+      if (url.pathname.startsWith("/share/blog/")) {
+        return await handleShareBlog(request, env, url);
       }
 
       if (url.pathname === "/api/articles" || url.pathname.startsWith("/api/articles/")) {

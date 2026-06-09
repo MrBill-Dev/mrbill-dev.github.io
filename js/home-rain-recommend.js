@@ -72,7 +72,7 @@
 
   function articleHrefFromSlug(slug, preview) {
     if (slug === LEGACY_ARTICLE_SLUG) return ARTICLE_URL;
-    var path = "blog/post.html?slug=" + encodeURIComponent(slug);
+    var path = "blog/" + slug + ".html";
     if (preview) path += "&preview=1";
     return path;
   }

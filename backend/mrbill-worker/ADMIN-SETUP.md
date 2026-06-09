@@ -114,6 +114,48 @@ npx wrangler deploy
 
 ---
 
+## Facebook 分享頁自動同步（一次設定）
+
+動態文儲存為「已上架」時，Worker 自動 commit **`blog/{slug}.html`**（完整文章殼層 + 靜態 OG）。訪客從站內進入、複製網址列、貼 Facebook 都正常，**不必手動除錯**。
+
+### 1. 建立 GitHub Personal Access Token
+
+1. GitHub → **Settings → Developer settings → Personal access tokens**
+2. 建議用 **Fine-grained token**，Repository 選 `MrBill-Dev/mrbill-dev.github.io`
+3. 權限：**Contents → Read and write**
+4. 複製 token（只顯示一次）
+
+### 2. 寫入 Worker Secret
+
+```powershell
+cd backend\mrbill-worker
+$env:CLOUDFLARE_API_TOKEN = "你的Cloudflare_API權杖"
+$env:NODE_TLS_REJECT_UNAUTHORIZED = "0"
+npx wrangler secret put GITHUB_TOKEN
+```
+
+貼上 GitHub token。
+
+### 3. 部署
+
+```powershell
+npx wrangler deploy
+```
+
+### 4. 使用方式
+
+| 動作 | 結果 |
+|------|------|
+| 後台 **儲存**（狀態＝已上架） | 自動產生 `blog/{slug}.html` |
+| 後台 **同步 GitHub 文章頁** | 手動重試 |
+| 下架／刪除草稿 | 自動刪除 `blog/{slug}.html` |
+
+**正式網址**：`https://mrbill-dev.github.io/blog/你的-slug.html`
+
+未設定 `GITHUB_TOKEN` 時：文章照常上架，只是分享頁不會自動推到 GitHub（狀態列會提示）。
+
+---
+
 ## 公司網路 Wrangler 登入失敗（常見）
 
 若出現 `UNABLE_TO_VERIFY_LEAF_SIGNATURE` 或 `Failed to fetch auth token`，代表 **瀏覽器 OAuth 登入被公司 SSL 攔截**，不是 SQL 寫錯。

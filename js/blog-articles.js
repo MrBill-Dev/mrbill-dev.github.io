@@ -552,7 +552,7 @@ function preloadBlogArticleCover(article) {
 function blogArticleCanonicalPath(article) {
   if (!article || !article.slug) return "/blog/";
   if (isDynamicBlogSlug(article.slug) || article._dynamic) {
-    return "/blog/post.html?slug=" + encodeURIComponent(article.slug);
+    return "/blog/" + article.slug + ".html";
   }
   return "/blog/" + article.slug + ".html";
 }
@@ -563,6 +563,17 @@ function blogArticleCanonicalUrl(article) {
     return window.mrbillSeoAbsUrl(path);
   }
   return blogSeoOrigin() + path;
+}
+
+function blogArticlesApiBase() {
+  return (
+    (typeof window !== "undefined" && window.BLOG_ARTICLES_API) ||
+    "https://mrbill-stats.billhuang19get.workers.dev"
+  );
+}
+
+function blogArticleShareUrl(article) {
+  return blogArticleCanonicalUrl(article);
 }
 
 function truncateBlogSeoText(text, max) {
@@ -738,6 +749,7 @@ function collectBlogArticleSeoSnapshot(article, options) {
       article.excerpt ||
       "",
     canonical: (canonicalEl && canonicalEl.href) || blogArticleCanonicalUrl(article),
+    shareUrl: blogArticleShareUrl(article),
     ogTitle:
       (document.querySelector('meta[property="og:title"]') || {}).content ||
       article.title ||
@@ -775,7 +787,7 @@ function renderBlogSeoPreviewPanel(article, options) {
     '<details class="blog-seo-preview-panel__box" open>' +
     '<summary class="blog-seo-preview-panel__summary">SEO／分享預覽檢查 <span class="blog-seo-preview-panel__badge">僅管理員</span></summary>' +
     '<div class="blog-seo-preview-panel__body">' +
-    '<p class="blog-seo-preview-panel__note">動態文用 JS 寫入 &lt;head&gt;，<strong>檢視原始碼看不到</strong>；以下為載入後實際值。草稿預覽與上架後邏輯相同（canonical 為正式網址）。</p>' +
+    '<p class="blog-seo-preview-panel__note">已上架文會同步 <code>blog/{slug}.html</code>（含靜態 OG）。訪客從站內點進、複製網址列貼 Facebook 即可，不用另除錯。舊 <code>post.html?slug=</code> 會自動跳轉。</p>' +
     '<dl class="blog-seo-preview-panel__list">' +
     "<dt>分頁 title</dt><dd>" +
     escapeBlogHtml(snap.documentTitle) +
@@ -808,9 +820,13 @@ function renderBlogSeoPreviewPanel(article, options) {
         escapeBlogHtml(snap.ogImage) +
         '" alt="OG 顯圖預覽" loading="lazy" />'
       : "") +
-    '<p class="blog-seo-preview-panel__tools">驗證工具（貼 canonical 網址）：' +
-    '<a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener noreferrer">Meta 分享偵錯</a> · ' +
-    '<a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener noreferrer">Google 複雜結果</a>' +
+    '<p class="blog-seo-preview-panel__tools">驗證工具（貼 canonical 或網址列）：' +
+    '<a href="https://developers.facebook.com/tools/debug/?q=' +
+    encodeURIComponent(snap.canonical) +
+    '" target="_blank" rel="noopener noreferrer">Meta 分享偵錯</a> · ' +
+    '<a href="https://search.google.com/test/rich-results?url=' +
+    encodeURIComponent(snap.canonical) +
+    '" target="_blank" rel="noopener noreferrer">Google 複雜結果（用 canonical）</a>' +
     "</p>" +
     "</div></details>";
 
@@ -839,9 +855,8 @@ function applyBlogIndexHead() {
 }
 
 function blogArticleHref(article) {
-  var path = isStaticBlogSlug(article.slug)
-    ? article.slug + ".html"
-    : "post.html?slug=" + encodeURIComponent(article.slug);
+  if (!article || !article.slug) return isBlogSectionPath() ? "index.html" : "blog/index.html";
+  var path = article.slug + ".html";
   if (isBlogSectionPath()) return path;
   return "blog/" + path;
 }
@@ -1012,6 +1027,8 @@ function initBlogArticlePage(slug, options) {
     if (typeof window.initBlogArticleUI === "function") {
       window.initBlogArticleUI(slug);
     }
+    var art = getBlogArticleBySlug(slug);
+    if (art) initBlogArticleShare(art);
   });
 }
 
@@ -1118,6 +1135,71 @@ function fetchBlogArticleForPage(slug, preview) {
     });
 }
 
+function initBlogArticleShare(article) {
+  if (isBlogPreviewMode()) return;
+  if (article && article.status && article.status !== "published") return;
+
+  var mount = document.getElementById("blog-article-author-slot");
+  if (!mount || document.getElementById("blog-share-bar")) return;
+
+  var shareUrl =
+    typeof location !== "undefined" && location.href
+      ? location.href.split("#")[0]
+      : blogArticleCanonicalUrl(article);
+
+  var bar = document.createElement("div");
+  bar.id = "blog-share-bar";
+  bar.className = "blog-share-bar";
+  bar.setAttribute("aria-label", "分享此文章");
+
+  bar.innerHTML =
+    '<button type="button" class="blog-share-bar__btn" id="blog-share-copy-btn">複製連結分享</button>' +
+    '<button type="button" class="blog-share-bar__btn blog-share-bar__btn--ghost" id="blog-share-native-btn">分享…</button>' +
+    '<p class="blog-share-bar__toast hidden" id="blog-share-toast" role="status"></p>';
+
+  mount.parentNode.insertBefore(bar, mount);
+
+  function showToast(msg) {
+    var toast = document.getElementById("blog-share-toast");
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.remove("hidden");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () {
+      toast.classList.add("hidden");
+    }, 2400);
+  }
+
+  function copyUrl() {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(shareUrl).then(function () {
+        showToast("已複製連結，可直接貼到 Facebook / LINE");
+      });
+    }
+    showToast("請複製網址列：" + shareUrl);
+    return Promise.resolve();
+  }
+
+  var copyBtn = document.getElementById("blog-share-copy-btn");
+  if (copyBtn) copyBtn.addEventListener("click", copyUrl);
+
+  var nativeBtn = document.getElementById("blog-share-native-btn");
+  if (nativeBtn) {
+    if (typeof navigator.share === "function") {
+      nativeBtn.addEventListener("click", function () {
+        navigator
+          .share({
+            title: (article && blogArticleOgTitle(article)) || document.title || "",
+            url: shareUrl
+          })
+          .catch(function () {});
+      });
+    } else {
+      nativeBtn.hidden = true;
+    }
+  }
+}
+
 function initDynamicBlogArticlePage() {
   var slug = getCurrentBlogSlug();
   if (!slug) {
@@ -1135,6 +1217,7 @@ function initDynamicBlogArticlePage() {
       injectDynamicArticleContent(row.contentHtml);
       if (preview) showDynamicPreviewBanner(row);
       initBlogArticlePage(slug, { contentHtml: row.contentHtml });
+      initBlogArticleShare(row);
     })
     .catch(function (err) {
       var needsAdmin =
@@ -1898,3 +1981,4 @@ window.applyBlogNavNewIndicator = applyBlogNavNewIndicator;
 
 window.initDynamicBlogArticlePage = initDynamicBlogArticlePage;
 window.blogArticlePublicHref = blogArticleHref;
+window.blogArticleShareUrl = blogArticleShareUrl;
