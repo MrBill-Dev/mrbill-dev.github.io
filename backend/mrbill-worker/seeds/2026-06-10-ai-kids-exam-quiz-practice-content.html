@@ -144,20 +144,56 @@
     <section id="quiz-demo">
       <div class="section-head">
         <span class="eyebrow">Interactive Demo</span>
-        <h2>互動題目示範：答對答錯、錯因分類、補強題提示</h2>
+        <h2>年級學期可選的互動練習：先做題，再看錯因與補強方向</h2>
         <p class="lead">
-          這一區可以讓文章有更明顯的技術感。它不是大型題庫，而是示範家長可以如何把 AI 題目轉成互動測驗與錯題診斷。
+          下方題庫依國小一到六年級、上下學期與五科範圍做難度分層，每次隨機抽 20 題。
+          它的重點不是取代課本或老師指定範圍，而是讓家長看見：題目練習、錯因分類、同類型補強可以怎麼串成一個考前複習流程。
         </p>
       </div>
 
       <div class="quiz-panel">
         <div class="quiz-top">
           <div>
-            <h3 style="color:#fff;margin-bottom:4px;">AI 考前小測驗</h3>
-            <p style="margin:0;color:rgba(255,255,255,.72);">國小五科混合練習｜含錯因分類與補強提示</p>
+            <h3 style="color:#fff;margin-bottom:4px;">年級學期練題區</h3>
+            <p style="margin:0;color:rgba(255,255,255,.72);">國小五科｜依年級學期出題｜答完看錯因與補強方向</p>
           </div>
           <div class="quiz-score">分數 <span id="score">0</span> / <span id="total">0</span></div>
         </div>
+
+        <div class="quiz-filters" data-ai-exam-quiz-filters>
+          <label class="quiz-filter">
+            <span class="quiz-filter__label">年級</span>
+            <select data-ai-exam-grade aria-label="年級">
+              <option value="1">一年級</option>
+              <option value="2">二年級</option>
+              <option value="3" selected>三年級</option>
+              <option value="4">四年級</option>
+              <option value="5">五年級</option>
+              <option value="6">六年級</option>
+            </select>
+          </label>
+          <label class="quiz-filter">
+            <span class="quiz-filter__label">學期</span>
+            <select data-ai-exam-semester aria-label="學期">
+              <option value="1" selected>上學期</option>
+              <option value="2">下學期</option>
+            </select>
+          </label>
+          <label class="quiz-filter">
+            <span class="quiz-filter__label">科目</span>
+            <select data-ai-exam-subject aria-label="科目">
+              <option value="mixed" selected>五科混合（各 4 題）</option>
+              <option value="英文">英文 20 題</option>
+              <option value="數學">數學 20 題</option>
+              <option value="自然">自然 20 題</option>
+              <option value="社會">社會 20 題</option>
+              <option value="國語">國語 20 題</option>
+            </select>
+          </label>
+          <button type="button" class="btn-start-quiz" data-ai-exam-quiz-start>開始測驗</button>
+        </div>
+        <p class="quiz-meta-line" data-ai-exam-quiz-meta>題庫載入中…</p>
+        <p class="quiz-progress-line">第 <span data-ai-exam-quiz-current>0</span> / <span data-ai-exam-quiz-total>20</span> 題</p>
 
         <div id="question" class="quiz-question">題目載入中...</div>
         <div id="options" class="quiz-options"></div>
@@ -173,12 +209,12 @@
         <div class="quiz-controls">
           <button type="button" class="btn-next" data-ai-exam-quiz-next>下一題</button>
           <button type="button" class="btn-remedial" data-ai-exam-quiz-remedial>產生同類型補強題</button>
-          <button type="button" class="btn-reset" data-ai-exam-quiz-reset>重新計分</button>
+          <button type="button" class="btn-reset" data-ai-exam-quiz-reset>重新抽題</button>
         </div>
       </div>
 
       <div class="note warning" style="margin-top:18px;">
-        實務建議：正式頁面放 5～8 題示範就好。文章重點是教家長「怎麼建立複習流程」，不是把網站變成期末考現場。
+        使用建議：先選孩子目前的年級、學期與科目做一輪 20 題練習，再把錯題原因整理成「觀念不熟、題意看錯、粗心流程」三類。正式段考前，請搭配課本、習作、老師圈選單元與學校考卷，讓 AI 依實際範圍補出同類型題目。
       </div>
     </section>
 
@@ -188,7 +224,7 @@
         <h2>考前資源大集合：考古題、題庫、線上練習怎麼找？</h2>
         <p class="lead">
           家長考前最常搜尋的關鍵字通常包含：國小考古題、國小題庫、段考考券、線上測驗、數學練習、英文單字、自然社會重點整理。
-          這一區建議保留，對搜尋收錄與家長實用性都有幫助。
+          下面整理幾個常用平台，適合搭配課本範圍與孩子錯題一起使用。
         </p>
       </div>
 

@@ -104,10 +104,10 @@ const contentHtml =
 
 const manifest = {
   slug: "2026-06-10-ai-kids-exam-quiz-practice",
-  title: "AI 幫小孩出題怎麼用？國小考前複習、錯題分析與線上測驗完整指南",
-  subtitle: "從 AI 出題、錯題分析、考古題整理、線上測驗，到孩子學習成長",
+  title: "AI 幫小孩出題怎麼用？國小五科考前複習、錯題分析與線上測驗完整指南",
+  subtitle: "從年級學期範圍、五科練習、錯題診斷，到 AI 補強題與線上測驗",
   excerpt:
-    "完整整理家長如何用 AI 幫國小孩子考前複習，包含五科練習、錯題分析、弱點補強、考古題資源、考券製作與 Google Forms 線上測驗教學。",
+    "完整整理家長如何用 AI 幫國小孩子考前複習，包含年級學期範圍、五科練習、錯題分析、弱點補強、考古題資源、考券製作與 Google Forms 線上測驗教學。",
   label: "AI 教育",
   audience: "家長、老師、國小學生家長",
   category: "AI學習地圖",
@@ -155,6 +155,10 @@ if (styleMatch) {
 }
 
 if (scriptMatch) {
+  console.log(
+    "略過覆寫 js/blog-kids-exam-quiz.js（請維護 blog-kids-exam-quiz.js + blog-kids-exam-quiz-bank.js）"
+  );
+  /* 題庫與測驗邏輯已外掛，不再從 raw HTML 內嵌 script 覆寫
   const js =
     "/**\n * AI 國小考前複習專文：互動測驗與分頁籤\n */\n" +
     "(function () {\n" +
@@ -192,6 +196,7 @@ if (scriptMatch) {
     "  }\n" +
     "})();\n";
   writeFileSync(resolve(root, "js/blog-kids-exam-quiz.js"), js, "utf8");
+  */
 }
 
 console.log("已產生種子：", manifest.slug);

@@ -11,13 +11,13 @@ import {
   OG_IMAGE_HEIGHT
 } from "./share-seo.js";
 
-/** 文章明體標題用（手機無系統宋體時必須載入 webfont） */
+/** ?��??��?標�??��??��??�系統�?體�?必�?載入 webfont�?*/
 export const BLOG_SERIF_FONT_HEAD =
   '  <link rel="preconnect" href="https://fonts.googleapis.com" />\n' +
   '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n' +
   '  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&amp;display=swap" rel="stylesheet" />\n';
 
-/** 動態文正式網址：/blog/{slug}/（磁碟上為 blog/{slug}/index.html） */
+/** ?��??�正式網?��?blog/{slug}/（�?碟�???blog/{slug}/index.html�?*/
 export function blogArticlePublicPath(slug) {
   return "/blog/" + slug + "/";
 }
@@ -40,7 +40,7 @@ function parseJsonArray(value) {
   return [];
 }
 
-/** D1 row → 靜態頁建置用 article 物件 */
+/** D1 row ???��??�建置用 article ?�件 */
 export function articleFromDbRow(row) {
   if (!row) return null;
   return {
@@ -64,7 +64,7 @@ export function articleFromDbRow(row) {
   };
 }
 
-/** 同步時確保帶入 content_html（cron／手動 sync 可能只傳 metadata） */
+/** ?�步?�確保帶??content_html（cron／�???sync ?�能?�傳 metadata�?*/
 export async function resolveArticleForStaticPage(env, article) {
   if (!article) return null;
   if (typeof article.contentHtml === "string") return article;
@@ -94,7 +94,7 @@ function escapeHtmlText(value) {
     .replace(/>/g, "&gt;");
 }
 
-/** blog/{slug}/index.html 深度：修正正文內相對資產路徑 */
+/** blog/{slug}/index.html 深度：修�?��?�內?��?資產路�? */
 function rewriteNestedBlogAssetPaths(html) {
   if (!html) return "";
   let out = html;
@@ -110,7 +110,7 @@ function rewriteNestedBlogAssetPaths(html) {
 function formatReadDuration(mins) {
   const n = Number(mins) || 0;
   if (!n) return "";
-  return "預估閱讀 " + n + " 分鐘";
+  return "?�估?��? " + n + " ?��?";
 }
 
 function buildArticleJsonLd(article, pageUrl) {
@@ -161,7 +161,7 @@ function buildArticleMetaJson(article) {
 
 function buildStaticHeroSection(article) {
   const cover = absUrl(SITE_ORIGIN, blogResolveCover(article));
-  const tag = escapeHtmlText(article.label || article.category || "文章筆記");
+  const tag = escapeHtmlText(article.label || article.category || "?��?筆�?");
   const title = escapeHtmlText(article.title || article.slug);
   const subtitle = escapeHtmlText(article.subtitle || article.excerpt || "");
   const authorDate =
@@ -180,12 +180,12 @@ function buildStaticHeroSection(article) {
     "  </div>\n" +
     '  <div class="blog-hero__panel">\n' +
     '    <div class="blog-shell blog-hero__inner">\n' +
-    '      <a href="../../blog/" class="blog-hero__back md:hidden">← 文章筆記</a>\n' +
-    '      <nav class="blog-hero__breadcrumb hidden md:block" aria-label="麵包屑">\n' +
+    '      <a href="../../blog/" class="blog-hero__back md:hidden">???��?筆�?</a>\n' +
+    '      <nav class="blog-hero__breadcrumb hidden md:block" aria-label="麵�?�?>\n' +
     "        <ol>\n" +
-    '          <li><a href="../../index.html">首頁</a></li>\n' +
+    '          <li><a href="../../index.html">首�?</a></li>\n' +
     '          <li aria-hidden="true">/</li>\n' +
-    '          <li><a href="../../blog/">文章筆記</a></li>\n' +
+    '          <li><a href="../../blog/">?��?筆�?</a></li>\n' +
     '          <li aria-hidden="true">/</li>\n' +
     '          <li><span class="text-white font-medium" id="blog-hero-breadcrumb-title">' +
     title +
@@ -212,13 +212,13 @@ function buildStaticHeroSection(article) {
         readTime +
         "</span>\n"
       : '        <span class="blog-hero__meta-item" id="blog-hero-read-time"></span>\n') +
-    '        <span class="blog-hero__likes blog-hero__meta-item" id="busuanzi_container_page_pv" aria-label="已有讀者喜歡這篇的累計人數">\n' +
+    '        <span class="blog-hero__likes blog-hero__meta-item" id="busuanzi_container_page_pv" aria-label="已�?讀?��?歡這�??�累計人??>\n' +
     '          <span class="blog-hero__likes-icon" aria-hidden="true">\n' +
     '            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>\n' +
     "          </span>\n" +
     '          <span class="blog-hero__likes-text">\n' +
-    '            <span class="blog-hero__likes-part blog-hero__likes-part--lead">已有 <span id="busuanzi_value_page_pv">…</span> 位讀者</span>\n' +
-    '            <span class="blog-hero__likes-part blog-hero__likes-part--tail">喜歡</span>\n' +
+    '            <span class="blog-hero__likes-part blog-hero__likes-part--lead">已�? <span id="busuanzi_value_page_pv">??/span> 位�???/span>\n' +
+    '            <span class="blog-hero__likes-part blog-hero__likes-part--tail">?�歡</span>\n' +
     "          </span>\n" +
     "        </span>\n" +
     "      </p>\n" +
@@ -232,7 +232,7 @@ function buildStaticSeoHead(article, pageUrl) {
   const ogTitle = blogArticleShareOgTitle(article);
   const description = String(article.excerpt || article.subtitle || "").trim();
   const ogImage = absUrl(SITE_ORIGIN, blogResolveCover(article));
-  const ogImageAlt = String(article.title || "Mr.Bill 文章筆記").trim();
+  const ogImageAlt = String(article.title || "Mr.Bill ?��?筆�?").trim();
   const docTitle = formatDocumentTitle(article);
   const tags = Array.isArray(article.tags) ? article.tags : [];
   const keywordsLine =
@@ -304,7 +304,7 @@ function buildStaticArticleBody(article) {
   if (!safe) {
     return (
       '          <div id="blog-static-content" data-blog-static-content="1">\n' +
-      '            <p class="text-slate-500">（尚無正文）</p>\n' +
+      '            <p class="text-slate-500">（�??�正?��?</p>\n' +
       "          </div>\n"
     );
   }
@@ -315,7 +315,7 @@ function buildStaticArticleBody(article) {
   );
 }
 
-/** 已上架動態文的 GitHub 靜態頁（含 OG + 可爬蟲正文） */
+/** 已�??��??��???GitHub ?��??��???OG + ?�爬?�正?��? */
 export function buildPublishedArticlePageHtml(article) {
   const slug = article.slug;
   const pageUrl = blogArticlePublicUrl(slug, SITE_ORIGIN);
@@ -329,7 +329,7 @@ export function buildPublishedArticlePageHtml(article) {
   return (
     "<!DOCTYPE html>\n" +
     "<html lang=\"zh-Hant\">\n<head>\n" +
-    "  <!-- AUTO-GENERATED by mrbill-worker on publish — do not edit by hand -->\n" +
+    "  <!-- AUTO-GENERATED by mrbill-worker on publish ??do not edit by hand -->\n" +
     '  <meta charset="UTF-8" />\n' +
     '  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>\n' +
     seoHead +
@@ -360,10 +360,11 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
     '  <script src="../../js/blog-article-ui.js?v=faq-accordion-1"></script>\n' +
-    '  <script src="../../js/blog-kids-exam-quiz.js?v=ai-kids-exam-2"></script>\n' +
+    '  <script src="../../js/blog-kids-exam-quiz-bank.js?v=quiz-bank-6"></script>\n' +
+    '  <script src="../../js/blog-kids-exam-quiz.js?v=quiz-bank-6"></script>\n' +
     (article.titleFont === "serif" ? BLOG_SERIF_FONT_HEAD : "") +
     '  <link rel="stylesheet" href="../../css/blog-layout.css?v=ios-mobile-1" />\n' +
-    '  <link rel="stylesheet" href="../../css/blog-kids-exam-quiz.css?v=ios-mobile-1" />\n' +
+    '  <link rel="stylesheet" href="../../css/blog-kids-exam-quiz.css?v=quiz-bank-6" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; max-width: 100%; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; overflow-x: clip; max-width: 100%; }\n' +
@@ -422,7 +423,7 @@ export function publishedArticleFilePath(slug) {
   return "blog/" + slug + "/index.html";
 }
 
-/** 舊版扁平路徑（同步時一併清除） */
+/** ?��??�平路�?（�?步�?一併�??��? */
 export function legacyFlatPublishedArticleFilePath(slug) {
   return "blog/" + slug + ".html";
 }

@@ -1228,6 +1228,8 @@ function injectDynamicArticleContent(contentHtml) {
     if (navSlot) main.insertBefore(node, navSlot);
     else main.appendChild(node);
   });
+  var quizRoot = document.getElementById("ai-kids-exam-quiz-root");
+  if (quizRoot) quizRoot.removeAttribute("data-ai-exam-init");
   if (typeof window.initAiKidsExamQuiz === "function") {
     window.initAiKidsExamQuiz();
   }

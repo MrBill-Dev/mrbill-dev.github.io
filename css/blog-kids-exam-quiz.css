@@ -693,6 +693,93 @@
   }
 }
 
+.ai-kids-exam-prose .quiz-filters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ai-kids-exam-prose .quiz-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ai-kids-exam-prose .quiz-filter__label {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.ai-kids-exam-prose .quiz-filter select {
+  width: 100%;
+  min-width: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(15, 23, 42, 0.55);
+  color: #fff;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ai-kids-exam-prose .btn-start-quiz {
+  grid-column: 1 / -1;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-weight: 900;
+  cursor: pointer;
+  background: #fff;
+  color: #111827;
+}
+
+.ai-kids-exam-prose .quiz-meta-line,
+.ai-kids-exam-prose .quiz-progress-line {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.ai-kids-exam-prose .quiz-progress-line {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.ai-kids-exam-prose .quiz-scope-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(147, 197, 253, 0.14);
+  color: #dbeafe;
+  font-size: 12px;
+  font-weight: 800;
+  vertical-align: middle;
+}
+
+.ai-kids-exam-prose .quiz-reading {
+  margin-top: 8px;
+  color: #fde68a;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media (max-width: 767px) {
+  .ai-kids-exam-prose .quiz-filters {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* —— iOS / 手機防爆版 —— */
 .ai-kids-exam-prose section,
 .ai-kids-exam-prose .card,
