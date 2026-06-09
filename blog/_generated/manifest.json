@@ -1,8 +1,20 @@
 {
   "version": 1,
   "description": "已上架動態文：slug 對應 GitHub 靜態頁路徑與分享用 meta（後台儲存時自動更新）",
-  "updatedAt": "2026-06-09T07:05:29.795Z",
+  "updatedAt": "2026-06-09T07:05:35.775Z",
   "siteOrigin": "https://mrbill-dev.github.io",
-  "count": 0,
-  "articles": []
+  "count": 1,
+  "articles": [
+    {
+      "slug": "2026-06-09-kids-ai-learning-plays",
+      "staticPath": "blog/2026-06-09-kids-ai-learning-plays/index.html",
+      "url": "https://mrbill-dev.github.io/blog/2026-06-09-kids-ai-learning-plays/",
+      "title": "小孩可以用 AI 做什麼？10 個不是寫作業的 AI 學習玩法",
+      "ogTitle": "小孩可以用 AI 做什麼？10 個不是寫作業的 AI 學習玩法｜AI 不是幫孩子偷答案，而是練提問、理解、表達與判斷的學習夥伴 — Mr.Bill 數位實驗室",
+      "description": "整理 10 個不是拿 AI 寫作業的學習玩法，包含閱讀理解、英文口說、科學實驗、程式邏輯、創意故事、親子討論與家長陪伴守則，幫助孩子正確建立 AI 學習力。",
+      "ogImage": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80",
+      "publishedAt": "2026-06-09 12:08:00",
+      "updatedAt": "2026-06-09 07:05:33"
+    }
+  ]
 }
