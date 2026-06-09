@@ -3,6 +3,7 @@
  */
 var BLOG_AUTHOR = {
   name: "Mr.Bill",
+  motto: "無論你是學生、上班族或創作者，\n願你在這裡找到能帶著走、對自己有幫助的內容。",
   tagline: "十多年網頁前端實務 · 現職前端維護",
   intro:
     "做網頁前端超過十年，從切版、RWD、互動元件到改版維護與上線後調校都實際做過。本站是我個人經營，把維護、改版與 AI 應用試做後的心得整理成文——偏向「真的做過、踩過坑」的紀錄。",
@@ -112,11 +113,30 @@ function blogAuthorEscape(str) {
     .replace(/"/g, "&quot;");
 }
 
+function ensureAuthorMottoFont() {
+  if (document.querySelector('link[href*="Noto+Serif+TC"]')) return;
+  var href = "https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&display=swap";
+  var pre1 = document.createElement("link");
+  pre1.rel = "preconnect";
+  pre1.href = "https://fonts.googleapis.com";
+  document.head.appendChild(pre1);
+  var pre2 = document.createElement("link");
+  pre2.rel = "preconnect";
+  pre2.href = "https://fonts.gstatic.com";
+  pre2.crossOrigin = "anonymous";
+  document.head.appendChild(pre2);
+  var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = href;
+  document.head.appendChild(link);
+}
+
 function renderBlogAuthorCard(mountId) {
   var mount = document.getElementById(mountId || "blog-article-author-slot");
   if (!mount) return;
 
   var author = BLOG_AUTHOR || {};
+  if (author.motto) ensureAuthorMottoFont();
   var html =
     '<section class="blog-author-card blog-reveal" id="blog-author" aria-labelledby="blog-author-name">' +
     '<div class="blog-author-card__avatar" aria-hidden="true">MB</div>' +
@@ -126,6 +146,11 @@ function renderBlogAuthorCard(mountId) {
     blogAuthorEscape(author.name) +
     "</p>";
 
+  if (author.motto) {
+    var mottoHtml = blogAuthorEscape(author.motto).replace(/\n/g, "<br />");
+    html +=
+      '<p class="blog-author-card__motto">' + mottoHtml + "</p>";
+  }
   if (author.tagline) {
     html +=
       '<p class="blog-author-card__tagline">' + blogAuthorEscape(author.tagline) + "</p>";
