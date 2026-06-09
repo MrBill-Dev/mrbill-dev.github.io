@@ -359,14 +359,15 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/blog-articles.js?v=title-font-mobile-1"></script>\n' +
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
-    '  <script src="../../js/blog-article-ui.js"></script>\n' +
-    '  <script src="../../js/blog-kids-exam-quiz.js"></script>\n' +
+    '  <script src="../../js/blog-article-ui.js?v=faq-accordion-1"></script>\n' +
+    '  <script src="../../js/blog-kids-exam-quiz.js?v=ai-kids-exam-2"></script>\n' +
     (article.titleFont === "serif" ? BLOG_SERIF_FONT_HEAD : "") +
-    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=title-font-scope-2" />\n' +
-    '  <link rel="stylesheet" href="../../css/blog-kids-exam-quiz.css" />\n' +
+    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=ios-mobile-1" />\n' +
+    '  <link rel="stylesheet" href="../../css/blog-kids-exam-quiz.css?v=ios-mobile-1" />\n' +
     "  <style>\n" +
-    "    html { scroll-behavior: smooth; scroll-padding-top: 96px; }\n" +
-    '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }\n' +
+    "    html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; max-width: 100%; }\n" +
+    '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; overflow-x: clip; max-width: 100%; }\n' +
+    "    main { overflow-x: clip; max-width: 100%; }\n" +
     "    .blog-pre { white-space: pre-wrap; word-break: break-word; }\n" +
     "    .blog-preview-banner {\n" +
     "      background: #fef3c7; border-bottom: 1px solid #fcd34d;\n" +

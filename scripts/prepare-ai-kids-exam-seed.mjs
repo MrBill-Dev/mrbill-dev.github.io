@@ -65,7 +65,7 @@ function scopeRuleBlock(block) {
       .map(function (s) {
         s = s.trim();
         if (!s || s.startsWith(".ai-kids-exam-prose")) return s;
-        if (s === "html" || s === "body") return ".ai-kids-exam-prose";
+        if (s === ":root" || s === "html" || s === "body") return ".ai-kids-exam-prose";
         return ".ai-kids-exam-prose " + s;
       })
       .join(", ");
@@ -112,7 +112,7 @@ const manifest = {
   audience: "家長、老師、國小學生家長",
   category: "AI學習地圖",
   author: "Mr.Bill",
-  date: "2026-06-10",
+  date: "2026-06-09",
   readMins: 18,
   tags: [
     "AI 出題",
@@ -129,7 +129,7 @@ const manifest = {
     "2026-05-31-ai-prompt-six-levels",
     "2026-06-05-ai-workflow-lesson-01-02"
   ],
-  titleFont: "sans",
+  titleFont: "serif",
   contentHtmlFile:
     "backend/mrbill-worker/seeds/2026-06-10-ai-kids-exam-quiz-practice-content.html"
 };

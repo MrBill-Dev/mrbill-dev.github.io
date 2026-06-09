@@ -1,5 +1,5 @@
 /* AI 國小考前複習專文 — 僅在 .ai-kids-exam-prose 內生效 */
-.ai-kids-exam-prose :root{
+.ai-kids-exam-prose{
       --bg: #f6f7fb;
       --card: #ffffff;
       --text: #1f2937;
@@ -158,7 +158,7 @@
       margin: 0 0 8px;
       color: var(--dark);
       font-size: 18px;
-    }.ai-kids-exam-prose p{ margin: 0 0 14px; }.ai-kids-exam-prose strong{ color: #111827; }.ai-kids-exam-prose .lead{
+    }.ai-kids-exam-prose p{ margin: 0 0 14px; }.ai-kids-exam-prose strong{ color: #111827; }.ai-kids-exam-prose .quiz-panel strong, .ai-kids-exam-prose .diagnosis-box strong, .ai-kids-exam-prose .remedial-box strong{ color: inherit; }.ai-kids-exam-prose .lead{
       font-size: 18px;
       color: #4b5563;
     }.ai-kids-exam-prose .grid-2{
@@ -223,14 +223,14 @@
       font-weight: 850;
     }.ai-kids-exam-prose .subject-grid{
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
+      grid-template-columns: 1fr;
+      gap: 16px;
     }.ai-kids-exam-prose .subject{
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 20px;
-      padding: 18px;
-      min-height: 218px;
+      padding: 20px 22px;
+      min-height: 0;
     }.ai-kids-exam-prose .subject .icon{
       width: 42px;
       height: 42px;
@@ -242,7 +242,23 @@
       color: var(--primary);
       font-size: 22px;
       font-weight: 950;
-    }.ai-kids-exam-prose .subject p{ color: var(--muted); font-size: 15px; }.ai-kids-exam-prose .flow{
+    }.ai-kids-exam-prose .subject p{
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+      margin: 0;
+    }.ai-kids-exam-prose .subject-tip{
+      display: block;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      border: 1px solid rgba(37, 99, 235, .18);
+      color: #1e40af;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.65;
+    }.ai-kids-exam-prose .flow{
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 10px;
@@ -371,22 +387,39 @@
       margin-top: 14px;
       padding: 16px;
       border-radius: 18px;
-      background: rgba(255, 255, 255, .09);
-      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(15, 23, 42, .42);
+      border: 1px solid rgba(251, 191, 36, .35);
+      color: rgba(255, 255, 255, .92);
+    }.ai-kids-exam-prose .diagnosis-box strong{
+      display: block;
+      margin-bottom: 10px;
+      color: #fde68a;
+      font-size: 14px;
+      letter-spacing: .02em;
     }.ai-kids-exam-prose .diagnosis-grid{
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 4px;
     }.ai-kids-exam-prose .diagnosis-chip{
-      padding: 9px 10px;
+      padding: 9px 12px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, .1);
-      border: 1px solid rgba(255, 255, 255, .15);
       font-size: 13px;
       font-weight: 800;
       text-align: center;
-      color: rgba(255, 255, 255, .88);
+      border: 1px solid transparent;
+    }.ai-kids-exam-prose .diagnosis-chip:nth-child(3n + 1){
+      background: rgba(251, 191, 36, .22);
+      border-color: rgba(251, 191, 36, .45);
+      color: #fde68a;
+    }.ai-kids-exam-prose .diagnosis-chip:nth-child(3n + 2){
+      background: rgba(248, 113, 113, .22);
+      border-color: rgba(248, 113, 113, .45);
+      color: #fecaca;
+    }.ai-kids-exam-prose .diagnosis-chip:nth-child(3n){
+      background: rgba(96, 165, 250, .22);
+      border-color: rgba(96, 165, 250, .45);
+      color: #bfdbfe;
     }.ai-kids-exam-prose .remedial-box{
       display: none;
       margin-top: 14px;
@@ -506,13 +539,9 @@
       padding: 30px 0 50px;
     }
 
-    @media (max-width: 1060px) {.ai-kids-exam-prose .toc-grid, .ai-kids-exam-prose .grid-4, .ai-kids-exam-prose .flow{
-        grid-template-columns: repeat(2, 1fr);
-      }.ai-kids-exam-prose .flow-item::after{ display: none; }.ai-kids-exam-prose .subject-grid{
-        grid-template-columns: repeat(2, 1fr);
-      }.ai-kids-exam-prose .diagnosis-grid{
-        grid-template-columns: repeat(2, 1fr);
-      }
+    @media (max-width: 1060px) {.ai-kids-exam-prose .grid-2, .ai-kids-exam-prose .grid-3, .ai-kids-exam-prose .grid-4, .ai-kids-exam-prose .compare, .ai-kids-exam-prose .flow, .ai-kids-exam-prose .subject-grid, .ai-kids-exam-prose .diagnosis-grid, .ai-kids-exam-prose .toc-grid{
+        grid-template-columns: 1fr;
+      }.ai-kids-exam-prose .flow-item::after{ display: none; }
     }
 
     @media (max-width: 900px) {.ai-kids-exam-prose .grid-2, .ai-kids-exam-prose .grid-3, .ai-kids-exam-prose .compare{
@@ -534,3 +563,297 @@
         letter-spacing: -1px;
       }
     }
+
+/* 嵌入站內文章殼：與喜歡按鈕、hero 留白 */
+.blog-main.blog-prose > .blog-like-panel {
+  margin-bottom: 1.25rem;
+}
+
+.blog-main.blog-prose > .ai-kids-exam-prose {
+  margin-top: 0.35rem;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+.ai-kids-exam-prose > .toc {
+  margin-top: 0.35rem;
+  padding: 1.15rem 1.2rem 1.2rem;
+}
+
+.ai-kids-exam-prose > section {
+  margin: 2.5rem 0;
+}
+
+.ai-kids-exam-prose .quiz-panel {
+  padding: 1.35rem 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .ai-kids-exam-prose .toc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-kids-exam-prose .quiz-options {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-kids-exam-prose .quiz-panel {
+    padding: 1.1rem 0.95rem;
+    border-radius: 22px;
+  }
+}
+
+.ai-kids-exam-prose .step > div h3,
+.ai-kids-exam-prose .step > div p {
+  color: var(--text, #1f2937);
+}
+
+.ai-kids-exam-prose .step-num {
+  background: var(--dark, #101827);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.ai-kids-exam-prose #faq .section-head {
+  margin-bottom: 1rem;
+}
+
+.ai-kids-exam-prose .blog-faq {
+  margin-top: 0.25rem;
+  background: #fff;
+  border: 1px solid var(--line, #e5e7eb);
+  border-radius: 20px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, .04);
+}
+
+.ai-kids-exam-prose .blog-faq__item {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  background: #f8fafc;
+  padding: 0.85rem 1rem;
+}
+
+.ai-kids-exam-prose .blog-faq__item + .blog-faq__item {
+  margin-top: 0.65rem;
+}
+
+.ai-kids-exam-prose details.blog-faq__item:not([open]) > :not(summary) {
+  display: none;
+}
+
+.ai-kids-exam-prose .blog-faq__item summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.55;
+  list-style: none;
+  position: relative;
+  padding: 0.1rem 0 0.1rem 1.5rem;
+  user-select: none;
+}
+
+.ai-kids-exam-prose .blog-faq__item summary:hover {
+  color: #4338ca;
+}
+
+.ai-kids-exam-prose .blog-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.ai-kids-exam-prose .blog-faq__item summary::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  top: 0.12em;
+  font-weight: 900;
+  color: #6366f1;
+  line-height: 1;
+}
+
+.ai-kids-exam-prose .blog-faq__item[open] summary {
+  color: #4338ca;
+  margin-bottom: 0.5rem;
+}
+
+.ai-kids-exam-prose .blog-faq__item[open] summary::before {
+  content: "−";
+}
+
+.ai-kids-exam-prose .blog-faq__a {
+  margin: 0;
+  color: #334155;
+  line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+  .ai-kids-exam-prose .subject-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* —— iOS / 手機防爆版 —— */
+.ai-kids-exam-prose section,
+.ai-kids-exam-prose .card,
+.ai-kids-exam-prose .quiz-panel,
+.ai-kids-exam-prose .prompt-box,
+.ai-kids-exam-prose .toc,
+.ai-kids-exam-prose .blog-faq,
+.ai-kids-exam-prose .cta,
+.ai-kids-exam-prose .scenario,
+.ai-kids-exam-prose .compare-item {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.ai-kids-exam-prose .grid-2 > *,
+.ai-kids-exam-prose .grid-3 > *,
+.ai-kids-exam-prose .grid-4 > *,
+.ai-kids-exam-prose .subject-grid > *,
+.ai-kids-exam-prose .compare > *,
+.ai-kids-exam-prose .flow > *,
+.ai-kids-exam-prose .toc-grid > *,
+.ai-kids-exam-prose .quiz-options > *,
+.ai-kids-exam-prose .step > div {
+  min-width: 0;
+}
+
+.ai-kids-exam-prose h1,
+.ai-kids-exam-prose h2,
+.ai-kids-exam-prose h3,
+.ai-kids-exam-prose h4,
+.ai-kids-exam-prose p,
+.ai-kids-exam-prose li,
+.ai-kids-exam-prose .lead,
+.ai-kids-exam-prose .quiz-question,
+.ai-kids-exam-prose .quiz-option,
+.ai-kids-exam-prose .quiz-feedback,
+.ai-kids-exam-prose .toc a,
+.ai-kids-exam-prose .blog-faq__item summary,
+.ai-kids-exam-prose .subject-tip,
+.ai-kids-exam-prose .diagnosis-chip {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.ai-kids-exam-prose .hero {
+  overflow: hidden;
+}
+
+.ai-kids-exam-prose .hero::after {
+  inset: auto 0 -82px;
+  left: 0;
+  right: 0;
+  transform: none;
+}
+
+.ai-kids-exam-prose .resource-table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ai-kids-exam-prose .prompt-box {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ai-kids-exam-prose .prompt-box code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.ai-kids-exam-prose .pill {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .ai-kids-exam-prose .resource-table th,
+  .ai-kids-exam-prose .resource-table td {
+    white-space: normal;
+    min-width: 4.75rem;
+  }
+
+  .ai-kids-exam-prose .resource-table td:first-child {
+    white-space: normal;
+  }
+
+  .ai-kids-exam-prose .quiz-score {
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  .ai-kids-exam-prose .quiz-controls button {
+    flex: 1 1 100%;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .ai-kids-exam-prose .tab-btn {
+    flex: 1 1 calc(50% - 5px);
+    min-width: 0;
+    text-align: center;
+    padding: 0.65rem 0.55rem;
+    font-size: 14px;
+  }
+
+  .ai-kids-exam-prose h2 {
+    font-size: clamp(22px, 6.2vw, 30px);
+    letter-spacing: -0.35px;
+  }
+
+  .ai-kids-exam-prose h3 {
+    font-size: clamp(18px, 5vw, 22px);
+  }
+
+  .ai-kids-exam-prose .card {
+    padding: 1rem;
+    border-radius: 18px;
+  }
+
+  .ai-kids-exam-prose .toc {
+    margin-top: 0;
+    border-radius: 18px;
+  }
+
+  .ai-kids-exam-prose .toc a {
+    font-size: 14px;
+    padding: 0.7rem 0.75rem;
+  }
+
+  .ai-kids-exam-prose > section {
+    margin: 1.75rem 0;
+  }
+
+  .ai-kids-exam-prose .cta {
+    padding: 1.6rem 1rem;
+    border-radius: 22px;
+  }
+
+  .ai-kids-exam-prose .note,
+  .ai-kids-exam-prose .blog-faq {
+    padding: 0.9rem 0.95rem;
+  }
+
+  .ai-kids-exam-prose .quiz-question {
+    font-size: 17px;
+    padding: 1rem;
+  }
+
+  .ai-kids-exam-prose .wrap {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

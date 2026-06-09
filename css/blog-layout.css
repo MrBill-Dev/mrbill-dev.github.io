@@ -76,6 +76,9 @@
   font-weight: 900;
   line-height: 1.25;
   letter-spacing: -0.02em;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* CMS 標題字型：僅 hero 大標 + 白底章節卡「直層」h2（勿用 :has()）
@@ -95,6 +98,27 @@ body.blog-title-font-serif
   .blog-main.blog-prose:not(.rainy-family-prose)
   #blog-static-content
   > section:not(.blog-bridge)
+  > h2 {
+  font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  letter-spacing: 0.02em;
+}
+
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .ai-kids-exam-prose
+  > section
+  .section-head
+  > h2,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .ai-kids-exam-prose
+  > section
+  > .card
+  > h2,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .ai-kids-exam-prose
+  .cta
   > h2 {
   font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
   letter-spacing: 0.02em;
@@ -139,6 +163,9 @@ body.blog-title-font-serif
   font-size: 0.9375rem;
   line-height: 1.55;
   color: #c7d2fe;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .blog-hero__meta {
@@ -471,7 +498,7 @@ body.blog-title-font-serif
   grid-column: 1;
   min-width: 0;
   width: 100%;
-  max-width: none;
+  max-width: 100%;
 }
 
 /* lg：加寬中欄 + 右欄資訊（原位與內文對齊，捲過頂部後 sticky 固定） */
@@ -1482,10 +1509,28 @@ body.blog-title-font-serif
   color: #0f172a;
   line-height: 1.5;
   list-style: none;
+  position: relative;
+  padding-left: 1.35rem;
 }
 
 .blog-faq__item summary::-webkit-details-marker {
   display: none;
+}
+
+.blog-faq__item summary::before,
+.blog-faq__q::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  top: 0.12em;
+  font-weight: 900;
+  color: #6366f1;
+  line-height: 1;
+}
+
+.blog-faq__item[open] summary::before,
+.blog-faq__item[open] .blog-faq__q::before {
+  content: "−";
 }
 
 .blog-faq__item[open] summary,
@@ -1496,6 +1541,14 @@ body.blog-title-font-serif
 
 .blog-faq__a {
   margin: 0;
+}
+
+details.blog-faq__item:not([open]) > :not(summary) {
+  display: none;
+}
+
+.blog-faq__item summary:hover {
+  color: #4338ca;
 }
 
 .blog-seo-preview-panel {
@@ -2072,11 +2125,47 @@ body.blog-title-font-serif
   }
 }
 
-@media (max-width: 399px) {
+@media (max-width: 639px) {
   .blog-article-nav__grid--duo {
     grid-template-columns: 1fr;
   }
 
+  .blog-article-nav__grid--duo .blog-article-nav__placeholder {
+    display: none;
+  }
+
+  .blog-main.blog-prose {
+    overflow-x: clip;
+  }
+
+  .blog-share-bar {
+    max-width: 100%;
+  }
+
+  .blog-share-bar__btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+  }
+
+  .blog-seo-preview-panel__list {
+    grid-template-columns: 1fr;
+    gap: 0.2rem 0;
+  }
+
+  .blog-seo-preview-panel__list dt {
+    margin-top: 0.45rem;
+  }
+
+  .blog-seo-preview-panel__list dt:first-child {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 399px) {
   .blog-article-nav__grid--duo .blog-article-nav__placeholder {
     display: none;
   }

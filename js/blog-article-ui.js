@@ -153,6 +153,77 @@ function initBlogLikeButton(slug) {
   main.insertBefore(panel, main.firstChild);
 }
 
+function faqSummaryLabel(raw) {
+  return String(raw || "")
+    .replace(/^Q\d+\s*[：:]\s*/i, "")
+    .trim();
+}
+
+function buildFaqDetailsFromLegacyItem(item) {
+  if (!item || item.tagName === "DETAILS") return item;
+  var q =
+    item.querySelector(".faq-q") ||
+    item.querySelector(".blog-faq__q") ||
+    item.querySelector("summary");
+  var answer = item.querySelector(".blog-faq__a") || item.querySelector("p");
+  if (!q || !answer) return null;
+
+  var details = document.createElement("details");
+  details.className = "blog-faq__item";
+  var summary = document.createElement("summary");
+  summary.textContent = faqSummaryLabel(q.textContent);
+  var p = document.createElement("p");
+  p.className = "blog-faq__a";
+  p.innerHTML = answer.innerHTML;
+  details.appendChild(summary);
+  details.appendChild(p);
+  return details;
+}
+
+function upgradeFaqItemToDetails(item) {
+  var details = buildFaqDetailsFromLegacyItem(item);
+  if (!details || item.tagName === "DETAILS") return item;
+  item.replaceWith(details);
+  return details;
+}
+
+/** 將舊版 FAQ 區塊轉成 details 收合，並預設全部收合 */
+function initBlogFaqAccordion() {
+  document
+    .querySelectorAll(".ai-kids-exam-prose #faq .card, .blog-faq")
+    .forEach(function (wrap) {
+      var legacyItems = wrap.querySelectorAll(".faq-item");
+      if (!legacyItems.length) return;
+
+      var blogFaq = wrap.classList.contains("blog-faq")
+        ? wrap
+        : document.createElement("div");
+      if (!wrap.classList.contains("blog-faq")) {
+        blogFaq.className = "blog-faq";
+        Array.prototype.slice.call(legacyItems).forEach(function (item) {
+          var details = buildFaqDetailsFromLegacyItem(item);
+          if (details) blogFaq.appendChild(details);
+        });
+        wrap.replaceWith(blogFaq);
+        return;
+      }
+
+      Array.prototype.slice.call(legacyItems).forEach(function (item) {
+        upgradeFaqItemToDetails(item);
+      });
+    });
+
+  document
+    .querySelectorAll(".blog-faq .blog-faq__item:not(details), .ai-kids-exam-prose .blog-faq__item:not(details)")
+    .forEach(function (item) {
+      upgradeFaqItemToDetails(item);
+    });
+
+  document.querySelectorAll("details.blog-faq__item[open]").forEach(function (item) {
+    item.removeAttribute("open");
+  });
+}
+
 function initBlogMobileTextRhythm() {
   var root = document.querySelector(".blog-main.blog-prose");
   if (!root || window.innerWidth >= 768) return;
@@ -174,9 +245,11 @@ function initBlogMobileTextRhythm() {
 function initBlogArticleUI(slug) {
   renderBlogAuthorCard("blog-article-author-slot");
   initBlogLikeButton(slug);
+  initBlogFaqAccordion();
   initBlogScrollReveal();
   initBlogBackToTop();
   initBlogMobileTextRhythm();
 }
 
 window.initBlogArticleUI = initBlogArticleUI;
+window.initBlogFaqAccordion = initBlogFaqAccordion;

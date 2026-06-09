@@ -224,6 +224,34 @@ function withDynamicBlogArticles(done) {
   });
 }
 
+/** 補齊 relatedSlugs 指向的 CMS 文章（單篇頁預設只快取當篇） */
+function prefetchRelatedArticleSlugs(slug) {
+  var current = getBlogArticleBySlug(slug);
+  if (!current) return Promise.resolve();
+  var missing = (current.relatedSlugs || []).filter(function (s) {
+    return s && !getBlogArticleBySlug(s);
+  });
+  if (!missing.length) return Promise.resolve();
+  var base = blogArticlesApiBase();
+  if (!base) return Promise.resolve();
+  return Promise.all(
+    missing.map(function (s) {
+      return fetch(base + "/api/articles/" + encodeURIComponent(s), {
+        headers: { Accept: "application/json" }
+      })
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (json) {
+          if (json && json.success && json.data && json.data.article) {
+            registerDynamicArticleCache(json.data.article);
+          }
+        })
+        .catch(function () {});
+    })
+  );
+}
+
 function getMergedBlogArticles() {
   var staticSlugs = {};
   BLOG_ARTICLES.forEach(function (a) {
@@ -1157,19 +1185,25 @@ function initBlogArticlePage(slug, options) {
   slug = slug || getCurrentBlogSlug();
   options = options || {};
   markBlogArticleRead(slug);
-  loadBlogArticleShell(function () {
-    renderBlogArticleHero(slug, options);
-    renderBlogArticleRail("blog-article-rail", slug);
-    renderBlogArticleNav(slug);
-    if (typeof window.initBlogStats === "function") {
-      window.initBlogStats(slug);
-    }
-    if (typeof window.initBlogArticleUI === "function") {
-      window.initBlogArticleUI(slug);
-    }
-    var art = getBlogArticleBySlug(slug);
-    if (art) initBlogArticleShare(art);
-  });
+  fetchDynamicBlogArticles()
+    .then(function () {
+      return prefetchRelatedArticleSlugs(slug);
+    })
+    .then(function () {
+      loadBlogArticleShell(function () {
+        renderBlogArticleHero(slug, options);
+        renderBlogArticleRail("blog-article-rail", slug);
+        renderBlogArticleNav(slug);
+        if (typeof window.initBlogStats === "function") {
+          window.initBlogStats(slug);
+        }
+        if (typeof window.initBlogArticleUI === "function") {
+          window.initBlogArticleUI(slug);
+        }
+        var art = getBlogArticleBySlug(slug);
+        if (art) initBlogArticleShare(art);
+      });
+    });
 }
 
 function injectDynamicArticleContent(contentHtml) {
@@ -1194,6 +1228,12 @@ function injectDynamicArticleContent(contentHtml) {
     if (navSlot) main.insertBefore(node, navSlot);
     else main.appendChild(node);
   });
+  if (typeof window.initAiKidsExamQuiz === "function") {
+    window.initAiKidsExamQuiz();
+  }
+  if (typeof window.initBlogFaqAccordion === "function") {
+    window.initBlogFaqAccordion();
+  }
 }
 
 function showDynamicPreviewBanner(article) {
@@ -1386,9 +1426,14 @@ function initDynamicBlogArticlePage() {
     return;
   }
   var preview = isBlogPreviewMode();
-  fetchBlogArticleForPage(slug, preview)
-    .then(function (row) {
+  Promise.all([
+    fetchBlogArticleForPage(slug, preview),
+    fetchDynamicBlogArticles()
+  ])
+    .then(function (results) {
+      var row = results[0];
       registerDynamicArticleCache(row);
+      applyBlogTitleFont(row);
       injectDynamicArticleContent(row.contentHtml);
       if (preview) showDynamicPreviewBanner(row);
       initBlogArticlePage(slug, { contentHtml: row.contentHtml });
