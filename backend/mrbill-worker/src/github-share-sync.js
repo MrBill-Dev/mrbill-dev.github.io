@@ -11,6 +11,10 @@ import {
   blogResolveCover,
   absUrl
 } from "./share-seo.js";
+import {
+  buildDynamicSitemapXmlFromEntries,
+  DYNAMIC_SITEMAP_PATH
+} from "./sitemap-dynamic.js";
 
 const PUBLISHED_MANIFEST_PATH = "blog/_generated/manifest.json";
 
@@ -204,7 +208,32 @@ export async function rebuildPublishedManifestOnGitHub(env) {
     "chore(article): rebuild published manifest",
     text
   );
-  return { ok: true, path: PUBLISHED_MANIFEST_PATH, count: articles.length };
+
+  const sitemapEntries = [];
+  for (let j = 0; j < rows.length; j++) {
+    const row = rows[j];
+    if (!row.slug || LEGACY_STATIC_SLUGS.has(row.slug)) continue;
+    sitemapEntries.push({
+      slug: row.slug,
+      updatedAt: row.updated_at,
+      date: row.date,
+      publishedAt: row.published_at
+    });
+  }
+  const sitemapXml = buildDynamicSitemapXmlFromEntries(sitemapEntries, SITE_ORIGIN);
+  await putGithubTextFile(
+    env,
+    DYNAMIC_SITEMAP_PATH,
+    "chore(seo): rebuild dynamic sitemap",
+    sitemapXml
+  );
+
+  return {
+    ok: true,
+    path: PUBLISHED_MANIFEST_PATH,
+    sitemapPath: DYNAMIC_SITEMAP_PATH,
+    count: articles.length
+  };
 }
 
 async function maybeRebuildPublishedManifest(env) {

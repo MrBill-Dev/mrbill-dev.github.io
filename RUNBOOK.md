@@ -256,12 +256,53 @@ GitHub Pages **只有檔案路徑**，沒有伺服器能依 `?slug=` 回不同 H
 | 項目 | 是否自動 | 說明 |
 |------|----------|------|
 | title / description / OG / JSON-LD | ✅ | `blog/post.html` 載入後由 JS 寫入（Google 可渲染） |
-| 動態文 sitemap | ✅ | Worker `GET /sitemap-dynamic.xml`（`robots.txt` 已指向） |
-| **Facebook／LINE** | ✅ | 與 `blog/{slug}.html` 同一網址；儲存已上架文自動同步（需 `GITHUB_TOKEN`） |
+| 動態文 sitemap | ✅ | 後台儲存時同步至 GitHub `sitemap-dynamic.xml`（GSC 同網域可提交）；Worker 亦提供同內容備援 |
+| **Facebook／LINE** | ✅ | 與 `blog/{slug}/` 同一網址；儲存已上架文自動同步（需 `GITHUB_TOKEN`） |
 | `npm run seo:sync` | ❌ 通常不用 | 僅**新增靜態 .html 文**或改全站 SEO 設定時 |
 | `npm run sitemap:sync` | ❌ 通常不用 | 僅**新增靜態頁／靜態文**時更新 `sitemap.xml` |
 
-上架或排程儲存後，Google 下次抓 `sitemap-dynamic.xml` 就會看到新網址（Worker 快取約 5 分鐘）。
+上架或排程儲存後，GitHub 上的 `sitemap-dynamic.xml` 會一併更新；Google 下次抓 sitemap 就會看到新網址。
+
+### 4.2.1 搜尋引擎索引：要自己提交嗎？
+
+**平常不用每篇都手動提交。** 上架後系統已幫你做好「可被發現」：
+
+| 機制 | 做什麼 |
+|------|--------|
+| `robots.txt` | 允許收錄，並宣告兩份 sitemap |
+| `sitemap.xml` | 首頁、專區、靜態 4 篇、`blog/index.html` |
+| `sitemap-dynamic.xml`（GitHub 根目錄） | **已上架動態文** → `blog/{slug}/`（後台儲存時與 manifest 一併更新） |
+| 站內連結 | 首頁跑馬燈／輪播、`blog/index.html`、右欄相關文 → Google 跟著爬 |
+
+```
+Google 定期讀 robots.txt
+  → 發現 sitemap-dynamic.xml
+  → 看到新網址 blog/你的-slug/
+  → 排程爬取（通常數天內，新站可能更久）
+```
+
+**建議做一次（不用每篇重做）**
+
+1. [Google Search Console](https://search.google.com/search-console) 新增資源：`https://mrbill-dev.github.io`
+2. 左側 **Sitemap** → 在「同網域」欄位只填路徑（GSC 不接受別的網域）：
+   - `sitemap.xml`
+   - `sitemap-dynamic.xml`（需至少上架過一篇動態文，或手動觸發 manifest 重建後才會出現在 GitHub）
+3. 之後新文上架 → **等 Google 自己抓** 即可
+
+> GSC 無法提交 `workers.dev` 的 sitemap；動態清單已改同步到 `https://mrbill-dev.github.io/sitemap-dynamic.xml`。
+
+**什麼時候才手動「要求建立索引」？**
+
+| 情境 | 建議 |
+|------|------|
+| 一般新文上架 | ❌ 不必每篇提交 |
+| 重要文剛上、想快一點出現在搜尋 | ✅ GSC → 網址檢查 → 貼 `blog/{slug}/` → 要求建立索引 |
+| 大改標題／摘要／正文 | ✅ 可對該 URL 再要求一次 |
+| Facebook 預覽 | 用 [Sharing Debugger](https://developers.facebook.com/tools/debug/)，**不是** GSC |
+
+**Bing**：可選 [Bing Webmaster](https://www.bing.com/webmasters) 匯入 GSC 或提交同一組 sitemap，邏輯相同。
+
+> **注意**：「已索引」≠ 立刻有排名；GEO／FAQ 結構與內容品質仍決定會不會被 AI 摘要引用。
 
 ### 4.3 標題字體存在哪裡
 

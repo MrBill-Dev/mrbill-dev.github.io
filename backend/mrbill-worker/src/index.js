@@ -8,6 +8,7 @@ import {
   probeGithubSyncAccess,
   syncArticleSharePageToGitHub
 } from "./github-share-sync.js";
+import { buildDynamicSitemapXmlFromEntries } from "./sitemap-dynamic.js";
 
 const ALLOWED_ORIGINS = [
   "https://mrbill-dev.github.io",
@@ -604,47 +605,13 @@ async function upsertArticle(db, data) {
     .run();
 }
 
-function escapeXmlText(value) {
-  return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&apos;");
-}
-
-function articleSitemapLastmod(article) {
-  const raw = article.updatedAt || article.date || article.publishedAt || "";
-  const text = String(raw).trim();
-  if (/^\d{4}-\d{2}-\d{2}/.test(text)) return text.slice(0, 10);
-  return "";
-}
-
 async function buildDynamicSitemapXml(env) {
   const origin = String(env.CANONICAL_ORIGIN || "https://mrbill-dev.github.io").replace(
     /\/$/,
     ""
   );
   const articles = await listPublicArticles(env.DB);
-  const lines = [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-  ];
-
-  articles.forEach(function (article) {
-    if (!article || !article.slug || LEGACY_STATIC_SLUGS.has(article.slug)) return;
-    const loc = blogArticlePublicUrl(article.slug, origin);
-    const lastmod = articleSitemapLastmod(article);
-    lines.push("  <url>");
-    lines.push("    <loc>" + escapeXmlText(loc) + "</loc>");
-    if (lastmod) {
-      lines.push("    <lastmod>" + escapeXmlText(lastmod) + "</lastmod>");
-    }
-    lines.push("  </url>");
-  });
-
-  lines.push("</urlset>");
-  return lines.join("\n") + "\n";
+  return buildDynamicSitemapXmlFromEntries(articles, origin);
 }
 
 async function handleBlogPostHtml(request, env, url) {
