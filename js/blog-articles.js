@@ -488,16 +488,60 @@ function isBlogSectionPath() {
   return /\/blog(\/|$)/.test(p) || p.endsWith("/blog");
 }
 
+/** blog/ = 1、blog/slug/ = 2（用於相對路徑） */
+function blogPathDepth() {
+  var p = (location.pathname || "").replace(/\\/g, "/").toLowerCase();
+  if (!/\/blog(\/|$)/.test(p) && !p.endsWith("/blog")) return 0;
+  if (/\/blog\/index\.html$/.test(p) || /\/blog\/?$/.test(p)) return 1;
+  if (/\/blog\/post\.html$/i.test(p)) return 1;
+  if (/\/blog\/[^/]+\/index\.html$/.test(p)) return 2;
+  if (/\/blog\/[^/]+\/?$/.test(p)) {
+    var slugPart = p.match(/\/blog\/([^/]+)/);
+    if (slugPart && slugPart[1] !== "index" && slugPart[1] !== "post") return 2;
+  }
+  if (/\/blog\/[^/]+\.html$/.test(p)) return 1;
+  return 1;
+}
+
+function blogAssetPrefix() {
+  var d = blogPathDepth();
+  if (d <= 0) return "";
+  var out = "";
+  for (var i = 0; i < d; i++) out += "../";
+  return out;
+}
+
+function blogSiblingPrefix() {
+  var d = blogPathDepth();
+  if (d <= 1) return "";
+  var out = "";
+  for (var i = 1; i < d; i++) out += "../";
+  return out;
+}
+
 function getCurrentBlogSlug() {
   try {
     var fromQuery = new URLSearchParams(location.search || "").get("slug");
     if (fromQuery) return decodeURIComponent(fromQuery);
   } catch (e) {}
-  var m = (location.pathname || "").replace(/\\/g, "/").match(/\/blog\/([^/]+)\.html$/i);
-  if (!m) return null;
-  var slug = decodeURIComponent(m[1]);
-  if (slug.toLowerCase() === "index" || slug.toLowerCase() === "post") return null;
-  return slug;
+  var p = (location.pathname || "").replace(/\\/g, "/");
+  var mNested = p.match(/\/blog\/([^/]+)\/index\.html$/i);
+  if (mNested) {
+    var slugNested = decodeURIComponent(mNested[1]);
+    if (slugNested.toLowerCase() === "index" || slugNested.toLowerCase() === "post") return null;
+    return slugNested;
+  }
+  var mDir = p.match(/\/blog\/([^/]+)\/?$/i);
+  if (mDir) {
+    var slugDir = decodeURIComponent(mDir[1]);
+    if (slugDir.toLowerCase() === "index" || slugDir.toLowerCase() === "post") return null;
+    return slugDir;
+  }
+  var mFlat = p.match(/\/blog\/([^/]+)\.html$/i);
+  if (!mFlat) return null;
+  var slugFlat = decodeURIComponent(mFlat[1]);
+  if (slugFlat.toLowerCase() === "index" || slugFlat.toLowerCase() === "post") return null;
+  return slugFlat;
 }
 
 function isBlogIndexPath() {
@@ -551,10 +595,10 @@ function preloadBlogArticleCover(article) {
 
 function blogArticleCanonicalPath(article) {
   if (!article || !article.slug) return "/blog/";
-  if (isDynamicBlogSlug(article.slug) || article._dynamic) {
+  if (isStaticBlogSlug(article.slug)) {
     return "/blog/" + article.slug + ".html";
   }
-  return "/blog/" + article.slug + ".html";
+  return "/blog/" + article.slug + "/";
 }
 
 function blogArticleCanonicalUrl(article) {
@@ -787,7 +831,7 @@ function renderBlogSeoPreviewPanel(article, options) {
     '<details class="blog-seo-preview-panel__box" open>' +
     '<summary class="blog-seo-preview-panel__summary">SEO／分享預覽檢查 <span class="blog-seo-preview-panel__badge">僅管理員</span></summary>' +
     '<div class="blog-seo-preview-panel__body">' +
-    '<p class="blog-seo-preview-panel__note">已上架文會同步 <code>blog/{slug}.html</code>（含靜態 OG）。訪客從站內點進、複製網址列貼 Facebook 即可，不用另除錯。舊 <code>post.html?slug=</code> 會自動跳轉。</p>' +
+    '<p class="blog-seo-preview-panel__note">已上架文會同步 <code>blog/{slug}/</code>（含靜態 OG）。訪客從站內點進、複製網址列貼 Facebook 即可，不用另除錯。舊 <code>post.html?slug=</code> 會自動跳轉。</p>' +
     '<dl class="blog-seo-preview-panel__list">' +
     "<dt>分頁 title</dt><dd>" +
     escapeBlogHtml(snap.documentTitle) +
@@ -855,21 +899,23 @@ function applyBlogIndexHead() {
 }
 
 function blogArticleHref(article) {
-  if (!article || !article.slug) return isBlogSectionPath() ? "index.html" : "blog/index.html";
+  var sibling = blogSiblingPrefix();
+  if (!article || !article.slug) {
+    return isBlogSectionPath() ? sibling + "index.html" : "blog/index.html";
+  }
   if (isStaticBlogSlug(article.slug)) {
     var staticPath = article.slug + ".html";
-    if (isBlogSectionPath()) return staticPath;
-    return "blog/" + staticPath;
+    return isBlogSectionPath() ? sibling + staticPath : "blog/" + staticPath;
   }
   var dynamicPath = "post.html?slug=" + encodeURIComponent(article.slug);
-  if (isBlogSectionPath()) return dynamicPath;
-  return "blog/" + dynamicPath;
+  return isBlogSectionPath() ? sibling + dynamicPath : "blog/" + dynamicPath;
 }
 
 function blogAssetHref(path) {
   if (!path) return "";
-  if (isBlogSectionPath() && !/^(https?:|\/|\.\.\/)/.test(path)) {
-    return "../" + path;
+  var prefix = blogAssetPrefix();
+  if (prefix && !/^(https?:|\/|\.\.\/)/.test(path)) {
+    return prefix + path.replace(/^\//, "");
   }
   return path;
 }

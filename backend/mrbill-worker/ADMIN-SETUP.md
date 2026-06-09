@@ -116,7 +116,7 @@ npx wrangler deploy
 
 ## Facebook 分享頁自動同步（一次設定）
 
-動態文儲存為「已上架」時，Worker 自動 commit **`blog/{slug}.html`**（完整文章殼層 + 靜態 OG）。訪客從站內進入、複製網址列、貼 Facebook 都正常，**不必手動除錯**。
+動態文儲存為「已上架」時，Worker 自動 commit **`blog/{slug}/index.html`**（對外網址 `blog/{slug}/`，含靜態 OG）。訪客從站內進入、複製網址列、貼 Facebook 都正常，**不必手動除錯**。
 
 ### 1. 建立 GitHub Personal Access Token
 
@@ -146,11 +146,11 @@ npx wrangler deploy
 
 | 動作 | 結果 |
 |------|------|
-| 後台 **儲存**（狀態＝已上架） | 自動產生 `blog/{slug}.html` |
+| 後台 **儲存**（狀態＝已上架） | 自動產生 `blog/{slug}/` |
 | 後台 **同步 GitHub 文章頁** | 手動重試 |
-| 下架／刪除草稿 | 自動刪除 `blog/{slug}.html` |
+| 下架／刪除草稿 | 自動刪除 `blog/{slug}/index.html` |
 
-**正式網址**：`https://mrbill-dev.github.io/blog/你的-slug.html`
+**正式網址**：`https://mrbill-dev.github.io/blog/你的-slug/`
 
 未設定 `GITHUB_TOKEN` 時：文章照常上架，只是分享頁不會自動推到 GitHub（狀態列會提示）。
 

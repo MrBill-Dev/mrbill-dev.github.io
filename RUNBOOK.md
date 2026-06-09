@@ -186,7 +186,7 @@ GitHub Pages **只有檔案路徑**，沒有伺服器能依 `?slug=` 回不同 H
 | 概念 | 實作 |
 |------|------|
 | **編號** | 文章的 `slug`（例：`2026-06-09-kids-ai-learning-plays`） |
-| **靜態入口** | `blog/{slug}.html` — 爬蟲讀 `<head>` 裡的 OG／canonical |
+| **靜態入口** | `blog/{slug}/`（磁碟上 `blog/{slug}/index.html`）— 爬蟲讀 OG／canonical |
 | **正文來源** | Cloudflare D1（頁面用 JS 載入，Google 可渲染） |
 | **對照表** | `blog/_generated/manifest.json` — 後台每次上架／下架自動更新 |
 
@@ -195,30 +195,30 @@ GitHub Pages **只有檔案路徑**，沒有伺服器能依 `?slug=` 回不同 H
 ```
 後台儲存（status=published）
   → Worker 從 D1 讀該篇 meta
-  → commit blog/{slug}.html 到 GitHub（含靜態 OG）
+  → commit blog/{slug}/index.html 到 GitHub（對外網址 blog/{slug}/）
   → 重建 manifest.json（slug → url、ogImage…）
   → GitHub Pages 幾十秒後可分享
 ```
 
 **為什麼不是 `post.html?slug=`？**  
-`post.html` 在磁碟上只有**一個檔**；`?slug=xxx` 只是瀏覽器參數，Facebook 爬蟲打過去永遠拿到同一份 HTML（沒有該篇 OG）。在**沒有自訂網域**時無法用 Worker 攔截 github.io 上的 query，所以**正式分享網址必須是路徑型** `blog/{slug}.html`。
+`post.html` 在磁碟上只有**一個檔**；`?slug=xxx` 只是瀏覽器參數，Facebook 爬蟲打過去永遠拿到同一份 HTML（沒有該篇 OG）。在**沒有自訂網域**時無法用 Worker 攔截 github.io 上的 query，所以**正式分享網址必須是路徑型** `blog/{slug}/`（不露出 `.html`）。
 
 ### 3.7 動態文章在前台怎麼顯示
 
 | 情境 | 網址 |
 |------|------|
-| 讀者／分享／Facebook | `blog/你的-slug.html`（後台儲存時自動產生，含靜態 OG） |
-| 舊書籤 `post.html?slug=` | 人類瀏覽器會跳轉到 `blog/slug.html`；**貼 FB 仍可能失敗** |
+| 讀者／分享／Facebook | `blog/你的-slug/`（後台儲存時自動產生，含靜態 OG） |
+| 舊書籤 `post.html?slug=` | 人類瀏覽器會跳轉到 `blog/slug/`；**貼 FB 仍可能失敗** |
 | 管理員預覽草稿 | `blog/post.html?slug=…&preview=1` |
 
 ### 分享防護（無自訂網域時）
 
 | 層 | 做什麼 | 擋住誰 |
 |----|--------|--------|
-| **1. 自動** | 後台儲存 → GitHub 產 `blog/slug.html`；站內連結、canonical 都指這裡 | 從站內進來、複製網址列的人 |
+| **1. 自動** | 後台儲存 → GitHub 產 `blog/slug/`；站內連結、canonical 都指這裡 | 從站內進來、複製網址列的人 |
 | **2. 一鍵** | 文章頁「複製連結分享」按鈕 | 想分享但懶得找網址的人 |
 
-> 在純 `github.io` 上，**無法保證**有人堅持貼 `post.html?slug=` 到 Facebook 會有預覽圖。解法就是讓 slug 對應到真正的靜態檔 `blog/{slug}.html`，並用第 1、2 層引導正確網址。若日後有自訂網域，Worker 已備好爬蟲路由可補舊連結。
+> 在純 `github.io` 上，**無法保證**有人堅持貼 `post.html?slug=` 到 Facebook 會有預覽圖。解法就是讓 slug 對應到真正的靜態目錄 `blog/{slug}/`，並用第 1、2 層引導正確網址。若日後有自訂網域，Worker 已備好爬蟲路由可補舊連結。
 
 靜態 4 篇（不可在後台覆寫 slug）：
 

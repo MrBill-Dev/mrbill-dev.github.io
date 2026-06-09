@@ -1,6 +1,7 @@
 import {
   buildPublishedArticlePageHtml,
   publishedArticleFilePath,
+  legacyFlatPublishedArticleFilePath,
   blogArticlePublicUrl
 } from "./article-page-html.js";
 import { ogSidecarFilePath } from "./og-sidecar-html.js";
@@ -151,7 +152,7 @@ function manifestEntryFromRow(row) {
   };
 }
 
-/** slug → 靜態檔對照表（供除錯／工具；FB 仍讀各篇 blog/slug.html） */
+/** slug → 靜態檔對照表（供除錯／工具；FB 讀各篇 blog/slug/） */
 export async function rebuildPublishedManifestOnGitHub(env) {
   const cfg = githubConfig(env);
   if (!cfg) {
@@ -247,6 +248,11 @@ export async function syncArticleSharePageToGitHub(env, article) {
     ogSidecarFilePath(article.slug),
     "chore(article): remove og sidecar for " + article.slug
   );
+  await removeGithubFileIfExists(
+    env,
+    legacyFlatPublishedArticleFilePath(article.slug),
+    "chore(article): remove legacy flat page for " + article.slug
+  );
 
   const manifest = await maybeRebuildPublishedManifest(env);
 
@@ -278,6 +284,11 @@ export async function removeArticleSharePageFromGitHub(env, slug) {
     env,
     ogSidecarFilePath(slug),
     "chore(article): remove og sidecar for " + slug
+  );
+  await removeGithubFileIfExists(
+    env,
+    legacyFlatPublishedArticleFilePath(slug),
+    "chore(article): remove legacy flat page for " + slug
   );
   const manifest = await maybeRebuildPublishedManifest(env);
   if (!removed) {

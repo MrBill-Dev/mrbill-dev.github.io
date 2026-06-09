@@ -11,8 +11,9 @@ import {
   OG_IMAGE_HEIGHT
 } from "./share-seo.js";
 
+/** 動態文正式網址：/blog/{slug}/（磁碟上為 blog/{slug}/index.html） */
 export function blogArticlePublicPath(slug) {
-  return "/blog/" + slug + ".html";
+  return "/blog/" + slug + "/";
 }
 
 export function blogArticlePublicUrl(slug, origin) {
@@ -92,8 +93,8 @@ export function buildPublishedArticlePageHtml(article) {
     '  <meta charset="UTF-8" />\n' +
     '  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>\n' +
     seoHead +
-    '  <script src="../js/site-seo.config.js"></script>\n' +
-    '  <script src="../js/site-seo.js"></script>\n' +
+    '  <script src="../../js/site-seo.config.js"></script>\n' +
+    '  <script src="../../js/site-seo.js"></script>\n' +
     '  <script src="https://cdn.tailwindcss.com"></script>\n' +
     "  <script>\n" +
     "    tailwind.config = {\n" +
@@ -112,14 +113,14 @@ export function buildPublishedArticlePageHtml(article) {
     "      }\n" +
     "    };\n" +
     "  </script>\n" +
-    '  <script src="../js/components-loader.js"></script>\n' +
-    '  <script src="../js/mrbill-admin-session.js"></script>\n' +
-    '  <script src="../js/blog-articles.config.js"></script>\n' +
-    '  <script src="../js/blog-articles.js?v=pub-shell-1"></script>\n' +
-    '  <script src="../js/blog-stats.config.js?v=20260608"></script>\n' +
-    '  <script src="../js/blog-stats.js?v=20260608"></script>\n' +
-    '  <script src="../js/blog-article-ui.js"></script>\n' +
-    '  <link rel="stylesheet" href="../css/blog-layout.css?v=pub-shell-1" />\n' +
+    '  <script src="../../js/components-loader.js"></script>\n' +
+    '  <script src="../../js/mrbill-admin-session.js"></script>\n' +
+    '  <script src="../../js/blog-articles.config.js"></script>\n' +
+    '  <script src="../../js/blog-articles.js?v=clean-slug-url-1"></script>\n' +
+    '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
+    '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
+    '  <script src="../../js/blog-article-ui.js"></script>\n' +
+    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=clean-slug-url-1" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }\n' +
@@ -157,14 +158,14 @@ export function buildPublishedArticlePageHtml(article) {
     '        root.querySelectorAll("a[href]").forEach(function (a) {\n' +
     '          var h = a.getAttribute("href");\n' +
     '          if (!h || /^https?:\\/\\//.test(h) || h.startsWith("#") || h.startsWith("../") || h.startsWith("/")) return;\n' +
-    '          if (h.startsWith("./")) a.setAttribute("href", ".." + h.slice(1));\n' +
-    '          else a.setAttribute("href", "../" + h);\n' +
+    '          if (h.startsWith("./")) a.setAttribute("href", "../.." + h.slice(1));\n' +
+    '          else a.setAttribute("href", "../../" + h);\n' +
     "        });\n" +
     "      });\n" +
     "    }\n" +
     '    window.addEventListener("DOMContentLoaded", function () {\n' +
-    '      includeComponentSlot("global-header", "../components/header.html", null, fixNavPathsFromSubdir);\n' +
-    '      includeComponentSlot("global-footer", "../components/footer.html", null, fixNavPathsFromSubdir);\n' +
+    '      includeComponentSlot("global-header", "../../components/header.html", null, fixNavPathsFromSubdir);\n' +
+    '      includeComponentSlot("global-footer", "../../components/footer.html", null, fixNavPathsFromSubdir);\n' +
     "      initDynamicBlogArticlePage();\n" +
     "    });\n" +
     "  </script>\n" +
@@ -173,5 +174,10 @@ export function buildPublishedArticlePageHtml(article) {
 }
 
 export function publishedArticleFilePath(slug) {
+  return "blog/" + slug + "/index.html";
+}
+
+/** 舊版扁平路徑（同步時一併清除） */
+export function legacyFlatPublishedArticleFilePath(slug) {
   return "blog/" + slug + ".html";
 }

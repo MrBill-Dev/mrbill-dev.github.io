@@ -53,7 +53,7 @@ export function absUrl(origin, value) {
 
 export function blogArticleCanonicalUrl(slug, origin) {
   const base = (origin || SITE_ORIGIN).replace(/\/$/, "");
-  return base + "/blog/" + slug + ".html";
+  return base + "/blog/" + slug + "/";
 }
 
 export function blogArticleSharePageUrl(slug, origin) {

@@ -356,7 +356,7 @@
 
   function articleShareUrl(slug) {
     if (!slug) return "";
-    return "https://mrbill-dev.github.io/blog/" + encodeURIComponent(slug) + ".html";
+    return "https://mrbill-dev.github.io/blog/" + encodeURIComponent(slug) + "/";
   }
 
   function formatShareSyncNote(shareSync) {
@@ -399,7 +399,7 @@
         els.linkHint.innerHTML =
           "正式網址（訪客複製、Facebook 用）：<code>blog/" +
           escapeHtml(slug) +
-          ".html</code>（儲存已上架文時自動同步 GitHub）";
+          "/</code>（儲存已上架文時自動同步 GitHub）";
       } else {
         els.linkHint.textContent =
           "公開網址：blog/post.html?slug=" +
@@ -438,7 +438,7 @@
       );
     } else if (status === "published") {
       placements.push(
-        "已上架：blog/" + slug + ".html（自動含 OG，訪客複製網址列即可分享）"
+        "已上架：blog/" + slug + "/（自動含 OG，訪客複製網址列即可分享）"
       );
       if (publishedAt) {
         var pubAt = new Date(String(publishedAt).replace(" ", "T"));

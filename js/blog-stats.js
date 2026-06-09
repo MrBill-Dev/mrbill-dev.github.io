@@ -54,7 +54,14 @@ function getBlogStatsPageUrl(slug) {
   if (/^https?:\/\/(localhost|127\.0\.0\.1)/i.test(location.origin)) {
     origin = location.origin;
   }
-  return origin + "/blog/" + slug + ".html";
+  if (
+    typeof getBlogArticleBySlug === "function" &&
+    typeof blogArticleCanonicalUrl === "function"
+  ) {
+    var article = getBlogArticleBySlug(slug);
+    if (article) return blogArticleCanonicalUrl(article);
+  }
+  return origin + "/blog/" + slug + "/";
 }
 
 function blogStatsHeaders(pageUrl) {

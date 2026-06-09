@@ -1,4 +1,7 @@
-import { buildPublishedArticlePageHtml } from "./article-page-html.js";
+import {
+  buildPublishedArticlePageHtml,
+  blogArticlePublicUrl
+} from "./article-page-html.js";
 import { isSocialCrawler, crawlerOgResponse } from "./social-crawler.js";
 import {
   maybeSyncSharePageForArticle,
@@ -629,7 +632,7 @@ async function buildDynamicSitemapXml(env) {
 
   articles.forEach(function (article) {
     if (!article || !article.slug || LEGACY_STATIC_SLUGS.has(article.slug)) return;
-    const loc = origin + "/blog/" + encodeURIComponent(article.slug) + ".html";
+    const loc = blogArticlePublicUrl(article.slug, origin);
     const lastmod = articleSitemapLastmod(article);
     lines.push("  <url>");
     lines.push("    <loc>" + escapeXmlText(loc) + "</loc>");
@@ -656,8 +659,7 @@ async function handleBlogPostHtml(request, env, url) {
       /\/$/,
       ""
     );
-    const target =
-      origin + "/blog/" + encodeURIComponent(slug) + ".html";
+    const target = blogArticlePublicUrl(slug, origin);
     return Response.redirect(target, 302);
   }
   const article = await getPublicArticle(env.DB, slug);
