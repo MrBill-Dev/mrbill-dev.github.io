@@ -830,8 +830,13 @@ function collectBlogArticleSeoSnapshot(article, options) {
       (document.querySelector('meta[property="og:description"]') || {}).content ||
       article.excerpt ||
       "",
+    ogTitle:
+      (document.querySelector('meta[property="og:title"]') || {}).content ||
+      blogArticleShareOgTitle(article) ||
+      "",
     ogImage: (ogImageEl && ogImageEl.content) || blogCoverAbsoluteUrl(cover),
     ogImageSource: String(article.cover || "").trim() ? "後台封面欄位" : "依 slug 自動配圖",
+    hasStaticBody: !!document.getElementById("blog-static-content"),
     hasArticleLd:
       !!document.getElementById("site-seo-article-jsonld") ||
       pageHasJsonLdType("Article"),
@@ -859,10 +864,13 @@ function renderBlogSeoPreviewPanel(article, options) {
     '<details class="blog-seo-preview-panel__box" open>' +
     '<summary class="blog-seo-preview-panel__summary">SEO／分享預覽檢查 <span class="blog-seo-preview-panel__badge">僅管理員</span></summary>' +
     '<div class="blog-seo-preview-panel__body">' +
-    '<p class="blog-seo-preview-panel__note">已上架文會同步 <code>blog/{slug}/</code>（含靜態 OG）。訪客從站內點進、複製網址列貼 Facebook 即可，不用另除錯。舊 <code>post.html?slug=</code> 會自動跳轉。</p>' +
+    '<p class="blog-seo-preview-panel__note">已上架文會自動同步 <code>blog/{slug}/</code>（OG、h1、完整正文寫入靜態 HTML，檢視原始碼可見）。正式分享請用下方 canonical／網址列，勿貼 <code>post.html?slug=</code>。修改正文後請再儲存一次以更新 GitHub 靜態頁。</p>' +
     '<dl class="blog-seo-preview-panel__list">' +
     "<dt>分頁 title</dt><dd>" +
     escapeBlogHtml(snap.documentTitle) +
+    "</dd>" +
+    "<dt>og:title</dt><dd>" +
+    escapeBlogHtml(snap.ogTitle) +
     "</dd>" +
     "<dt>description</dt><dd>" +
     escapeBlogHtml(snap.description) +
@@ -870,6 +878,11 @@ function renderBlogSeoPreviewPanel(article, options) {
     "<dt>canonical</dt><dd><code>" +
     escapeBlogHtml(snap.canonical) +
     "</code></dd>" +
+    "<dt>靜態正文</dt><dd>" +
+    (snap.hasStaticBody
+      ? "本頁已嵌入（爬蟲可直接讀）"
+      : "本頁由 API 載入（預覽／post.html；上架後以 blog/{slug}/ 為準）") +
+    "</dd>" +
     "<dt>og:image</dt><dd><code>" +
     escapeBlogHtml(snap.ogImage) +
     '</code> <span class="blog-seo-preview-panel__hint">(' +
