@@ -3,7 +3,22 @@
  */
 var BLOG_AUTHOR = {
   name: "Mr.Bill",
-  bio: "無論你是學生、上班族、創作者，或是想學習 AI 與數位技能的新手，都希望能在這裡找到對你有幫助的內容。"
+  tagline: "前端維護者，也是這個站的建置與維護者",
+  intro:
+    "我目前的工作以網頁前端維護為主；Mr.Bill 數位實驗室則是我個人經營的網站，用來記錄 AI 應用、前端實作、設計思考與工作流整理——很多內容來自我自己在維護、改版、試錯的過程，而不是純理論整理。",
+  sections: [
+    {
+      label: "背景",
+      text:
+        "國立海山高工機械製圖科、萬能科技大學紡織系纖維科技組；後續曾涉獵網頁／UI 設計、網站企劃與行銷、視覺與 3D、工業設計，以及機構、硬體與 PHP 等實作領域。"
+    },
+    {
+      label: "目前",
+      text:
+        "持續在前端維護工作中累積實務，並把 AI 導入與應用規劃作為深化方向，透過這個站分享可參考的作法與踩坑經驗。"
+    }
+  ],
+  tags: ["網頁", "UI", "行銷", "視覺", "3D", "工業設計", "工程", "PHP", "AI 應用"]
 };
 
 function blogArticlePrefersReducedMotion() {
@@ -64,22 +79,61 @@ function initBlogBackToTop() {
   return null;
 }
 
+function blogAuthorEscape(str) {
+  if (typeof escapeBlogHtml === "function") return escapeBlogHtml(str);
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 function renderBlogAuthorCard(mountId) {
   var mount = document.getElementById(mountId || "blog-article-author-slot");
   if (!mount) return;
 
-  mount.innerHTML =
+  var author = BLOG_AUTHOR || {};
+  var html =
     '<section class="blog-author-card blog-reveal" id="blog-author" aria-labelledby="blog-author-name">' +
     '<div class="blog-author-card__avatar" aria-hidden="true">MB</div>' +
     '<div class="blog-author-card__body">' +
     '<p class="blog-author-card__label">關於作者</p>' +
     '<p class="blog-author-card__name" id="blog-author-name">' +
-    escapeBlogHtml(BLOG_AUTHOR.name) +
-    "</p>" +
-    '<p class="blog-author-card__bio">' +
-    escapeBlogHtml(BLOG_AUTHOR.bio) +
-    "</p>" +
-    "</div></section>";
+    blogAuthorEscape(author.name) +
+    "</p>";
+
+  if (author.tagline) {
+    html +=
+      '<p class="blog-author-card__tagline">' + blogAuthorEscape(author.tagline) + "</p>";
+  }
+  if (author.intro) {
+    html += '<p class="blog-author-card__bio">' + blogAuthorEscape(author.intro) + "</p>";
+  }
+  if (author.sections && author.sections.length) {
+    html += '<div class="blog-author-card__sections">';
+    author.sections.forEach(function (section) {
+      html +=
+        '<div class="blog-author-card__section">' +
+        '<p class="blog-author-card__section-label">' +
+        blogAuthorEscape(section.label) +
+        "</p>" +
+        '<p class="blog-author-card__section-text">' +
+        blogAuthorEscape(section.text) +
+        "</p></div>";
+    });
+    html += "</div>";
+  }
+  if (author.tags && author.tags.length) {
+    html += '<div class="blog-author-card__tags" aria-label="相關領域">';
+    author.tags.forEach(function (tag) {
+      html +=
+        '<span class="blog-author-card__tag">' + blogAuthorEscape(tag) + "</span>";
+    });
+    html += "</div>";
+  }
+
+  html += "</div></section>";
+  mount.innerHTML = html;
 }
 
 var BLOG_LIKE_HEART_OUTLINE =

@@ -3,7 +3,8 @@ window.MRBILL_SITE_CONFIG = {
   get siteName() {
     return (window.MRBILL_SITE_SEO && window.MRBILL_SITE_SEO.siteName) || "Mr.Bill 數位實驗室";
   },
-  authorHintTemplate: ""
+  authorHintTemplate:
+    "目前從事網頁前端維護，並個人經營本網站，整理 AI、前端與數位技能的實作筆記。"
 };
 
 function renderAuthorSignature(targetId, options) {

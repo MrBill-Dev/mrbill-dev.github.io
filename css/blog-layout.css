@@ -2372,14 +2372,65 @@ details.blog-faq__item:not([open]) > :not(summary) {
   margin: 0 0 0.5rem;
 }
 
+.blog-author-card__tagline {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0 0 0.625rem;
+}
+
 .blog-author-card__bio {
   font-size: 0.9375rem;
   line-height: 1.8;
+  color: #475569;
+  margin: 0 0 0.875rem;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.blog-author-card__sections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-bottom: 0.875rem;
+}
+
+.blog-author-card__section-label {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #6366f1;
+  margin: 0 0 0.2rem;
+}
+
+.blog-author-card__section-text {
+  font-size: 0.875rem;
+  line-height: 1.75;
   color: #475569;
   margin: 0;
   word-break: keep-all;
   overflow-wrap: break-word;
   text-wrap: pretty;
+}
+
+.blog-author-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.blog-author-card__tag {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #4338ca;
+  background: #eef2ff;
+  border: 1px solid #e0e7ff;
 }
 
 .blog-text-chunks {
@@ -2568,6 +2619,14 @@ details.blog-faq__item:not([open]) > :not(summary) {
   .blog-author-card__bio {
     font-size: 0.9rem;
     line-height: 1.85;
+  }
+
+  .blog-author-card__section-text {
+    font-size: 0.85rem;
+  }
+
+  .blog-author-card__tag {
+    font-size: 0.625rem;
   }
 
   .blog-main.blog-prose > section.blog-level-list {
