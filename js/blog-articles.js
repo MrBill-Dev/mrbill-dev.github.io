@@ -357,6 +357,7 @@ function isBlogPostShellPath() {
 /** 分類對應的站內學程／專區連結（右欄「延伸」區塊） */
 const BLOG_CATEGORY_LINKS = {
   "AI學習地圖": { href: "../ai-learning-map.html", label: "AI 學習地圖" },
+  "生活觀察": { href: "index.html", label: "生活觀察" },
   "互動練習": { href: "../ai-practice.html", label: "互動練習" },
   "設計工具": { href: "../design-toolkit.html", label: "設計工具箱" }
 };
@@ -1785,6 +1786,13 @@ function renderBlogArticleRail(mountId, slug) {
   if (categoryLink) {
     siteLinks.unshift(categoryLink);
   }
+  var seenSiteHrefs = {};
+  siteLinks = siteLinks.filter(function (link) {
+    var href = blogPageHref(link.href);
+    if (!href || seenSiteHrefs[href]) return false;
+    seenSiteHrefs[href] = true;
+    return true;
+  });
 
   var tagsHtml =
     article.tags && article.tags.length
