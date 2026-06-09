@@ -1,10 +1,21 @@
 {
   "version": 1,
   "description": "已上架動態文：slug 對應 GitHub 靜態頁路徑與分享用 meta（後台儲存時自動更新）",
-  "updatedAt": "2026-06-09T09:49:09.353Z",
+  "updatedAt": "2026-06-09T11:20:43.302Z",
   "siteOrigin": "https://mrbill-dev.github.io",
-  "count": 1,
+  "count": 2,
   "articles": [
+    {
+      "slug": "2026-06-10-ai-kids-exam-quiz-practice",
+      "staticPath": "blog/2026-06-10-ai-kids-exam-quiz-practice/index.html",
+      "url": "https://mrbill-dev.github.io/blog/2026-06-10-ai-kids-exam-quiz-practice/",
+      "title": "AI 幫小孩出題怎麼用？國小考前複習、錯題分析與線上測驗完整指南",
+      "ogTitle": "AI 幫小孩出題怎麼用？國小考前複習、錯題分析與線上測驗完整指南｜從 AI 出題、錯題分析、考古題整理、線上測驗，到孩子學習成長 — Mr.Bill 數位實驗室",
+      "description": "完整整理家長如何用 AI 幫國小孩子考前複習，包含五科練習、錯題分析、弱點補強、考古題資源、考券製作與 Google Forms 線上測驗教學。",
+      "ogImage": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80",
+      "publishedAt": "2026-06-10",
+      "updatedAt": "2026-06-09 11:20:40"
+    },
     {
       "slug": "2026-06-09-kids-ai-learning-plays",
       "staticPath": "blog/2026-06-09-kids-ai-learning-plays/index.html",
