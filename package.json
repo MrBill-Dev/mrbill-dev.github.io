@@ -2,6 +2,7 @@
   "name": "mrbill-dev.github.io",
   "private": true,
   "scripts": {
-    "seo:sync": "node scripts/sync-seo-meta.mjs"
+    "seo:sync": "node scripts/sync-seo-meta.mjs && node scripts/sync-sitemap.mjs",
+    "sitemap:sync": "node scripts/sync-sitemap.mjs"
   }
 }

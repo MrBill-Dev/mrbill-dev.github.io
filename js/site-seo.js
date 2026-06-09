@@ -114,12 +114,38 @@
     };
   }
 
+  function titleEndsWithSiteBrand(title) {
+    if (!title) return false;
+    var suffix = String(
+      MRBILL_SITE_SEO.titleSuffix || MRBILL_SITE_SEO.siteName || ""
+    ).trim();
+    var name = String(MRBILL_SITE_SEO.siteName || "").trim();
+    var t = String(title).trim();
+    function endsWithBrand(brand) {
+      if (!brand) return false;
+      return (
+        t.endsWith(brand) ||
+        t.endsWith("｜" + brand) ||
+        t.endsWith(" — " + brand) ||
+        t.endsWith(" - " + brand)
+      );
+    }
+    return endsWithBrand(suffix) || (name !== suffix && endsWithBrand(name));
+  }
+
   function formatDocumentTitle(title, options) {
     options = options || {};
     if (!title) return MRBILL_SITE_SEO.siteName;
     if (options.rawTitle) return title;
-    if (title.indexOf("｜") !== -1 || title.indexOf("|") !== -1) return title;
-    return title + "｜" + (options.titleSuffix || MRBILL_SITE_SEO.titleSuffix);
+    if (titleEndsWithSiteBrand(title)) return title;
+    var suffix =
+      options.titleSuffix ||
+      MRBILL_SITE_SEO.titleSuffix ||
+      MRBILL_SITE_SEO.siteName;
+    if (title.indexOf("｜") !== -1 || title.indexOf("|") !== -1) {
+      return title + " — " + suffix;
+    }
+    return title + "｜" + suffix;
   }
 
   function mergeSeoConfig(pageId, overrides) {
@@ -231,6 +257,9 @@
     preloadImage(config.ogImage);
 
     setMeta("description", config.description);
+    if (config.type === "article") {
+      setMeta("robots", "index,follow,max-image-preview:large");
+    }
     setMeta("og:type", config.type, "property");
     setMeta("og:site_name", MRBILL_SITE_SEO.siteName, "property");
     setMeta("og:locale", MRBILL_SITE_SEO.locale, "property");

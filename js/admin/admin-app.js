@@ -841,7 +841,12 @@
           );
           return;
         }
-        setStatus(isNew ? "已建立" : "已儲存");
+        var statusMsg = isNew ? "已建立" : "已儲存";
+        if (data.status === "published" || data.status === "scheduled") {
+          statusMsg +=
+            "。SEO 與 sitemap 已自動生效（動態文無需 npm run seo:sync）";
+        }
+        setStatus(statusMsg);
       })
       .catch(function (err) {
         var msg = err.message || "儲存失敗";

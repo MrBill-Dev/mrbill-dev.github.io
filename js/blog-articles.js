@@ -659,6 +659,16 @@ function buildBlogFaqJsonLd(items) {
   };
 }
 
+function blogArticleOgTitle(article) {
+  if (!article) return "";
+  var title = String(article.title || "").trim();
+  var subtitle = String(article.subtitle || "").trim();
+  if (!title) return "";
+  if (title.indexOf("｜") !== -1 || title.indexOf("|") !== -1) return title;
+  if (subtitle) return title + "｜" + subtitle;
+  return title;
+}
+
 function applyBlogArticleKeywords(article) {
   var tags = article.tags;
   if (!tags || !tags.length || typeof window.mrbillSeoSetMeta !== "function") return;
@@ -694,7 +704,7 @@ function applyBlogArticleHead(article, options) {
   window.applySiteSeo({
     title: article.title,
     description: article.excerpt,
-    ogTitle: article.title,
+    ogTitle: blogArticleOgTitle(article),
     ogDescription: article.excerpt,
     ogImage: blogResolveCover(article),
     ogImageAlt: article.title || "Mr.Bill 文章筆記",
@@ -702,6 +712,9 @@ function applyBlogArticleHead(article, options) {
     path: blogArticleCanonicalPath(article),
     skipOrganization: true
   });
+  if (isBlogPreviewMode() && typeof window.mrbillSeoSetMeta === "function") {
+    window.mrbillSeoSetMeta("robots", "noindex,nofollow");
+  }
   applyBlogArticleStructuredData(article, options);
 }
 

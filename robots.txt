@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://mrbill-dev.github.io/sitemap.xml
+Sitemap: https://mrbill-stats.billhuang19get.workers.dev/sitemap-dynamic.xml

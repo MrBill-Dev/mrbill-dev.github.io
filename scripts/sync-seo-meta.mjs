@@ -15,7 +15,12 @@ const CONFIG_PATH = path.join(ROOT, "js", "site-seo.config.json");
 const BLOG_JS_PATH = path.join(ROOT, "js", "blog-articles.js");
 const SEO_START = "<!-- site-seo:start -->";
 const SEO_END = "<!-- site-seo:end -->";
-const SKIP_HTML = new Set(["google58917ae48d8e1078.html", "article.template.html"]);
+const SKIP_HTML = new Set([
+  "google58917ae48d8e1078.html",
+  "article.template.html",
+  "post.html",
+  "admin.html"
+]);
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -45,11 +50,41 @@ function absUrl(origin, value) {
   return origin.replace(/\/$/, "") + "/" + String(value).replace(/^\//, "");
 }
 
+function titleEndsWithSiteBrand(title, site) {
+  if (!title) return false;
+  const suffix = String(site.titleSuffix || site.siteName || "").trim();
+  const name = String(site.siteName || "").trim();
+  const t = String(title).trim();
+  function endsWithBrand(brand) {
+    if (!brand) return false;
+    return (
+      t.endsWith(brand) ||
+      t.endsWith("｜" + brand) ||
+      t.endsWith(" — " + brand) ||
+      t.endsWith(" - " + brand)
+    );
+  }
+  return endsWithBrand(suffix) || (name !== suffix && endsWithBrand(name));
+}
+
 function formatDocumentTitle(site, page) {
   if (page.rawTitle) return page.title;
   if (!page.title) return site.siteName;
-  if (page.title.includes("｜") || page.title.includes("|")) return page.title;
-  return page.title + "｜" + site.titleSuffix;
+  if (titleEndsWithSiteBrand(page.title, site)) return page.title;
+  const suffix = site.titleSuffix || site.siteName;
+  if (page.title.includes("｜") || page.title.includes("|")) {
+    return page.title + " — " + suffix;
+  }
+  return page.title + "｜" + suffix;
+}
+
+function blogArticleOgTitle(article) {
+  const title = String(article.title || "").trim();
+  const subtitle = String(article.subtitle || "").trim();
+  if (!title) return "";
+  if (title.includes("｜") || title.includes("|")) return title;
+  if (subtitle) return title + "｜" + subtitle;
+  return title;
 }
 
 function canonicalUrl(site, page, htmlRelPath) {
@@ -95,10 +130,11 @@ function mergePageSeo(site, pages, pageId, htmlRelPath, extra = {}) {
 }
 
 function blogArticleSeo(site, article) {
+  const ogTitle = blogArticleOgTitle(article);
   return {
     title: article.title,
     description: article.excerpt,
-    ogTitle: article.title,
+    ogTitle: ogTitle,
     ogDescription: article.excerpt,
     ogImage: article.cover,
     twitterDescription: article.excerpt,
@@ -112,6 +148,9 @@ function blogArticleSeo(site, article) {
 function buildSeoBlock(site, page, assetPrefix) {
   const lines = [];
   lines.push(`  <meta name="description" content="${escapeAttr(page.description)}" />`);
+  if (page.type === "article") {
+    lines.push('  <meta name="robots" content="index,follow,max-image-preview:large" />');
+  }
   lines.push(`  <link rel="canonical" href="${escapeAttr(page.canonical)}" />`);
   if (page.ogImage) {
     const preload = assetPrefix + page.ogImage.replace(/^\//, "");

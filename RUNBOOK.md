@@ -218,6 +218,17 @@ npx wrangler secret put ADMIN_TOKEN
 6. 按「預覽前台」確認版型
 7. 按「文章列表」確認出現在 `blog/index.html`
 
+**動態文 SEO／sitemap（後台上架）— 不用手動跑 npm**
+
+| 項目 | 是否自動 | 說明 |
+|------|----------|------|
+| title / description / OG / JSON-LD | ✅ | `blog/post.html` 載入後由 JS 寫入 |
+| 動態文 sitemap | ✅ | Worker `GET /sitemap-dynamic.xml`（`robots.txt` 已指向） |
+| `npm run seo:sync` | ❌ 通常不用 | 僅**新增靜態 .html 文**或改全站 SEO 設定時 |
+| `npm run sitemap:sync` | ❌ 通常不用 | 僅**新增靜態頁／靜態文**時更新 `sitemap.xml` |
+
+上架或排程儲存後，Google 下次抓 `sitemap-dynamic.xml` 就會看到新網址（Worker 快取約 5 分鐘）。
+
 ### 4.3 標題字體存在哪裡
 
 - **不是**改 `content_html` 正文

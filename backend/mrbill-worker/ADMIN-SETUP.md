@@ -90,6 +90,7 @@ npx wrangler deploy
 ## 2B 已完成（列表 + 文章頁 + 預覽）
 
 - `blog/index.html` 會合併靜態 4 篇 + `GET /api/articles` 動態上架文
+- 動態文 sitemap（上架後自動更新）：`GET /sitemap-dynamic.xml`（`robots.txt` 第二行已指向，無需 npm）
 - 動態內文頁：`blog/post.html?slug=你的-slug`
 - 草稿預覽：`blog/post.html?slug=…&preview=1`（須先在 admin 登入）
 - 後台表單上方可見「前台位置與連結」
