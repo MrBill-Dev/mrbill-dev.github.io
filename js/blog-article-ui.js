@@ -5,19 +5,12 @@ var BLOG_AUTHOR = {
   name: "Mr.Bill",
   tagline: "前端維護者，也是這個站的建置與維護者",
   intro:
-    "我目前的工作以網頁前端維護為主；Mr.Bill 數位實驗室則是我個人經營的網站，用來記錄 AI 應用、前端實作、設計思考與工作流整理——很多內容來自我自己在維護、改版、試錯的過程，而不是純理論整理。",
-  sections: [
-    {
-      label: "背景",
-      text:
-        "國立海山高工機械製圖科、萬能科技大學紡織系纖維科技組；後續曾涉獵網頁／UI 設計、網站企劃與行銷、視覺與 3D、工業設計，以及機構、硬體與 PHP 等實作領域。"
-    },
-    {
-      label: "目前",
-      text:
-        "持續在前端維護工作中累積實務，並把 AI 導入與應用規劃作為深化方向，透過這個站分享可參考的作法與踩坑經驗。"
-    }
-  ],
+    "我目前以網頁前端維護為主；本站是我個人經營，用來整理 AI、前端與數位工作流的實作筆記。",
+  current:
+    "持續在前端維護工作中累積實務，並把 AI 導入與應用規劃作為深化方向，透過這個站分享可參考的作法與踩坑經驗。",
+  moreLabel: "學歷與相關經歷",
+  background:
+    "國立海山高工機械製圖科、萬能科技大學紡織系纖維科技組；後續曾涉獵網頁／UI 設計、網站企劃與行銷、視覺與 3D、工業設計，以及機構、硬體與 PHP 等實作領域。",
   tags: ["網頁", "UI", "行銷", "視覺", "3D", "工業設計", "工程", "PHP", "AI 應用"]
 };
 
@@ -109,27 +102,36 @@ function renderBlogAuthorCard(mountId) {
   if (author.intro) {
     html += '<p class="blog-author-card__bio">' + blogAuthorEscape(author.intro) + "</p>";
   }
-  if (author.sections && author.sections.length) {
-    html += '<div class="blog-author-card__sections">';
-    author.sections.forEach(function (section) {
-      html +=
-        '<div class="blog-author-card__section">' +
-        '<p class="blog-author-card__section-label">' +
-        blogAuthorEscape(section.label) +
-        "</p>" +
-        '<p class="blog-author-card__section-text">' +
-        blogAuthorEscape(section.text) +
-        "</p></div>";
-    });
-    html += "</div>";
+  if (author.current) {
+    html +=
+      '<div class="blog-author-card__section blog-author-card__section--current">' +
+      '<p class="blog-author-card__section-label">目前</p>' +
+      '<p class="blog-author-card__section-text">' +
+      blogAuthorEscape(author.current) +
+      "</p></div>";
   }
-  if (author.tags && author.tags.length) {
-    html += '<div class="blog-author-card__tags" aria-label="相關領域">';
-    author.tags.forEach(function (tag) {
+  if (author.background || (author.tags && author.tags.length)) {
+    html +=
+      '<details class="blog-author-card__more">' +
+      '<summary class="blog-author-card__more-toggle">' +
+      blogAuthorEscape(author.moreLabel || "更多背景") +
+      "</summary>" +
+      '<div class="blog-author-card__more-body">';
+    if (author.background) {
       html +=
-        '<span class="blog-author-card__tag">' + blogAuthorEscape(tag) + "</span>";
-    });
-    html += "</div>";
+        '<p class="blog-author-card__section-text">' +
+        blogAuthorEscape(author.background) +
+        "</p>";
+    }
+    if (author.tags && author.tags.length) {
+      html += '<div class="blog-author-card__tags" aria-label="相關領域">';
+      author.tags.forEach(function (tag) {
+        html +=
+          '<span class="blog-author-card__tag">' + blogAuthorEscape(tag) + "</span>";
+      });
+      html += "</div>";
+    }
+    html += "</div></details>";
   }
 
   html += "</div></section>";
