@@ -856,9 +856,14 @@ function applyBlogIndexHead() {
 
 function blogArticleHref(article) {
   if (!article || !article.slug) return isBlogSectionPath() ? "index.html" : "blog/index.html";
-  var path = article.slug + ".html";
-  if (isBlogSectionPath()) return path;
-  return "blog/" + path;
+  if (isStaticBlogSlug(article.slug)) {
+    var staticPath = article.slug + ".html";
+    if (isBlogSectionPath()) return staticPath;
+    return "blog/" + staticPath;
+  }
+  var dynamicPath = "post.html?slug=" + encodeURIComponent(article.slug);
+  if (isBlogSectionPath()) return dynamicPath;
+  return "blog/" + dynamicPath;
 }
 
 function blogAssetHref(path) {
@@ -1142,10 +1147,7 @@ function initBlogArticleShare(article) {
   var mount = document.getElementById("blog-article-author-slot");
   if (!mount || document.getElementById("blog-share-bar")) return;
 
-  var shareUrl =
-    typeof location !== "undefined" && location.href
-      ? location.href.split("#")[0]
-      : blogArticleCanonicalUrl(article);
+  var shareUrl = blogArticleShareUrl(article);
 
   var bar = document.createElement("div");
   bar.id = "blog-share-bar";

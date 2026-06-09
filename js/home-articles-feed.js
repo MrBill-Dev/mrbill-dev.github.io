@@ -68,7 +68,7 @@
 
   function articleHref(slug, preview) {
     if (STATIC_BLOG_SLUGS[slug]) return "blog/" + slug + ".html";
-    var path = "blog/" + slug + ".html";
+    var path = "blog/post.html?slug=" + encodeURIComponent(slug);
     if (preview) path += "&preview=1";
     return path;
   }
