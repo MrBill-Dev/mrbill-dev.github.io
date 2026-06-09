@@ -2,12 +2,13 @@ import {
   buildPublishedArticlePageHtml,
   publishedArticleFilePath,
   legacyFlatPublishedArticleFilePath,
-  blogArticlePublicUrl
+  blogArticlePublicUrl,
+  resolveArticleForStaticPage
 } from "./article-page-html.js";
 import { ogSidecarFilePath } from "./og-sidecar-html.js";
 import {
   SITE_ORIGIN,
-  blogArticleOgTitle,
+  blogArticleShareOgTitle,
   blogResolveCover,
   absUrl
 } from "./share-seo.js";
@@ -160,7 +161,7 @@ function manifestEntryFromRow(row) {
     staticPath: publishedArticleFilePath(slug),
     url: blogArticlePublicUrl(slug, SITE_ORIGIN),
     title: String(article.title || "").trim(),
-    ogTitle: blogArticleOgTitle(article),
+    ogTitle: blogArticleShareOgTitle(article),
     description: String(article.excerpt || article.subtitle || "").trim(),
     ogImage: absUrl(SITE_ORIGIN, blogResolveCover(article)),
     publishedAt: article.publishedAt || article.date || null,
@@ -272,8 +273,9 @@ export async function syncArticleSharePageToGitHub(env, article) {
     return { ok: true, skipped: true, message: "非已上架動態文，略過 GitHub 同步" };
   }
 
-  const pageUrl = blogArticlePublicUrl(article.slug, SITE_ORIGIN);
-  const html = buildPublishedArticlePageHtml(article);
+  const fullArticle = await resolveArticleForStaticPage(env, article);
+  const pageUrl = blogArticlePublicUrl(fullArticle.slug, SITE_ORIGIN);
+  const html = buildPublishedArticlePageHtml(fullArticle);
   const path = publishedArticleFilePath(article.slug);
   const existing = await getGithubFileMeta(env, path);
 

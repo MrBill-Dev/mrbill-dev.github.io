@@ -744,6 +744,15 @@ function blogArticleOgTitle(article) {
   return title;
 }
 
+function blogArticleShareOgTitle(article) {
+  var base = blogArticleOgTitle(article);
+  var site = blogSeoSiteName();
+  if (!base) return site;
+  var suffix = " — " + site;
+  if (base.slice(-suffix.length) === suffix || base.indexOf(suffix) !== -1) return base;
+  return base + suffix;
+}
+
 function applyBlogArticleKeywords(article) {
   var tags = article.tags;
   if (!tags || !tags.length || typeof window.mrbillSeoSetMeta !== "function") return;
@@ -779,7 +788,7 @@ function applyBlogArticleHead(article, options) {
   window.applySiteSeo({
     title: article.title,
     description: article.excerpt,
-    ogTitle: blogArticleOgTitle(article),
+    ogTitle: blogArticleShareOgTitle(article),
     ogDescription: article.excerpt,
     ogImage: blogResolveCover(article),
     ogImageAlt: article.title || "Mr.Bill 文章筆記",
@@ -969,6 +978,17 @@ function renderBlogArticleHero(slug, options) {
   var article = getBlogArticleBySlug(slug || getCurrentBlogSlug());
   if (!article) return;
 
+  if (options.staticPublished || isStaticPublishedArticlePage()) {
+    applyBlogTitleFont(article);
+    applyBlogArticleHead(article, options);
+    if (shouldShowBlogSeoPanel()) {
+      requestAnimationFrame(function () {
+        renderBlogSeoPreviewPanel(article, options);
+      });
+    }
+    return;
+  }
+
   applyBlogTitleFont(article);
 
   var cover = document.getElementById("blog-hero-cover");
@@ -1050,6 +1070,13 @@ function escapeBlogHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
+function isStaticPublishedArticlePage() {
+  return (
+    document.body &&
+    document.body.getAttribute("data-static-article") === "published"
+  );
+}
+
 function loadBlogArticleShell(done) {
   var heroSlot = document.getElementById("blog-article-hero-slot");
   var railSlot = document.getElementById("blog-article-rail-slot");
@@ -1062,7 +1089,7 @@ function loadBlogArticleShell(done) {
     pending--;
     if (pending <= 0 && done) done();
   }
-  if (heroSlot) {
+  if (heroSlot && !isStaticPublishedArticlePage()) {
     pending++;
     includeComponentSlot(
       "blog-article-hero-slot",
@@ -1264,7 +1291,7 @@ function initBlogArticleShare(article) {
       nativeBtn.addEventListener("click", function () {
         navigator
           .share({
-            title: (article && blogArticleOgTitle(article)) || document.title || "",
+            title: (article && blogArticleShareOgTitle(article)) || document.title || "",
             url: shareUrl
           })
           .catch(function () {});
@@ -1275,7 +1302,36 @@ function initBlogArticleShare(article) {
   }
 }
 
+function initStaticPublishedBlogArticlePage() {
+  var slug = getCurrentBlogSlug();
+  if (!slug) {
+    showDynamicArticleError("無法辨識文章 slug");
+    return;
+  }
+  var article = null;
+  var dataEl = document.getElementById("blog-static-article-data");
+  if (dataEl && dataEl.textContent) {
+    try {
+      article = JSON.parse(dataEl.textContent);
+    } catch (e) {}
+  }
+  if (!article) article = { slug: slug, status: "published" };
+  var staticRoot = document.getElementById("blog-static-content");
+  if (staticRoot) {
+    article = Object.assign({}, article, { contentHtml: staticRoot.innerHTML });
+  }
+  registerDynamicArticleCache(article);
+  initBlogArticlePage(slug, {
+    contentHtml: article.contentHtml,
+    staticPublished: true
+  });
+}
+
 function initDynamicBlogArticlePage() {
+  if (document.getElementById("blog-static-content")) {
+    initStaticPublishedBlogArticlePage();
+    return;
+  }
   var slug = getCurrentBlogSlug();
   if (!slug) {
     showDynamicArticleError("網址缺少 slug 參數，例：post.html?slug=2026-06-10-my-post");
@@ -2055,6 +2111,7 @@ window.applyBlogNavNewIndicator = applyBlogNavNewIndicator;
 })();
 
 window.initDynamicBlogArticlePage = initDynamicBlogArticlePage;
+window.initStaticPublishedBlogArticlePage = initStaticPublishedBlogArticlePage;
 window.fixBlogNavPathsFromSubdir = fixBlogNavPathsFromSubdir;
 window.blogArticlePublicHref = blogArticleHref;
 window.blogArticleShareUrl = blogArticleShareUrl;

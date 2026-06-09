@@ -255,9 +255,9 @@ GitHub Pages **只有檔案路徑**，沒有伺服器能依 `?slug=` 回不同 H
 
 | 項目 | 是否自動 | 說明 |
 |------|----------|------|
-| title / description / OG / JSON-LD | ✅ | `blog/post.html` 載入後由 JS 寫入（Google 可渲染） |
+| title / description / OG / JSON-LD | ✅ | 已上架文同步至 `blog/{slug}/index.html`（**原始碼可見 h1＋正文**）；`post.html?slug=` 仍走 API |
 | 動態文 sitemap | ✅ | 後台儲存時同步至 GitHub `sitemap-dynamic.xml`（GSC 同網域可提交）；Worker 亦提供同內容備援 |
-| **Facebook／LINE** | ✅ | 與 `blog/{slug}/` 同一網址；儲存已上架文自動同步（需 `GITHUB_TOKEN`） |
+| **Facebook／LINE** | ✅ | 與 `blog/{slug}/` 同一網址；靜態頁含 OG＋正文（需 `GITHUB_TOKEN` 同步） |
 | `npm run seo:sync` | ❌ 通常不用 | 僅**新增靜態 .html 文**或改全站 SEO 設定時 |
 | `npm run sitemap:sync` | ❌ 通常不用 | 僅**新增靜態頁／靜態文**時更新 `sitemap.xml` |
 

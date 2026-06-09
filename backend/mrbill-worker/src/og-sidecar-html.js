@@ -1,5 +1,5 @@
 import {
-  blogArticleOgTitle,
+  blogArticleShareOgTitle,
   blogResolveCover,
   absUrl,
   formatDocumentTitle,
@@ -30,7 +30,7 @@ export function ogSidecarPublicPath(slug) {
 }
 
 function buildOgMetaHead(article, canonicalUrl, pageUrl) {
-  const ogTitle = blogArticleOgTitle(article);
+  const ogTitle = blogArticleShareOgTitle(article);
   const description = String(article.excerpt || article.subtitle || "").trim();
   const ogImage = absUrl(SITE_ORIGIN, blogResolveCover(article));
   const ogImageAlt = String(article.title || "Mr.Bill 文章筆記").trim();

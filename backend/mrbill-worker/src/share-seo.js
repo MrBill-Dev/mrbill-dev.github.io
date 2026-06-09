@@ -37,6 +37,15 @@ export function blogArticleOgTitle(article) {
   return title;
 }
 
+/** 社群分享用 og:title（結尾加站名，FB 預覽可見品牌） */
+export function blogArticleShareOgTitle(article) {
+  const base = blogArticleOgTitle(article);
+  if (!base) return SITE_NAME;
+  const suffix = " — " + SITE_NAME;
+  if (base.endsWith(suffix) || base.endsWith("｜" + SITE_NAME)) return base;
+  return base + suffix;
+}
+
 export function blogResolveCover(article) {
   if (!article) return BLOG_FALLBACK_COVERS[0];
   const cover = String(article.cover || "").trim();
@@ -87,7 +96,7 @@ export function buildShareHtml(article, opts) {
     opts.canonicalUrl || blogArticleCanonicalUrl(slug, SITE_ORIGIN);
   const pageUrl = opts.pageUrl || blogArticleSharePageUrl(slug, SITE_ORIGIN);
   const redirectUrl = opts.redirectUrl || pageUrl;
-  const ogTitle = blogArticleOgTitle(article);
+  const ogTitle = blogArticleShareOgTitle(article);
   const description = String(article.excerpt || article.subtitle || "").trim();
   const ogImage = absUrl(SITE_ORIGIN, blogResolveCover(article));
   const ogImageAlt = String(article.title || "Mr.Bill 文章筆記").trim();
