@@ -59,7 +59,9 @@
           <div class="admin-sidebar-actions">
             <button id="admin-new-btn" type="button">＋ 新增</button>
             <button id="admin-refresh-btn" type="button">重新整理</button>
+            <button id="admin-import-seeds-btn" type="button" class="hidden" title="將本機準備好的種子草稿寫入後端">匯入種子草稿</button>
           </div>
+          <p id="admin-seed-import-hint" class="hidden admin-sidebar__seed-hint text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-2 leading-relaxed"></p>
           <div class="admin-sidebar__tools">
             <input id="admin-list-search" type="search" class="admin-sidebar__search" placeholder="搜尋標題、slug、分類…" autocomplete="off" />
             <select id="admin-list-filter" class="admin-sidebar__filter" aria-label="依狀態篩選">
@@ -307,7 +309,8 @@
   <script src="js/admin/admin.config.example.js"></script>
   <script src="js/admin/admin.config.local.js"></script>
   <script src="js/admin/blog-content-snippets.js"></script>
+  <script src="js/admin/seed-imports/pending-drafts.js?v=kids-ai-1"></script>
   <script src="js/admin/blog-block-editor.js?v=block-a2"></script>
-  <script src="js/admin/admin-app.js?v=block-a2"></script>
+  <script src="js/admin/admin-app.js?v=seed-import-1"></script>
 </body>
 </html>

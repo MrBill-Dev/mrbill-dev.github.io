@@ -37,7 +37,9 @@
     homeStripShowNav: document.getElementById("homeStripShowNav"),
     homeStripIntervalSec: document.getElementById("homeStripIntervalSec"),
     homeStripTransitionMs: document.getElementById("homeStripTransitionMs"),
-    homeStripSettingsSave: document.getElementById("home-strip-settings-save")
+    homeStripSettingsSave: document.getElementById("home-strip-settings-save"),
+    importSeedsBtn: document.getElementById("admin-import-seeds-btn"),
+    seedImportHint: document.getElementById("admin-seed-import-hint")
   };
 
   var blockEditor = null;
@@ -138,8 +140,10 @@
     }
     api("/api/admin/articles")
       .then(function (data) {
+        cachedArticles = data.articles || [];
         showApp();
-        renderList(data.articles || []);
+        applyListFilter();
+        updateSeedImportUi(cachedArticles);
         setStatus("已登入 " + new Date().toLocaleTimeString());
         setGateStatus("", false);
       })
@@ -565,10 +569,11 @@
 
   function loadList() {
     setStatus("載入中…");
-    api("/api/admin/articles")
+    return api("/api/admin/articles")
       .then(function (data) {
         cachedArticles = data.articles || [];
         applyListFilter();
+        updateSeedImportUi(cachedArticles);
         setStatus("已更新 " + new Date().toLocaleTimeString());
       })
       .catch(function (err) {
@@ -576,6 +581,7 @@
           hideApp();
         }
         setStatus(err.message || "載入失敗", true);
+        throw err;
       });
   }
 
@@ -598,6 +604,15 @@
       var emptyMsg = cachedArticles.length
         ? "沒有符合篩選條件的文章，請調整搜尋或狀態。"
         : "尚無動態文章。靜態 4 篇不在此列表。";
+      var pendingSeeds = getPendingSeedDrafts().filter(function (d) {
+        return d && d.slug;
+      });
+      if (!cachedArticles.length && pendingSeeds.length && els.importSeedsBtn) {
+        emptyMsg +=
+          " 上方可點「匯入種子草稿」寫入已準備好的 " +
+          pendingSeeds.length +
+          " 篇。";
+      }
       els.list.innerHTML = '<p class="admin-list-empty">' + emptyMsg + "</p>";
       return;
     }
@@ -866,6 +881,103 @@
       .replace(/"/g, "&quot;");
   }
 
+  function getPendingSeedDrafts() {
+    var list = window.MRBILL_SEED_DRAFTS;
+    return Array.isArray(list) ? list : [];
+  }
+
+  function updateSeedImportUi(articles) {
+    var drafts = getPendingSeedDrafts();
+    if (!drafts.length) return;
+    var existing = {};
+    (articles || []).forEach(function (row) {
+      if (row && row.slug) existing[row.slug] = true;
+    });
+    var pending = drafts.filter(function (d) {
+      return d && d.slug && !existing[d.slug];
+    });
+    if (els.importSeedsBtn) {
+      els.importSeedsBtn.classList.toggle("hidden", pending.length === 0);
+      els.importSeedsBtn.textContent =
+        pending.length > 1
+          ? "匯入種子草稿（" + pending.length + "）"
+          : "匯入種子草稿";
+    }
+    if (els.seedImportHint) {
+      if (pending.length === 0) {
+        els.seedImportHint.classList.add("hidden");
+        els.seedImportHint.textContent = "";
+      } else {
+        els.seedImportHint.classList.remove("hidden");
+        els.seedImportHint.textContent =
+          "有 " +
+          pending.length +
+          " 篇已轉好版型、尚未寫入後端。點「匯入種子草稿」後左側列表會出現，再用預覽檢查。";
+      }
+    }
+  }
+
+  function importPendingSeedDrafts() {
+    var drafts = getPendingSeedDrafts();
+    if (!drafts.length) {
+      setStatus("沒有可匯入的種子草稿", true);
+      return;
+    }
+    if (!isAsciiToken(getToken())) {
+      setStatus("請先登入後台", true);
+      return;
+    }
+    if (els.importSeedsBtn) els.importSeedsBtn.disabled = true;
+    setStatus("匯入中…");
+    api("/api/admin/articles")
+      .then(function (data) {
+        var existing = {};
+        (data.articles || []).forEach(function (row) {
+          if (row && row.slug) existing[row.slug] = true;
+        });
+        var pending = drafts.filter(function (d) {
+          return d && d.slug && !existing[d.slug];
+        });
+        if (!pending.length) {
+          updateSeedImportUi(data.articles || []);
+          setStatus("種子草稿皆已在後端，無需重複匯入");
+          return null;
+        }
+        var chain = Promise.resolve();
+        var imported = [];
+        pending.forEach(function (payload) {
+          chain = chain.then(function () {
+            var body = Object.assign({ status: "draft" }, payload);
+            return api("/api/admin/articles", { method: "POST", body: body }).then(
+              function () {
+                imported.push(payload.slug);
+              }
+            );
+          });
+        });
+        return chain.then(function () {
+          return { imported: imported };
+        });
+      })
+      .then(function (result) {
+        if (!result) return;
+        return loadList().then(function () {
+          if (result.imported.length === 1) {
+            return loadArticle(result.imported[0]);
+          }
+        });
+      })
+      .then(function () {
+        setStatus("已匯入種子草稿，請用預覽檢查版型");
+      })
+      .catch(function (err) {
+        setStatus(err.message || "匯入失敗", true);
+      })
+      .finally(function () {
+        if (els.importSeedsBtn) els.importSeedsBtn.disabled = false;
+      });
+  }
+
   function boot() {
     if (!apiBase) {
       setGateStatus("請設定 js/admin/admin.config.local.js 的 apiBase", true);
@@ -882,6 +994,9 @@
     }
     if (els.newBtn) els.newBtn.addEventListener("click", clearFormForNew);
     if (els.refreshBtn) els.refreshBtn.addEventListener("click", loadList);
+    if (els.importSeedsBtn) {
+      els.importSeedsBtn.addEventListener("click", importPendingSeedDrafts);
+    }
     if (els.listSearch) {
       els.listSearch.addEventListener("input", applyListFilter);
     }

@@ -1,0 +1,20 @@
+{
+  "slug": "2026-06-09-kids-ai-learning-plays",
+  "title": "小孩可以用 AI 做什麼？10 個不是寫作業的 AI 學習玩法",
+  "subtitle": "AI 不是幫孩子偷答案，而是練提問、理解、表達與判斷的學習夥伴",
+  "excerpt": "整理 10 個不是拿 AI 寫作業的學習玩法，包含閱讀理解、英文口說、科學實驗、程式邏輯、創意故事、親子討論與家長陪伴守則，幫助孩子正確建立 AI 學習力。",
+  "label": "AI 教育",
+  "audience": "家長、老師、國小中高年級以上學生",
+  "category": "AI學習地圖",
+  "author": "Mr.Bill",
+  "date": "2026-06-09",
+  "readMins": 10,
+  "tags": ["小孩 AI", "AI 教育", "親子 AI", "AI 素養", "ChatGPT 小孩"],
+  "cover": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=80",
+  "relatedSlugs": [
+    "2026-05-31-ai-prompt-six-levels",
+    "2026-06-05-ai-workflow-lesson-01-02"
+  ],
+  "titleFont": "sans",
+  "contentHtmlFile": "backend/mrbill-worker/seeds/2026-06-09-kids-ai-learning-plays-content.html"
+}
