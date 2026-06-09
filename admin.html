@@ -7,7 +7,7 @@
   <title>文章內容管理｜Mr.Bill 數位實驗室</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/blog-layout.css" />
-  <link rel="stylesheet" href="css/admin.css?v=editor-tabs-5" />
+  <link rel="stylesheet" href="css/admin.css?v=admin-ui-8" />
 </head>
 <body class="admin-body text-slate-800 antialiased">
 
@@ -29,21 +29,20 @@
     </div>
     <div id="admin-subbar" class="admin-subbar hidden" aria-label="編輯工具列">
       <div class="admin-subbar__inner">
-        <div class="admin-editor-chrome">
-          <div class="admin-editor-toolbar">
-            <nav class="admin-editor-tabs" aria-label="編輯分頁" role="tablist">
-              <button type="button" role="tab" aria-selected="true" class="admin-editor-tabs__btn is-active" data-admin-tab="basic">① 基本</button>
-              <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="list">② 曝光</button>
-              <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="body">③ 正文</button>
-            </nav>
-            <div class="admin-editor-toolbar__preview">
-              <a id="admin-preview-link" href="#" role="button" class="admin-btn-primary admin-editor-toolbar__preview-main">預覽文章</a>
-              <a id="admin-home-preview-link" href="#" role="button" class="admin-editor-toolbar__preview-link">首頁</a>
-              <a id="admin-list-preview-link" href="blog/index.html" target="_blank" rel="noopener" class="admin-editor-toolbar__preview-link">列表</a>
-            </div>
+        <div class="admin-subbar__main-row">
+          <nav class="admin-editor-tabs" aria-label="編輯分頁" role="tablist">
+            <button type="button" role="tab" aria-selected="true" class="admin-editor-tabs__btn is-active" data-admin-tab="basic">① 基本</button>
+            <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="list">② 曝光</button>
+            <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="body">③ 正文</button>
+          </nav>
+          <div id="admin-github-sync-panel" class="admin-github-strip hidden" aria-live="polite"></div>
+          <div class="admin-editor-toolbar__preview">
+            <a id="admin-preview-link" href="#" role="button" class="admin-btn-primary admin-editor-toolbar__preview-main">預覽文章</a>
+            <a id="admin-home-preview-link" href="#" role="button" class="admin-editor-toolbar__preview-link">首頁</a>
+            <a id="admin-list-preview-link" href="blog/index.html" target="_blank" rel="noopener" class="admin-editor-toolbar__preview-link">列表</a>
           </div>
-          <p id="admin-notice" class="admin-notice" role="status" aria-live="polite"></p>
         </div>
+        <p id="admin-notice" class="admin-notice" role="status" aria-live="polite"></p>
       </div>
     </div>
   </header>
@@ -109,8 +108,6 @@
 
             <form id="admin-article-form" class="admin-editor-form">
               <div id="admin-sec-basic" class="admin-form-section admin-tab-panel is-active" data-admin-tab-panel="basic">
-                <div id="admin-github-sync-panel" class="admin-github-panel admin-github-panel--compact hidden" aria-live="polite"></div>
-
                 <details id="admin-utils-drawer" class="admin-utils-drawer">
                   <summary>全站設定（首頁橫幅 · GitHub Token）</summary>
                   <div class="admin-utils-drawer__body">
@@ -347,7 +344,7 @@
   <script src="js/admin/admin.config.local.js"></script>
   <script src="js/admin/blog-content-snippets.js"></script>
   <script src="js/admin/seed-imports/pending-drafts.js?v=kids-ai-1"></script>
-  <script src="js/admin/blog-block-editor.js?v=block-a2"></script>
-  <script src="js/admin/admin-app.js?v=editor-tabs-5"></script>
+  <script src="js/admin/blog-block-editor.js?v=block-preview-fix-1"></script>
+  <script src="js/admin/admin-app.js?v=admin-ui-7"></script>
 </body>
 </html>

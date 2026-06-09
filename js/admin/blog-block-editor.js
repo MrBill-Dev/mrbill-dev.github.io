@@ -649,8 +649,14 @@
         ? "<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&display=swap\" rel=\"stylesheet\">"
         : "") +
       "<link rel=\"stylesheet\" href=\"css/blog-layout.css?v=title-font-scope-2\">" +
-      "<style>body{margin:0;background:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,\"Noto Sans TC\",sans-serif}" +
-      ".blog-main.blog-prose{max-width:42rem;margin:0 auto;padding:1rem 1rem 2rem}</style>" +
+      "<style>" +
+      "*,*::before,*::after{box-sizing:border-box}" +
+      "html,body{margin:0;overflow-x:hidden;max-width:100%}" +
+      "body{background:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,\"Noto Sans TC\",sans-serif}" +
+      ".blog-main.blog-prose{width:100%;max-width:100%;margin:0;padding:10px 12px 20px;overflow-x:hidden}" +
+      ".blog-main.blog-prose>section{width:100%;max-width:100%;margin-left:0;margin-right:0;padding-left:1rem!important;padding-right:1rem!important}" +
+      ".blog-main.blog-prose img,.blog-main.blog-prose table,.blog-main.blog-prose pre{max-width:100%}" +
+      "</style>" +
       "</head><body class=\"" +
       bodyClass +
       "\"><article class=\"blog-main blog-prose space-y-6\">" +

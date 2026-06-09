@@ -75,7 +75,14 @@
   function setStatus(msg, isError, options) {
     options = options || {};
     var text = msg || "";
-    if (els.notice) {
+    if (
+      text &&
+      !isError &&
+      /GitHub.*(已連線|可同步|Token 正常)/i.test(text)
+    ) {
+      options.silent = true;
+    }
+    if (els.notice && !(options.silent && text)) {
       els.notice.textContent = text;
       els.notice.className = "admin-notice";
       if (text) {
@@ -290,6 +297,7 @@
     if (els.logoutBtn) els.logoutBtn.classList.add("admin-is-visible");
     updatePreviewBar("", false, "draft", "");
     loadHomeStripSettings();
+    loadGithubSyncSettings();
   }
 
   function hideApp() {
@@ -418,6 +426,20 @@
     return Math.ceil((d.getTime() - Date.now()) / 86400000);
   }
 
+  function githubExpiryCountdownMeta(expiresAt) {
+    var days = daysUntilExpiry(expiresAt);
+    if (!expiresAt) {
+      return { label: "未設定到期日", tone: "warn", days: null };
+    }
+    if (days === null) {
+      return { label: expiresAt, tone: "ok", days: null };
+    }
+    if (days < 0) {
+      return { label: "已過期 " + Math.abs(days) + " 天", tone: "err", days: days };
+    }
+    return { label: "剩 " + days + " 天", tone: days <= 14 ? "warn" : "ok", days: days };
+  }
+
   function formatProbeTime(iso) {
     if (!iso) return "";
     try {
@@ -460,6 +482,7 @@
   }
 
   function openGithubSettings() {
+    switchEditorTab("basic");
     if (els.utilsDrawer) {
       els.utilsDrawer.open = true;
       els.utilsDrawer.scrollIntoView({ block: "nearest", behavior: "smooth" });
@@ -489,61 +512,68 @@
   function renderGithubSyncPanel() {
     if (!els.githubPanel) return;
     var state = githubSyncState;
-    var days = daysUntilExpiry(state.expiresAt);
-    var level = "ok";
-    var badge = "GitHub 同步正常";
-    var lines = [];
+    var countdown = githubExpiryCountdownMeta(state.expiresAt);
+    var level = countdown.tone;
+    var syncBadge = "可同步文章頁";
+    var detailLines = [];
 
     if (state.probeOk === false) {
       level = "err";
-      badge = "無法同步 GitHub";
-      lines.push(state.probeMessage || "Token 測試失敗");
+      syncBadge = "無法同步";
+      detailLines.push(state.probeMessage || "Token 測試失敗");
       if (/Bad credentials|401/i.test(state.probeMessage || "")) {
-        lines.push("請重新申請 PAT 並執行 wrangler secret put GITHUB_TOKEN");
+        detailLines.push("請重新申請 PAT 並執行 wrangler secret put GITHUB_TOKEN");
       }
     }
 
     if (!state.expiresAt) {
-      if (level === "ok") {
-        level = "warn";
-        badge = "請記錄 Token 到期日";
-      }
-      lines.push("申請 PAT 時 GitHub 會顯示到期日 → 點「填寫到期日」記在後台。");
-    } else if (days !== null && days < 0) {
+      if (level === "ok") level = "warn";
+      detailLines.push("申請 PAT 時 GitHub 會顯示到期日，請點「設定到期日」記錄。");
+    } else if (countdown.days !== null && countdown.days < 0) {
       level = "err";
-      badge = "Token 已過期";
-      lines.push("到期日 " + state.expiresAt + "，請重新申請並更新 Worker secret。");
-    } else if (days !== null && days <= 14) {
+      detailLines.push("到期日 " + state.expiresAt + "，請重新申請並更新 Worker secret。");
+    } else if (countdown.days !== null && countdown.days <= 14) {
       if (level !== "err") level = "warn";
-      badge = days <= 7 ? days + " 天內到期" : "約 " + days + " 天後到期";
-      lines.push("到期日 " + state.expiresAt + "，建議提前更新 Token。");
+      detailLines.push("到期日 " + state.expiresAt + "，建議提前更新 Token。");
     } else if (state.expiresAt) {
-      lines.push("Token 到期日：" + state.expiresAt);
+      detailLines.push("到期日 " + state.expiresAt);
     }
 
     if (state.lastProbeAt) {
-      lines.push(
+      detailLines.push(
         "上次連線測試：" +
           formatProbeTime(state.lastProbeAt) +
           (state.lastProbeOk ? "（成功）" : "（失敗）")
       );
     }
 
-    els.githubPanel.className =
-      "admin-github-panel admin-github-panel--compact admin-github-panel--" + level;
+    els.githubPanel.className = "admin-github-strip admin-github-strip--" + level;
     els.githubPanel.innerHTML =
-      '<p class="admin-github-panel__title">GitHub 文章頁同步 <span class="admin-github-panel__badge">' +
-      escapeHtml(badge) +
-      "</span></p>" +
-      '<p class="admin-github-panel__text">' +
-      lines.map(escapeHtml).join("<br>") +
-      "</p>" +
-      '<div class="admin-github-panel__actions">' +
-      '<button type="button" data-github-open-settings>填寫到期日</button>' +
-      '<button type="button" data-github-probe>測試連線</button>' +
+      '<div class="admin-github-strip__main">' +
+      '<span class="admin-github-strip__title">GitHub</span>' +
+      '<strong class="admin-github-strip__countdown admin-github-strip__countdown--' +
+      escapeHtml(countdown.tone) +
+      '">' +
+      escapeHtml(countdown.label) +
+      "</strong>" +
+      (state.expiresAt
+        ? '<span class="admin-github-strip__date">' + escapeHtml(state.expiresAt) + "</span>"
+        : "") +
+      '<span class="admin-github-strip__badge">' +
+      escapeHtml(syncBadge) +
+      "</span>" +
+      (level !== "ok" && detailLines.length
+        ? '<span class="admin-github-strip__detail">' +
+          escapeHtml(detailLines[0]) +
+          "</span>"
+        : "") +
+      "</div>" +
+      '<div class="admin-github-strip__actions">' +
+      '<button type="button" data-github-open-settings title="設定 Token 到期日">到期日</button>' +
+      '<button type="button" data-github-probe title="測試 GitHub 連線">測試</button>' +
       '<a href="' +
       escapeHtml(GITHUB_HELP_PAGE) +
-      '" target="_blank" rel="noopener noreferrer">Token 申請步驟</a>' +
+      '" target="_blank" rel="noopener noreferrer" title="Token 申請步驟">說明</a>' +
       "</div>";
     els.githubPanel.classList.remove("hidden");
 
