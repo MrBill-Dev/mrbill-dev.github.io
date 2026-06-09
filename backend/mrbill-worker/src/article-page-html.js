@@ -361,7 +361,7 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
     '  <script src="../../js/blog-article-ui.js"></script>\n' +
     (article.titleFont === "serif" ? BLOG_SERIF_FONT_HEAD : "") +
-    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=title-font-mobile-1" />\n' +
+    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=title-font-scope-2" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; }\n' +

@@ -78,7 +78,8 @@
   letter-spacing: -0.02em;
 }
 
-/* CMS 標題字型：僅大標 + 標準章節卡直層 h2（勿用 :has()，部分手機內建瀏覽器不支援會整條失效）
+/* CMS 標題字型：僅 hero 大標 + 白底章節卡「直層」h2（勿用 :has()）
+   靜態上架頁正文在 #blog-static-content 內，需另寫一層選擇器
    明體需搭配 HTML 載入 Noto Serif TC（見 post.html / Worker 靜態頁） */
 body.blog-title-font-serif .blog-hero__title {
   font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
@@ -88,10 +89,49 @@ body.blog-title-font-serif .blog-hero__title {
 
 body.blog-title-font-serif
   .blog-main.blog-prose:not(.rainy-family-prose)
-  > section
+  > section:not(.blog-bridge)
+  > h2,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  #blog-static-content
+  > section:not(.blog-bridge)
   > h2 {
   font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
   letter-spacing: 0.02em;
+}
+
+/* 卡片內小標、轉場、FAQ 問句、課程帶／深色區 h2/h3 維持黑體 */
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  h3,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  h4,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .blog-pillar-card__title,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .blog-faq__q,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .blog-faq__item summary,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .blog-bridge__title,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .blog-lesson-band h2,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .blog-next-band h2,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .blog-dark-panel h2,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  .blog-dark-panel h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif;
 }
 
 .blog-hero__subtitle {

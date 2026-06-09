@@ -648,7 +648,7 @@
       (titleFont === "serif"
         ? "<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&display=swap\" rel=\"stylesheet\">"
         : "") +
-      "<link rel=\"stylesheet\" href=\"css/blog-layout.css?v=title-font-mobile-1\">" +
+      "<link rel=\"stylesheet\" href=\"css/blog-layout.css?v=title-font-scope-2\">" +
       "<style>body{margin:0;background:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,\"Noto Sans TC\",sans-serif}" +
       ".blog-main.blog-prose{max-width:42rem;margin:0 auto;padding:1rem 1rem 2rem}</style>" +
       "</head><body class=\"" +
