@@ -497,11 +497,11 @@ function blogPathDepth() {
   if (/\/blog\/index\.html$/.test(p) || /\/blog\/?$/.test(p)) return 1;
   if (/\/blog\/post\.html$/i.test(p)) return 1;
   if (/\/blog\/[^/]+\/index\.html$/.test(p)) return 2;
-  if (/\/blog\/[^/]+\/?$/.test(p)) {
-    var slugPart = p.match(/\/blog\/([^/]+)/);
+  if (/\/blog\/[^/]+\.html$/i.test(p)) return 1;
+  if (/\/blog\/([^/]+)\/?$/.test(p)) {
+    var slugPart = p.match(/\/blog\/([^/]+)\/?$/);
     if (slugPart && slugPart[1] !== "index" && slugPart[1] !== "post") return 2;
   }
-  if (/\/blog\/[^/]+\.html$/.test(p)) return 1;
   return 1;
 }
 
@@ -550,17 +550,20 @@ function getCurrentBlogSlug() {
     if (slugNested.toLowerCase() === "index" || slugNested.toLowerCase() === "post") return null;
     return slugNested;
   }
+  var mFlat = p.match(/\/blog\/([^/]+)\.html$/i);
+  if (mFlat) {
+    var slugFlat = decodeURIComponent(mFlat[1]);
+    if (slugFlat.toLowerCase() === "index" || slugFlat.toLowerCase() === "post") return null;
+    return slugFlat;
+  }
   var mDir = p.match(/\/blog\/([^/]+)\/?$/i);
   if (mDir) {
     var slugDir = decodeURIComponent(mDir[1]);
     if (slugDir.toLowerCase() === "index" || slugDir.toLowerCase() === "post") return null;
+    if (/\.html$/i.test(slugDir)) return null;
     return slugDir;
   }
-  var mFlat = p.match(/\/blog\/([^/]+)\.html$/i);
-  if (!mFlat) return null;
-  var slugFlat = decodeURIComponent(mFlat[1]);
-  if (slugFlat.toLowerCase() === "index" || slugFlat.toLowerCase() === "post") return null;
-  return slugFlat;
+  return null;
 }
 
 function isBlogIndexPath() {
