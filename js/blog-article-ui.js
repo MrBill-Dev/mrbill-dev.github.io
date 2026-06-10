@@ -464,10 +464,37 @@ function initBlogMobileTextRhythm() {
   });
 }
 
+function initBlogDataTableLabels() {
+  var root = document.querySelector(".blog-main.blog-prose") || document;
+  root.querySelectorAll("table.blog-data-table").forEach(function (table) {
+    if (table.getAttribute("data-labels-ready") === "1") return;
+    var headerRow = table.querySelector("thead tr");
+    if (!headerRow) return;
+
+    var labels = [];
+    headerRow.querySelectorAll("th").forEach(function (th) {
+      labels.push(String(th.textContent || "").replace(/\s+/g, " ").trim());
+    });
+    if (!labels.length) return;
+
+    table.querySelectorAll("tbody tr").forEach(function (row) {
+      row.querySelectorAll("td").forEach(function (td, index) {
+        if (index >= labels.length || !labels[index]) return;
+        if (!td.getAttribute("data-label")) {
+          td.setAttribute("data-label", labels[index]);
+        }
+      });
+    });
+
+    table.setAttribute("data-labels-ready", "1");
+  });
+}
+
 function initBlogArticleUI(slug) {
   renderBlogAuthorCard("blog-article-author-slot");
   initBlogLikeButton(slug);
   initBlogFaqAccordion();
+  initBlogDataTableLabels();
   initBlogScrollReveal();
   initBlogBackToTop();
   initBlogMobileTextRhythm();
@@ -475,3 +502,4 @@ function initBlogArticleUI(slug) {
 
 window.initBlogArticleUI = initBlogArticleUI;
 window.initBlogFaqAccordion = initBlogFaqAccordion;
+window.initBlogDataTableLabels = initBlogDataTableLabels;
