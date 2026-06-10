@@ -253,11 +253,21 @@ function blogAuthorFormatProseText(text) {
   );
 }
 
+function blogAuthorAssetSrc(path) {
+  var raw = String(path || "").trim();
+  if (!raw || /^https?:\/\//i.test(raw) || raw.startsWith("data:")) return raw;
+  if (typeof blogAssetHref === "function") return blogAssetHref(raw);
+  var p = (window.location.pathname || "").replace(/\\/g, "/").toLowerCase();
+  if (/\/about\/(index\.html)?$/.test(p) || p.endsWith("/about/")) {
+    return "../" + raw.replace(/^\.\//, "");
+  }
+  return raw;
+}
+
 function blogAuthorAvatarHtml(author) {
   var path = (author && author.avatar) || "";
   if (path) {
-    var src =
-      typeof blogAssetHref === "function" ? blogAssetHref(path) : path;
+    var src = blogAuthorAssetSrc(path);
     var alt = (author.name || "Mr.Bill") + " 作者頭像";
     return (
       '<div class="blog-author-card__avatar">' +
@@ -274,19 +284,13 @@ function blogAuthorAvatarHtml(author) {
   );
 }
 
-function renderBlogAuthorCard(mountId) {
-  var mount = document.getElementById(mountId || "blog-article-author-slot");
-  if (!mount) return;
-
-  var author = BLOG_AUTHOR || {};
-  if (authorUsesSerifCopy(author)) ensureAuthorSerifFont();
+function buildBlogAuthorIdentityHtml(author, nameId) {
   var html =
-    '<section class="blog-author-card blog-reveal" id="blog-author" aria-labelledby="blog-author-name">' +
-    blogAuthorAvatarHtml(author) +
-    '<div class="blog-author-card__content">' +
     '<div class="blog-author-card__identity">' +
     '<p class="blog-author-card__label">關於作者</p>' +
-    '<p class="blog-author-card__name" id="blog-author-name">' +
+    '<p class="blog-author-card__name"' +
+    (nameId ? ' id="' + nameId + '"' : "") +
+    ">" +
     blogAuthorEscape(author.name) +
     "</p>";
 
@@ -297,12 +301,21 @@ function renderBlogAuthorCard(mountId) {
       "</p>";
   }
 
-  html += '</div><div class="blog-author-card__main">';
+  return html + "</div>";
+}
 
-  if (author.lead) {
+function buildBlogAuthorMainHtml(author, options) {
+  options = options || {};
+  var showBlockLabels = !!options.showBlockLabels;
+  var detailsMode = options.detailsMode || "collapse";
+  var html = "";
+
+  if (author.lead && !options.skipLead) {
     html +=
       '<div class="blog-author-card__zone">' +
-      '<p class="blog-author-card__block-label">經歷概覽</p>' +
+      (showBlockLabels
+        ? '<p class="blog-author-card__block-label">經歷概覽</p>'
+        : "") +
       '<p class="blog-author-card__lead">' +
       blogAuthorFormatProseText(author.lead) +
       "</p></div>";
@@ -311,15 +324,20 @@ function renderBlogAuthorCard(mountId) {
     var mottoHtml = blogAuthorFormatProseText(author.motto).replace(/\n/g, "<br />");
     html +=
       '<div class="blog-author-card__zone">' +
-      '<p class="blog-author-card__block-label">給讀者的話</p>' +
+      (showBlockLabels
+        ? '<p class="blog-author-card__block-label">給讀者的話</p>'
+        : "") +
       '<p class="blog-author-card__motto blog-author-card__serif">' +
       mottoHtml +
       "</p></div>";
   }
+
   var introParagraphs = blogAuthorIntroParagraphs(author.intro);
   if (introParagraphs.length) {
     html += '<div class="blog-author-card__intro">';
-    html += '<p class="blog-author-card__block-label">關於本站</p>';
+    if (showBlockLabels) {
+      html += '<p class="blog-author-card__block-label">關於本站</p>';
+    }
     introParagraphs.forEach(function (paragraph) {
       if (!paragraph) return;
       html +=
@@ -335,20 +353,174 @@ function renderBlogAuthorCard(mountId) {
     detailItems = [{ label: "", text: author.background }];
   }
   if (detailItems.length) {
+    if (detailsMode === "expand") {
+      html +=
+        '<div class="blog-author-card__details-section">' +
+        '<h2 class="blog-author-card__details-heading">背景與專長</h2>' +
+        '<div class="blog-author-card__details-grid">';
+      detailItems.forEach(function (item) {
+        html += blogAuthorDetailHtml(item);
+      });
+      html += "</div></div>";
+    } else {
+      html +=
+        '<details class="blog-author-card__more">' +
+        '<summary class="blog-author-card__more-toggle">' +
+        blogAuthorEscape(author.moreLabel || "更多背景") +
+        "</summary>" +
+        '<div class="blog-author-card__more-body">';
+      detailItems.forEach(function (item) {
+        html += blogAuthorDetailHtml(item);
+      });
+      html += "</div></details>";
+    }
+  }
+
+  return html;
+}
+
+function renderBlogAuthorCard(mountId) {
+  var mount = document.getElementById(mountId || "blog-article-author-slot");
+  if (!mount) return;
+
+  var author = BLOG_AUTHOR || {};
+  if (authorUsesSerifCopy(author)) ensureAuthorSerifFont();
+  var html =
+    '<section class="blog-author-card blog-reveal" id="blog-author" aria-labelledby="blog-author-name">' +
+    blogAuthorAvatarHtml(author) +
+    '<div class="blog-author-card__content">' +
+    buildBlogAuthorIdentityHtml(author, "blog-author-name") +
+    '<div class="blog-author-card__main">' +
+    buildBlogAuthorMainHtml(author, { detailsMode: "collapse" }) +
+    "</div></div></section>";
+  mount.innerHTML = html;
+}
+
+function renderAboutPageHero(mountId) {
+  var mount = document.getElementById(mountId || "about-hero-slot");
+  if (!mount) return;
+
+  var author = BLOG_AUTHOR || {};
+  if (authorUsesSerifCopy(author)) ensureAuthorSerifFont();
+  var html =
+    '<div class="about-hero__editorial about-hero__profile about-hero__profile--animate">' +
+    '<div class="about-hero__portrait">' +
+    blogAuthorAvatarHtml(author) +
+    "</div>" +
+    '<div class="about-hero__identity">' +
+    '<p class="about-hero__eyebrow">About the Creator</p>' +
+    '<h1 class="about-hero__title" id="blog-author-name">' +
+    '<span>Mr.</span><span>Bill</span>' +
+    "</h1>";
+
+  if (author.lead) {
     html +=
-      '<details class="blog-author-card__more">' +
-      '<summary class="blog-author-card__more-toggle">' +
-      blogAuthorEscape(author.moreLabel || "更多背景") +
-      "</summary>" +
-      '<div class="blog-author-card__more-body">';
+      '<p class="about-hero__lead">' +
+      blogAuthorFormatProseText(author.lead) +
+      "</p>";
+  }
+
+  html +=
+    "</div>" +
+    '<aside class="about-hero__aside" aria-label="作者重點">' +
+    '<p class="about-hero__aside-kicker">20 YEARS</p>' +
+    '<p class="about-hero__aside-text">網站企劃・前端實務・SEO/GEO・AI 工作流</p>' +
+    "</aside>";
+
+  mount.innerHTML = html + "</div>";
+}
+
+function aboutSectionHeadHtml(index, title, desc, opts) {
+  opts = opts || {};
+  var centerClass = opts.center ? " about-section__head--center" : "";
+  var eyebrow = opts.eyebrow || "Section";
+  var html =
+    '<header class="about-section__head' +
+    centerClass +
+    '">' +
+    '<p class="about-section__eyebrow">' +
+    '<span class="about-section__eyebrow-num">' +
+    index +
+    "</span>" +
+    blogAuthorEscape(eyebrow) +
+    "</p>" +
+    '<h2 class="about-section__title">' +
+    blogAuthorEscape(title) +
+    "</h2>";
+  if (desc) {
+    html +=
+      '<p class="about-section__desc">' + blogAuthorEscape(desc) + "</p>";
+  }
+  return html + "</header>";
+}
+
+function buildBlogAuthorAboutBandsHtml(author) {
+  var html =
+    '<section class="blog-author-card blog-author-card--page blog-reveal" id="blog-author" aria-labelledby="blog-author-name">' +
+    '<div class="about-document">';
+
+  if (author.motto) {
+    var mottoHtml = blogAuthorFormatProseText(author.motto).replace(/\n/g, "<br />");
+    html +=
+      '<section class="about-band about-band--motto">' +
+      '<div class="about-band__rail"><span>01</span><small>Manifesto</small></div>' +
+      aboutSectionHeadHtml("01", "給讀者的話", "這個網站想傳達的核心", { center: true, eyebrow: "Opening Note" }) +
+      '<div class="about-section__body">' +
+      '<blockquote class="about-quote blog-author-card__serif">' +
+      mottoHtml +
+      "</blockquote></div></section>";
+  }
+
+  var introParagraphs = blogAuthorIntroParagraphs(author.intro);
+  if (introParagraphs.length) {
+    html +=
+      '<section class="about-band about-band--intro">' +
+      '<div class="about-band__rail"><span>02</span><small>Studio</small></div>' +
+      aboutSectionHeadHtml("02", "關於本站", "Mr.Bill 數位實驗室在做什麼", { eyebrow: "Digital Lab" }) +
+      '<div class="about-section__body about-prose">';
+    introParagraphs.forEach(function (paragraph) {
+      if (!paragraph) return;
+      html +=
+        '<p class="blog-author-card__bio">' +
+        blogAuthorFormatProseText(paragraph) +
+        "</p>";
+    });
+    html += "</div></section>";
+  }
+
+  var detailItems = author.details || [];
+  if (!detailItems.length && author.background) {
+    detailItems = [{ label: "", text: author.background }];
+  }
+  if (detailItems.length) {
+    html +=
+      '<section class="about-band about-band--skills">' +
+      '<div class="about-band__rail"><span>03</span><small>Practice</small></div>' +
+      aboutSectionHeadHtml("03", "背景與專長", "累積的實務方向與經驗整理", { eyebrow: "Experience" }) +
+      '<div class="about-section__body">' +
+      '<div class="blog-author-card__details-grid about-skills-flow">';
     detailItems.forEach(function (item) {
       html += blogAuthorDetailHtml(item);
     });
-    html += "</div></details>";
+    html += "</div></div></section>";
   }
 
-  html += "</div></div></section>";
-  mount.innerHTML = html;
+  return html + "</div></section>";
+}
+
+function renderBlogAuthorAboutContent(mountId) {
+  var mount = document.getElementById(mountId || "about-author-slot");
+  if (!mount) return;
+
+  var author = BLOG_AUTHOR || {};
+  if (authorUsesSerifCopy(author)) ensureAuthorSerifFont();
+  mount.innerHTML = buildBlogAuthorAboutBandsHtml(author);
+}
+
+function initAboutAuthorPage() {
+  renderAboutPageHero("about-hero-slot");
+  renderBlogAuthorAboutContent("about-author-slot");
+  initBlogScrollReveal();
 }
 
 var BLOG_LIKE_HEART_OUTLINE =
@@ -548,5 +720,6 @@ function initBlogArticleUI(slug) {
 }
 
 window.initBlogArticleUI = initBlogArticleUI;
+window.initAboutAuthorPage = initAboutAuthorPage;
 window.initBlogFaqAccordion = initBlogFaqAccordion;
 window.initBlogDataTableLabels = initBlogDataTableLabels;
