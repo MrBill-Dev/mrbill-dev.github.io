@@ -4,60 +4,93 @@
 var BLOG_AUTHOR = {
   name: "Mr.Bill",
   avatar: "assets/mrbill-author-avatar.png",
-  motto: "無論你是學生、上班族或創作者，\n願你在這裡找到能帶著走、對自己有幫助的內容。",
-  tagline: "十多年網頁前端實務 · 本站 SEO/GEO 落地 · AI 應用深化",
-  intro:
-    "做網頁前端超過十年，從切版、RWD、互動元件到改版維護與上線後調校都實際做過。本站是我個人經營：除了維護心得，也把自己在本站跑通、可對照工具驗證的 SEO／GEO 做法，以及 prompt、工作流、AI 與網站整合等較深一層的試做，整理成「真的做過、踩過坑」的紀錄。",
+  tagline:
+    "約 20 年網站相關經驗 · 十多年網頁前端實務 · 本站 SEO/GEO 落地 · AI 應用深化",
+  lead: "把網站、設計、AI 與影像創作，整理成看得懂、做得到、能帶著走的實用內容。",
+  motto:
+    "無論你是學生、上班族、家長或創作者，\n願你在這裡找到對自己有幫助，也能實際應用的方法。",
+  intro: [
+    "從學生時代開始接觸網站企劃與製作，至今累積約 20 年網站相關經驗；正式投入前端、網站維護、RWD、互動元件、內容上線與改版協作等實務工作，也已超過十多年。",
+    "本站是我個人經營的數位實驗室，主要整理自己做過、測過、踩過坑的前端、SEO/GEO、AI 工作流、設計與影像創作經驗。希望這裡不是只放觀念，也不是只貼工具指令，而是把「為什麼這樣做」、「實際怎麼做」、「哪裡容易失敗」一起整理出來。"
+  ],
   moreLabel: "更多背景與專長",
   details: [
     {
-      label: "學歷",
-      text: "國立海山高工機械製圖科；萬能科技大學紡織系纖維科技組。"
+      label: "學歷背景",
+      items: [
+        "國立海山高工機械製圖科",
+        "萬能科技大學紡織系纖維科技組"
+      ],
+      text:
+        "機械製圖與纖維科技的背景，讓我習慣從結構、比例、材料與流程角度拆解問題，這也影響後來在網頁、設計與影像工作上的判斷方式。"
     },
     {
       label: "前端與網站",
+      items: [
+        "約 20 年網站企劃、製作與維護相關經驗",
+        "十多年正式網頁前端、網站維護與企劃實務",
+        "熟悉 RWD 切版、UI 介面、互動元件與活動頁製作",
+        "接觸 ASP、ASP.NET、PHP 等網站環境整合",
+        "前端實作包含 JavaScript、jQuery、Vue 等技術"
+      ],
       text:
-        "網頁設計與維護、UI、RWD 切版、網站企劃與行銷。技術面橫跨 ASP、ASP.NET、PHP 後台整合，以及 JavaScript、jQuery、Vue 等前端實作——從早期全站維護到現行改版都實際做過。"
+        "我更在意的是：網站不只是做得漂亮，而是要能被看懂、能被操作、能被搜尋，也能協助內容或服務真正被使用者找到。"
     },
     {
       label: "SEO / GEO 實務",
+      items: [
+        "本站作為 SEO/GEO 實驗與驗證場域",
+        "實作 title、description、canonical、sitemap、OG 分享預覽",
+        "建置 Article／FAQ 結構化資料",
+        "規劃內鏈架構與 AI 摘要友善內容結構",
+        "透過 Search Console 與分享偵錯工具持續對照結果"
+      ],
       text:
-        "在本站完成並驗證一輪可複製流程：分頁 title 與 description、Article／FAQ 結構化資料、canonical、動態 sitemap、OG 分享預覽，以及面向 AI 摘要與生成式搜尋的內容結構（段落層次、FAQ、實作案例、內鏈叢集）。可在 Search Console 與 Meta 分享偵錯工具對照——不是只改 meta 而不追收錄與分享結果。"
+        "我不把 SEO 當成只改 meta，而是把內容結構、搜尋意圖、頁面體驗、收錄狀態與分享結果一起看。對我來說，SEO/GEO 不是單一設定，而是一整套從內容、結構、技術到驗證的持續調整流程。"
     },
     {
-      label: "AI 應用與技術",
+      label: "AI 應用、自動化與 Agent",
+      items: [
+        "研究 prompt 分級、多步驟工作流與 AI 協作方法",
+        "應用於內容整理、文章規劃、前端輔助與互動元件設計",
+        "嘗試 AI 與網站／CMS 流程整合，包含內容產出、資料整理與上線前檢查",
+        "探索自動化流程與 Agent 應用，讓重複性工作能被拆解、串接與半自動執行",
+        "文章盡量保留步驟、限制、判斷點與可調整參數"
+      ],
       text:
-        "不只停留在「會用 ChatGPT 問問題」，也在做 prompt 分級、多步工作流、與前端／CMS 的整合規劃——例如內容產出、批改輔助、互動元件試做。文章會盡量寫到步驟、限制與可改參數，方便你依自己的情境重跑，而不是只貼指令範本。"
+        "我希望讀者不是只複製一段指令，而是能理解背後邏輯，再依自己的情境重新應用。AI 對我來說不是取代專業，而是把原本的企劃、設計、前端、內容與維護流程重新拆解，進一步加速、驗證與自動化。"
     },
     {
       label: "設計與工程",
-      text: "美術視覺、3D 角色、工業設計、機構與硬體工程。"
+      items: [
+        "接觸平面設計、網頁美術與視覺排版",
+        "曾接觸 3D 角色、工業設計、機構與硬體工程",
+        "重視結構邏輯、視覺比例、使用者感受與實際落地"
+      ],
+      text:
+        "這些跨域背景讓我在處理網站、設計與 AI 工具時，比較習慣用「拆解、整合、驗證」的方式完成作品。"
     },
     {
       label: "影像創作",
-      text: "微電影製作與婚禮攝影；從取景構圖、敘事節奏到後期調色，與網頁視覺、UI 的工作有相通的審美與執行經驗。"
+      items: [
+        "微電影製作與婚禮攝影經驗",
+        "熟悉取景構圖、光線判斷、敘事節奏與後期調色",
+        "將攝影與視覺經驗延伸到網站 UI、內容編排與品牌形象"
+      ],
+      text:
+        "對我來說，影像、設計與前端不是分開的技能，而是可以互相串聯的表達方法。好的網站不只需要技術，也需要畫面感、節奏感與讓人願意繼續閱讀的內容安排。"
     },
     {
       label: "現階段",
-      text: "前端維護仍是主要工作；其餘時間投入本站 SEO/GEO 優化、AI 工作流試做與文章整理，把做完、驗過、能帶著走的做法公開出來。"
+      items: [
+        "前端維護與網站相關工作仍是主要實務核心",
+        "持續投入本站 SEO/GEO 優化",
+        "試做 AI 工作流、互動元件與教學內容",
+        "將做完、驗過、能帶著走的經驗整理公開"
+      ],
+      text:
+        "希望這個網站能慢慢累積成一個給學生、家長、創作者與數位工作者參考的實用筆記庫。"
     }
-  ],
-  tags: [
-    "前端維護",
-    "JavaScript",
-    "Vue",
-    "jQuery",
-    "PHP",
-    "ASP.NET",
-    "RWD",
-    "UI",
-    "SEO",
-    "GEO",
-    "JSON-LD",
-    "AI 工作流",
-    "Prompt",
-    "微電影",
-    "婚禮攝影"
   ]
 };
 
@@ -128,7 +161,7 @@ function blogAuthorEscape(str) {
     .replace(/"/g, "&quot;");
 }
 
-function ensureAuthorMottoFont() {
+function ensureAuthorSerifFont() {
   if (document.querySelector('link[href*="Noto+Serif+TC"]')) return;
   var href = "https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&display=swap";
   var pre1 = document.createElement("link");
@@ -144,6 +177,45 @@ function ensureAuthorMottoFont() {
   link.rel = "stylesheet";
   link.href = href;
   document.head.appendChild(link);
+}
+
+function authorUsesSerifCopy(author) {
+  return !!(author.tagline || author.lead || author.motto);
+}
+
+function blogAuthorDetailHtml(item) {
+  var html = '<div class="blog-author-card__detail">';
+  if (item.label) {
+    html +=
+      '<p class="blog-author-card__section-label">' +
+      blogAuthorEscape(item.label) +
+      "</p>";
+  }
+  var list = item.items || [];
+  if (list.length) {
+    html += '<ul class="blog-author-card__list">';
+    list.forEach(function (line) {
+      html += "<li>" + blogAuthorEscape(line) + "</li>";
+    });
+    html += "</ul>";
+  }
+  if (item.text) {
+    html +=
+      '<p class="blog-author-card__section-text">' +
+      blogAuthorEscape(item.text) +
+      "</p>";
+  } else if (!list.length && item.background) {
+    html +=
+      '<p class="blog-author-card__section-text">' +
+      blogAuthorEscape(item.background) +
+      "</p>";
+  }
+  return html + "</div>";
+}
+
+function blogAuthorIntroParagraphs(intro) {
+  if (!intro) return [];
+  return Array.isArray(intro) ? intro : [intro];
 }
 
 function blogAuthorAvatarHtml(author) {
@@ -172,7 +244,7 @@ function renderBlogAuthorCard(mountId) {
   if (!mount) return;
 
   var author = BLOG_AUTHOR || {};
-  if (author.motto) ensureAuthorMottoFont();
+  if (authorUsesSerifCopy(author)) ensureAuthorSerifFont();
   var html =
     '<section class="blog-author-card blog-reveal" id="blog-author" aria-labelledby="blog-author-name">' +
     blogAuthorAvatarHtml(author) +
@@ -185,24 +257,37 @@ function renderBlogAuthorCard(mountId) {
 
   if (author.tagline) {
     html +=
-      '<p class="blog-author-card__tagline">' + blogAuthorEscape(author.tagline) + "</p>";
+      '<p class="blog-author-card__tagline blog-author-card__serif">' +
+      blogAuthorEscape(author.tagline) +
+      "</p>";
   }
 
-  html += "</div><div class=\"blog-author-card__main\">";
+  html += '</div><div class="blog-author-card__main">';
 
+  if (author.lead) {
+    html +=
+      '<p class="blog-author-card__lead blog-author-card__serif">' +
+      blogAuthorEscape(author.lead) +
+      "</p>";
+  }
   if (author.motto) {
     var mottoHtml = blogAuthorEscape(author.motto).replace(/\n/g, "<br />");
     html +=
-      '<p class="blog-author-card__motto">' + mottoHtml + "</p>";
+      '<p class="blog-author-card__motto blog-author-card__serif">' +
+      mottoHtml +
+      "</p>";
   }
-  if (author.intro) {
-    html += '<p class="blog-author-card__bio">' + blogAuthorEscape(author.intro) + "</p>";
-  }
+  blogAuthorIntroParagraphs(author.intro).forEach(function (paragraph) {
+    if (!paragraph) return;
+    html +=
+      '<p class="blog-author-card__bio">' + blogAuthorEscape(paragraph) + "</p>";
+  });
+
   var detailItems = author.details || [];
   if (!detailItems.length && author.background) {
     detailItems = [{ label: "", text: author.background }];
   }
-  if (detailItems.length || (author.tags && author.tags.length)) {
+  if (detailItems.length) {
     html +=
       '<details class="blog-author-card__more">' +
       '<summary class="blog-author-card__more-toggle">' +
@@ -210,26 +295,8 @@ function renderBlogAuthorCard(mountId) {
       "</summary>" +
       '<div class="blog-author-card__more-body">';
     detailItems.forEach(function (item) {
-      html += '<div class="blog-author-card__detail">';
-      if (item.label) {
-        html +=
-          '<p class="blog-author-card__section-label">' +
-          blogAuthorEscape(item.label) +
-          "</p>";
-      }
-      html +=
-        '<p class="blog-author-card__section-text">' +
-        blogAuthorEscape(item.text) +
-        "</p></div>";
+      html += blogAuthorDetailHtml(item);
     });
-    if (author.tags && author.tags.length) {
-      html += '<div class="blog-author-card__tags" aria-label="相關領域">';
-      author.tags.forEach(function (tag) {
-        html +=
-          '<span class="blog-author-card__tag">' + blogAuthorEscape(tag) + "</span>";
-      });
-      html += "</div>";
-    }
     html += "</div></details>";
   }
 
