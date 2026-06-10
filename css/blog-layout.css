@@ -1487,6 +1487,12 @@ body.blog-title-font-serif
   color: #0f172a;
 }
 
+.blog-main.blog-prose section.text-white > h2,
+.blog-main.blog-prose section.text-white > h3,
+.blog-main.blog-prose .blog-dark-panel h2 {
+  color: #fff;
+}
+
 .blog-faq {
   max-width: 100%;
 }
