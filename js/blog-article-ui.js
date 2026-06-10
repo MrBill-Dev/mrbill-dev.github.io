@@ -4,9 +4,9 @@
 var BLOG_AUTHOR = {
   name: "Mr.Bill",
   avatar: "assets/mrbill-author-avatar.png",
-  tagline:
-    "約 20 年網站相關經驗 · 十多年網頁前端實務 · SEO/GEO 實作 · AI 自動化與 Agent 應用 · 影像創作",
-  lead: "把網站、設計、AI 與影像創作，整理成看得懂、做得到、能帶著走的實用內容。",
+  tagline: "",
+  lead:
+    "從網站企劃、前端實務、SEO/GEO，到 AI 自動化、Agent 應用與影像創作，我累積約 20 年網站相關經驗，並把這些做過、測過、踩過坑的內容，整理成看得懂、做得到、能帶著走的實用方法。",
   motto:
     "無論你是學生、上班族、家長或創作者，願你在這裡找到對自己有幫助，也能實際應用的方法。",
   intro: [
@@ -301,24 +301,34 @@ function renderBlogAuthorCard(mountId) {
 
   if (author.lead) {
     html +=
-      '<p class="blog-author-card__lead blog-author-card__serif">' +
+      '<div class="blog-author-card__zone">' +
+      '<p class="blog-author-card__block-label">經歷概覽</p>' +
+      '<p class="blog-author-card__lead">' +
       blogAuthorFormatProseText(author.lead) +
-      "</p>";
+      "</p></div>";
   }
   if (author.motto) {
     var mottoHtml = blogAuthorFormatProseText(author.motto).replace(/\n/g, "<br />");
     html +=
+      '<div class="blog-author-card__zone">' +
+      '<p class="blog-author-card__block-label">給讀者的話</p>' +
       '<p class="blog-author-card__motto blog-author-card__serif">' +
       mottoHtml +
-      "</p>";
+      "</p></div>";
   }
-  blogAuthorIntroParagraphs(author.intro).forEach(function (paragraph) {
-    if (!paragraph) return;
-    html +=
-      '<p class="blog-author-card__bio">' +
-      blogAuthorFormatProseText(paragraph) +
-      "</p>";
-  });
+  var introParagraphs = blogAuthorIntroParagraphs(author.intro);
+  if (introParagraphs.length) {
+    html += '<div class="blog-author-card__intro">';
+    html += '<p class="blog-author-card__block-label">關於本站</p>';
+    introParagraphs.forEach(function (paragraph) {
+      if (!paragraph) return;
+      html +=
+        '<p class="blog-author-card__bio">' +
+        blogAuthorFormatProseText(paragraph) +
+        "</p>";
+    });
+    html += "</div>";
+  }
 
   var detailItems = author.details || [];
   if (!detailItems.length && author.background) {
