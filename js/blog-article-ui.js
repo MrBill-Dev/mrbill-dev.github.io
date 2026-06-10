@@ -403,7 +403,7 @@ function renderAboutPageHero(mountId) {
   var author = BLOG_AUTHOR || {};
   if (authorUsesSerifCopy(author)) ensureAuthorSerifFont();
   var html =
-    '<div class="about-hero__editorial about-hero__profile about-hero__profile--animate">' +
+    '<div class="about-hero__editorial about-hero__profile">' +
     '<div class="about-hero__head">' +
     '<div class="about-hero__portrait">' +
     blogAuthorAvatarHtml(author) +
@@ -428,7 +428,7 @@ function renderAboutPageHero(mountId) {
     '<p class="about-hero__aside-text">網站企劃・前端實務・SEO/GEO・AI 工作流</p>' +
     "</aside>";
 
-  mount.innerHTML = html + "</div>";
+  mount.innerHTML = html.replace(/loading="lazy"/g, 'loading="eager"') + "</div>";
 }
 
 function aboutSectionHeadHtml(index, title, desc, opts) {
@@ -457,7 +457,7 @@ function aboutSectionHeadHtml(index, title, desc, opts) {
 
 function buildBlogAuthorAboutBandsHtml(author) {
   var html =
-    '<section class="blog-author-card blog-author-card--page blog-reveal" id="blog-author" aria-labelledby="blog-author-name">' +
+    '<section class="blog-author-card blog-author-card--page" id="blog-author" aria-labelledby="blog-author-name">' +
     '<div class="about-document">';
 
   if (author.motto) {
@@ -521,7 +521,6 @@ function renderBlogAuthorAboutContent(mountId) {
 function initAboutAuthorPage() {
   renderAboutPageHero("about-hero-slot");
   renderBlogAuthorAboutContent("about-author-slot");
-  initBlogScrollReveal();
 }
 
 var BLOG_LIKE_HEART_OUTLINE =
