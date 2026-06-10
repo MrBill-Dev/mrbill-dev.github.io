@@ -395,13 +395,13 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/components-loader.js"></script>\n' +
     '  <script src="../../js/mrbill-admin-session.js"></script>\n' +
     '  <script src="../../js/blog-articles.config.js"></script>\n' +
-    '  <script src="../../js/blog-articles.js?v=author-profile-8"></script>\n' +
+    '  <script src="../../js/blog-articles.js?v=author-profile-9"></script>\n' +
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
-    '  <script src="../../js/blog-article-ui.js?v=author-profile-8"></script>\n' +
+    '  <script src="../../js/blog-article-ui.js?v=author-profile-9"></script>\n' +
     quizAssets +
     BLOG_SERIF_FONT_HEAD +
-    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=author-profile-8" />\n' +
+    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=author-profile-9" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; max-width: 100%; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; overflow-x: clip; max-width: 100%; }\n' +

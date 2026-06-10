@@ -176,20 +176,24 @@ function renderBlogAuthorCard(mountId) {
   var html =
     '<section class="blog-author-card blog-reveal" id="blog-author" aria-labelledby="blog-author-name">' +
     blogAuthorAvatarHtml(author) +
-    '<div class="blog-author-card__body">' +
+    '<div class="blog-author-card__content">' +
+    '<div class="blog-author-card__identity">' +
     '<p class="blog-author-card__label">關於作者</p>' +
     '<p class="blog-author-card__name" id="blog-author-name">' +
     blogAuthorEscape(author.name) +
     "</p>";
 
+  if (author.tagline) {
+    html +=
+      '<p class="blog-author-card__tagline">' + blogAuthorEscape(author.tagline) + "</p>";
+  }
+
+  html += "</div><div class=\"blog-author-card__main\">";
+
   if (author.motto) {
     var mottoHtml = blogAuthorEscape(author.motto).replace(/\n/g, "<br />");
     html +=
       '<p class="blog-author-card__motto">' + mottoHtml + "</p>";
-  }
-  if (author.tagline) {
-    html +=
-      '<p class="blog-author-card__tagline">' + blogAuthorEscape(author.tagline) + "</p>";
   }
   if (author.intro) {
     html += '<p class="blog-author-card__bio">' + blogAuthorEscape(author.intro) + "</p>";
@@ -229,7 +233,7 @@ function renderBlogAuthorCard(mountId) {
     html += "</div></details>";
   }
 
-  html += "</div></section>";
+  html += "</div></div></section>";
   mount.innerHTML = html;
 }
 
