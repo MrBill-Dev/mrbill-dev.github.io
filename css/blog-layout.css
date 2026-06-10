@@ -2462,7 +2462,13 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
   margin: 0 0 0.75rem;
   word-break: keep-all;
   overflow-wrap: break-word;
+  line-break: strict;
   text-wrap: pretty;
+  hanging-punctuation: allow-end;
+}
+
+.blog-author-card__nowrap {
+  white-space: nowrap;
 }
 
 .blog-author-card__section--current {
@@ -2817,7 +2823,12 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
 
   .blog-author-card__bio {
     font-size: 0.9rem;
-    line-height: 1.85;
+    line-height: 1.8;
+    letter-spacing: 0.01em;
+  }
+
+  .blog-author-card__bio:last-child {
+    margin-bottom: 0;
   }
 
   .blog-author-card__section-text {

@@ -195,19 +195,19 @@ function blogAuthorDetailHtml(item) {
   if (list.length) {
     html += '<ul class="blog-author-card__list">';
     list.forEach(function (line) {
-      html += "<li>" + blogAuthorEscape(line) + "</li>";
+      html += "<li>" + blogAuthorFormatProseText(line) + "</li>";
     });
     html += "</ul>";
   }
   if (item.text) {
     html +=
       '<p class="blog-author-card__section-text">' +
-      blogAuthorEscape(item.text) +
+      blogAuthorFormatProseText(item.text) +
       "</p>";
   } else if (!list.length && item.background) {
     html +=
       '<p class="blog-author-card__section-text">' +
-      blogAuthorEscape(item.background) +
+      blogAuthorFormatProseText(item.background) +
       "</p>";
   }
   return html + "</div>";
@@ -216,6 +216,38 @@ function blogAuthorDetailHtml(item) {
 function blogAuthorIntroParagraphs(intro) {
   if (!intro) return [];
   return Array.isArray(intro) ? intro : [intro];
+}
+
+function blogAuthorFormatProseText(text) {
+  var raw = String(text || "");
+  raw = raw.replace(/約\s+(\d+)\s+年/g, "約\u00A0$1\u00A0年");
+  raw = raw.replace(/(\d+)\s+年/g, "$1\u00A0年");
+
+  var acronyms = [
+    "SEO/GEO",
+    "JSON-LD",
+    "ASP.NET",
+    "RWD",
+    "CMS",
+    "PHP",
+    "Vue",
+    "AI"
+  ];
+  acronyms.sort(function (a, b) {
+    return b.length - a.length;
+  });
+  acronyms.forEach(function (term) {
+    var re = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
+    raw = raw.replace(re, function (match) {
+      return "\uE000" + match + "\uE001";
+    });
+  });
+
+  var escaped = blogAuthorEscape(raw);
+  return escaped.replace(
+    /\uE000([^\uE001]+)\uE001/g,
+    '<span class="blog-author-card__nowrap">$1</span>'
+  );
 }
 
 function blogAuthorAvatarHtml(author) {
@@ -258,7 +290,7 @@ function renderBlogAuthorCard(mountId) {
   if (author.tagline) {
     html +=
       '<p class="blog-author-card__tagline blog-author-card__serif">' +
-      blogAuthorEscape(author.tagline) +
+      blogAuthorFormatProseText(author.tagline) +
       "</p>";
   }
 
@@ -267,11 +299,11 @@ function renderBlogAuthorCard(mountId) {
   if (author.lead) {
     html +=
       '<p class="blog-author-card__lead blog-author-card__serif">' +
-      blogAuthorEscape(author.lead) +
+      blogAuthorFormatProseText(author.lead) +
       "</p>";
   }
   if (author.motto) {
-    var mottoHtml = blogAuthorEscape(author.motto).replace(/\n/g, "<br />");
+    var mottoHtml = blogAuthorFormatProseText(author.motto).replace(/\n/g, "<br />");
     html +=
       '<p class="blog-author-card__motto blog-author-card__serif">' +
       mottoHtml +
@@ -280,7 +312,9 @@ function renderBlogAuthorCard(mountId) {
   blogAuthorIntroParagraphs(author.intro).forEach(function (paragraph) {
     if (!paragraph) return;
     html +=
-      '<p class="blog-author-card__bio">' + blogAuthorEscape(paragraph) + "</p>";
+      '<p class="blog-author-card__bio">' +
+      blogAuthorFormatProseText(paragraph) +
+      "</p>";
   });
 
   var detailItems = author.details || [];
