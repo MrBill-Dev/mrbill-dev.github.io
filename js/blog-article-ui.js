@@ -404,6 +404,7 @@ function renderAboutPageHero(mountId) {
   if (authorUsesSerifCopy(author)) ensureAuthorSerifFont();
   var html =
     '<div class="about-hero__editorial about-hero__profile about-hero__profile--animate">' +
+    '<div class="about-hero__head">' +
     '<div class="about-hero__portrait">' +
     blogAuthorAvatarHtml(author) +
     "</div>" +
@@ -412,7 +413,7 @@ function renderAboutPageHero(mountId) {
     '<h1 class="about-hero__title" id="blog-author-name">' +
     '<span>Mr.</span><span>Bill</span>' +
     "</h1>" +
-    "</div>";
+    "</div></div>";
 
   if (author.lead) {
     html +=
