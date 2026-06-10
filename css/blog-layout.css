@@ -4331,6 +4331,49 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
   visibility: visible !important;
 }
 
+.about-page-shell .about-hero__inner,
+.about-page-shell #about-hero-slot,
+.about-page-shell #about-author-slot,
+.about-page-shell .about-hero__editorial,
+.about-page-shell .about-hero__head,
+.about-page-shell .about-hero__identity,
+.about-page-shell .about-hero__lead,
+.about-page-shell .about-hero__aside,
+.about-page-shell .about-document,
+.about-page-shell .about-band,
+.about-page-shell .about-section__head,
+.about-page-shell .about-section__body,
+.about-page-shell .blog-author-card--page,
+.about-page-shell .blog-author-card--page .blog-author-card__detail {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.about-page-shell .about-hero__inner,
+.about-page-shell #about-hero-slot,
+.about-page-shell #about-author-slot {
+  width: 100%;
+}
+
+.about-page-shell .about-hero__lead,
+.about-page-shell .about-hero__aside-text,
+.about-page-shell .about-section__title,
+.about-page-shell .about-section__desc,
+.about-page-shell .about-quote,
+.about-page-shell .blog-author-card--page .blog-author-card__bio,
+.about-page-shell .blog-author-card--page .blog-author-card__section-text,
+.about-page-shell .blog-author-card--page .blog-author-card__list li,
+.about-page-shell .blog-author-card--page .blog-author-card__section-label {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-break: auto;
+}
+
+.about-page-shell .blog-author-card__nowrap {
+  white-space: normal;
+}
+
 @media (min-width: 768px) {
   .blog-author-card:not(.blog-author-card--page) {
     display: grid;
