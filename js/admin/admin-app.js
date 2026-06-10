@@ -1334,33 +1334,92 @@
     return Array.isArray(list) ? list : [];
   }
 
+  function splitSeedDrafts(articles) {
+    var drafts = getPendingSeedDrafts();
+    var existing = {};
+    (articles || []).forEach(function (row) {
+      if (row && row.slug) existing[row.slug] = row;
+    });
+    var toCreate = [];
+    var toUpdate = [];
+    drafts.forEach(function (d) {
+      if (!d || !d.slug) return;
+      if (existing[d.slug]) toUpdate.push({ seed: d, existing: existing[d.slug] });
+      else toCreate.push(d);
+    });
+    return { toCreate: toCreate, toUpdate: toUpdate };
+  }
+
+  function buildSeedUpdateBody(seed, existing) {
+    return {
+      slug: seed.slug,
+      title: seed.title,
+      subtitle: seed.subtitle || "",
+      excerpt: seed.excerpt || "",
+      label: seed.label || "",
+      audience: seed.audience || "",
+      category: seed.category || "",
+      author: seed.author || existing.author || "Mr.Bill",
+      date: seed.date || existing.date || "",
+      readMins: seed.readMins || existing.readMins || 5,
+      tags: seed.tags || [],
+      relatedSlugs: seed.relatedSlugs || [],
+      contentHtml: seed.contentHtml || "",
+      status: existing.status || "draft",
+      publishedAt: existing.publishedAt || null,
+      listStyle: existing.listStyle || "auto",
+      titleFont: existing.titleFont || seed.titleFont || "sans",
+      cover: existing.cover || seed.cover || "",
+      sortOrder: existing.sortOrder || 0,
+      pinned: !!existing.pinned,
+      featured: !!existing.featured,
+      badgePopular: !!existing.badgePopular,
+      badgeTrending: !!existing.badgeTrending,
+      homeMarquee: !!existing.homeMarquee,
+      homeCarousel: !!existing.homeCarousel
+    };
+  }
+
   function updateSeedImportUi(articles) {
     var drafts = getPendingSeedDrafts();
     if (!drafts.length) return;
-    var existing = {};
-    (articles || []).forEach(function (row) {
-      if (row && row.slug) existing[row.slug] = true;
-    });
-    var pending = drafts.filter(function (d) {
-      return d && d.slug && !existing[d.slug];
-    });
+    var split = splitSeedDrafts(articles);
+    var hasWork = split.toCreate.length > 0 || split.toUpdate.length > 0;
     if (els.importSeedsBtn) {
-      els.importSeedsBtn.classList.toggle("hidden", pending.length === 0);
-      els.importSeedsBtn.textContent =
-        pending.length > 1
-          ? "匯入種子草稿（" + pending.length + "）"
-          : "匯入種子草稿";
+      els.importSeedsBtn.classList.toggle("hidden", !hasWork);
+      if (split.toCreate.length && split.toUpdate.length) {
+        els.importSeedsBtn.textContent =
+          "匯入／更新種子（新 " + split.toCreate.length + "、更新 " + split.toUpdate.length + "）";
+      } else if (split.toUpdate.length) {
+        els.importSeedsBtn.textContent =
+          split.toUpdate.length > 1
+            ? "更新種子內容（" + split.toUpdate.length + "）"
+            : "更新種子內容";
+      } else {
+        els.importSeedsBtn.textContent =
+          split.toCreate.length > 1
+            ? "匯入種子草稿（" + split.toCreate.length + "）"
+            : "匯入種子草稿";
+      }
     }
     if (els.seedImportHint) {
-      if (pending.length === 0) {
+      if (!hasWork) {
         els.seedImportHint.classList.add("hidden");
         els.seedImportHint.textContent = "";
       } else {
         els.seedImportHint.classList.remove("hidden");
-        els.seedImportHint.textContent =
-          "有 " +
-          pending.length +
-          " 篇已轉好版型、尚未寫入後端。點「匯入種子草稿」後左側列表會出現，再用預覽檢查。";
+        var hint = "";
+        if (split.toCreate.length) {
+          hint += split.toCreate.length + " 篇尚未寫入後端。";
+        }
+        if (split.toUpdate.length) {
+          hint +=
+            (hint ? " " : "") +
+            split.toUpdate.length +
+            " 篇可從種子更新正文（保留狀態、字體、封面設定）。";
+        }
+        hint += " 樣式改 blog-layout.css 後 Ctrl+F5 即可，不必刪除重匯。";
+        els.seedImportHint.textContent = hint;
       }
     }
   }
@@ -1379,44 +1438,54 @@
     setStatus("匯入中…");
     api("/api/admin/articles")
       .then(function (data) {
-        var existing = {};
-        (data.articles || []).forEach(function (row) {
-          if (row && row.slug) existing[row.slug] = true;
-        });
-        var pending = drafts.filter(function (d) {
-          return d && d.slug && !existing[d.slug];
-        });
-        if (!pending.length) {
+        var split = splitSeedDrafts(data.articles || []);
+        if (!split.toCreate.length && !split.toUpdate.length) {
           updateSeedImportUi(data.articles || []);
-          setStatus("種子草稿皆已在後端，無需重複匯入");
+          setStatus("種子已是最新，無需更新");
           return null;
         }
         var chain = Promise.resolve();
-        var imported = [];
-        pending.forEach(function (payload) {
+        var touched = [];
+        split.toCreate.forEach(function (payload) {
           chain = chain.then(function () {
             var body = Object.assign({ status: "draft" }, payload);
-            return api("/api/admin/articles", { method: "POST", body: body }).then(
-              function () {
-                imported.push(payload.slug);
-              }
-            );
+            return api("/api/admin/articles", { method: "POST", body: body }).then(function () {
+              touched.push(payload.slug);
+            });
+          });
+        });
+        split.toUpdate.forEach(function (item) {
+          chain = chain.then(function () {
+            var body = buildSeedUpdateBody(item.seed, item.existing);
+            return api("/api/admin/articles/" + encodeURIComponent(item.seed.slug), {
+              method: "PUT",
+              body: body
+            }).then(function () {
+              touched.push(item.seed.slug);
+            });
           });
         });
         return chain.then(function () {
-          return { imported: imported };
+          return { touched: touched, updated: split.toUpdate.length };
         });
       })
       .then(function (result) {
         if (!result) return;
         return loadList().then(function () {
-          if (result.imported.length === 1) {
-            return loadArticle(result.imported[0]);
+          if (result.touched.length === 1) {
+            return loadArticle(result.touched[0]);
           }
+        }).then(function () {
+          return result;
         });
       })
-      .then(function () {
-        setStatus("已匯入種子草稿，請用預覽檢查版型");
+      .then(function (result) {
+        if (!result) return;
+        if (result.updated > 0) {
+          setStatus("已更新種子內容（" + result.updated + " 篇），請預覽確認");
+        } else {
+          setStatus("已匯入種子草稿，請用預覽檢查版型");
+        }
       })
       .catch(function (err) {
         setStatus(err.message || "匯入失敗", true);

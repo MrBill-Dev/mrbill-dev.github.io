@@ -98,7 +98,10 @@ body.blog-title-font-serif
   .blog-main.blog-prose:not(.rainy-family-prose)
   #blog-static-content
   > section:not(.blog-bridge)
-  > h2 {
+  > h2,
+body.blog-title-font-serif
+  .blog-main.blog-prose:not(.rainy-family-prose)
+  h2.section-title {
   font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
   letter-spacing: 0.02em;
 }
@@ -5184,4 +5187,696 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
 .blog-list-viewall__link:hover {
   color: #0e7490;
   text-decoration: underline;
+}
+
+/* ===== NotebookLM 教學文 #notebooklm-guide-root（樣式放外部 CSS，Ctrl+F5 + push 即生效）===== */
+.blog-main.blog-prose #notebooklm-guide-root {
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  text-wrap: pretty;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow-x: clip !important;
+  -webkit-text-size-adjust: 100%;
+  padding: 0.5rem clamp(1.25rem, 5vw, 2.25rem) 2rem !important;
+  box-sizing: border-box !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root * {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root :where(
+  div,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  li,
+  article,
+  section,
+  aside,
+  nav,
+  details,
+  summary,
+  label,
+  a,
+  button,
+  .prompt,
+  .callout,
+  .studio-card
+) {
+  max-width: 100%;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root *:not(.codebox):not(.notebooklm-output) {
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .pill,
+.blog-main.blog-prose #notebooklm-guide-root .ui-head,
+.blog-main.blog-prose #notebooklm-guide-root .studio-card,
+.blog-main.blog-prose #notebooklm-guide-root .inline-flex,
+.blog-main.blog-prose #notebooklm-guide-root .flex,
+.blog-main.blog-prose #notebooklm-guide-root summary,
+.blog-main.blog-prose #notebooklm-guide-root label,
+.blog-main.blog-prose #notebooklm-guide-root a,
+.blog-main.blog-prose #notebooklm-guide-root button {
+  white-space: normal !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .flex {
+  flex-wrap: wrap !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .flex > * {
+  min-width: 0 !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root [class*="flex-1"],
+.blog-main.blog-prose #notebooklm-guide-root .flex.items-start > :last-child,
+.blog-main.blog-prose #notebooklm-guide-root .flex.justify-between > :first-child {
+  flex: 1 1 0% !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .badge,
+.blog-main.blog-prose #notebooklm-guide-root .shrink-0,
+.blog-main.blog-prose #notebooklm-guide-root button {
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root > section {
+  padding-top: clamp(2.75rem, 6vw, 4.5rem) !important;
+  padding-bottom: clamp(2.75rem, 6vw, 4.5rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .max-w-7xl,
+.blog-main.blog-prose #notebooklm-guide-root .max-w-5xl,
+.blog-main.blog-prose #notebooklm-guide-root .max-w-3xl {
+  max-width: 100% !important;
+  padding-left: clamp(0.5rem, 2vw, 1rem) !important;
+  padding-right: clamp(0.5rem, 2vw, 1rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root h2.section-title {
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+  line-height: 1.38;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules,
+.blog-main.blog-prose #notebooklm-guide-root section.bg-slate-950 {
+  background: #020617 !important;
+  color: #fff;
+  border-radius: 1.25rem;
+  margin-inline: clamp(-0.25rem, -1vw, 0);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules h2.section-title,
+.blog-main.blog-prose #notebooklm-guide-root section.bg-slate-950 h2.section-title {
+  color: #fff !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules .text-slate-300 {
+  color: #cbd5e1 !important;
+  line-height: 1.75;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules .max-w-3xl {
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root a.bg-brand,
+.blog-main.blog-prose #notebooklm-guide-root .bg-brand {
+  background-color: #2563eb !important;
+  color: #fff !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .text-brand {
+  color: #2563eb !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .rounded-3xl,
+.blog-main.blog-prose #notebooklm-guide-root .rounded-\[2rem\] {
+  padding: clamp(1.35rem, 3.5vw, 1.9rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .callout,
+.blog-main.blog-prose #notebooklm-guide-root .prompt {
+  padding: clamp(1.15rem, 3vw, 1.5rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .codebox {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  padding: clamp(1.1rem, 3vw, 1.35rem) !important;
+  margin-top: 1rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-checker,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool {
+  padding: clamp(1.35rem, 3.5vw, 1.9rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-score {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.875rem;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  border: 1px solid #e6ebf3;
+  border-radius: 1rem;
+  background: #f8fafc;
+  padding: 0.85rem 1rem;
+  color: #334155;
+  line-height: 1.65;
+  cursor: pointer;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-check-row input {
+  margin-top: 0.25rem;
+  width: 1rem;
+  height: 1rem;
+  accent-color: #2563eb;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool label {
+  color: #e2e8f0;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-input,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-output {
+  display: block;
+  width: 100%;
+  margin-top: 0.45rem;
+  border: 1px solid rgba(226, 232, 240, 0.18);
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.72);
+  color: #f8fafc;
+  padding: 0.85rem 1rem;
+  font: inherit;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-input::placeholder,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-output::placeholder {
+  color: #94a3b8;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-output {
+  min-height: 15rem;
+  background: #020617;
+  white-space: pre-wrap;
+  resize: vertical;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-tool-btn {
+  border: 0;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  padding: 0.8rem 1.25rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-tool-btn--ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .toc {
+  padding: 1.15rem 1.25rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules > div > .grid {
+  display: grid !important;
+  gap: clamp(1.25rem, 3vw, 1.65rem) !important;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules > div > .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules > div > .mt-8.grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules .compare-ok,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules .compare-no {
+  padding: clamp(1.4rem, 3.5vw, 1.85rem) !important;
+  overflow: visible !important;
+  height: auto !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules ul {
+  margin-top: 1.15rem !important;
+  padding-left: 0 !important;
+  list-style: none;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules ul li {
+  word-break: normal;
+  overflow-wrap: break-word;
+  line-height: 1.85;
+  padding-left: 0;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules ul li + li {
+  margin-top: 0.9rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules [class*="bg-white/10"] {
+  padding: clamp(1.15rem, 3vw, 1.45rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules [class*="bg-white/10"] h3 {
+  color: #fff !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-placeholder p {
+  text-wrap: pretty;
+  word-break: normal;
+  overflow-wrap: break-word;
+  padding-inline: 0.35rem;
+  line-height: 1.7;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-window {
+  padding: clamp(1rem, 2.5vw, 1.25rem) !important;
+  margin-top: 0.65rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-window > p {
+  margin-top: 1.1rem !important;
+  line-height: 1.7;
+  padding-inline: 0.25rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .hero-actions a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.55rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .space-y-5 > * + * {
+  margin-top: 1.2rem !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .space-y-6 > * + * {
+  margin-top: 1.4rem !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .space-y-8 > * + * {
+  margin-top: 1.85rem !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .grid.gap-5,
+.blog-main.blog-prose #notebooklm-guide-root .grid.gap-6 {
+  gap: clamp(1.1rem, 2.5vw, 1.45rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .flow-step > .rounded-3xl,
+.blog-main.blog-prose #notebooklm-guide-root .flow-step > div:last-child.rounded-3xl {
+  padding: clamp(1.25rem, 3vw, 1.65rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .article p,
+.blog-main.blog-prose #notebooklm-guide-root .article li {
+  line-height: 1.85;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .bg-ink {
+  background-color: #172033 !important;
+  color: #fff !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .border-line {
+  border-color: #e6ebf3 !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .bg-soft {
+  background-color: #f6f8fc !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-window {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100% !important;
+}
+
+@media (min-width: 1024px) {
+  .blog-main.blog-prose #notebooklm-guide-root .ui-grid--desktop {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(220px, 1.6fr) minmax(180px, 1fr);
+    min-width: 680px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .blog-main.blog-prose #notebooklm-guide-root .ui-grid--desktop {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+  }
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .table-wrap {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .table-wrap table {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 640px !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-panel .grid.grid-cols-2 {
+  grid-template-columns: 1fr !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-panel .p-8 {
+  padding: 1.25rem !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-panel .p-4 {
+  padding: 0.85rem !important;
+}
+
+/* iOS / narrow viewport hardening: keep every NotebookLM block inside the article column. */
+.blog-main.blog-prose #notebooklm-guide-root img,
+.blog-main.blog-prose #notebooklm-guide-root svg,
+.blog-main.blog-prose #notebooklm-guide-root canvas,
+.blog-main.blog-prose #notebooklm-guide-root iframe,
+.blog-main.blog-prose #notebooklm-guide-root pre,
+.blog-main.blog-prose #notebooklm-guide-root textarea,
+.blog-main.blog-prose #notebooklm-guide-root input,
+.blog-main.blog-prose #notebooklm-guide-root select {
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  .blog-main.blog-prose #notebooklm-guide-root {
+    overflow-x: hidden !important;
+    padding: 0.25rem 0 1.5rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root > section {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-inline: 0 !important;
+    padding-top: 2.4rem !important;
+    padding-bottom: 2.4rem !important;
+    overflow-x: hidden !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .max-w-7xl,
+  .blog-main.blog-prose #notebooklm-guide-root .max-w-5xl,
+  .blog-main.blog-prose #notebooklm-guide-root .max-w-3xl,
+  .blog-main.blog-prose #notebooklm-guide-root [class*="px-4"],
+  .blog-main.blog-prose #notebooklm-guide-root [class*="sm:px-6"],
+  .blog-main.blog-prose #notebooklm-guide-root [class*="lg:px-8"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .grid,
+  .blog-main.blog-prose #notebooklm-guide-root [class*="grid-cols-"],
+  .blog-main.blog-prose #notebooklm-guide-root [class*="lg:grid-cols-"],
+  .blog-main.blog-prose #notebooklm-guide-root [class*="md:grid-cols-"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-width: 0 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .flex {
+    min-width: 0 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .items-start.gap-4,
+  .blog-main.blog-prose #notebooklm-guide-root .justify-between.gap-4 {
+    gap: 0.75rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .rounded-3xl,
+  .blog-main.blog-prose #notebooklm-guide-root .rounded-\[2rem\],
+  .blog-main.blog-prose #notebooklm-guide-root .rounded-2xl,
+  .blog-main.blog-prose #notebooklm-guide-root .callout,
+  .blog-main.blog-prose #notebooklm-guide-root .prompt,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-checker,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 1rem !important;
+    border-radius: 1.1rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root h2.section-title,
+  .blog-main.blog-prose #notebooklm-guide-root h3,
+  .blog-main.blog-prose #notebooklm-guide-root p,
+  .blog-main.blog-prose #notebooklm-guide-root li,
+  .blog-main.blog-prose #notebooklm-guide-root b,
+  .blog-main.blog-prose #notebooklm-guide-root summary,
+  .blog-main.blog-prose #notebooklm-guide-root label,
+  .blog-main.blog-prose #notebooklm-guide-root span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .section-title {
+    font-size: clamp(1.45rem, 8vw, 2rem) !important;
+    line-height: 1.35 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .toc {
+    padding: 0.9rem !important;
+    margin-inline: 0 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .toc .flex {
+    gap: 0.45rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .toc a,
+  .blog-main.blog-prose #notebooklm-guide-root .hero-actions a,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-tool-btn {
+    max-width: 100%;
+    white-space: normal !important;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-window {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    padding: 0.85rem !important;
+    border-radius: 1.1rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-grid--desktop {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel {
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel .p-8,
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel .p-4 {
+    padding: 0.85rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel .pt-40,
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel .pt-12,
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel .pt-10 {
+    padding-top: 1.25rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-head,
+  .blog-main.blog-prose #notebooklm-guide-root .pill,
+  .blog-main.blog-prose #notebooklm-guide-root .studio-card {
+    min-width: 0 !important;
+    white-space: normal !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .anim-stage {
+    height: 210px !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .doc {
+    width: 58px !important;
+    height: 78px !important;
+    padding: 0.55rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .doc1 {
+    left: 12px !important;
+    top: 28px !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .doc2 {
+    left: 28px !important;
+    top: 104px !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .doc3 {
+    left: 72px !important;
+    top: 62px !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .brain {
+    left: 50% !important;
+    top: 70px !important;
+    width: 74px !important;
+    height: 74px !important;
+    border-radius: 1.2rem !important;
+    font-size: 1.5rem !important;
+    transform: translateX(-50%);
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .out {
+    right: 10px !important;
+    max-width: 6rem !important;
+    padding: 0.55rem 0.65rem !important;
+    font-size: 0.78rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .out1 {
+    top: 24px !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .out2 {
+    top: 94px !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .out3 {
+    top: 158px !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .flow-step {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .flow-line::before {
+    display: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .badge {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .codebox {
+    overflow-x: hidden !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    font-size: 0.86rem !important;
+    padding: 0.9rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .table-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .table-wrap table {
+    min-width: 34rem !important;
+    width: 34rem !important;
+    max-width: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .table-wrap th,
+  .blog-main.blog-prose #notebooklm-guide-root .table-wrap td {
+    padding: 0.7rem 0.75rem !important;
+    font-size: 0.88rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules,
+  .blog-main.blog-prose #notebooklm-guide-root section.bg-slate-950 {
+    border-radius: 1rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-score {
+    padding: 0.35rem 0.65rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-check-row {
+    padding: 0.75rem 0.8rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-input,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-output {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 16px !important;
+    padding: 0.78rem 0.85rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-output {
+    min-height: 12rem !important;
+  }
 }
