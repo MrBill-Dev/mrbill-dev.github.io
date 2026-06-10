@@ -398,10 +398,10 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/blog-articles.js?v=quiz-assets-loader-1"></script>\n' +
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
-    '  <script src="../../js/blog-article-ui.js?v=author-prose-wrap-1"></script>\n' +
+    '  <script src="../../js/blog-article-ui.js?v=author-content-v1"></script>\n' +
     quizAssets +
     BLOG_SERIF_FONT_HEAD +
-    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=author-prose-wrap-1" />\n' +
+    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=author-content-v1" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; max-width: 100%; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; overflow-x: clip; max-width: 100%; }\n' +

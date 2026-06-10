@@ -4,7 +4,7 @@ window.MRBILL_SITE_CONFIG = {
     return (window.MRBILL_SITE_SEO && window.MRBILL_SITE_SEO.siteName) || "Mr.Bill 數位實驗室";
   },
   authorHintTemplate:
-    "約 20 年網站經驗；整理前端、SEO/GEO、AI 工作流與實作心得。"
+    "現任高點知識達網站企劃；約 20 年網站經驗，整理前端、SEO/GEO、AI 自動化與實作筆記。"
 };
 
 function renderAuthorSignature(targetId, options) {

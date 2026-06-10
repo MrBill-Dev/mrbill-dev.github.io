@@ -2476,11 +2476,11 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
 }
 
 .blog-author-card__section-label {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
-  color: #4338ca;
-  margin: 0 0 0.35rem;
+  letter-spacing: 0.02em;
+  color: #312e81;
+  margin: 0 0 0.4rem;
 }
 
 .blog-author-card__list {
