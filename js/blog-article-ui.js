@@ -411,7 +411,8 @@ function renderAboutPageHero(mountId) {
     '<p class="about-hero__eyebrow">About the Creator</p>' +
     '<h1 class="about-hero__title" id="blog-author-name">' +
     '<span>Mr.</span><span>Bill</span>' +
-    "</h1>";
+    "</h1>" +
+    "</div>";
 
   if (author.lead) {
     html +=
@@ -421,7 +422,6 @@ function renderAboutPageHero(mountId) {
   }
 
   html +=
-    "</div>" +
     '<aside class="about-hero__aside" aria-label="作者重點">' +
     '<p class="about-hero__aside-kicker">20 YEARS</p>' +
     '<p class="about-hero__aside-text">網站企劃・前端實務・SEO/GEO・AI 工作流</p>' +
