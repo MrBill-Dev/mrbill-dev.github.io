@@ -1272,10 +1272,31 @@ function setBlogDynamicLoadingVisible(visible) {
   else root.removeAttribute("data-blog-dynamic-loading");
 }
 
+var blogDynamicLoadingTimer = null;
+
+function clearBlogDynamicLoadingTimer() {
+  if (blogDynamicLoadingTimer) {
+    clearTimeout(blogDynamicLoadingTimer);
+    blogDynamicLoadingTimer = null;
+  }
+}
+
+function scheduleBlogDynamicLoadingVisible() {
+  clearBlogDynamicLoadingTimer();
+  blogDynamicLoadingTimer = setTimeout(function () {
+    setBlogDynamicLoadingVisible(true);
+  }, 220);
+}
+
+function hideBlogDynamicLoading() {
+  clearBlogDynamicLoadingTimer();
+  setBlogDynamicLoadingVisible(false);
+}
+
 function injectDynamicArticleContent(contentHtml) {
   var main = document.querySelector(".blog-main.blog-prose");
   if (!main) return;
-  setBlogDynamicLoadingVisible(false);
+  hideBlogDynamicLoading();
   var loading = document.getElementById("blog-dynamic-loading");
   if (loading) loading.remove();
   var navSlot = document.getElementById("blog-article-nav-slot");
@@ -1318,6 +1339,7 @@ function showDynamicPreviewBanner(article) {
 
 function showDynamicArticleError(message, options) {
   options = options || {};
+  clearBlogDynamicLoadingTimer();
   setBlogDynamicLoadingVisible(true);
   var loading = document.getElementById("blog-dynamic-loading");
   if (!loading) return;
@@ -1487,7 +1509,7 @@ function initDynamicBlogArticlePage() {
     showDynamicArticleError("網址缺少 slug 參數，例：post.html?slug=2026-06-10-my-post");
     return;
   }
-  setBlogDynamicLoadingVisible(true);
+  scheduleBlogDynamicLoadingVisible();
   if (isStaticBlogSlug(slug)) {
     location.replace(slug + ".html");
     return;
