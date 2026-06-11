@@ -136,7 +136,7 @@
           <h2 class="section-title text-3xl sm:text-4xl font-black">正規做法與禁止做法：讓 NotebookLM 輸出更準</h2>
           <p class="mt-4 text-slate-300">很多人覺得 NotebookLM 不穩，通常不是工具不能用，而是資料亂、問題模糊、太早按工作室輸出。以下規則可以直接放在教學文章中提醒讀者。</p>
         </div>
-        <div class="grid lg:grid-cols-2 gap-6">
+        <div class="grid lg:grid-cols-2 gap-6 notebooklm-compare-grid">
           <div class="rounded-3xl bg-white text-ink p-6 compare-ok">
             <h3 class="text-2xl font-black text-emerald-700">✅ 正規做法</h3>
             <ul class="mt-5 space-y-3 text-slate-700">
@@ -243,14 +243,14 @@
           <div class="rounded-3xl bg-white border border-line p-6 shadow-card"><div class="text-sm font-black text-violet-700 mb-2">Level 3</div><h3 class="text-xl font-black">最後指定成果</h3><p class="mt-3 text-slate-600">明確說明讀者、用途、格式、限制、引用方式與不要做的事，輸出才會像可用初稿，而不是普通摘要。</p></div>
         </div>
 
-        <div class="grid lg:grid-cols-[.92fr_1.08fr] gap-6 items-start">
+        <div class="grid lg:grid-cols-[.92fr_1.08fr] gap-6 items-start notebooklm-tools-grid">
           <div class="rounded-[2rem] bg-white border border-line p-6 lg:p-8 shadow-card notebooklm-checker">
-            <div class="flex items-start justify-between gap-4">
-              <div>
+            <div class="notebooklm-checker-head">
+              <div class="notebooklm-checker-head__top">
                 <h3 class="text-2xl font-black">來源品質自測清單</h3>
-                <p class="mt-2 text-slate-600">勾選越多，越適合進入工作室輸出。若低於 5 項，建議先補資料。</p>
+                <div class="notebooklm-score" data-nlm-check-score>0 / 8</div>
               </div>
-              <div class="notebooklm-score" data-nlm-check-score>0 / 8</div>
+              <p class="mt-2 text-slate-600 notebooklm-checker-intro">勾選越多，越適合進入工作室輸出。若低於 5 項，建議先補資料。</p>
             </div>
             <div class="mt-6 space-y-3">
               <label class="notebooklm-check-row"><input type="checkbox" data-nlm-check> 來源都屬於同一個主題，沒有混入無關資料。</label>
@@ -268,7 +268,7 @@
           <div class="rounded-[2rem] bg-slate-950 text-white p-6 lg:p-8 shadow-card notebooklm-prompt-tool">
             <h3 class="text-2xl font-black">NotebookLM Prompt 產生器</h3>
             <p class="mt-2 text-slate-300">填入主題與用途，按下按鈕後會產生一段可貼進 NotebookLM 的起手式。</p>
-            <div class="grid md:grid-cols-2 gap-4 mt-6">
+            <div class="grid gap-4 mt-6 notebooklm-prompt-fields">
               <label>主題<input data-nlm-topic class="notebooklm-input" placeholder="例：NotebookLM 新手教學"></label>
               <label>讀者<input data-nlm-audience class="notebooklm-input" placeholder="例：完全沒用過 AI 工具的新手"></label>
               <label>任務<select data-nlm-goal class="notebooklm-input"><option value="檢查資料是否足夠，找出缺漏、矛盾與需要補充的來源">資料健檢</option><option value="整理成清楚的大綱，包含章節、重點與操作步驟">文章大綱</option><option value="整理成可匯出到 Google Sheets 的資料表欄位">資料表</option><option value="規劃成簡報架構，包含頁面標題、重點與講者備註">簡報規劃</option><option value="整理成 FAQ、常見錯誤與新手提醒">FAQ 與錯誤提醒</option></select></label>
@@ -341,8 +341,8 @@
       </div>
     </section>
 
-    <section class="py-16">
-      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center article">
+    <section class="py-16 notebooklm-summary">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 article">
         <h2 class="section-title text-3xl sm:text-4xl font-black">總結：NotebookLM 最強的是把資料變成可行動成果</h2>
         <p class="mt-6 text-lg text-slate-600 leading-9">NotebookLM 的價值不在於快速生出一堆內容，而是把分散資料變成清楚脈絡，再轉成讀者看得懂、工作上用得到的成果。正確流程是：先建立主題、整理來源、做資料健檢、下精準指令，最後才選擇工作室輸出。只要掌握這個順序，NotebookLM 就能從摘要工具升級成研究、學習、簡報、內容企劃與網站製作的資料中樞。</p>
       </div>

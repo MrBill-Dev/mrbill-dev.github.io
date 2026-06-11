@@ -402,7 +402,7 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/notebooklm-guide-tools.js?v=prompt-tool-1"></script>\n' +
     quizAssets +
     BLOG_SERIF_FONT_HEAD +
-    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=notebooklm-wrap-1" />\n' +
+    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=notebooklm-wrap-5" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; max-width: 100%; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; overflow-x: clip; max-width: 100%; }\n' +

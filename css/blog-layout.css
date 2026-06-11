@@ -5437,19 +5437,96 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
   margin-bottom: 2rem !important;
 }
 
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-compare-grid,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-tools-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: clamp(1.5rem, 2.5vw, 2rem) !important;
+  align-items: stretch;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-compare-grid {
+  gap: clamp(1.75rem, 3vw, 2.5rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-tools-grid {
+  gap: clamp(1.75rem, 3vw, 2.5rem) !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-checker-head__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-checker-intro {
+  margin-top: 0.85rem !important;
+  max-width: none !important;
+  text-align: left !important;
+  line-height: 1.85;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-fields {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 1rem !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-summary,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-summary .article {
+  text-align: left !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-summary h2,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-summary p {
+  text-align: left !important;
+  text-wrap: pretty;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-inline: 0 !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-summary p {
+  line-height: 1.9;
+}
+
+@media (min-width: 1280px) {
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-compare-grid .compare-ok,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-compare-grid .compare-no,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-checker,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool {
+    padding: clamp(1.75rem, 2.5vw, 2.35rem) !important;
+  }
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-compare-grid .compare-ok,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-compare-grid .compare-no {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-compare-grid ul li {
+  line-height: 1.9 !important;
+  padding: 0.15rem 0;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-compare-grid ul li + li {
+  margin-top: 1rem !important;
+}
+
 .blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules > div > .grid {
   display: grid !important;
   gap: clamp(1.25rem, 3vw, 1.65rem) !important;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 
-@media (min-width: 1024px) {
-  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules > div > .grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
+@media (min-width: 1280px) {
   .blog-main.blog-prose #notebooklm-guide-root .notebooklm-rules > div > .mt-8.grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: clamp(1.5rem, 2.5vw, 2rem) !important;
   }
 }
 
