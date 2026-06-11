@@ -5689,6 +5689,240 @@ html.notebooklm-modal-open {
   line-height: 1.7;
 }
 
+.blog-main.blog-prose #notebooklm-guide-root .nlm-cheat-sheet {
+  margin-top: 1.25rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-cheat-sheet ol {
+  padding-left: 1.25rem;
+  list-style: decimal;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-zone {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-zone--sources {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-zone--chat {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-zone--studio {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-where {
+  line-height: 1.55;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 3.25rem;
+  margin-top: 0.15rem;
+  padding: 0.65rem;
+  border-radius: 0.85rem;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--audio span {
+  display: block;
+  width: 4px;
+  border-radius: 4px;
+  background: #8b5cf6;
+  animation: nlm-audio-bar 1.2s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--audio span:nth-child(1) { height: 12px; animation-delay: 0s; }
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--audio span:nth-child(2) { height: 22px; animation-delay: 0.15s; }
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--audio span:nth-child(3) { height: 16px; animation-delay: 0.3s; }
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--audio span:nth-child(4) { height: 24px; animation-delay: 0.45s; }
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--audio span:nth-child(5) { height: 14px; animation-delay: 0.6s; }
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--slides {
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--slides i {
+  display: block;
+  width: 72%;
+  height: 0.55rem;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  opacity: 0.85;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--video i {
+  display: block;
+  width: 78%;
+  height: 2.2rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #34d399, #059669);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--mindmap {
+  position: relative;
+  min-height: 3.5rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--mindmap b {
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: #ec4899;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--mindmap i {
+  position: absolute;
+  display: block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: #f9a8d4;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--mindmap i:nth-of-type(1) { top: 0.55rem; left: 28%; }
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--mindmap i:nth-of-type(2) { top: 0.55rem; right: 28%; }
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--mindmap i:nth-of-type(3) { bottom: 0.45rem; left: 42%; }
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--report {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.2rem;
+  padding-inline: 1rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--report i {
+  display: block;
+  height: 0.45rem;
+  border-radius: 4px;
+  background: #94a3b8;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--report i:first-child {
+  width: 55%;
+  background: #64748b;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--cards {
+  gap: 0.5rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--cards i {
+  display: block;
+  width: 2.2rem;
+  height: 2.6rem;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #fda4af;
+  box-shadow: 0 2px 6px rgba(244, 63, 94, 0.12);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--quiz {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.2rem;
+  padding-inline: 1rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--quiz i {
+  display: block;
+  height: 0.45rem;
+  border-radius: 4px;
+  background: #67e8f9;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--infographic {
+  gap: 0.35rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--infographic i {
+  display: block;
+  flex: 1;
+  height: 2rem;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #c4b5fd, #a78bfa);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  padding: 0.5rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--table i {
+  display: block;
+  height: 0.65rem;
+  border-radius: 3px;
+  background: #93c5fd;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--table i:nth-child(-n + 3) {
+  background: #3b82f6;
+}
+
+@keyframes nlm-audio-bar {
+  0%, 100% { transform: scaleY(0.65); opacity: 0.65; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-output-preview--audio span {
+    animation: none;
+  }
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-zone-flow-note strong {
+  color: #1e40af;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-zone-step {
+  color: #2563eb;
+  font-weight: 800;
+  margin-right: 0.15rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-zone-tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-zone-desc {
+  margin: 0;
+  padding: 0.55rem 0.85rem 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #64748b;
+  border-bottom: 1px solid #eef2f7;
+  background: #f8fafc;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-panel.is-zone-active {
+  box-shadow: 0 0 0 2px #2563eb, 0 10px 28px rgba(37, 99, 235, 0.14);
+  transition: box-shadow 0.35s ease;
+}
+
 .blog-main.blog-prose #notebooklm-guide-root .ui-window {
   padding: clamp(1rem, 2.5vw, 1.25rem) !important;
   margin-top: 0.65rem;

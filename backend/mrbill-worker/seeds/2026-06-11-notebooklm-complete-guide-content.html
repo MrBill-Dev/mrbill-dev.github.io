@@ -1,7 +1,7 @@
 <div id="notebooklm-guide-root" class="notebooklm-prose article">
 <style>
 html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1.85}.section-title{letter-spacing:-.02em}.kbd{border:1px solid #d8deea;background:#fff;border-radius:.55rem;padding:.08rem .45rem;font-size:.82rem;box-shadow:0 1px 0 rgba(23,32,51,.08)}
-.ui-window{background:#eef2fb;border:1px solid #dfe6f3;border-radius:20px;padding:12px;box-shadow:0 16px 48px rgba(23,32,51,.10);font-size:.8125rem;line-height:1.45}.ui-grid{display:grid;grid-template-columns:1fr;gap:10px;min-height:0}.ui-panel{background:#fff;border:1px solid #dfe6f3;border-radius:16px;overflow:hidden;position:relative;min-height:0}.ui-head{height:36px;border-bottom:1px solid #e5eaf3;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-weight:700;font-size:.95em}.pill{display:inline-flex;align-items:center;gap:.35rem;border:1px solid #dbe3ef;border-radius:999px;padding:.35rem .65rem;background:#fff;font-size:.85em;white-space:normal;max-width:100%;overflow-wrap:anywhere;word-break:break-word}.studio-card{border-radius:12px;padding:10px;border:1px solid transparent;min-height:0;display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:700;font-size:.92em}.studio-card span{min-width:0;flex:1;line-height:1.35}.studio-card b{flex-shrink:0;opacity:.55}.studio-card small{display:block;font-weight:500;color:#6b7280;margin-top:2px;font-size:.85em;line-height:1.25}
+.ui-window{background:#eef2fb;border:1px solid #dfe6f3;border-radius:20px;padding:12px;box-shadow:0 16px 48px rgba(23,32,51,.10);font-size:.8125rem;line-height:1.45}.ui-grid{display:grid;grid-template-columns:1fr;gap:10px;min-height:0}.ui-panel{background:#fff;border:1px solid #dfe6f3;border-radius:16px;overflow:hidden;position:relative;min-height:0;transition:box-shadow .35s ease}.ui-panel.is-zone-active{box-shadow:0 0 0 2px #2563eb,0 10px 28px rgba(37,99,235,.14)}.ui-head{height:auto;min-height:36px;border-bottom:1px solid #e5eaf3;display:flex;align-items:center;justify-content:space-between;padding:.55rem 12px;font-weight:700;font-size:.95em;gap:.5rem;flex-wrap:wrap}.nlm-zone-step{color:#2563eb;font-weight:800;margin-right:.15rem}.nlm-zone-tag{font-size:.78rem;font-weight:600;color:#64748b}.nlm-zone-desc{margin:0;padding:.55rem 12px .75rem;font-size:.82rem;line-height:1.55;color:#64748b;border-bottom:1px solid #eef2f7;background:#f8fafc}.pill{display:inline-flex;align-items:center;gap:.35rem;border:1px solid #dbe3ef;border-radius:999px;padding:.35rem .65rem;background:#fff;font-size:.85em;white-space:normal;max-width:100%;overflow-wrap:anywhere;word-break:break-word}.studio-card{border-radius:12px;padding:10px;border:1px solid transparent;min-height:0;display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:700;font-size:.92em}.studio-card span{min-width:0;flex:1;line-height:1.35}.studio-card b{flex-shrink:0;opacity:.55}.studio-card small{display:block;font-weight:500;color:#6b7280;margin-top:2px;font-size:.85em;line-height:1.25}
 .flow-line{position:relative}.flow-line:before{content:'';position:absolute;left:22px;top:48px;bottom:-20px;width:2px;background:#e2e8f0}.flow-step:last-child .flow-line:before{display:none}.badge{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font-weight:800}.codebox{background:#0f172a;color:#e2e8f0;border-radius:18px;padding:18px;overflow:auto;font-size:.92rem;line-height:1.75;border:1px solid rgba(255,255,255,.08);white-space:pre-wrap}.prompt{background:#fff;border:1px solid #dfe6f3;border-radius:18px;padding:16px;box-shadow:0 8px 22px rgba(23,32,51,.06)}
 .anim-stage{position:relative;height:260px;background:linear-gradient(135deg,#f8fafc,#eef4ff);border:1px solid #dce4f0;border-radius:24px;overflow:hidden}.doc{position:absolute;width:92px;height:118px;background:#fff;border:1px solid #d7deea;border-radius:12px;box-shadow:0 10px 28px rgba(23,32,51,.12);padding:14px}.doc:before{content:'';display:block;width:44px;height:8px;background:#cbd5e1;border-radius:8px;margin-bottom:10px}.doc:after{content:'';display:block;width:64px;height:8px;background:#e2e8f0;border-radius:8px;box-shadow:0 18px 0 #e2e8f0,0 36px 0 #e2e8f0}.doc1{left:24px;top:36px;animation:docMove1 7s infinite}.doc2{left:54px;top:112px;animation:docMove2 7s infinite}.doc3{left:116px;top:66px;animation:docMove3 7s infinite}.brain{position:absolute;left:42%;top:74px;width:118px;height:118px;border-radius:32px;background:linear-gradient(135deg,#2563eb,#8b5cf6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:42px;box-shadow:0 16px 40px rgba(37,99,235,.26);animation:brainGlow 7s infinite}.out{position:absolute;right:26px;border-radius:14px;background:#fff;border:1px solid #d7deea;box-shadow:0 10px 28px rgba(23,32,51,.1);padding:12px 14px;font-weight:800}.out1{top:30px;animation:outPop1 7s infinite}.out2{top:104px;animation:outPop2 7s infinite}.out3{top:178px;animation:outPop3 7s infinite}@keyframes docMove1{0%,15%{transform:translate(0,0);opacity:1}35%,100%{transform:translate(285px,50px) scale(.78);opacity:.15}}@keyframes docMove2{0%,22%{transform:translate(0,0);opacity:1}42%,100%{transform:translate(252px,-16px) scale(.78);opacity:.15}}@keyframes docMove3{0%,30%{transform:translate(0,0);opacity:1}50%,100%{transform:translate(194px,20px) scale(.78);opacity:.15}}@keyframes brainGlow{0%,48%{filter:saturate(1);transform:scale(1)}58%{filter:saturate(1.4);transform:scale(1.06)}100%{filter:saturate(1);transform:scale(1)}}@keyframes outPop1{0%,58%{transform:translateX(40px);opacity:0}65%,100%{transform:none;opacity:1}}@keyframes outPop2{0%,66%{transform:translateX(40px);opacity:0}73%,100%{transform:none;opacity:1}}@keyframes outPop3{0%,74%{transform:translateX(40px);opacity:0}81%,100%{transform:none;opacity:1}}
 .compare-ok{border-left:5px solid #10b981}.compare-no{border-left:5px solid #f43f5e}.table-wrap{display:block;width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}.table-wrap table{min-width:640px;width:100%;max-width:none}.table-wrap th{background:#f8fafc}.table-wrap th,.table-wrap td{padding:12px 14px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top;overflow-wrap:anywhere;word-break:break-word;white-space:normal}.callout{border:1px solid #dbeafe;background:#eff6ff;border-radius:22px;padding:20px}.warn{border:1px solid #fed7aa;background:#fff7ed}.danger{border:1px solid #fecdd3;background:#fff1f2}.success{border:1px solid #bbf7d0;background:#f0fdf4}.c-purple{background:#f0edff;color:#6941c6}.c-green{background:#eafaf1;color:#067647}.c-pink{background:#fff0f6;color:#c11574}.c-amber{background:#fff7e6;color:#b54708}.c-blue{background:#eaf4ff;color:#175cd3}.c-cyan{background:#e9fbff;color:#026aa2}.c-red{background:#fff1f3;color:#c01048}.c-gray{background:#f4f6fb;color:#344054}
@@ -31,7 +31,7 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
           <div>
             <div class="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 mb-6">0 基礎新手版 · 資料整合 · 工作室輸出 · 進階工作流</div>
             <p class="section-title text-2xl sm:text-3xl font-black leading-tight text-slate-800">NotebookLM 用法大全：把一堆資料整理成<span class="text-brand">簡報、表格、圖卡與網站規格</span></p>
-            <p class="mt-6 text-lg text-slate-600 leading-9">NotebookLM 的核心不是「跟 AI 聊天」，而是把 PDF、網站、YouTube、文字、雲端文件等資料集中到同一本 Notebook，再讓 AI 根據這些來源整理脈絡，最後在右側工作室選擇需要的成果：摘要、報告、心智圖、測驗、資料表、資訊圖或簡報。</p>
+            <p class="mt-6 text-lg text-slate-600 leading-9">把它想成「有資料依據的 AI 整理工具」：先把 PDF、網站、YouTube 等資料放進來，在對話區問清楚、確認方向，最後到工作室一鍵產出簡報、表格、心智圖等成果。</p>
             <div class="mt-8 flex flex-wrap gap-3 hero-actions">
               <a href="#steps" class="rounded-full bg-brand px-6 py-3 text-white font-bold shadow-card">開始學操作</a>
               <a href="#rules" class="rounded-full bg-white border border-line px-6 py-3 font-bold">先看精準使用規則</a>
@@ -47,7 +47,7 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
               <div class="out out2">🧠 心智圖</div>
               <div class="out out3">📑 簡報</div>
             </div>
-            <p class="mt-4 text-sm text-slate-500 leading-7">上圖為教學示意：資料先進 NotebookLM，成果再從右側工作室輸出。</p>
+            <p class="mt-4 text-sm text-slate-500 leading-7">口訣：<strong>先放資料 → 先聊清楚 → 再按輸出</strong>（下方有完整圖解）</p>
           </div>
         </div>
       </div>
@@ -74,6 +74,15 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
             <div class="callout">
               <p class="font-bold">最重要的觀念：NotebookLM 不是用來「憑空生內容」，而是用來「把已有資料整理成可使用的成果」。資料越乾淨，問題越精準，輸出越穩定。</p>
             </div>
+            <div class="nlm-cheat-sheet rounded-3xl border-2 border-blue-200 bg-blue-50 p-6">
+              <p class="font-black text-lg text-blue-900">30 秒看懂：三件事記起來就好</p>
+              <ol class="mt-4 space-y-3 text-slate-700">
+                <li><b class="text-blue-700">① 來源</b>＝把 PDF、網站、影片等資料「放進來」</li>
+                <li><b class="text-blue-700">② 對話</b>＝「問問題、訂規格」——確認資料夠不夠、要什麼格式（可反覆試，不耗輸出次數）</li>
+                <li><b class="text-blue-700">③ 工作室</b>＝「按鈕產成果」——簡報、表格、音訊等（每天有產出次數上限）</li>
+              </ol>
+              <p class="mt-4 text-sm text-blue-800 font-bold">口訣：先放資料 → 先聊清楚 → 再按輸出</p>
+            </div>
           </div>
         </div>
       </div>
@@ -82,13 +91,15 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
     <section id="ui" class="py-14 bg-soft border-y border-line">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
         <div class="max-w-3xl mb-8">
-          <h2 class="section-title text-3xl sm:text-4xl font-black">介面圖解：清晰呈現三大區塊</h2>
-          <p class="mt-4 text-slate-600">以下不是官方截圖，而是依照 NotebookLM 典型操作介面製作的教學示意。文字版示意的好處是內容更清楚，放在網站上也不會因縮放而看不清楚。</p>
+          <h2 class="section-title text-3xl sm:text-4xl font-black">介面圖解：三大區塊各自做什麼？</h2>
+          <p class="mt-4 text-slate-600">打開 NotebookLM 後，畫面就是下面這三塊。藍框會依序亮起，幫你看懂實際操作順序。</p>
+          <p class="mt-3 text-sm text-slate-500 nlm-zone-flow-note leading-7">順序永遠是 <strong>① 來源 → ② 對話 → ③ 工作室</strong>。電腦版橫排（左中右）；手機版直排（上中下），意思一樣。</p>
         </div>
-        <div class="ui-window">
+        <div class="ui-window" data-nlm-ui-demo>
           <div class="ui-grid ui-grid--desktop">
-            <aside class="ui-panel">
-              <div class="ui-head"><span>來源</span><span>▣</span></div>
+            <aside class="ui-panel" data-nlm-zone="sources">
+              <div class="ui-head"><span><span class="nlm-zone-step" aria-hidden="true">①</span> 來源</span><span class="nlm-zone-tag">資料倉庫</span></div>
+              <p class="nlm-zone-desc">所有回答與輸出都應該回到這些來源，不要把不相關資料混在一起。</p>
               <div class="p-4 space-y-4">
                 <button class="w-full rounded-full border border-slate-300 py-3 font-black">＋ 新增來源</button>
                 <div class="rounded-2xl border border-line bg-slate-50 p-4">
@@ -98,8 +109,9 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
                 <div class="pt-40 text-center text-slate-500 ui-placeholder"><div class="text-3xl">📄</div><p class="mt-2 text-sm leading-7">新增的 PDF、網站、文字、影片或音訊來源會顯示在這裡。</p></div>
               </div>
             </aside>
-            <section class="ui-panel">
-              <div class="ui-head"><span>對話</span><span>⋮</span></div>
+            <section class="ui-panel" data-nlm-zone="chat">
+              <div class="ui-head"><span><span class="nlm-zone-step" aria-hidden="true">②</span> 對話</span><span class="nlm-zone-tag">任務指令</span></div>
+              <p class="nlm-zone-desc">適合問問題、要求比較、整理大綱、檢查資料品質。</p>
               <div class="p-8 h-full flex flex-col justify-between">
                 <div class="pt-10 max-w-xl mx-auto text-center">
                   <div class="text-5xl mb-5">👋</div>
@@ -110,8 +122,9 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
                 <div class="rounded-2xl border border-line px-5 py-4 flex items-center gap-3 bg-white"><span class="text-slate-400 flex-1">提問或創作內容</span><span class="text-xs text-slate-400">0 個來源</span><button class="rounded-full bg-slate-100 h-10 w-10">➜</button></div>
               </div>
             </section>
-            <aside class="ui-panel">
-              <div class="ui-head"><span>工作室</span><span>▣</span></div>
+            <aside class="ui-panel" data-nlm-zone="studio">
+              <div class="ui-head"><span><span class="nlm-zone-step" aria-hidden="true">③</span> 工作室</span><span class="nlm-zone-tag">成果輸出</span></div>
+              <p class="nlm-zone-desc">當資料與方向確定後，再按摘要、心智圖、資料表或簡報。</p>
               <div class="p-4 space-y-4">
                 <div class="rounded-2xl bg-gradient-to-r from-indigo-50 to-green-50 p-4 text-sm font-bold">🎉 試用新的心智圖自訂功能！</div>
                 <div class="grid grid-cols-2 gap-3">
@@ -130,11 +143,6 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
             </aside>
           </div>
         </div>
-        <div class="grid md:grid-cols-3 gap-5 mt-7">
-          <div class="rounded-3xl bg-white border border-line p-6"><h3 class="font-black text-lg">左側來源</h3><p class="mt-2 text-slate-600">資料倉庫。所有回答與輸出都應該回到這些來源，不要把不相關資料混在一起。</p></div>
-          <div class="rounded-3xl bg-white border border-line p-6"><h3 class="font-black text-lg">中間對話</h3><p class="mt-2 text-slate-600">任務指令區。適合問問題、要求比較、整理大綱、檢查資料品質。</p></div>
-          <div class="rounded-3xl bg-white border border-line p-6"><h3 class="font-black text-lg">右側工作室</h3><p class="mt-2 text-slate-600">成果輸出區。當資料與方向確定後，再按摘要、心智圖、資料表或簡報。</p></div>
-        </div>
       </div>
     </section>
 
@@ -142,15 +150,15 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
         <div class="max-w-3xl mb-10">
           <h2 class="section-title text-3xl sm:text-4xl font-black">從 0 開始：正確操作流程</h2>
-          <p class="mt-4 text-slate-600">新手不要一開始就按工作室功能。比較穩的流程是先建立主題、整理來源、檢查資料，再選輸出格式。</p>
+          <p class="mt-4 text-slate-600">照下面 6 步做。每步標了要在畫面哪一區操作——看到 <span class="nlm-step-zone nlm-step-zone--sources">① 來源</span> <span class="nlm-step-zone nlm-step-zone--chat">② 對話</span> <span class="nlm-step-zone nlm-step-zone--studio">③ 工作室</span> 就知道該點哪裡。</p>
         </div>
         <div class="space-y-6">
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">1</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">建立一本主題明確的 Notebook</h3><p class="mt-3 text-slate-600">名稱要具體，例如「2026 NotebookLM 教學文章資料」、「國中會考自然複習」、「品牌社群圖卡企劃」。避免叫「資料整理」這種太籠統的名稱。</p><div class="prompt mt-4"><b>建議命名：</b>主題 + 用途 + 時間，例如「AI 學習工具比較｜網站文章｜2026」。</div></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">2</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">新增來源資料</h3><p class="mt-3 text-slate-600">先放最可靠、最核心的資料，例如官方說明、原始報告、課程講義、客戶需求表、YouTube 影片連結。不要一口氣塞太多重複或品質不明的文章。</p><ul class="mt-4 grid md:grid-cols-2 gap-3 text-slate-700"><li>✅ 官方文件、原始資料、課程講義</li><li>✅ 可信網站、PDF、YouTube 教學影片</li><li>⚠️ 過時文章要標註年份</li><li>❌ 內容農場、無來源懶人包、無關資料</li></ul></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">3</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">先做資料健檢，不要直接輸出</h3><p class="mt-3 text-slate-600">在消耗工作室額度前，先用對話區確認資料是否足夠、是否重複、是否有衝突。這一步能避免後面產生錯誤簡報或不完整圖表。</p><div class="codebox mt-4">請先檢查目前來源資料，整理成：<br>1. 已經足夠支持的內容<br>2. 來源不足或需要補資料的內容<br>3. 彼此矛盾的內容<br>4. 過時或需要查證的內容<br>5. 建議先不要產出的成果</div></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">4</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">下任務指令，指定格式與對象</h3><p class="mt-3 text-slate-600">不要只說「幫我整理」。要說清楚輸出對象、用途、格式、深度、限制與引用方式。</p><div class="codebox mt-4">請根據來源資料，整理一份給 0 基礎新手看的教學大綱。<br>對象：完全沒用過 NotebookLM 的一般讀者。<br>用途：放在網站文章。<br>格式：H2/H3 架構、每段有操作步驟、常見錯誤、FAQ。<br>限制：沒有來源支持的內容請標示「來源未明確提到」。</div></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">5</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">確認方向後，再到右側工作室選成果</h3><p class="mt-3 text-slate-600">資料健檢與大綱都確認後，再產生 Slide Deck、Data Table、Infographic、Audio Overview 等成果。這樣比較不會浪費每日額度。</p></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div><div class="badge h-12 w-12 bg-blue-600 text-white">6</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">輸出後要後製，而不是直接發布</h3><p class="mt-3 text-slate-600">NotebookLM 很適合產生初稿，但網站文章、品牌圖卡、簡報設計、SEO 標題、社群文案仍要人工調整。AI 是加速器，不是最後審稿者。</p></div></div>
+          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">1</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">建立一本主題明確的 Notebook</h3><p class="nlm-step-where mt-2 text-sm text-slate-500">在哪做：首頁按「新增 Notebook」</p><p class="mt-3 text-slate-600">名稱要具體，例如「2026 NotebookLM 教學文章資料」、「國中會考自然複習」、「品牌社群圖卡企劃」。避免叫「資料整理」這種太籠統的名稱。</p><div class="prompt mt-4"><b>建議命名：</b>主題 + 用途 + 時間，例如「AI 學習工具比較｜網站文章｜2026」。</div></div></div>
+          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">2</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">新增來源資料</h3><p class="nlm-step-where mt-2"><span class="nlm-step-zone nlm-step-zone--sources">① 來源</span> 按「＋ 新增來源」上傳或貼連結</p><p class="mt-3 text-slate-600">先放最可靠、最核心的資料，例如官方說明、原始報告、課程講義、客戶需求表、YouTube 影片連結。不要一口氣塞太多重複或品質不明的文章。</p><ul class="mt-4 grid md:grid-cols-2 gap-3 text-slate-700"><li>✅ 官方文件、原始資料、課程講義</li><li>✅ 可信網站、PDF、YouTube 教學影片</li><li>⚠️ 過時文章要標註年份</li><li>❌ 內容農場、無來源懶人包、無關資料</li></ul></div></div>
+          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">3</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">先做資料健檢，不要直接輸出</h3><p class="nlm-step-where mt-2"><span class="nlm-step-zone nlm-step-zone--chat">② 對話</span> 在輸入框貼下面這段，先確認資料夠不夠</p><p class="mt-3 text-slate-600">在消耗工作室額度前，先用對話區確認資料是否足夠、是否重複、是否有衝突。這一步能避免後面產生錯誤簡報或不完整圖表。</p><div class="codebox mt-4">請先檢查目前來源資料，整理成：<br>1. 已經足夠支持的內容<br>2. 來源不足或需要補資料的內容<br>3. 彼此矛盾的內容<br>4. 過時或需要查證的內容<br>5. 建議先不要產出的成果</div></div></div>
+          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">4</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">下任務指令，指定格式與對象</h3><p class="nlm-step-where mt-2"><span class="nlm-step-zone nlm-step-zone--chat">② 對話</span> 繼續在對話區下指令，把大綱與格式談清楚</p><p class="mt-3 text-slate-600">不要只說「幫我整理」。要說清楚輸出對象、用途、格式、深度、限制與引用方式。</p><div class="codebox mt-4">請根據來源資料，整理一份給 0 基礎新手看的教學大綱。<br>對象：完全沒用過 NotebookLM 的一般讀者。<br>用途：放在網站文章。<br>格式：H2/H3 架構、每段有操作步驟、常見錯誤、FAQ。<br>限制：沒有來源支持的內容請標示「來源未明確提到」。</div></div></div>
+          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">5</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">確認方向後，再到工作室選成果</h3><p class="nlm-step-where mt-2"><span class="nlm-step-zone nlm-step-zone--studio">③ 工作室</span> 大綱 OK 了才按簡報、資料表等按鈕（會消耗每日產出次數）</p><p class="mt-3 text-slate-600">資料健檢與大綱都確認後，再產生 Slide Deck、Data Table、Infographic、Audio Overview 等成果。這樣比較不會浪費每日額度。</p></div></div>
+          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div><div class="badge h-12 w-12 bg-blue-600 text-white">6</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">輸出後要後製，而不是直接發布</h3><p class="nlm-step-where mt-2 text-sm text-slate-500">在哪做：匯出後用 Slides、Canva、編輯器等人工調整</p><p class="mt-3 text-slate-600">NotebookLM 很適合產生初稿，但網站文章、品牌圖卡、簡報設計、SEO 標題、社群文案仍要人工調整。AI 是加速器，不是最後審稿者。</p></div></div>
         </div>
       </div>
     </section>
@@ -199,19 +207,26 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
     <section id="studio" class="py-16">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
         <div class="max-w-3xl mb-10">
-          <h2 class="section-title text-3xl sm:text-4xl font-black">右側工作室功能：每一項適合做什麼？</h2>
-          <p class="mt-4 text-slate-600">工作室是 NotebookLM 的成果輸出區。下面用清楚的功能卡說明每項功能用途、適合資料與使用前檢查。</p>
+          <h2 class="section-title text-3xl sm:text-4xl font-black">工作室功能：每一項適合做什麼？</h2>
+          <p class="mt-4 text-slate-600">工作室就是右邊（手機版在下方）那一排按鈕。按下去會「印出」一份成品，每天有次數限制，所以請先在 <span class="nlm-step-zone nlm-step-zone--chat">② 對話</span> 把方向談好再按。</p>
+        </div>
+        <div class="callout warn mb-8">
+          <p class="font-bold">對話區 vs 工作室，差在哪？</p>
+          <ul class="mt-3 space-y-2 text-slate-700">
+            <li><b>② 對話</b>＝跟研究助理聊天，可反覆改問題、調大綱，像「草稿區」</li>
+            <li><b>③ 工作室</b>＝按鈕產出簡報／表格／音訊等，像「印刷機」，每天有產出上限</li>
+          </ul>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-purple mb-4">🎙️<span>音訊摘要<small>Audio Overview</small></span><b>›</b></div><p>把來源資料轉成對談式導讀，適合通勤、複習、先聽大方向。</p><b class="block mt-3">使用前：</b><p class="text-slate-600">先確認來源不要太雜，否則導讀會失焦。</p></article>
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-amber mb-4">▣<span>簡報<small>Slide Deck</small></span><b>›</b></div><p>把資料整理成簡報初稿，適合課程、報告、提案。</p><b class="block mt-3">使用前：</b><p class="text-slate-600">先決定對象、頁數、主軸與每頁目的。</p></article>
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-green mb-4">🎬<span>影片摘要<small>Video Overview</small></span><b>›</b></div><p>用影片導讀形式理解複雜資料，適合視覺學習與主題介紹。</p><b class="block mt-3">使用前：</b><p class="text-slate-600">先確認資料有明確段落與故事線。</p></article>
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-pink mb-4">🧠<span>心智圖<small>Mind Map</small></span><b>›</b></div><p>把資料變成主題分支，適合快速理解結構。</p><b class="block mt-3">使用前：</b><p class="text-slate-600">先要求 AI 整理核心主題與分類。</p></article>
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-gray mb-4">📋<span>報告<small>Report</small></span><b>›</b></div><p>適合將研究資料、企劃資料整理成正式文件。</p><b class="block mt-3">使用前：</b><p class="text-slate-600">先指定報告格式：背景、發現、分析、建議。</p></article>
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-red mb-4">🃏<span>學習卡<small>Flashcards</small></span><b>›</b></div><p>把教材轉成記憶卡，適合考前複習與孩子自學。</p><b class="block mt-3">使用前：</b><p class="text-slate-600">先要求分出必背名詞與容易混淆概念。</p></article>
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-cyan mb-4">☑<span>測驗<small>Quizzes</small></span><b>›</b></div><p>把資料變成測驗題，適合檢查是否真的理解。</p><b class="block mt-3">使用前：</b><p class="text-slate-600">指定題型、難度、題數、答案解析。</p></article>
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-purple mb-4">📊<span>資訊圖表<small>Infographic</small></span><b>›</b></div><p>把重點轉成視覺化資訊圖，適合社群貼文、懶人包。</p><b class="block mt-3">使用前：</b><p class="text-slate-600">先整理出 3–5 個重點，不要塞整篇文章。</p></article>
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-blue mb-4">▦<span>資料表<small>Data Table</small></span><b>›</b></div><p>把資料轉成欄位式表格，可接 Google Sheets 做後續分析。</p><b class="block mt-3">使用前：</b><p class="text-slate-600">先定義欄位，避免表格過大或欄位混亂。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-purple mb-4">🎙️<span>音訊摘要<small>Audio Overview</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--audio" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div><p class="mt-3"><b>產出像什麼：</b>兩人對談的 podcast，幫你「聽懂」資料重點。</p><p class="mt-2 text-slate-600">適合通勤、複習、先聽大方向。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-amber mb-4">▣<span>簡報<small>Slide Deck</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--slides" aria-hidden="true"><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>多頁投影片初稿，每頁有標題與重點。</p><p class="mt-2 text-slate-600">適合課程、報告、提案（需先在對話區定好頁數與主軸）。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-green mb-4">🎬<span>影片摘要<small>Video Overview</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--video" aria-hidden="true"><i></i></div><p class="mt-3"><b>產出像什麼：</b>AI 旁白＋畫面的導讀短片。</p><p class="mt-2 text-slate-600">適合視覺學習、主題介紹（生成時間較長）。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-pink mb-4">🧠<span>心智圖<small>Mind Map</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--mindmap" aria-hidden="true"><b></b><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>中心主題＋分支節點的結構圖。</p><p class="mt-2 text-slate-600">適合快速看懂「這個主題可以怎麼分類」。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-gray mb-4">📋<span>報告<small>Report</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--report" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>有章節的正式文件（背景、分析、建議）。</p><p class="mt-2 text-slate-600">適合研究整理、企劃書初稿。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-red mb-4">🃏<span>學習卡<small>Flashcards</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--cards" aria-hidden="true"><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>正面問題、背面答案的記憶卡。</p><p class="mt-2 text-slate-600">適合考前複習、孩子自學。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-cyan mb-4">☑<span>測驗<small>Quizzes</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--quiz" aria-hidden="true"><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>選擇題＋答案解析。</p><p class="mt-2 text-slate-600">適合檢查自己是否真的理解內容。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-purple mb-4">📊<span>資訊圖表<small>Infographic</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--infographic" aria-hidden="true"><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>一張圖裡放 3–5 個重點的懶人包。</p><p class="mt-2 text-slate-600">適合社群貼文、快速分享。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-blue mb-4">▦<span>資料表<small>Data Table</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--table" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>有欄位、有列的 Excel 式表格，可匯出 Sheets。</p><p class="mt-2 text-slate-600">適合比較產品、整理清單、後續再分析。</p></article>
         </div>
       </div>
     </section>
@@ -252,14 +267,14 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
         <div class="space-y-8">
           <article class="rounded-[2rem] bg-white border border-line p-6 lg:p-8 shadow-card">
             <div class="flex items-start gap-4"><div class="badge h-12 w-12 bg-blue-600 text-white shrink-0">1</div><div><h3 class="text-2xl font-black">多份文件變成教學簡報</h3><p class="mt-2 text-slate-600">適合課程講義、官方文件、研究報告、產品說明。</p></div></div>
-            <div class="grid lg:grid-cols-5 gap-4 mt-6 text-sm"><div class="rounded-2xl bg-slate-50 p-4"><b>準備</b><p>PDF、網站、講義、補充資料。</p></div><div class="rounded-2xl bg-slate-50 p-4"><b>健檢</b><p>先問資料是否足夠。</p></div><div class="rounded-2xl bg-slate-50 p-4"><b>大綱</b><p>要求 10–12 頁架構。</p></div><div class="rounded-2xl bg-slate-50 p-4"><b>輸出</b><p>右側工作室選簡報。</p></div><div class="rounded-2xl bg-slate-50 p-4"><b>後製</b><p>調整版型、字體、案例。</p></div></div>
+            <div class="grid lg:grid-cols-5 gap-4 mt-6 text-sm"><div class="rounded-2xl bg-slate-50 p-4"><b>準備</b><p>PDF、網站、講義、補充資料。</p></div><div class="rounded-2xl bg-slate-50 p-4"><b>健檢</b><p>先問資料是否足夠。</p></div><div class="rounded-2xl bg-slate-50 p-4"><b>大綱</b><p>要求 10–12 頁架構。</p></div><div class="rounded-2xl bg-slate-50 p-4"><b>輸出</b><p>工作室選簡報。</p></div><div class="rounded-2xl bg-slate-50 p-4"><b>後製</b><p>調整版型、字體、案例。</p></div></div>
             <div class="codebox mt-6">請根據來源資料，規劃一份 12 頁新手教學簡報。<br>對象：完全沒接觸過此主題的讀者。<br>每頁請包含：頁面標題、三個重點、建議視覺、講者備註。<br>不要直接做太深入，先讓觀眾理解概念與操作順序。</div>
           </article>
           <article class="rounded-[2rem] bg-white border border-line p-6 lg:p-8 shadow-card">
             <div class="flex items-start gap-4"><div class="badge h-12 w-12 bg-emerald-600 text-white shrink-0">2</div><div><h3 class="text-2xl font-black">Data Tables → Google Sheets → 反丟回 NotebookLM</h3><p class="mt-2 text-slate-600">適合比較產品、整理 YouTube 影片重點、活動資料、價格方案、景點清單。</p></div></div>
             <ol class="mt-6 grid lg:grid-cols-2 gap-4">
               <li class="rounded-2xl bg-slate-50 p-4"><b>步驟 1：</b>先在對話區要求欄位規格，例如「名稱、來源、重點、優點、限制、適合對象」。</li>
-              <li class="rounded-2xl bg-slate-50 p-4"><b>步驟 2：</b>確認欄位後，再從右側工作室產生資料表。</li>
+              <li class="rounded-2xl bg-slate-50 p-4"><b>步驟 2：</b>確認欄位後，再從工作室產生資料表。</li>
               <li class="rounded-2xl bg-slate-50 p-4"><b>步驟 3：</b>匯出到 Google Sheets，檢查欄位、刪除重複、補缺漏。</li>
               <li class="rounded-2xl bg-slate-50 p-4"><b>步驟 4：</b>把整理後的 Sheets 或 CSV 重新加入 NotebookLM，要求分析趨勢或生成圖表說明。</li>
             </ol>

@@ -92,9 +92,61 @@
     }
   }
 
+  function initZoneDemo(root) {
+    var demo = root.querySelector("[data-nlm-ui-demo]");
+    if (!demo || demo.getAttribute("data-nlm-zone-demo-ready") === "1") return;
+    var panels = Array.prototype.slice.call(demo.querySelectorAll("[data-nlm-zone]"));
+    if (panels.length < 2) return;
+    demo.setAttribute("data-nlm-zone-demo-ready", "1");
+
+    var index = 0;
+    var timer = null;
+    var paused = false;
+    var reduceMotion =
+      window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function setActive(nextIndex) {
+      panels.forEach(function (panel, i) {
+        panel.classList.toggle("is-zone-active", i === nextIndex);
+      });
+      index = nextIndex;
+    }
+
+    function tick() {
+      if (paused || reduceMotion) return;
+      setActive((index + 1) % panels.length);
+    }
+
+    function start() {
+      if (reduceMotion) {
+        setActive(0);
+        return;
+      }
+      setActive(0);
+      if (timer) window.clearInterval(timer);
+      timer = window.setInterval(tick, 3200);
+    }
+
+    demo.addEventListener("mouseenter", function () {
+      paused = true;
+    });
+    demo.addEventListener("mouseleave", function () {
+      paused = false;
+    });
+    demo.addEventListener("focusin", function () {
+      paused = true;
+    });
+    demo.addEventListener("focusout", function () {
+      paused = false;
+    });
+
+    start();
+  }
+
   function initOne(root) {
     if (!root || root.getAttribute("data-nlm-tools-ready") === "1") return;
     root.setAttribute("data-nlm-tools-ready", "1");
+    initZoneDemo(root);
 
     var output = root.querySelector("[data-nlm-prompt-output]");
     var buildBtn = root.querySelector("[data-nlm-build]");
