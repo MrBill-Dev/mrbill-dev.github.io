@@ -68,18 +68,44 @@
           </div>
 
           <div class="relative hidden lg:block">
-            <div class="absolute -inset-12 rounded-full" style="background:radial-gradient(circle,rgba(37,99,235,.18),transparent 70%);"></div>
-            <div class="relative rounded-[2rem] overflow-hidden" style="box-shadow:0 40px 90px rgba(0,0,0,.5);">
-              <img src="../assets/web-service-hero.png"
-                   alt="MrBill AI Studio 網站設計服務主視覺"
-                   class="w-full object-cover"
-                   style="height:32rem;filter:brightness(.9) saturate(1.05);"
-                   loading="eager" />
-              <div class="absolute inset-0" style="background:linear-gradient(155deg,rgba(37,99,235,.12) 0%,rgba(20,184,166,.05) 100%);"></div>
-              <div class="absolute inset-x-5 bottom-5 rounded-2xl p-5 backdrop-blur-md"
-                   style="background:rgba(12,19,34,.78);border:1px solid rgba(255,255,255,.1);">
-                <p class="font-black leading-7 text-white">不是只做畫面，而是把服務整理成客戶看得懂的路徑。</p>
-                <p class="mt-1.5 text-sm" style="color:#94a3b8;">從內容整理、動線規劃到手機閱讀與詢問設計，一起處理。</p>
+            <div class="ws-hero-visual" aria-label="網站服務整理與詢問動線示意">
+              <div class="ws-hero-visual__glow"></div>
+              <div class="ws-hero-browser">
+                <div class="ws-hero-browser__bar">
+                  <span></span><span></span><span></span>
+                  <b>service-page.html</b>
+                </div>
+                <div class="ws-hero-browser__canvas">
+                  <div class="ws-hero-wire ws-hero-wire--hero">
+                    <small>第一眼</small>
+                    <strong>你提供什麼服務？</strong>
+                    <span></span>
+                  </div>
+                  <div class="ws-hero-flow">
+                    <article>
+                      <b>內容整理</b>
+                      <span>服務・價格・案例</span>
+                    </article>
+                    <i></i>
+                    <article>
+                      <b>動線規劃</b>
+                      <span>方案・FAQ・信任感</span>
+                    </article>
+                    <i></i>
+                    <article>
+                      <b>引導詢問</b>
+                      <span>表單・LINE・CTA</span>
+                    </article>
+                  </div>
+                  <div class="ws-hero-wire ws-hero-wire--cta">
+                    <span>看方案</span>
+                    <span>填寫需求</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ws-hero-note">
+                <p>不是只做畫面，而是把服務整理成客戶看得懂的路徑。</p>
+                <span>從內容整理、動線規劃到手機閱讀與詢問設計，一起處理。</span>
               </div>
             </div>
           </div>
@@ -190,6 +216,10 @@
          WHY ME — 為什麼選擇我
     ══════════════════════════════════════════════ -->
     <section id="why-me" class="sec-warm sec-pad">
+      <div class="ws-why-bg" aria-hidden="true">
+        <span class="ws-why-orb ws-why-orb--blue"></span>
+        <span class="ws-why-orb ws-why-orb--orange"></span>
+      </div>
       <div class="ws-shell">
         <div class="ws-why-head">
           <span class="eyebrow">為什麼選擇我</span>
@@ -199,6 +229,9 @@
           </p>
           <p class="ws-why-sub">把服務講清楚、讓人願意詢問；網域主機不包辦，範圍先講明白。</p>
         </div>
+        <div class="ws-why-cards-wrap">
+          <span class="ws-why-vs" aria-hidden="true">VS</span>
+          <span class="ws-why-axis" aria-hidden="true"></span>
         <div class="grid md:grid-cols-2 gap-5 ws-stagger ws-why-cards">
           <div class="ws-adv-card ws-adv-card--you">
             <p class="ws-adv-card__tag">我的做法</p>
@@ -221,6 +254,7 @@
               <li><b>低價套版：</b>很少幫你想「客戶看完會不會詢問」</li>
             </ul>
           </div>
+        </div>
         </div>
         <div class="mt-8 grid sm:grid-cols-3 gap-4 ws-stagger">
           <div class="ws-adv-pill">
