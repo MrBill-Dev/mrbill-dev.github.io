@@ -115,6 +115,19 @@ window.__MRBILL_SEO_CONFIG__ = {
       "ogImageAlt": "文章筆記與實務整理的工作坊討論情境",
       "rawTitle": true,
       "type": "website"
+    },
+    "web-service": {
+      "path": "/web-service/",
+      "title": "網站設計服務｜品牌單頁、小型官網與 SEO/GEO 內容整理｜Mr.Bill 數位實驗室",
+      "description": "Mr.Bill 數位實驗室提供網站設計服務，協助個人品牌、工作室與小型商家製作品牌單頁、服務轉換頁、小型官網、舊站整理與 SEO/GEO 內容架構，讓服務被看見並引導詢問。",
+      "ogTitle": "網站設計服務｜品牌單頁、小型官網與 SEO/GEO 內容整理",
+      "ogDescription": "協助個人品牌、工作室與小型商家建立清楚、可搜尋、能引導詢問的網站，包含品牌單頁、服務轉換頁、小型官網、舊站整理與 SEO/GEO 內容架構。",
+      "ogImage": "assets/web-service-hero.png",
+      "ogImageAlt": "Mr.Bill 數位實驗室網站設計服務主視覺，呈現 AI 時代的實用型網站建置服務",
+      "twitterDescription": "把服務內容、方案、案例、FAQ 與詢問動線整理成客戶看得懂、搜尋與 AI 也能理解的網站。",
+      "rawTitle": true,
+      "type": "website",
+      "skipOrganization": true
     }
   }
 };
