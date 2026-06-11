@@ -5191,8 +5191,8 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
 
 /* ===== NotebookLM 教學文 #notebooklm-guide-root（樣式放外部 CSS，Ctrl+F5 + push 即生效）===== */
 .blog-main.blog-prose #notebooklm-guide-root {
-  word-break: break-word !important;
-  overflow-wrap: anywhere !important;
+  word-break: normal;
+  overflow-wrap: break-word;
   text-wrap: pretty;
   max-width: 100% !important;
   min-width: 0 !important;
@@ -5234,10 +5234,153 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
   max-width: 100%;
 }
 
-.blog-main.blog-prose #notebooklm-guide-root *:not(.codebox):not(.notebooklm-output) {
-  overflow-wrap: anywhere !important;
-  word-break: break-word !important;
+.blog-main.blog-prose #notebooklm-guide-root *:not(.codebox):not(.notebooklm-output):not(.studio-card):not(.pill):not(.nlm-step-zone):not(.nlm-zone-step):not(.ui-head):not(.badge) {
+  overflow-wrap: break-word;
+  word-break: normal;
   white-space: normal !important;
+}
+
+/* 元件樣式放外部 CSS，手機／預覽不依賴內嵌 <style> */
+.blog-main.blog-prose #notebooklm-guide-root .ui-window {
+  background: #eef2fb;
+  border: 1px solid #dfe6f3;
+  border-radius: 1.25rem;
+  box-shadow: 0 16px 48px rgba(23, 32, 51, 0.1);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-panel {
+  background: #fff;
+  border: 1px solid #dfe6f3;
+  border-radius: 1rem;
+  overflow: visible;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .ui-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  min-height: 2.25rem;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid #e5eaf3;
+  font-weight: 700;
+  font-size: 0.92rem;
+  background: #fff;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  background: #fff;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  word-break: normal;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .studio-card {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-radius: 12px;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid transparent;
+  font-weight: 700;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .studio-card span {
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .studio-card b {
+  flex: 0 0 auto;
+  opacity: 0.55;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .studio-card small {
+  display: block;
+  font-weight: 500;
+  margin-top: 2px;
+  font-size: 0.8em;
+  line-height: 1.25;
+  opacity: 0.9;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .c-purple { background: #f0edff !important; color: #6941c6 !important; }
+.blog-main.blog-prose #notebooklm-guide-root .c-green { background: #eafaf1 !important; color: #067647 !important; }
+.blog-main.blog-prose #notebooklm-guide-root .c-pink { background: #fff0f6 !important; color: #c11574 !important; }
+.blog-main.blog-prose #notebooklm-guide-root .c-amber { background: #fff7e6 !important; color: #b54708 !important; }
+.blog-main.blog-prose #notebooklm-guide-root .c-blue { background: #eaf4ff !important; color: #175cd3 !important; }
+.blog-main.blog-prose #notebooklm-guide-root .c-cyan { background: #e9fbff !important; color: #026aa2 !important; }
+.blog-main.blog-prose #notebooklm-guide-root .c-red { background: #fff1f3 !important; color: #c01048 !important; }
+.blog-main.blog-prose #notebooklm-guide-root .c-gray { background: #f4f6fb !important; color: #344054 !important; }
+
+.blog-main.blog-prose #notebooklm-guide-root .shadow-card {
+  box-shadow: 0 8px 22px rgba(23, 32, 51, 0.06);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .callout {
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  border-radius: 1.25rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .callout.warn {
+  border-color: #fed7aa;
+  background: #fff7ed;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .callout.success {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .callout.danger {
+  border-color: #fecdd3;
+  background: #fff1f2;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .compare-ok {
+  border-left: 5px solid #10b981;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .compare-no {
+  border-left: 5px solid #f43f5e;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-cheat-sheet {
+  border: 2px solid #bfdbfe !important;
+  background: #eff6ff !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .bg-white {
+  background-color: #fff !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .text-slate-600 {
+  color: #475569 !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .text-slate-500 {
+  color: #64748b !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .text-slate-700 {
+  color: #334155 !important;
 }
 
 .blog-main.blog-prose #notebooklm-guide-root .pill,
@@ -5260,10 +5403,14 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
   min-width: 0 !important;
 }
 
-.blog-main.blog-prose #notebooklm-guide-root [class*="flex-1"],
-.blog-main.blog-prose #notebooklm-guide-root .flex.items-start > :last-child,
-.blog-main.blog-prose #notebooklm-guide-root .flex.justify-between > :first-child {
+.blog-main.blog-prose #notebooklm-guide-root [class*="flex-1"] {
   flex: 1 1 0% !important;
+  min-width: 0;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .flex.items-start.gap-4 > div:last-child {
+  flex: 1 1 0%;
+  min-width: 0;
 }
 
 .blog-main.blog-prose #notebooklm-guide-root .badge,
@@ -6030,7 +6177,8 @@ html.notebooklm-modal-open {
 }
 
 .blog-main.blog-prose #notebooklm-guide-root .ui-panel .grid.grid-cols-2 {
-  grid-template-columns: 1fr !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
 }
 
 .blog-main.blog-prose #notebooklm-guide-root .ui-panel .p-8 {
@@ -6055,8 +6203,8 @@ html.notebooklm-modal-open {
 
 @media (max-width: 767px) {
   .blog-main.blog-prose #notebooklm-guide-root {
-    overflow-x: hidden !important;
-    padding: 0.25rem 0 1.5rem !important;
+    overflow-x: clip !important;
+    padding: 0.25rem 0.75rem 1.5rem !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root > section {
@@ -6065,7 +6213,7 @@ html.notebooklm-modal-open {
     margin-inline: 0 !important;
     padding-top: 2.4rem !important;
     padding-bottom: 2.4rem !important;
-    overflow-x: hidden !important;
+    overflow-x: clip !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .max-w-7xl,
@@ -6077,16 +6225,30 @@ html.notebooklm-modal-open {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
-    padding-left: 0.85rem !important;
-    padding-right: 0.85rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
   }
 
-  .blog-main.blog-prose #notebooklm-guide-root .grid,
-  .blog-main.blog-prose #notebooklm-guide-root [class*="grid-cols-"],
-  .blog-main.blog-prose #notebooklm-guide-root [class*="lg:grid-cols-"],
-  .blog-main.blog-prose #notebooklm-guide-root [class*="md:grid-cols-"] {
+  /* 只把「多欄版面」收成單欄，不影響工作室按鈕格、表格預覽 */
+  .blog-main.blog-prose #notebooklm-guide-root [class*="md:grid-cols-"],
+  .blog-main.blog-prose #notebooklm-guide-root [class*="lg:grid-cols-"] {
     grid-template-columns: minmax(0, 1fr) !important;
     min-width: 0 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root #studio .grid,
+  .blog-main.blog-prose #notebooklm-guide-root #meaning .grid[class*="md:grid-cols-"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel .grid.grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.45rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel .studio-card {
+    padding: 0.5rem 0.55rem !important;
+    font-size: 0.78rem !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .flex {
@@ -6098,9 +6260,9 @@ html.notebooklm-modal-open {
     gap: 0.75rem !important;
   }
 
-  .blog-main.blog-prose #notebooklm-guide-root .rounded-3xl,
-  .blog-main.blog-prose #notebooklm-guide-root .rounded-\[2rem\],
-  .blog-main.blog-prose #notebooklm-guide-root .rounded-2xl,
+  .blog-main.blog-prose #notebooklm-guide-root section .rounded-3xl,
+  .blog-main.blog-prose #notebooklm-guide-root section .rounded-\[2rem\],
+  .blog-main.blog-prose #notebooklm-guide-root section .rounded-2xl,
   .blog-main.blog-prose #notebooklm-guide-root .callout,
   .blog-main.blog-prose #notebooklm-guide-root .prompt,
   .blog-main.blog-prose #notebooklm-guide-root .notebooklm-checker,
@@ -6112,17 +6274,20 @@ html.notebooklm-modal-open {
     border-radius: 1.1rem !important;
   }
 
+  .blog-main.blog-prose #notebooklm-guide-root #studio article.rounded-3xl {
+    border: 1px solid #e6ebf3 !important;
+    background: #fff !important;
+  }
+
   .blog-main.blog-prose #notebooklm-guide-root h2.section-title,
   .blog-main.blog-prose #notebooklm-guide-root h3,
   .blog-main.blog-prose #notebooklm-guide-root p,
   .blog-main.blog-prose #notebooklm-guide-root li,
-  .blog-main.blog-prose #notebooklm-guide-root b,
   .blog-main.blog-prose #notebooklm-guide-root summary,
-  .blog-main.blog-prose #notebooklm-guide-root label,
-  .blog-main.blog-prose #notebooklm-guide-root span {
+  .blog-main.blog-prose #notebooklm-guide-root label {
     min-width: 0;
-    overflow-wrap: anywhere;
-    word-break: break-word;
+    overflow-wrap: break-word;
+    word-break: normal;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .section-title {
@@ -6151,9 +6316,11 @@ html.notebooklm-modal-open {
   .blog-main.blog-prose #notebooklm-guide-root .ui-window {
     width: 100% !important;
     max-width: 100% !important;
-    overflow-x: hidden !important;
+    overflow-x: clip !important;
     padding: 0.85rem !important;
     border-radius: 1.1rem !important;
+    background: #eef2fb !important;
+    border: 1px solid #dfe6f3 !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .ui-grid--desktop {
@@ -6167,7 +6334,9 @@ html.notebooklm-modal-open {
   .blog-main.blog-prose #notebooklm-guide-root .ui-panel {
     width: 100% !important;
     min-width: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
+    background: #fff !important;
+    border: 1px solid #dfe6f3 !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .ui-panel .p-8,
@@ -6181,15 +6350,42 @@ html.notebooklm-modal-open {
     padding-top: 1.25rem !important;
   }
 
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel h3 {
+    font-size: 1.05rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel .text-5xl {
+    font-size: 2rem !important;
+    line-height: 1 !important;
+  }
+
   .blog-main.blog-prose #notebooklm-guide-root .ui-head,
-  .blog-main.blog-prose #notebooklm-guide-root .pill,
-  .blog-main.blog-prose #notebooklm-guide-root .studio-card {
+  .blog-main.blog-prose #notebooklm-guide-root .pill {
     min-width: 0 !important;
     white-space: normal !important;
   }
 
+  .blog-main.blog-prose #notebooklm-guide-root .studio-card {
+    min-width: 0 !important;
+    white-space: normal !important;
+    word-break: normal !important;
+  }
+
   .blog-main.blog-prose #notebooklm-guide-root .anim-stage {
     height: 210px !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .doc1,
+  .blog-main.blog-prose #notebooklm-guide-root .doc2,
+  .blog-main.blog-prose #notebooklm-guide-root .doc3,
+  .blog-main.blog-prose #notebooklm-guide-root .brain,
+  .blog-main.blog-prose #notebooklm-guide-root .out1,
+  .blog-main.blog-prose #notebooklm-guide-root .out2,
+  .blog-main.blog-prose #notebooklm-guide-root .out3 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .doc {
@@ -6245,16 +6441,29 @@ html.notebooklm-modal-open {
 
   .blog-main.blog-prose #notebooklm-guide-root .flow-step {
     display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-columns: 2.75rem minmax(0, 1fr) !important;
+    gap: 0.75rem !important;
+    align-items: start !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .flow-line::before {
     display: none !important;
   }
 
-  .blog-main.blog-prose #notebooklm-guide-root .badge {
+  .blog-main.blog-prose #notebooklm-guide-root .flow-step .badge {
     width: 2.5rem !important;
     height: 2.5rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-zone {
+    display: inline-flex !important;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-cheat-sheet {
+    padding: 1rem !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .codebox {
