@@ -5495,6 +5495,27 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
   padding: clamp(1.35rem, 3.5vw, 1.9rem) !important;
 }
 
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-checker {
+  background: #fff !important;
+  border: 1px solid #e6ebf3 !important;
+  color: #172033 !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool {
+  background: #020617 !important;
+  border: 1px solid rgba(148, 163, 184, 0.24) !important;
+  color: #fff !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool h3 {
+  color: #fff !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool p,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool span {
+  color: #cbd5e1 !important;
+}
+
 .blog-main.blog-prose #notebooklm-guide-root .notebooklm-score {
   flex: 0 0 auto;
   border-radius: 999px;
@@ -6440,14 +6461,25 @@ html.notebooklm-modal-open {
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .flow-step {
-    display: grid !important;
-    grid-template-columns: 2.75rem minmax(0, 1fr) !important;
-    gap: 0.75rem !important;
-    align-items: start !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .flow-line::before {
     display: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .flow-step > :first-child {
+    display: block !important;
+    width: auto !important;
+    margin-bottom: 0.65rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .flow-step > :last-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .flow-step .badge {
@@ -6513,6 +6545,29 @@ html.notebooklm-modal-open {
     width: 100% !important;
     font-size: 16px !important;
     padding: 0.78rem 0.85rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool {
+    background: #020617 !important;
+    color: #fff !important;
+    box-shadow: 0 16px 36px rgba(2, 6, 23, 0.22) !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool h3,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool label {
+    color: #fff !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool p,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool span {
+    color: #cbd5e1 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool .notebooklm-input,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-prompt-tool .notebooklm-output {
+    background: #111827 !important;
+    border-color: rgba(226, 232, 240, 0.22) !important;
+    color: #f8fafc !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .notebooklm-output {

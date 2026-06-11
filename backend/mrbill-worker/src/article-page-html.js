@@ -1,4 +1,4 @@
-import {
+﻿import {
   blogArticleShareOgTitle,
   blogResolveCover,
   absUrl,
@@ -399,10 +399,10 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
     '  <script src="../../js/blog-article-ui.js?v=author-desktop-v1"></script>\n' +
-    '  <script src="../../js/notebooklm-guide-tools.js?v=nlm-mobile-4"></script>\n' +
+    '  <script src="../../js/notebooklm-guide-tools.js?v=nlm-mobile-5"></script>\n' +
     quizAssets +
     BLOG_SERIF_FONT_HEAD +
-    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=nlm-mobile-4" />\n' +
+    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=nlm-mobile-5" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; max-width: 100%; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; overflow-x: clip; max-width: 100%; }\n' +
@@ -469,4 +469,5 @@ export function publishedArticleFilePath(slug) {
 export function legacyFlatPublishedArticleFilePath(slug) {
   return "blog/" + slug + ".html";
 }
+
 
