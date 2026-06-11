@@ -1,4 +1,43 @@
 (function () {
+  var resourceDetails = {
+    "resource-official": {
+      title: "NotebookLM 官方入口",
+      body:
+        "適合第一次使用的人。可以從這裡建立 notebook、加入 PDF、網站、YouTube、Google 文件等來源，並實際操作 Sources、Chat、Studio 三大區。讀完本文後，建議用自己的資料建立一本小型 notebook 來練習。",
+      url: "https://notebooklm.google/"
+    },
+    "resource-help": {
+      title: "NotebookLM Help Center",
+      body:
+        "適合查最新功能、使用限制與疑難排解。由於 NotebookLM 的功能與額度會更新，涉及 sources 數量、notebooks 數量、Audio / Video / Reports 等限制時，建議回到官方說明確認。",
+      url: "https://support.google.com/notebooklm/"
+    },
+    "resource-audio": {
+      title: "Audio Overview 官方說明",
+      body:
+        "適合想把資料變成聽覺學習素材的人。官方說明列出 Deep Dive、Brief、Critique、Debate 等形式，也提醒音訊仍可能有 AI 生成錯誤。建議先完成資料健檢，再產生音訊。",
+      url: "https://support.google.com/notebooklm/answer/16212820"
+    },
+    "resource-video": {
+      title: "Video Overview 官方說明",
+      body:
+        "適合想把複雜資料變成視覺導讀的人。影片摘要可設定語言、視覺風格與聚焦方向，但生成時間可能較長。適合在資料結構清楚、主題已收斂後再使用。",
+      url: "https://support.google.com/notebooklm/answer/16454555"
+    },
+    "resource-upgrade": {
+      title: "Upgrade NotebookLM",
+      body:
+        "適合需要大量 notebooks、sources、queries 或多次產生 Audio / Video / Reports 的使用者。額度會依方案與帳號類型變動，發布文章或教學前應以官方頁面為準。",
+      url: "https://support.google.com/notebooklm/answer/16206866"
+    },
+    "resource-external": {
+      title: "外部完整功能導覽",
+      body:
+        "適合想快速掌握 NotebookLM 特色、來源格式、Studio 輸出與使用情境的讀者。外部文章可作為補充，但涉及價格、限制與官方名稱時，仍建議回到 Google 官方文件確認。",
+      url: "https://www.digitalocean.com/resources/articles/what-is-notebooklm"
+    }
+  };
+
   function text(root, selector, fallback) {
     var el = root.querySelector(selector);
     var value = el && typeof el.value === "string" ? el.value.trim() : "";
@@ -62,9 +101,28 @@
     var copyBtn = root.querySelector("[data-nlm-copy]");
     var status = root.querySelector("[data-nlm-copy-status]");
     var checks = Array.prototype.slice.call(root.querySelectorAll("[data-nlm-check]"));
+    var modal = root.querySelector("[data-nlm-modal]");
+    var modalTitle = root.querySelector("[data-nlm-modal-title]");
+    var modalBody = root.querySelector("[data-nlm-modal-body]");
+    var modalLink = root.querySelector("[data-nlm-modal-link]");
 
     function renderPrompt() {
       if (output) output.value = buildPrompt(root);
+    }
+
+    function closeModal() {
+      if (modal) modal.hidden = true;
+      document.documentElement.classList.remove("notebooklm-modal-open");
+    }
+
+    function openModal(id) {
+      var item = resourceDetails[id];
+      if (!modal || !item) return;
+      if (modalTitle) modalTitle.textContent = item.title;
+      if (modalBody) modalBody.textContent = item.body;
+      if (modalLink) modalLink.href = item.url;
+      modal.hidden = false;
+      document.documentElement.classList.add("notebooklm-modal-open");
     }
 
     if (buildBtn) buildBtn.addEventListener("click", renderPrompt);
@@ -96,6 +154,18 @@
         }
       });
     }
+
+    Array.prototype.slice.call(root.querySelectorAll("[data-nlm-modal-open]")).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        openModal(btn.getAttribute("data-nlm-modal-open"));
+      });
+    });
+    Array.prototype.slice.call(root.querySelectorAll("[data-nlm-modal-close]")).forEach(function (btn) {
+      btn.addEventListener("click", closeModal);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeModal();
+    });
 
     renderPrompt();
     updateChecklist(root);

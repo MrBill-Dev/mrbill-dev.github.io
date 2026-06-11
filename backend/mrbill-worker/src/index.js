@@ -268,6 +268,217 @@ async function readJsonBody(request) {
   return JSON.parse(text);
 }
 
+function escapeEmailHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function cleanContactText(value, max) {
+  return String(value || "").trim().slice(0, max || 2000);
+}
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
+}
+
+function buildContactEmailHtml(data) {
+  const rows = [
+    ["姓名 / 稱呼", data.name],
+    ["品牌 / 公司", data.brand],
+    ["Email", data.email],
+    ["LINE / 電話", data.contact],
+    ["想了解的方案", data.service],
+    ["預算範圍", data.budget],
+    ["目前目標", data.goal],
+    ["補充資料", data.message],
+    ["來源頁面", data.pageUrl]
+  ];
+  return (
+    '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;line-height:1.75;color:#172033">' +
+    '<h2 style="margin:0 0 16px">網站設計服務詢問</h2>' +
+    '<table style="border-collapse:collapse;width:100%;max-width:720px">' +
+    rows
+      .map(function (row) {
+        return (
+          "<tr>" +
+          '<th style="width:150px;text-align:left;vertical-align:top;padding:10px;border:1px solid #e2e8f0;background:#f8fafc">' +
+          escapeEmailHtml(row[0]) +
+          "</th>" +
+          '<td style="white-space:pre-wrap;vertical-align:top;padding:10px;border:1px solid #e2e8f0">' +
+          escapeEmailHtml(row[1] || "未填寫") +
+          "</td>" +
+          "</tr>"
+        );
+      })
+      .join("") +
+    "</table>" +
+    "</div>"
+  );
+}
+
+async function handleContactStatus(request, env) {
+  if (request.method !== "GET") {
+    return jsonResponse(request, { success: false, message: "Method not allowed" }, 405);
+  }
+  let enabled = true;
+  try {
+    const val = await getSiteSetting(env.DB, "contact_form_enabled", "1");
+    enabled = val !== "0";
+  } catch (e) { /* default to enabled if setting table not yet created */ }
+  return jsonResponse(request, { success: true, data: { enabled } });
+}
+
+async function handleContact(request, env) {
+  if (request.method !== "POST") {
+    return jsonResponse(request, { success: false, message: "Method not allowed" }, 405);
+  }
+  let formEnabled = "1";
+  try {
+    formEnabled = await getSiteSetting(env.DB, "contact_form_enabled", "1");
+  } catch (e) { /* default to enabled */ }
+  if (formEnabled === "0") {
+    return jsonResponse(
+      request,
+      { success: false, message: "目前工作室排單已滿，暫停接受詢問，請稍後再試。" },
+      503
+    );
+  }
+  const body = await readJsonBody(request);
+  if (cleanContactText(body.website, 200)) {
+    return jsonResponse(request, { success: true, data: { skipped: true } });
+  }
+  const data = {
+    source: cleanContactText(body.source, 80),
+    name: cleanContactText(body.name, 120),
+    brand: cleanContactText(body.brand, 160),
+    email: cleanContactText(body.email, 180),
+    contact: cleanContactText(body.contact, 180),
+    service: cleanContactText(body.service, 160),
+    budget: cleanContactText(body.budget, 120),
+    goal: cleanContactText(body.goal, 3000),
+    message: cleanContactText(body.message, 3000),
+    pageUrl: cleanContactText(body.pageUrl, 500)
+  };
+  if (!data.name) throw new Error("請填寫姓名或稱呼");
+  if (!isValidEmail(data.email)) throw new Error("請填寫有效 Email");
+  if (!data.service) throw new Error("請選擇想了解的方案");
+  if (!data.goal) throw new Error("請填寫目前目標");
+  // Save to D1 (best effort — won't fail the whole request if table not yet created)
+  try {
+    await env.DB.prepare(
+      `INSERT INTO contact_submissions
+        (source, name, brand, email, contact, service, budget, goal, message, page_url)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    )
+      .bind(
+        data.source || "web-service",
+        data.name,
+        data.brand || "",
+        data.email,
+        data.contact || "",
+        data.service,
+        data.budget || "",
+        data.goal,
+        data.message || "",
+        data.pageUrl || ""
+      )
+      .run();
+  } catch (dbErr) {
+    console.warn("contact_submissions insert failed:", dbErr.message || dbErr);
+  }
+  if (!env.RESEND_API_KEY) {
+    return jsonResponse(request, { success: true, data: { saved: true, emailed: false } });
+  }
+  let to = env.CONTACT_TO_EMAIL || "xtxgmxa@gmail.com";
+  try {
+    const dbEmail = await getSiteSetting(env.DB, "contact_form_to_email", "");
+    if (dbEmail && isValidEmail(dbEmail)) to = dbEmail;
+  } catch (e) { /* use env fallback */ }
+  const from = env.CONTACT_FROM_EMAIL || "MrBill AI Studio <onboarding@resend.dev>";
+  const subject =
+    "網站設計服務詢問：" + (data.brand || data.name || "新需求") + " / " + data.service;
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + env.RESEND_API_KEY,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      reply_to: data.email,
+      subject,
+      html: buildContactEmailHtml(data)
+    })
+  });
+  const result = await res.json().catch(function () {
+    return {};
+  });
+  if (!res.ok) {
+    throw new Error(result.message || "寄信失敗，請稍後再試。");
+  }
+  return jsonResponse(request, { success: true, data: { id: result.id || "" } });
+}
+
+async function handleAdminContactSubmissions(request, env, url) {
+  const auth = await requireAdmin(request, env, env.DB, url.pathname);
+  if (!auth.ok) {
+    return jsonResponse(request, { success: false, message: auth.message }, auth.status);
+  }
+  const parts = url.pathname.split("/").filter(Boolean);
+  const idPart = parts.length >= 4 ? parts[3] : "";
+  const rowId = idPart ? Number(idPart) : 0;
+
+  if (request.method === "DELETE") {
+    if (!rowId || !Number.isInteger(rowId) || rowId < 1) {
+      return jsonResponse(request, { success: false, message: "Invalid id" }, 400);
+    }
+    try {
+      const result = await env.DB.prepare("DELETE FROM contact_submissions WHERE id = ?")
+        .bind(rowId)
+        .run();
+      if (!result.meta || !result.meta.changes) {
+        return jsonResponse(request, { success: false, message: "Not found" }, 404);
+      }
+      return jsonResponse(request, { success: true, data: { deleted: true, id: rowId } });
+    } catch (e) {
+      return jsonResponse(
+        request,
+        {
+          success: false,
+          message:
+            "contact_submissions 資料表不存在，請先在 D1 執行 migrate-contact-submissions.sql"
+        },
+        503
+      );
+    }
+  }
+
+  if (request.method !== "GET" || rowId) {
+    return jsonResponse(request, { success: false, message: "Method not allowed" }, 405);
+  }
+  let rows = { results: [] };
+  try {
+    rows = await env.DB.prepare(
+      "SELECT * FROM contact_submissions ORDER BY created_at DESC LIMIT 50"
+    ).all();
+  } catch (e) {
+    return jsonResponse(
+      request,
+      {
+        success: false,
+        message:
+          "contact_submissions 資料表不存在，請先在 D1 執行 migrate-contact-submissions.sql"
+      },
+      503
+    );
+  }
+  return jsonResponse(request, { success: true, data: { submissions: rows.results || [] } });
+}
+
 function normalizeArticleInput(body, existing) {
   const out = Object.assign({}, existing || {});
   if (body.slug != null) {
@@ -601,6 +812,42 @@ async function handleAdminSettings(request, env, url) {
           stripTransitionMs: stripTransitionMs
         }
       });
+    }
+  }
+
+  if (url.pathname === "/api/admin/settings/contact") {
+    if (request.method === "GET") {
+      let enabled = true;
+      let toEmail = "";
+      try {
+        const val = await getSiteSetting(env.DB, "contact_form_enabled", "1");
+        enabled = val !== "0";
+        toEmail = await getSiteSetting(env.DB, "contact_form_to_email", "");
+      } catch (e) { /* table may not exist yet */ }
+      return jsonResponse(request, { success: true, data: { enabled, toEmail } });
+    }
+    if (request.method === "PUT") {
+      const body = await readJsonBody(request);
+      try {
+        await setSiteSetting(env.DB, "contact_form_enabled", body.enabled !== false ? "1" : "0");
+        if (typeof body.toEmail === "string") {
+          await setSiteSetting(
+            env.DB,
+            "contact_form_to_email",
+            body.toEmail.trim().slice(0, 200)
+          );
+        }
+      } catch (err) {
+        return jsonResponse(
+          request,
+          {
+            success: false,
+            message: "無法寫入 site_settings（請確認資料表已存在）"
+          },
+          500
+        );
+      }
+      return jsonResponse(request, { success: true });
     }
   }
 
@@ -982,6 +1229,14 @@ export default {
         return await handleStats(request, env);
       }
 
+      if (url.pathname === "/api/contact/status") {
+        return await handleContactStatus(request, env);
+      }
+
+      if (url.pathname === "/api/contact") {
+        return await handleContact(request, env);
+      }
+
       if (url.pathname === "/sitemap-dynamic.xml") {
         return await handleDynamicSitemap(request, env);
       }
@@ -1000,6 +1255,10 @@ export default {
 
       if (url.pathname.startsWith("/api/admin/articles")) {
         return await handleArticlesAdmin(request, env, url);
+      }
+
+      if (url.pathname.startsWith("/api/admin/contact-submissions")) {
+        return await handleAdminContactSubmissions(request, env, url);
       }
 
       if (url.pathname.startsWith("/api/admin/settings")) {

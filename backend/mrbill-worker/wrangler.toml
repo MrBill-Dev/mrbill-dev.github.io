@@ -15,6 +15,9 @@ database_id = "34ec918b-072a-423d-ab96-925a673f4c4b"
 CANONICAL_ORIGIN = "https://mrbill-dev.github.io"
 GITHUB_REPO = "MrBill-Dev/mrbill-dev.github.io"
 GITHUB_BRANCH = "main"
+CONTACT_TO_EMAIL = "xtxgmxa@gmail.com"
+# 寄件信箱需在 Resend 驗證網域後設定；RESEND_API_KEY 請用 wrangler secret 設定。
+# CONTACT_FROM_EMAIL = "MrBill AI Studio <hello@your-domain.com>"
 
 # 2C：每 15 分鐘檢查排程文章，時間到自動改為 published
 [triggers]

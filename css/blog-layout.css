@@ -5473,6 +5473,125 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
   gap: 1rem !important;
 }
 
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-depth-grid,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-practice-grid,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-resource-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: clamp(1rem, 2.5vw, 1.5rem) !important;
+}
+
+@media (min-width: 900px) {
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-depth-grid,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-resource-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-depth-grid,
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-resource-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .notebooklm-practice-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-resource-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-resource-card > .flex {
+  margin-top: auto;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-resource-btn,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-resource-link,
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-modal__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  font-weight: 900;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-resource-btn {
+  border: 0;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-resource-link {
+  border: 1px solid #dbe3ef;
+  background: #fff;
+  color: #1d4ed8;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-modal[hidden] {
+  display: none !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.62);
+  backdrop-filter: blur(4px);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-modal__panel {
+  position: relative;
+  width: min(100%, 42rem);
+  max-height: min(80vh, 40rem);
+  overflow: auto;
+  border-radius: 1.5rem;
+  border: 1px solid #dbe3ef;
+  background: #fff;
+  color: #172033;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  box-shadow: 0 24px 80px rgba(2, 6, 23, 0.28);
+  -webkit-overflow-scrolling: touch;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-modal__close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 0;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #172033;
+  font-size: 1.25rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .notebooklm-modal__link {
+  background: #172033;
+  color: #fff;
+}
+
+html.notebooklm-modal-open {
+  overflow: hidden;
+}
+
 .blog-main.blog-prose #notebooklm-guide-root .notebooklm-summary,
 .blog-main.blog-prose #notebooklm-guide-root .notebooklm-summary .article {
   text-align: left !important;

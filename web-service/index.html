@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-seo-page="web-service">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>網站設計服務｜AI 時代的實用型網站建置｜MrBill AI Studio</title>
+  <meta name="description" content="AI 時代的實用型網站建置服務，協助個人品牌、工作室與小型商家建立品牌單頁、服務導流頁、小型官網與 SEO/GEO 內容架構。" />
+  <link rel="canonical" href="https://mrbill-dev.github.io/web-service/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MrBill AI Studio" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta property="og:title" content="網站設計服務｜AI 時代的實用型網站建置" />
+  <meta property="og:description" content="協助個人品牌、工作室與小型商家，建立清楚、可搜尋、能引導詢問的網站。" />
+  <meta property="og:url" content="https://mrbill-dev.github.io/web-service/" />
+  <meta property="og:image" content="https://mrbill-dev.github.io/assets/web-service-hero.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/web-service.css?v=ws-ui-10" />
+
+  <script src="../js/site-seo.config.js"></script>
+  <script src="../js/site-seo.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../js/components-loader.js"></script>
+  <script src="../js/blog-stats.config.js?v=20260608"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["-apple-system","BlinkMacSystemFont","\"SF Pro Text\"","\"Noto Sans TC\"","sans-serif"],
+            serif: ["\"Noto Serif TC\"","Georgia","serif"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="ws-page min-h-screen flex flex-col">
+
+  <header id="global-header" class="sticky top-0 z-50"></header>
+
+  <main class="flex-grow">
+
+    <!-- ══════════════════════════════════════════════
+         HERO — 主視覺
+    ══════════════════════════════════════════════ -->
+    <section class="ws-hero">
+      <div class="ws-hero-grid"></div>
+      <div class="ws-shell ws-hero-inner">
+        <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center">
+          <div class="min-w-0">
+            <span class="eyebrow ws-eyebrow-enter" style="color:#93c5fd;">AI 時代的實用型網站建置服務</span>
+            <h1 class="serif ws-headline ws-headline--dark mt-5 ws-hero-enter ws-hero-enter--1">
+              <span class="ws-headline__line">AI 時代，更需要一個</span>
+              <span class="ws-headline__line ws-headline__accent">說得清楚、找得到、</span>
+              <span class="ws-headline__line ws-headline__accent">能引導詢問的網站</span>
+            </h1>
+            <p class="mt-7 text-lg leading-8 ws-hero-enter ws-hero-enter--2" style="color:#cbd5e1;max-width:36rem;">
+              協助個人品牌、工作室與小型商家，建立品牌單頁、服務導流頁、小型官網與 SEO／GEO 內容架構。
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row gap-4">
+              <a href="#plans" class="btn-primary ws-hero-enter ws-hero-enter--3">查看服務方案</a>
+              <a href="#consult" class="btn-ghost ws-hero-enter ws-hero-enter--4">我想整理網站</a>
+            </div>
+          </div>
+
+          <div class="relative hidden lg:block">
+            <div class="absolute -inset-12 rounded-full" style="background:radial-gradient(circle,rgba(37,99,235,.18),transparent 70%);"></div>
+            <div class="relative rounded-[2rem] overflow-hidden" style="box-shadow:0 40px 90px rgba(0,0,0,.5);">
+              <img src="../assets/web-service-hero.png"
+                   alt="MrBill AI Studio 網站設計服務主視覺"
+                   class="w-full object-cover"
+                   style="height:32rem;filter:brightness(.9) saturate(1.05);"
+                   loading="eager" />
+              <div class="absolute inset-0" style="background:linear-gradient(155deg,rgba(37,99,235,.12) 0%,rgba(20,184,166,.05) 100%);"></div>
+              <div class="absolute inset-x-5 bottom-5 rounded-2xl p-5 backdrop-blur-md"
+                   style="background:rgba(12,19,34,.78);border:1px solid rgba(255,255,255,.1);">
+                <p class="font-black leading-7 text-white">不是只做畫面，而是把服務整理成客戶看得懂的路徑。</p>
+                <p class="mt-1.5 text-sm" style="color:#94a3b8;">從內容整理、動線規劃到手機閱讀與詢問設計，一起處理。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero stats row -->
+        <div class="ws-hero-stats mt-16 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-6 ws-reveal"
+             style="border-top:1px solid rgba(255,255,255,.08);">
+          <div><b class="block font-black text-white">單頁導流</b><span style="color:#64748b;font-size:.9rem;">清楚介紹服務</span></div>
+          <div><b class="block font-black text-white">手機優先</b><span style="color:#64748b;font-size:.9rem;">閱讀與詢問順</span></div>
+          <div><b class="block font-black text-white">SEO / GEO</b><span style="color:#64748b;font-size:.9rem;">整理搜尋結構</span></div>
+          <div><b class="block font-black text-white">可維護</b><span style="color:#64748b;font-size:.9rem;">後續可調整更新</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PAIN POINTS — 你的問題
+    ══════════════════════════════════════════════ -->
+    <section class="sec-white sec-pad">
+      <div class="ws-shell">
+        <div class="ws-pain-head ws-reveal">
+          <span class="eyebrow">你的問題</span>
+          <h2 class="serif ws-subhead ws-headline--light mt-5">
+            <span class="ws-headline__line">你不是沒有在網路上出現，</span>
+            <span class="ws-headline__line" style="color:#2563eb;">而是資訊太分散</span>
+          </h2>
+          <p class="mt-6 ws-section-intro ws-section-intro--left">
+            很多人有 FB、IG、LINE，也持續發文，但客戶要確認的服務內容、價格、案例與聯絡方式，常散在不同貼文裡。
+          </p>
+        </div>
+        <div class="ws-pain-cards ws-stagger">
+          <article class="ws-pain-card ws-pain-card--blue">
+            <span class="ws-pain-card__num">01</span>
+            <h3 class="ws-pain-card__title">服務說不清</h3>
+            <p class="ws-pain-card__text">客戶看完社群，仍不知道你提供哪些方案、怎麼收費、適不適合他。</p>
+          </article>
+          <article class="ws-pain-card ws-pain-card--violet">
+            <span class="ws-pain-card__num">02</span>
+            <h3 class="ws-pain-card__title">案例不好找</h3>
+            <p class="ws-pain-card__text">作品、評價、成果散在貼文裡，客戶沒有耐心一篇一篇翻。</p>
+          </article>
+          <article class="ws-pain-card ws-pain-card--coral">
+            <span class="ws-pain-card__num">03</span>
+            <h3 class="ws-pain-card__title">詢問不連貫</h3>
+            <p class="ws-pain-card__text">沒有明確 CTA 與表單，客戶有興趣卻不知道下一步怎麼開始。</p>
+          </article>
+        </div>
+        <p class="ws-pain-cta ws-reveal">
+          <a href="#plans" class="btn-primary">看看怎麼整理</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         AI ERA — AI 時代的差異
+    ══════════════════════════════════════════════ -->
+    <section class="sec-ink sec-pad">
+      <div class="ws-shell">
+        <div class="max-w-3xl mx-auto text-center mb-14 ws-reveal">
+          <span class="eyebrow" style="color:#60a5fa;">AI 時代的差異</span>
+          <h2 class="serif ws-subhead ws-headline--dark ws-subhead--center mt-5 text-white">
+            <span class="ws-headline__line">AI 可以加速產生畫面，</span>
+            <span class="ws-headline__line">但網站成敗不只在畫面</span>
+          </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 ws-stagger">
+          <div class="ws-card rounded-3xl p-7" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);">
+            <div class="w-11 h-11 rounded-2xl flex items-center justify-center mb-5" style="background:rgba(37,99,235,.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414A1 1 0 0 1 19 6.414V19a2 2 0 0 1-2 2z"/></svg>
+            </div>
+            <h3 class="font-black text-xl text-white">內容整理</h3>
+            <p class="mt-3 leading-7" style="color:#94a3b8;">把服務、價格、流程、案例、FAQ 整理成客戶能理解的順序與語言。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);">
+            <div class="w-11 h-11 rounded-2xl flex items-center justify-center mb-5" style="background:rgba(37,99,235,.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3 class="font-black text-xl text-white">商業判斷</h3>
+            <p class="mt-3 leading-7" style="color:#94a3b8;">判斷先做品牌頁、導流頁、官網，還是先整理舊網站效益更高。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);">
+            <div class="w-11 h-11 rounded-2xl flex items-center justify-center mb-5" style="background:rgba(37,99,235,.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <h3 class="font-black text-xl text-white">使用者動線</h3>
+            <p class="mt-3 leading-7" style="color:#94a3b8;">從第一眼理解，到看方案、看案例、填表詢問，減少每一步的流失。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);">
+            <div class="w-11 h-11 rounded-2xl flex items-center justify-center mb-5" style="background:rgba(37,99,235,.22);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+            </div>
+            <h3 class="font-black text-xl text-white">手機體驗</h3>
+            <p class="mt-3 leading-7" style="color:#94a3b8;">多數客戶先用手機看，排版、按鈕、表單都要在小螢幕上好用。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7 sm:col-span-2" style="background:linear-gradient(135deg,rgba(37,99,235,.2),rgba(37,99,235,.06));border:1px solid rgba(37,99,235,.3);">
+            <div class="w-11 h-11 rounded-2xl flex items-center justify-center mb-5" style="background:rgba(37,99,235,.3);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
+            <h3 class="font-black text-xl text-white">SEO / GEO 結構</h3>
+            <p class="mt-3 leading-7" style="color:#94a3b8;">不只讓搜尋引擎看懂，也讓 AI 搜尋與生成式摘要更容易理解你的服務定位、地區、對象與專業內容。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         WHY ME — 為什麼選擇我
+    ══════════════════════════════════════════════ -->
+    <section id="why-me" class="sec-warm sec-pad">
+      <div class="ws-shell">
+        <div class="ws-why-head">
+          <span class="eyebrow">為什麼選擇我</span>
+          <p class="ws-why-lead serif mt-5">
+            <span class="ws-why-lead__row"><b>大型公司</b> 不綁約、不層層加價</span>
+            <span class="ws-why-lead__row"><b>低價套版</b> 多的是內容與轉換設計</span>
+          </p>
+          <p class="ws-why-sub">把服務講清楚、讓人願意詢問；網域主機不包辦，範圍先講明白。</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-5 ws-stagger ws-why-cards">
+          <div class="ws-adv-card ws-adv-card--you">
+            <p class="ws-adv-card__tag">我的做法</p>
+            <h3 class="ws-adv-card__title">直接溝通、依內容設計</h3>
+            <ul class="ws-adv-list">
+              <li>跟實際做網站的人談需求，不是業務轉好幾手</li>
+              <li>先整理你的服務、價格、案例，再決定版面</li>
+              <li>重視手機閱讀與詢問動線，不是只交漂亮首圖</li>
+              <li>小案也接：單頁、轉換頁、舊站整理都可以從小開始</li>
+              <li>可協助上架免費空間，不強迫另買主機方案</li>
+            </ul>
+          </div>
+          <div class="ws-adv-card ws-adv-card--them">
+            <p class="ws-adv-card__tag">常見落差</p>
+            <h3 class="ws-adv-card__title">大型公司 vs 低價套版</h3>
+            <ul class="ws-adv-list ws-adv-list--muted">
+              <li><b>大型公司：</b>報價動輒數萬起跳，常綁主機年約、修改要加購專案</li>
+              <li><b>大型公司：</b>溝通經過業務與專案窗口，小修改也要排隊</li>
+              <li><b>低價套版：</b>版型現成但內容塞不進去，看起來像別人的網站</li>
+              <li><b>低價套版：</b>很少幫你想「客戶看完會不會詢問」</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-8 grid sm:grid-cols-3 gap-4 ws-stagger">
+          <div class="ws-adv-pill">
+            <b>透明起價</b>
+            <span>方案有起價範圍，不會先報低再一直加</span>
+          </div>
+          <div class="ws-adv-pill">
+            <b>內容優先</b>
+            <span>先讓人看懂服務，再談視覺細節</span>
+          </div>
+          <div class="ws-adv-pill">
+            <b>彈性交付</b>
+            <span>免費空間上架或代傳你現有主機</span>
+          </div>
+        </div>
+        <p class="mt-8 text-center text-sm" style="color:var(--muted);"><button type="button" class="ws-detail-link" data-ws-detail="why-me">看完整比較說明</button></p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         SERVICE PLANS — 服務方案
+    ══════════════════════════════════════════════ -->
+    <section id="plans" class="sec-plans sec-pad">
+      <div class="ws-shell">
+        <div class="ws-plans-head ws-reveal text-center mb-14">
+          <span class="eyebrow">服務方案</span>
+          <h2 class="serif ws-subhead ws-headline--light ws-subhead--center mt-5">
+            <span class="ws-headline__line">依照目前階段，</span>
+            <span class="ws-headline__line">選擇最適合的網站型態</span>
+          </h2>
+          <p class="mt-5 ws-section-intro">價格為起始範圍，會依頁面數、資料完整度、設計細節、文案整理與上線需求調整。第一次做網站？可先點 <button type="button" class="ws-detail-link" data-ws-detail="first-site">第一次做網站說明</button> 或 <button type="button" class="ws-detail-link" data-ws-detail="plan-compare">方案怎麼選</button>。</p>
+        </div>
+        <div class="grid lg:grid-cols-3 gap-5 ws-stagger">
+
+          <article class="plan-card plan-card--tier-1 flex flex-col">
+            <p class="plan-card__tag">品牌入口 · 1 頁</p>
+            <h3 class="plan-card__name">品牌單頁方案</h3>
+            <p class="plan-card__price">12,000<span class="plan-card__price-unit">起</span></p>
+            <p class="mt-4 leading-7" style="color:var(--muted);font-size:.925rem;"><b>一句話：</b>讓客戶有一個「官方網址」可以看完你是誰、做什麼、怎麼聯絡。適合第一次做網站、目前主要靠社群的人。</p>
+            <p class="mt-3 text-sm leading-7" style="color:#64748b;"><b>跟轉換頁差在哪？</b> 單頁偏介紹；轉換頁會更用力引導填表或加 LINE。</p>
+            <ul class="mt-4 space-y-2 flex-grow" style="font-size:.925rem;">
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>品牌介紹、服務重點、案例區</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>手機版單頁、聯絡 CTA</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>約 1～3 週（視資料齊全度）</li>
+            </ul>
+            <button type="button" class="ws-detail-link" data-ws-detail="plan-brand">看完整方案說明</button>
+            <a href="#consult" class="btn-dark mt-6 text-sm">詢問此方案</a>
+          </article>
+
+          <article class="plan-card plan-card--hot plan-card--tier-2 flex flex-col relative">
+            <div class="plan-card__ribbon">詢問最多</div>
+            <p class="plan-card__tag plan-card__tag--hot">詢問轉換 · 1 頁</p>
+            <h3 class="plan-card__name">服務轉換頁方案</h3>
+            <p class="plan-card__price">18,000<span class="plan-card__price-unit">起</span></p>
+            <p class="mt-4 leading-7" style="color:var(--muted);font-size:.925rem;"><b>一句話：</b>不只介紹，還要讓人看完願意行動——填表、加 LINE、預約。適合課程、教練、顧問、補習班。</p>
+            <p class="mt-3 text-sm leading-7" style="color:#64748b;"><b>跟單頁差在哪？</b> 多痛點說服、方案比較、流程、FAQ 與表單動線。</p>
+            <ul class="mt-4 space-y-2 flex-grow" style="font-size:.925rem;">
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>痛點、方案、流程、FAQ</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>詢問表單或 LINE 按鈕</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>基礎 SEO／GEO 架構</li>
+            </ul>
+            <button type="button" class="ws-detail-link" data-ws-detail="plan-convert">看完整方案說明</button>
+            <a href="#consult" class="btn-primary mt-6 text-sm">詢問此方案</a>
+          </article>
+
+          <article class="plan-card plan-card--tier-3 flex flex-col">
+            <p class="plan-card__tag">多頁官網 · 4～6 頁</p>
+            <h3 class="plan-card__name">小型官網方案</h3>
+            <p class="plan-card__price">35,000<span class="plan-card__price-unit">起</span></p>
+            <p class="mt-4 leading-7" style="color:var(--muted);font-size:.925rem;"><b>一句話：</b>服務項目多，需要分頁說明。例如工作室、小型商家、多項課程或產品線。</p>
+            <p class="mt-3 text-sm leading-7" style="color:#64748b;"><b>跟轉換頁差在哪？</b> 官網有多頁導覽；轉換頁通常一頁到底、目標單一。</p>
+            <ul class="mt-4 space-y-2 flex-grow" style="font-size:.925rem;">
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>首頁、服務、案例、關於、FAQ</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>多頁架構與導覽</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>上線交付與操作說明</li>
+            </ul>
+            <button type="button" class="ws-detail-link" data-ws-detail="plan-site">看完整方案說明</button>
+            <a href="#consult" class="btn-dark mt-6 text-sm">詢問此方案</a>
+          </article>
+
+          <article class="plan-card plan-card--tier-4 flex flex-col">
+            <p class="plan-card__tag">整理優化</p>
+            <h3 class="plan-card__name">舊網站整理方案</h3>
+            <p class="plan-card__price">8,000<span class="plan-card__price-unit">起</span></p>
+            <p class="mt-4 leading-7" style="color:var(--muted);font-size:.925rem;"><b>一句話：</b>網站還在，但你自己也不太想點——手機難讀、資訊過時、找不到怎麼聯絡你。</p>
+            <p class="mt-3 text-sm leading-7" style="color:#64748b;"><b>注意：</b> 若整站重做較划算，會先說明再報價，不會硬做整理。</p>
+            <ul class="mt-4 space-y-2 flex-grow" style="font-size:.925rem;">
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>版面與動線健檢</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>文案結構、CTA 調整</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>手機閱讀改善</li>
+            </ul>
+            <button type="button" class="ws-detail-link" data-ws-detail="plan-reorg">看完整方案說明</button>
+            <a href="#consult" class="btn-dark mt-6 text-sm">詢問此方案</a>
+          </article>
+
+          <article class="plan-card plan-card--tier-5 flex flex-col lg:col-span-2">
+            <p class="plan-card__tag">搜尋可見性</p>
+            <h3 class="plan-card__name">SEO／GEO 內容整理方案</h3>
+            <p class="plan-card__price">6,000<span class="plan-card__price-unit">起</span></p>
+            <p class="mt-4 leading-7" style="color:var(--muted);font-size:.925rem;"><b>一句話：</b>網站有了，但 Google 或 AI 搜尋講不清楚你做什麼。先整理「被找到」的內容架構，再決定要不要大改網站。</p>
+            <ul class="mt-4 sm:grid sm:grid-cols-2 gap-2" style="font-size:.925rem;">
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>關鍵服務與頁面主題</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>FAQ 與長尾問題題庫</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>標題、描述方向建議</li>
+              <li class="flex gap-2" style="color:#475569;"><span style="color:var(--brand);">✓</span>後續文章／內容方向</li>
+            </ul>
+            <button type="button" class="ws-detail-link" data-ws-detail="plan-seo">看完整方案說明</button>
+            <a href="#consult" class="btn-dark mt-6 text-sm sm:self-start">詢問此方案</a>
+          </article>
+
+        </div>
+
+        <div class="mt-14 ws-reveal ws-compare-block">
+          <h3 class="serif text-xl font-black text-center mb-2" style="color:var(--ink);font-size:1.35rem;">方案差異一覽</h3>
+          <p class="text-center text-sm mb-8 ws-compare-hint--desktop" style="color:var(--muted);">橫向對照各方案規模、對象與起價</p>
+          <p class="text-center text-sm mb-8 ws-compare-hint--mobile" style="color:var(--muted);">以下為各方案重點整理，方便手機閱讀</p>
+          <div class="ws-compare-wrap">
+            <table class="ws-compare-table">
+              <thead>
+                <tr>
+                  <th>方案</th>
+                  <th>規模</th>
+                  <th>最適合誰</th>
+                  <th>你會得到</th>
+                  <th class="ws-compare-table__price">起價</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="ws-compare-row ws-compare-row--1">
+                  <td><span class="ws-compare-name">品牌單頁</span></td>
+                  <td data-label="規模"><span class="ws-compare-badge">1 頁</span></td>
+                  <td data-label="最適合誰">第一次做網站</td>
+                  <td data-label="你會得到">官方入口、聯絡方式</td>
+                  <td class="ws-compare-table__price" data-label="起價"><span class="ws-compare-price">12,000</span></td>
+                </tr>
+                <tr class="ws-compare-row ws-compare-row--2 ws-compare-row--hot">
+                  <td><span class="ws-compare-name">服務轉換頁</span><span class="ws-compare-hot">熱門</span></td>
+                  <td data-label="規模"><span class="ws-compare-badge">1 頁</span></td>
+                  <td data-label="最適合誰">想提高詢問率</td>
+                  <td data-label="你會得到">痛點、方案、表單動線</td>
+                  <td class="ws-compare-table__price" data-label="起價"><span class="ws-compare-price">18,000</span></td>
+                </tr>
+                <tr class="ws-compare-row ws-compare-row--3">
+                  <td><span class="ws-compare-name">小型官網</span></td>
+                  <td data-label="規模"><span class="ws-compare-badge">4～6 頁</span></td>
+                  <td data-label="最適合誰">服務項目多</td>
+                  <td data-label="你會得到">多頁導覽、完整介紹</td>
+                  <td class="ws-compare-table__price" data-label="起價"><span class="ws-compare-price">35,000</span></td>
+                </tr>
+                <tr class="ws-compare-row ws-compare-row--4">
+                  <td><span class="ws-compare-name">舊站整理</span></td>
+                  <td data-label="規模"><span class="ws-compare-badge">現有站</span></td>
+                  <td data-label="最適合誰">有站但難用</td>
+                  <td data-label="你會得到">健檢、排版、CTA 調整</td>
+                  <td class="ws-compare-table__price" data-label="起價"><span class="ws-compare-price">8,000</span></td>
+                </tr>
+                <tr class="ws-compare-row ws-compare-row--5">
+                  <td><span class="ws-compare-name">SEO／GEO 整理</span></td>
+                  <td data-label="規模"><span class="ws-compare-badge">策略</span></td>
+                  <td data-label="最適合誰">想被搜尋找到</td>
+                  <td data-label="你會得到">關鍵字、FAQ、內容方向</td>
+                  <td class="ws-compare-table__price" data-label="起價"><span class="ws-compare-price">6,000</span></td>
+                </tr>
+                <tr class="ws-compare-row ws-compare-row--addon">
+                  <td><span class="ws-compare-name">上線協助加值</span></td>
+                  <td data-label="規模"><span class="ws-compare-badge ws-compare-badge--addon">加值</span></td>
+                  <td data-label="最適合誰">已有主機或要免費空間</td>
+                  <td data-label="你會得到">代為部署或上傳</td>
+                  <td class="ws-compare-table__price" data-label="起價"><span class="ws-compare-price ws-compare-price--addon">2,000</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-3 text-center text-xs" style="color:#94a3b8;">※ 各方案交付已含基本上線；「上線協助加值」適用於需額外代傳主機、多次部署等情況。<button type="button" class="ws-detail-link" data-ws-detail="hosting-scope">看空間與上線說明</button></p>
+          <p class="mt-4 text-center text-sm" style="color:var(--muted);">還是不確定？<button type="button" class="ws-detail-link" data-ws-detail="plan-compare">看選擇建議</button></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         AUDIENCE — 適合對象
+    ══════════════════════════════════════════════ -->
+    <section class="sec-warm sec-pad">
+      <div class="ws-shell text-center">
+        <div class="ws-reveal">
+          <span class="eyebrow">適合對象</span>
+          <h2 class="serif ws-subhead ws-headline--light ws-subhead--center mt-5">
+            <span class="ws-headline__line">需要把服務講清楚的人，</span>
+            <span class="ws-headline__line">都適合先有一個網站入口</span>
+          </h2>
+        </div>
+        <div class="mt-10 flex flex-wrap justify-center gap-3 ws-stagger">
+          <span class="ws-pill ws-pill--1">攝影師</span>
+          <span class="ws-pill ws-pill--2">設計師</span>
+          <span class="ws-pill ws-pill--3">講師</span>
+          <span class="ws-pill ws-pill--4">教練</span>
+          <span class="ws-pill ws-pill--5">顧問</span>
+          <span class="ws-pill ws-pill--1">親子課程</span>
+          <span class="ws-pill ws-pill--2">補習班</span>
+          <span class="ws-pill ws-pill--3">小型商家</span>
+          <span class="ws-pill ws-pill--4">工作室</span>
+          <span class="ws-pill ws-pill--5">接案者</span>
+        </div>
+        <p class="mt-10 text-lg ws-reveal" style="color:#64748b;max-width:36rem;margin-inline:auto;line-height:1.85;">不確定自己適不適合？先填寫需求，一起討論哪種形式最符合你的現況。</p>
+        <a href="#consult" class="btn-primary mt-8 inline-flex ws-reveal">填寫需求討論</a>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PROCESS — 製作流程
+    ══════════════════════════════════════════════ -->
+    <section id="process" class="sec-white sec-pad">
+      <div class="ws-shell">
+        <div class="text-center mb-14 ws-reveal">
+          <span class="eyebrow">製作流程</span>
+          <h2 class="serif ws-subhead ws-headline--light mt-5">
+            <span class="ws-headline__line">從需求整理到上線交付，</span>
+            <span class="ws-headline__line">每一步都讓你知道進度</span>
+          </h2>
+          <p class="mt-4 text-sm" style="color:var(--muted);"><button type="button" class="ws-detail-link" data-ws-detail="process-detail">看各階段詳細說明</button></p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="ws-card rounded-3xl p-7 relative overflow-hidden" style="background:var(--paper);border:1.5px solid var(--border);">
+            <span class="serif absolute top-4 right-5 font-black" style="font-size:4.5rem;line-height:1;color:rgba(12,19,34,.05);">01</span>
+            <p class="text-xs font-black tracking-widest uppercase" style="color:var(--brand);">Step 01</p>
+            <h3 class="mt-3 text-xl font-black" style="color:var(--ink);">填寫需求</h3>
+            <p class="mt-3 leading-7" style="color:var(--muted);font-size:.9rem;">先了解服務、預算、目標與目前擁有的素材。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7 relative overflow-hidden" style="background:var(--paper);border:1.5px solid var(--border);">
+            <span class="serif absolute top-4 right-5 font-black" style="font-size:4.5rem;line-height:1;color:rgba(12,19,34,.05);">02</span>
+            <p class="text-xs font-black tracking-widest uppercase" style="color:var(--brand);">Step 02</p>
+            <h3 class="mt-3 text-xl font-black" style="color:var(--ink);">確認方案</h3>
+            <p class="mt-3 leading-7" style="color:var(--muted);font-size:.9rem;">判斷適合單頁、導流頁、官網或整理舊站。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7 relative overflow-hidden" style="background:var(--paper);border:1.5px solid var(--border);">
+            <span class="serif absolute top-4 right-5 font-black" style="font-size:4.5rem;line-height:1;color:rgba(12,19,34,.05);">03</span>
+            <p class="text-xs font-black tracking-widest uppercase" style="color:var(--brand);">Step 03</p>
+            <h3 class="mt-3 text-xl font-black" style="color:var(--ink);">整理資料</h3>
+            <p class="mt-3 leading-7" style="color:var(--muted);font-size:.9rem;">整理服務內容、案例、FAQ 與 CTA 文案方向。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7 relative overflow-hidden" style="background:var(--paper);border:1.5px solid var(--border);">
+            <span class="serif absolute top-4 right-5 font-black" style="font-size:4.5rem;line-height:1;color:rgba(12,19,34,.05);">04</span>
+            <p class="text-xs font-black tracking-widest uppercase" style="color:var(--brand);">Step 04</p>
+            <h3 class="mt-3 text-xl font-black" style="color:var(--ink);">製作初版</h3>
+            <p class="mt-3 leading-7" style="color:var(--muted);font-size:.9rem;">先完成可閱讀、可討論的網站初版。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7 relative overflow-hidden" style="background:var(--paper);border:1.5px solid var(--border);">
+            <span class="serif absolute top-4 right-5 font-black" style="font-size:4.5rem;line-height:1;color:rgba(12,19,34,.05);">05</span>
+            <p class="text-xs font-black tracking-widest uppercase" style="color:var(--brand);">Step 05</p>
+            <h3 class="mt-3 text-xl font-black" style="color:var(--ink);">修改調整</h3>
+            <p class="mt-3 leading-7" style="color:var(--muted);font-size:.9rem;">依回饋調整文案、區塊與動線設計。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7 relative overflow-hidden" style="background:var(--paper);border:1.5px solid var(--border);">
+            <span class="serif absolute top-4 right-5 font-black" style="font-size:4.5rem;line-height:1;color:rgba(12,19,34,.05);">06</span>
+            <p class="text-xs font-black tracking-widest uppercase" style="color:var(--brand);">Step 06</p>
+            <h3 class="mt-3 text-xl font-black" style="color:var(--ink);">上線交付</h3>
+            <p class="mt-3 leading-7" style="color:var(--muted);font-size:.9rem;">協助部署、基本測試與使用說明。</p>
+          </div>
+          <div class="ws-card rounded-3xl p-7 relative overflow-hidden sm:col-span-2" style="background:var(--paper);border:1.5px solid var(--border);">
+            <span class="serif absolute top-4 right-5 font-black" style="font-size:4.5rem;line-height:1;color:rgba(12,19,34,.05);">07</span>
+            <p class="text-xs font-black tracking-widest uppercase" style="color:var(--brand);">Step 07</p>
+            <h3 class="mt-3 text-xl font-black" style="color:var(--ink);">後續維護</h3>
+            <p class="mt-3 leading-7" style="color:var(--muted);font-size:.9rem;">依需求安排小修改、內容新增或 SEO/GEO 內容更新。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         MAINTENANCE — 後續維護
+    ══════════════════════════════════════════════ -->
+    <section id="maintenance" class="sec-paper sec-pad">
+      <div class="ws-shell">
+        <div class="text-center max-w-2xl mx-auto mb-10 ws-reveal">
+          <span class="eyebrow">後續維護</span>
+          <h2 class="serif ws-subhead ws-headline--light mt-5">上線之後，修改與維護怎麼算？</h2>
+          <p class="mt-5 leading-8" style="color:var(--muted);">網站不是交件就結束。價格調整、換案例、活動更新都可能需要。先把規則講清楚，合作比較安心。</p>
+        </div>
+        <div class="ws-maint-grid ws-stagger">
+          <div class="ws-maint-card ws-card--blue">
+            <h3 class="font-black text-lg" style="color:var(--ink);">按次修改</h3>
+            <p class="mt-2 text-2xl font-black" style="color:var(--brand);">NT$800 <span class="text-sm font-normal text-slate-500;">起／次</span></p>
+            <p class="mt-3 text-sm leading-7" style="color:var(--muted);">文字小改、換圖、調整按鈕連結。適合偶爾才需要動一次的人。</p>
+          </div>
+          <div class="ws-maint-card ws-card--violet">
+            <h3 class="font-black text-lg" style="color:var(--ink);">月保方案</h3>
+            <p class="mt-2 text-2xl font-black" style="color:#7c3aed;">NT$2,500 <span class="text-sm font-normal text-slate-500;">起／月</span></p>
+            <p class="mt-3 text-sm leading-7" style="color:var(--muted);">含固定次數小修改與基本檢查。不含新頁面、整區重做。</p>
+          </div>
+          <div class="ws-maint-card ws-card--coral">
+            <h3 class="font-black text-lg" style="color:var(--ink);">另計項目</h3>
+            <p class="mt-2 text-lg font-black" style="color:#ea580c;">先報價再動工</p>
+            <p class="mt-3 text-sm leading-7" style="color:var(--muted);">新增頁面、大量文案重寫、功能開發。會先估價，你同意才做。</p>
+          </div>
+        </div>
+        <div class="mt-10 ws-hosting-note ws-reveal">
+          <h3 class="font-black text-lg" style="color:var(--ink);">關於網域、主機與上線</h3>
+          <p class="mt-3 leading-8 text-sm" style="color:var(--muted);"><b>我不包辦網域與主機服務</b>，專注在網站設計與內容整理。網域請自行向註冊商購買；主機若選免費方案（如 GitHub Pages），通常無月費。</p>
+          <ul class="ws-hosting-list mt-4 space-y-2 text-sm">
+            <li><span class="ws-hosting-list__icon" aria-hidden="true">✓</span><span>可協助部署到免費空間並教你看網址</span></li>
+            <li><span class="ws-hosting-list__icon" aria-hidden="true">✓</span><span>若你已有主機，提供帳密後可代為上傳（依安全方式約定）</span></li>
+            <li><span class="ws-hosting-list__icon ws-hosting-list__icon--muted" aria-hidden="true">—</span><span>不代購、不代收主機年費，避免綁約與加價空間</span></li>
+          </ul>
+          <button type="button" class="ws-detail-link mt-3" data-ws-detail="hosting-scope">看完整上線與空間說明</button>
+        </div>
+        <p class="mt-8 text-center text-sm leading-7" style="color:var(--muted);"><button type="button" class="ws-detail-link" data-ws-detail="maintenance">看完整維護說明</button></p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         DATA PREP — 客戶需準備資料
+    ══════════════════════════════════════════════ -->
+    <section class="sec-pad" style="background:var(--paper);">
+      <div class="ws-shell">
+        <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-16 items-center">
+          <div>
+            <span class="eyebrow">客戶需準備資料</span>
+            <h2 class="serif mt-5" style="font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:900;color:var(--ink);letter-spacing:-.02em;line-height:1.3;">資料不需要一次到位，但越清楚，網站越快完成</h2>
+            <p class="mt-6 leading-8" style="color:var(--muted);">如果目前沒有完整文案，也可以先從服務訪談與資料整理開始。重點是把客戶最在意的資訊補齊。</p>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="rounded-2xl p-4 font-bold" style="background:var(--white);border:1.5px solid var(--border);color:#334155;">品牌名稱</div>
+            <div class="rounded-2xl p-4 font-bold" style="background:var(--white);border:1.5px solid var(--border);color:#334155;">服務內容</div>
+            <div class="rounded-2xl p-4 font-bold" style="background:var(--white);border:1.5px solid var(--border);color:#334155;">價格或方案</div>
+            <div class="rounded-2xl p-4 font-bold" style="background:var(--white);border:1.5px solid var(--border);color:#334155;">照片與 Logo</div>
+            <div class="rounded-2xl p-4 font-bold" style="background:var(--white);border:1.5px solid var(--border);color:#334155;">作品或案例</div>
+            <div class="rounded-2xl p-4 font-bold" style="background:var(--white);border:1.5px solid var(--border);color:#334155;">聯絡方式</div>
+            <div class="rounded-2xl p-4 font-bold" style="background:var(--white);border:1.5px solid var(--border);color:#334155;">參考網站</div>
+            <div class="rounded-2xl p-4 font-bold" style="background:var(--white);border:1.5px solid var(--border);color:#334155;">常見問題</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         FAQ — 常見問題
+    ══════════════════════════════════════════════ -->
+    <section class="sec-white sec-pad">
+      <div class="ws-shell-sm">
+        <div class="text-center mb-12">
+          <span class="eyebrow">FAQ</span>
+          <h2 class="serif mt-5" style="font-size:clamp(1.8rem,3.2vw,2.7rem);font-weight:900;color:var(--ink);letter-spacing:-.02em;">常見問題</h2>
+        </div>
+        <div>
+          <details class="faq-item">
+            <summary>AI 可以做網站了，為什麼還要找你？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">AI 確實能很快生出版面跟文字，但客戶在乎的是：你的服務到底有幾種？適不適合我？怎麼付錢？怎麼聯絡？這些需要有人幫你判斷先寫什麼、怎麼排順序、按鈕放哪裡。我做的是把「你的生意」整理成客人看得懂的路徑，不是只把畫面做漂亮。</p>
+          </details>
+          <details class="faq-item">
+            <summary>一定要做後台嗎？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">不一定。若你一年只改幾次價格或活動，靜態網站就夠了，速度快也比較不容易壞。若你每週都要發文章、上架活動，才值得做後台。第一次做網站的人，多半從靜態單頁或小型官網開始就夠用。</p>
+          </details>
+          <details class="faq-item">
+            <summary>沒有文案可以做嗎？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">可以。你可以先用口頭或訊息告訴我你怎麼跟客戶介紹服務，我會整理成網站用的標題、段落跟 FAQ。若需要從零寫完整品牌故事，會在報價時一併說明，不會做到一半才加收。</p>
+          </details>
+          <details class="faq-item">
+            <summary>沒有照片可以做嗎？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">可以先用乾淨的圖文版面或合適的示意圖把架構做起來。但攝影、課程、商家這類服務，有真實照片跟案例，信任感差很多。建議至少準備 3～5 張代表圖，其餘可以之後慢慢補。</p>
+          </details>
+          <details class="faq-item">
+            <summary>多久可以完成？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">品牌單頁或轉換頁，資料齊的話大約 1～2 週可出初版；要來回改文案則 2～3 週。小型官網約 3～6 週。時程會在確認方案時一起講，不會讓你一直猜。</p>
+          </details>
+          <details class="faq-item">
+            <summary>可以只做一頁嗎？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">可以，而且很多人一開始就該先做一頁。把服務、價格、案例、聯絡方式集中在一頁，比做一個空蕩蕩的多頁官網更有用。之後生意穩了，再擴充成多頁也不遲。</p>
+          </details>
+          <details class="faq-item">
+            <summary>可以協助 SEO 嗎？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">可以協助基礎架構：頁面標題、服務關鍵字、FAQ、讓搜尋引擎與 AI 摘要看得懂的內容結構。但要說實話——排名需要時間，也跟你持續有沒有更新內容有關，沒有人能保證第一名。</p>
+          </details>
+          <details class="faq-item">
+            <summary>可以串 LINE 嗎？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">可以。常見做法是放「加 LINE 好友」或官方帳號連結、固定在頁面明顯位置的按鈕。若要做更複雜的預約或表單串接，會另外評估技術與費用。</p>
+          </details>
+          <details class="faq-item">
+            <summary>後續修改怎麼算？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">小修改（改字、換圖）可按次 NT$800 起，或月保 NT$2,500 起。新增整頁、重做區塊、大量改寫會另報價。細節可看頁面上「後續維護」區，或點 <button type="button" class="ws-detail-link" data-ws-detail="maintenance">完整維護說明</button>。</p>
+          </details>
+          <details class="faq-item">
+            <summary>付款方式怎麼安排？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">常見是確認方案後收訂金（約 30～50%）排程，初版完成確認方向後收尾款。金額與比例會寫在報價或合約裡，不會口頭說一套、帳單又是另一套。轉帳方式可再依你的習慣確認。</p>
+          </details>
+          <details class="faq-item">
+            <summary>網域跟主機你會幫我包辦嗎？<span class="faq-icon">＋</span></summary>
+            <p class="faq-body">不會包辦，也不代收主機年費。我負責的是網站設計與內容。網域請你自己向 GoDaddy、Gandi 等註冊商購買；網站檔案可放在 GitHub Pages 等免費空間，我可以協助部署上去。若你已有虛擬主機或空間，提供帳密後我也能代為上傳。細節可點 <button type="button" class="ws-detail-link" data-ws-detail="hosting-scope">上線與空間說明</button>。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         CTA + FORM — 填寫需求
+    ══════════════════════════════════════════════ -->
+    <section id="consult" class="sec-ink sec-pad">
+      <div class="ws-shell">
+        <div class="grid lg:grid-cols-[0.92fr_1.08fr] gap-12 lg:gap-16 items-start">
+
+          <!-- Left: copy -->
+          <div class="ws-reveal">
+            <span class="inline-block rounded-full px-4 py-1.5 text-xs font-black tracking-widest uppercase" style="background:rgba(255,255,255,.1);color:#93c5fd;">免費初步整理</span>
+            <h2 class="serif ws-subhead ws-headline--dark mt-6 text-white">不知道自己適合哪一種網站？</h2>
+            <p class="mt-6 text-lg leading-9" style="color:#94a3b8;">
+              可以先從目前的服務內容、預算與目標開始整理，我會協助判斷適合做品牌頁、導流頁、官網，或先從舊網站優化開始。
+            </p>
+            <div class="mt-10 space-y-4 ws-consult-points">
+              <div class="ws-consult-point">
+                <div class="ws-consult-point__icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                </div>
+                <p>填單後我會仔細閱讀需求，若有後續問題會用 Email 確認。</p>
+              </div>
+              <div class="ws-consult-point">
+                <div class="ws-consult-point__icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                </div>
+                <p>若你已有網站或社群頁，可一起附上，方便先判斷問題點。</p>
+              </div>
+              <div class="ws-consult-point">
+                <div class="ws-consult-point__icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2.5"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                </div>
+                <p>初步整理不收費，確認方向後再討論是否正式合作。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: form -->
+          <div>
+            <div id="formDisabledMsg" class="hidden rounded-[2rem] p-10 text-center" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);">
+              <p class="serif text-white text-2xl font-black" style="letter-spacing:-.02em;">目前工作室排單已滿，暫停接受詢問</p>
+              <p class="mt-4 leading-8" style="color:#94a3b8;">目前專案已排滿，暫時無法接受新的網站需求。若表單重新開放，此處會恢復填寫。你也可以先瀏覽方案與 FAQ，之後再回來填單。</p>
+            </div>
+            <form id="webServiceForm" class="rounded-[2rem] bg-white text-slate-800 p-6 sm:p-8 relative" style="box-shadow:0 40px 80px rgba(0,0,0,.3);" novalidate>
+              <div class="ws-honeypot"><label>請勿填寫<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div><label class="ws-label" for="name">姓名 / 稱呼 *</label><input id="name" name="name" class="ws-input" required autocomplete="name"></div>
+                <div><label class="ws-label" for="brand">品牌 / 公司名稱</label><input id="brand" name="brand" class="ws-input" autocomplete="organization"></div>
+                <div><label class="ws-label" for="email">Email *</label><input id="email" name="email" type="email" class="ws-input" required autocomplete="email"></div>
+                <div><label class="ws-label" for="contact">LINE / 電話</label><input id="contact" name="contact" class="ws-input" autocomplete="tel"></div>
+                <div>
+                  <label class="ws-label" for="service">想了解的方案 *</label>
+                  <select id="service" name="service" class="ws-input" required>
+                    <option value="">請選擇</option>
+                    <option>品牌單頁方案</option>
+                    <option>服務轉換頁方案</option>
+                    <option>小型官網方案</option>
+                    <option>舊網站整理方案</option>
+                    <option>SEO/GEO 內容整理方案</option>
+                    <option>還不確定，想先討論</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="ws-label" for="budget">預算範圍</label>
+                  <select id="budget" name="budget" class="ws-input">
+                    <option>尚未確定</option>
+                    <option>1 萬以內</option>
+                    <option>1–2 萬</option>
+                    <option>2–4 萬</option>
+                    <option>4 萬以上</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mt-4">
+                <label class="ws-label" for="goal">目前目標 *</label>
+                <textarea id="goal" name="goal" class="ws-input" style="min-height:7rem;" required placeholder="例：想整理攝影服務說明、提高課程詢問率、舊網站太亂、想加 LINE 詢問入口等"></textarea>
+              </div>
+              <div class="mt-4">
+                <label class="ws-label" for="message">補充說明</label>
+                <textarea id="message" name="message" class="ws-input" style="min-height:5.5rem;" placeholder="可貼目前網站、IG、FB、參考網站，或說明已有哪些素材。"></textarea>
+              </div>
+              <div class="mt-4 grid sm:grid-cols-[1fr_auto] gap-3 items-end">
+                <div>
+                  <label class="ws-label" for="captcha">驗證碼：<span id="captchaQuestion" style="color:var(--brand);"></span> *</label>
+                  <input id="captcha" name="captcha" inputmode="numeric" class="ws-input" required placeholder="請輸入答案">
+                </div>
+                <button type="button" id="refreshCaptcha" class="rounded-full font-black px-5 py-3" style="border:1.5px solid var(--border);color:#475569;white-space:nowrap;background:var(--paper);">換一題</button>
+              </div>
+              <button type="submit" id="submitBtn" class="btn-primary mt-6 w-full text-base">填寫需求</button>
+              <p id="formStatus" class="mt-4 text-sm font-bold leading-7" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="global-footer" class="border-t py-8 px-4 sm:px-6 mt-auto overflow-x-hidden" style="background:var(--ink);border-color:rgba(255,255,255,.08);"></footer>
+
+  <div id="ws-detail-modal" class="ws-modal" aria-hidden="true" role="dialog" aria-labelledby="ws-detail-title">
+    <div id="ws-detail-backdrop" class="ws-modal__backdrop"></div>
+    <div class="ws-modal__panel">
+      <button type="button" id="ws-detail-close" class="ws-modal__close" aria-label="關閉">✕</button>
+      <h3 id="ws-detail-title" class="ws-modal__title" tabindex="-1"></h3>
+      <div id="ws-detail-body" class="ws-modal__body"></div>
+    </div>
+  </div>
+
+  <script src="../js/web-service-page.js?v=ws-ui-10"></script>
+  <script>
+  /* ── Navigation path fix for subdirectory ──────────── */
+  function fixWebServiceNavPaths() {
+    ["global-header", "global-footer"].forEach(function (id) {
+      var root = document.getElementById(id);
+      if (!root) return;
+      Array.prototype.slice.call(root.querySelectorAll("a[href]")).forEach(function (a) {
+        var href = a.getAttribute("href") || "";
+        if (!href || href[0] === "#" || href.indexOf("../") === 0 ||
+            href.indexOf("http") === 0 || href.indexOf("mailto:") === 0 || href.indexOf("tel:") === 0) return;
+        if (href === "./") a.setAttribute("href", "../");
+        else a.setAttribute("href", "../" + href.replace(/^\.\//, ""));
+      });
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", function () {
+    includeComponentSlot("global-header", "../components/header.html", null, fixWebServiceNavPaths);
+    includeComponentSlot("global-footer", "../components/footer.html", null, fixWebServiceNavPaths);
+    checkFormStatus();
+  });
+
+  /* ── Form status check ─────────────────────────────── */
+  function checkFormStatus() {
+    var base = window.BLOG_STATS_API || "https://mrbill-stats.billhuang19get.workers.dev/api";
+    var endpoint = String(base).replace(/\/api\/?$/, "/api/contact/status");
+    fetch(endpoint, { method: "GET", headers: { Accept: "application/json" } })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (json) {
+        var enabled = !json.data || json.data.enabled !== false;
+        if (!enabled) {
+          var form = document.getElementById("webServiceForm");
+          var msg  = document.getElementById("formDisabledMsg");
+          if (form) form.style.display = "none";
+          if (msg)  msg.classList.remove("hidden");
+        }
+      })
+      .catch(function () { /* if API fails, keep form visible */ });
+  }
+
+  /* ── FAQ icon toggle ───────────────────────────────── */
+  document.querySelectorAll(".faq-item").forEach(function (el) {
+    el.addEventListener("toggle", function () {
+      var icon = el.querySelector(".faq-icon");
+      if (!icon) return;
+      icon.textContent = el.open ? "－" : "＋";
+    });
+  });
+
+  /* ── Contact form ──────────────────────────────────── */
+  (function () {
+    var form        = document.getElementById("webServiceForm");
+    var statusEl    = document.getElementById("formStatus");
+    var submitBtn   = document.getElementById("submitBtn");
+    var captchaQ    = document.getElementById("captchaQuestion");
+    var captchaIn   = document.getElementById("captcha");
+    var refreshBtn  = document.getElementById("refreshCaptcha");
+    var answer      = 0;
+
+    function setStatus(msg, type) {
+      statusEl.textContent = msg || "";
+      statusEl.className = "mt-4 text-sm font-bold leading-7 " +
+        (type === "ok" ? "text-emerald-700" : type === "error" ? "text-rose-700" : "text-slate-500");
+    }
+
+    function nextCaptcha() {
+      var a = Math.floor(Math.random() * 8) + 2;
+      var b = Math.floor(Math.random() * 7) + 3;
+      answer = a + b;
+      captchaQ.textContent = a + " + " + b + " = ?";
+      captchaIn.value = "";
+    }
+
+    function apiEndpoint() {
+      var base = window.BLOG_STATS_API || "https://mrbill-stats.billhuang19get.workers.dev/api";
+      return String(base).replace(/\/api\/?$/, "/api/contact");
+    }
+
+    function payload() {
+      var f = form.elements;
+      return {
+        source: "web-service",
+        name: f.name.value.trim(),
+        brand: f.brand.value.trim(),
+        email: f.email.value.trim(),
+        contact: f.contact.value.trim(),
+        service: f.service.value,
+        budget: f.budget.value,
+        goal: f.goal.value.trim(),
+        message: f.message.value.trim(),
+        website: f.website.value.trim(),
+        pageUrl: location.href
+      };
+    }
+
+    if (refreshBtn) refreshBtn.addEventListener("click", nextCaptcha);
+    nextCaptcha();
+
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        setStatus("", "");
+        if (!form.reportValidity()) return;
+        if (Number(captchaIn.value.trim()) !== answer) {
+          setStatus("驗證碼答案不正確，請再確認一次。", "error");
+          return;
+        }
+        var data = payload();
+        if (data.website) return;
+        submitBtn.disabled = true;
+        submitBtn.textContent = "送出中…";
+        fetch(apiEndpoint(), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(data)
+        })
+          .then(function (r) {
+            return r.json().catch(function () { return {}; }).then(function (d) {
+              if (!r.ok || d.success === false) throw new Error(d.message || "送出失敗，請稍後再試。");
+              return d;
+            });
+          })
+          .then(function () {
+            form.reset();
+            nextCaptcha();
+            setStatus("需求已送出，我會盡快確認內容並回覆你。", "ok");
+          })
+          .catch(function (err) {
+            setStatus(err.message || "目前無法送出，請稍後再試。", "error");
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "填寫需求";
+          });
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

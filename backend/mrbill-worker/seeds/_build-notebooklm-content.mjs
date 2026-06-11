@@ -41,9 +41,12 @@ const toc = `<nav class="toc mb-8 rounded-2xl border border-line bg-white p-4" a
     <a href="#steps" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">步驟</a>
     <a href="#rules" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">規則</a>
     <a href="#studio" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">工作室</a>
+    <a href="#deep-dive" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">深化</a>
     <a href="#workflows" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">工作流</a>
     <a href="#tools" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">工具</a>
+    <a href="#practice" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">練習</a>
     <a href="#pricing" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">費用</a>
+    <a href="#resources" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">資源</a>
     <a href="#faq" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">FAQ</a>
     <a href="https://notebooklm.google/" target="_blank" rel="noopener" class="rounded-full bg-ink px-3 py-1.5 font-bold text-white ml-auto">前往官方</a>
   </div>

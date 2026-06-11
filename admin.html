@@ -131,6 +131,27 @@
                       </div>
                       <button id="home-strip-settings-save" type="button" class="admin-home-settings__save">儲存橫幅設定</button>
                     </div>
+                    <div id="admin-contact-form-settings" class="admin-home-settings" style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;">
+                      <p class="admin-section-title">詢問表單設定（網站設計服務頁）</p>
+                      <label class="admin-home-settings__label">
+                        <input id="contactFormEnabled" type="checkbox" checked />
+                        開放詢問表單（關閉後前台顯示「工作室排單已滿，暫停接受詢問」）
+                      </label>
+                      <div class="admin-field mt-3">
+                        <label for="contactToEmail">收件 Email（留空則使用 Worker 環境變數預設值）</label>
+                        <input id="contactToEmail" type="email" class="w-full border border-slate-300 rounded-xl px-3 py-2.5" placeholder="your@email.com" autocomplete="off" />
+                        <p class="admin-field-hint">覆蓋 Worker 的 CONTACT_TO_EMAIL；留空則沿用環境變數設定。</p>
+                      </div>
+                      <div class="flex gap-2 mt-3 flex-wrap items-center">
+                        <button id="contact-settings-save" type="button" class="admin-home-settings__save">儲存表單設定</button>
+                        <button id="contact-submissions-load" type="button" class="admin-home-settings__save" style="background:#f1f5f9;color:#334155;border:1px solid #cbd5e1;">查看最近 50 筆詢問</button>
+                      </div>
+                      <div id="contact-submissions-panel" class="hidden mt-4">
+                        <p class="text-sm font-bold text-slate-700 mb-3">最近詢問記錄（最新在前，點一列可開啟詳情）</p>
+                        <div id="contact-submissions-list" class="space-y-2" style="max-height:420px;overflow-y:auto;"></div>
+                      </div>
+                    </div>
+
                     <div id="admin-github-token-form" class="admin-github-form">
                       <p class="admin-section-title">GitHub Token 到期提醒</p>
                       <p class="admin-field-hint mb-2">申請 PAT 時 GitHub 會顯示到期日（API 讀不到，需手動記錄）。到期前請重新申請並更新 Worker。</p>
@@ -338,13 +359,224 @@
 
   <div id="admin-toast" class="admin-toast" role="status" aria-live="assertive"></div>
 
+  <div id="contact-detail-modal" class="hidden fixed inset-0 z-[300] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="contact-detail-title">
+    <div id="contact-detail-backdrop" class="absolute inset-0 bg-slate-900/50"></div>
+    <div class="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-2xl border border-slate-200 p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-3 mb-4">
+        <h3 id="contact-detail-title" class="text-lg font-black text-slate-900">詢問詳情</h3>
+        <button id="contact-detail-close" type="button" class="shrink-0 rounded-lg px-2 py-1 text-slate-500 hover:bg-slate-100" aria-label="關閉">✕</button>
+      </div>
+      <div id="contact-detail-body" class="text-sm text-slate-700 space-y-3 leading-relaxed"></div>
+      <div class="mt-5 flex flex-wrap gap-2">
+        <a id="contact-detail-mailto" href="#" class="admin-home-settings__save no-underline inline-flex">用 Email 回覆</a>
+        <button id="contact-detail-delete" type="button" class="rounded-xl px-4 py-2 text-sm font-bold text-rose-700 border border-rose-200 bg-rose-50 hover:bg-rose-100">刪除此筆</button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/mrbill-admin-session.js"></script>
   <script src="js/home-strip.config.js"></script>
   <script src="js/admin/admin.config.example.js"></script>
   <script src="js/admin/admin.config.local.js"></script>
   <script src="js/admin/blog-content-snippets.js"></script>
-  <script src="js/admin/seed-imports/pending-drafts.js?v=notebooklm-10"></script>
+  <script src="js/admin/seed-imports/pending-drafts.js?v=notebooklm-11"></script>
   <script src="js/admin/blog-block-editor.js?v=block-preview-fix-1"></script>
   <script src="js/admin/admin-app.js?v=seed-update-1"></script>
+  <script>
+  /* ── 詢問表單設定 ─────────────────────────────────── */
+  (function () {
+    function adminBase() {
+      return ((window.MRBILL_ADMIN || {}).apiBase || "").replace(/\/+$/, "");
+    }
+    function adminToken() {
+      var sess = window.MRBILL_ADMIN_SESSION;
+      if (sess) { var t = sess.getToken(); if (t) return t; }
+      return (window.MRBILL_ADMIN || {}).apiToken || "";
+    }
+    function adminFetch(path, opts) {
+      opts = opts || {};
+      var headers = { Accept: "application/json", Authorization: "Bearer " + adminToken() };
+      if (opts.body) headers["Content-Type"] = "application/json";
+      return fetch(adminBase() + path, {
+        method: opts.method || "GET",
+        headers: headers,
+        body: opts.body ? JSON.stringify(opts.body) : undefined
+      }).then(function (r) { return r.json(); });
+    }
+    function esc(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    var elEnabled  = document.getElementById("contactFormEnabled");
+    var elEmail    = document.getElementById("contactToEmail");
+    var elSave     = document.getElementById("contact-settings-save");
+    var elLoadBtn  = document.getElementById("contact-submissions-load");
+    var elPanel    = document.getElementById("contact-submissions-panel");
+    var elList     = document.getElementById("contact-submissions-list");
+    var elModal    = document.getElementById("contact-detail-modal");
+    var elModalBody = document.getElementById("contact-detail-body");
+    var elModalClose = document.getElementById("contact-detail-close");
+    var elModalBackdrop = document.getElementById("contact-detail-backdrop");
+    var elModalMailto = document.getElementById("contact-detail-mailto");
+    var elModalDelete = document.getElementById("contact-detail-delete");
+    var cachedSubs = [];
+    var activeSubId = 0;
+
+    function loadContactSettings() {
+      adminFetch("/api/admin/settings/contact").then(function (json) {
+        if (json.success && json.data) {
+          if (elEnabled) elEnabled.checked = json.data.enabled !== false;
+          if (elEmail)   elEmail.value     = json.data.toEmail || "";
+        }
+      }).catch(function () {});
+    }
+
+    /* load settings when admin app becomes visible */
+    var adminApp = document.getElementById("admin-app");
+    if (adminApp) {
+      new MutationObserver(function (mutations) {
+        for (var i = 0; i < mutations.length; i++) {
+          if (!mutations[i].target.classList.contains("hidden")) {
+            loadContactSettings();
+            break;
+          }
+        }
+      }).observe(adminApp, { attributes: true, attributeFilter: ["class"] });
+    }
+
+    if (elSave) {
+      elSave.addEventListener("click", function () {
+        var origText = elSave.textContent;
+        elSave.disabled = true;
+        adminFetch("/api/admin/settings/contact", {
+          method: "PUT",
+          body: {
+            enabled: !!(elEnabled && elEnabled.checked),
+            toEmail: elEmail ? elEmail.value.trim() : ""
+          }
+        }).then(function (json) {
+          if (json.success) {
+            elSave.textContent = "已儲存 ✓";
+            setTimeout(function () { elSave.textContent = origText; }, 2000);
+          } else {
+            alert(json.message || "儲存失敗");
+          }
+        }).catch(function (e) {
+          alert(e.message || "儲存失敗");
+        }).finally(function () {
+          elSave.disabled = false;
+        });
+      });
+    }
+
+    if (elLoadBtn) {
+      elLoadBtn.addEventListener("click", function () {
+        var origText = elLoadBtn.textContent;
+        elLoadBtn.disabled = true;
+        elLoadBtn.textContent = "載入中…";
+        adminFetch("/api/admin/contact-submissions").then(function (json) {
+          if (!json.success) throw new Error(json.message || "讀取失敗");
+          renderSubs((json.data && json.data.submissions) || []);
+          if (elPanel) elPanel.classList.remove("hidden");
+        }).catch(function (e) {
+          if (elPanel) elPanel.classList.remove("hidden");
+          if (elList)  elList.innerHTML =
+            '<p class="text-sm text-rose-600">' + esc(e.message || "讀取失敗") + '</p>';
+        }).finally(function () {
+          elLoadBtn.disabled = false;
+          elLoadBtn.textContent = "重新載入";
+        });
+      });
+    }
+
+    function renderSubs(subs) {
+      cachedSubs = subs || [];
+      if (!elList) return;
+      if (!cachedSubs.length) {
+        elList.innerHTML = '<p class="text-sm text-slate-500">目前尚無收件記錄。</p>';
+        return;
+      }
+      elList.innerHTML = cachedSubs.map(function (s) {
+        var ts = (s.created_at || "").slice(0, 16).replace("T", " ");
+        var preview = (s.goal || "").replace(/\s+/g, " ").slice(0, 48);
+        return '<button type="button" class="contact-sub-row w-full text-left" data-contact-id="' + esc(String(s.id)) + '" style="border:1px solid #e2e8f0;border-radius:.75rem;padding:.75rem 1rem;background:#fff;font-size:.875rem;cursor:pointer;">' +
+          '<div class="flex justify-between items-start gap-2">' +
+          '<b class="text-slate-800">' + esc(s.name) + (s.brand ? '（' + esc(s.brand) + '）' : '') + '</b>' +
+          '<span class="text-slate-400 text-xs shrink-0">' + esc(ts) + '</span>' +
+          '</div>' +
+          '<p class="mt-1 text-slate-600">' + esc(s.service) + (s.budget ? ' · ' + esc(s.budget) : '') + '</p>' +
+          '<p class="mt-1 text-slate-500 text-xs truncate">' + esc(preview) + (preview.length >= 48 ? '…' : '') + '</p>' +
+          '</button>';
+      }).join("");
+      Array.prototype.slice.call(elList.querySelectorAll(".contact-sub-row")).forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          openSubModal(Number(btn.getAttribute("data-contact-id")));
+        });
+      });
+    }
+
+    function findSub(id) {
+      for (var i = 0; i < cachedSubs.length; i++) {
+        if (Number(cachedSubs[i].id) === id) return cachedSubs[i];
+      }
+      return null;
+    }
+
+    function openSubModal(id) {
+      var s = findSub(id);
+      if (!s || !elModal || !elModalBody) return;
+      activeSubId = id;
+      var ts = (s.created_at || "").slice(0, 16).replace("T", " ");
+      elModalBody.innerHTML =
+        '<p><b>時間：</b>' + esc(ts) + '</p>' +
+        '<p><b>姓名：</b>' + esc(s.name) + (s.brand ? '（' + esc(s.brand) + '）' : '') + '</p>' +
+        '<p><b>Email：</b><a href="mailto:' + esc(s.email) + '" class="text-blue-600">' + esc(s.email) + '</a>' +
+        (s.contact ? ' · ' + esc(s.contact) : '') + '</p>' +
+        '<p><b>方案：</b>' + esc(s.service) + (s.budget ? ' · ' + esc(s.budget) : '') + '</p>' +
+        '<p><b>目標：</b><span class="whitespace-pre-wrap">' + esc(s.goal) + '</span></p>' +
+        (s.message ? '<p><b>補充：</b><span class="whitespace-pre-wrap">' + esc(s.message) + '</span></p>' : '') +
+        (s.page_url ? '<p class="text-xs text-slate-400 break-all">' + esc(s.page_url) + '</p>' : '');
+      if (elModalMailto) {
+        var subject = encodeURIComponent("Re: 網站設計服務詢問 — " + (s.brand || s.name || ""));
+        elModalMailto.href = "mailto:" + encodeURIComponent(s.email || "") + "?subject=" + subject;
+      }
+      elModal.classList.remove("hidden");
+    }
+
+    function closeSubModal() {
+      if (elModal) elModal.classList.add("hidden");
+      activeSubId = 0;
+    }
+
+    if (elModalClose) elModalClose.addEventListener("click", closeSubModal);
+    if (elModalBackdrop) elModalBackdrop.addEventListener("click", closeSubModal);
+
+    if (elModalDelete) {
+      elModalDelete.addEventListener("click", function () {
+        if (!activeSubId) return;
+        if (!confirm("確定刪除此筆詢問記錄？刪除後無法復原。")) return;
+        elModalDelete.disabled = true;
+        adminFetch("/api/admin/contact-submissions/" + activeSubId, { method: "DELETE" })
+          .then(function (json) {
+            if (!json.success) throw new Error(json.message || "刪除失敗");
+            closeSubModal();
+            return adminFetch("/api/admin/contact-submissions");
+          })
+          .then(function (json) {
+            if (!json.success) throw new Error(json.message || "讀取失敗");
+            renderSubs((json.data && json.data.submissions) || []);
+          })
+          .catch(function (e) {
+            alert(e.message || "刪除失敗");
+          })
+          .finally(function () {
+            elModalDelete.disabled = false;
+          });
+      });
+    }
+  })();
+  </script>
 </body>
 </html>

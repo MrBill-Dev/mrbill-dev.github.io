@@ -190,6 +190,33 @@
       </div>
     </section>
 
+    <section id="deep-dive" class="py-16 bg-soft border-y border-line">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
+        <div class="max-w-3xl mb-10">
+          <div class="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-sm font-bold text-emerald-700 mb-4">進階理解</div>
+          <h2 class="section-title text-3xl sm:text-4xl font-black">把 NotebookLM 用深：來源策略、任務拆解與查證流程</h2>
+          <p class="mt-4 text-slate-600">如果只把 NotebookLM 當成摘要工具，文章會很快學完；真正有價值的是學會如何設計來源、切任務、追引用與把輸出變成可交付成果。</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-5 notebooklm-depth-grid">
+          <div class="rounded-3xl bg-white border border-line p-6 shadow-card"><div class="text-sm font-black text-blue-700 mb-2">第一層：原始來源</div><h3 class="text-xl font-black">放最可信的資料</h3><p class="mt-3 text-slate-600">例如官方文件、產品頁、研究報告、課程講義、會議紀錄、訪談逐字稿。這層資料決定回答是否可靠。</p><ul class="mt-4 list-disc pl-5 text-slate-700"><li>保留年份與版本</li><li>避免來源互相抄襲</li><li>重要數字要能回到原文</li></ul></div>
+          <div class="rounded-3xl bg-white border border-line p-6 shadow-card"><div class="text-sm font-black text-violet-700 mb-2">第二層：整理來源</div><h3 class="text-xl font-black">把雜資料變成結構</h3><p class="mt-3 text-slate-600">先讓 NotebookLM 產出章節、大綱、資料表、矛盾清單，再依結果補資料。這一步比直接產文章更重要。</p><ul class="mt-4 list-disc pl-5 text-slate-700"><li>先問缺漏，不先問成品</li><li>把相似來源合併成欄位</li><li>用表格找出可引用重點</li></ul></div>
+          <div class="rounded-3xl bg-white border border-line p-6 shadow-card"><div class="text-sm font-black text-rose-700 mb-2">第三層：輸出來源</div><h3 class="text-xl font-black">把內容轉成交付物</h3><p class="mt-3 text-slate-600">最後才產簡報、報告、FAQ、圖卡、網站規格或社群貼文。輸出後仍要人工校對語氣、數字與設計。</p><ul class="mt-4 list-disc pl-5 text-slate-700"><li>先定義讀者與用途</li><li>限制 AI 不要自行補資料</li><li>發布前回看引用與原文</li></ul></div>
+        </div>
+
+        <article class="rounded-[2rem] bg-white border border-line p-6 lg:p-8 shadow-card mt-8">
+          <h3 class="text-2xl font-black">任務矩陣：不同目的應該怎麼問 NotebookLM？</h3>
+          <p class="mt-3 text-slate-600">新手最容易卡在「我知道可以問，但不知道怎麼問」。下面把常見目的拆成任務、輸入來源、輸出格式與檢查重點。</p>
+          <div class="table-wrap mt-6"><table><thead><tr><th>目的</th><th>適合來源</th><th>建議先問</th><th>適合輸出</th><th>檢查重點</th></tr></thead><tbody><tr><td>快速理解新主題</td><td>官方說明、入門文章、影片</td><td>請用 5 個核心觀念解釋這個主題，並標出來源依據。</td><td>摘要、心智圖、FAQ</td><td>是否漏掉定義、限制與適用場景</td></tr><tr><td>寫教學文章</td><td>官方文件、操作紀錄、案例</td><td>請整理 H2/H3 大綱，標出每段需要補的來源。</td><td>文章大綱、常見錯誤、步驟清單</td><td>是否有操作順序與新手卡點</td></tr><tr><td>做簡報或提案</td><td>研究報告、需求表、會議紀錄</td><td>請先整理受眾、主張、證據與頁面順序。</td><td>Slide Deck、講者備註</td><td>是否每頁只有一個主訊息</td></tr><tr><td>比較產品或方案</td><td>價格頁、規格表、官方 FAQ</td><td>請建立比較表，欄位包含差異、限制、適合對象。</td><td>Data Table、Google Sheets</td><td>價格與限制是否已回看官方來源</td></tr><tr><td>整理影片或課程</td><td>YouTube、課程筆記、逐字稿</td><td>請找出共同觀點、差異說法與可轉成教材的段落。</td><td>學習卡、測驗、短影音腳本</td><td>是否跨影片亂合併不同觀點</td></tr></tbody></table></div>
+        </article>
+
+        <div class="grid lg:grid-cols-2 gap-6 mt-8">
+          <article class="rounded-[2rem] bg-white border border-line p-6 lg:p-8 shadow-card"><h3 class="text-2xl font-black">查證流程：不要只看漂亮輸出</h3><ol class="mt-5 space-y-4 text-slate-700"><li><b>1. 先看引用：</b>重要結論、數字、方案限制、政策與時間點，都要點回原文。</li><li><b>2. 再看缺漏：</b>要求 NotebookLM 列出目前來源無法回答的問題，避免用空泛語句補洞。</li><li><b>3. 比對矛盾：</b>若不同來源說法不一致，請它整理差異，而不是直接選一個答案。</li><li><b>4. 人工改語氣：</b>NotebookLM 產物常像研究筆記，發布前要改成讀者能理解的語氣。</li></ol></article>
+          <article class="rounded-[2rem] bg-white border border-line p-6 lg:p-8 shadow-card"><h3 class="text-2xl font-black">進階提示詞骨架</h3><div class="codebox mt-5">請根據目前來源，完成以下任務：<br>1. 先列出可以確定的事實與引用依據。<br>2. 再列出來源不足、互相矛盾或需要更新的地方。<br>3. 依「新手讀者」重組成可理解的大綱。<br>4. 每一段請標示它依據哪一類來源。<br>5. 最後給我一份「發布前檢查清單」。</div></article>
+        </div>
+      </div>
+    </section>
+
     <section id="workflows" class="py-16 bg-soft border-y border-line">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
         <div class="max-w-3xl mb-10">
@@ -287,6 +314,26 @@
       </div>
     </section>
 
+    <section id="practice" class="py-16">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
+        <div class="max-w-3xl mb-10">
+          <div class="inline-flex rounded-full bg-amber-50 px-4 py-2 text-sm font-bold text-amber-700 mb-4">練習路線</div>
+          <h2 class="section-title text-3xl sm:text-4xl font-black">7 天練習計畫：讓新手真的學會 NotebookLM</h2>
+          <p class="mt-4 text-slate-600">讀完文章只是開始。下面這套練習可以讓讀者從「會按功能」進到「會設計資料與產出流程」。每一天只做一件事，累積一週就能完成一個可發布的小專案。</p>
+        </div>
+        <div class="grid lg:grid-cols-7 gap-4 notebooklm-practice-grid">
+          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 1</b><h3 class="font-black mt-2">建立主題</h3><p class="mt-2 text-slate-600">選一個小題目，例如「AI 工具入門」或「社群內容企劃」。</p></div>
+          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 2</b><h3 class="font-black mt-2">收集來源</h3><p class="mt-2 text-slate-600">放 3 到 8 個高品質來源，記錄年份與來源類型。</p></div>
+          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 3</b><h3 class="font-black mt-2">做資料健檢</h3><p class="mt-2 text-slate-600">要求 NotebookLM 列出足夠、不足、矛盾與需要查證的內容。</p></div>
+          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 4</b><h3 class="font-black mt-2">整理大綱</h3><p class="mt-2 text-slate-600">指定讀者與用途，產生章節大綱和常見錯誤。</p></div>
+          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 5</b><h3 class="font-black mt-2">輸出表格</h3><p class="mt-2 text-slate-600">用 Data Table 整理欄位，匯出後檢查重複與缺漏。</p></div>
+          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 6</b><h3 class="font-black mt-2">產生素材</h3><p class="mt-2 text-slate-600">選擇簡報、音訊、測驗或 FAQ，但一次只產一種成果。</p></div>
+          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 7</b><h3 class="font-black mt-2">人工後製</h3><p class="mt-2 text-slate-600">回看引用、改語氣、補案例，整理成可發布版本。</p></div>
+        </div>
+        <div class="callout success mt-8"><p class="font-bold">練習目標：一週後你應該能完成一份「資料來源清楚、引用可追、格式可用」的小型教學包，而不是只有一段 AI 摘要。</p></div>
+      </div>
+    </section>
+
     <section id="pricing" class="py-16">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
         <div class="max-w-3xl mb-10">
@@ -309,16 +356,30 @@
       </div>
     </section>
 
-    <section id="official" class="py-16">
+    <section id="resources" class="py-16">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
-        <h2 class="section-title text-3xl sm:text-4xl font-black mb-8">建議附上的官方連結</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <a class="rounded-2xl border border-line bg-white p-5 hover:shadow-card" href="https://notebooklm.google/" target="_blank" rel="noopener"><b>NotebookLM 官方入口</b><p class="text-slate-600 mt-1">開始使用 NotebookLM。</p></a>
-          <a class="rounded-2xl border border-line bg-white p-5 hover:shadow-card" href="https://support.google.com/notebooklm/" target="_blank" rel="noopener"><b>NotebookLM Help Center</b><p class="text-slate-600 mt-1">官方說明中心。</p></a>
-          <a class="rounded-2xl border border-line bg-white p-5 hover:shadow-card" href="https://support.google.com/notebooklm/answer/16206563" target="_blank" rel="noopener"><b>Create a notebook</b><p class="text-slate-600 mt-1">建立 notebook 與工作室功能。</p></a>
-          <a class="rounded-2xl border border-line bg-white p-5 hover:shadow-card" href="https://support.google.com/notebooklm/answer/16212820" target="_blank" rel="noopener"><b>Audio Overview</b><p class="text-slate-600 mt-1">音訊摘要官方說明。</p></a>
-          <a class="rounded-2xl border border-line bg-white p-5 hover:shadow-card" href="https://support.google.com/notebooklm/answer/16213268" target="_blank" rel="noopener"><b>Upgrade NotebookLM</b><p class="text-slate-600 mt-1">升級與限制說明。</p></a>
-          <a class="rounded-2xl border border-line bg-white p-5 hover:shadow-card" href="https://one.google.com/intl/en/about/google-ai-plans/" target="_blank" rel="noopener"><b>Google AI Plans</b><p class="text-slate-600 mt-1">Google AI 方案入口。</p></a>
+        <div class="max-w-3xl mb-10">
+          <div class="inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 mb-4">延伸閱讀</div>
+          <h2 class="section-title text-3xl sm:text-4xl font-black">官方與外部資源：想學更深可以從這裡開始</h2>
+          <p class="mt-4 text-slate-600">下面整理官方說明與較完整的外部介紹。按「看重點」可先看適合誰讀、能補哪一塊，再決定要不要開新分頁。</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 notebooklm-resource-grid">
+          <article class="notebooklm-resource-card rounded-2xl border border-line bg-white p-5 shadow-card"><b>NotebookLM 官方入口</b><p class="text-slate-600 mt-2">開始建立 notebook、加入來源與使用工作室。</p><div class="mt-4 flex gap-2"><button type="button" class="notebooklm-resource-btn" data-nlm-modal-open="resource-official">看重點</button><a href="https://notebooklm.google/" target="_blank" rel="noopener" class="notebooklm-resource-link">前往</a></div></article>
+          <article class="notebooklm-resource-card rounded-2xl border border-line bg-white p-5 shadow-card"><b>NotebookLM Help Center</b><p class="text-slate-600 mt-2">官方功能說明、疑難排解與最新限制資訊。</p><div class="mt-4 flex gap-2"><button type="button" class="notebooklm-resource-btn" data-nlm-modal-open="resource-help">看重點</button><a href="https://support.google.com/notebooklm/" target="_blank" rel="noopener" class="notebooklm-resource-link">前往</a></div></article>
+          <article class="notebooklm-resource-card rounded-2xl border border-line bg-white p-5 shadow-card"><b>Audio Overview 官方說明</b><p class="text-slate-600 mt-2">了解 Deep Dive、Brief、Critique、Debate 與互動音訊。</p><div class="mt-4 flex gap-2"><button type="button" class="notebooklm-resource-btn" data-nlm-modal-open="resource-audio">看重點</button><a href="https://support.google.com/notebooklm/answer/16212820" target="_blank" rel="noopener" class="notebooklm-resource-link">前往</a></div></article>
+          <article class="notebooklm-resource-card rounded-2xl border border-line bg-white p-5 shadow-card"><b>Video Overview 官方說明</b><p class="text-slate-600 mt-2">理解影片摘要、視覺風格、語言與生成時間注意事項。</p><div class="mt-4 flex gap-2"><button type="button" class="notebooklm-resource-btn" data-nlm-modal-open="resource-video">看重點</button><a href="https://support.google.com/notebooklm/answer/16454555" target="_blank" rel="noopener" class="notebooklm-resource-link">前往</a></div></article>
+          <article class="notebooklm-resource-card rounded-2xl border border-line bg-white p-5 shadow-card"><b>Upgrade NotebookLM</b><p class="text-slate-600 mt-2">查詢不同方案的 notebooks、sources、queries 與生成額度。</p><div class="mt-4 flex gap-2"><button type="button" class="notebooklm-resource-btn" data-nlm-modal-open="resource-upgrade">看重點</button><a href="https://support.google.com/notebooklm/answer/16206866" target="_blank" rel="noopener" class="notebooklm-resource-link">前往</a></div></article>
+          <article class="notebooklm-resource-card rounded-2xl border border-line bg-white p-5 shadow-card"><b>外部完整功能導覽</b><p class="text-slate-600 mt-2">適合想比較功能、來源格式與實務應用的讀者。</p><div class="mt-4 flex gap-2"><button type="button" class="notebooklm-resource-btn" data-nlm-modal-open="resource-external">看重點</button><a href="https://www.digitalocean.com/resources/articles/what-is-notebooklm" target="_blank" rel="noopener" class="notebooklm-resource-link">前往</a></div></article>
+        </div>
+        <div class="notebooklm-modal" data-nlm-modal hidden>
+          <div class="notebooklm-modal__backdrop" data-nlm-modal-close></div>
+          <div class="notebooklm-modal__panel" role="dialog" aria-modal="true" aria-labelledby="notebooklm-modal-title">
+            <button type="button" class="notebooklm-modal__close" data-nlm-modal-close aria-label="關閉">×</button>
+            <p class="text-sm font-black text-blue-700" data-nlm-modal-kicker>延伸資源</p>
+            <h3 id="notebooklm-modal-title" class="text-2xl font-black mt-2" data-nlm-modal-title>資源說明</h3>
+            <p class="mt-4 text-slate-600 leading-8" data-nlm-modal-body></p>
+            <a href="#" target="_blank" rel="noopener" class="notebooklm-modal__link mt-5" data-nlm-modal-link>開啟資源</a>
+          </div>
         </div>
       </div>
     </section>
