@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>???批捆蝞∠?嚚r.Bill ?訾?撖阡?摰?/title>
+  <title>文章內容管理｜Mr.Bill 數位實驗室</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/blog-layout.css" />
   <link rel="stylesheet" href="css/admin.css?v=admin-ui-8" />
@@ -13,33 +13,33 @@
 
   <header class="admin-topbar">
     <div class="admin-topbar__inner">
-      <a href="./" class="admin-brand" title="? Mr.Bill ?訾?撖阡?摰日???>
+      <a href="./" class="admin-brand" title="回到 Mr.Bill 數位實驗室首頁">
         <div class="admin-brand__mark" aria-hidden="true">B</div>
         <div>
           <div class="admin-brand__title">MrBill AI Studio</div>
-          <div class="admin-brand__sub">Mr.Bill ?訾?撖阡?摰?/div>
-          <span class="admin-brand__badge">?批捆蝞∠?蝟餌絞</span>
+          <div class="admin-brand__sub">Mr.Bill 數位實驗室</div>
+          <span class="admin-brand__badge">內容管理系統</span>
         </div>
       </a>
-      <nav class="admin-topnav" aria-label="敺?瑕?">
-        <a href="./">蝬脩?擐?</a>
-        <a href="blog/" target="_blank" rel="noopener">???”</a>
-        <button id="admin-logout-btn" type="button" class="admin-topnav__logout">?餃</button>
+      <nav class="admin-topnav" aria-label="後台捷徑">
+        <a href="./">網站首頁</a>
+        <a href="blog/" target="_blank" rel="noopener">文章列表</a>
+        <button id="admin-logout-btn" type="button" class="admin-topnav__logout">登出</button>
       </nav>
     </div>
-    <div id="admin-subbar" class="admin-subbar hidden" aria-label="蝺刻摩撌亙??>
+    <div id="admin-subbar" class="admin-subbar hidden" aria-label="編輯工具列">
       <div class="admin-subbar__inner">
         <div class="admin-subbar__main-row">
-          <nav class="admin-editor-tabs" aria-label="蝺刻摩??" role="tablist">
-            <button type="button" role="tab" aria-selected="true" class="admin-editor-tabs__btn is-active" data-admin-tab="basic">???箸</button>
-            <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="list">????</button>
-            <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="body">??甇??</button>
+          <nav class="admin-editor-tabs" aria-label="編輯分頁" role="tablist">
+            <button type="button" role="tab" aria-selected="true" class="admin-editor-tabs__btn is-active" data-admin-tab="basic">① 基本</button>
+            <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="list">② 曝光</button>
+            <button type="button" role="tab" aria-selected="false" class="admin-editor-tabs__btn" data-admin-tab="body">③ 正文</button>
           </nav>
           <div id="admin-github-sync-panel" class="admin-github-strip hidden" aria-live="polite"></div>
           <div class="admin-editor-toolbar__preview">
-            <a id="admin-preview-link" href="#" role="button" class="admin-btn-primary admin-editor-toolbar__preview-main">?汗??</a>
-            <a id="admin-home-preview-link" href="#" role="button" class="admin-editor-toolbar__preview-link">擐?</a>
-            <a id="admin-list-preview-link" href="blog/" target="_blank" rel="noopener" class="admin-editor-toolbar__preview-link">?”</a>
+            <a id="admin-preview-link" href="#" role="button" class="admin-btn-primary admin-editor-toolbar__preview-main">預覽文章</a>
+            <a id="admin-home-preview-link" href="#" role="button" class="admin-editor-toolbar__preview-link">首頁</a>
+            <a id="admin-list-preview-link" href="blog/" target="_blank" rel="noopener" class="admin-editor-toolbar__preview-link">列表</a>
           </div>
         </div>
         <p id="admin-notice" class="admin-notice" role="status" aria-live="polite"></p>
@@ -50,47 +50,47 @@
   <main class="admin-shell">
     <div class="admin-page-head">
       <p class="admin-breadcrumb">
-        <a href="./">Mr.Bill ?訾?撖阡?摰?/a>
-        <span aria-hidden="true"> ??</span>
-        <span>???批捆蝞∠?</span>
+        <a href="./">Mr.Bill 數位實驗室</a>
+        <span aria-hidden="true"> › </span>
+        <span>文章內容管理</span>
       </p>
-      <h1 class="admin-page-title">???批捆蝞∠?敺</h1>
+      <h1 class="admin-page-title">文章內容管理後台</h1>
       <p class="admin-page-desc">
-        ???啜?蝡?閮?銝憟?蝟鳴??冽迨?啣??楊頛胯?閬賢???蝡?銝??箸?蝭 GitHub??
-        ?? 4 蝭雁??瑼?霈椰?湧????渡楊頛航??汗??
+        與前台「文章筆記」同一套體系：在此新增、編輯、預覽動態文章，不需為每篇推 GitHub。
+        靜態 4 篇維持原檔不變。左側選文章、右側編輯與預覽。
       </p>
     </div>
 
     <div id="admin-gate" class="admin-gate-card">
-      <h2>?餃敺</h2>
-      <p class="mb-3">隢撓?亦恣??蝣潘???Cloudflare <code>ADMIN_TOKEN</code> ?詨?嚗撠?8 摮?嚗?strong>???望?嚗摮?蝚西?</strong>嚗??臭葉????/p>
-      <input id="admin-token-input" type="password" class="w-full border border-slate-300 rounded-xl px-3 py-2.5 mb-2" placeholder="蝞∠?撖Ⅳ" autocomplete="current-password" />
+      <h2>登入後台</h2>
+      <p class="mb-3">請輸入管理密碼（與 Cloudflare <code>ADMIN_TOKEN</code> 相同，至少 8 字元，<strong>僅限英文／數字／符號</strong>，不可中文）。</p>
+      <input id="admin-token-input" type="password" class="w-full border border-slate-300 rounded-xl px-3 py-2.5 mb-2" placeholder="管理密碼" autocomplete="current-password" />
       <p id="admin-gate-status" class="text-sm mb-2 min-h-[1.25rem]" role="alert" aria-live="polite"></p>
-      <button id="admin-token-save" type="button" class="admin-btn-primary">?脣敺</button>
-      <p class="text-xs text-slate-500 mt-4">撖Ⅳ?芸??冽璈汗?剁?localStorage嚗?銝?撖恍?GitHub??/p>
+      <button id="admin-token-save" type="button" class="admin-btn-primary">進入後台</button>
+      <p class="text-xs text-slate-500 mt-4">密碼只存在本機瀏覽器（localStorage），不會寫進 GitHub。</p>
     </div>
 
     <div id="admin-app" class="hidden admin-layout">
-      <aside class="admin-sidebar admin-panel" aria-label="???”">
+      <aside class="admin-sidebar admin-panel" aria-label="文章列表">
         <div class="admin-sidebar__head">
-          <p class="admin-panel__title">????</p>
+          <p class="admin-panel__title">動態文章</p>
           <div class="admin-sidebar-actions">
-            <button id="admin-new-btn" type="button">嚗??啣?</button>
-            <button id="admin-refresh-btn" type="button">??渡?</button>
-            <button id="admin-import-seeds-btn" type="button" class="hidden" title="撠璈??末?車摮?蝔踹神?亙?蝡?>?臬蝔桀??阮</button>
+            <button id="admin-new-btn" type="button">＋ 新增</button>
+            <button id="admin-refresh-btn" type="button">重新整理</button>
+            <button id="admin-import-seeds-btn" type="button" class="hidden" title="將本機準備好的種子草稿寫入後端">匯入種子草稿</button>
           </div>
           <p id="admin-seed-import-hint" class="hidden admin-sidebar__seed-hint text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-2 leading-relaxed"></p>
           <div class="admin-sidebar__tools">
-            <input id="admin-list-search" type="search" class="admin-sidebar__search" placeholder="??璅??lug??憿? autocomplete="off" />
-            <select id="admin-list-filter" class="admin-sidebar__filter" aria-label="靘??祟??>
-              <option value="">?券???/option>
-              <option value="draft">?阮</option>
-              <option value="scheduled">??</option>
-              <option value="published">撌脖???/option>
-              <option value="archived">撌脖???/option>
+            <input id="admin-list-search" type="search" class="admin-sidebar__search" placeholder="搜尋標題、slug、分類…" autocomplete="off" />
+            <select id="admin-list-filter" class="admin-sidebar__filter" aria-label="依狀態篩選">
+              <option value="">全部狀態</option>
+              <option value="draft">草稿</option>
+              <option value="scheduled">排程</option>
+              <option value="published">已上架</option>
+              <option value="archived">已下架</option>
             </select>
           </div>
-          <p id="admin-list-count" class="admin-sidebar__count">??/p>
+          <p id="admin-list-count" class="admin-sidebar__count">—</p>
         </div>
         <div class="admin-sidebar__list-wrap">
           <div id="admin-article-list" class="admin-sidebar__list"></div>
@@ -102,67 +102,67 @@
           <div id="admin-editor-workspace" class="admin-editor-workspace">
           <div id="admin-editor-stage" class="admin-editor-stage">
             <header class="admin-editor-stage__head">
-              <h2 id="admin-tab-heading" class="admin-tab-heading">?箸鞈?</h2>
-              <p id="admin-link-hint" class="admin-editor-toolbar__hint">隢??脣???敺??喳?汗????????閬賢?銵具???/p>
+              <h2 id="admin-tab-heading" class="admin-tab-heading">基本資訊</h2>
+              <p id="admin-link-hint" class="admin-editor-toolbar__hint">請先儲存文章後，即可預覽文章與首頁效果。「預覽列表」隨時可開。</p>
             </header>
 
             <form id="admin-article-form" class="admin-editor-form">
               <div id="admin-sec-basic" class="admin-form-section admin-tab-panel is-active" data-admin-tab-panel="basic">
                 <details id="admin-utils-drawer" class="admin-utils-drawer">
-                  <summary>?函?閮剖?嚗??帖撟?繚 GitHub Token嚗?/summary>
+                  <summary>全站設定（首頁橫幅 · GitHub Token）</summary>
                   <div class="admin-utils-drawer__body">
                     <div id="admin-home-strip-settings" class="admin-home-settings">
-                      <p class="admin-section-title">擐?璈怠?閮剖?</p>
+                      <p class="admin-section-title">首頁橫幅設定</p>
                       <label class="admin-home-settings__label">
                         <input id="homeStripShowNav" type="checkbox" />
-                        憿舐內頛芣??嚗?閮剝??????憚?剜??箇嚗?
+                        顯示輪播圓點（預設關閉；僅多則輪播時出現）
                       </label>
                       <div class="admin-home-settings__grid">
                         <div class="admin-field">
-                          <label for="homeStripIntervalSec">?芸?????嚗?嚗?/label>
+                          <label for="homeStripIntervalSec">自動切換間隔（秒）</label>
                           <input id="homeStripIntervalSec" type="number" min="2" max="60" step="1" value="2" />
-                          <p class="admin-field-hint">2嚚?0 蝘??亙??潭??????芸??暹嚗遣霅???皛?蝘 + 1</p>
+                          <p class="admin-field-hint">2～60 秒；若小於滑動時間會自動放慢，建議 ≥ 滑動秒數 + 1</p>
                         </div>
                         <div class="admin-field">
-                          <label for="homeStripTransitionMs">皛??漲嚗神蝘?</label>
+                          <label for="homeStripTransitionMs">滑動速度（毫秒）</label>
                           <input id="homeStripTransitionMs" type="number" min="400" max="2000" step="50" value="1000" />
-                          <p class="admin-field-hint">400嚚?000嚗?憭扳??Ｘ?皛?嚗遣霅?800嚚?200</p>
+                          <p class="admin-field-hint">400～2000，愈大愈慢愈滑順，建議 800～1200</p>
                         </div>
                       </div>
-                      <button id="home-strip-settings-save" type="button" class="admin-home-settings__save">?脣?璈怠?閮剖?</button>
+                      <button id="home-strip-settings-save" type="button" class="admin-home-settings__save">儲存橫幅設定</button>
                     </div>
                     <div id="admin-contact-form-settings" class="admin-home-settings" style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid #e2e8f0;">
-                      <p class="admin-section-title">閰Ｗ?銵典閮剖?嚗雯蝡身閮???嚗?/p>
+                      <p class="admin-section-title">詢問表單設定（網站設計服務頁）</p>
                       <label class="admin-home-settings__label">
                         <input id="contactFormEnabled" type="checkbox" checked />
-                        ?閰Ｗ?銵典嚗????憿舐內?極雿恕?撌脫遛嚗??岷??
+                        開放詢問表單（關閉後前台顯示「工作室排單已滿，暫停接受詢問」）
                       </label>
                       <div class="admin-field mt-3">
-                        <label for="contactToEmail">?嗡辣 Email嚗?蝛箏?雿輻 Worker ?啣?霈?身?潘?</label>
+                        <label for="contactToEmail">收件 Email（留空則使用 Worker 環境變數預設值）</label>
                         <input id="contactToEmail" type="email" class="w-full border border-slate-300 rounded-xl px-3 py-2.5" placeholder="your@email.com" autocomplete="off" />
-                        <p class="admin-field-hint">閬? Worker ??CONTACT_TO_EMAIL嚗?蝛箏?瘝輻?啣?霈閮剖???/p>
+                        <p class="admin-field-hint">覆蓋 Worker 的 CONTACT_TO_EMAIL；留空則沿用環境變數設定。</p>
                       </div>
                       <div class="flex gap-2 mt-3 flex-wrap items-center">
-                        <button id="contact-settings-save" type="button" class="admin-home-settings__save">?脣?銵典閮剖?</button>
-                        <button id="contact-submissions-load" type="button" class="admin-home-settings__save" style="background:#f1f5f9;color:#334155;border:1px solid #cbd5e1;">?亦??餈?50 蝑岷??/button>
+                        <button id="contact-settings-save" type="button" class="admin-home-settings__save">儲存表單設定</button>
+                        <button id="contact-submissions-load" type="button" class="admin-home-settings__save" style="background:#f1f5f9;color:#334155;border:1px solid #cbd5e1;">查看最近 50 筆詢問</button>
                       </div>
                       <div id="contact-submissions-panel" class="hidden mt-4">
-                        <p class="text-sm font-bold text-slate-700 mb-3">?餈岷??????啣??暺????閰單?嚗?/p>
+                        <p class="text-sm font-bold text-slate-700 mb-3">最近詢問記錄（最新在前，點一列可開啟詳情）</p>
                         <div id="contact-submissions-list" class="space-y-2" style="max-height:420px;overflow-y:auto;"></div>
                       </div>
                     </div>
 
                     <div id="admin-github-token-form" class="admin-github-form">
-                      <p class="admin-section-title">GitHub Token ?唳???</p>
-                      <p class="admin-field-hint mb-2">?唾? PAT ??GitHub ?＊蝷箏?嚗PI 霈銝嚗???閮?嚗??隢??啁隢蒂?湔 Worker??/p>
+                      <p class="admin-section-title">GitHub Token 到期提醒</p>
+                      <p class="admin-field-hint mb-2">申請 PAT 時 GitHub 會顯示到期日（API 讀不到，需手動記錄）。到期前請重新申請並更新 Worker。</p>
                       <div class="admin-github-form__row">
                         <div class="admin-field admin-github-form__date">
-                          <label for="githubTokenExpiresAt">?唳???/label>
+                          <label for="githubTokenExpiresAt">到期日</label>
                           <input id="githubTokenExpiresAt" type="date" />
                         </div>
-                        <button id="github-token-save" type="button" class="admin-github-form__save">?脣??唳???/button>
-                        <button id="github-token-probe" type="button" class="admin-github-form__probe">皜祈岫???</button>
-                        <a class="admin-github-form__help" href="admin-github-help.html" target="_blank" rel="noopener noreferrer">摰甇仿?隤芣? ??/a>
+                        <button id="github-token-save" type="button" class="admin-github-form__save">儲存到期日</button>
+                        <button id="github-token-probe" type="button" class="admin-github-form__probe">測試連線</button>
+                        <a class="admin-github-form__help" href="admin-github-help.html" target="_blank" rel="noopener noreferrer">完整步驟說明 →</a>
                       </div>
                     </div>
                   </div>
@@ -170,119 +170,119 @@
 
             <div class="grid md:grid-cols-2 gap-4">
               <div class="admin-field">
-                <label for="slug">slug嚗雯???撱箇?敺??舀嚗?/label>
+                <label for="slug">slug（網址名，建立後不可改）</label>
                 <input id="slug" name="slug" required pattern="[a-z0-9][a-z0-9-]*" placeholder="2026-06-10-my-new-post" />
-                <p class="admin-field-hint">靘?<code>2026-06-10-ai-workflow-tips</code>嚗?撖怒摮????</p>
+                <p class="admin-field-hint">例：<code>2026-06-10-ai-workflow-tips</code>（小寫、數字、連字號）</p>
               </div>
               <div class="admin-field">
-                <label for="status">???/label>
+                <label for="status">狀態</label>
                 <select id="status" name="status">
-                  <option value="draft">?阮</option>
-                  <option value="scheduled">??</option>
-                  <option value="published">撌脖???/option>
-                  <option value="archived">撌脖???/option>
+                  <option value="draft">草稿</option>
+                  <option value="scheduled">排程</option>
+                  <option value="published">已上架</option>
+                  <option value="archived">已下架</option>
                 </select>
-                <p class="admin-field-hint">霈????啜歇銝???阮隢?喳??閬賣?蝡?擐?嚗?銵具?/p>
+                <p class="admin-field-hint">讀者只看得到「已上架」；草稿請用右側「預覽文章／首頁／列表」。</p>
               </div>
             </div>
             <div class="admin-field mt-4">
-              <label for="title">璅?</label>
-              <input id="title" name="title" required placeholder="99% ?犖?賢?舐 AI Prompt" />
-              <p class="admin-field-hint">?”??蝡?憭扳?憿?撱箄降 20嚚?0 摮?/p>
+              <label for="title">標題</label>
+              <input id="title" name="title" required placeholder="99% 的人都在錯用 AI Prompt" />
+              <p class="admin-field-hint">列表與文章頁大標題，建議 20～40 字。</p>
             </div>
             <div class="admin-field">
-              <label for="subtitle">?舀?</label>
-              <input id="subtitle" name="subtitle" placeholder="敺??亥店頛詨嚗?舫??曄?頛詨銵?批" />
-              <p class="admin-field-hint">hero ??舀?嚗?憛急?閬?嚗?銵典?賜?挾?嗉牧??/p>
+              <label for="subtitle">副標</label>
+              <input id="subtitle" name="subtitle" placeholder="從一句話輸入，到可重現的輸出行為控制" />
+              <p class="admin-field-hint">hero 區副標；沒填摘要時，列表可能用這段當說明。</p>
             </div>
             <div class="admin-field">
-              <label for="excerpt">??</label>
-              <textarea id="excerpt" name="excerpt" rows="2" placeholder="??6 ?惜蝝???Prompt ?脣?嚗?撱箇? AI ?雁?嗆?????></textarea>
-              <p class="admin-field-hint">?”憭批銝??脰牧??撱箄降 1嚚? ?乓?/p>
+              <label for="excerpt">摘要</label>
+              <textarea id="excerpt" name="excerpt" rows="2" placeholder="用 6 個層級看懂 Prompt 進化，適合想建立 AI 思維架構的讀者。"></textarea>
+              <p class="admin-field-hint">列表大卡下方的灰色說明，建議 1～2 句。</p>
             </div>
             <div class="grid md:grid-cols-3 gap-4">
               <div class="admin-field">
-                <label for="label">璅惜 label</label>
+                <label for="label">標籤 label</label>
                 <input id="label" name="label" placeholder="AI / Workflow" />
-                <p class="admin-field-hint">?”撠?蝐歹?靘?<code>閬芸? / ?暑</code></p>
+                <p class="admin-field-hint">列表小標籤，例：<code>親子 / 生活</code></p>
               </div>
               <div class="admin-field">
-                <label for="category">??</label>
-                <input id="category" name="category" placeholder="AI摮貊??啣?" />
-                <p class="admin-field-hint">???批飛蝔??嚗?嚗?code>AI摮貊??啣?</code>??code>?暑閫撖?/code></p>
+                <label for="category">分類</label>
+                <input id="category" name="category" placeholder="AI學習地圖" />
+                <p class="admin-field-hint">與站內學程連動，例：<code>AI學習地圖</code>、<code>生活觀察</code></p>
               </div>
               <div class="admin-field">
-                <label for="date">?交?</label>
+                <label for="date">日期</label>
                 <input id="date" name="date" placeholder="2026-06-10" />
-                <p class="admin-field-hint">?澆? <code>YYYY-MM-DD</code>嚗蔣?踵?摨? NEW 璅惜??/p>
+                <p class="admin-field-hint">格式 <code>YYYY-MM-DD</code>，影響排序與 NEW 標籤。</p>
               </div>
             </div>
             <div class="grid md:grid-cols-2 gap-4">
               <div class="admin-field">
-                <label for="readMins">?梯???</label>
+                <label for="readMins">閱讀分鐘</label>
                 <input id="readMins" name="readMins" type="number" min="1" max="999" placeholder="8" />
-                <p class="admin-field-hint">靘?<code>5</code>??code>22</code>嚗＊蝷箇??隡圈霈 X ????</p>
+                <p class="admin-field-hint">例：<code>5</code>、<code>22</code>（顯示為「預估閱讀 X 分鐘」）</p>
               </div>
               <div class="admin-field">
-                <label for="cover">撠 assets/ 頝臬?</label>
+                <label for="cover">封面 assets/ 路徑</label>
                 <input id="cover" name="cover" placeholder="assets/blog-2026-06-06-ai-workflow-og.jpg" />
-                <p class="admin-field-hint">?征???祥??嚗?code>assets/雿???jpg</code></p>
+                <p class="admin-field-hint">留空會自動用免費圖。例：<code>assets/你的圖.jpg</code></p>
               </div>
             </div>
             <div class="admin-field">
-              <label for="audience">?拙?撠情嚗憛恬?</label>
-              <input id="audience" name="audience" placeholder="? ChatGPT 雿蜇閬箏???銝帘摰?霈?? />
-              <p class="admin-field-hint">?”憭批?＊蝷箝???艾??? 4 蝭?甇斗?雿?/p>
+              <label for="audience">適合對象（選填）</label>
+              <input id="audience" name="audience" placeholder="會用 ChatGPT 但總覺得回答不穩定的讀者" />
+              <p class="admin-field-hint">列表大卡會顯示「適合 …」；靜態 4 篇有此欄位。</p>
             </div>
-            <p class="admin-section-title mt-6">??摮?</p>
+            <p class="admin-section-title mt-6">文章字型</p>
             <div class="admin-field">
-              <label for="titleFont">璅?摮?</label>
+              <label for="titleFont">標題字體</label>
               <select id="titleFont" name="titleFont">
-                <option value="sans">暺?嚗?閮哨?AI嚗極?瑟?嚗?/option>
-                <option value="serif">??嚗?瘣餌?閮?</option>
+                <option value="sans">黑體（預設，AI／工具文）</option>
+                <option value="serif">明體（生活筆記）</option>
               </select>
-              <p class="admin-field-hint">?蔣?踵?蝡?憭扳?憿???皞?蝭?～撅?h2嚗?敺??銝?湛???撠????湔??乓AQ ?蝑?霈憭抵扛摮??撠惇????/p>
+              <p class="admin-field-hint">僅影響文章頁大標題與「標準章節卡」直層 h2（與後台版型一致）。卡片內小標、轉場橋接、FAQ 問句等不變。雨天親子為靜態專屬版型。</p>
             </div>
           </div>
 
               <div id="admin-sec-list" class="admin-form-section admin-tab-panel" data-admin-tab-panel="list">
                 <div id="admin-article-links" class="admin-links-panel hidden">
-                  <p>?雿蔭???</p>
+                  <p>前台位置與連結</p>
                   <ul id="admin-placement-list"></ul>
                   <div class="admin-links-actions admin-links-actions--secondary">
-                    <a id="admin-public-link" href="#" target="_blank" rel="noopener" class="hidden">銝???</a>
+                    <a id="admin-public-link" href="#" target="_blank" rel="noopener" class="hidden">上架連結</a>
                   </div>
                 </div>
 
             <div class="grid md:grid-cols-2 gap-4">
               <div class="admin-field">
-                <label for="listStyle">?”??</label>
+                <label for="listStyle">列表版型</label>
                 <select id="listStyle" name="listStyle">
-                  <option value="auto">?芸?嚗?蝎暸嚗??賂?</option>
-                  <option value="full">憭批??∠?嚗移?詨?嚗?/option>
-                  <option value="compact">蝎曄陛??銝璈怠?嚗?/option>
+                  <option value="auto">自動（依精選／篇數）</option>
+                  <option value="full">大圖卡片（精選區）</option>
+                  <option value="compact">精簡列（下方橫列）</option>
                 </select>
-                <p class="admin-field-hint">?芸?嚗3 蝭憭批嚗?蝭?蝎暸韏啣之?∴??園?韏啁移蝪∪???/p>
+                <p class="admin-field-hint">自動：≤3 篇全大卡；多篇時精選走大卡，其餘走精簡列。</p>
               </div>
               <div class="admin-field">
-                <label for="sortOrder">??甈?</label>
+                <label for="sortOrder">排序權重</label>
                 <input id="sortOrder" name="sortOrder" type="number" min="0" max="9999" placeholder="0" />
-                <p class="admin-field-hint">?詨?頞之頞??ｇ?0嚚?999嚗?剝??蔭?蝙?具?/p>
+                <p class="admin-field-hint">數字越大越前面（0～9999）。可搭配「置頂」使用。</p>
               </div>
             </div>
             <div class="admin-check-grid text-sm mt-3">
-              <label><input id="pinned" name="pinned" type="checkbox" /> 蝵桅?</label>
-              <label><input id="featured" name="featured" type="checkbox" /> ?”蝎暸</label>
-              <label><input id="badgePopular" name="badgePopular" type="checkbox" /> ?梢?璅惜</label>
-              <label><input id="badgeTrending" name="badgeTrending" type="checkbox" /> 鈭箸除璅惜</label>
-              <label><input id="homeMarquee" name="homeMarquee" type="checkbox" /> 擐?頝收??/label>
-              <label><input id="homeCarousel" name="homeCarousel" type="checkbox" /> 擐?頛芣</label>
+              <label><input id="pinned" name="pinned" type="checkbox" /> 置頂</label>
+              <label><input id="featured" name="featured" type="checkbox" /> 列表精選</label>
+              <label><input id="badgePopular" name="badgePopular" type="checkbox" /> 熱門標籤</label>
+              <label><input id="badgeTrending" name="badgeTrending" type="checkbox" /> 人氣標籤</label>
+              <label><input id="homeMarquee" name="homeMarquee" type="checkbox" /> 首頁跑馬燈</label>
+              <label><input id="homeCarousel" name="homeCarousel" type="checkbox" /> 首頁輪播</label>
             </div>
-            <p class="admin-field-hint">擐?頝收?????扛摮虜擏帖撟憚?哨?撣賊?銝?鋡怠?隞???移?豢?阡?撌脖??嗆?????撌脣嚗?蝔輻??閬賡???/p>
+            <p class="admin-field-hint">首頁跑馬燈會與「雙北親子」常駐橫幅輪播（常駐不會被取代）。精選推薦需已上架或排程時間已到；草稿用「預覽首頁」。</p>
             <div class="admin-field mt-3">
-              <label for="publishedAt">???澆???嚗憛恬???蝔嚗?/label>
+              <label for="publishedAt">排程發布時間（選填，僅「排程」用）</label>
               <input id="publishedAt" name="publishedAt" type="datetime-local" />
-              <p class="admin-field-hint">????蝔???閬‵??嫘歇銝???靘????? Worker ?航?急????售?皜征甇斗??摮???deploy ???Worker??/p>
+              <p class="admin-field-hint">狀態選「排程」時才需要填。若改「已上架」仍留未來時間，舊版 Worker 可能暫時看不到——請清空此欄再儲存，或 deploy 最新 Worker。</p>
             </div>
           </div>
 
@@ -290,54 +290,54 @@
             <div class="admin-field">
               <div class="admin-block-editor__toolbar">
                 <div class="admin-block-editor__modes">
-                  <button type="button" id="admin-editor-mode-blocks" class="admin-mode-btn is-active">?憛楊頛?/button>
-                  <button type="button" id="admin-editor-mode-html" class="admin-mode-btn">HTML ?脤?</button>
+                  <button type="button" id="admin-editor-mode-blocks" class="admin-mode-btn is-active">區塊編輯</button>
+                  <button type="button" id="admin-editor-mode-html" class="admin-mode-btn">HTML 進階</button>
                 </div>
-                <select id="admin-block-add-select" class="admin-block-add-select" aria-label="?啣??憛?>
-                  <option value="">嚗??啣??憛?/option>
-                  <option value="intro">?蝡?</option>
-                  <option value="section">?賢?蝡???/option>
-                  <option value="faq">撣貉??? FAQ</option>
-                  <option value="bridge">蝡?頧</option>
-                  <option value="callout">???內獢?/option>
-                  <option value="compare">??撠</option>
-                  <option value="code">蝔?蝣潘?Prompt</option>
-                  <option value="image">?扳???</option>
-                  <option value="lesson">隤脩???撣?/option>
-                  <option value="pillars">??????/option>
+                <select id="admin-block-add-select" class="admin-block-add-select" aria-label="新增區塊">
+                  <option value="">＋ 新增區塊…</option>
+                  <option value="intro">開場章節</option>
+                  <option value="section">白底章節卡</option>
+                  <option value="faq">常見問題 FAQ</option>
+                  <option value="bridge">章節轉場</option>
+                  <option value="callout">重點提示框</option>
+                  <option value="compare">前後對照</option>
+                  <option value="code">程式碼／Prompt</option>
+                  <option value="image">內文圖片</option>
+                  <option value="lesson">課程重點帶</option>
+                  <option value="pillars">四欄重點卡</option>
                 </select>
               </div>
-              <p class="admin-field-hint mb-3">?憛芋撘?撣貉???嚗??氬??氬??扼玨蝔葆??甈蝑??舐?亦楊頛臭蒂?單??汗嚗楛?脤?踴??蝑?????隢 HTML ?脤???/p>
+              <p class="admin-field-hint mb-3">區塊模式：常見版型（開場、轉場、對照、課程帶、四欄卡等）可直接編輯並即時預覽；深色面板、領域卡等複合版型仍請用 HTML 進階。</p>
 
               <div id="admin-block-editor-panel" class="admin-block-editor__layout">
                 <div class="admin-block-editor__preview-wrap">
-                  <p class="admin-block-editor__preview-label">???汗</p>
-                  <iframe id="admin-content-preview" class="admin-block-editor__preview" title="甇?????汗"></iframe>
+                  <p class="admin-block-editor__preview-label">版型預覽</p>
+                  <iframe id="admin-content-preview" class="admin-block-editor__preview" title="正文版型預覽"></iframe>
                 </div>
                 <div id="admin-block-list" class="admin-block-editor__blocks"></div>
               </div>
 
               <div id="admin-html-editor-panel" class="hidden">
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-1 mt-2">
-                  <label for="contentHtml">甇?? HTML</label>
+                  <label for="contentHtml">正文 HTML</label>
                   <div class="admin-snippet-toolbar flex flex-wrap gap-2 items-center">
                     <select id="admin-snippet-select" class="!w-auto"></select>
-                    <button type="button" id="admin-snippet-insert">??憛?/button>
-                    <button type="button" id="admin-snippet-reset">?身???</button>
+                    <button type="button" id="admin-snippet-insert">插入區塊</button>
+                    <button type="button" id="admin-snippet-reset">重設開場版型</button>
                   </div>
                 </div>
                 <details class="admin-help-details">
-                  <summary>???獐撠??? 4 蝭?</summary>
+                  <summary>版型怎麼對齊靜態 4 篇？</summary>
                   <ul class="mt-2 space-y-1 list-disc pl-4 leading-relaxed">
-                    <li><strong>銝撖?/strong>?????Ｗ之?甈?銝???code>blog/post.html</code> ????乓?/li>
-                    <li>?脣?敺銝 <strong>?汗??</strong> ???湧?嚗?憛芋撘椰?渡甇?????汗??/li>
-                    <li>???<strong>FAQ ?憛?/strong> ???芸???FAQ 蝯?????/li>
+                    <li><strong>不用寫</strong>頁首、封面大圖、右欄、上下篇——<code>blog/post.html</code> 會自動載入。</li>
+                    <li>儲存後用上方 <strong>預覽文章</strong> 看完整頁；區塊模式左側為正文版型預覽。</li>
+                    <li>文末加 <strong>FAQ 區塊</strong> → 自動產 FAQ 結構化資料。</li>
                   </ul>
                 </details>
-                <textarea id="contentHtml" name="contentHtml" placeholder="HTML ?脤?璅∪?嚗?亦楊頛臬?憪Ⅳ??></textarea>
+                <textarea id="contentHtml" name="contentHtml" placeholder="HTML 進階模式：直接編輯原始碼。"></textarea>
               </div>
             </div>
-            <p id="admin-delete-hint" class="hidden text-xs text-slate-500 mt-2 admin-delete-hint">?阮嚗歇銝?舀偶銋?歹?撌脖??嗉????嗚??寧??撌脖??嗚?/p>
+            <p id="admin-delete-hint" class="hidden text-xs text-slate-500 mt-2 admin-delete-hint">草稿／已下架可永久刪除；已上架請先「下架」或改狀態為已下架。</p>
           </div>
             </form>
           </div>
@@ -347,12 +347,12 @@
     </div>
   </main>
 
-  <div id="admin-action-dock" class="admin-action-dock hidden" aria-label="????">
+  <div id="admin-action-dock" class="admin-action-dock hidden" aria-label="文章操作">
     <div class="admin-action-dock__inner">
       <div class="admin-action-dock__buttons">
-        <button type="submit" form="admin-article-form" class="admin-action-dock__save">?脣???</button>
-        <button type="button" id="admin-sync-share-btn" class="admin-action-dock__sync hidden">?郊 GitHub</button>
-        <button type="button" id="admin-delete-btn" class="admin-action-dock__delete hidden">?芷</button>
+        <button type="submit" form="admin-article-form" class="admin-action-dock__save">儲存文章</button>
+        <button type="button" id="admin-sync-share-btn" class="admin-action-dock__sync hidden">同步 GitHub</button>
+        <button type="button" id="admin-delete-btn" class="admin-action-dock__delete hidden">刪除</button>
       </div>
     </div>
   </div>
@@ -363,13 +363,13 @@
     <div id="contact-detail-backdrop" class="absolute inset-0 bg-slate-900/50"></div>
     <div class="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-2xl border border-slate-200 p-5 sm:p-6">
       <div class="flex items-start justify-between gap-3 mb-4">
-        <h3 id="contact-detail-title" class="text-lg font-black text-slate-900">閰Ｗ?閰單?</h3>
-        <button id="contact-detail-close" type="button" class="shrink-0 rounded-lg px-2 py-1 text-slate-500 hover:bg-slate-100" aria-label="??">??/button>
+        <h3 id="contact-detail-title" class="text-lg font-black text-slate-900">詢問詳情</h3>
+        <button id="contact-detail-close" type="button" class="shrink-0 rounded-lg px-2 py-1 text-slate-500 hover:bg-slate-100" aria-label="關閉">✕</button>
       </div>
       <div id="contact-detail-body" class="text-sm text-slate-700 space-y-3 leading-relaxed"></div>
       <div class="mt-5 flex flex-wrap gap-2">
-        <a id="contact-detail-mailto" href="#" class="admin-home-settings__save no-underline inline-flex">??Email ??</a>
-        <button id="contact-detail-delete" type="button" class="rounded-xl px-4 py-2 text-sm font-bold text-rose-700 border border-rose-200 bg-rose-50 hover:bg-rose-100">?芷甇斤?</button>
+        <a id="contact-detail-mailto" href="#" class="admin-home-settings__save no-underline inline-flex">用 Email 回覆</a>
+        <button id="contact-detail-delete" type="button" class="rounded-xl px-4 py-2 text-sm font-bold text-rose-700 border border-rose-200 bg-rose-50 hover:bg-rose-100">刪除此筆</button>
       </div>
     </div>
   </div>
@@ -383,7 +383,7 @@
   <script src="js/admin/blog-block-editor.js?v=block-preview-fix-1"></script>
   <script src="js/admin/admin-app.js?v=seed-update-1"></script>
   <script>
-  /* ?? 閰Ｗ?銵典閮剖? ??????????????????????????????????? */
+  /* ── 詢問表單設定 ─────────────────────────────────── */
   (function () {
     function adminBase() {
       return ((window.MRBILL_ADMIN || {}).apiBase || "").replace(/\/+$/, "");
@@ -458,13 +458,13 @@
           }
         }).then(function (json) {
           if (json.success) {
-            elSave.textContent = "撌脣摮???;
+            elSave.textContent = "已儲存 ✓";
             setTimeout(function () { elSave.textContent = origText; }, 2000);
           } else {
-            alert(json.message || "?脣?憭望?");
+            alert(json.message || "儲存失敗");
           }
         }).catch(function (e) {
-          alert(e.message || "?脣?憭望?");
+          alert(e.message || "儲存失敗");
         }).finally(function () {
           elSave.disabled = false;
         });
@@ -475,18 +475,18 @@
       elLoadBtn.addEventListener("click", function () {
         var origText = elLoadBtn.textContent;
         elLoadBtn.disabled = true;
-        elLoadBtn.textContent = "頛銝凌?;
+        elLoadBtn.textContent = "載入中…";
         adminFetch("/api/admin/contact-submissions").then(function (json) {
-          if (!json.success) throw new Error(json.message || "霈?仃??);
+          if (!json.success) throw new Error(json.message || "讀取失敗");
           renderSubs((json.data && json.data.submissions) || []);
           if (elPanel) elPanel.classList.remove("hidden");
         }).catch(function (e) {
           if (elPanel) elPanel.classList.remove("hidden");
           if (elList)  elList.innerHTML =
-            '<p class="text-sm text-rose-600">' + esc(e.message || "霈?仃??) + '</p>';
+            '<p class="text-sm text-rose-600">' + esc(e.message || "讀取失敗") + '</p>';
         }).finally(function () {
           elLoadBtn.disabled = false;
-          elLoadBtn.textContent = "?頛";
+          elLoadBtn.textContent = "重新載入";
         });
       });
     }
@@ -495,7 +495,7 @@
       cachedSubs = subs || [];
       if (!elList) return;
       if (!cachedSubs.length) {
-        elList.innerHTML = '<p class="text-sm text-slate-500">?桀?撠?嗡辣閮???/p>';
+        elList.innerHTML = '<p class="text-sm text-slate-500">目前尚無收件記錄。</p>';
         return;
       }
       elList.innerHTML = cachedSubs.map(function (s) {
@@ -503,11 +503,11 @@
         var preview = (s.goal || "").replace(/\s+/g, " ").slice(0, 48);
         return '<button type="button" class="contact-sub-row w-full text-left" data-contact-id="' + esc(String(s.id)) + '" style="border:1px solid #e2e8f0;border-radius:.75rem;padding:.75rem 1rem;background:#fff;font-size:.875rem;cursor:pointer;">' +
           '<div class="flex justify-between items-start gap-2">' +
-          '<b class="text-slate-800">' + esc(s.name) + (s.brand ? '嚗? + esc(s.brand) + '嚗? : '') + '</b>' +
+          '<b class="text-slate-800">' + esc(s.name) + (s.brand ? '（' + esc(s.brand) + '）' : '') + '</b>' +
           '<span class="text-slate-400 text-xs shrink-0">' + esc(ts) + '</span>' +
           '</div>' +
-          '<p class="mt-1 text-slate-600">' + esc(s.service) + (s.budget ? ' 繚 ' + esc(s.budget) : '') + '</p>' +
-          '<p class="mt-1 text-slate-500 text-xs truncate">' + esc(preview) + (preview.length >= 48 ? '?? : '') + '</p>' +
+          '<p class="mt-1 text-slate-600">' + esc(s.service) + (s.budget ? ' · ' + esc(s.budget) : '') + '</p>' +
+          '<p class="mt-1 text-slate-500 text-xs truncate">' + esc(preview) + (preview.length >= 48 ? '…' : '') + '</p>' +
           '</button>';
       }).join("");
       Array.prototype.slice.call(elList.querySelectorAll(".contact-sub-row")).forEach(function (btn) {
@@ -530,16 +530,16 @@
       activeSubId = id;
       var ts = (s.created_at || "").slice(0, 16).replace("T", " ");
       elModalBody.innerHTML =
-        '<p><b>??嚗?/b>' + esc(ts) + '</p>' +
-        '<p><b>憪?嚗?/b>' + esc(s.name) + (s.brand ? '嚗? + esc(s.brand) + '嚗? : '') + '</p>' +
-        '<p><b>Email嚗?/b><a href="mailto:' + esc(s.email) + '" class="text-blue-600">' + esc(s.email) + '</a>' +
-        (s.contact ? ' 繚 ' + esc(s.contact) : '') + '</p>' +
-        '<p><b>?寞?嚗?/b>' + esc(s.service) + (s.budget ? ' 繚 ' + esc(s.budget) : '') + '</p>' +
-        '<p><b>?格?嚗?/b><span class="whitespace-pre-wrap">' + esc(s.goal) + '</span></p>' +
-        (s.message ? '<p><b>鋆?嚗?/b><span class="whitespace-pre-wrap">' + esc(s.message) + '</span></p>' : '') +
+        '<p><b>時間：</b>' + esc(ts) + '</p>' +
+        '<p><b>姓名：</b>' + esc(s.name) + (s.brand ? '（' + esc(s.brand) + '）' : '') + '</p>' +
+        '<p><b>Email：</b><a href="mailto:' + esc(s.email) + '" class="text-blue-600">' + esc(s.email) + '</a>' +
+        (s.contact ? ' · ' + esc(s.contact) : '') + '</p>' +
+        '<p><b>方案：</b>' + esc(s.service) + (s.budget ? ' · ' + esc(s.budget) : '') + '</p>' +
+        '<p><b>目標：</b><span class="whitespace-pre-wrap">' + esc(s.goal) + '</span></p>' +
+        (s.message ? '<p><b>補充：</b><span class="whitespace-pre-wrap">' + esc(s.message) + '</span></p>' : '') +
         (s.page_url ? '<p class="text-xs text-slate-400 break-all">' + esc(s.page_url) + '</p>' : '');
       if (elModalMailto) {
-        var subject = encodeURIComponent("Re: 蝬脩?閮剛???閰Ｗ? ??" + (s.brand || s.name || ""));
+        var subject = encodeURIComponent("Re: 網站設計服務詢問 — " + (s.brand || s.name || ""));
         elModalMailto.href = "mailto:" + encodeURIComponent(s.email || "") + "?subject=" + subject;
       }
       elModal.classList.remove("hidden");
@@ -556,20 +556,20 @@
     if (elModalDelete) {
       elModalDelete.addEventListener("click", function () {
         if (!activeSubId) return;
-        if (!confirm("蝣箏??芷甇斤?閰Ｗ?閮?嚗?文??⊥?敺拙???)) return;
+        if (!confirm("確定刪除此筆詢問記錄？刪除後無法復原。")) return;
         elModalDelete.disabled = true;
         adminFetch("/api/admin/contact-submissions/" + activeSubId, { method: "DELETE" })
           .then(function (json) {
-            if (!json.success) throw new Error(json.message || "?芷憭望?");
+            if (!json.success) throw new Error(json.message || "刪除失敗");
             closeSubModal();
             return adminFetch("/api/admin/contact-submissions");
           })
           .then(function (json) {
-            if (!json.success) throw new Error(json.message || "霈?仃??);
+            if (!json.success) throw new Error(json.message || "讀取失敗");
             renderSubs((json.data && json.data.submissions) || []);
           })
           .catch(function (e) {
-            alert(e.message || "?芷憭望?");
+            alert(e.message || "刪除失敗");
           })
           .finally(function () {
             elModalDelete.disabled = false;
@@ -580,4 +580,3 @@
   </script>
 </body>
 </html>
-
