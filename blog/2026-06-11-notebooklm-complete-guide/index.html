@@ -51,11 +51,11 @@
   <script src="../../js/blog-stats.config.js?v=20260608"></script>
   <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>
   <script src="../../js/blog-article-ui.js?v=author-desktop-v1"></script>
-  <script src="../../js/notebooklm-guide-tools.js?v=deep-resource-1"></script>
+  <script src="../../js/notebooklm-guide-tools.js?v=nlm-demo-9"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&amp;display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../css/blog-layout.css?v=notebooklm-deep-1" />
+  <link rel="stylesheet" href="../../css/blog-layout.css?v=nlm-demo-9" />
   <style>
     html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; max-width: 100%; }
     body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; overflow-x: clip; max-width: 100%; }
@@ -86,12 +86,12 @@
   </div>
   <div class="blog-hero__panel">
     <div class="blog-shell blog-hero__inner">
-      <a href="../../blog/index.html" class="blog-hero__back md:hidden">? ????</a>
-      <nav class="blog-hero__breadcrumb hidden md:block" aria-label="???">
+      <a href="../../blog/index.html" class="blog-hero__back md:hidden">← 文章筆記</a>
+      <nav class="blog-hero__breadcrumb hidden md:block" aria-label="麵包屑">
         <ol>
-          <li><a href="../../index.html">??</a></li>
+          <li><a href="../../index.html">首頁</a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="../../blog/index.html">????</a></li>
+          <li><a href="../../blog/index.html">文章筆記</a></li>
           <li aria-hidden="true">/</li>
           <li><span class="text-white font-medium" id="blog-hero-breadcrumb-title">NotebookLM 用法大全｜從 0 基礎到資料整合、工作室輸出、簡報與進階工作流</span></li>
         </ol>
@@ -100,15 +100,15 @@
       <h1 class="blog-hero__title" id="blog-hero-title">NotebookLM 用法大全｜從 0 基礎到資料整合、工作室輸出、簡報與進階工作流</h1>
       <p class="blog-hero__subtitle" id="blog-hero-subtitle">0 基礎新手版 · 資料整合 · 工作室輸出 · 進階工作流</p>
       <p class="blog-hero__meta">
-        <span class="blog-hero__meta-item" id="blog-hero-author-date">Mr.Bill ? 2026-06-11</span>
-        <span class="blog-hero__meta-item" id="blog-hero-read-time">???? 18 ??</span>
-        <span class="blog-hero__likes blog-hero__meta-item" id="busuanzi_container_page_pv" aria-label="?????????????">
+        <span class="blog-hero__meta-item" id="blog-hero-author-date">Mr.Bill · 2026-06-11</span>
+        <span class="blog-hero__meta-item" id="blog-hero-read-time">預估閱讀 18 分鐘</span>
+        <span class="blog-hero__likes blog-hero__meta-item" id="busuanzi_container_page_pv" aria-label="已有讀者喜歡這篇的累計人數">
           <span class="blog-hero__likes-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           </span>
           <span class="blog-hero__likes-text">
-            <span class="blog-hero__likes-part blog-hero__likes-part--lead">?? <span id="busuanzi_value_page_pv">?</span> ???</span>
-            <span class="blog-hero__likes-part blog-hero__likes-part--tail">??</span>
+            <span class="blog-hero__likes-part blog-hero__likes-part--lead">已有 <span id="busuanzi_value_page_pv">…</span> 位讀者</span>
+            <span class="blog-hero__likes-part blog-hero__likes-part--tail">喜歡</span>
           </span>
         </span>
       </p>
@@ -127,12 +127,13 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
 .ui-window{background:#eef2fb;border:1px solid #dfe6f3;border-radius:20px;padding:12px;box-shadow:0 16px 48px rgba(23,32,51,.10);font-size:.8125rem;line-height:1.45}.ui-grid{display:grid;grid-template-columns:1fr;gap:10px;min-height:0}.ui-panel{background:#fff;border:1px solid #dfe6f3;border-radius:16px;overflow:hidden;position:relative;min-height:0;transition:box-shadow .35s ease}.ui-panel.is-zone-active{box-shadow:0 0 0 2px #2563eb,0 10px 28px rgba(37,99,235,.14)}.ui-head{height:auto;min-height:36px;border-bottom:1px solid #e5eaf3;display:flex;align-items:center;justify-content:space-between;padding:.55rem 12px;font-weight:700;font-size:.95em;gap:.5rem;flex-wrap:wrap}.nlm-zone-step{color:#2563eb;font-weight:800;margin-right:.15rem}.nlm-zone-tag{font-size:.78rem;font-weight:600;color:#64748b}.nlm-zone-desc{margin:0;padding:.55rem 12px .75rem;font-size:.82rem;line-height:1.55;color:#64748b;border-bottom:1px solid #eef2f7;background:#f8fafc}.pill{display:inline-flex;align-items:center;gap:.35rem;border:1px solid #dbe3ef;border-radius:999px;padding:.35rem .65rem;background:#fff;font-size:.85em;white-space:normal;max-width:100%;overflow-wrap:anywhere;word-break:break-word}.studio-card{border-radius:12px;padding:10px;border:1px solid transparent;min-height:0;display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:700;font-size:.92em}.studio-card span{min-width:0;flex:1;line-height:1.35}.studio-card b{flex-shrink:0;opacity:.55}.studio-card small{display:block;font-weight:500;color:#6b7280;margin-top:2px;font-size:.85em;line-height:1.25}
 .flow-line{position:relative}.flow-line:before{content:'';position:absolute;left:22px;top:48px;bottom:-20px;width:2px;background:#e2e8f0}.flow-step:last-child .flow-line:before{display:none}.badge{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font-weight:800}.codebox{background:#0f172a;color:#e2e8f0;border-radius:18px;padding:18px;overflow:auto;font-size:.92rem;line-height:1.75;border:1px solid rgba(255,255,255,.08);white-space:pre-wrap}.prompt{background:#fff;border:1px solid #dfe6f3;border-radius:18px;padding:16px;box-shadow:0 8px 22px rgba(23,32,51,.06)}
 .anim-stage{position:relative;height:260px;background:linear-gradient(135deg,#f8fafc,#eef4ff);border:1px solid #dce4f0;border-radius:24px;overflow:hidden}.doc{position:absolute;width:92px;height:118px;background:#fff;border:1px solid #d7deea;border-radius:12px;box-shadow:0 10px 28px rgba(23,32,51,.12);padding:14px}.doc:before{content:'';display:block;width:44px;height:8px;background:#cbd5e1;border-radius:8px;margin-bottom:10px}.doc:after{content:'';display:block;width:64px;height:8px;background:#e2e8f0;border-radius:8px;box-shadow:0 18px 0 #e2e8f0,0 36px 0 #e2e8f0}.doc1{left:24px;top:36px;animation:docMove1 7s infinite}.doc2{left:54px;top:112px;animation:docMove2 7s infinite}.doc3{left:116px;top:66px;animation:docMove3 7s infinite}.brain{position:absolute;left:42%;top:74px;width:118px;height:118px;border-radius:32px;background:linear-gradient(135deg,#2563eb,#8b5cf6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:42px;box-shadow:0 16px 40px rgba(37,99,235,.26);animation:brainGlow 7s infinite}.out{position:absolute;right:26px;border-radius:14px;background:#fff;border:1px solid #d7deea;box-shadow:0 10px 28px rgba(23,32,51,.1);padding:12px 14px;font-weight:800}.out1{top:30px;animation:outPop1 7s infinite}.out2{top:104px;animation:outPop2 7s infinite}.out3{top:178px;animation:outPop3 7s infinite}@keyframes docMove1{0%,15%{transform:translate(0,0);opacity:1}35%,100%{transform:translate(285px,50px) scale(.78);opacity:.15}}@keyframes docMove2{0%,22%{transform:translate(0,0);opacity:1}42%,100%{transform:translate(252px,-16px) scale(.78);opacity:.15}}@keyframes docMove3{0%,30%{transform:translate(0,0);opacity:1}50%,100%{transform:translate(194px,20px) scale(.78);opacity:.15}}@keyframes brainGlow{0%,48%{filter:saturate(1);transform:scale(1)}58%{filter:saturate(1.4);transform:scale(1.06)}100%{filter:saturate(1);transform:scale(1)}}@keyframes outPop1{0%,58%{transform:translateX(40px);opacity:0}65%,100%{transform:none;opacity:1}}@keyframes outPop2{0%,66%{transform:translateX(40px);opacity:0}73%,100%{transform:none;opacity:1}}@keyframes outPop3{0%,74%{transform:translateX(40px);opacity:0}81%,100%{transform:none;opacity:1}}
-.compare-ok{border-left:5px solid #10b981}.compare-no{border-left:5px solid #f43f5e}.table-wrap{display:block;width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}.table-wrap table{min-width:640px;width:100%;max-width:none}.table-wrap th{background:#f8fafc}.table-wrap th,.table-wrap td{padding:12px 14px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top;overflow-wrap:anywhere;word-break:break-word;white-space:normal}.callout{border:1px solid #dbeafe;background:#eff6ff;border-radius:22px;padding:20px}.warn{border:1px solid #fed7aa;background:#fff7ed}.danger{border:1px solid #fecdd3;background:#fff1f2}.success{border:1px solid #bbf7d0;background:#f0fdf4}.c-purple{background:#f0edff;color:#6941c6}.c-green{background:#eafaf1;color:#067647}.c-pink{background:#fff0f6;color:#c11574}.c-amber{background:#fff7e6;color:#b54708}.c-blue{background:#eaf4ff;color:#175cd3}.c-cyan{background:#e9fbff;color:#026aa2}.c-red{background:#fff1f3;color:#c01048}.c-gray{background:#f4f6fb;color:#344054}
+.compare-ok{border-left:5px solid #10b981}.compare-no{border-left:5px solid #f43f5e}.table-wrap{display:block;width:100%;max-width:100%;overflow-x:visible;-webkit-overflow-scrolling:touch}.table-wrap table{min-width:0;width:100%;max-width:100%;table-layout:fixed}.table-wrap th{background:#f8fafc}.table-wrap th,.table-wrap td{padding:12px 14px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top;overflow-wrap:anywhere;word-break:normal;white-space:normal}.callout{border:1px solid #dbeafe;background:#eff6ff;border-radius:22px;padding:20px}.warn{border:1px solid #fed7aa;background:#fff7ed}.danger{border:1px solid #fecdd3;background:#fff1f2}.success{border:1px solid #bbf7d0;background:#f0fdf4}.c-purple{background:#f0edff;color:#6941c6}.c-green{background:#eafaf1;color:#067647}.c-pink{background:#fff0f6;color:#c11574}.c-amber{background:#fff7e6;color:#b54708}.c-blue{background:#eaf4ff;color:#175cd3}.c-cyan{background:#e9fbff;color:#026aa2}.c-red{background:#fff1f3;color:#c01048}.c-gray{background:#f4f6fb;color:#344054}
 </style>
 <nav class="toc mb-8 rounded-2xl border border-line bg-white p-4" aria-label="文章目錄">
   <p class="text-sm font-bold text-slate-500 mb-2">快速導覽</p>
   <div class="flex flex-wrap gap-1 text-sm">
     <a href="#meaning" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">用途</a>
+    <a href="#auto-demo" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">示範</a>
     <a href="#ui" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">介面</a>
     <a href="#steps" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">步驟</a>
     <a href="#rules" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">規則</a>
@@ -211,6 +212,49 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
       </div>
     </section>
 
+    <section id="auto-demo" class="py-14">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
+        <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 items-center">
+          <div>
+            <div class="inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 mb-4">先看動態示範：資料怎麼變成果</div>
+            <h2 class="section-title text-3xl sm:text-4xl font-black">NotebookLM 省事在哪裡？看它自動整理一次</h2>
+            <p class="mt-4 text-slate-600">實際操作不是每次都從零寫文章，而是先放資料、用對話確認方向，再讓工作室產出可以再加工的成果。下面用動畫示意它如何把雜資料變成簡報、資料表與心智圖。</p>
+            <div class="mt-5 grid gap-3 text-sm nlm-auto-legend">
+              <div><b>1. 放來源</b><span>PDF、YouTube、網站、表格進入同一本 Notebook。</span></div>
+              <div><b>2. 先對話</b><span>確認資料是否足夠，要求整理大綱與欄位。</span></div>
+              <div><b>3. 再輸出</b><span>工作室產出簡報、資料表、心智圖等初稿。</span></div>
+            </div>
+          </div>
+          <div class="nlm-auto-demo" aria-label="NotebookLM 自動整理流程示意">
+            <div class="nlm-auto-stage">
+              <div class="nlm-auto-column nlm-auto-sources">
+                <p class="nlm-auto-label">來源</p>
+                <div class="nlm-auto-doc d1">PDF<br><small>官方說明</small></div>
+                <div class="nlm-auto-doc d2">YT<br><small>教學影片</small></div>
+                <div class="nlm-auto-doc d3">表格<br><small>比較資料</small></div>
+              </div>
+              <div class="nlm-auto-column nlm-auto-chat">
+                <p class="nlm-auto-label">對話確認</p>
+                <div class="nlm-auto-bubble b1">請先檢查來源是否足夠</div>
+                <div class="nlm-auto-bubble b2">整理 10 頁簡報大綱</div>
+                <div class="nlm-auto-bubble b3">欄位：重點、限制、適合輸出</div>
+                <div class="nlm-auto-brain">AI<br><small>整理中</small></div>
+              </div>
+              <div class="nlm-auto-column nlm-auto-results">
+                <p class="nlm-auto-label">工作室輸出</p>
+                <div class="nlm-auto-result r1"><span>📑</span>簡報初稿</div>
+                <div class="nlm-auto-result r2"><span>▦</span>資料表</div>
+                <div class="nlm-auto-result r3"><span>🧠</span>心智圖</div>
+              </div>
+              <div class="nlm-auto-flow f1"></div>
+              <div class="nlm-auto-flow f2"></div>
+            </div>
+            <p class="mt-4 text-sm text-slate-500 leading-7">示意重點：NotebookLM 先依來源資料整理脈絡，再把確認過的方向轉成可用成果；產出後仍要人工校對與後製。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="ui" class="py-14 bg-soft border-y border-line">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
         <div class="max-w-3xl mb-8">
@@ -218,7 +262,43 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
           <p class="mt-4 text-slate-600">打開 NotebookLM 後，畫面就是下面這三塊。藍框會依序亮起，幫你看懂實際操作順序。</p>
           <p class="mt-3 text-sm text-slate-500 nlm-zone-flow-note leading-7">順序永遠是 <strong>① 來源 → ② 對話 → ③ 工作室</strong>。電腦版橫排（左中右）；手機版直排（上中下），意思一樣。</p>
         </div>
-        <div class="ui-window" data-nlm-ui-demo>
+        <div class="nlm-guided-demo mb-8" data-nlm-guided-demo aria-label="NotebookLM 三區操作導覽動畫">
+          <div class="nlm-guided-demo__copy">
+            <div class="nlm-guided-step is-active" data-nlm-guide-step="0">
+              <b>① 來源：先把可信資料放進來</b>
+              <p>PDF、網站、影片、表格先集中到同一本 Notebook。這一步決定後面回答是否可靠。</p>
+            </div>
+            <div class="nlm-guided-step" data-nlm-guide-step="1">
+              <b>② 對話：先問清楚，不急著產出</b>
+              <p>先要求 AI 檢查缺漏、整理大綱、確認欄位。這裡像草稿區，可以反覆調整。</p>
+            </div>
+            <div class="nlm-guided-step" data-nlm-guide-step="2">
+              <b>③ 工作室：最後才按成果輸出</b>
+              <p>方向確認後，再把資料轉成簡報、資料表、心智圖或摘要，避免浪費生成次數。</p>
+            </div>
+          </div>
+          <div class="nlm-guided-screen" aria-hidden="true">
+            <div class="nlm-guided-zone nlm-guided-zone--sources is-active" data-nlm-guide-zone="0">
+              <div class="nlm-guided-zone__head">來源</div>
+              <div class="nlm-guided-source">官方說明 PDF</div>
+              <div class="nlm-guided-source">教學影片逐字稿</div>
+              <div class="nlm-guided-source">產品比較表</div>
+            </div>
+            <div class="nlm-guided-zone nlm-guided-zone--chat" data-nlm-guide-zone="1">
+              <div class="nlm-guided-zone__head">對話</div>
+              <div class="nlm-guided-message nlm-guided-message--user">請先檢查資料是否足夠</div>
+              <div class="nlm-guided-message nlm-guided-message--ai">已整理：缺漏、矛盾、可輸出欄位</div>
+              <div class="nlm-guided-thinking">AI 正在整理脈絡</div>
+            </div>
+            <div class="nlm-guided-zone nlm-guided-zone--studio" data-nlm-guide-zone="2">
+              <div class="nlm-guided-zone__head">工作室輸出</div>
+              <div class="nlm-guided-output">📑 簡報初稿</div>
+              <div class="nlm-guided-output">▦ 資料表</div>
+              <div class="nlm-guided-output">🧠 心智圖</div>
+            </div>
+          </div>
+        </div>
+        <div class="ui-window nlm-ui-reference" data-nlm-ui-demo>
           <div class="ui-grid ui-grid--desktop">
             <aside class="ui-panel" data-nlm-zone="sources">
               <div class="ui-head"><span><span class="nlm-zone-step" aria-hidden="true">①</span> 來源</span><span class="nlm-zone-tag">資料倉庫</span></div>
