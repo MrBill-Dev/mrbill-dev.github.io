@@ -1,7 +1,7 @@
 {
   "version": 1,
   "description": "已上架動態文：slug 對應 GitHub 靜態頁路徑與分享用 meta（後台儲存時自動更新）",
-  "updatedAt": "2026-06-12T13:49:25.883Z",
+  "updatedAt": "2026-06-12T13:49:36.236Z",
   "siteOrigin": "https://mrbill-dev.github.io",
   "count": 3,
   "articles": [
@@ -14,7 +14,7 @@
       "description": "NotebookLM 0 基礎完整教學：從上傳資料、建立來源、精準提問、工作室功能、Audio Overview、影片摘要、心智圖、報告、測驗、資料表、簡報到 Google Sheets 與 Gemini Canvas 進階工作流。",
       "ogImage": "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80",
       "publishedAt": "2026-06-11",
-      "updatedAt": "2026-06-12 00:56:34"
+      "updatedAt": "2026-06-12 13:49:30"
     },
     {
       "slug": "2026-06-10-ai-kids-exam-quiz-practice",
