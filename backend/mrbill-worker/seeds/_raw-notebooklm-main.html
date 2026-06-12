@@ -1,4 +1,4 @@
-<section class="relative overflow-hidden py-16 sm:py-20 lg:py-24">
+<section class="nlm-body-hero relative overflow-hidden py-16 sm:py-20 lg:py-24">
       <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_15%,rgba(37,99,235,.18),transparent_34%),radial-gradient(circle_at_85%_10%,rgba(16,185,129,.16),transparent_30%)]"></div>
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-10 items-center">
@@ -70,7 +70,7 @@
             <h2 class="section-title text-3xl sm:text-4xl font-black">新手不要先研究所有功能，先完成一個小任務</h2>
             <p class="mt-4 text-slate-600">NotebookLM 的功能很多，但第一次打開時只要完成「放 3 個來源 → 問 3 個問題 → 產 1 份成果」就夠了。先用小任務建立手感，再慢慢加來源與工作流。</p>
           </div>
-          <div class="grid md:grid-cols-3 gap-4 nlm-starter-grid">
+          <div class="grid gap-4 nlm-starter-grid">
             <article class="rounded-3xl bg-white border border-line p-5 shadow-card">
               <b class="text-emerald-700">1. 題目縮小</b>
               <h3 class="font-black mt-2">不要從「我要學 AI」開始</h3>
@@ -138,100 +138,6 @@
               <div class="nlm-auto-flow f2"></div>
             </div>
             <p class="mt-4 text-sm text-slate-500 leading-7">示意重點：NotebookLM 先依來源資料整理脈絡，再把確認過的方向轉成可用成果；產出後仍要人工校對與後製。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="ui" class="py-14 bg-soft border-y border-line">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
-        <div class="max-w-3xl mb-8">
-          <h2 class="section-title text-3xl sm:text-4xl font-black">介面參考：三大區塊各自做什麼？</h2>
-          <p class="mt-4 text-slate-600">上面已經看過資料如何變成果，這一段改成「找位置」：打開 NotebookLM 後，先認清楚來源、對話、工作室分別在哪裡。</p>
-          <p class="mt-3 text-sm text-slate-500 nlm-zone-flow-note leading-7">順序仍然是 <strong>① 來源 → ② 對話 → ③ 工作室</strong>。電腦版通常橫排；手機版可能直排或收合，但功能分工一樣。</p>
-        </div>
-        <div class="nlm-guided-demo mb-8" data-nlm-guided-demo aria-label="NotebookLM 三區操作導覽動畫">
-          <div class="nlm-guided-demo__copy">
-            <div class="nlm-guided-step is-active" data-nlm-guide-step="0">
-              <b>① 來源：先把可信資料放進來</b>
-              <p>PDF、網站、影片、表格先集中到同一本 Notebook。這一步決定後面回答是否可靠。</p>
-            </div>
-            <div class="nlm-guided-step" data-nlm-guide-step="1">
-              <b>② 對話：先問清楚，不急著產出</b>
-              <p>先要求 AI 檢查缺漏、整理大綱、確認欄位。這裡像草稿區，可以反覆調整。</p>
-            </div>
-            <div class="nlm-guided-step" data-nlm-guide-step="2">
-              <b>③ 工作室：最後才按成果輸出</b>
-              <p>方向確認後，再把資料轉成簡報、資料表、心智圖或摘要，避免浪費生成次數。</p>
-            </div>
-          </div>
-          <div class="nlm-guided-screen" aria-hidden="true">
-            <div class="nlm-guided-zone nlm-guided-zone--sources is-active" data-nlm-guide-zone="0">
-              <div class="nlm-guided-zone__head">來源</div>
-              <div class="nlm-guided-source">官方說明 PDF</div>
-              <div class="nlm-guided-source">教學影片逐字稿</div>
-              <div class="nlm-guided-source">產品比較表</div>
-            </div>
-            <div class="nlm-guided-zone nlm-guided-zone--chat" data-nlm-guide-zone="1">
-              <div class="nlm-guided-zone__head">對話</div>
-              <div class="nlm-guided-message nlm-guided-message--user">請先檢查資料是否足夠</div>
-              <div class="nlm-guided-message nlm-guided-message--ai">已整理：缺漏、矛盾、可輸出欄位</div>
-              <div class="nlm-guided-thinking">AI 正在整理脈絡</div>
-            </div>
-            <div class="nlm-guided-zone nlm-guided-zone--studio" data-nlm-guide-zone="2">
-              <div class="nlm-guided-zone__head">工作室輸出</div>
-              <div class="nlm-guided-output">📑 簡報初稿</div>
-              <div class="nlm-guided-output">▦ 資料表</div>
-              <div class="nlm-guided-output">🧠 心智圖</div>
-            </div>
-          </div>
-        </div>
-        <div class="ui-window nlm-ui-reference" data-nlm-ui-demo>
-          <div class="ui-grid">
-            <aside class="ui-panel" data-nlm-zone="sources">
-              <div class="ui-head"><span><span class="nlm-zone-step" aria-hidden="true">①</span> 來源</span><span class="nlm-zone-tag">資料倉庫</span></div>
-              <p class="nlm-zone-desc">所有回答與輸出都應該回到這些來源，不要把不相關資料混在一起。</p>
-              <div class="p-4 space-y-4">
-                <button class="w-full rounded-full border border-slate-300 py-3 font-black">＋ 新增來源</button>
-                <div class="rounded-2xl border border-line bg-slate-50 p-4">
-                  <div class="text-sm font-bold text-slate-500 mb-3">在網路上搜尋新來源</div>
-                  <div class="flex gap-2 flex-wrap"><span class="pill">🌐 網路</span><span class="pill">✨ Fast Research</span><span class="ml-auto pill">🔍</span></div>
-                </div>
-                <div class="pt-40 text-center text-slate-500 ui-placeholder"><div class="text-3xl">📄</div><p class="mt-2 text-sm leading-7">新增的 PDF、網站、文字、影片或音訊來源會顯示在這裡。</p></div>
-              </div>
-            </aside>
-            <section class="ui-panel" data-nlm-zone="chat">
-              <div class="ui-head"><span><span class="nlm-zone-step" aria-hidden="true">②</span> 對話</span><span class="nlm-zone-tag">任務指令</span></div>
-              <p class="nlm-zone-desc">適合問問題、要求比較、整理大綱、檢查資料品質。</p>
-              <div class="p-8 h-full flex flex-col justify-between">
-                <div class="pt-10 max-w-xl mx-auto text-center">
-                  <div class="text-5xl mb-5">👋</div>
-                  <h3 class="text-3xl font-black">開始製作第一本 Notebook</h3>
-                  <p class="mt-4 text-slate-500 leading-7">加入來源後，可以要求 AI 摘要、比較、產生大綱、整理表格或規劃簡報。</p>
-                  <div class="mt-6 flex justify-center gap-3 flex-wrap"><span class="pill">瞭解新主題</span><span class="pill">製作新內容</span><span class="pill">推動專案進度</span></div>
-                </div>
-                <div class="rounded-2xl border border-line px-5 py-4 flex items-center gap-3 bg-white"><span class="text-slate-400 flex-1">提問或創作內容</span><span class="text-xs text-slate-400">0 個來源</span><button class="rounded-full bg-slate-100 h-10 w-10">➜</button></div>
-              </div>
-            </section>
-            <aside class="ui-panel" data-nlm-zone="studio">
-              <div class="ui-head"><span><span class="nlm-zone-step" aria-hidden="true">③</span> 工作室</span><span class="nlm-zone-tag">成果輸出</span></div>
-              <p class="nlm-zone-desc">當資料與方向確定後，再按摘要、心智圖、資料表或簡報。</p>
-              <div class="p-4 space-y-4">
-                <div class="rounded-2xl bg-gradient-to-r from-indigo-50 to-green-50 p-4 text-sm font-bold">🎉 試用新的心智圖自訂功能！</div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div class="studio-card c-purple">🎙️<span>音訊摘要<small>聽懂資料</small></span><b>›</b></div>
-                  <div class="studio-card c-amber">▣<span>簡報<small>Slide Deck</small></span><b>›</b></div>
-                  <div class="studio-card c-green">🎬<span>影片摘要<small>影片導讀</small></span><b>›</b></div>
-                  <div class="studio-card c-pink">🧠<span>心智圖<small>結構整理</small></span><b>›</b></div>
-                  <div class="studio-card c-gray">📋<span>報告<small>正式輸出</small></span><b>›</b></div>
-                  <div class="studio-card c-red">🃏<span>學習卡<small>複習記憶</small></span><b>›</b></div>
-                  <div class="studio-card c-cyan">☑<span>測驗<small>自我檢核</small></span><b>›</b></div>
-                  <div class="studio-card c-purple">📊<span>資訊圖表<small>視覺化</small></span><b>›</b></div>
-                  <div class="studio-card c-blue">▦<span>資料表<small>Export Sheets</small></span><b>›</b></div>
-                </div>
-                <div class="pt-12 text-center text-slate-500"><div class="text-3xl">🪄</div><p class="mt-2 text-sm">工作室輸出會儲存在這裡。</p></div>
-              </div>
-            </aside>
           </div>
         </div>
       </div>

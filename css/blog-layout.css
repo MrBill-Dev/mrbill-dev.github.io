@@ -6065,6 +6065,36 @@ html.notebooklm-modal-open {
   list-style: decimal;
 }
 
+.blog-main.blog-prose #notebooklm-guide-root .nlm-starter-grid {
+  grid-template-columns: 1fr;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-starter-grid article {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 0.34fr) minmax(0, 0.66fr);
+  grid-template-areas:
+    "label title"
+    "label copy";
+  column-gap: 1.4rem;
+  row-gap: 0.35rem;
+  align-items: start;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-starter-grid b {
+  grid-area: label;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-starter-grid h3 {
+  grid-area: title;
+  margin-top: 0 !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-starter-grid p {
+  grid-area: copy;
+}
+
 .blog-main.blog-prose #notebooklm-guide-root .nlm-starter-route div > div {
   display: flex;
   flex-direction: column;
@@ -8485,38 +8515,8 @@ html.notebooklm-modal-open {
     padding-bottom: 2.2rem !important;
   }
 
-  .blog-main.blog-prose #notebooklm-guide-root > section:first-child {
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-body-hero {
     display: none !important;
-  }
-
-  .blog-main.blog-prose #notebooklm-guide-root > section:first-child .ui-window {
-    display: none !important;
-  }
-
-  .blog-main.blog-prose #notebooklm-guide-root > section:first-child .inline-flex {
-    display: inline-flex !important;
-    margin-bottom: 1rem !important;
-    padding: 0.6rem 0.9rem !important;
-    border-radius: 999px !important;
-    background: #eff6ff !important;
-    color: #1d4ed8 !important;
-    font-size: 0.9rem !important;
-    line-height: 1.45 !important;
-  }
-
-  .blog-main.blog-prose #notebooklm-guide-root > section:first-child .section-title {
-    margin: 0 !important;
-    color: #111827 !important;
-    font-size: clamp(1.95rem, 9vw, 2.55rem) !important;
-    line-height: 1.18 !important;
-    letter-spacing: -0.045em !important;
-  }
-
-  .blog-main.blog-prose #notebooklm-guide-root > section:first-child p {
-    margin-top: 1rem !important;
-    color: #475569 !important;
-    font-size: 1rem !important;
-    line-height: 1.85 !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .section-title {
@@ -8593,6 +8593,14 @@ html.notebooklm-modal-open {
 
   .blog-main.blog-prose #notebooklm-guide-root .nlm-starter-grid {
     gap: 0.8rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-starter-grid article {
+    display: block !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-starter-grid h3 {
+    margin-top: 0.5rem !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .nlm-starter-route {
@@ -8704,10 +8712,6 @@ html.notebooklm-modal-open {
 @media (max-width: 390px) {
   .blog-hero__title {
     font-size: 1.55rem;
-  }
-
-  .blog-main.blog-prose #notebooklm-guide-root > section:first-child .section-title {
-    font-size: 1.85rem !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .toc a {
