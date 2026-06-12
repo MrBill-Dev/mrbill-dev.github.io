@@ -110,7 +110,7 @@ function rewriteNestedBlogAssetPaths(html) {
 function formatReadDuration(mins) {
   const n = Number(mins) || 0;
   if (!n) return "";
-  return "???? " + n + " ??";
+  return "預估閱讀 " + n + " 分鐘";
 }
 
 function buildArticleJsonLd(article, pageUrl) {
@@ -161,12 +161,12 @@ function buildArticleMetaJson(article) {
 
 function buildStaticHeroSection(article) {
   const cover = absUrl(SITE_ORIGIN, blogResolveCover(article));
-  const tag = escapeHtmlText(article.label || article.category || "????");
+  const tag = escapeHtmlText(article.label || article.category || "文章筆記");
   const title = escapeHtmlText(article.title || article.slug);
   const subtitle = escapeHtmlText(article.subtitle || article.excerpt || "");
   const authorDate =
     escapeHtmlText(article.author || "Mr.Bill") +
-    (article.date ? " ? " + escapeHtmlText(article.date) : "");
+    (article.date ? " · " + escapeHtmlText(article.date) : "");
   const readTime = escapeHtmlText(formatReadDuration(article.readMins));
 
   return (
@@ -180,12 +180,12 @@ function buildStaticHeroSection(article) {
     "  </div>\n" +
     '  <div class="blog-hero__panel">\n' +
     '    <div class="blog-shell blog-hero__inner">\n' +
-    '      <a href="../../blog/index.html" class="blog-hero__back md:hidden">? ????</a>\n' +
-    '      <nav class="blog-hero__breadcrumb hidden md:block" aria-label="???">\n' +
+    '      <a href="../../blog/index.html" class="blog-hero__back md:hidden">← 文章筆記</a>\n' +
+    '      <nav class="blog-hero__breadcrumb hidden md:block" aria-label="麵包屑">\n' +
     "        <ol>\n" +
-    '          <li><a href="../../index.html">??</a></li>\n' +
+    '          <li><a href="../../index.html">首頁</a></li>\n' +
     '          <li aria-hidden="true">/</li>\n' +
-    '          <li><a href="../../blog/index.html">????</a></li>\n' +
+    '          <li><a href="../../blog/index.html">文章筆記</a></li>\n' +
     '          <li aria-hidden="true">/</li>\n' +
     '          <li><span class="text-white font-medium" id="blog-hero-breadcrumb-title">' +
     title +
@@ -212,13 +212,13 @@ function buildStaticHeroSection(article) {
         readTime +
         "</span>\n"
       : '        <span class="blog-hero__meta-item" id="blog-hero-read-time"></span>\n') +
-    '        <span class="blog-hero__likes blog-hero__meta-item" id="busuanzi_container_page_pv" aria-label="?????????????">\n' +
+    '        <span class="blog-hero__likes blog-hero__meta-item" id="busuanzi_container_page_pv" aria-label="已有讀者喜歡這篇的累計人數">\n' +
     '          <span class="blog-hero__likes-icon" aria-hidden="true">\n' +
     '            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>\n' +
     "          </span>\n" +
     '          <span class="blog-hero__likes-text">\n' +
-    '            <span class="blog-hero__likes-part blog-hero__likes-part--lead">?? <span id="busuanzi_value_page_pv">?</span> ???</span>\n' +
-    '            <span class="blog-hero__likes-part blog-hero__likes-part--tail">??</span>\n' +
+    '            <span class="blog-hero__likes-part blog-hero__likes-part--lead">已有 <span id="busuanzi_value_page_pv">…</span> 位讀者</span>\n' +
+    '            <span class="blog-hero__likes-part blog-hero__likes-part--tail">喜歡</span>\n' +
     "          </span>\n" +
     "        </span>\n" +
     "      </p>\n" +
@@ -336,7 +336,7 @@ function buildStaticArticleBody(article) {
   if (!safe) {
     return (
       '          <div id="blog-static-content" data-blog-static-content="1">\n' +
-      '            <p class="text-slate-500">??????</p>\n' +
+      '            <p class="text-slate-500">（尚無正文）</p>\n' +
       "          </div>\n"
     );
   }
@@ -399,10 +399,10 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
     '  <script src="../../js/blog-article-ui.js?v=author-desktop-v1"></script>\n' +
-    '  <script src="../../js/notebooklm-guide-tools.js?v=nlm-demo-8"></script>\n' +
+    '  <script src="../../js/notebooklm-guide-tools.js?v=nlm-demo-9"></script>\n' +
     quizAssets +
     BLOG_SERIF_FONT_HEAD +
-    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=nlm-demo-8" />\n' +
+    '  <link rel="stylesheet" href="../../css/blog-layout.css?v=nlm-demo-9" />\n' +
     "  <style>\n" +
     "    html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: clip; max-width: 100%; }\n" +
     '    body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", sans-serif; overflow-x: clip; max-width: 100%; }\n' +

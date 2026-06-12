@@ -76,6 +76,7 @@
   font-weight: 900;
   line-height: 1.25;
   letter-spacing: -0.02em;
+  color: #fff;
   max-width: 100%;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -2147,6 +2148,26 @@ html[data-blog-dynamic-loading="1"] #blog-dynamic-loading {
 }
 
 @media (max-width: 639px) {
+  .blog-hero__inner {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+
+  .blog-hero__title {
+    font-size: 1.375rem;
+    line-height: 1.3;
+  }
+
+  .blog-hero__meta {
+    gap: 0.45rem 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .blog-hero__likes-text {
+    line-height: 1.45;
+  }
+
   .blog-article-nav__grid--duo {
     grid-template-columns: 1fr;
   }
