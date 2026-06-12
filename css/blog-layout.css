@@ -1,6 +1,185 @@
 /* —— 文章 Hero —— */
 /* 手機：短圖 + 深色文字區；桌機：全幅圖疊字 */
 
+/* Blog pages load the global header as a component. Keep it usable even if
+   Tailwind utilities are late, cached, or unavailable on mobile Safari. */
+#global-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid #f1f5f9;
+  backdrop-filter: blur(12px);
+}
+
+#global-header > div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 90rem;
+  height: 5rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+#global-header > div > a:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  color: #0f172a;
+  text-decoration: none;
+}
+
+#global-header > div > a:first-child > div:first-child {
+  display: flex;
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 900;
+  background: linear-gradient(35deg, #4f46e5, #7c3aed, #06b6d4);
+}
+
+#global-header > div > a:first-child > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+#global-header > div > a:first-child span:first-child {
+  color: #0f172a;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+#global-header > div > a:first-child span:nth-child(2) {
+  margin-top: 0.125rem;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#global-header > div > nav:first-of-type {
+  display: none;
+}
+
+#global-header > div > button[aria-controls="mobile-dropdown-panel"] {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: transparent;
+  color: #334155;
+}
+
+#global-header > div > button[aria-controls="mobile-dropdown-panel"] svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+#global-header #mobile-dropdown-panel {
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  background: #fff;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.14);
+}
+
+#global-header #mobile-dropdown-panel.hidden {
+  display: none !important;
+}
+
+#global-header #mobile-dropdown-panel a,
+#global-header #mobile-dropdown-panel summary {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 0.875rem;
+  color: #475569;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+@media (max-width: 420px) {
+  #global-header > div {
+    gap: 0.5rem;
+    padding: 0 0.75rem;
+  }
+
+  #global-header > div > a:first-child {
+    gap: 0.5rem;
+  }
+
+  #global-header > div > a:first-child > div:first-child {
+    flex-basis: 2.35rem;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 0.8rem;
+    font-size: 1.2rem;
+  }
+
+  #global-header > div > a:first-child span:first-child {
+    font-size: 1rem;
+  }
+
+  #global-header > div > a:first-child span:nth-child(2) {
+    font-size: 0.68rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #global-header > div {
+    padding: 0 1.5rem;
+  }
+
+  #global-header > div > nav:first-of-type {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  #global-header > div > nav:first-of-type a,
+  #global-header > div > nav:first-of-type button {
+    color: #475569;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  #global-header > div > button[aria-controls="mobile-dropdown-panel"],
+  #global-header #mobile-dropdown-panel {
+    display: none !important;
+  }
+}
+
 .blog-hero {
   position: relative;
   overflow: hidden;
@@ -49,6 +228,10 @@
 
 .blog-hero__back:hover {
   color: #fff;
+}
+
+.blog-hero__breadcrumb {
+  display: none;
 }
 
 .blog-hero__tags {
@@ -418,6 +601,10 @@ body.blog-title-font-serif
   .blog-hero__subtitle {
     font-size: 1.125rem;
     max-width: none;
+  }
+
+  .blog-hero__breadcrumb {
+    display: block;
   }
 
   .blog-hero__breadcrumb ol {
