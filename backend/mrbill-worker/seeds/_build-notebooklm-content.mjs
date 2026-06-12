@@ -37,6 +37,7 @@ const toc = `<nav class="toc mb-8 rounded-2xl border border-line bg-white p-4" a
   <p class="text-sm font-bold text-slate-500 mb-2">快速導覽</p>
   <div class="flex flex-wrap gap-1 text-sm">
     <a href="#meaning" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">用途</a>
+    <a href="#starter" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">起步</a>
     <a href="#auto-demo" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">示範</a>
     <a href="#ui" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">介面</a>
     <a href="#steps" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">步驟</a>

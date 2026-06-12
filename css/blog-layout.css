@@ -6074,6 +6074,107 @@ html.notebooklm-modal-open {
   list-style: decimal;
 }
 
+.blog-main.blog-prose #notebooklm-guide-root .nlm-starter-route div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 1rem;
+  background: #f8fafc;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-starter-route b {
+  color: #1d4ed8;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-starter-route span {
+  color: #475569;
+  line-height: 1.65;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-guide {
+  position: sticky;
+  top: 6.25rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-guide ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-guide li {
+  padding-left: 0.15rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item {
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item[open] {
+  border-color: #bfdbfe;
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.08);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item summary {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  list-style: none;
+  color: #172033;
+  line-height: 1.55;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item summary::before {
+  content: "Q";
+  display: inline-flex;
+  flex: 0 0 1.65rem;
+  width: 1.65rem;
+  height: 1.65rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item summary::after {
+  content: "+";
+  margin-left: auto;
+  color: #94a3b8;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item[open] summary::after {
+  content: "-";
+  color: #2563eb;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-answer {
+  margin-top: 0.85rem;
+  padding-left: 2.4rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-answer p {
+  margin: 0.55rem 0 0 !important;
+  color: #475569;
+  line-height: 1.85;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-faq-answer p:first-child {
+  margin-top: 0 !important;
+}
+
 .blog-main.blog-prose #notebooklm-guide-root .nlm-step-zone {
   display: inline-flex;
   align-items: center;
@@ -8498,6 +8599,59 @@ html.notebooklm-modal-open {
 
   .blog-main.blog-prose #notebooklm-guide-root .nlm-cheat-sheet ol {
     padding-left: 1.15rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-starter-grid {
+    gap: 0.8rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-starter-route {
+    margin-top: 1rem !important;
+    padding: 1rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-starter-route div > div {
+    padding: 0.85rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-faq-guide {
+    position: static !important;
+    padding: 1rem !important;
+    border-radius: 1.2rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-faq-guide ol {
+    padding-left: 1.05rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-faq-list {
+    gap: 0.75rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item {
+    padding: 0.95rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item summary {
+    gap: 0.55rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-faq-item summary::before {
+    flex-basis: 1.45rem !important;
+    width: 1.45rem !important;
+    height: 1.45rem !important;
+    font-size: 0.72rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-faq-answer {
+    padding-left: 2rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-faq-answer p {
+    font-size: 0.96rem !important;
+    line-height: 1.85 !important;
   }
 
   .blog-author-card:not(.blog-author-card--page) {

@@ -62,6 +62,44 @@
       </div>
     </section>
 
+    <section id="starter" class="py-14 bg-soft border-y border-line">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
+        <div class="grid lg:grid-cols-[0.82fr_1.18fr] gap-8 items-start">
+          <div>
+            <div class="inline-flex rounded-full bg-emerald-50 px-4 py-2 text-sm font-bold text-emerald-700 mb-4">第一次使用先看這裡</div>
+            <h2 class="section-title text-3xl sm:text-4xl font-black">新手不要先研究所有功能，先完成一個小任務</h2>
+            <p class="mt-4 text-slate-600">NotebookLM 的功能很多，但第一次打開時只要完成「放 3 個來源 → 問 3 個問題 → 產 1 份成果」就夠了。先用小任務建立手感，再慢慢加來源與工作流。</p>
+          </div>
+          <div class="grid md:grid-cols-3 gap-4 nlm-starter-grid">
+            <article class="rounded-3xl bg-white border border-line p-5 shadow-card">
+              <b class="text-emerald-700">1. 題目縮小</b>
+              <h3 class="font-black mt-2">不要從「我要學 AI」開始</h3>
+              <p class="mt-2 text-slate-600">改成「我要整理 3 篇 NotebookLM 教學，做一份 5 分鐘簡報」。題目越小，結果越清楚。</p>
+            </article>
+            <article class="rounded-3xl bg-white border border-line p-5 shadow-card">
+              <b class="text-emerald-700">2. 來源先少</b>
+              <h3 class="font-black mt-2">先放 3 到 5 個可信來源</h3>
+              <p class="mt-2 text-slate-600">一開始不要塞滿 50 個來源。先用官方頁、課程筆記、自己的資料做練習，品質比數量重要。</p>
+            </article>
+            <article class="rounded-3xl bg-white border border-line p-5 shadow-card">
+              <b class="text-emerald-700">3. 先問再產</b>
+              <h3 class="font-black mt-2">不要第一步就按工作室</h3>
+              <p class="mt-2 text-slate-600">先問「資料夠不夠？缺什麼？適合做什麼？」確認後，再產簡報、表格或 FAQ。</p>
+            </article>
+          </div>
+        </div>
+        <div class="nlm-starter-route mt-6 rounded-[2rem] bg-white border border-line p-5 shadow-card">
+          <p class="text-sm font-black text-blue-700 mb-3">推薦第一個練習任務</p>
+          <div class="grid md:grid-cols-4 gap-3 text-slate-700">
+            <div><b>主題</b><span>一個你真的要學或要整理的題目</span></div>
+            <div><b>來源</b><span>3 個可信來源，不混不同主題</span></div>
+            <div><b>提問</b><span>先問缺漏、矛盾與大綱</span></div>
+            <div><b>成果</b><span>只選一種：表格或簡報</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="auto-demo" class="py-14">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
         <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 items-center">
@@ -480,18 +518,38 @@
 
     <section id="faq" class="py-16 bg-soft border-y border-line">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
-        <h2 class="section-title text-3xl sm:text-4xl font-black mb-8">常見問題</h2>
-        <div class="space-y-4">
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">NotebookLM 跟 ChatGPT 最大差別是什麼？</summary><p class="mt-3 text-slate-600">NotebookLM 更偏向根據使用者提供的來源資料做整理與輸出；ChatGPT 則更像通用任務助理，適合寫作、程式、分析、討論與多種任務。若你的任務需要「只根據這批資料回答」，NotebookLM 通常更穩。</p></details>
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">NotebookLM 可以加入 YouTube 影片當來源嗎？</summary><p class="mt-3 text-slate-600">可以。常見做法是貼上 YouTube 連結，讓 NotebookLM 讀取影片內容後再摘要、比較或整理重點。建議先挑同主題、品質穩定的影片，不要一次混太多不同領域。</p></details>
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">免費版夠一般使用者用嗎？</summary><p class="mt-3 text-slate-600">若只是偶爾整理資料、做摘要或大綱，免費版通常夠用。但若你每天都大量生成 Audio、Video、Slide Deck 或 Reports，就可能很快碰到每日上限。建議先把對話區任務規劃好，再消耗工作室額度。</p></details>
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">為什麼不要一開始就產生簡報？</summary><p class="mt-3 text-slate-600">因為簡報需要主軸、受眾、頁數與訊息順序。如果資料還沒整理好就生成簡報，通常會得到普通、空泛或頁面邏輯不順的結果。較穩流程是：先健檢資料 → 產大綱 → 再按 Slide Deck。</p></details>
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">要怎麼避免浪費每日額度？</summary><p class="mt-3 text-slate-600">先用對話區做資料健檢、摘要、大綱與輸出規格，確認方向後再使用工作室功能。不要反覆生成同一種成果；若只是改欄位或語氣，先在對話區講清楚再重生。</p></details>
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">一個 Notebook 可以放多少來源？有什麼建議？</summary><p class="mt-3 text-slate-600">官方常見上限是每本 notebook 約 50 個 sources，但實務上更重要的是「主題一致」而不是塞滿。建議一個主題一本，先放核心來源，再逐步補充；來源太雜會讓回答失焦。</p></details>
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">Data Table 匯出 Google Sheets 後可以做什麼？</summary><p class="mt-3 text-slate-600">可以清理欄位、排序、補資料、做圖表，再把整理後的資料重新加入 NotebookLM 或交給 Gemini / Canvas 做進階分析與視覺化。這是很適合「先表格化、再二次分析」的工作流。</p></details>
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">Audio Overview 適合什麼情境？</summary><p class="mt-3 text-slate-600">適合通勤、複習、快速掌握大方向。它會把來源整理成對談式導讀，但前提是資料本身已有清楚結構；若來源太雜，導讀也容易失焦。建議先完成資料健檢再生成。</p></details>
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">NotebookLM 跟 Gemini 要怎麼搭配？</summary><p class="mt-3 text-slate-600">常見分工是：NotebookLM 負責依來源整理大綱、表格、FAQ 與網站規格；Gemini 或 Gemini Canvas 負責把規格轉成更完整的文案、分析或網站原型。不要讓兩邊同時從零開始各做一份，容易不一致。</p></details>
-          <details class="rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">能不能用知名動漫角色做資訊圖？</summary><p class="mt-3 text-slate-600">不建議，尤其是商業使用。比較安全的做法是使用原創角色、品牌吉祥物、或只描述風格元素而不直接仿製特定 IP。發布前也要人工檢查文字、數字與引用是否正確。</p></details>
+        <div class="max-w-3xl mb-8">
+          <div class="inline-flex rounded-full bg-violet-50 px-4 py-2 text-sm font-bold text-violet-700 mb-4">新手卡關排除</div>
+          <h2 class="section-title text-3xl sm:text-4xl font-black">常見問題：照這裡排除卡點</h2>
+          <p class="mt-4 text-slate-600">這裡不只回答功能差異，而是整理新手最常遇到的情境：不知道放什麼來源、問不出好答案、輸出不好用、額度不夠、成果要怎麼後製。</p>
+        </div>
+        <div class="grid lg:grid-cols-[0.82fr_1.18fr] gap-6 items-start">
+          <aside class="nlm-faq-guide rounded-[2rem] bg-white border border-line p-6 shadow-card">
+            <p class="text-sm font-black text-blue-700 mb-4">先判斷你卡在哪一層</p>
+            <ol class="space-y-3 text-slate-700">
+              <li><b>來源層：</b>資料不夠、太雜、太舊，回答自然不穩。</li>
+              <li><b>提問層：</b>只說「幫我整理」，AI 不知道讀者、用途、格式。</li>
+              <li><b>輸出層：</b>太早按工作室，會浪費額度且成果空泛。</li>
+              <li><b>後製層：</b>產物只是初稿，仍要查證、改語氣、調設計。</li>
+            </ol>
+            <div class="callout success mt-5"><p class="font-bold">最穩排錯順序：先補來源 → 再改 Prompt → 最後才重生工作室成果。</p></div>
+          </aside>
+          <div class="space-y-4 nlm-faq-list">
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5" open><summary class="font-black cursor-pointer">完全新手第一步要做什麼？</summary><div class="nlm-faq-answer"><p>不要一開始就研究所有功能。先選一個小主題，放 3 到 5 個可信來源，在對話區問：「請檢查這些來源能支持哪些內容、缺哪些資料、適合產出什麼成果？」確認後只選一種成果，例如資料表或簡報。</p><p><b>檢查點：</b>你能不能用一句話說出 Notebook 的主題與用途？如果不能，題目還太大。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">NotebookLM 跟 ChatGPT 最大差別是什麼？</summary><div class="nlm-faq-answer"><p>NotebookLM 更適合「根據你提供的這批來源」回答、整理與輸出；ChatGPT 更像通用助理，適合從零討論、寫作、程式與多種任務。若你需要引用資料、整理課程、比較文件、把一批來源轉成簡報或表格，先用 NotebookLM；若要延伸成文案、網頁、程式或創意發想，再接 ChatGPT / Gemini。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">應該放哪些來源？可以只放網路文章嗎？</summary><div class="nlm-faq-answer"><p>可以放網路文章，但不要只放品質不明的懶人包。比較穩的組合是：官方文件或原始資料 1 份、教學或案例 2 到 3 份、自己的筆記或需求 1 份。來源最好同主題、同時間範圍，並且能支撐你要輸出的成果。</p><p><b>先做：</b>把低品質、重複、過時、與主題無關的資料刪掉，再問 NotebookLM 是否還缺資料。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">NotebookLM 可以加入 YouTube 影片當來源嗎？</summary><div class="nlm-faq-answer"><p>可以。常見做法是貼上 YouTube 連結，讓 NotebookLM 讀取影片內容後再摘要、比較或整理重點。新手建議先挑同主題、長度適中、內容品質穩定的影片，不要把不同領域影片混在同一本 Notebook。</p><p><b>檢查點：</b>若影片內容太散，先要求它整理「這支影片真正談了哪些主題」，再決定是否保留。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">為什麼回答看起來很空泛？</summary><div class="nlm-faq-answer"><p>通常不是工具壞掉，而是來源太少、來源太雜，或提問太模糊。不要只問「幫我整理」，請改成：「請根據來源整理給 0 基礎新手看的 H2/H3 大綱，標出每段依據哪個來源，沒有來源支持的內容請標示資料不足。」</p><p><b>先做：</b>要求它列出「可以確定的內容、來源不足的內容、互相矛盾的內容」。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">為什麼不要一開始就產生簡報？</summary><div class="nlm-faq-answer"><p>簡報需要受眾、主軸、頁數、訊息順序與證據。如果資料還沒整理好就按 Slide Deck，常會得到普通、空泛或頁面邏輯不順的結果。較穩流程是：資料健檢 → 10 頁大綱 → 每頁主訊息 → 再按 Slide Deck。</p><p><b>檢查點：</b>如果你還不知道每一頁要講什麼，就還不到生成簡報的階段。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">要怎麼避免浪費每日額度？</summary><div class="nlm-faq-answer"><p>先用對話區把方向談清楚，因為資料健檢、大綱、欄位規格、讀者設定都可以先在對話區完成。工作室按鈕留到最後，只在你已經確認來源、格式與目的後使用。若只是改語氣或欄位，先回到對話區調整，不要反覆重生同一種成果。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">免費版夠一般使用者用嗎？</summary><div class="nlm-faq-answer"><p>如果只是偶爾整理資料、做摘要、大綱、表格或一份簡報，免費版通常可以練習完整流程。若你每天大量生成 Audio、Video、Slide Deck、Reports 或很多 Notebook，就可能碰到上限。實際額度會依官方方案與帳號顯示為準。</p><p><b>建議：</b>把每日額度留給最終成果，前面的整理盡量用對話區完成。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">一個 Notebook 可以放多少來源？越多越好嗎？</summary><div class="nlm-faq-answer"><p>官方常見上限是每本 Notebook 約 50 個 sources，但實務上不是越多越好。來源太雜會讓回答失焦，重複來源也會放大同一種觀點。新手建議先用 3 到 8 個高品質來源完成一次成果，再逐步補資料。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">Data Table 匯出 Google Sheets 後可以做什麼？</summary><div class="nlm-faq-answer"><p>可以清理欄位、排序、補資料、做圖表，再把整理後的表格重新加入 NotebookLM，或交給 Gemini / Canvas 做進階分析與視覺化。最適合產品比較、影片重點、景點清單、課程資源、價格方案這類需要欄位化的資料。</p><p><b>檢查點：</b>表格每一欄都應該能被讀者拿去行動，例如比較、排序、篩選或轉成簡報。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">Audio Overview 適合什麼情境？</summary><div class="nlm-faq-answer"><p>適合通勤、複習、快速掌握大方向。它像對談式導讀，不是正式引用來源。若資料本身太雜，導讀也容易失焦。建議先完成資料健檢，確定主題一致後再生成。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">NotebookLM 跟 Gemini / Gemini Canvas 要怎麼搭配？</summary><div class="nlm-faq-answer"><p>常見分工是：NotebookLM 負責把來源整理成大綱、表格、FAQ、網站規格；Gemini 或 Gemini Canvas 負責把規格轉成更完整的文案、分析或網站原型。不要讓兩邊同時從零開始各做一份，容易不一致。</p><p><b>好用接法：</b>先用 NotebookLM 產出「網站製作規格」，再貼到 Gemini Canvas 做頁面初稿。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">輸出後可以直接發布嗎？</summary><div class="nlm-faq-answer"><p>不建議直接發布。NotebookLM 的產物比較像研究筆記或初稿，正式發布前要回看引用、查證數字、改成讀者能懂的語氣，並補上自己的案例或判斷。涉及費用、政策、法規、醫療、升學、產品規格時尤其要人工核對。</p></div></details>
+            <details class="nlm-faq-item rounded-2xl bg-white border border-line p-5"><summary class="font-black cursor-pointer">能不能用知名動漫角色做資訊圖？</summary><div class="nlm-faq-answer"><p>不建議，尤其是商業使用。比較安全的做法是使用原創角色、品牌吉祥物，或只描述一般風格元素，不直接仿製特定 IP。發布前也要人工檢查文字、數字與引用是否正確。</p></div></details>
+          </div>
         </div>
       </div>
     </section>
