@@ -6091,6 +6091,774 @@ html.notebooklm-modal-open {
   animation-delay: 0.6s;
 }
 
+.blog-main.blog-prose #notebooklm-guide-root .nlm-inline-demo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: 1rem;
+  align-items: center;
+  border: 1px solid #bfdbfe;
+  border-radius: 1.35rem;
+  background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+  padding: clamp(1rem, 2.5vw, 1.25rem);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.08);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-inline-demo__copy {
+  color: #334155;
+  line-height: 1.75;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-inline-demo__copy b {
+  display: block;
+  color: #1d4ed8;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-inline-demo__flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.25rem minmax(0, 0.85fr) 2.25rem minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-inline-node {
+  min-width: 0;
+  border-radius: 999px;
+  padding: 0.7rem 0.85rem;
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 900;
+  line-height: 1.35;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  background: #fff;
+  color: #172033;
+  box-shadow: 0 8px 18px rgba(23, 32, 51, 0.06);
+  animation: nlm-inline-pulse 4.8s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-inline-node--ai {
+  background: #2563eb;
+  color: #fff;
+  animation-delay: 0.45s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-inline-node--output {
+  background: #ecfdf5;
+  color: #047857;
+  animation-delay: 0.9s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-inline-arrow {
+  position: relative;
+  height: 3px;
+  border-radius: 999px;
+  background: #93c5fd;
+  overflow: hidden;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-inline-arrow::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: -40%;
+  width: 42%;
+  background: #2563eb;
+  animation: nlm-inline-arrow 1.7s linear infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+  align-items: stretch;
+  border: 1px solid #bfdbfe;
+  border-radius: 1.75rem;
+  background: linear-gradient(135deg, #eff6ff, #f8fafc 55%, #f5f3ff);
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  box-shadow: 0 18px 48px rgba(37, 99, 235, 0.1);
+  overflow: hidden;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__copy {
+  display: grid;
+  gap: 0.8rem;
+  align-content: center;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-step {
+  border: 1px solid #dbeafe;
+  border-radius: 1.15rem;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 1rem;
+  color: #475569;
+  opacity: 0.72;
+  transform: scale(0.98);
+  transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-step.is-active {
+  opacity: 1;
+  transform: scale(1);
+  border-color: #2563eb;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.14);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-step b {
+  display: block;
+  color: #172033;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-step p {
+  margin-top: 0.45rem !important;
+  color: #475569;
+  line-height: 1.75;
+  font-size: 0.92rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-screen {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.12fr) minmax(0, 0.85fr);
+  gap: 0.8rem;
+  min-height: 24rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 1.35rem;
+  background: #eef2fb;
+  padding: 0.9rem;
+  overflow: hidden;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-zone {
+  position: relative;
+  min-width: 0;
+  border: 1px solid #dbe3ef;
+  border-radius: 1rem;
+  background: #fff;
+  padding: 0.9rem;
+  opacity: 0.72;
+  transition: opacity 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-zone.is-active {
+  opacity: 1;
+  transform: translateY(-0.2rem);
+  box-shadow: 0 0 0 2px #2563eb, 0 18px 34px rgba(37, 99, 235, 0.14);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo {
+  margin-top: 1.1rem;
+  border: 1px solid #dbeafe;
+  border-radius: 1.2rem;
+  background: linear-gradient(135deg, #eff6ff, #fff);
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__head span {
+  display: inline-flex;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__head b {
+  flex: 1 1 auto;
+  color: #172033;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__stage {
+  min-height: 5.2rem;
+  border-radius: 1rem;
+  border: 1px solid #e6ebf3;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 0.85rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__notebook,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__sources,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__check,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__chat,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__studio,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__polish {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__notebook b,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__notebook span,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__sources i,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__check span,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__chat span,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__studio i,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__polish span {
+  border-radius: 0.85rem;
+  padding: 0.65rem 0.75rem;
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.35;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  color: #334155;
+  animation: nlm-step-demo-pop 4.8s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__sources,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__studio,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__polish {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__sources i:nth-child(4) {
+  grid-column: 1 / -1;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__notebook b,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__sources i {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__chat .u {
+  justify-self: end;
+  max-width: 78%;
+  background: #2563eb;
+  color: #fff;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__chat .a,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__check span {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__studio i,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__polish span {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__sources i:nth-child(2),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__check span:nth-child(2),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__studio i:nth-child(2),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__polish span:nth-child(2) {
+  animation-delay: 0.22s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__sources i:nth-child(3),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__check span:nth-child(3),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__studio i:nth-child(3),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__polish span:nth-child(3) {
+  animation-delay: 0.44s;
+}
+
+@keyframes nlm-step-demo-pop {
+  0%, 100% { transform: translateY(0); box-shadow: none; opacity: 0.72; }
+  38%, 62% { transform: translateY(-0.18rem); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.1); opacity: 1; }
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-official-mock {
+  min-height: 9rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 1rem;
+  background: #f8fafc;
+  padding: 0.85rem;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-top,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-panel-head,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-export-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  color: #172033;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-top b,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-add {
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  background: #fff;
+  color: #172033;
+  padding: 0.5rem 0.85rem;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-create-card {
+  margin-top: 0.8rem;
+  border: 2px solid #bfdbfe;
+  border-radius: 1rem;
+  background: #fff;
+  padding: 0.95rem;
+  color: #172033;
+  animation: nlm-step-demo-pop 4.8s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-create-card i,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-create-card strong,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-create-card small {
+  display: block;
+  font-style: normal;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-create-card small {
+  margin-top: 0.25rem;
+  color: #64748b;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-recent {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin-top: 0.65rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-recent span {
+  height: 2.2rem;
+  border-radius: 0.75rem;
+  background: #e2e8f0;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-panel-head small {
+  color: #64748b;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-add {
+  width: 100%;
+  margin-top: 0.7rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-source-card,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-chat-line,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-audit-card,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-output-progress,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-polish-list {
+  margin-top: 0.55rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 0.9rem;
+  background: #fff;
+  color: #334155;
+  padding: 0.65rem 0.75rem;
+  font-weight: 850;
+  line-height: 1.45;
+  animation: nlm-step-demo-pop 4.8s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-source-card.s2,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-audit-card span:nth-child(3),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-chat-line.ai,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-studio-grid span:nth-child(2),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-polish-list span:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-source-card.s3,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-audit-card span:nth-child(4),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-studio-grid span:nth-child(3),
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-polish-list span:nth-child(4) {
+  animation-delay: 0.48s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-chat-line.user {
+  width: fit-content;
+  max-width: 86%;
+  margin-left: auto;
+  background: #2563eb;
+  color: #fff;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-chat-line.ai span,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-audit-card span,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-polish-list span {
+  display: block;
+  margin-top: 0.35rem;
+  color: #475569;
+  font-size: 0.88rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  background: #fff;
+  color: #94a3b8;
+  padding: 0.55rem 0.7rem 0.55rem 0.9rem;
+  font-size: 0.84rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-input i {
+  display: inline-flex;
+  width: 1.7rem;
+  height: 1.7rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-style: normal;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-studio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-studio-grid span {
+  border-radius: 0.85rem;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  padding: 0.65rem;
+  color: #047857;
+  font-weight: 900;
+  animation: nlm-step-demo-pop 4.8s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-output-progress {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-mock-export-tabs span {
+  flex: 1 1 0;
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  background: #fff;
+  padding: 0.45rem 0.6rem;
+  text-align: center;
+  color: #1d4ed8;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-zone__head {
+  color: #172033;
+  font-size: 0.9rem;
+  font-weight: 900;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid #eef2f7;
+  margin-bottom: 0.8rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-source,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-message,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-output,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-thinking {
+  border-radius: 0.9rem;
+  padding: 0.72rem 0.8rem;
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-source {
+  margin-top: 0.55rem;
+  background: #eff6ff;
+  color: #1d4ed8;
+  animation: nlm-guided-source 7.2s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-source:nth-of-type(3) {
+  animation-delay: 0.18s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-source:nth-of-type(4) {
+  animation-delay: 0.36s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-message {
+  margin-top: 0.65rem;
+  background: #f8fafc;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-message--user {
+  margin-left: auto;
+  max-width: 88%;
+  background: #2563eb;
+  color: #fff;
+  animation: nlm-guided-chat 7.2s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-message--ai {
+  max-width: 92%;
+  animation: nlm-guided-chat 7.2s ease-in-out infinite;
+  animation-delay: 0.35s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-thinking {
+  margin-top: 1rem;
+  text-align: center;
+  color: #6d28d9;
+  background: #f5f3ff;
+  animation: nlm-guided-thinking 1.6s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-output {
+  margin-top: 0.65rem;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #bbf7d0;
+  opacity: 0.38;
+  transform: translateY(0.45rem);
+  animation: nlm-guided-output 7.2s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-output:nth-of-type(3) {
+  animation-delay: 0.3s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-output:nth-of-type(4) {
+  animation-delay: 0.6s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-ui-reference {
+  display: none !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-ui-window-superseded {
+  display: none !important;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo {
+  border-radius: 1.6rem;
+  border: 1px solid #c7d2fe;
+  background: linear-gradient(135deg, #eff6ff, #f8fafc 55%, #f5f3ff);
+  padding: clamp(1.1rem, 2.6vw, 1.6rem);
+  box-shadow: 0 18px 48px rgba(37, 99, 235, 0.1);
+  overflow: hidden;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__head b {
+  display: inline-flex;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__head h3 {
+  margin: 0.65rem 0 0 !important;
+  color: #172033;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  line-height: 1.3;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__head p {
+  margin: 0 !important;
+  color: #475569;
+  line-height: 1.8;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 1.8vw, 1.2rem);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card {
+  position: relative;
+  border-radius: 1.25rem;
+  border: 1px solid #dbe3ef;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 26px rgba(23, 32, 51, 0.06);
+  overflow: hidden;
+  animation: nlm-guided-card 7.2s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card--chat {
+  animation-delay: 2.4s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card--studio {
+  animation-delay: 4.8s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #e6ebf3;
+  background: #fff;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card__top span {
+  color: #172033;
+  font-weight: 900;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card__top small {
+  color: #64748b;
+  font-weight: 800;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1rem;
+  min-height: 17.5rem;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card__body p {
+  margin: auto 0 0 !important;
+  color: #64748b;
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-file,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-bubble,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-output {
+  border-radius: 0.95rem;
+  border: 1px solid #dbe3ef;
+  background: #fff;
+  color: #334155;
+  padding: 0.72rem 0.85rem;
+  font-weight: 850;
+  line-height: 1.4;
+  box-shadow: 0 8px 18px rgba(23, 32, 51, 0.05);
+  opacity: 0.45;
+  transform: translateY(0.35rem);
+  animation: nlm-guided-item 7.2s ease-in-out infinite;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-file {
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-bubble {
+  color: #4338ca;
+  background: #eef2ff;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-output {
+  color: #047857;
+  background: #ecfdf5;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-bubble.q1,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-bubble.q2,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-bubble.q3 {
+  animation-delay: 2.4s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-output.o1,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-output.o2,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-output.o3 {
+  animation-delay: 4.8s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-file.f2,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-bubble.q2,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-output.o2 {
+  animation-delay: calc(var(--nlm-step-delay, 0s) + 0.22s);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-file.f3,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-bubble.q3,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-output.o3 {
+  animation-delay: calc(var(--nlm-step-delay, 0s) + 0.44s);
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-bubble.q2,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-bubble.q3 {
+  --nlm-step-delay: 2.4s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-output.o2,
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card .nlm-guided-output.o3 {
+  --nlm-step-delay: 4.8s;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__note {
+  margin-top: 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.72);
+  color: #475569;
+  padding: 0.8rem 1rem;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+@keyframes nlm-guided-card {
+  0%, 27%, 100% { box-shadow: 0 10px 26px rgba(23, 32, 51, 0.06); transform: translateY(0); }
+  8%, 20% { box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18), 0 18px 34px rgba(37, 99, 235, 0.16); transform: translateY(-0.2rem); }
+}
+
+@keyframes nlm-guided-item {
+  0%, 4%, 30%, 100% { opacity: 0.45; transform: translateY(0.35rem); }
+  9%, 24% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes nlm-inline-pulse {
+  0%, 100% { transform: translateY(0); }
+  45% { transform: translateY(-0.18rem); }
+}
+
+@keyframes nlm-inline-arrow {
+  to { left: 110%; }
+}
+
+@keyframes nlm-guided-source {
+  0%, 18%, 100% { transform: translateY(0); box-shadow: none; }
+  7% { transform: translateY(-0.25rem); box-shadow: 0 10px 22px rgba(37, 99, 235, 0.12); }
+}
+
+@keyframes nlm-guided-chat {
+  0%, 24% { opacity: 0.45; transform: translateY(0.35rem); }
+  34%, 72% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0.55; }
+}
+
+@keyframes nlm-guided-thinking {
+  0%, 100% { filter: saturate(1); transform: scale(1); }
+  50% { filter: saturate(1.35); transform: scale(1.03); }
+}
+
+@keyframes nlm-guided-output {
+  0%, 58% { opacity: 0.25; transform: translateY(0.45rem); }
+  70%, 92% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0.45; transform: translateY(0.25rem); }
+}
+
 @keyframes nlm-doc-pulse {
   0%, 100% { transform: translateY(0); box-shadow: 0 8px 18px rgba(23, 32, 51, 0.06); }
   35% { transform: translateY(-0.35rem); box-shadow: 0 14px 28px rgba(37, 99, 235, 0.12); }
@@ -6381,29 +7149,36 @@ html.notebooklm-modal-open {
 }
 
 .blog-main.blog-prose #notebooklm-guide-root .ui-window {
-  overflow-x: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   max-width: 100% !important;
 }
 
 @media (min-width: 1024px) {
+  .blog-main.blog-prose #notebooklm-guide-root .ui-grid,
   .blog-main.blog-prose #notebooklm-guide-root .ui-grid--desktop {
     display: grid;
-    grid-template-columns: minmax(220px, 0.9fr) minmax(360px, 1.45fr) minmax(320px, 1fr);
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
-    gap: 14px;
+    gap: clamp(0.85rem, 1.6vw, 1.2rem);
     align-items: stretch;
   }
 
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel[data-nlm-zone="studio"] {
+    grid-column: 1 / -1;
+  }
+
   .blog-main.blog-prose #notebooklm-guide-root .ui-panel[data-nlm-zone="studio"] .grid.grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(135px, 1fr));
-    gap: 0.65rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root .ui-panel[data-nlm-zone="studio"] .studio-card {
-    min-height: 4.35rem;
-    padding: 0.75rem 0.8rem;
-    font-size: 0.86rem;
+    min-height: 3.4rem;
+    padding: 0.72rem 0.85rem;
+    font-size: clamp(0.82rem, 0.95vw, 0.92rem);
     align-items: center;
   }
 
@@ -6437,7 +7212,8 @@ html.notebooklm-modal-open {
   }
 
   .blog-main.blog-prose #notebooklm-guide-root #deep-dive .table-wrap table {
-    min-width: 1040px !important;
+    width: 100% !important;
+    min-width: 0 !important;
     table-layout: fixed;
   }
 
@@ -6476,7 +7252,23 @@ html.notebooklm-modal-open {
   }
 }
 
+@media (min-width: 1440px) {
+  .blog-main.blog-prose #notebooklm-guide-root .ui-grid,
+  .blog-main.blog-prose #notebooklm-guide-root .ui-grid--desktop {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.45fr) minmax(0, 1fr);
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel[data-nlm-zone="studio"] {
+    grid-column: auto;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-panel[data-nlm-zone="studio"] .grid.grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 1023px) {
+  .blog-main.blog-prose #notebooklm-guide-root .ui-grid,
   .blog-main.blog-prose #notebooklm-guide-root .ui-grid--desktop {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) !important;
@@ -6490,14 +7282,22 @@ html.notebooklm-modal-open {
   display: block;
   width: 100% !important;
   max-width: 100% !important;
-  overflow-x: auto !important;
+  overflow-x: visible !important;
   -webkit-overflow-scrolling: touch;
 }
 
 .blog-main.blog-prose #notebooklm-guide-root .table-wrap table {
   width: 100% !important;
-  max-width: none !important;
-  min-width: 640px !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  table-layout: fixed;
+}
+
+.blog-main.blog-prose #notebooklm-guide-root .table-wrap th,
+.blog-main.blog-prose #notebooklm-guide-root .table-wrap td {
+  word-break: normal;
+  overflow-wrap: anywhere;
+  vertical-align: top;
 }
 
 .blog-main.blog-prose #notebooklm-guide-root .ui-panel .grid.grid-cols-2 {
@@ -6693,6 +7493,170 @@ html.notebooklm-modal-open {
     display: none !important;
   }
 
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-inline-demo {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.85rem !important;
+    padding: 0.9rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-inline-demo__flow {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.45rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-inline-arrow {
+    width: 3px !important;
+    height: 1.2rem !important;
+    justify-self: center;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-inline-arrow::after {
+    inset-inline: 0 !important;
+    top: -40% !important;
+    width: auto !important;
+    height: 42% !important;
+    animation: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-inline-node {
+    animation: none !important;
+    white-space: normal !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.9rem !important;
+    padding: 0.9rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__copy {
+    gap: 0.65rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-step {
+    padding: 0.85rem !important;
+    border-radius: 0.95rem !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-step p {
+    font-size: 0.88rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-screen {
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-height: 0 !important;
+    gap: 0.75rem !important;
+    padding: 0.75rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-zone {
+    padding: 0.8rem !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-source,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-message,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-thinking {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__head,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-demo__head h3 {
+    font-size: 1.35rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card {
+    animation: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-card__body {
+    min-height: 0 !important;
+    padding: 0.85rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-file,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-bubble,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-guided-output {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo {
+    padding: 0.85rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__head {
+    display: grid !important;
+    gap: 0.45rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__stage {
+    min-height: 0 !important;
+    padding: 0.75rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__sources,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__studio,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__polish {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__notebook b,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__notebook span,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__sources i,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__check span,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__chat span,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__studio i,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-step-demo__polish span {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-official-mock {
+    min-height: 0 !important;
+    padding: 0.75rem !important;
+    border-radius: 0.9rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-top,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-panel-head,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-export-tabs {
+    display: grid !important;
+    gap: 0.4rem !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-recent,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-studio-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-source-card,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-chat-line,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-audit-card,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-output-progress,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-polish-list,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-studio-grid span,
+  .blog-main.blog-prose #notebooklm-guide-root .nlm-mock-create-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .blog-main.blog-prose #notebooklm-guide-root .ui-grid,
   .blog-main.blog-prose #notebooklm-guide-root .ui-grid--desktop {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) !important;

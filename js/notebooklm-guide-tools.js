@@ -143,9 +143,220 @@
     start();
   }
 
+  function initGuidedDemo(root) {
+    var demo = root.querySelector("[data-nlm-guided-demo]");
+    if (!demo || demo.getAttribute("data-nlm-guided-ready") === "1") return;
+    var steps = Array.prototype.slice.call(demo.querySelectorAll("[data-nlm-guide-step]"));
+    var zones = Array.prototype.slice.call(demo.querySelectorAll("[data-nlm-guide-zone]"));
+    if (!steps.length || !zones.length) return;
+    demo.setAttribute("data-nlm-guided-ready", "1");
+
+    var index = 0;
+    var reduceMotion =
+      window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function setActive(nextIndex) {
+      steps.forEach(function (step, i) {
+        step.classList.toggle("is-active", i === nextIndex);
+      });
+      zones.forEach(function (zone, i) {
+        zone.classList.toggle("is-active", i === nextIndex);
+      });
+      index = nextIndex;
+    }
+
+    setActive(0);
+    if (reduceMotion) return;
+    window.setInterval(function () {
+      setActive((index + 1) % Math.min(steps.length, zones.length));
+    }, 2600);
+  }
+
+  function removeLeakedObjectText(root) {
+    if (!root || !document.createTreeWalker) return;
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    var node;
+    while ((node = walker.nextNode())) {
+      if (/\[object\s+HTML(?:Div)?Element\]/i.test(node.nodeValue || "")) {
+        nodes.push(node);
+      }
+    }
+    nodes.forEach(function (textNode) {
+      if (!textNode.parentNode) return;
+      var cleaned = (textNode.nodeValue || "")
+        .replace(/\[object\s+HTML(?:Div)?Element\]/gi, "")
+        .trim();
+      if (cleaned) {
+        textNode.nodeValue = cleaned;
+      } else {
+        textNode.parentNode.removeChild(textNode);
+      }
+    });
+  }
+
+  function stepDemoHtml(index) {
+    var demos = [
+      {
+        label: "建立 Notebook",
+        title: "先開一本主題明確的筆記本",
+        body:
+          '<div class="nlm-official-mock nlm-official-mock--home">' +
+          '<div class="nlm-mock-top"><span>NotebookLM</span><b>＋ 新增 Notebook</b></div>' +
+          '<div class="nlm-mock-create-card"><i>📘</i><strong>AI 學習工具比較｜2026</strong><small>建立一本主題明確的 Notebook</small></div>' +
+          '<div class="nlm-mock-recent"><span></span><span></span><span></span></div>' +
+          "</div>"
+      },
+      {
+        label: "來源",
+        title: "把可信資料放進來源區",
+        body:
+          '<div class="nlm-official-mock nlm-official-mock--sources">' +
+          '<div class="nlm-mock-panel-head">來源 <small>資料倉庫</small></div>' +
+          '<button class="nlm-mock-add">＋ 新增來源</button>' +
+          '<div class="nlm-mock-source-card s1">📄 官方說明 PDF</div>' +
+          '<div class="nlm-mock-source-card s2">🌐 官方文件網址</div>' +
+          '<div class="nlm-mock-source-card s3">▶ YouTube 教學影片</div>' +
+          "</div>"
+      },
+      {
+        label: "資料健檢",
+        title: "先檢查缺漏與矛盾",
+        body:
+          '<div class="nlm-official-mock nlm-official-mock--audit">' +
+          '<div class="nlm-mock-chat-line user">請先檢查目前來源資料</div>' +
+          '<div class="nlm-mock-audit-card"><b>AI 資料健檢</b><span>✅ 可支持：核心概念</span><span>⚠ 需補充：最新額度</span><span>🔎 待查證：功能名稱</span></div>' +
+          "</div>"
+      },
+      {
+        label: "對話",
+        title: "把任務、格式、對象講清楚",
+        body:
+          '<div class="nlm-official-mock nlm-official-mock--chat">' +
+          '<div class="nlm-mock-chat-line user">請整理給 0 基礎新手看的 H2/H3 大綱</div>' +
+          '<div class="nlm-mock-chat-line ai"><b>已產生大綱</b><span>1. 用途與概念</span><span>2. 三區介面</span><span>3. 正確操作流程</span></div>' +
+          '<div class="nlm-mock-input">提問或創作內容 <i>➜</i></div>' +
+          "</div>"
+      },
+      {
+        label: "工作室",
+        title: "方向確認後再輸出成果",
+        body:
+          '<div class="nlm-official-mock nlm-official-mock--studio">' +
+          '<div class="nlm-mock-panel-head">工作室輸出 <small>成果區</small></div>' +
+          '<div class="nlm-mock-studio-grid"><span>📑 簡報</span><span>▦ 資料表</span><span>🧠 心智圖</span><span>🎙 音訊摘要</span></div>' +
+          '<div class="nlm-mock-output-progress">正在產生可後製初稿…</div>' +
+          "</div>"
+      },
+      {
+        label: "後製",
+        title: "輸出後人工校對與改版",
+        body:
+          '<div class="nlm-official-mock nlm-official-mock--polish">' +
+          '<div class="nlm-mock-export-tabs"><span>Slides</span><span>Sheets</span><span>Editor</span></div>' +
+          '<div class="nlm-mock-polish-list"><b>發布前檢查</b><span>引用與數字回看來源</span><span>改成讀者看得懂的語氣</span><span>補版型、圖表與 CTA</span></div>' +
+          "</div>"
+      }
+    ];
+    var item = demos[index] || demos[demos.length - 1];
+    return (
+      '<div class="nlm-step-demo" data-nlm-step-demo="' +
+      (index + 1) +
+      '">' +
+      '<div class="nlm-step-demo__head"><span>' +
+      item.label +
+      "</span><b>" +
+      item.title +
+      "</b></div>" +
+      '<div class="nlm-step-demo__stage">' +
+      item.body +
+      "</div>" +
+      "</div>"
+    );
+  }
+
+  function ensureStepDemos(root) {
+    var stepsRoot = root.querySelector("#steps");
+    if (!stepsRoot || stepsRoot.getAttribute("data-nlm-step-demos-ready") === "1") return;
+    var steps = Array.prototype.slice.call(stepsRoot.querySelectorAll(".flow-step"));
+    if (!steps.length) return;
+    stepsRoot.setAttribute("data-nlm-step-demos-ready", "1");
+    steps.forEach(function (step, index) {
+      var card = step.querySelector(".shadow-card") || step.lastElementChild;
+      if (!card || card.querySelector(".nlm-step-demo")) return;
+      var wrap = document.createElement("div");
+      wrap.innerHTML = stepDemoHtml(index);
+      card.appendChild(wrap.firstChild);
+    });
+  }
+
+  function ensureGuidedDemo(root) {
+    var demo = root.querySelector("[data-nlm-ui-demo]");
+    if (!demo) return;
+    var grid = demo.querySelector(".ui-grid");
+    if (grid && !grid.classList.contains("ui-grid--desktop")) {
+      grid.classList.add("ui-grid--desktop");
+    }
+    if (root.querySelector(".nlm-guided-demo")) {
+      demo.classList.add("nlm-ui-window-superseded");
+      return;
+    }
+
+    var oldInline = root.querySelector(".nlm-inline-demo");
+    if (oldInline && oldInline.parentNode) oldInline.parentNode.removeChild(oldInline);
+
+    var guidedDemo = document.createElement("div");
+    guidedDemo.className = "nlm-guided-demo mb-6";
+    guidedDemo.setAttribute("data-nlm-guided-demo", "");
+    guidedDemo.setAttribute("aria-label", "NotebookLM 三區局部操作動畫示範");
+    guidedDemo.innerHTML =
+      '<div class="nlm-guided-demo__copy">' +
+      '<div class="nlm-guided-step is-active" data-nlm-guide-step="0">' +
+      "<b>① 來源：先把可信資料放進來</b>" +
+      "<p>PDF、網站、影片、表格先集中到同一本 Notebook。這一步決定後面回答是否可靠。</p>" +
+      "</div>" +
+      '<div class="nlm-guided-step" data-nlm-guide-step="1">' +
+      "<b>② 對話：先問清楚，不急著產出</b>" +
+      "<p>先要求 AI 檢查缺漏、整理大綱、確認欄位。這裡像草稿區，可以反覆調整。</p>" +
+      "</div>" +
+      '<div class="nlm-guided-step" data-nlm-guide-step="2">' +
+      "<b>③ 工作室：最後才按成果輸出</b>" +
+      "<p>方向確認後，再把資料轉成簡報、資料表、心智圖或摘要，避免浪費生成次數。</p>" +
+      "</div>" +
+      "</div>" +
+      '<div class="nlm-guided-screen" aria-hidden="true">' +
+      '<div class="nlm-guided-zone nlm-guided-zone--sources is-active" data-nlm-guide-zone="0">' +
+      '<div class="nlm-guided-zone__head">來源</div>' +
+      '<div class="nlm-guided-source">官方說明 PDF</div>' +
+      '<div class="nlm-guided-source">教學影片逐字稿</div>' +
+      '<div class="nlm-guided-source">產品比較表</div>' +
+      "</div>" +
+      '<div class="nlm-guided-zone nlm-guided-zone--chat" data-nlm-guide-zone="1">' +
+      '<div class="nlm-guided-zone__head">對話</div>' +
+      '<div class="nlm-guided-message nlm-guided-message--user">請先檢查資料是否足夠</div>' +
+      '<div class="nlm-guided-message nlm-guided-message--ai">已整理：缺漏、矛盾、可輸出欄位</div>' +
+      '<div class="nlm-guided-thinking">AI 正在整理脈絡</div>' +
+      "</div>" +
+      '<div class="nlm-guided-zone nlm-guided-zone--studio" data-nlm-guide-zone="2">' +
+      '<div class="nlm-guided-zone__head">工作室輸出</div>' +
+      '<div class="nlm-guided-output">📑 簡報初稿</div>' +
+      '<div class="nlm-guided-output">▦ 資料表</div>' +
+      '<div class="nlm-guided-output">🧠 心智圖</div>' +
+      "</div>" +
+      "</div>" +
+    demo.parentNode.insertBefore(guidedDemo, demo);
+    demo.classList.add("nlm-ui-window-superseded");
+    initGuidedDemo(root);
+  }
+
   function initOne(root) {
-    if (!root || root.getAttribute("data-nlm-tools-ready") === "1") return;
+    if (!root) return;
+    removeLeakedObjectText(root);
+    if (root.getAttribute("data-nlm-tools-ready") === "1") return;
     root.setAttribute("data-nlm-tools-ready", "1");
+    ensureGuidedDemo(root);
+    ensureStepDemos(root);
+    initGuidedDemo(root);
     initZoneDemo(root);
 
     var output = root.querySelector("[data-nlm-prompt-output]");
