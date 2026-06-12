@@ -11,6 +11,7 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
   <div class="flex flex-wrap gap-1 text-sm">
     <a href="#meaning" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">用途</a>
     <a href="#ui" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">介面</a>
+    <a href="#auto-demo" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">示範</a>
     <a href="#steps" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">步驟</a>
     <a href="#rules" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">規則</a>
     <a href="#studio" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">工作室</a>
@@ -141,6 +142,49 @@ html{scroll-behavior:smooth}.article p{line-height:1.9}.article li{line-height:1
                 <div class="pt-12 text-center text-slate-500"><div class="text-3xl">🪄</div><p class="mt-2 text-sm">工作室輸出會儲存在這裡。</p></div>
               </div>
             </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="auto-demo" class="py-14">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
+        <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 items-center">
+          <div>
+            <div class="inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 mb-4">動態示範：資料怎麼變成果</div>
+            <h2 class="section-title text-3xl sm:text-4xl font-black">NotebookLM 省事在哪裡？看它自動整理一次</h2>
+            <p class="mt-4 text-slate-600">實際操作不是每次都從零寫文章，而是先放資料、用對話確認方向，再讓工作室產出可以再加工的成果。下面用動畫示意它如何把雜資料變成簡報、資料表與心智圖。</p>
+            <div class="mt-5 grid gap-3 text-sm nlm-auto-legend">
+              <div><b>1. 放來源</b><span>PDF、YouTube、網站、表格進入同一本 Notebook。</span></div>
+              <div><b>2. 先對話</b><span>確認資料是否足夠，要求整理大綱與欄位。</span></div>
+              <div><b>3. 再輸出</b><span>工作室產出簡報、資料表、心智圖等初稿。</span></div>
+            </div>
+          </div>
+          <div class="nlm-auto-demo" aria-label="NotebookLM 自動整理流程示意">
+            <div class="nlm-auto-stage">
+              <div class="nlm-auto-column nlm-auto-sources">
+                <p class="nlm-auto-label">來源</p>
+                <div class="nlm-auto-doc d1">PDF<br><small>官方說明</small></div>
+                <div class="nlm-auto-doc d2">YT<br><small>教學影片</small></div>
+                <div class="nlm-auto-doc d3">表格<br><small>比較資料</small></div>
+              </div>
+              <div class="nlm-auto-column nlm-auto-chat">
+                <p class="nlm-auto-label">對話確認</p>
+                <div class="nlm-auto-bubble b1">請先檢查來源是否足夠</div>
+                <div class="nlm-auto-bubble b2">整理 10 頁簡報大綱</div>
+                <div class="nlm-auto-bubble b3">欄位：重點、限制、適合輸出</div>
+                <div class="nlm-auto-brain">AI<br><small>整理中</small></div>
+              </div>
+              <div class="nlm-auto-column nlm-auto-results">
+                <p class="nlm-auto-label">工作室輸出</p>
+                <div class="nlm-auto-result r1"><span>📑</span>簡報初稿</div>
+                <div class="nlm-auto-result r2"><span>▦</span>資料表</div>
+                <div class="nlm-auto-result r3"><span>🧠</span>心智圖</div>
+              </div>
+              <div class="nlm-auto-flow f1"></div>
+              <div class="nlm-auto-flow f2"></div>
+            </div>
+            <p class="mt-4 text-sm text-slate-500 leading-7">示意重點：NotebookLM 先依來源資料整理脈絡，再把確認過的方向轉成可用成果；產出後仍要人工校對與後製。</p>
           </div>
         </div>
       </div>
