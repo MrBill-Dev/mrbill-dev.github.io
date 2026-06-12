@@ -8395,7 +8395,7 @@ html.notebooklm-modal-open {
   }
 
   .blog-main.blog-prose #notebooklm-guide-root > section:first-child {
-    padding-top: 1.35rem !important;
+    display: none !important;
   }
 
   .blog-main.blog-prose #notebooklm-guide-root > section:first-child .ui-window {
