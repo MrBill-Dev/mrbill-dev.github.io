@@ -38,14 +38,13 @@ const toc = `<nav class="toc mb-8 rounded-2xl border border-line bg-white p-4" a
   <div class="flex flex-wrap gap-1 text-sm">
     <a href="#meaning" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">用途</a>
     <a href="#starter" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">起步</a>
-    <a href="#auto-demo" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">示範</a>
-    <a href="#steps" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">步驟</a>
+    <a href="#official-demo" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">實測</a>
+    <a href="#steps" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">Prompt</a>
     <a href="#rules" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">規則</a>
     <a href="#studio" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">工作室</a>
     <a href="#deep-dive" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">深化</a>
     <a href="#workflows" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">工作流</a>
     <a href="#tools" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">工具</a>
-    <a href="#practice" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">練習</a>
     <a href="#pricing" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">費用</a>
     <a href="#resources" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">資源</a>
     <a href="#faq" class="rounded-full border border-slate-200 px-3 py-1.5 font-bold text-slate-600 hover:bg-blue-50 hover:text-blue-700">FAQ</a>

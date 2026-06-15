@@ -4,7 +4,7 @@
         <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-10 items-center">
           <div>
             <div class="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 mb-6">0 基礎新手版 · 資料整合 · 工作室輸出 · 進階工作流</div>
-            <h1 class="section-title text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">NotebookLM 用法大全：把一堆資料整理成<span class="text-brand">簡報、表格、圖卡與網站規格</span></h1>
+            <p class="section-title text-2xl sm:text-3xl font-black leading-tight text-slate-800">NotebookLM 用法大全：把一堆資料整理成<span class="text-brand">簡報、表格、圖卡與網站規格</span></p>
             <p class="mt-6 text-lg text-slate-600 leading-9">把它想成「有資料依據的 AI 整理工具」：先把 PDF、網站、YouTube 等資料放進來，在對話區問清楚、確認方向，最後到工作室一鍵產出簡報、表格、心智圖等成果。</p>
             <div class="mt-8 flex flex-wrap gap-3 hero-actions">
               <a href="#steps" class="rounded-full bg-brand px-6 py-3 text-white font-bold shadow-card">開始學操作</a>
@@ -48,15 +48,6 @@
             <div class="callout">
               <p class="font-bold">最重要的觀念：NotebookLM 不是用來「憑空生內容」，而是用來「把已有資料整理成可使用的成果」。資料越乾淨，問題越精準，輸出越穩定。</p>
             </div>
-            <div class="nlm-cheat-sheet rounded-3xl border-2 border-blue-200 bg-blue-50 p-6">
-              <p class="font-black text-lg text-blue-900">30 秒看懂：三件事記起來就好</p>
-              <ol class="mt-4 space-y-3 text-slate-700">
-                <li><b class="text-blue-700">① 來源</b>＝把 PDF、網站、影片等資料「放進來」</li>
-                <li><b class="text-blue-700">② 對話</b>＝「問問題、訂規格」——確認資料夠不夠、要什麼格式（可反覆試，不耗輸出次數）</li>
-                <li><b class="text-blue-700">③ 工作室</b>＝「按鈕產成果」——簡報、表格、音訊等（每天有產出次數上限）</li>
-              </ol>
-              <p class="mt-4 text-sm text-blue-800 font-bold">口訣：先放資料 → 先聊清楚 → 再按輸出</p>
-            </div>
           </div>
         </div>
       </div>
@@ -88,57 +79,130 @@
             </article>
           </div>
         </div>
-        <div class="nlm-starter-route mt-6 rounded-[2rem] bg-white border border-line p-5 shadow-card">
-          <p class="text-sm font-black text-blue-700 mb-3">推薦第一個練習任務</p>
-          <div class="grid md:grid-cols-4 gap-3 text-slate-700">
-            <div><b>主題</b><span>一個你真的要學或要整理的題目</span></div>
-            <div><b>來源</b><span>3 個可信來源，不混不同主題</span></div>
-            <div><b>提問</b><span>先問缺漏、矛盾與大綱</span></div>
-            <div><b>成果</b><span>只選一種：表格或簡報</span></div>
-          </div>
-        </div>
       </div>
     </section>
 
-    <section id="auto-demo" class="py-14">
+    <section id="official-demo" class="py-16 bg-soft border-y border-line">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
-        <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 items-center">
-          <div>
-            <div class="inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 mb-4">先看動態示範：資料怎麼變成果</div>
-            <h2 class="section-title text-3xl sm:text-4xl font-black">NotebookLM 省事在哪裡？看它自動整理一次</h2>
-            <p class="mt-4 text-slate-600">實際操作不是每次都從零寫文章，而是先放資料、用對話確認方向，再讓工作室產出可以再加工的成果。下面用動畫示意它如何把雜資料變成簡報、資料表與心智圖。</p>
-            <div class="mt-5 grid gap-3 text-sm nlm-auto-legend">
-              <div><b>1. 放來源</b><span>PDF、YouTube、網站、表格進入同一本 Notebook。</span></div>
-              <div><b>2. 先對話</b><span>確認資料是否足夠，要求整理大綱與欄位。</span></div>
-              <div><b>3. 再輸出</b><span>工作室產出簡報、資料表、心智圖等初稿。</span></div>
+        <div class="max-w-3xl mb-10">
+          <div class="inline-flex rounded-full bg-violet-50 px-4 py-2 text-sm font-bold text-violet-700 mb-4">官方實測截圖 · 2026/06</div>
+          <h2 class="section-title text-3xl sm:text-4xl font-black">實測案例：Insta360 Luna Ultra 旅拍相機 → 網誌文章 → 資訊圖表</h2>
+          <p class="mt-4 text-slate-600">以下是在 <a href="https://notebooklm.google/" target="_blank" rel="noopener" class="text-blue-700 font-bold">NotebookLM 官方</a> 實際操作的截圖，主題選最近熱門的旅遊／運動相機 <b>Insta360 Luna Ultra</b>。流程完全對應上文「先放資料 → 先聊清楚 → 再按輸出」：建立 Notebook、加入 YouTube 評測來源、用對話做資料健檢與進階規則、再到工作室產出網誌文章，最後把同批來源反向轉成資訊圖表。</p>
+        </div>
+
+        <div class="nlm-screenshot-walkthrough">
+          <article class="nlm-screenshot-step">
+            <div class="nlm-screenshot-step__head">
+              <div class="badge bg-blue-600 text-white">1</div>
+              <div>
+                <h3>建立主題明確的 Notebook，並新增來源</h3>
+                <p><span class="nlm-step-zone nlm-step-zone--sources">① 來源</span> 區按「＋ 新增來源」，這次放入 3 支 YouTube 評測影片，主題都圍繞 Luna Ultra，避免混雜其他相機型號。</p>
+              </div>
             </div>
-          </div>
-          <div class="nlm-auto-demo" aria-label="NotebookLM 自動整理流程示意">
-            <div class="nlm-auto-stage">
-              <div class="nlm-auto-column nlm-auto-sources">
-                <p class="nlm-auto-label">來源</p>
-                <div class="nlm-auto-doc d1">PDF<br><small>官方說明</small></div>
-                <div class="nlm-auto-doc d2">YT<br><small>教學影片</small></div>
-                <div class="nlm-auto-doc d3">表格<br><small>比較資料</small></div>
+            <figure class="nlm-screenshot nlm-screenshot--light nlm-screenshot--no-upscale">
+              <img src="images/01-sources-luna-ultra.png" alt="NotebookLM 來源面板：主題 luna ultra insta360，已加入三支 YouTube 評測影片並全選啟用" width="484" height="466" loading="lazy" decoding="async" />
+              <figcaption>左側「來源」列出已加入的影片；勾選代表這次對話與工作室輸出會參考這些資料。此為側欄截圖，以原始解析度顯示避免放大模糊。</figcaption>
+            </figure>
+          </article>
+
+          <article class="nlm-screenshot-step">
+            <div class="nlm-screenshot-step__head">
+              <div class="badge bg-blue-600 text-white">2</div>
+              <div>
+                <h3>資料健檢：先問夠不夠，不要直接按工作室</h3>
+                <p><span class="nlm-step-zone nlm-step-zone--chat">② 對話</span> 貼上「五項檢查」Prompt，讓 AI 先整理：已足夠、不足、矛盾、過時、建議暫不產出的內容。</p>
               </div>
-              <div class="nlm-auto-column nlm-auto-chat">
-                <p class="nlm-auto-label">對話確認</p>
-                <div class="nlm-auto-bubble b1">請先檢查來源是否足夠</div>
-                <div class="nlm-auto-bubble b2">整理 10 頁簡報大綱</div>
-                <div class="nlm-auto-bubble b3">欄位：重點、限制、適合輸出</div>
-                <div class="nlm-auto-brain">AI<br><small>整理中</small></div>
-              </div>
-              <div class="nlm-auto-column nlm-auto-results">
-                <p class="nlm-auto-label">工作室輸出</p>
-                <div class="nlm-auto-result r1"><span>📑</span>簡報初稿</div>
-                <div class="nlm-auto-result r2"><span>▦</span>資料表</div>
-                <div class="nlm-auto-result r3"><span>🧠</span>心智圖</div>
-              </div>
-              <div class="nlm-auto-flow f1"></div>
-              <div class="nlm-auto-flow f2"></div>
             </div>
-            <p class="mt-4 text-sm text-slate-500 leading-7">示意重點：NotebookLM 先依來源資料整理脈絡，再把確認過的方向轉成可用成果；產出後仍要人工校對與後製。</p>
-          </div>
+            <figure class="nlm-screenshot nlm-screenshot--no-upscale">
+              <img src="images/02-chat-source-check.png" alt="NotebookLM 對話區：貼上資料健檢的五項檢查 Prompt" width="914" height="450" loading="lazy" decoding="async" />
+              <figcaption>這一步不消耗工作室每日產出次數，卻能避免後面生成空泛報告。若來源不足，AI 會直接告訴你要補什麼。</figcaption>
+            </figure>
+          </article>
+
+          <article class="nlm-screenshot-step">
+            <div class="nlm-screenshot-step__head">
+              <div class="badge bg-blue-600 text-white">3</div>
+              <div>
+                <h3>進階補充對話規則：指定讀者、格式與「不亂補資料」</h3>
+                <p>健檢 OK 後，在對話區加上讀者（0 基礎新手）、輸出格式（條列大綱）與四條嚴格限制，要求標示來源不足、列出矛盾、並給「下一步建議」。可複製的 Prompt 請到 <a href="#steps" class="text-blue-700 font-bold">Prompt 速查：可直接複製貼進對話區</a>。</p>
+              </div>
+            </div>
+            <figure class="nlm-screenshot nlm-screenshot--no-upscale">
+              <img src="images/03-chat-advanced-prompt.png" alt="NotebookLM 進階 Prompt：主題 Luna Ultra、讀者為新手、要求大綱與來源限制" width="712" height="528" loading="lazy" decoding="async" />
+              <figcaption>此為介面示意截圖，無法直接複製文字。請到 <a href="#steps" class="text-blue-700 font-bold">Prompt 速查：可直接複製貼進對話區</a> 取得可貼上的版本，再依主題修改；重點是讓 AI 知道「沒有來源就不要寫」，不要憑空補規格或價格。</figcaption>
+            </figure>
+          </article>
+
+          <article class="nlm-screenshot-step">
+            <div class="nlm-screenshot-step__head">
+              <div class="badge bg-blue-600 text-white">4</div>
+              <div>
+                <h3>到工作室選「報告」，並等待生成</h3>
+                <p><span class="nlm-step-zone nlm-step-zone--studio">③ 工作室</span> 右側有九種輸出格式。這次點「報告」→ 選「Blog Post（網誌文章）」→ 語言改為「中文（繁體）」或你需要的語系。</p>
+              </div>
+            </div>
+            <div class="nlm-screenshot-pair">
+              <figure class="nlm-screenshot nlm-screenshot--no-upscale">
+                <img src="images/04-studio-panel.png" alt="NotebookLM 工作室面板：九種輸出格式含報告、資訊圖表等" width="479" height="356" loading="lazy" decoding="async" />
+                <figcaption>工作室是「印刷機」——每天有產出上限，方向確認後再按。</figcaption>
+              </figure>
+              <figure class="nlm-screenshot nlm-screenshot--no-upscale">
+                <img src="images/05-studio-generating-report.png" alt="NotebookLM 正在根據 3 個來源生成報告" width="312" height="192" loading="lazy" decoding="async" />
+                <figcaption>生成中會顯示「正在生成報告…根據 N 個來源」。影片類主題通常幾分鐘內完成。</figcaption>
+              </figure>
+            </div>
+            <figure class="nlm-screenshot nlm-screenshot--light nlm-screenshot--no-upscale mt-4">
+              <img src="images/06-report-blog-post-lang.png" alt="建立報告視窗：選擇 Blog Post 與中文繁體語言" width="861" height="456" loading="lazy" decoding="async" />
+              <figcaption>報告類型可選網誌文章、研究摘要等；語言下拉可切換繁中、簡中、日文等，輸出語氣會跟著改變。</figcaption>
+            </figure>
+          </article>
+
+          <article class="nlm-screenshot-step">
+            <div class="nlm-screenshot-step__head">
+              <div class="badge bg-emerald-600 text-white">5</div>
+              <div>
+                <h3>產出結果：可直接當文章初稿，但要人工校對</h3>
+                <p>生成完成後，工作室會出現一篇有章節的網誌文章。可點「查看提示詞和 N 個來源」回查依據，複製後再改標題、語氣與 SEO。</p>
+              </div>
+            </div>
+            <figure class="nlm-screenshot nlm-screenshot--light nlm-screenshot--no-upscale">
+              <img src="images/07-report-blog-result.png" alt="NotebookLM 生成的 Insta360 Luna Ultra 網誌文章初稿" width="689" height="633" loading="lazy" decoding="async" />
+              <figcaption>標題與段落結構已成型，但規格、價格、續航等數字仍建議點回來源或官方頁面核對後再發布。</figcaption>
+            </figure>
+          </article>
+
+          <article class="nlm-screenshot-step">
+            <div class="nlm-screenshot-step__head">
+              <div class="badge bg-violet-600 text-white">6</div>
+              <div>
+                <h3>反向轉換：同一批來源再產「資訊圖表」</h3>
+                <p>不必重建 Notebook。網誌文章產完後，回到工作室再按「資訊圖表（Beta）」，就能把同一份整理結果變成社群懶人包圖。</p>
+              </div>
+            </div>
+            <figure class="nlm-screenshot nlm-screenshot--light nlm-screenshot--no-upscale">
+              <img src="images/08-infographic-result.png" alt="NotebookLM 生成的 Insta360 Luna Ultra 資訊圖表：規格、優缺點與功能摘要" width="1024" height="585" loading="lazy" decoding="async" />
+              <figcaption>資訊圖適合 IG、Threads 或部落格內嵌。橫向構圖在手機上會等比縮小；發布前請檢查文字是否清晰、數據是否正確。</figcaption>
+            </figure>
+            <div class="callout warn mt-5">
+              <p class="font-bold">資訊圖表實用提醒：字型錯誤與免費／付費差異</p>
+              <ul class="mt-3 space-y-2 text-slate-700">
+                <li><b>字型與錯字：</b>這類 AI 生圖常出現錯字、缺字、繁簡混用、標點錯誤或數字被改寫。建議放大逐段檢查；要對外發布時，可把重點文字在 Canva、Figma 等工具上重排。</li>
+                <li><b>免費也能產，差在額度不是畫質保證：</b>依 <a href="https://support.google.com/notebooklm/answer/16206866" target="_blank" rel="noopener" class="text-blue-700 font-bold">Google 官方方案表</a>，<b>免費 Standard 就能產資訊圖</b>（標示 Limited），付費 Plus／Pro／Ultra 主要是<b>每日產出次數更高</b>、每本可放更多來源、對話上限更高，以及 Ultra 可<b>去除簡報與資訊圖浮水印</b>。</li>
+                <li><b>付費版性能差異：</b>主要是每日產出次數更高、每本可放更多來源——官方並未保證付費後資訊圖的排版或字型會明顯變好；錯字在免費與付費都可能出現，發布前仍要人工校對。</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <div class="callout success mt-10">
+          <p class="font-bold">這個案例示範了什麼？</p>
+          <ul class="mt-3 space-y-2 text-slate-700">
+            <li><b>一個主題一本 Notebook</b>：Luna Ultra 評測，不混其他產品。</li>
+            <li><b>對話區先打底</b>：健檢 → 大綱 → 規則，比直接按工作室省額度也更準。</li>
+            <li><b>工作室選對格式</b>：寫文章用「報告／Blog Post」，社群分享再轉「資訊圖表」。</li>
+            <li><b>語系可自訂</b>：繁中、簡中或其他語言，依讀者調整。</li>
+            <li><b>成果要後製</b>：AI 給初稿，發布前仍要查證與改寫。</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -146,17 +210,22 @@
     <section id="steps" class="py-16">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
         <div class="max-w-3xl mb-10">
-          <h2 class="section-title text-3xl sm:text-4xl font-black">從 0 開始：正確操作流程</h2>
-          <p class="mt-4 text-slate-600">照下面 6 步做。每步標了要在畫面哪一區操作——看到 <span class="nlm-step-zone nlm-step-zone--sources">① 來源</span> <span class="nlm-step-zone nlm-step-zone--chat">② 對話</span> <span class="nlm-step-zone nlm-step-zone--studio">③ 工作室</span> 就知道該點哪裡。</p>
+          <h2 class="section-title text-3xl sm:text-4xl font-black">Prompt 速查：可直接複製貼進對話區</h2>
+          <p class="mt-4 text-slate-600">完整圖文流程見上方 <a href="#official-demo" class="text-blue-700 font-bold">Luna Ultra 實測</a>。這裡整理兩段最常用 Prompt：先健檢來源，再訂大綱規格。兩段都在 <span class="nlm-step-zone nlm-step-zone--chat">② 對話</span> 貼上，不消耗工作室每日產出次數。</p>
         </div>
-        <div class="space-y-6">
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">1</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">建立一本主題明確的 Notebook</h3><p class="nlm-step-where mt-2 text-sm text-slate-500">在哪做：首頁按「新增 Notebook」</p><p class="mt-3 text-slate-600">名稱要具體，例如「2026 NotebookLM 教學文章資料」、「國中會考自然複習」、「品牌社群圖卡企劃」。避免叫「資料整理」這種太籠統的名稱。</p><div class="prompt mt-4"><b>建議命名：</b>主題 + 用途 + 時間，例如「AI 學習工具比較｜網站文章｜2026」。</div></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">2</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">新增來源資料</h3><p class="nlm-step-where mt-2"><span class="nlm-step-zone nlm-step-zone--sources">① 來源</span> 按「＋ 新增來源」上傳或貼連結</p><p class="mt-3 text-slate-600">先放最可靠、最核心的資料，例如官方說明、原始報告、課程講義、客戶需求表、YouTube 影片連結。不要一口氣塞太多重複或品質不明的文章。</p><ul class="mt-4 grid md:grid-cols-2 gap-3 text-slate-700"><li>✅ 官方文件、原始資料、課程講義</li><li>✅ 可信網站、PDF、YouTube 教學影片</li><li>⚠️ 過時文章要標註年份</li><li>❌ 內容農場、無來源懶人包、無關資料</li></ul></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">3</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">先做資料健檢，不要直接輸出</h3><p class="nlm-step-where mt-2"><span class="nlm-step-zone nlm-step-zone--chat">② 對話</span> 在輸入框貼下面這段，先確認資料夠不夠</p><p class="mt-3 text-slate-600">在消耗工作室額度前，先用對話區確認資料是否足夠、是否重複、是否有衝突。這一步能避免後面產生錯誤簡報或不完整圖表。</p><div class="codebox mt-4">請先檢查目前來源資料，整理成：<br>1. 已經足夠支持的內容<br>2. 來源不足或需要補資料的內容<br>3. 彼此矛盾的內容<br>4. 過時或需要查證的內容<br>5. 建議先不要產出的成果</div></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">4</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">下任務指令，指定格式與對象</h3><p class="nlm-step-where mt-2"><span class="nlm-step-zone nlm-step-zone--chat">② 對話</span> 繼續在對話區下指令，把大綱與格式談清楚</p><p class="mt-3 text-slate-600">不要只說「幫我整理」。要說清楚輸出對象、用途、格式、深度、限制與引用方式。</p><div class="codebox mt-4">請根據來源資料，整理一份給 0 基礎新手看的教學大綱。<br>對象：完全沒用過 NotebookLM 的一般讀者。<br>用途：放在網站文章。<br>格式：H2/H3 架構、每段有操作步驟、常見錯誤、FAQ。<br>限制：沒有來源支持的內容請標示「來源未明確提到」。</div></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div class="flow-line"><div class="badge h-12 w-12 bg-blue-600 text-white">5</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">確認方向後，再到工作室選成果</h3><p class="nlm-step-where mt-2"><span class="nlm-step-zone nlm-step-zone--studio">③ 工作室</span> 大綱 OK 了才按簡報、資料表等按鈕（會消耗每日產出次數）</p><p class="mt-3 text-slate-600">資料健檢與大綱都確認後，再產生 Slide Deck、Data Table、Infographic、Audio Overview 等成果。這樣比較不會浪費每日額度。</p></div></div>
-          <div class="flow-step grid lg:grid-cols-[80px_1fr] gap-4"><div><div class="badge h-12 w-12 bg-blue-600 text-white">6</div></div><div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black">輸出後要後製，而不是直接發布</h3><p class="nlm-step-where mt-2 text-sm text-slate-500">在哪做：匯出後用 Slides、Canva、編輯器等人工調整</p><p class="mt-3 text-slate-600">NotebookLM 很適合產生初稿，但網站文章、品牌圖卡、簡報設計、SEO 標題、社群文案仍要人工調整。AI 是加速器，不是最後審稿者。</p></div></div>
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="rounded-3xl bg-white border border-line p-6 shadow-card">
+            <h3 class="text-xl font-black">① 資料健檢（建議第一步）</h3>
+            <p class="mt-2 text-sm text-slate-500">確認夠不夠、有沒有矛盾，再決定要不要按工作室。</p>
+            <div class="codebox mt-4">請先檢查目前來源資料，整理成：<br>1. 已經足夠支持的內容<br>2. 來源不足或需要補資料的內容<br>3. 彼此矛盾的內容<br>4. 過時或需要查證的內容<br>5. 建議先不要產出的成果</div>
+          </div>
+          <div class="rounded-3xl bg-white border border-line p-6 shadow-card">
+            <h3 class="text-xl font-black">② 訂大綱與格式（健檢 OK 後）</h3>
+            <p class="mt-2 text-sm text-slate-500">說清楚讀者、用途與限制，避免只說「幫我整理」。</p>
+            <div class="codebox mt-4">請根據來源資料，整理一份給 0 基礎新手看的教學大綱。<br>對象：完全沒用過 NotebookLM 的一般讀者。<br>用途：放在網站文章。<br>格式：H2/H3 架構、每段有操作步驟、常見錯誤、FAQ。<br>限制：沒有來源支持的內容請標示「來源未明確提到」。</div>
+          </div>
         </div>
+        <p class="mt-6 text-sm text-slate-500 leading-7">大綱確認後，再到 <span class="nlm-step-zone nlm-step-zone--studio">③ 工作室</span> 選報告、簡報或資訊圖表；產出後記得人工校對，不要直接發布。</p>
       </div>
     </section>
 
@@ -222,8 +291,12 @@
           <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-gray mb-4">📋<span>報告<small>Report</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--report" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>有章節的正式文件（背景、分析、建議）。</p><p class="mt-2 text-slate-600">適合研究整理、企劃書初稿。</p></article>
           <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-red mb-4">🃏<span>學習卡<small>Flashcards</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--cards" aria-hidden="true"><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>正面問題、背面答案的記憶卡。</p><p class="mt-2 text-slate-600">適合考前複習、孩子自學。</p></article>
           <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-cyan mb-4">☑<span>測驗<small>Quizzes</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--quiz" aria-hidden="true"><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>選擇題＋答案解析。</p><p class="mt-2 text-slate-600">適合檢查自己是否真的理解內容。</p></article>
-          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-purple mb-4">📊<span>資訊圖表<small>Infographic</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--infographic" aria-hidden="true"><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>一張圖裡放 3–5 個重點的懶人包。</p><p class="mt-2 text-slate-600">適合社群貼文、快速分享。</p></article>
+          <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-purple mb-4">📊<span>資訊圖表<small>Infographic</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--infographic" aria-hidden="true"><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>一張圖裡放 3–5 個重點的懶人包。</p><p class="mt-2 text-slate-600">適合社群貼文；免費也能產，但錯字常見，發布前要人工檢查。</p></article>
           <article class="rounded-3xl border border-line bg-white p-6 shadow-card"><div class="studio-card c-blue mb-4">▦<span>資料表<small>Data Table</small></span><b>›</b></div><div class="nlm-output-preview nlm-output-preview--table" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="mt-3"><b>產出像什麼：</b>有欄位、有列的 Excel 式表格，可匯出 Sheets。</p><p class="mt-2 text-slate-600">適合比較產品、整理清單、後續再分析。</p></article>
+        </div>
+        <div class="callout mt-8">
+          <p class="font-bold">同一批來源，可以換不同工作室格式</p>
+          <p class="mt-2 text-slate-700">例如先產「報告／Blog Post」當文章初稿，再按「資訊圖表」轉成社群懶人包——不必重建 Notebook。<a href="#official-demo" class="text-blue-700 font-bold">見 Insta360 Luna Ultra 實測範例</a>。</p>
         </div>
       </div>
     </section>
@@ -278,8 +351,7 @@
             <div class="prompt mt-6"><b>精準指令：</b>請把來源整理成資料表。欄位為「項目、資料來源、核心觀點、可引用重點、限制、適合轉成什麼內容」。如果來源不足，請在該欄位標示「資料不足」。</div>
           </article>
           <article class="rounded-[2rem] bg-white border border-line p-6 lg:p-8 shadow-card">
-            <div class="flex items-start gap-4"><div class="badge h-12 w-12 bg-violet-600 text-white shrink-0">3</div><div><h3 class="text-2xl font-black">多支 YouTube 影片變成社群懶人包</h3><p class="mt-2 text-slate-600">適合收集多支教學影片，整理共同觀點與差異，再轉成文章或圖卡。</p></div></div>
-            <div class="mt-6 table-wrap"><table><thead><tr><th>階段</th><th>做法</th><th>避免浪費額度提醒</th></tr></thead><tbody><tr><td>收集影片</td><td>挑 5–10 支同主題影片，不要跨太多領域。</td><td>先篩掉太短、太舊或標題黨影片。</td></tr><tr><td>整理觀點</td><td>要求 AI 找共通觀念、不同說法、可引用段落。</td><td>不要直接要求產生完整文章。</td></tr><tr><td>產生內容</td><td>轉成懶人包大綱、FAQ、短影音腳本。</td><td>先確定定位：新手教學、比較文或社群貼文。</td></tr><tr><td>視覺化</td><td>轉成資訊圖或簡報，搭配自創角色/品牌風格。</td><td>不要使用受版權保護的動漫角色做商業發布。</td></tr></tbody></table></div>
+            <div class="flex items-start gap-4"><div class="badge h-12 w-12 bg-violet-600 text-white shrink-0">3</div><div><h3 class="text-2xl font-black">多支 YouTube 影片 → 文章或資訊圖</h3><p class="mt-2 text-slate-600">同主題影片先健檢與大綱，再分別產報告與資訊圖。完整截圖流程見 <a href="#official-demo" class="text-blue-700 font-bold">Luna Ultra 實測</a>；資訊圖記得檢查錯字，並留意免費版每日產出次數有限。</p></div></div>
           </article>
           <article class="rounded-[2rem] bg-white border border-line p-6 lg:p-8 shadow-card">
             <div class="flex items-start gap-4"><div class="badge h-12 w-12 bg-rose-600 text-white shrink-0">4</div><div><h3 class="text-2xl font-black">品牌化資訊圖 / 原創角色圖卡</h3><p class="mt-2 text-slate-600">這類玩法適合把知識包裝成容易被社群點閱、收藏與轉傳的內容。</p></div></div>
@@ -352,45 +424,14 @@
       </div>
     </section>
 
-    <section id="practice" class="py-16">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
-        <div class="max-w-3xl mb-10">
-          <div class="inline-flex rounded-full bg-amber-50 px-4 py-2 text-sm font-bold text-amber-700 mb-4">練習路線</div>
-          <h2 class="section-title text-3xl sm:text-4xl font-black">7 天練習計畫：讓新手真的學會 NotebookLM</h2>
-          <p class="mt-4 text-slate-600">讀完文章只是開始。下面這套練習可以讓讀者從「會按功能」進到「會設計資料與產出流程」。每一天只做一件事，累積一週就能完成一個可發布的小專案。</p>
-        </div>
-        <div class="grid lg:grid-cols-7 gap-4 notebooklm-practice-grid">
-          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 1</b><h3 class="font-black mt-2">建立主題</h3><p class="mt-2 text-slate-600">選一個小題目，例如「AI 工具入門」或「社群內容企劃」。</p></div>
-          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 2</b><h3 class="font-black mt-2">收集來源</h3><p class="mt-2 text-slate-600">放 3 到 8 個高品質來源，記錄年份與來源類型。</p></div>
-          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 3</b><h3 class="font-black mt-2">做資料健檢</h3><p class="mt-2 text-slate-600">要求 NotebookLM 列出足夠、不足、矛盾與需要查證的內容。</p></div>
-          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 4</b><h3 class="font-black mt-2">整理大綱</h3><p class="mt-2 text-slate-600">指定讀者與用途，產生章節大綱和常見錯誤。</p></div>
-          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 5</b><h3 class="font-black mt-2">輸出表格</h3><p class="mt-2 text-slate-600">用 Data Table 整理欄位，匯出後檢查重複與缺漏。</p></div>
-          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 6</b><h3 class="font-black mt-2">產生素材</h3><p class="mt-2 text-slate-600">選擇簡報、音訊、測驗或 FAQ，但一次只產一種成果。</p></div>
-          <div class="rounded-2xl bg-white border border-line p-5 shadow-card"><b class="text-blue-700">Day 7</b><h3 class="font-black mt-2">人工後製</h3><p class="mt-2 text-slate-600">回看引用、改語氣、補案例，整理成可發布版本。</p></div>
-        </div>
-        <div class="callout success mt-8"><p class="font-bold">練習目標：一週後你應該能完成一份「資料來源清楚、引用可追、格式可用」的小型教學包，而不是只有一段 AI 摘要。</p></div>
-      </div>
-    </section>
-
     <section id="pricing" class="py-16">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
         <div class="max-w-3xl mb-10">
           <h2 class="section-title text-3xl sm:text-4xl font-black">NotebookLM 免費嗎？費用與限制怎麼看？</h2>
           <p class="mt-4 text-slate-600">NotebookLM 可免費使用，但免費版與付費版有不同上限。實際方案、價格與功能開放會依地區、帳號、Google AI Plans 或 Workspace 顯示為準。</p>
         </div>
-        <div class="table-wrap rounded-3xl border border-line bg-white shadow-card"><table><thead><tr><th>項目</th><th>免費 / Standard 常見限制</th><th>升級後通常改善什麼</th><th>使用建議</th></tr></thead><tbody><tr><td>Notebooks</td><td>官方 FAQ 列出 100 notebooks。</td><td>更多 notebook 數量。</td><td>一個主題一本，不要混資料。</td></tr><tr><td>Sources</td><td>每本最多 50 sources。</td><td>每本可放更多來源。</td><td>先篩資料，不要亂塞低品質來源。</td></tr><tr><td>Chat queries</td><td>每日 50 chat queries。</td><td>每日提問上限提高。</td><td>先一次問清楚，不要反覆零碎問。</td></tr><tr><td>Audio generations</td><td>每日 3 次 audio generations。</td><td>Audio、Video、Reports、Quizzes 等上限提高。</td><td>先確認資料與大綱，再產生音訊或影片。</td></tr><tr><td>單一來源</td><td>500,000 words 或本機上傳 200MB。</td><td>依方案與功能而定。</td><td>大型資料可拆章節，但要維持主題一致。</td></tr></tbody></table></div>
-        <p class="mt-4 text-sm text-slate-500">以上為官方說明頁常見限制整理，功能與額度可能異動，上線前建議再次查看官方頁。</p>
-      </div>
-    </section>
-
-    <section class="py-16 bg-soft border-y border-line">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 article">
-        <h2 class="section-title text-3xl sm:text-4xl font-black mb-8">優點、限制與適合情境</h2>
-        <div class="grid lg:grid-cols-3 gap-6">
-          <div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black text-emerald-700">優點</h3><ul class="mt-4 list-disc pl-5 text-slate-700"><li>能依據來源資料回答。</li><li>適合大量資料整合。</li><li>可輸出多種成果格式。</li><li>適合學習、研究、簡報與內容企劃。</li></ul></div>
-          <div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black text-rose-700">限制</h3><ul class="mt-4 list-disc pl-5 text-slate-700"><li>來源錯誤時，輸出也可能錯。</li><li>功能與額度會依帳號不同。</li><li>生成內容仍需人工校對。</li><li>設計品質通常需要後製。</li></ul></div>
-          <div class="rounded-3xl bg-white border border-line p-6 shadow-card"><h3 class="text-xl font-black text-blue-700">適合情境</h3><ul class="mt-4 list-disc pl-5 text-slate-700"><li>教學資料整理。</li><li>多影片重點彙整。</li><li>企劃與簡報初稿。</li><li>資料表、FAQ、文章大綱。</li></ul></div>
-        </div>
+        <div class="table-wrap rounded-3xl border border-line bg-white shadow-card"><table><thead><tr><th>項目</th><th>免費 / Standard 常見限制</th><th>升級後通常改善什麼</th><th>使用建議</th></tr></thead><tbody><tr><td>Notebooks</td><td>官方 FAQ 列出 100 notebooks。</td><td>更多 notebook 數量。</td><td>一個主題一本，不要混資料。</td></tr><tr><td>Sources</td><td>每本最多 50 sources。</td><td>每本可放更多來源。</td><td>先篩資料，不要亂塞低品質來源。</td></tr><tr><td>Chat queries</td><td>每日 50 chat queries。</td><td>每日提問上限提高。</td><td>先一次問清楚，不要反覆零碎問。</td></tr><tr><td>Reports</td><td>每日 10 次（官方方案表）。</td><td>Plus 20／Pro 100／Ultra 更高。</td><td>先在對話區定大綱，再產報告。</td></tr><tr><td>Infographics／簡報</td><td>Limited（免費也能產，有次數上限）。</td><td>每日產出次數遞增；Ultra 可去浮水印。</td><td>錯字與排版各方案都可能發生，要人工檢查。</td></tr><tr><td>Audio generations</td><td>每日 3 次 audio generations。</td><td>Audio、Video 等上限提高。</td><td>先確認資料與大綱，再產生音訊或影片。</td></tr><tr><td>單一來源</td><td>500,000 words 或本機上傳 200MB。</td><td>依方案與功能而定。</td><td>大型資料可拆章節，但要維持主題一致。</td></tr></tbody></table></div>
+        <p class="mt-4 text-sm text-slate-500">以上依 <a href="https://support.google.com/notebooklm/answer/16206866" target="_blank" rel="noopener" class="text-blue-700">Google 官方 Upgrade 說明</a>整理，功能與額度可能異動。</p>
       </div>
     </section>
 
