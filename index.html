@@ -50,7 +50,8 @@
 <script src="https://cdn.tailwindcss.com"></script>
   <script src="js/components-loader.js"></script>
   <script src="js/ai-lab.js"></script>
-  <link rel="stylesheet" href="css/home-rain-recommend.css?v=strip-compact-1" />
+  <link rel="stylesheet" href="css/home-rain-recommend.css?v=articles-only-1" />
+  <link rel="stylesheet" href="css/home-side-promo.css?v=2" />
   <link rel="stylesheet" href="css/home-article-carousel.css" />
   <style>
     .home-preview-banner {
@@ -72,8 +73,9 @@
   <script src="js/mrbill-admin-session.js"></script>
   <script src="js/blog-articles.config.js"></script>
   <script src="js/home-strip.config.js"></script>
-  <script src="js/home-rain-recommend.js?v=list-href-fix-1"></script>
-  <script src="js/home-articles-feed.js?v=list-href-fix-1"></script>
+  <script src="js/home-rain-recommend.js?v=articles-only-2"></script>
+  <script src="js/home-side-promo.js?v=2"></script>
+  <script src="js/home-articles-feed.js?v=articles-only-1"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -413,7 +415,9 @@
   <header id="global-header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100"></header>
 
   <div id="homeRainRecommendSpacer" class="home-blog-strip-spacer hidden" aria-hidden="true"></div>
-  <div id="homeRainRecommend" class="home-blog-strip hidden" aria-label="文章筆記生活觀察" data-rain-mode="default">
+  <aside id="homeSidePromoDesktop" class="home-side-promo-desktop" aria-label="生活觀察推薦"></aside>
+
+  <div id="homeRainRecommend" class="home-blog-strip hidden" aria-label="首頁文章推薦橫幅" data-rain-mode="featured">
     <div class="home-blog-strip__surface">
       <button type="button" class="home-blog-strip__close" aria-label="關閉推薦橫幅" title="關閉"><span aria-hidden="true">×</span></button>
       <div class="home-blog-strip__viewport">
@@ -467,6 +471,7 @@
   <main class="max-w-[90rem] mx-auto px-4 lg:px-6 py-8 flex-grow w-full">
 
     <section id="sect-home" class="tab-content hidden space-y-16 pb-16">
+      <div id="homeSidePromoMobile" class="home-side-promo-mobile" aria-label="生活觀察推薦"></div>
       <section id="homeArticleCarousel" class="home-article-carousel reveal-block hidden" aria-label="精選文章輪播">
         <div class="home-article-carousel__head">
           <div>
@@ -1439,24 +1444,18 @@
         if (tabId === 'home') hero.classList.remove('hidden');
         else hero.classList.add('hidden');
       }
+      var stripOnHome =
+        tabId === 'home' &&
+        !(window.isHomeBlogStripDismissed && window.isHomeBlogStripDismissed()) &&
+        window.homeBlogStripHasSlides &&
+        window.homeBlogStripHasSlides();
       if (blogStrip) {
-        if (tabId === 'home' && !(window.isHomeBlogStripDismissed && window.isHomeBlogStripDismissed())) {
-          blogStrip.classList.remove('hidden');
-        } else if (tabId === 'home') {
-          blogStrip.classList.add('hidden');
-        } else {
-          blogStrip.classList.add('hidden');
-        }
+        blogStrip.classList.toggle('hidden', !stripOnHome);
       }
       if (blogStripSpacer) {
-        if (tabId === 'home' && !(window.isHomeBlogStripDismissed && window.isHomeBlogStripDismissed())) {
-          blogStripSpacer.classList.remove('hidden');
-        } else if (tabId === 'home') {
-          blogStripSpacer.classList.add('hidden');
-        } else {
-          blogStripSpacer.classList.add('hidden');
-        }
+        blogStripSpacer.classList.toggle('hidden', !stripOnHome);
       }
+      if (window.syncHomeSidePromoTab) window.syncHomeSidePromoTab(tabId === 'home');
       if (window.syncHomeBlogStripLayout) window.syncHomeBlogStripLayout();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }

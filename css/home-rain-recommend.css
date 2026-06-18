@@ -16,6 +16,7 @@
 .home-blog-strip__viewport {
   overflow: hidden;
   position: relative;
+  touch-action: pan-y pinch-zoom;
 }
 
 .home-blog-strip__track {

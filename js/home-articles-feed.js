@@ -1,5 +1,5 @@
 /**
- * 首頁文章曝光：跑馬燈橫幅（header 下 strip）+ 首頁輪播
+ * 首頁文章曝光：跑馬燈橫幅（header 下 strip，純後台文章）+ 首頁輪播
  * 資料來源：GET /api/articles/home（後台勾選 homeMarquee / homeCarousel）
  */
 (function () {

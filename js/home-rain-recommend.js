@@ -1,66 +1,31 @@
 /**
  * 首頁橫幅：header 下固定 strip
- * - 常駐：雙北雨天親子（永遠在輪播內，偵測下雨切換文案／動畫）
- * - 精選：後台勾選 homeMarquee 的動態文章（與常駐輪播，樣式區分）
+ * 純後台文章（勾選 homeMarquee），依 sort_order 輪播；支援手機左右滑動
  */
 (function () {
   "use strict";
 
   var LEGACY_ARTICLE_SLUG = "taipei-newtaipei-rainy-day-family";
-  var ARTICLE_URL = "blog/taipei-newtaipei-rainy-day-family.html";
-  var TAIPEI_LAT = 25.0478;
-  var TAIPEI_LON = 121.5319;
   var ENGAGE_KEY = "homeBlogStripEngaged";
   var DISMISS_KEY = "homeBlogStripDismissed";
   var DEFAULT_INTERVAL_SEC = 10;
   var DEFAULT_TRANSITION_MS = 900;
+  var SWIPE_THRESHOLD_PX = 48;
   var rotateIntervalMs = DEFAULT_INTERVAL_SEC * 1000;
   var transitionMs = DEFAULT_TRANSITION_MS;
-
-  var COPY = {
-    rainy: {
-      kicker: "雨天備案",
-      pill: "今日可能下雨",
-      hint: "🌧️ 今天可能用得上",
-      title: "生活觀察｜雙北室內親子備案，下雨時可先查這篇",
-      meta: "含雨勢與路線參考",
-      btn: "看雨天備案"
-    },
-    default: {
-      kicker: "文章筆記",
-      pill: "生活觀察",
-      hint: "👨‍👩‍👧 延伸閱讀｜爸媽可先收藏",
-      title: "雙北雨天親子景點懶人包｜文章筆記，適合家長先收藏",
-      meta: "非課程主線，屬延伸閱讀",
-      btn: "閱讀筆記"
-    }
-  };
 
   var slides = [];
   var activeIndex = 0;
   var hasCloneSlide = false;
-  var residentRainMode = "default";
   var rotateTimer = null;
   var arriveTimer = null;
   var isStripAnimating = false;
   var previewOpts = {};
   var highlightSlug = "";
   var showStripNav = false;
-
-  function isRainCode(code) {
-    if (typeof code !== "number") return false;
-    return (
-      (code >= 51 && code <= 67) ||
-      (code >= 80 && code <= 82) ||
-      (code >= 95 && code <= 99)
-    );
-  }
-
-  function isRainyCondition(pop, code) {
-    var rainCode = typeof code === "number" ? code : 0;
-    var rainPop = typeof pop === "number" ? pop : 0;
-    return rainPop >= 40 || isRainCode(rainCode);
-  }
+  var touchStartX = 0;
+  var touchStartY = 0;
+  var touchTracking = false;
 
   function escapeHtml(s) {
     return String(s)
@@ -71,26 +36,12 @@
   }
 
   function articleHrefFromSlug(slug, preview) {
-    if (slug === LEGACY_ARTICLE_SLUG) return ARTICLE_URL;
+    if (slug === LEGACY_ARTICLE_SLUG) {
+      return "blog/taipei-newtaipei-rainy-day-family.html";
+    }
     var path = "blog/post.html?slug=" + encodeURIComponent(slug);
     if (preview) path += "&preview=1";
     return path;
-  }
-
-  function residentSlideFromMode(mode) {
-    var data = COPY[mode] || COPY.default;
-    return {
-      type: "resident",
-      slug: LEGACY_ARTICLE_SLUG,
-      slotLabel: "生活常駐",
-      kicker: data.kicker,
-      pill: data.pill,
-      hint: data.hint,
-      title: data.title,
-      meta: data.meta,
-      btn: data.btn,
-      href: ARTICLE_URL
-    };
   }
 
   function stripShortText(text, max) {
@@ -101,11 +52,10 @@
     return t.slice(0, limit).replace(/\s+\S*$/, "") + "…";
   }
 
-  function featuredSlideFromArticle(article) {
+  function slideFromArticle(article) {
     return {
-      type: "featured",
       slug: article.slug,
-      slotLabel: "精選推薦",
+      slotLabel: "文章推薦",
       kicker: article.label || "文章筆記",
       pill: article.category || article.label || "精選",
       hint: stripShortText(article.subtitle, 28) || "延伸閱讀",
@@ -117,10 +67,10 @@
   }
 
   function buildSlides(apiMarqueeList) {
-    var list = [residentSlideFromMode(residentRainMode)];
+    var list = [];
     (apiMarqueeList || []).forEach(function (article) {
-      if (!article || !article.slug || article.slug === LEGACY_ARTICLE_SLUG) return;
-      list.push(featuredSlideFromArticle(article));
+      if (!article || !article.slug) return;
+      list.push(slideFromArticle(article));
     });
     return list;
   }
@@ -138,17 +88,62 @@
     return document.getElementById("homeRainRecommend");
   }
 
+  function isHomeTabActive() {
+    var sect = document.getElementById("sect-home");
+    return !!(sect && !sect.classList.contains("hidden"));
+  }
+
+  function setStripVisible(visible) {
+    var root = getRoot();
+    var spacer = document.getElementById("homeRainRecommendSpacer");
+    if (root) root.classList.toggle("hidden", !visible);
+    if (spacer) {
+      spacer.classList.toggle("hidden", !visible);
+      if (!visible) spacer.style.height = "0";
+    }
+  }
+
+  window.homeBlogStripHasSlides = function () {
+    return slides.length > 0;
+  };
+
+  function updateStripOffsetVar() {
+    var root = getRoot();
+    var surface = root ? root.querySelector(".home-blog-strip__surface") : null;
+    var offset = 0;
+    if (
+      root &&
+      !root.classList.contains("hidden") &&
+      !root.classList.contains("is-dismissed") &&
+      slides.length &&
+      surface
+    ) {
+      offset = surface.offsetHeight;
+    }
+    document.documentElement.style.setProperty(
+      "--home-blog-strip-offset",
+      offset + "px"
+    );
+    if (typeof window.syncHomeSidePromoLayout === "function") {
+      window.syncHomeSidePromoLayout();
+    }
+  }
+
   function syncLayout() {
     var root = getRoot();
     var spacer = document.getElementById("homeRainRecommendSpacer");
     var surface = root ? root.querySelector(".home-blog-strip__surface") : null;
-    if (!root || !spacer) return;
+    if (!root || !spacer) {
+      updateStripOffsetVar();
+      return;
+    }
 
     var headerOffset = syncHeaderHeight();
     root.style.paddingTop = headerOffset + "px";
 
-    if (root.classList.contains("hidden")) {
+    if (root.classList.contains("hidden") || !slides.length) {
       spacer.style.height = "0";
+      updateStripOffsetVar();
       return;
     }
 
@@ -157,6 +152,7 @@
     if (!isStripAnimating) {
       refreshTrackOffset(true);
     }
+    updateStripOffsetVar();
   }
 
   function refreshTrackOffset(instant) {
@@ -175,18 +171,11 @@
 
   function renderSlideHtml(slide, index) {
     var isHighlight = !!(highlightSlug && slide.slug === highlightSlug);
-    var typeClass =
-      slide.type === "resident"
-        ? " home-blog-strip__slide--resident"
-        : " home-blog-strip__slide--featured";
     return (
-      '<div class="home-blog-strip__slide' +
-      typeClass +
+      '<div class="home-blog-strip__slide home-blog-strip__slide--featured' +
       (isHighlight ? " is-admin-preview-highlight" : "") +
       '" data-slide-index="' +
       index +
-      '" data-slide-type="' +
-      slide.type +
       '">' +
       '<span class="home-blog-strip__accent" aria-hidden="true"></span>' +
       '<span class="home-blog-strip__shine" aria-hidden="true"></span>' +
@@ -237,32 +226,6 @@
     });
   }
 
-  function patchResidentSlide() {
-    if (!slides.length || slides[0].type !== "resident") return;
-    var track = document.getElementById("homeBlogStripTrack");
-    if (!track) return;
-    var residentEls = track.querySelectorAll(".home-blog-strip__slide--resident");
-    if (!residentEls.length) {
-      renderStrip();
-      return;
-    }
-    residentEls.forEach(function (existing) {
-      var index = Number(existing.getAttribute("data-slide-index")) || 0;
-      var wrap = document.createElement("div");
-      wrap.innerHTML = renderSlideHtml(slides[0], index);
-      var next = wrap.firstElementChild;
-      if (existing.getAttribute("data-slide-clone") === "1") {
-        next.setAttribute("data-slide-clone", "1");
-      }
-      track.replaceChild(next, existing);
-    });
-    setTrackPositionInstant();
-    if (activeIndex === 0 || (hasCloneSlide && activeIndex === slides.length)) {
-      applySurfaceMode();
-    }
-    requestAnimationFrame(syncLayout);
-  }
-
   function trackSlideCount() {
     return hasCloneSlide ? slides.length + 1 : slides.length;
   }
@@ -272,7 +235,7 @@
     var track = document.getElementById("homeBlogStripTrack");
     var nav = document.getElementById("homeBlogStripNav");
     var dots = document.getElementById("homeBlogStripDots");
-    if (!root || !track) return;
+    if (!root || !track || !slides.length) return;
 
     hasCloneSlide = slides.length > 1;
     var trackHtml = slides.map(renderSlideHtml).join("");
@@ -326,16 +289,11 @@
     var root = getRoot();
     if (!root || !slides.length) return;
     var slide = slides[logicalSlideIndex()];
-    var isResident = slide.type === "resident";
-    var isRainy = isResident && residentRainMode === "rainy";
 
-    root.classList.toggle("is-rainy", isRainy);
-    root.classList.toggle("is-featured-active", slide.type === "featured");
+    root.classList.remove("is-rainy");
+    root.classList.add("is-featured-active");
     root.classList.toggle("is-rotating", slides.length > 1);
-    root.setAttribute(
-      "data-rain-mode",
-      isResident ? residentRainMode : slide.type === "featured" ? "featured" : "default"
-    );
+    root.setAttribute("data-rain-mode", "featured");
     root.classList.toggle(
       "is-admin-preview-highlight",
       !!(highlightSlug && slide.slug === highlightSlug)
@@ -473,11 +431,6 @@
     }, transitionWaitMs());
   }
 
-  function destinationLogicalIndex(trackIndex) {
-    if (hasCloneSlide && trackIndex === slides.length) return 0;
-    return trackIndex;
-  }
-
   function goToSlide(index, instant) {
     if (!slides.length) return;
     clearArriveTimer();
@@ -526,66 +479,18 @@
     goToSlide((activeIndex + 1) % slides.length);
   }
 
+  function retreatSlide() {
+    if (!slides.length || slides.length <= 1) return;
+    if (activeIndex <= 0) {
+      goToSlide(slides.length - 1);
+      return;
+    }
+    goToSlide(activeIndex - 1);
+  }
+
   function restartRotation() {
     clearStripTimers();
     scheduleRotate();
-  }
-
-  function updateResidentMode(mode) {
-    if (residentRainMode === mode) return;
-    residentRainMode = mode;
-    if (!slides.length || slides[0].type !== "resident") return;
-    slides[0] = residentSlideFromMode(mode);
-    patchResidentSlide();
-  }
-
-  function loadRainStatus() {
-    var url =
-      "https://api.open-meteo.com/v1/forecast?latitude=" +
-      TAIPEI_LAT +
-      "&longitude=" +
-      TAIPEI_LON +
-      "&current=weather_code&hourly=precipitation_probability,weather_code&forecast_days=1&timezone=Asia%2FTaipei";
-
-    fetch(url)
-      .then(function (res) {
-        if (!res.ok) throw new Error("weather");
-        return res.json();
-      })
-      .then(function (data) {
-        var current = data.current || {};
-        var hourly = data.hourly || {};
-        var code = current.weather_code != null ? current.weather_code : 0;
-        var pop = 0;
-        var hourCode = code;
-
-        if (hourly.time && hourly.precipitation_probability) {
-          var now = new Date();
-          for (var i = 0; i < hourly.time.length; i++) {
-            var t = new Date(hourly.time[i]);
-            if (t >= now) {
-              pop = hourly.precipitation_probability[i] || 0;
-              if (hourly.weather_code && hourly.weather_code[i] != null) {
-                hourCode = hourly.weather_code[i];
-              }
-              break;
-            }
-          }
-          if (!pop && hourly.precipitation_probability.length) {
-            pop = hourly.precipitation_probability[0] || 0;
-            if (hourly.weather_code && hourly.weather_code[0] != null) {
-              hourCode = hourly.weather_code[0];
-            }
-          }
-        }
-
-        updateResidentMode(
-          isRainyCondition(pop, hourCode) || isRainCode(code) ? "rainy" : "default"
-        );
-      })
-      .catch(function () {
-        updateResidentMode("default");
-      });
   }
 
   function applyStripDismissed(dismissed) {
@@ -593,12 +498,17 @@
     var spacer = document.getElementById("homeRainRecommendSpacer");
     if (!root) return;
     root.classList.toggle("is-dismissed", dismissed);
-    root.classList.toggle("hidden", dismissed);
-    if (dismissed) {
-      if (spacer) spacer.style.height = "0";
+    if (dismissed || !slides.length) {
+      root.classList.add("hidden");
+      if (spacer) {
+        spacer.classList.add("hidden");
+        spacer.style.height = "0";
+      }
       clearStripTimers();
       return;
     }
+    root.classList.remove("hidden");
+    if (spacer) spacer.classList.remove("hidden");
     requestAnimationFrame(syncLayout);
   }
 
@@ -627,7 +537,7 @@
     var mq = window.matchMedia ? window.matchMedia("(max-width: 767px)") : null;
 
     function updateScrollState() {
-      if (root.classList.contains("is-dismissed")) return;
+      if (root.classList.contains("is-dismissed") || !slides.length) return;
       if (mq && !mq.matches) {
         root.classList.remove("is-scrolled-past-hero");
         return;
@@ -666,6 +576,56 @@
       clearStripTimers();
     });
     root.addEventListener("mouseleave", restartRotation);
+  }
+
+  function bindStripSwipe() {
+    var viewport = getRoot()
+      ? getRoot().querySelector(".home-blog-strip__viewport")
+      : null;
+    if (!viewport || slides.length <= 1) return;
+
+    viewport.addEventListener(
+      "touchstart",
+      function (ev) {
+        if (!ev.touches || ev.touches.length !== 1) return;
+        touchTracking = true;
+        touchStartX = ev.touches[0].clientX;
+        touchStartY = ev.touches[0].clientY;
+        clearStripTimers();
+      },
+      { passive: true }
+    );
+
+    viewport.addEventListener(
+      "touchmove",
+      function (ev) {
+        if (!touchTracking || !ev.touches || ev.touches.length !== 1) return;
+        var dx = ev.touches[0].clientX - touchStartX;
+        var dy = ev.touches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+          ev.preventDefault();
+        }
+      },
+      { passive: false }
+    );
+
+    viewport.addEventListener(
+      "touchend",
+      function (ev) {
+        if (!touchTracking) return;
+        touchTracking = false;
+        var endX =
+          (ev.changedTouches && ev.changedTouches[0]
+            ? ev.changedTouches[0].clientX
+            : touchStartX) - touchStartX;
+        if (Math.abs(endX) >= SWIPE_THRESHOLD_PX) {
+          if (endX < 0) advanceSlide();
+          else retreatSlide();
+        }
+        restartRotation();
+      },
+      { passive: true }
+    );
   }
 
   function bindLayoutSync() {
@@ -715,10 +675,29 @@
     activeIndex = 0;
 
     window.syncHomeBlogStripLayout = syncLayout;
-    bindStripEngagement();
     bindStripDismiss();
+
+    if (!slides.length) {
+      setStripVisible(false);
+      updateStripOffsetVar();
+      return;
+    }
+
+    if (sessionStorage.getItem(DISMISS_KEY) === "1") {
+      setStripVisible(false);
+      updateStripOffsetVar();
+      return;
+    }
+
+    if (isHomeTabActive()) {
+      setStripVisible(true);
+    } else {
+      setStripVisible(false);
+    }
+    bindStripEngagement();
     bindScrollPastHero();
     bindLayoutSync();
+    bindStripSwipe();
 
     renderStrip();
     restartRotation();
@@ -726,8 +705,6 @@
 
     window.addEventListener("resize", syncLayout);
     window.addEventListener("scroll", syncLayout, { passive: true });
-
-    loadRainStatus();
   }
 
   window.initHomeRainRecommend = initHomeRainRecommend;

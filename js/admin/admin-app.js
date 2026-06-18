@@ -824,7 +824,7 @@
     }
     if (homeMarquee) {
       placements.push(
-        "首頁跑馬燈：與「生活常駐」親子筆記輪播（常駐永遠保留＋雨天偵測；本篇為精選推薦）"
+        "首頁跑馬燈：header 下橫幅輪播（純後台文章，依排序權重；無勾選則隱藏）"
       );
     }
     if (homeCarousel) {

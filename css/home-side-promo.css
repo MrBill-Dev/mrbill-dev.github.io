@@ -1,0 +1,209 @@
+/* 首頁小推廣：桌面右側浮卡 + 手機 Hero 下細橫條 */
+
+:root {
+  --home-blog-strip-offset: 0px;
+  --home-side-promo-gap: 0.75rem;
+}
+
+.home-side-promo__close {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.home-side-promo__close:hover {
+  background: #fff;
+  color: #334155;
+}
+
+/* ── 桌面浮卡：避開 header + 跑馬燈，層級在跑馬燈之下、主內容之上 ── */
+.home-side-promo-desktop {
+  display: none;
+  position: fixed;
+  right: 1rem;
+  top: calc(
+    var(--site-header-height, 5rem) + var(--home-blog-strip-offset, 0px) +
+      var(--home-side-promo-gap)
+  );
+  z-index: 42;
+  width: 11.5rem;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(0.5rem);
+  transition:
+    top 0.25s ease,
+    opacity 0.28s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 1024px) {
+  .home-side-promo-desktop.is-visible {
+    display: block;
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.home-side-promo-desktop__card {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid #bae6fd;
+  background: linear-gradient(155deg, #f0f9ff 0%, #ffffff 72%);
+  box-shadow:
+    0 4px 14px rgba(14, 116, 144, 0.1),
+    0 12px 28px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.home-side-promo-desktop__card.is-rainy {
+  border-color: #7dd3fc;
+  background: linear-gradient(155deg, #e0f2fe 0%, #ffffff 72%);
+  box-shadow:
+    0 4px 14px rgba(2, 132, 199, 0.14),
+    0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.home-side-promo-desktop__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.85rem 1.75rem 0.9rem 0.9rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.home-side-promo-desktop__link:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.home-side-promo__emoji {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.home-side-promo__label {
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0369a1;
+}
+
+.home-side-promo-desktop__card.is-rainy .home-side-promo__label {
+  color: #075985;
+}
+
+.home-side-promo__title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #0f172a;
+}
+
+.home-side-promo__cta {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #0284c7;
+  margin-top: 0.15rem;
+}
+
+/* ── 手機細橫條：在 sect-home 內自然排版，不疊在 Hero 上 ── */
+.home-side-promo-mobile {
+  display: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+}
+
+@media (max-width: 1023px) {
+  .home-side-promo-mobile.is-visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-side-promo-mobile__inner {
+  position: relative;
+  border-radius: 0.85rem;
+  border: 1px solid #bae6fd;
+  background: linear-gradient(90deg, #f0f9ff 0%, #ffffff 100%);
+  box-shadow: 0 2px 10px rgba(14, 116, 144, 0.08);
+}
+
+.home-side-promo-mobile__inner.is-rainy {
+  border-color: #7dd3fc;
+  background: linear-gradient(90deg, #e0f2fe 0%, #ffffff 100%);
+}
+
+.home-side-promo-mobile__link {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 2rem 0.65rem 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.home-side-promo-mobile__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.home-side-promo-mobile .home-side-promo__label {
+  font-size: 0.62rem;
+}
+
+.home-side-promo-mobile .home-side-promo__title {
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-side-promo-mobile .home-side-promo__cta {
+  flex: none;
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+/* 寬螢幕主內容留右側空間，避免與浮卡重疊 */
+@media (min-width: 1024px) {
+  body.has-home-side-promo #sect-home {
+    padding-right: 0.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  body.has-home-side-promo > main {
+    padding-right: 3rem;
+  }
+}

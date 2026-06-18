@@ -105,11 +105,11 @@ npx wrangler deploy
 ## 2D 已完成（首頁跑馬燈／輪播）
 
 - API：`GET /api/articles/home` → `{ marquee: [...], carousel: [...] }`
-- 後台勾選 **首頁跑馬燈** → 首頁 header 下橫幅（多篇時取 `sort_order` 最高的一篇）
+- 後台勾選 **首頁跑馬燈** → 首頁 header 下橫幅（純動態文章，依 `sort_order` 輪播；未勾選則隱藏）
 - 後台勾選 **首頁輪播** → 首頁 tab「精選文章輪播」區（可多篇，7 秒自動切換）
-- 未勾選任何跑馬燈文章時，橫幅維持預設「雙北雨天親子」＋天氣連動
-- 常駐與精選跑馬燈會左右滑動輪播；底部圓點預設隱藏，後台「首頁橫幅設定」可開啟
-- 前端：`js/home-articles-feed.js` + `css/home-article-carousel.css`
+- **雨天親子筆記** → 首頁右側小推廣（桌面）／Hero 下細橫條（手機），含天氣偵測；與跑馬燈分離
+- 跑馬燈支援手機左右滑動；底部圓點預設隱藏，後台「首頁橫幅設定」可開啟
+- 前端：`js/home-articles-feed.js` + `js/home-side-promo.js` + `css/home-article-carousel.css`
 - 全站橫幅設定（後台「儲存橫幅設定」）需執行一次 `migrate-site-settings.sql`（見下方）
 
 ---
