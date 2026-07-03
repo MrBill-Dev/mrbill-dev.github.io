@@ -991,30 +991,114 @@
     return res.json();
   }
 
-  function fetchRainyWeather(lat, lon) {
+  var rainyWeatherMemoryCache = {};
+  var rainyWeatherLoadSeq = 0;
+  var RAINY_WEATHER_CACHE_MS = 300000;
+  var RAINY_WEATHER_STORAGE_KEY = "mrbill-rainy-weather-cache-v1";
+
+  function rainyWeatherCacheKey(lat, lon) {
+    return lat + "," + lon;
+  }
+
+  function readRainyWeatherStorageCache(lat, lon) {
+    try {
+      var raw = sessionStorage.getItem(RAINY_WEATHER_STORAGE_KEY);
+      if (!raw) return null;
+      var all = JSON.parse(raw);
+      var item = all[rainyWeatherCacheKey(lat, lon)];
+      if (!item || !item.data || Date.now() - item.ts > RAINY_WEATHER_CACHE_MS) return null;
+      return item;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeRainyWeatherStorageCache(lat, lon, data) {
+    try {
+      var all = {};
+      try {
+        all = JSON.parse(sessionStorage.getItem(RAINY_WEATHER_STORAGE_KEY) || "{}");
+      } catch (e2) {
+        all = {};
+      }
+      all[rainyWeatherCacheKey(lat, lon)] = { ts: Date.now(), data: data };
+      sessionStorage.setItem(RAINY_WEATHER_STORAGE_KEY, JSON.stringify(all));
+    } catch (e) {
+      /* ignore quota / private mode */
+    }
+  }
+
+  function getRainyWeatherCached(lat, lon) {
+    var key = rainyWeatherCacheKey(lat, lon);
+    var cached = rainyWeatherMemoryCache[key];
+    if (cached && Date.now() - cached.ts < RAINY_WEATHER_CACHE_MS) return cached;
+    var stored = readRainyWeatherStorageCache(lat, lon);
+    if (stored) {
+      rainyWeatherMemoryCache[key] = stored;
+      return stored;
+    }
+    return null;
+  }
+
+  function promiseAny(tasks) {
+    if (typeof Promise.any === "function") return Promise.any(tasks);
+    return new Promise(function (resolve, reject) {
+      var pending = tasks.length;
+      var lastErr = null;
+      if (!pending) {
+        reject(new Error("weather-empty"));
+        return;
+      }
+      tasks.forEach(function (task) {
+        Promise.resolve(task).then(resolve, function (err) {
+          lastErr = err;
+          pending -= 1;
+          if (pending === 0) reject(lastErr || new Error("weather-all-failed"));
+        });
+      });
+    });
+  }
+
+  function rememberRainyWeather(lat, lon, data) {
+    var item = { ts: Date.now(), data: data };
+    rainyWeatherMemoryCache[rainyWeatherCacheKey(lat, lon)] = item;
+    writeRainyWeatherStorageCache(lat, lon, data);
+    return data;
+  }
+
+  function raceRainyWeatherSources(lat, lon) {
     var proxyUrl = rainyWeatherProxyUrl(lat, lon);
-    var openMeteoUrl = "https://api.open-meteo.com/v1/forecast?" + buildRainyWeatherQuery(lat, lon);
     var wttrUrl = "https://wttr.in/" + lat + "," + lon + "?format=j1";
-
-    function tryProxy() {
-      if (!proxyUrl) return Promise.reject(new Error("no-proxy"));
-      return fetchWithTimeout(proxyUrl, 8000).then(readWeatherJson);
-    }
-
-    function tryOpenMeteo() {
-      return fetchWithTimeout(openMeteoUrl, 8000).then(readWeatherJson);
-    }
-
-    function tryWttr() {
-      return fetchWithTimeout(wttrUrl, 12000)
+    var tasks = [
+      fetchWithTimeout(wttrUrl, 7000)
         .then(readWeatherJson)
-        .then(normalizeWttrWeather);
+        .then(normalizeWttrWeather)
+    ];
+    if (proxyUrl) {
+      tasks.unshift(
+        fetchWithTimeout(proxyUrl, 7000).then(readWeatherJson)
+      );
     }
+    return promiseAny(tasks);
+  }
 
-    return tryProxy().catch(function () {
-      return tryOpenMeteo();
-    }).catch(function () {
-      return tryWttr();
+  function fetchRainyWeather(lat, lon, options) {
+    options = options || {};
+    var cached = getRainyWeatherCached(lat, lon);
+    if (!options.force && cached) {
+      return Promise.resolve(cached.data);
+    }
+    return raceRainyWeatherSources(lat, lon).then(function (data) {
+      return rememberRainyWeather(lat, lon, data);
+    });
+  }
+
+  function prefetchRainyWeatherCities(skipKey) {
+    Object.keys(coords).forEach(function (key) {
+      if (key === skipKey) return;
+      var c = coords[key];
+      if (getRainyWeatherCached(c.lat, c.lon)) return;
+      fetchRainyWeather(c.lat, c.lon).catch(function () {});
     });
   }
 
@@ -1133,19 +1217,33 @@
     var c = coords[key];
     if (!c) return;
 
+    var seq = ++rainyWeatherLoadSeq;
     var status = document.getElementById("rainyWeatherStatus");
-    if (status) status.textContent = "更新中";
-
     var hint = document.getElementById("rainyWeatherHint");
     if (hint) hint.textContent = c.hint || "";
 
-    fetchRainyWeather(c.lat, c.lon)
+    var cached = getRainyWeatherCached(c.lat, c.lon);
+    if (cached) {
+      applyRainyWeatherData(c, cached.data, status);
+      if (Date.now() - cached.ts < RAINY_WEATHER_CACHE_MS) {
+        if (status) status.textContent = "已更新";
+        prefetchRainyWeatherCities(key);
+        return;
+      }
+    }
+
+    if (status) status.textContent = cached ? "更新中" : "載入中";
+
+    fetchRainyWeather(c.lat, c.lon, { force: true })
       .then(function (data) {
+        if (seq !== rainyWeatherLoadSeq) return;
         if (!data || !data.current) throw new Error("weather-invalid");
         applyRainyWeatherData(c, data, status);
+        prefetchRainyWeatherCities(key);
       })
       .catch(function () {
-        showWeatherError(status, document.getElementById("rainyRainAdvice"));
+        if (seq !== rainyWeatherLoadSeq) return;
+        if (!cached) showWeatherError(status, document.getElementById("rainyRainAdvice"));
       });
   }
 

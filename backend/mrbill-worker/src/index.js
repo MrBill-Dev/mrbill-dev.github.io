@@ -1192,6 +1192,22 @@ async function handleArticlesAdmin(request, env, url) {
   return jsonResponse(request, { success: false, message: "Method not allowed" }, 405);
 }
 
+async function fetchWeatherUpstream(url, ms) {
+  const controller = new AbortController();
+  const timer = setTimeout(function () {
+    controller.abort();
+  }, ms);
+  try {
+    return await fetch(url, {
+      headers: { "User-Agent": "MrBill-Weather-Proxy/1.0" },
+      cf: { cacheTtl: 300 },
+      signal: controller.signal
+    });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function handleWeatherForecast(request, url) {
   if (request.method !== "GET") {
     return jsonResponse(request, { success: false, message: "Method not allowed" }, 405);
@@ -1220,34 +1236,32 @@ async function handleWeatherForecast(request, url) {
     "&daily=weather_code,precipitation_probability_max,temperature_2m_max,temperature_2m_min" +
     "&forecast_days=7&timezone=Asia%2FTaipei";
 
-  const upstream = await fetch(upstreamUrl, {
-    headers: { "User-Agent": "MrBill-Weather-Proxy/1.0" },
-    cf: { cacheTtl: 300 }
-  });
-
-  if (upstream.ok) {
-    const data = await upstream.json();
-    return jsonResponse(request, data, 200, {
-      "Cache-Control": "public, max-age=300"
-    });
-  }
-
   const wttrUrl = "https://wttr.in/" + lat + "," + lon + "?format=j1";
-  const wttrRes = await fetch(wttrUrl, {
-    headers: { "User-Agent": "MrBill-Weather-Proxy/1.0" },
-    cf: { cacheTtl: 300 }
-  });
-  if (!wttrRes.ok) {
+
+  const openMeteoPromise = fetchWeatherUpstream(upstreamUrl, 6000)
+    .then(function (res) {
+      if (!res || !res.ok) throw new Error("open-meteo-fail");
+      return res.json();
+    });
+  const wttrPromise = fetchWeatherUpstream(wttrUrl, 6000)
+    .then(function (res) {
+      if (!res || !res.ok) throw new Error("wttr-fail");
+      return res.json();
+    })
+    .then(normalizeWttrWeatherPayload);
+
+  let data = null;
+  try {
+    data = await Promise.any([openMeteoPromise, wttrPromise]);
+  } catch (e) {
     return jsonResponse(
       request,
-      { success: false, message: "Weather upstream error", status: upstream.status },
+      { success: false, message: "Weather upstream error" },
       502
     );
   }
 
-  const wttrData = await wttrRes.json();
-  const normalized = normalizeWttrWeatherPayload(wttrData);
-  return jsonResponse(request, normalized, 200, {
+  return jsonResponse(request, data, 200, {
     "Cache-Control": "public, max-age=300"
   });
 }
