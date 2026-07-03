@@ -1192,6 +1192,53 @@ async function handleArticlesAdmin(request, env, url) {
   return jsonResponse(request, { success: false, message: "Method not allowed" }, 405);
 }
 
+async function handleWeatherForecast(request, url) {
+  if (request.method !== "GET") {
+    return jsonResponse(request, { success: false, message: "Method not allowed" }, 405);
+  }
+
+  const lat = Number(url.searchParams.get("latitude"));
+  const lon = Number(url.searchParams.get("longitude"));
+  if (
+    !Number.isFinite(lat) ||
+    !Number.isFinite(lon) ||
+    lat < -90 ||
+    lat > 90 ||
+    lon < -180 ||
+    lon > 180
+  ) {
+    return jsonResponse(request, { success: false, message: "Invalid coordinates" }, 400);
+  }
+
+  const upstreamUrl =
+    "https://api.open-meteo.com/v1/forecast?latitude=" +
+    lat +
+    "&longitude=" +
+    lon +
+    "&current=temperature_2m,apparent_temperature,weather_code" +
+    "&hourly=precipitation_probability,weather_code,temperature_2m" +
+    "&daily=weather_code,precipitation_probability_max,temperature_2m_max,temperature_2m_min" +
+    "&forecast_days=7&timezone=Asia%2FTaipei";
+
+  const upstream = await fetch(upstreamUrl, {
+    headers: { "User-Agent": "MrBill-Weather-Proxy/1.0" },
+    cf: { cacheTtl: 300 }
+  });
+
+  if (!upstream.ok) {
+    return jsonResponse(
+      request,
+      { success: false, message: "Weather upstream error", status: upstream.status },
+      502
+    );
+  }
+
+  const data = await upstream.json();
+  return jsonResponse(request, data, 200, {
+    "Cache-Control": "public, max-age=300"
+  });
+}
+
 export default {
   async scheduled(event, env, ctx) {
     ctx.waitUntil(
@@ -1235,6 +1282,10 @@ export default {
 
       if (url.pathname === "/api/contact") {
         return await handleContact(request, env);
+      }
+
+      if (url.pathname === "/api/weather") {
+        return await handleWeatherForecast(request, url);
       }
 
       if (url.pathname === "/sitemap-dynamic.xml") {

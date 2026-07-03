@@ -384,17 +384,17 @@ function isBlogPostShellPath() {
   return /\/blog\/post\.html$/.test(p);
 }
 
-/** 分類對應的站內學程／專區連結（右欄「延伸」區塊） */
+/** 分類對應的站內學程／專區連結（右欄「延伸」區塊；目標在站根目錄，非 blog/ 下） */
 const BLOG_CATEGORY_LINKS = {
-  "AI學習地圖": { href: "../ai-learning-map.html", label: "AI 學習地圖" },
+  "AI學習地圖": { href: "ai-learning-map.html", label: "AI 學習地圖" },
   "生活觀察": { href: "index.html", label: "生活觀察" },
-  "互動練習": { href: "../ai-practice.html", label: "互動練習" },
-  "設計工具": { href: "../design-toolkit.html", label: "設計工具箱" }
+  "互動練習": { href: "ai-practice.html", label: "互動練習" },
+  "設計工具": { href: "design-toolkit.html", label: "設計工具箱" }
 };
 
 const BLOG_SITE_LINKS = [
   { href: "index.html", label: "文章筆記" },
-  { href: "../ai-practice.html", label: "互動練習" }
+  { href: "ai-practice.html", label: "互動練習" }
 ];
 
 /**
@@ -513,14 +513,20 @@ const BLOG_LIST_PRESETS = {
   }
 };
 
+function normalizeBlogPathname(pathname) {
+  var p = (pathname != null ? pathname : location.pathname || "").replace(/\\/g, "/");
+  if (!p.startsWith("/")) p = "/" + p;
+  return p.toLowerCase();
+}
+
 function isBlogSectionPath() {
-  var p = (location.pathname || "").replace(/\\/g, "/").toLowerCase();
+  var p = normalizeBlogPathname();
   return /\/blog(\/|$)/.test(p) || p.endsWith("/blog");
 }
 
 /** blog/ = 1、blog/slug/ = 2（用於相對路徑） */
 function blogPathDepth() {
-  var p = (location.pathname || "").replace(/\\/g, "/").toLowerCase();
+  var p = normalizeBlogPathname();
   if (!/\/blog(\/|$)/.test(p) && !p.endsWith("/blog")) return 0;
   if (/\/blog\/index\.html$/.test(p) || /\/blog\/?$/.test(p)) return 1;
   if (/\/blog\/post\.html$/i.test(p)) return 1;
@@ -558,21 +564,23 @@ function blogIndexHref() {
   return "blog/";
 }
 
-function fixBlogNavPathsFromSubdir() {
-  var header = document.getElementById("global-header");
-  var footer = document.getElementById("global-footer");
-  var prefix = blogAssetPrefix();
-  [header, footer].forEach(function (root) {
-    if (!root) return;
-    root.querySelectorAll("a[href]").forEach(function (a) {
-      var h = a.getAttribute("href");
-      if (!h || /^https?:\/\//.test(h) || h.startsWith("#") || h.startsWith("../") || h.startsWith("/")) {
-        return;
-      }
-      if (h.startsWith("./")) a.setAttribute("href", prefix + h.slice(2));
-      else a.setAttribute("href", prefix + h);
-    });
+function fixBlogSubdirAnchors(root, prefix) {
+  if (!root) return;
+  root.querySelectorAll("a[href]").forEach(function (a) {
+    var h = a.getAttribute("href");
+    if (!h || /^https?:\/\//.test(h) || h.startsWith("#") || h.startsWith("../") || h.startsWith("/")) {
+      return;
+    }
+    if (h.startsWith("./")) a.setAttribute("href", prefix + h.slice(2));
+    else a.setAttribute("href", prefix + h);
   });
+}
+
+function fixBlogNavPathsFromSubdir() {
+  var prefix = blogAssetPrefix();
+  fixBlogSubdirAnchors(document.getElementById("global-header"), prefix);
+  fixBlogSubdirAnchors(document.getElementById("global-footer"), prefix);
+  fixBlogSubdirAnchors(document.getElementById("blog-article-rail"), prefix);
 }
 
 function getCurrentBlogSlug() {
@@ -1248,6 +1256,7 @@ function initBlogArticlePage(slug, options) {
       loadBlogArticleShell(function () {
         renderBlogArticleHero(slug, options);
         renderBlogArticleRail("blog-article-rail", slug);
+        fixBlogNavPathsFromSubdir();
         renderBlogArticleNav(slug);
         if (typeof window.initBlogStats === "function") {
           window.initBlogStats(slug);
@@ -1580,15 +1589,20 @@ function initBlogEmbedList(mountId, options) {
   });
 }
 
+function blogSiteRootHref(href) {
+  if (!href) return "";
+  if (/^(https?:|\/|#)/.test(href)) return href;
+  var file = String(href).replace(/^(\.\.\/)+/, "").replace(/^\.\//, "");
+  if (!isBlogSectionPath() || file.startsWith("blog/")) return href;
+  return blogAssetPrefix() + file;
+}
+
 function blogPageHref(href) {
   if (!href) return "";
   if (href === "index.html" || href === "blog/index.html") {
     return blogIndexHref();
   }
-  if (isBlogSectionPath() && !/^(https?:|\/|\.\.\/|#)/.test(href)) {
-    return href;
-  }
-  return href;
+  return blogSiteRootHref(href);
 }
 
 function filterBlogArticles(options) {

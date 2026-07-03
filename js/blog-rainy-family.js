@@ -854,92 +854,203 @@
     }
   }
 
+  function findHourlyIndex(hourly, now) {
+    if (!hourly || !hourly.time || !hourly.time.length) return -1;
+    for (var i = 0; i < hourly.time.length; i++) {
+      if (new Date(hourly.time[i]) >= now) return i;
+    }
+    return hourly.time.length - 1;
+  }
+
+  function fetchWithTimeout(url, ms) {
+    ms = ms || 12000;
+    if (typeof AbortSignal !== "undefined" && typeof AbortSignal.timeout === "function") {
+      return fetch(url, { signal: AbortSignal.timeout(ms) });
+    }
+    return new Promise(function (resolve, reject) {
+      var timer = setTimeout(function () {
+        reject(new Error("timeout"));
+      }, ms);
+      fetch(url)
+        .then(function (res) {
+          clearTimeout(timer);
+          resolve(res);
+        })
+        .catch(function (err) {
+          clearTimeout(timer);
+          reject(err);
+        });
+    });
+  }
+
+  function rainyWeatherProxyUrl(lat, lon) {
+    var base = String((global.BLOG_STATS_API || "")).replace(/\/api\/?$/, "");
+    if (!base) return "";
+    return (
+      base +
+      "/api/weather?latitude=" +
+      encodeURIComponent(lat) +
+      "&longitude=" +
+      encodeURIComponent(lon)
+    );
+  }
+
+  function buildRainyWeatherQuery(lat, lon) {
+    return (
+      "latitude=" +
+      lat +
+      "&longitude=" +
+      lon +
+      "&current=temperature_2m,apparent_temperature,weather_code&hourly=precipitation_probability,weather_code,temperature_2m&daily=weather_code,precipitation_probability_max,temperature_2m_max,temperature_2m_min&forecast_days=7&timezone=Asia%2FTaipei"
+    );
+  }
+
+  function fetchRainyWeather(lat, lon) {
+    var query = buildRainyWeatherQuery(lat, lon);
+    var directUrl = "https://api.open-meteo.com/v1/forecast?" + query;
+
+    function readJson(res) {
+      if (!res.ok) throw new Error("weather-http-" + res.status);
+      return res.json();
+    }
+
+    return fetchWithTimeout(directUrl, 10000)
+      .then(readJson)
+      .catch(function () {
+        var proxyUrl = rainyWeatherProxyUrl(lat, lon);
+        if (!proxyUrl) throw new Error("weather-unavailable");
+        return fetchWithTimeout(proxyUrl, 12000).then(readJson);
+      });
+  }
+
+  function showWeatherError(status, adviceEl) {
+    if (status) status.textContent = "讀取失敗";
+    if (adviceEl) {
+      adviceEl.textContent =
+        "天氣資料暫時無法取得（第三方服務可能忙碌或網路受限）。請改點下方「中央氣象署」連結確認，或稍後再試。";
+    }
+    var desc = document.getElementById("rainyWeatherDesc");
+    if (desc) desc.textContent = "天氣暫時無法讀取";
+  }
+
+  function applyRainyWeatherData(c, data, status) {
+    var current = data.current || {};
+    var hourly = data.hourly || {};
+    var daily = data.daily || {};
+    var now = new Date();
+    var idx = findHourlyIndex(hourly, now);
+    var pop = 0;
+    if (idx >= 0 && hourly.precipitation_probability) {
+      pop =
+        hourly.precipitation_probability[idx] != null
+          ? hourly.precipitation_probability[idx]
+          : 0;
+    }
+    var code = current.weather_code != null ? current.weather_code : 0;
+    var iconText = weatherCodeText(code);
+
+    document.getElementById("rainyWeatherIcon").textContent = iconText[0];
+    document.getElementById("rainyWeatherTemp").textContent =
+      current.temperature_2m != null ? Math.round(current.temperature_2m) + "°" : "--°";
+    document.getElementById("rainyWeatherDesc").textContent = c.name + "｜" + iconText[1];
+    document.getElementById("rainyWeatherPop").textContent = pop + "%";
+    document.getElementById("rainyWeatherFeel").textContent =
+      current.apparent_temperature != null
+        ? Math.round(current.apparent_temperature) + "°"
+        : "--°";
+    document.getElementById("rainyWeatherTime").textContent = current.time
+      ? new Date(current.time).toLocaleTimeString("zh-TW", {
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+      : "--";
+    document.getElementById("rainyRainAdvice").textContent = rainAdvice(pop, code);
+    if (status) status.textContent = "已更新";
+
+    var hourlyBox = document.getElementById("rainyHourlyBox");
+    if (hourlyBox && hourly.time && hourly.time.length) {
+      hourlyBox.innerHTML = "";
+      var start = idx >= 0 ? idx : 0;
+      for (var i = 0; i < 4; i++) {
+        var h = Math.min(start + i * 2, hourly.time.length - 1);
+        var hour = new Date(hourly.time[h]).toLocaleTimeString("zh-TW", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+        var hpop =
+          hourly.precipitation_probability && hourly.precipitation_probability[h] != null
+            ? hourly.precipitation_probability[h]
+            : 0;
+        var hcode =
+          hourly.weather_code && hourly.weather_code[h] != null
+            ? hourly.weather_code[h]
+            : code;
+        var hicon = weatherCodeText(hcode)[0];
+        hourlyBox.innerHTML +=
+          '<div class="rainy-hour">' + hour + " " + hicon + "<strong>降雨 " + hpop + "%</strong></div>";
+      }
+    }
+
+    var weeklyBox = document.getElementById("rainyWeeklyBox");
+    if (weeklyBox && daily.time) {
+      weeklyBox.innerHTML = "";
+      for (var d = 0; d < Math.min(7, daily.time.length); d++) {
+        var day = new Date(daily.time[d]).toLocaleDateString("zh-TW", {
+          weekday: "short",
+          month: "numeric",
+          day: "numeric"
+        });
+        var dpop =
+          daily.precipitation_probability_max && daily.precipitation_probability_max[d] != null
+            ? daily.precipitation_probability_max[d]
+            : 0;
+        var dcode =
+          daily.weather_code && daily.weather_code[d] != null ? daily.weather_code[d] : code;
+        var dicon = weatherCodeText(dcode)[0];
+        var tmax =
+          daily.temperature_2m_max && daily.temperature_2m_max[d] != null
+            ? Math.round(daily.temperature_2m_max[d])
+            : "--";
+        var tmin =
+          daily.temperature_2m_min && daily.temperature_2m_min[d] != null
+            ? Math.round(daily.temperature_2m_min[d])
+            : "--";
+        weeklyBox.innerHTML +=
+          '<div class="rainy-week"><span class="rainy-week-day">' +
+          day +
+          "</span><span>" +
+          dicon +
+          '</span><strong>降雨 ' +
+          dpop +
+          '%</strong><span class="rainy-week-temp">' +
+          tmin +
+          "–" +
+          tmax +
+          "°</span></div>";
+      }
+    }
+  }
+
   function loadWeather() {
     var cityEl = document.getElementById("rainyWeatherCity");
     if (!cityEl) return;
     var key = cityEl.value;
     var c = coords[key];
+    if (!c) return;
+
     var status = document.getElementById("rainyWeatherStatus");
     if (status) status.textContent = "更新中";
 
     var hint = document.getElementById("rainyWeatherHint");
     if (hint) hint.textContent = c.hint || "";
 
-    var url =
-      "https://api.open-meteo.com/v1/forecast?latitude=" +
-      c.lat +
-      "&longitude=" +
-      c.lon +
-      "&current=temperature_2m,apparent_temperature,weather_code&hourly=precipitation_probability,weather_code,temperature_2m&daily=weather_code,precipitation_probability_max,temperature_2m_max,temperature_2m_min&forecast_days=7&timezone=Asia%2FTaipei";
-
-    fetch(url)
-      .then(function (res) {
-        return res.json();
-      })
+    fetchRainyWeather(c.lat, c.lon)
       .then(function (data) {
-        var current = data.current;
-        var hourly = data.hourly;
-        var nowHour = new Date().getHours();
-        var pop = hourly.precipitation_probability[nowHour] != null ? hourly.precipitation_probability[nowHour] : 0;
-        var code = current.weather_code;
-        var iconText = weatherCodeText(code);
-
-        document.getElementById("rainyWeatherIcon").textContent = iconText[0];
-        document.getElementById("rainyWeatherTemp").textContent = Math.round(current.temperature_2m) + "°";
-        document.getElementById("rainyWeatherDesc").textContent = c.name + "｜" + iconText[1];
-        document.getElementById("rainyWeatherPop").textContent = pop + "%";
-        document.getElementById("rainyWeatherFeel").textContent = Math.round(current.apparent_temperature) + "°";
-        document.getElementById("rainyWeatherTime").textContent = new Date(current.time).toLocaleTimeString("zh-TW", {
-          hour: "2-digit",
-          minute: "2-digit"
-        });
-        document.getElementById("rainyRainAdvice").textContent = rainAdvice(pop, code);
-        if (status) status.textContent = "已更新";
-
-        var hourlyBox = document.getElementById("rainyHourlyBox");
-        if (hourlyBox) {
-          hourlyBox.innerHTML = "";
-          for (var i = 0; i < 4; i++) {
-            var h = Math.min(nowHour + i * 2, hourly.time.length - 1);
-            var hour = new Date(hourly.time[h]).toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit" });
-            var hpop = hourly.precipitation_probability[h] != null ? hourly.precipitation_probability[h] : 0;
-            var hcode = hourly.weather_code[h] != null ? hourly.weather_code[h] : code;
-            var hicon = weatherCodeText(hcode)[0];
-            hourlyBox.innerHTML +=
-              '<div class="rainy-hour">' + hour + " " + hicon + "<strong>降雨 " + hpop + "%</strong></div>";
-          }
-        }
-
-        var weeklyBox = document.getElementById("rainyWeeklyBox");
-        var daily = data.daily;
-        if (weeklyBox && daily && daily.time) {
-          weeklyBox.innerHTML = "";
-          for (var d = 0; d < Math.min(7, daily.time.length); d++) {
-            var day = new Date(daily.time[d]).toLocaleDateString("zh-TW", { weekday: "short", month: "numeric", day: "numeric" });
-            var dpop = daily.precipitation_probability_max[d] != null ? daily.precipitation_probability_max[d] : 0;
-            var dcode = daily.weather_code[d] != null ? daily.weather_code[d] : code;
-            var dicon = weatherCodeText(dcode)[0];
-            var tmax = daily.temperature_2m_max[d] != null ? Math.round(daily.temperature_2m_max[d]) : "--";
-            var tmin = daily.temperature_2m_min[d] != null ? Math.round(daily.temperature_2m_min[d]) : "--";
-            weeklyBox.innerHTML +=
-              '<div class="rainy-week"><span class="rainy-week-day">' +
-              day +
-              "</span><span>" +
-              dicon +
-              '</span><strong>降雨 ' +
-              dpop +
-              '%</strong><span class="rainy-week-temp">' +
-              tmin +
-              "–" +
-              tmax +
-              "°</span></div>";
-          }
-        }
+        if (!data || !data.current) throw new Error("weather-invalid");
+        applyRainyWeatherData(c, data, status);
       })
       .catch(function () {
-        if (status) status.textContent = "讀取失敗";
-        var advice = document.getElementById("rainyRainAdvice");
-        if (advice) advice.textContent = "天氣讀取失敗，請改點中央氣象署官方連結確認。";
+        showWeatherError(status, document.getElementById("rainyRainAdvice"));
       });
   }
 
