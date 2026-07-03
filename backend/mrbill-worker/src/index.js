@@ -1225,7 +1225,19 @@ async function handleWeatherForecast(request, url) {
     cf: { cacheTtl: 300 }
   });
 
-  if (!upstream.ok) {
+  if (upstream.ok) {
+    const data = await upstream.json();
+    return jsonResponse(request, data, 200, {
+      "Cache-Control": "public, max-age=300"
+    });
+  }
+
+  const wttrUrl = "https://wttr.in/" + lat + "," + lon + "?format=j1";
+  const wttrRes = await fetch(wttrUrl, {
+    headers: { "User-Agent": "MrBill-Weather-Proxy/1.0" },
+    cf: { cacheTtl: 300 }
+  });
+  if (!wttrRes.ok) {
     return jsonResponse(
       request,
       { success: false, message: "Weather upstream error", status: upstream.status },
@@ -1233,10 +1245,91 @@ async function handleWeatherForecast(request, url) {
     );
   }
 
-  const data = await upstream.json();
-  return jsonResponse(request, data, 200, {
+  const wttrData = await wttrRes.json();
+  const normalized = normalizeWttrWeatherPayload(wttrData);
+  return jsonResponse(request, normalized, 200, {
     "Cache-Control": "public, max-age=300"
   });
+}
+
+function mapWttrCodeToWmo(code) {
+  if (code === 113) return 0;
+  if (code === 116) return 2;
+  if (code === 119 || code === 122) return 3;
+  if (code >= 176 && code < 200) return 51;
+  if (code >= 263 && code < 290) return 61;
+  if (code >= 290 && code < 320) return 63;
+  if (code >= 350 && code < 380) return 65;
+  if (code >= 386) return 95;
+  return 3;
+}
+
+function wttrHourToIso(dateStr, timeVal) {
+  const t = String(timeVal == null ? "0" : timeVal).padStart(4, "0");
+  return `${dateStr}T${t.slice(0, 2)}:${t.slice(2, 4)}:00`;
+}
+
+function normalizeWttrWeatherPayload(wttrData) {
+  const cur = wttrData.current_condition && wttrData.current_condition[0];
+  if (!cur) throw new Error("wttr-invalid");
+
+  const days = wttrData.weather || [];
+  const today = days[0] || { hourly: [], date: new Date().toISOString().slice(0, 10) };
+  const hourlyRows = today.hourly || [];
+  const hourlyTimes = [];
+  const hourlyPop = [];
+  const hourlyCodes = [];
+  const hourlyTemp = [];
+
+  hourlyRows.forEach((h) => {
+    hourlyTimes.push(wttrHourToIso(today.date, h.time));
+    hourlyPop.push(Number(h.chanceofrain) || 0);
+    hourlyCodes.push(mapWttrCodeToWmo(Number(h.weatherCode)));
+    hourlyTemp.push(Number(h.tempC));
+  });
+
+  const dailyTimes = [];
+  const dailyPopMax = [];
+  const dailyCodes = [];
+  const dailyTmax = [];
+  const dailyTmin = [];
+
+  days.slice(0, 7).forEach((day) => {
+    dailyTimes.push(day.date);
+    let maxPop = 0;
+    let dayCode = 0;
+    (day.hourly || []).forEach((h) => {
+      const p = Number(h.chanceofrain) || 0;
+      if (p > maxPop) maxPop = p;
+      dayCode = Number(h.weatherCode) || dayCode;
+    });
+    dailyPopMax.push(maxPop);
+    dailyCodes.push(mapWttrCodeToWmo(dayCode));
+    dailyTmax.push(day.maxtempC != null ? Number(day.maxtempC) : null);
+    dailyTmin.push(day.mintempC != null ? Number(day.mintempC) : null);
+  });
+
+  return {
+    current: {
+      temperature_2m: Number(cur.temp_C),
+      apparent_temperature: Number(cur.FeelsLikeC),
+      weather_code: mapWttrCodeToWmo(Number(cur.weatherCode)),
+      time: new Date().toISOString()
+    },
+    hourly: {
+      time: hourlyTimes,
+      precipitation_probability: hourlyPop,
+      weather_code: hourlyCodes,
+      temperature_2m: hourlyTemp
+    },
+    daily: {
+      time: dailyTimes,
+      precipitation_probability_max: dailyPopMax,
+      weather_code: dailyCodes,
+      temperature_2m_max: dailyTmax,
+      temperature_2m_min: dailyTmin
+    }
+  };
 }
 
 export default {

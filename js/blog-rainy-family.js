@@ -905,22 +905,117 @@
     );
   }
 
-  function fetchRainyWeather(lat, lon) {
-    var query = buildRainyWeatherQuery(lat, lon);
-    var directUrl = "https://api.open-meteo.com/v1/forecast?" + query;
+  function mapWttrCodeToWmo(code) {
+    if (code === 113) return 0;
+    if (code === 116) return 2;
+    if (code === 119 || code === 122) return 3;
+    if (code >= 176 && code < 200) return 51;
+    if (code >= 263 && code < 290) return 61;
+    if (code >= 290 && code < 320) return 63;
+    if (code >= 350 && code < 380) return 65;
+    if (code >= 386) return 95;
+    return 3;
+  }
 
-    function readJson(res) {
-      if (!res.ok) throw new Error("weather-http-" + res.status);
-      return res.json();
+  function wttrHourToIso(dateStr, timeVal) {
+    var t = String(timeVal == null ? "0" : timeVal);
+    while (t.length < 4) t = "0" + t;
+    return dateStr + "T" + t.slice(0, 2) + ":" + t.slice(2, 4) + ":00";
+  }
+
+  function normalizeWttrWeather(wttrData) {
+    var cur = wttrData.current_condition && wttrData.current_condition[0];
+    if (!cur) throw new Error("wttr-invalid");
+
+    var days = wttrData.weather || [];
+    var today = days[0] || { hourly: [], date: new Date().toISOString().slice(0, 10) };
+    var hourlyRows = today.hourly || [];
+    var hourlyTimes = [];
+    var hourlyPop = [];
+    var hourlyCodes = [];
+    var hourlyTemp = [];
+
+    hourlyRows.forEach(function (h) {
+      hourlyTimes.push(wttrHourToIso(today.date, h.time));
+      hourlyPop.push(Number(h.chanceofrain) || 0);
+      hourlyCodes.push(mapWttrCodeToWmo(Number(h.weatherCode)));
+      hourlyTemp.push(Number(h.tempC));
+    });
+
+    var dailyTimes = [];
+    var dailyPopMax = [];
+    var dailyCodes = [];
+    var dailyTmax = [];
+    var dailyTmin = [];
+
+    days.slice(0, 7).forEach(function (day) {
+      dailyTimes.push(day.date);
+      var maxPop = 0;
+      var dayCode = 0;
+      (day.hourly || []).forEach(function (h) {
+        var p = Number(h.chanceofrain) || 0;
+        if (p > maxPop) maxPop = p;
+        dayCode = Number(h.weatherCode) || dayCode;
+      });
+      dailyPopMax.push(maxPop);
+      dailyCodes.push(mapWttrCodeToWmo(dayCode));
+      dailyTmax.push(day.maxtempC != null ? Number(day.maxtempC) : null);
+      dailyTmin.push(day.mintempC != null ? Number(day.mintempC) : null);
+    });
+
+    return {
+      current: {
+        temperature_2m: Number(cur.temp_C),
+        apparent_temperature: Number(cur.FeelsLikeC),
+        weather_code: mapWttrCodeToWmo(Number(cur.weatherCode)),
+        time: new Date().toISOString()
+      },
+      hourly: {
+        time: hourlyTimes,
+        precipitation_probability: hourlyPop,
+        weather_code: hourlyCodes,
+        temperature_2m: hourlyTemp
+      },
+      daily: {
+        time: dailyTimes,
+        precipitation_probability_max: dailyPopMax,
+        weather_code: dailyCodes,
+        temperature_2m_max: dailyTmax,
+        temperature_2m_min: dailyTmin
+      }
+    };
+  }
+
+  function readWeatherJson(res) {
+    if (!res.ok) throw new Error("weather-http-" + res.status);
+    return res.json();
+  }
+
+  function fetchRainyWeather(lat, lon) {
+    var proxyUrl = rainyWeatherProxyUrl(lat, lon);
+    var openMeteoUrl = "https://api.open-meteo.com/v1/forecast?" + buildRainyWeatherQuery(lat, lon);
+    var wttrUrl = "https://wttr.in/" + lat + "," + lon + "?format=j1";
+
+    function tryProxy() {
+      if (!proxyUrl) return Promise.reject(new Error("no-proxy"));
+      return fetchWithTimeout(proxyUrl, 8000).then(readWeatherJson);
     }
 
-    return fetchWithTimeout(directUrl, 10000)
-      .then(readJson)
-      .catch(function () {
-        var proxyUrl = rainyWeatherProxyUrl(lat, lon);
-        if (!proxyUrl) throw new Error("weather-unavailable");
-        return fetchWithTimeout(proxyUrl, 12000).then(readJson);
-      });
+    function tryOpenMeteo() {
+      return fetchWithTimeout(openMeteoUrl, 8000).then(readWeatherJson);
+    }
+
+    function tryWttr() {
+      return fetchWithTimeout(wttrUrl, 12000)
+        .then(readWeatherJson)
+        .then(normalizeWttrWeather);
+    }
+
+    return tryProxy().catch(function () {
+      return tryOpenMeteo();
+    }).catch(function () {
+      return tryWttr();
+    });
   }
 
   function showWeatherError(status, adviceEl) {

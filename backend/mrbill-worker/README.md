@@ -73,6 +73,9 @@ npx wrangler d1 execute mrbill-stats --remote --file=./seed.sql
 npx wrangler deploy
 ```
 
+雨天親子文章的天氣小工具會依序嘗試：`/api/weather`（Worker 代理）→ Open-Meteo → wttr.in。  
+**若正式站天氣顯示「讀取失敗」，請確認已執行過 `wrangler deploy`**（`/api/weather` 未部署會回 404）。
+
 成功後會顯示網址，例如：
 
 ```
