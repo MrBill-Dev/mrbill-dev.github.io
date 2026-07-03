@@ -5,4 +5,6 @@
 (function () {
   window.BLOG_ARTICLES_API =
     "https://mrbill-stats.billhuang19get.workers.dev";
+  /** 變更 js/blog-articles.js 時請同步 bump 各頁 ?v= 與 components-loader */
+  window.BLOG_ARTICLES_JS_VERSION = "rail-root-links-2";
 })();

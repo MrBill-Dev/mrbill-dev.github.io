@@ -139,7 +139,7 @@ function initBlogNavNewIndicator() {
         syncBlogNavNewIndicator();
         return;
     }
-    loadSiteScriptOnce('blog-articles.js')
+    loadSiteScriptOnce('blog-articles.js?v=rail-root-links-2')
         .then(function () {
             if (typeof syncBlogNavNewIndicator === 'function') {
                 syncBlogNavNewIndicator();

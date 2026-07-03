@@ -395,7 +395,7 @@ export function buildPublishedArticlePageHtml(article) {
     '  <script src="../../js/components-loader.js"></script>\n' +
     '  <script src="../../js/mrbill-admin-session.js"></script>\n' +
     '  <script src="../../js/blog-articles.config.js"></script>\n' +
-    '  <script src="../../js/blog-articles.js?v=rail-root-links-1"></script>\n' +
+    '  <script src="../../js/blog-articles.js?v=rail-root-links-2"></script>\n' +
     '  <script src="../../js/blog-stats.config.js?v=20260608"></script>\n' +
     '  <script src="../../js/blog-stats.js?v=clean-slug-url-1"></script>\n' +
     '  <script src="../../js/blog-article-ui.js?v=author-desktop-v1"></script>\n' +
