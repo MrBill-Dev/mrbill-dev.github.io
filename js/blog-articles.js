@@ -580,7 +580,11 @@ function fixBlogNavPathsFromSubdir() {
   var prefix = blogAssetPrefix();
   fixBlogSubdirAnchors(document.getElementById("global-header"), prefix);
   fixBlogSubdirAnchors(document.getElementById("global-footer"), prefix);
-  fixBlogSubdirAnchors(document.getElementById("blog-article-rail"), prefix);
+  // 扁平 blog/*.html（如工作流三篇）：右欄已由 renderBlogArticleRail 產生正確相對路徑，
+  // 再加 ../ 會指到站根而全壞。僅 nested blog/{slug}/ 才需要修正元件殘留裸路徑。
+  if (blogPathDepth() >= 2) {
+    fixBlogSubdirAnchors(document.getElementById("blog-article-rail"), prefix);
+  }
 }
 
 function getCurrentBlogSlug() {
@@ -996,7 +1000,13 @@ function blogArticleHref(article) {
     var staticPath = article.slug + ".html";
     return isBlogSectionPath() ? sibling + staticPath : "blog/" + staticPath;
   }
-  var dynamicPath = "post.html?slug=" + encodeURIComponent(article.slug);
+  // 已上架動態文為 blog/{slug}/；預覽／草稿仍走 post.html
+  var usePostShell =
+    isBlogPreviewMode() ||
+    (article.status && article.status !== "published");
+  var dynamicPath = usePostShell
+    ? "post.html?slug=" + encodeURIComponent(article.slug)
+    : article.slug + "/";
   return isBlogSectionPath() ? sibling + dynamicPath : "blog/" + dynamicPath;
 }
 
